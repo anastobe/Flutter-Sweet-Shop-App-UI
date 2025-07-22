@@ -1,6 +1,7 @@
 // Auth Routes
 export enum Auth_ROUTES {
-  OnBoarding = "OnBoarding"
+  LOGIN = "LOGIN",
+  FORGETPASSWORD = "FORGETPASSWORD"
 
 
 

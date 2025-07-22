@@ -1,11 +1,19 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
-import CustomButton from '../../../components/customButton';
-import CustomTextField from '../../../components/customTextField';
-import CustomLabel from '../../../components/customLabel';
-import Images from '../../../config/images';
+import CustomButton from '../../components/customButton';
+import CustomTextField from '../../components/customTextField';
+import CustomLabel from '../../components/customLabel';
+import Images from '../../config/images';
+import { NavigationService } from '../../config';
+import { Auth_ROUTES } from '../../constants';
+import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen = () => {
+type LoginProps = {};
+
+export const Login: React.FC<LoginProps> = ({...props}) => {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <Image source={Images.logo} style={styles.logo} />
@@ -23,10 +31,13 @@ const LoginScreen = () => {
 
       <CustomButton
         title="Login"
-        onPress={() => console.log('Login pressed')}
+        onPress={() => {
+          console.log("ASdad")
+              
+        }}
       />
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>{  navigation.navigate(Auth_ROUTES.FORGETPASSWORD)  }} >
         <Text style={styles.forgotText}>Forgot Password?</Text>
       </TouchableOpacity>
     </View>
@@ -62,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default Login;
