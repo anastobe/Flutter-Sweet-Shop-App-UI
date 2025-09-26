@@ -1,24 +1,24 @@
 import ActionType from '../Action/ActionType/actionType';
 
 const initialState = {
-  check: ''
+  userData: {}
   
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
 
-    case ActionType.OPEN_OPTIONS:
+    case ActionType.USER_DATA:
       return {
         ...state,
-        check: action.payload,
+        userData: action.payload,
       };
 
 
     case ActionType.LOGOUT:
       return {
         ...state,
-        check: ''
+        userData: {}
       };
       // userToken
     default:

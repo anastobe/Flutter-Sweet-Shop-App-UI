@@ -1,4 +1,4 @@
-export type FontWeights =
+export type FONTWEIGHT =
     | "normal"
     | "bold"
     | "100"

@@ -1,30 +1,59 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, StyleProp, ViewStyle, Image } from 'react-native';
+import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
+import { scale } from 'react-native-size-matters';
+import { ActivityIndicator } from 'react-native';
 
 const CustomButton = ({
   title,
   onPress,
+  btnContSty,
+  txtColor,
+  image,
+  showmyStyleOnly,
+  loading = false,
+  tintColor
 }: {
   title: string;
   onPress: () => void;
+  btnContSty?: StyleProp<ViewStyle>;
+  txtColor?: StyleProp<ViewStyle>;
+  image?: any;
+  showmyStyleOnly?: any
+  loading?: boolean;
+  tintColor?: any
 }) => (
-  <TouchableOpacity style={styles.button} onPress={onPress}>
-    <Text style={styles.buttonText}>{title}</Text>
+  <TouchableOpacity
+    style={[showmyStyleOnly ? btnContSty : styles.button, btnContSty]}
+    onPress={onPress}
+    disabled={loading} // Disable button while loading
+  >
+    {loading ? (
+      <ActivityIndicator size="small" color={THEME.white} />
+    ) : (
+      <>
+        {image && <Image source={image} resizeMode='contain' tintColor={tintColor} style={{ width: 20, height: 20, marginRight: 6 }} />}
+        <Text style={[showmyStyleOnly ? txtColor : styles.buttonText, txtColor]}>
+          {title}
+        </Text>
+      </>
+    )}
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#E18CFF',
-    paddingVertical: 15,
-    borderRadius: 25,
+    backgroundColor: THEME.primary,
+    borderRadius: 10,
+    justifyContent: "center",
     alignItems: 'center',
-    marginVertical: 20,
+    height: scale(55),
+
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    color: THEME.textPrimary,
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.oneeight
   },
 });
 

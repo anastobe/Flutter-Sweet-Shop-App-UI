@@ -1,0 +1,53 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Matter-Bold.ttf",
+      "sha1": "9411942b84de6477da6acbde41b095c4ed4c62f6"
+    },
+    {
+      "path": "src/assets/fonts/Matter-BoldItalic.ttf",
+      "sha1": "d1a482c785485ca47893fb27bd16166930c5ea11"
+    },
+    {
+      "path": "src/assets/fonts/Matter-Heavy.ttf",
+      "sha1": "9cfad396f592fb92230a254836becc78b06b16b9"
+    },
+    {
+      "path": "src/assets/fonts/Matter-HeavyItalic.ttf",
+      "sha1": "f055933b48eea98d9e608f2f9dcc000d380cc5f5"
+    },
+    {
+      "path": "src/assets/fonts/Matter-Light.ttf",
+      "sha1": "07a7453b29fa189d1454cef9db022ed172b2e569"
+    },
+    {
+      "path": "src/assets/fonts/Matter-LightItalic.ttf",
+      "sha1": "457ba797514ddb876cc7a1a4f3449231ffeb59b5"
+    },
+    {
+      "path": "src/assets/fonts/Matter-Medium.ttf",
+      "sha1": "c6f98ef2448249aa13a35c3a9ab4550935006e39"
+    },
+    {
+      "path": "src/assets/fonts/Matter-MediumItalic.ttf",
+      "sha1": "f850dafafec1225f219ef6e221ca5a72b5d0d53e"
+    },
+    {
+      "path": "src/assets/fonts/Matter-Regular.ttf",
+      "sha1": "767b7df19b9b14155d0ad181ef82c29d087aec54"
+    },
+    {
+      "path": "src/assets/fonts/Matter-RegularItalic.ttf",
+      "sha1": "99754c6a6e1e227c9a5e2584137b081d80a28b2f"
+    },
+    {
+      "path": "src/assets/fonts/Matter-SemiBold.ttf",
+      "sha1": "14a688ecb73d120b2b5f7a05027267cfc5f6372b"
+    },
+    {
+      "path": "src/assets/fonts/Matter-SemiBoldItalic.ttf",
+      "sha1": "654d317e3a712ea109aa0429864a4d9078f54083"
+    }
+  ]
+}

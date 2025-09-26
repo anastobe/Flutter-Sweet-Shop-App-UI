@@ -1,6 +1,10 @@
 import { Auth_ROUTES, HOME_ROUTES } from "../constants";
+import CreateAccount from "../screens/authScreens/createAccount";
 import ForgetPassword from "../screens/authScreens/forgetPassword";
 import { Login } from "../screens/authScreens/index";
+import LoginSecurePassword from "../screens/authScreens/loginSecurePassword";
+import SetPassword from "../screens/authScreens/setPasword";
+import Welcome from "../screens/authScreens/welcome";
 // import { SignupUploadProfile } from "../screens/authScreens/signupScreens/signupUploadProfile";
 // import { TabStack } from "./TabStack";
 import { HomeStack } from "./HomeStack";
@@ -23,6 +27,25 @@ export const AuthStack: AuthScreenStacksTypes = [
     name: Auth_ROUTES.FORGETPASSWORD,
     component: ForgetPassword,
   },
+  {
+    name: Auth_ROUTES.SETPASSWORD,
+    component: SetPassword,
+  },
+  {
+    name: Auth_ROUTES.CREATEACCOUNT,
+    component: CreateAccount,
+  },
+  {
+    name: Auth_ROUTES.WELCOME,
+    component: Welcome,
+  },
+    {
+    name: Auth_ROUTES.LOGIN_SECURE_PASS,
+    component: LoginSecurePassword,
+  },
+  
+  
+  
 
 
   // {

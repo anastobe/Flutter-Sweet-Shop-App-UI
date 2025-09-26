@@ -19,7 +19,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const MainStack = () => {
 
   const dispatch = useDispatch()
-  const navigationRoute = useSelector((state: any) => state?.AuthReducer?.handleNavigations);
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+
+  console.log("REDUX=>",userData);
+  
 
   const AuthScreens = AuthStack?.map(stack => (
     <Stack.Screen
@@ -52,7 +55,7 @@ export const MainStack = () => {
       headerShown: false
     }}>
       {
-       navigationRoute ? 
+       userData?.token ||true ? 
        HomeScreens 
        : 
        AuthScreens

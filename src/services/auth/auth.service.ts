@@ -6,14 +6,21 @@ import axiosInstance from "../https.service";
 
 
 export const userLogin = async (body: any) => {
-  const response = await axiosInstance.post('auth/login', body);
+  const response = await axiosInstance.post('/login', body);
   return response.data;
 };
 
-export const userSocialLogin = async (body: any) => {
-  const response = await axiosInstance.post('auth/signup/google', body);
+export const createCard = async (body: any) => {
+  const response = await axiosInstance.post('/card/create', body);
   return response.data;
 };
 
+export const getCards = async (body: any) => {
+  const response = await axiosInstance.get('/card', {});
+  return response.data;
+};
 
-
+export const freezUnFreezCard = async (body: any) => {
+  const response = await axiosInstance.post('/card/status', body);
+  return response.data;
+};

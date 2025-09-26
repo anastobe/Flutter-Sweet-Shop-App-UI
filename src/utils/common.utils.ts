@@ -1,13 +1,13 @@
 import moment from "moment";
 import { Alert, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
-import { CommonUtils, SD } from "../../utils";
-import Text from "../components/text";
-import { useTheme } from "../hooks";
+// import { CommonUtils, SD } from "../../utils";
+// import Text from "../components/text";
+// import { useTheme } from "../hooks";
 import apis from "../services";
-import { NavigationService } from "../config";
+// import { NavigationService } from "../config";
 import { HOME_ROUTES } from "../constants";
 
-const {AppTheme} = useTheme()
+// const {AppTheme} = useTheme()
 
 const objectContainsKey = (
   object: Record<string | number, any>,

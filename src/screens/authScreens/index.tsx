@@ -1,75 +1,254 @@
-import React from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, StyleSheet, Image, Text, TouchableOpacity, Pressable, Alert } from 'react-native';
 import CustomButton from '../../components/customButton';
 import CustomTextField from '../../components/customTextField';
-import CustomLabel from '../../components/customLabel';
 import Images from '../../config/images';
-import { NavigationService } from '../../config';
 import { Auth_ROUTES } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
+import { FONTFAMILY, FONT_SIZES, METRICS, THEME } from '../../styles'; // Assuming you have this structure
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { BottomSheet, MainContainer } from '../../components';
+import InputField from '../../components/textInput';
+import { scale } from 'react-native-size-matters';
+import Icon from 'react-native-vector-icons/Ionicons';
+import FingerPrintContent from '../../components/bottomSheet/fingerPrintContent';
+import ReactNativeBiometrics from 'react-native-biometrics';
+import { useLogin } from '../../queries/auth.query';
+import { useLoginViewModel } from '../../viewModels/useLoginViewModel';
+import {authorize} from 'react-native-app-auth';
+import LinearGradient from 'react-native-linear-gradient';
+import { ImageBackground } from 'react-native';
 
 type LoginProps = {};
 
-export const Login: React.FC<LoginProps> = ({...props}) => {
+export const Login: React.FC = () => {
 
   const navigation = useNavigation();
+  const vm = useLoginViewModel(navigation);
+
+  function renderError() {
+    return(
+    <View style={styles.errorCont} >
+
+      <View style={styles.iconCont} >
+        <Icon name={'warning-outline'} size={25} color={THEME.white} />
+      </View>
+
+      <View>
+        <Text style={styles.credTxt}>Invalid Credentials</Text>
+        <Text numberOfLines={2} style={styles.credTxtsub}>Invalid email or password. Please check your credentials and try again.</Text>
+      </View>
+
+    </View>
+    )
+  }
+
+const config = {
+  issuer: 'https://cognito-idp.eu-west-2.amazonaws.com/eu-west2_re5IyfwY6', // OIDC Issuer
+  clientId: '2stuncfaluj9s4nikr8hj56h2l', // App client ID
+  redirectUrl: 'https://d84l1y8p4kdic.cloudfront.net', // Redirect URI
+  scopes: ['openid', 'profile'], // You can add 'email' if needed
+  additionalParameters: {}
+};
+
+  // const config = {
+  //   issuer: 'https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_re5IyfwY6',
+  //   clientId: '2stuncfaluj9s4nikr8hj56h2l',
+  //   redirectUrl: 'https://d84l1y8p4kdic.cloudfront.net', // App scheme set karna hoga
+  //   scopes: ['openid', 'profile'],
+  // };
+
+  const handleLogin = async () => {
+    try {
+      const result = await authorize(config);
+      console.log('Login Success:', result);
+    } catch (error) {
+      console.error('Login Error:', error);
+    }
+  }
 
   return (
-    <View style={styles.container}>
+    <MainContainer 
+    refreshing={false} isFlatList={true} barStyle="dark-content" customeStyle={{ paddingHorizontal: 20 }} mainContainerStyle={styles.container}
+    >
       <Image source={Images.logo} style={styles.logo} />
-
       <Text style={styles.title}>Let’s Sign you In.</Text>
 
-      <CustomLabel text="Email address" />
-      <CustomTextField
-        placeholder="Email address"
-        keyboardType="email-address"
-      />
+      
+         {renderError()}
 
-      <CustomLabel text="Password" />
-      <CustomTextField placeholder="Password" secureTextEntry />
+      <InputField
+             marginTp={20}
+             autoCapital={'none'}
+             blurOnSubmit={false}
+             placeholder="Email address"
+             value={vm.email}
+             onChangeText={vm.setEmail}
+             keyboardType={'email-address'}
+             margBtm={20}
+      />
+           <InputField
+             marginTp={20}
+             image={vm.secure ? "eye-outline" : "eye-outline" }
+             autoCapital={'none'}
+             blurOnSubmit={false}
+             placeholder="Password"
+             imagetintColor={THEME.primary}
+             value={vm.password}
+             onPress={()=>{ vm.setSecure(!vm.secure) }}
+             onChangeText={vm.setPassword}
+           />
+             <Text style={styles.forgetTxtAbove}>Forgot Password</Text>
+
+
+       <CustomButton
+         btnContSty={styles.forgetTxt}
+         loading={vm.isPending}
+         title="Login"
+         onPress={handleLogin}
+       />
 
       <CustomButton
-        title="Login"
-        onPress={() => {
-          console.log("ASdad")
-              
-        }}
+        txtColor={styles.btnTxt}
+        title="Login with Biometrics"
+        image={Images.finger}
+        tintColor={THEME.white}
+        showmyStyleOnly={true}
+        btnContSty={styles.btnContStyle}
+        onPress={() => vm.biometryRef?.current?.open()}
       />
 
-      <TouchableOpacity onPress={()=>{  navigation.navigate(Auth_ROUTES.FORGETPASSWORD)  }} >
-        <Text style={styles.forgotText}>Forgot Password?</Text>
-      </TouchableOpacity>
+    <View style={styles.containerline}>
+      <View style={styles.line1} />
+      <Text style={styles.textOR}>or</Text>
+      <View style={styles.line1} />
     </View>
+
+      <CustomButton
+        txtColor={styles.btnTxt}
+        title="Login with Face ID"
+        image={Images.faceID}
+        tintColor={THEME.white}
+        showmyStyleOnly={true}
+        btnContSty={styles.btnContStyle}
+        onPress={() => vm.biometryRef?.current?.open()}
+      />
+
+      <View style={styles.contText}>
+        <Text style={styles.dontAcc}>Don’t have an account? </Text>
+        <Pressable>
+          <Text style={styles.creatAC}>Create Account</Text>
+        </Pressable>
+      </View>
+
+       <BottomSheet
+         height={METRICS.halfScreen + 40}
+         draggable={false}
+         openTime={500}
+         closeDuration={500}
+         bottomSheetRef={vm.biometryRef}
+         children={<FingerPrintContent onPress={vm.handleBiometricAuth}style={{ marginHorizontal: 20 }} title="Login with Fingerprint" subtitle="Tap your fingerprint sensor to continue" />}
+        />
+
+        
+
+    </MainContainer>
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
-    padding: 25,
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: THEME.white
   },
+  btnTxt:
+  { color: THEME.primary, fontFamily: FONTFAMILY.Medium, fontSize: FONT_SIZES.onesix, marginLeft: 10 },
+  btnContStyle:
+  { backgroundColor: "transparent", borderColor: THEME.primary, borderWidth: 1, flexDirection: "row", height: scale(54), borderRadius: 10, justifyContent: "center", alignItems: 'center' },
   logo: {
-    width: 130,
-    height: 40,
+   width: METRICS.width,
+    height: scale(60),
     resizeMode: 'contain',
-    alignSelf: 'center',
-    marginBottom: 50,
+    alignSelf: "center",
+    marginTop: 60
   },
+  forgetTxtAbove: {
+    color: THEME.primary,
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.onefour,
+    textAlign:"right",
+    marginTop: 10
+  },
+  forgetTxt:
+  { marginTop: 20, marginBottom: 20 },
   title: {
-    fontSize: 26,
-    fontWeight: '600',
-    color: '#000',
-    marginBottom: 30,
-    textAlign: 'left',
+    color: THEME.primary,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.twotwo,
+    marginBottom: scale(30),
+    marginTop: METRICS.height / 9,
+    textAlign: "center"
+  },
+  errorCont:
+  { 
+    flexDirection: "row", 
+    height: scale(83), 
+    alignItems: "center", 
+    borderRadius: 10, 
+    marginBottom: 20, 
+    borderColor: THEME.gray,
+    borderWidth: 1,
+  },
+  iconCont:
+  { backgroundColor: THEME.medRed, width: scale(48), height: scale(48), borderRadius: 100, justifyContent: "center", alignItems: "center", marginHorizontal: 10 },
+  credTxt:{
+    color: THEME.medRed,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.onesix,
+  },
+  credTxtsub:{
+    color: THEME.primary,
+    fontFamily: FONTFAMILY.Light,
+    fontSize: FONT_SIZES.onefour,
+    marginRight: 80,
   },
   forgotText: {
-    color: '#000',
-    fontSize: 14,
+    color: THEME.primary,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.onesix,
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 20,
+    paddingBottom: 40
+  },
+  contText:
+  { flexDirection: "row", justifyContent: "center", paddingBottom: 50, marginTop: 30 },
+  dontAcc: {
+    color: THEME.primary,
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.onefour,
+  },
+  creatAC:{
+    color: THEME.primary,
+    fontFamily: FONTFAMILY.SemiBold,
+    fontSize: FONT_SIZES.onefour,
+    textDecorationLine: "underline"
+  },
+  containerline: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  line1: {
+    flex: 1,
+    height: 1,
+    backgroundColor: THEME.white, // line color
+  },
+  textOR: {
+    marginHorizontal: 10,
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.onesix,
+    color: THEME.white,
   },
 });
 

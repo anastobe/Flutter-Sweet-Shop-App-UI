@@ -11,7 +11,7 @@ export const handleNavigation = (res) => {
   
 export const storeUserToken = (res) => {
     return dispatch => {
-      dispatch({type: ActionType.USER_TOKEN, payload: res });
+      dispatch({type: ActionType.USER_DATA, payload: res });
     };
   };
 

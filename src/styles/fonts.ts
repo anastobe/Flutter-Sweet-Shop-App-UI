@@ -1,9 +1,9 @@
 enum ENFonts {
-  Light = "Inter-Light",
-  Regular = "Inter-Regular",
-  Medium = "Inter-Medium",
-  SemiBold = "Inter-SemiBold",
-  Bold = "Inter-Bold",
+  Light = "Matter-Light", //300
+  Regular = "Matter-Regular", //400
+  Medium = "Matter-Medium",  //500
+  SemiBold = "Matter-SemiBold", //600
+  Bold = "Matter-Bold", //700
 }
 
 export { ENFonts };
