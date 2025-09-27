@@ -4,8 +4,8 @@
 // 2:  Currency histry screenHeight
 // 3:  Add beneficiary => why 3 screens there in figma
 // 4:  Add beneficiary =>dropdown options?
-// 5: conact address ma image ni aye gi confirmation chiye.
-
+// 5:  conact address ma image ni aye gi confirmation chiye.
+// 6:  otp screen kaha se ayegi
 
 // design side remaining 
 // edit profile ma heading in textinput 

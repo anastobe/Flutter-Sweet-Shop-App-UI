@@ -58,13 +58,26 @@ const MyAccountTransfer = () => {
     const BalanceCard = ({ label = "Available Balance", amount = "£1,250.00" }) => {
   return (
     <View style={styles.containerAMOUNT}>
-      <Text style={styles.balanceTxt}>{label}</Text>
       <View style={styles.amountBox}>
         <Text style={styles.balanceAmountTxt}>{amount}</Text>
       </View>
+      <Text style={styles.balanceTxt}>{label}</Text>
     </View>
   );
 };
+
+        function renderRightInput() {
+          return(
+            <View
+              style={styles.renderRightInputContainer}
+            >
+                <Text style={styles.inputNumber}>1000.00</Text>
+                <View style={styles.inputNumbergbpcont} >
+                  <Text style={styles.inputNumbergbp}>GBP</Text>
+                </View>
+            </View>
+          )
+        }
 
     function renderInput() {
         return(
@@ -74,7 +87,7 @@ const MyAccountTransfer = () => {
         title={"From Account"}
         label={fronacc.label}
         currency={fronacc.currency}
-        flag={fronacc.flag}
+        flag={"business-outline"}
         onPress={handlePress}
       />
 
@@ -84,12 +97,13 @@ const MyAccountTransfer = () => {
         title={"To Account"}
         label={toAcc.label}
         currency={toAcc.currency}
-        flag={toAcc.flag}
+         flag={"business-outline"}
         onPress={handlePress}
       />
 
        <InputField
           margTp={20}
+          renderRightInput={renderRightInput }
           autoCapital={'none'}
           blurOnSubmit={false} 
           placeholder="Amount to Send"
@@ -145,18 +159,18 @@ const styles = StyleSheet.create({
   { marginTop: 20, marginBottom: 20 },
   title:
   {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
-    marginBottom: 20,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+    marginBottom: 10,
     marginTop:10
   },
     subtitle:
   {
     fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Light,
+    fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 20,
+    marginBottom: 30,
   },
   container: { flex: 1, backgroundColor: THEME.white  },
   infoRow: {
@@ -171,7 +185,7 @@ const styles = StyleSheet.create({
     color: THEME.white,
   },
   valueBox: {
-    backgroundColor: THEME.lightGrey,
+    // backgroundColor: THEME.lightGrey,
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 8,
@@ -182,7 +196,7 @@ const styles = StyleSheet.create({
     color: THEME.primary,
   },
   summaryBox: {
-    backgroundColor: THEME.textPrimary,
+    // backgroundColor: THEME.textPrimary,
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
@@ -248,32 +262,59 @@ const styles = StyleSheet.create({
 
 
     balanceTxt: {
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.onefour,
     color: THEME.white,
   },
     balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: FONT_SIZES.threetwo,
     color: THEME.white,
-    backgroundColor: THEME.primary,
+    // backgroundColor: THEME.primary,
     padding: 1,
   },
  amountBox: {
-    backgroundColor: THEME.primary,
+    // backgroundColor: THEME.primary,
     paddingHorizontal: scale(10),
     paddingVertical: scale(4),
     borderRadius: scale(6),
     marginTop: 5
   },
   containerAMOUNT: {
-    backgroundColor: THEME.textPrimary,
+    backgroundColor: THEME.whitergba,
     padding: scale(8),
-    width: 150,
+    width: '100%',
     alignSelf: "center",
     marginVertical: 15,
     borderRadius: scale(12),
     alignItems: 'center',
     justifyContent: 'center'
   },
+  
+  renderRightInputContainer :{
+    height: scale(55),
+    position: 'absolute',
+    right: 8,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  inputNumber:{
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.primary,
+  },
+  inputNumbergbpcont:{
+    backgroundColor: THEME.primary,
+    marginLeft: 6,
+    borderRadius: 6,
+    padding: 3
+  },
+  inputNumbergbp:{
+    fontSize: FONT_SIZES.onetwo,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.textPrimary,
+  },
+
+
 });

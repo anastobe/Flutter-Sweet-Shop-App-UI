@@ -4,10 +4,12 @@ import { scale } from 'react-native-size-matters'; // if you're using scale
 import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles'; // adjust path as needed
 import { Images } from '../../config';
 import CustomButton from '../customButton';
+import { ImageBackground } from 'react-native';
 
-const FingerPrintContent = ({ title, subtitle, style, onPress }:{ title:any, subtitle:any, style:any, onPress: any }) => {
+const FingerPrintContent = ({ title, subtitle, style, onPress, img }:{ title:any, subtitle:any, style:any, onPress: any, img: any }) => {
   return (
-    <View style={style}>
+    <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} style={style}>
+
 
         <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} />
 
@@ -15,8 +17,8 @@ const FingerPrintContent = ({ title, subtitle, style, onPress }:{ title:any, sub
       <Text style={styles.titlesub}>{subtitle}</Text>
 
       <View style={{ alignItems: "center", marginTop: 35 }} >
-       <Image source={Images.finger} style={{ width: scale(65), height: scale(70) }} resizeMode='contain' />
-      </View>
+       <Image tintColor={THEME.white} source={img} style={{ width: scale(60), height: scale(60) }} resizeMode='contain' />
+      </View> 
 
        <Text style={styles.titlesubbelow}>Having trouble?</Text>
 
@@ -27,7 +29,7 @@ const FingerPrintContent = ({ title, subtitle, style, onPress }:{ title:any, sub
       />
 
 
-    </View>
+    </ImageBackground>
   );
 };
 

@@ -7,7 +7,7 @@ import { Auth_ROUTES } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
 import { FONTFAMILY, FONT_SIZES, METRICS, THEME } from '../../styles'; // Assuming you have this structure
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { BottomSheet, MainContainer } from '../../components';
+import { BottomSheet, MainContainer, Modal } from '../../components';
 import InputField from '../../components/textInput';
 import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -25,7 +25,7 @@ export const Login: React.FC = () => {
 
   const navigation = useNavigation();
   const vm = useLoginViewModel(navigation);
-
+    const [Open, setOpen] = useState(false);
   function renderError() {
     return(
     <View style={styles.errorCont} >
@@ -66,6 +66,53 @@ const config = {
       console.error('Login Error:', error);
     }
   }
+
+      function renderPOPUP() {
+    return(
+          <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} imageStyle={{ borderRadius: 16,}} style={styles.modal}>
+
+          <TouchableOpacity style={styles.closeBtn} onPress={()=>{ setOpen(false) }} >
+            <Text style={styles.closeText}>×</Text>
+          </TouchableOpacity>
+
+      
+            <View style={styles.iconCircle}>
+                <Icon name="alert-outline" size={36} color={THEME.textPrimary} /> 
+            </View>
+        
+
+           <Text style={styles.description}>
+          Looks like you have not set your Touch ID.
+Please login and set your Touch ID from Profile.
+          </Text>
+
+         <CustomButton
+            btnContSty={styles.forgetTxtpop}
+            title="OK"
+            onPress={() => {
+            setOpen(false)
+            }}
+          />
+
+          </ImageBackground>
+   
+    )
+  }
+
+      function renderModal() {
+        return (
+          <Modal
+
+            isVisible={Open}
+            isKeyboardAvoidingView={true}
+            children={renderPOPUP()}
+            onClose={() => {
+              console.log('close');
+            }}
+          />
+        );
+      }
+
 
   return (
     <MainContainer 
@@ -141,16 +188,32 @@ const config = {
         </Pressable>
       </View>
 
+      
+
        <BottomSheet
          height={METRICS.halfScreen + 40}
          draggable={false}
          openTime={500}
          closeDuration={500}
          bottomSheetRef={vm.biometryRef}
-         children={<FingerPrintContent onPress={vm.handleBiometricAuth}style={{ marginHorizontal: 20 }} title="Login with Fingerprint" subtitle="Tap your fingerprint sensor to continue" />}
+         children={<FingerPrintContent onPress={vm.handleBiometricAuth}
+            style={{ flex: 1, paddingHorizontal: 20 }}
+         title="Login with Fingerprint" img={Images.finger} subtitle="Tap your fingerprint sensor to continue" />}
         />
 
         
+       <BottomSheet
+         height={METRICS.halfScreen + 40}
+         draggable={false}
+         openTime={500}
+         closeDuration={500}
+         bottomSheetRef={vm.biometryRef}
+         children={<FingerPrintContent onPress={()=>{ setOpen(true) }}
+            style={{ flex: 1, paddingHorizontal: 20 }}
+         title="Login with Face ID" img={Images.faceID} subtitle="Tap your fingerprint sensor to continue" />}
+        />
+
+        {renderModal()}
 
     </MainContainer>
   );
@@ -197,7 +260,7 @@ const styles = StyleSheet.create({
     alignItems: "center", 
     borderRadius: 10, 
     marginBottom: 20, 
-    borderColor: THEME.gray,
+    borderColor: THEME.white,
     borderWidth: 1,
   },
   iconCont:
@@ -250,6 +313,54 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     color: THEME.white,
   },
+
+  
+  
+     modal: {
+    backgroundColor: 'rgba(64, 64, 65, 0.92)',
+    borderRadius: 16,
+    padding: 24,
+    alignItems: 'center',
+  },
+  closeBtn: {
+    position: 'absolute',
+    top: 10,
+    right: 15,
+  },
+  closeText: {
+    fontSize: FONT_SIZES.foureight,
+    color: THEME.white,
+  },
+  iconCircle: {
+    backgroundColor:THEME.primary,
+    borderRadius: 100,
+    width: scale(50),
+    height: scale(50),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  forgetTxtpop:{
+width: '100%',
+marginTop: 30, marginBottom: 20 
+  },
+    titles: {
+    fontFamily: FONTFAMILY.SemiBold,
+    fontSize: FONT_SIZES.twosix,
+    color: THEME.white,
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  description: {
+    marginTop: 10,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.onefour,
+    color: THEME.white,
+    textAlign: 'center',
+
+  },
+
+
 });
 
 export default Login;

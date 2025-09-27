@@ -55,7 +55,7 @@ export const MainStack = () => {
       headerShown: false
     }}>
       {
-       userData?.token ||true ? 
+       userData?.token || true? 
        HomeScreens 
        : 
        AuthScreens

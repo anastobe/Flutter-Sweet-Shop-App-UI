@@ -47,6 +47,8 @@ export const useLoginViewModel = (navigation: any) => {
       .catch(() => Alert.alert("Error", "Biometric auth failed"));
   };
 
+  
+
   return {
     email,
     setEmail,

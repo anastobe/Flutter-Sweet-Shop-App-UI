@@ -1,5 +1,5 @@
 import ActionType from "../Redux/Action/ActionType/actionType";
-import { SD, Toast } from "../utils";
+import { Toast } from "../utils";
 
 export default function MessageHandler(response) {
     if (response?.success) {

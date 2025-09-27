@@ -10,8 +10,8 @@ export const InputDropDownStyle = ({title, label, currency, flag, onPress }) => 
     <TouchableOpacity style={styles.containerbelw} onPress={onPress}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {/* If you want icon instead of flag, swap here */}
-        <Image source={flag} style={styles.flag} />
-        <View>
+        <Icon name={flag} size={28} color={THEME.white} />
+        <View style={{ marginLeft: 10 }} >
           <Text style={styles.labeltxt}>{title}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Text style={styles.accountName}>{label}</Text>
@@ -22,7 +22,7 @@ export const InputDropDownStyle = ({title, label, currency, flag, onPress }) => 
         </View>
       </View>
 
-      <Icon name="chevron-down-outline" size={20} color={THEME.white} />
+      <Icon name="caret-down-outline" size={16} color={THEME.white} />
     </TouchableOpacity>
   );
 };
@@ -33,11 +33,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: "space-between",
     borderWidth: 1,
-    borderColor: THEME.gray,
+    borderColor: THEME.white,
     borderRadius: 16,
     paddingHorizontal: 10,
     height: scale(60),
-    backgroundColor: THEME.white,
+    // backgroundColor: THEME.whitergba,
   },
   flag: {
     width: scale(28),
@@ -51,12 +51,12 @@ const styles = StyleSheet.create({
     color: THEME.white,
   },
   accountName: {
-    fontSize: FONT_SIZES.twozero,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
   },
   currencyTag: {
-    backgroundColor: '#B8E6EA',
+    backgroundColor: THEME.primary,
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 8,
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
   currencyText: {
     fontSize: FONT_SIZES.onetwo,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.textPrimary,
   },
 });

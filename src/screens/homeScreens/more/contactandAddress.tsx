@@ -14,7 +14,6 @@ import { createCard } from '../../../queries/auth.query';
 import { Toast } from '../../../utils';
 import VerifyAddress from '../../../components/bottomSheet/verifyAddress';
 import LinearGradient from 'react-native-linear-gradient';
-import FingerPrintContent from '../../../components/bottomSheet/fingerPrintContent';
 import ContactAdressSheet from '../../../components/bottomSheet/contactAdressSheet';
 
 const ContactAddress = () => {

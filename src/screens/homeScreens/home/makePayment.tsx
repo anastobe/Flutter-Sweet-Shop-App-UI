@@ -21,14 +21,14 @@ const MakePayment = () => {
     return (
       <TouchableOpacity onPress={()=>{ navigation.navigate(item.route) }} style={styles.item}>
         <View style={styles.avatar}>
-          <Icon name={item.icon} size={30} color={THEME.lightred} />
+          <Icon name={item.icon} size={30} color={THEME.white} />
         </View>
         <View style={{ flex: 1 }}>
           <Text style={styles.name}>{item.name}</Text>
           <Text style={styles.currency}>{item.detailTxt}</Text>
         </View>
         <View style={{ transform: [{ rotate: '-45deg' }] }}>
-          <Icon name="arrow-forward-outline" size={20} color="#cc66ff" />
+          <Icon name="arrow-forward-outline" size={20} color={THEME.white} />
         </View>
       </TouchableOpacity>
     );
@@ -37,7 +37,7 @@ const MakePayment = () => {
     function renderOptions() {
       return(
       <FlatList
-        data={PAYMENT_OPTION}
+        data={PAYMENT_OPTION} 
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
@@ -62,16 +62,16 @@ export default MakePayment;
 const styles = StyleSheet.create({
   title:
   {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
-    marginBottom: 20,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+    marginBottom: 10,
     marginTop:10
   },
     subtitle:
   {
     fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Light,
+    fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     marginBottom: 20,
   },
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
    item: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: THEME.textPrimary,
+    backgroundColor: THEME.whitergba,
     borderRadius: 12,
     padding: 12,
     marginBottom: 10,
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
   },
   currency: {
     fontSize: FONT_SIZES.onefour,
