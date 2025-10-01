@@ -152,7 +152,7 @@ Please login and set your Touch ID from Profile.
          btnContSty={styles.forgetTxt}
          loading={vm.isPending}
          title="Login"
-         onPress={handleLogin}
+         onPress={vm.handleLogin}
        />
 
       <CustomButton

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Pressable,
+  Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CustomButton from '../customButton';            // adjust the import to your path
@@ -16,6 +17,9 @@ import {
   FONT_SIZES,
 } from '../../styles';
 import { scale } from 'react-native-size-matters';
+import { ImageBackground } from 'react-native';
+import { BlurView } from "@react-native-community/blur";
+import { Images } from '../../config';
 
 type Props = {
   visible: boolean;
@@ -28,6 +32,9 @@ type Props = {
   subBody?: string;
   iconName?: string;
   confirmText?: string;
+  backImg?: any;
+  style?: any;
+  downConfirmText?: any
 };
 
 const FreezeCardModal: React.FC<Props> = ({
@@ -41,27 +48,32 @@ const FreezeCardModal: React.FC<Props> = ({
   subBody = '',
   iconName = 'snow-outline',
   confirmText = '',
+  downConfirmText = "",
+  backImg,
+  style
 }) => {
   return (
-       <View style={styles.modal}>
+       <ImageBackground imageStyle={{   borderRadius: 16,}} source={Images.bottogSheetGradient} style={styles.modal}>
+
+
        <TouchableOpacity style={styles.closeBtn} onPress={onClose} >
          <Text style={styles.closeText}>×</Text>
        </TouchableOpacity>
 
-      
-         <View style={styles.iconCircle}>
-            <Icon name={'snow-outline'} size={40} color={THEME.white} />
-         </View>
-        
+
+        <View style={styles.iconCircle}>
+          <Icon name={iconName} size={40} color={THEME.textPrimary} />
+       </View> 
+
 
        <Text style={styles.titles}>{title}</Text>
-         <Text style={styles.description}>
+         {body && <Text style={styles.description}>
          {body}
-         </Text>
+         </Text>}
 
        {showSubBody && <View style={styles.containerAlert} >
          <View style={styles.ICONcONT} >
-          <Icon name={'alert-circle-outline'} size={30} color={THEME.prinkishBlue} />
+          <Icon name={'alert-circle-outline'} size={22} color={THEME.white} />
          </View>
          <Text style={styles.descriptionbelow}>
             {subBody}
@@ -74,14 +86,66 @@ const FreezeCardModal: React.FC<Props> = ({
          title={confirmText}
          onPress={onConfirm}
        />
-          
-       <TouchableOpacity onPress={onClose} >
-       <Text style={styles.cancelTxt}>
-         Cancel
-       </Text>
-       </TouchableOpacity>
 
-     </View>
+            <CustomButton
+        loading={false}
+         btnContSty={{backgroundColor: THEME.white, width: '100%'}}
+         title={downConfirmText}
+         onPress={onClose}
+       />
+          
+  </ImageBackground>
+
+//     <ImageBackground
+//     source={Images.bottogSheetGradient}
+//   imageStyle={{  borderRadius: 16 }}
+//   blurRadius={1}
+//   style={styles.modal}
+// >
+//   {/* <BlurView intensity={50} tint="dark" style={StyleSheet.absoluteFill}> */}
+//      {/* <View style={styles.modal}>     */}
+
+//       <TouchableOpacity style={styles.closeBtn} onPress={onClose} >
+//         <Text style={styles.closeText}>×</Text>
+//       </TouchableOpacity>
+
+      
+//         <View style={styles.iconCircle}>
+//            <Icon name={'snow-outline'} size={40} color={THEME.textPrimary} />
+//         </View> 
+        
+
+//       <Text style={styles.titles}>{title}</Text>
+//         <Text style={styles.description}>
+//         {body}
+//         </Text>
+
+//       {showSubBody && <View style={styles.containerAlert} >
+//         <View style={styles.ICONcONT} >
+//          <Icon name={'alert-circle-outline'} size={22} color={THEME.white} />
+//         </View>
+//         <Text style={styles.descriptionbelow}>
+//            {subBody}
+//         </Text>
+//       </View>}
+
+//      <CustomButton
+//        loading={btnLoader}
+//         btnContSty={styles.forgetTxt}
+//         title={confirmText}
+//         onPress={onConfirm}
+//       />
+
+//            <CustomButton
+//        loading={false}
+//         btnContSty={{backgroundColor: THEME.white, width: '100%'}}
+//         title={"Cancel"}
+//         onPress={onClose}
+//       />
+          
+//     {/* </View> */}
+//   {/* </BlurView> */}
+// </ImageBackground>    
   );
 };
 
@@ -97,25 +161,27 @@ const styles = StyleSheet.create({
   },
 
   modal: {
-    backgroundColor: '#fff',
+    backgroundColor:  'rgba(0,0,0,0.8)',
     borderRadius: 16,
+    // opacity: 0.8,
     padding: 24,
     alignItems: 'center',
     marginTop: 'auto',
     marginBottom: 'auto',
-    width: '100%'
+    // width: '100%'
   },
   closeBtn: {
     position: 'absolute',
     top: 10,
     right: 15,
+    width: 35, height: 35, justifyContent: "center", alignItems: "center"
   },
   closeText: {
-    fontSize: 24,
-    color: '#888',
+    fontSize: 36,
+    color: THEME.white,
   },
   iconCircle: {
-    backgroundColor: THEME.lightred,
+    backgroundColor: THEME.primary,
     borderRadius: 50,
     width: scale(65),
     height: scale(65),
@@ -129,20 +195,20 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   titles: {
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.threetwo,
-    color: THEME.primary,
+    fontFamily: FONTFAMILY.SemiBold,
+    fontSize: FONT_SIZES.twosix,
+    color: THEME.white,
     textAlign: 'center',
   },
   description: {
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
     textAlign: 'center',
     marginTop: 10,
   },
   containerAlert: {
-    backgroundColor: THEME.textPrimary,
+    // backgroundColor: THEME.textPrimary,
     flexDirection: 'row',
     paddingVertical: 15,
     paddingHorizontal: 10,
@@ -153,9 +219,9 @@ const styles = StyleSheet.create({
   descriptionbelow: {
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 10,
-    flex: 1,
+    // flex: 1,
   },
   okButton: {
     backgroundColor: '#e184ff',
@@ -166,7 +232,7 @@ const styles = StyleSheet.create({
   ICONcONT: {
     width: scale(36),
     height: scale(36),
-    backgroundColor: THEME.lightGrey,
+    // backgroundColor: THEME.lightGrey,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,

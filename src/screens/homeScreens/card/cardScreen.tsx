@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, SectionList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, SectionList, ImageBackground, ScrollView } from 'react-native';
 import { BottomSheet, MainContainer, Modal } from '../../../components';
 import { Images } from '../../../config';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
@@ -24,6 +24,9 @@ import CardDetail from '../../../components/bottomSheet/cardDetail';
 import Methods from '../../../components/bottomSheet/methods';
 import ManageOption from '../../../components/bottomSheet/manageOption';
 import { ActivityIndicator } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import OptionsHeader from '../../../components/topHeader';
 
 const CardScreen = () => {
 
@@ -172,16 +175,19 @@ const TransactionList = () => {
           <Text style={styles.viewAllTxt} >View All</Text>
         </TouchableOpacity>
       </View>
-    <SectionList
-      sections={DATA}
+    <FlatList
+      data={DATA}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <View style={styles.item}>
           <View style={styles.sectionLeft} >            
             <View style={styles.iconCONT} >
-               <Icon name={"cart-outline"} size={25} color={THEME.white} />
+               <Icon name={"arrow-forward-outline"} size={16} color={THEME.textPrimary} />
             </View>
+            <View>
             <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.subname}>19 july</Text>
+          </View>
           </View>
           <View>
             <Text style={styles.amount}>{item.amount}</Text>
@@ -199,12 +205,10 @@ const TransactionList = () => {
 
   function Options() {
    return(
-    <View style={styles.headerContainer}>
-      <Text style={styles.screenTitle}>Manage Cards</Text>
-      <TouchableOpacity onPress={()=>AddCardRef?.current?.open()} style={styles.addButton}>
-        <Icon name="add-outline" size={25} color={THEME.white} />
-      </TouchableOpacity>
-    </View>
+    <OptionsHeader
+      onPressNotification={() => console.log("Notification Pressed")}
+      onPressAdd={() => console.log("Add Pressed")}
+    />
    ) 
   }
 
@@ -236,6 +240,8 @@ const TransactionList = () => {
   function renderPOPUP() {
     return(
         <FreezeCardModal
+          style={{ flex: 1, paddingHorizontal: 20 }}
+          backImg={Images.addCardGradient}
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           btnLoader={isPendingfreezUnFreezCard}
@@ -257,6 +263,8 @@ const TransactionList = () => {
   function renderPOPUPUnFreez() {
     return(
         <FreezeCardModal
+          style={{ flex: 1, paddingHorizontal: 20 }}
+          backImg={Images.addCardGradient}
           visible={modalVisibleUnfreez}
           btnLoader={isPendingfreezUnFreezCard}
           onClose={() => setmodalVisibleUnfreez(false)}
@@ -328,23 +336,37 @@ const TransactionList = () => {
 
 
   return(
-    <MainContainer onRefresh={onRefresh} refreshingeffect={true}  refreshing={refreshing} isFlatList={true} barStyle="dark-content"  mainContainerStyle={styles.container}>
-       <Image source={Images.logo} style={styles.logo} />
-
-       {Options()}
-       {SlidingCards()}
-       { currentItem?.is_enable ? renderCardFeature() : null}
-       {TransactionList()}
-       {renderModal()}
-       {renderModalUnFreez()}
-
+    <LinearGradient
+        colors={['#713d9f', '#2A1E60', '#0C1445']}
+        locations={[0.1, 0.3, 1]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={StyleSheet.absoluteFillObject} // 👈 poori screen cover karega
+      >
+        
+       <Image
+        source={Images.cardGradient}
+        style={{ height: Metrics.halfScreen + 50, width: METRICS.width, position: "absolute" }}
+       />
+        <SafeAreaView>
+        <ScrollView>
+            
+        {Options()}
+        {SlidingCards()}     
+        { currentItem?.is_enable ? renderCardFeature() : null}
+        {TransactionList()}
+        {renderModal()}
+        {renderModalUnFreez()}
+          
+        </ScrollView>
+        
         <BottomSheet
          height={METRICS.halfScreen - 30}
          draggable={false}
          openTime={500}
          closeDuration={500}
          bottomSheetRef={AddCardRef}
-         children={<AddCardPopup onPress1={()=>HandleOnPress('1')} onPress2={()=>HandleOnPress('2')} style={{ marginHorizontal: 20 }}  />}
+         children={<AddCardPopup backImg={Images.addCardGradient} onPress1={()=>HandleOnPress('1')} onPress2={()=>HandleOnPress('2')}  style={{ flex: 1, paddingHorizontal: 20 }} />}
         />
 
         <BottomSheet
@@ -353,7 +375,12 @@ const TransactionList = () => {
          openTime={500}
          closeDuration={500}
          bottomSheetRef={cardDetailRef}
-         children={<CardDetail onPress1={()=>HandleOnPress('1')} onPress2={()=>HandleOnPress('2')} style={{ marginHorizontal: 20 }}  />}
+         children={<CardDetail 
+          onPress1={()=>HandleOnPress('1')} 
+          onPress2={()=>HandleOnPress('2')} 
+          style={{ paddingHorizontal: 20 }}  
+          iconColor={THEME.white}
+          />}
         />
 
         <BottomSheet
@@ -362,7 +389,7 @@ const TransactionList = () => {
          openTime={500}
          closeDuration={500}
          bottomSheetRef={methodsRef}
-         children={<Methods onPress1={()=>{switchOption('1')}} onPress2={()=>{switchOption('2')}} onPress3={()=>{switchOption('3')}} onPress4={()=>{switchOption('4')}} style={{ marginHorizontal: 20 }}  />}
+         children={<Methods  backImg={Images.addCardGradient}  onPress1={()=>{switchOption('1')}} onPress2={()=>{switchOption('2')}} onPress3={()=>{switchOption('3')}} onPress4={()=>{switchOption('4')}} style={{ flex: 1, paddingHorizontal: 20 }}  />}
         />
 
         <BottomSheet
@@ -371,18 +398,22 @@ const TransactionList = () => {
          openTime={500}
          closeDuration={500}
          bottomSheetRef={manageRef}
-         children={<ManageOption onPress1={()=>{onPressOption('1')}} onPress2={()=>{onPressOption('2')}} style={{ marginHorizontal: 20 }}  />}
+         children={<ManageOption style={{ flex: 1, paddingHorizontal: 20 }} backImg={Images.addCardGradient}  onPress1={()=>{onPressOption('1')}} onPress2={()=>{onPressOption('2')}}  />}
         />
 
-
-    </MainContainer>
+        </SafeAreaView>
+    </LinearGradient>
     )
 }
 
 export default CardScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: THEME.white, },
+  container: { flex: 1, 
+    // justifyContent: 'center', 
+    // alignItems: 'center', 
+    // backgroundColor: THEME.white, 
+  },
   logo: {
     width: METRICS.width,
     height: scale(25),
@@ -398,7 +429,15 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Light
   },
 
-
+   rightIconCont: 
+    { width: 28, height: 28, borderRadius: 50, justifyContent: "center", alignItems: "center", marginTop: 20, backgroundColor: THEME.white },
+    
+    titleRight:{
+      fontSize: FONT_SIZES.twozero,
+      fontFamily: FONTFAMILY.SemiBold,
+      color: THEME.textPrimary,
+      top: -2
+    },
 
     header: {
     fontSize: FONT_SIZES.onesix,
@@ -407,28 +446,35 @@ const styles = StyleSheet.create({
     marginVertical: 5
   },
   item: {
-    borderWidth: 1,
-    borderColor: THEME.lightGrey,
+    // borderWidth: 1,
+    backgroundColor: THEME.SlateBlue,
     borderRadius: 10,
-    height: 56,
+    height: 68,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: "center",
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    marginTop: 10
   },
   sectionLeft:
   { flexDirection: "row", alignItems: "center" },
   iconCONT:
-  { width: 36, height: 36, backgroundColor: THEME.darkOffWhite, borderRadius: 10, justifyContent: "center", alignItems: "center" },
+  { width: 22, height: 22, backgroundColor: THEME.primary, borderRadius: 100, justifyContent: "center", alignItems: "center" },
   name: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.primary,
+    marginLeft: 10
+  },
+  subname: {
+    fontSize: FONT_SIZES.oneZero,
     fontFamily: FONTFAMILY.Light,
     color: THEME.primary,
     marginLeft: 10
   },
   amount: {
-    fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.oneeight,
+    fontFamily: FONTFAMILY.SemiBold,
     color: THEME.primary
   },
 
@@ -473,7 +519,7 @@ const styles = StyleSheet.create({
   cardTransactinTXT:
   { fontSize: FONT_SIZES.onetwo, fontFamily: FONTFAMILY.Medium, color: THEME.white },
   viewAllTxt:
-  { fontSize: FONT_SIZES.onetwo, fontFamily: FONTFAMILY.Medium, color: THEME.prinkishBlue },
+  { fontSize: FONT_SIZES.onetwo, fontFamily: FONTFAMILY.Medium, color: THEME.white, backgroundColor: THEME.SlateBlue,paddingHorizontal: 9, paddingVertical: 3, borderRadius: 10 },
 
   ICONcONT:
   { width: scale(36), height: scale(36), backgroundColor: THEME.lightGrey, justifyContent: "center", alignItems: "center", borderRadius: 12 },

@@ -6,38 +6,40 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Images } from '../../config';
 import CustomButton from '../customButton';
 import { TouchableOpacity } from 'react-native';
+import { ImageBackground } from 'react-native';
 
-const ManageOption = ({ style, onPress1,onPress2 }:{  style:any, onPress1: any, onPress2: any }) => {
+const ManageOption = ({ style, onPress1,onPress2,backImg }:{  style:any, onPress1: any, onPress2: any,backImg: any }) => {
 
         function Listitem(icon:any, title:any,switchOnpress:any,iconRight: any) {
             return (
             <TouchableOpacity onPress={switchOnpress} style={styles.containerAlert} >
                 <View style={styles.ICONcONT} >
-                    <Icon name={icon} size={20} color={THEME.primary} />
+                    <Icon name={icon} size={20} color={THEME.textPrimary} />
                 </View>
                 <View style={{ flex: 1, justifyContent: "center" }} >
                     <Text style={styles.titleAbove}>
                         {title}
                     </Text>
                 </View>
-                <View style={{ justifyContent: "center" }} >
-                     <Icon name={iconRight} size={25} color={THEME.primary} />
+                <View style={{ justifyContent: "center",transform: [{ rotate: '-45deg' }] }} >
+                     <Icon name={iconRight} size={25} color={THEME.white} />
                 </View>
             </TouchableOpacity>
         )
     }
 
   return (
-    <View style={style}>
+<ImageBackground resizeMode="cover" source={Images.addCardGradient} style={[styles.container,style]}>
+   
 
-        <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} />
+        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} /> */}
 
       <Text style={styles.title}>Manage Payment</Text>
-      {Listitem('flash-outline', "Set Limit",onPress1,'arrow-forward-circle-outline' )}
-      {Listitem('flash-outline', "Change Pin",onPress2,'arrow-forward-circle-outline' )}
+      {Listitem('lock-closed-outline', "Set Limit",onPress1,'arrow-forward-outline' )}
+      {Listitem('pin-outline', "Change Pin",onPress2,'arrow-forward-outline' )}
       
 
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -45,12 +47,12 @@ export default ManageOption;
 
 const styles = StyleSheet.create({
   title: {
-    color: THEME.primary,
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.threetwo,
-    textAlign: "center",
-    lineHeight: 35,
-    marginTop: 30
+        color: THEME.white,
+        fontFamily: FONTFAMILY.SemiBold,
+        fontSize: FONT_SIZES.twosix,
+        textAlign: "center",
+        marginTop: 25,
+        paddingBottom: 15,
   },
 
     containerAlert: {
@@ -59,12 +61,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingBottom: 15,
         borderBottomWidth: 0.5,
-        borderColor: THEME.lightGrey,
+        borderColor: THEME.primary,
     },
     titleAbove: {
         fontFamily: FONTFAMILY.Medium,
         fontSize: FONT_SIZES.onefour,
-        color: THEME.primary,
+        color: THEME.white,
         marginLeft: 8
     },
     descriptionbelow: {

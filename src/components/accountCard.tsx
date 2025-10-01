@@ -39,9 +39,9 @@ const AccountCard = ({ item, index, onPressCard,containerStyle }: { item?: any, 
                     <Text style={styles.balanceTxt}>£{item?.spending_limit}</Text>
                 </View>
 
-                <View>
+                {/* <View>
                     <Text style={styles.detailTxt}>Show Details</Text>
-                </View>
+                </View> */}
             </View>
 
 
@@ -63,25 +63,26 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     cardTitle: {
-        color: THEME.white,
-        fontSize: FONT_SIZES.onesix,
-        fontFamily: FONTFAMILY.Light,
-        marginLeft: 10
+        color: THEME.textPrimary,
+        fontSize: FONT_SIZES.onetwo,
+        fontFamily: FONTFAMILY.Medium,
+        marginLeft: 10,
+        marginTop: 5
     },
     limitTxt: {
-        color: THEME.gray,
-        fontSize: FONT_SIZES.onefour,
-        fontFamily: FONTFAMILY.Medium
+        color: THEME.textPrimary,
+        fontSize: FONT_SIZES.nine,
+        fontFamily: FONTFAMILY.SemiBold
     },
     balanceTxt: {
-        color: THEME.white,
-        fontSize: FONT_SIZES.threetwo,
-        fontFamily: FONTFAMILY.Medium
+        color: THEME.textPrimary,
+        fontSize: FONT_SIZES.twotwo,
+        fontFamily: FONTFAMILY.SemiBold
     },
     detailTxt: {
         color: THEME.prinkishBlue,
         fontSize: FONT_SIZES.onetwo,
-        fontFamily: FONTFAMILY.Medium,
+        fontFamily: FONTFAMILY.Bold,
         marginBottom: 10
     },
     row: {

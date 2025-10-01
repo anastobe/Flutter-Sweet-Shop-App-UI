@@ -25,9 +25,9 @@ const HomeScreen = () => {
   const navigation = useNavigation()
 
   const Sendoption = [
-    { icon: 'add-outline', onPress: () => console.log("new acount"), text: "New Account" },
-    { icon: 'cash-outline', onPress: () => console.log("Add Fund"), text: "Add Fund" },
-    { icon: 'wallet-outline', onPress: () => navigation.navigate(HOME_ROUTES.MAKE_PAYMENT) , text: "Send Money" }
+    { icon: 'add-outline', onPress:  HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: "New Account" },
+    // { icon: 'cash-outline', onPress: () => console.log("Add Fund"), text: "Add Fund" },
+    { icon: 'wallet-outline', onPress: HOME_ROUTES.MAKE_PAYMENT , text: "Send Money" }
   ]
 
   function Logout() {
@@ -61,7 +61,7 @@ const HomeScreen = () => {
           <Text style={styles.balanceLabel}>Available Balance</Text>
           <View style={styles.currencySelector}>
             <Text style={styles.currencyText}>Euro</Text>
-            <Icon name="caret-down-outline" size={9} color="#5F6368" /> 
+            <Icon name="caret-down-outline" size={9} color={THEME.textPrimary} /> 
           </View>
         </View>
         <Text style={styles.availableBalance}>€29,309.91</Text>
@@ -95,7 +95,8 @@ const SlidingCards = () => {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}
         scrollEventThrottle={16}
-        renderItem={({ item, index }) => <AccountCardzoom onPressCard={(item: any)=>{onPressCard(item)}} item={item} index={index} containerStyle={{ marginVertical: 10 }} />}
+        contentContainerStyle={{ marginTop: 15 }}
+        renderItem={({ item, index }) => <AccountCard onPressCard={(item: any)=>{onPressCard(item)}} item={item} index={index} />}
       />
   );
 };
@@ -103,7 +104,7 @@ const SlidingCards = () => {
 function renderCardFeature() {
   
   return(
-    <CardFeatureButtons features={Sendoption} onPressbtn={(item: any)=>{  navigation.navigate(HOME_ROUTES.MAKE_PAYMENT)  }}  />
+    <CardFeatureButtons features={Sendoption} onPressbtn={(item: any)=>{ navigation.navigate(item.onPress)}}  />
   )
 }
 
@@ -111,21 +112,24 @@ const TransactionList = () => {
   return (
     <View>
       <View style={styles.cardHeadr} >
-        <Text style={styles.cardTransactinTXT} >Card Transactions</Text>
+        <Text style={styles.cardTransactinTXT} >Activity</Text>
         <TouchableOpacity onPress={()=>{ navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY) }} >
           <Text style={styles.viewAllTxt} >View All</Text>
         </TouchableOpacity>
       </View>
-    <SectionList
-      sections={DATA}
+    <FlatList
+      data={DATA}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <View style={styles.item}>
           <View style={styles.sectionLeft} >            
             <View style={styles.iconCONT} >
-               <Icon name={"cart-outline"} size={25} color={THEME.white} />
+               <Icon name={"cart-outline"} size={16} color={THEME.textPrimary} />
             </View>
+            <View>
             <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.subname}>19 july</Text>
+          </View>
           </View>
           <View>
             <Text style={styles.amount}>{item.amount}</Text>
@@ -133,9 +137,6 @@ const TransactionList = () => {
         </View>
       )}
       contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 100 }}
-      renderSectionHeader={({ section: { title } }) => (
-        <Text style={styles.header}>{title}</Text>
-      )}
     />
     </View>
   );
@@ -187,18 +188,19 @@ const styles = StyleSheet.create({
 
   
   balanceCard: {
-    backgroundColor: THEME.textPrimary,
+    backgroundColor: THEME.whitergba,
     borderRadius: 20,
     height: scale(84),
-    width: screenWidth - 40,
+    // width: screenWidth - 40,
+    paddingHorizontal:15,
     marginHorizontal: 20,
     marginTop: 20,
     flexDirection: "row"
   },
-  balanceTop: { flexDirection: 'row', alignItems: 'center', marginLeft: 8, marginTop: 8 },
+  balanceTop: { flexDirection: 'row', alignItems: 'center',  marginTop: 8 },
   balanceLabel: {  fontSize: FONT_SIZES.onesix, fontFamily: FONTFAMILY.Light, color: THEME.white },
-  currencySelector: { flexDirection: 'row', alignItems: 'center', backgroundColor: THEME.darkOffWhite, borderRadius: 5, justifyContent: "center", marginLeft: 10, paddingHorizontal: 10 },
-  currencyText: { marginRight: 4,fontSize: FONT_SIZES.onefour, fontFamily: FONTFAMILY.Medium, color: THEME.white  },
+  currencySelector: { flexDirection: 'row', alignItems: 'center', backgroundColor: THEME.white, borderRadius: 5, justifyContent: "center", marginLeft: 10, paddingHorizontal: 10 },
+  currencyText: { marginTop: -1, marginRight: 4,fontSize: FONT_SIZES.onefour, fontFamily: FONTFAMILY.Medium, color: THEME.textPrimary  },
   availableBalance: { fontSize: FONT_SIZES.threesix, fontFamily: FONTFAMILY.Light, marginTop: 10, color: THEME.primary },
   chartPlaceholder: {
     height: 40,
@@ -224,28 +226,35 @@ const styles = StyleSheet.create({
     marginVertical: 5
   },
   item: {
-    borderWidth: 1,
-    borderColor: THEME.lightGrey,
+    // borderWidth: 1,
+    backgroundColor: THEME.SlateBlue,
     borderRadius: 10,
-    height: 56,
+    height: 68,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: "center",
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    marginTop: 10
   },
   sectionLeft:
   { flexDirection: "row", alignItems: "center" },
   iconCONT:
-  { width: 36, height: 36, backgroundColor: THEME.darkOffWhite, borderRadius: 10, justifyContent: "center", alignItems: "center" },
+  { width: 35, height: 35, backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" },
   name: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.primary,
+    marginLeft: 10
+  },
+  subname: {
+    fontSize: FONT_SIZES.oneZero,
     fontFamily: FONTFAMILY.Light,
     color: THEME.primary,
     marginLeft: 10
   },
   amount: {
-    fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.oneeight,
+    fontFamily: FONTFAMILY.SemiBold,
     color: THEME.primary
   },
 
@@ -256,6 +265,6 @@ const styles = StyleSheet.create({
   cardTransactinTXT:
   { fontSize: FONT_SIZES.onetwo, fontFamily: FONTFAMILY.Medium, color: THEME.white },
   viewAllTxt:
-  { fontSize: FONT_SIZES.onetwo, fontFamily: FONTFAMILY.Medium, color: THEME.prinkishBlue },
+  { fontSize: FONT_SIZES.onetwo, fontFamily: FONTFAMILY.Medium, color: THEME.white, backgroundColor: THEME.SlateBlue, paddingHorizontal: 9, paddingVertical: 3, borderRadius: 10 },
 
 });

@@ -15,7 +15,8 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy  }) => {
 
   return (
     <View>
-        <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 }} />
+        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 }} /> */}
+        <Text style={styles.accountdetail} >Account Details</Text>
             <View style={styles.container}>
                 {details.map((item: any, index: any) => (
                     <View key={index} style={styles.row}>
@@ -24,18 +25,18 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy  }) => {
                         <Text style={[styles.value]}>
                         {item.value}
                         </Text>
-                        {item.copy && (
+                        {/* {item.copy && (
                         <TouchableOpacity onPress={item.onCopy}>
                             <Icon name="copy-outline" size={16} color={THEME.prinkishBlue} style={{ marginLeft: 6 }} />
                         </TouchableOpacity>
-                        )}
+                        )} */}
                     </View>
                     </View>
                 ))}
             </View>
             <View style={{ flexDirection: 'row', justifyContent: "center", marginTop: 20 }} >
-              {renderOptons("share-social-outline",THEME.primary,THEME.textPrimary,onPressShare)}
-              {renderOptons("copy-outline",THEME.white,THEME.prinkishBlue,onPressCopy)}
+              {renderOptons("arrow-redo-outline",THEME.textPrimary,THEME.primary,onPressShare)}
+              {renderOptons("copy-outline",THEME.textPrimary,THEME.primary,onPressCopy)}
             </View>
         <View>
 
@@ -47,12 +48,14 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy  }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: THEME.textPrimary,
+    // backgroundColor: THEME.textPrimary,
     borderRadius: 20,
     padding: 12,
     marginHorizontal: 12,
-    marginTop: 20
+    marginTop: 10
   },
+  accountdetail:
+  { fontSize: FONT_SIZES.twosix, fontFamily: FONTFAMILY.SemiBold, color: THEME.white, textAlign: "center", marginTop: 20 },
   row: {
     flexDirection: 'row',
     justifyContent: "space-between",

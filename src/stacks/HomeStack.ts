@@ -7,6 +7,8 @@ import PinSecurity from "../screens/homeScreens/card/pinSecurity";
 import ReplaceCard from "../screens/homeScreens/card/replaceCard";
 import SetLimits from "../screens/homeScreens/card/setLimit";
 import TransactionHistory from "../screens/homeScreens/card/transactionHistory";
+import UpdateAddress from "../screens/homeScreens/card/updateAddress";
+import AddNewCurrencyAcount from "../screens/homeScreens/home/addNewCurrencyAcount";
 import { TabStack } from "./TabStack";
 // import { TabStack } from "./TabStack";
 
@@ -43,6 +45,10 @@ export const HomeStack: HomeScreenStacksTypes = [
     component: PinSecurity,
   },
   {
+    name: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT,
+    component:  AddNewCurrencyAcount,
+  },
+  {
     name: HOME_ROUTES.REPLACE_CARD,
     component: ReplaceCard,
   },
@@ -54,7 +60,10 @@ export const HomeStack: HomeScreenStacksTypes = [
     name: HOME_ROUTES.TRANSACTIONHISTORY,
     component: TransactionHistory,
   },
-
+  {
+    name: HOME_ROUTES.UPDATE_ADDRESS,
+    component: UpdateAddress,
+  },
 
 
 ];

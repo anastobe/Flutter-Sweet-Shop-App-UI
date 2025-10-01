@@ -42,7 +42,7 @@ export default function InputField({...props}) {
      {heading && <Text style={styles.text}>{heading}</Text>}
         {imageLeft && (
           <Pressable onPress={onPress} style={styles.imgViewLeft}>
-              <Icon name={imageLeft} size={23} color={"#000"} />
+              <Icon name={imageLeft} size={23} color={imagetintColorLeft ? imagetintColorLeft : "#000"} />
           </Pressable>
         )}
         <TextInput

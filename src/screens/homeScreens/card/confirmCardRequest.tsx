@@ -42,7 +42,7 @@ const ConfirmCardRequest = ({...props}) => {
           }
         },
       });
-    
+         
 
     function pressBackArrow() {
         navigation.goBack()
@@ -86,16 +86,16 @@ const ConfirmCardRequest = ({...props}) => {
         <View>
             <Text style={styles.accountText}>Choose Funding Account</Text>
           <View style={{ flexDirection: "row" }} >
-            <Text style={styles.accountTextbelow}>Clearbank Account</Text>
-            <View style={{ backgroundColor: THEME.secondary_hover, borderRadius: 6, padding:3, marginLeft: 10 }} >
+            <View style={{ backgroundColor: THEME.secondary_hover, borderRadius: 6, padding:2, marginTop: 2}} >
             <Text style={styles.badgeText}>GBP</Text>
             </View>
+            <Text style={styles.accountTextbelow}>Clearbank Account</Text>
           </View>
         </View>
         </View>
 
         <View style={{ marginRight: 10 }} >
-          <Icon name="chevron-down-outline" size={20} color="#555" />
+          <Icon name="caret-down" size={20} color={THEME.white} />
         </View>
   
       </View>
@@ -106,7 +106,7 @@ const ConfirmCardRequest = ({...props}) => {
         return(
             <View style={styles.checkboxContainer}>
   <TouchableOpacity onPress={() => settick(!tick)} style={styles.checkbox}>
-    {tick ? <Icon name="checkmark-outline" size={18} color={THEME.primary} /> : null}
+    {tick ? <Icon name="checkmark-outline" size={18} color={THEME.white} /> : null}
   </TouchableOpacity>
   <Text style={styles.confirmText}>
     I confirm that <Text style={styles.boldText}>£4.95</Text> will be deducted from my account to issue my physical card.
@@ -124,7 +124,14 @@ const ConfirmCardRequest = ({...props}) => {
         loading={isPending}
         title="Pay"
         onPress={() => {
-          createCardFunc(payload)
+               setOpen(true)
+              createCardFunc(payload)
+              //  if (payload.format == "physical") {
+                
+              //  } else {
+                
+              //  }
+
         }}
       />
         </View>
@@ -141,7 +148,7 @@ const ConfirmCardRequest = ({...props}) => {
 
       
             <View style={styles.iconCircle}>
-                <Icon name="checkmark" size={25} color={THEME.white} /> 
+                <Icon name="checkmark" size={25} color={THEME.textPrimary} /> 
             </View>
         
 
@@ -205,27 +212,28 @@ const styles = StyleSheet.create({
   { width: 40, height: 40, justifyContent: "center", alignItems: "center", marginTop: 20 },
   title:
   {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
     color: THEME.primary,
-    marginBottom: 10,
-    marginTop:10
+    marginBottom: 20,
+    marginTop: 10
   },
     forgetTxt:
-  { marginTop: 50, marginBottom: 50 },
+  { marginTop: 30, marginBottom: 50 },
   forgetTxtpop:{
+    backgroundColor: THEME.primary,
 width: '100%',
-marginTop: 50, marginBottom: 50 
+marginTop: 20, marginBottom: 20 
   },
-    subtitle:
+ subtitle:
   {
     fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Light,
+    fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 20,
+    marginBottom: 10
   },
   summaryBox: {
-    backgroundColor: THEME.textPrimary,
+    // backgroundColor: THEME.textPrimary,
     borderRadius: 1,
     padding: 10,
     marginBottom: 10,
@@ -242,7 +250,7 @@ marginTop: 50, marginBottom: 50
     color: THEME.white,
   },
   valueBox: {
-    backgroundColor: THEME.lightGrey,
+    // backgroundColor: THEME.lightGrey,
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 8,
@@ -250,20 +258,18 @@ marginTop: 50, marginBottom: 50
   value: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
   },
   totalLabel: {
     textAlign: 'center',
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onesix,
     color: THEME.white,
-    marginBottom: 4,
-    marginTop: 10
   },
   totalAmount: {
     textAlign: 'center',
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.foureight,
+    fontSize: FONT_SIZES.threetwo,
     color: THEME.primary,
     marginBottom: 30,
   },
@@ -271,11 +277,11 @@ marginTop: 50, marginBottom: 50
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent:"space-between",
-    borderWidth: 1,
-    borderColor: THEME.gray,
+    borderWidth: 0.5,
+    borderColor: THEME.white,
     borderRadius: 16,
     height: 60,
-    marginBottom: 10,
+    marginBottom: 10, 
   },
   flag: {
     width: 40,
@@ -293,9 +299,10 @@ marginTop: 50, marginBottom: 50
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onesix,
     color: THEME.primary,
+    marginLeft: 5
   },
   badgeText: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: FONT_SIZES.onetwo,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white
   },
@@ -305,10 +312,10 @@ marginTop: 50, marginBottom: 50
     marginTop: 16,
   },
   checkbox: {
-    width: 24,
-    height: 24,
+    width: 22,
+    height: 22,
     borderWidth: 1,
-    borderColor: THEME.gray,
+    borderColor: THEME.white,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
@@ -316,13 +323,14 @@ marginTop: 50, marginBottom: 50
   confirmText: {
     flex: 1,
     color: THEME.primary,
-    fontSize: 14,
+    fontSize: FONT_SIZES.onetwo,
+    fontFamily: FONTFAMILY.Medium,
   },
   boldText: {
     fontWeight: 'bold',
   },
      modal: {
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(64, 64, 65, 0.95)',
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
@@ -333,42 +341,35 @@ marginTop: 50, marginBottom: 50
     right: 15,
   },
   closeText: {
-    fontSize: 24,
-    color: '#888',
+    fontSize: FONT_SIZES.foureight,
+    color: THEME.white,
   },
   iconCircle: {
-    backgroundColor:THEME.green,
+    backgroundColor:THEME.primary,
     borderRadius: 100,
-    width: scale(48),
-    height: scale(48),
+    width: scale(50),
+    height: scale(50),
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10
   },
-
   icon: {
     width: scale(30),
     height: scale(30),
-    resizeMode: "contain"
+    resizeMode: "contain",
   },
   titles: {
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.threetwo,
+    fontFamily: FONTFAMILY.SemiBold,
+    fontSize: FONT_SIZES.twosix,
     color: THEME.primary,
     textAlign: 'center',
   },
   description: {
     marginTop: 10,
-    fontFamily: FONTFAMILY.Light,
+    fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
     color: THEME.primary,
     textAlign: 'center',
 
-  },
-  okButton: {
-    backgroundColor: '#e184ff',
-    borderRadius: 25,
-    width: '100%',
-    paddingVertical: 12,
   },
 });

@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white  },
   pickerWrapper: {
     borderWidth: 1,
-    borderColor: THEME.gray,
+    borderColor: THEME.white,
     borderRadius: 16,
     marginBottom: 15,
   },

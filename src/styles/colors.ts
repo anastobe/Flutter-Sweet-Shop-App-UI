@@ -8,6 +8,7 @@ enum THEME {
   darkSecondary = "#0C1544",
   white = '#FFFFFF',
   whitergba = 'rgba(255, 255, 255, 0.13)',
+  SlateBlue = "rgba(97, 93, 135, 0.4)",
 
   // old Design 
 

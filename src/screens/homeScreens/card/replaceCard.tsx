@@ -67,9 +67,9 @@ const ReplaceCard = (props: any) => {
             onValueChange={itemValue => setreason(itemValue)}
             style={styles.inputInnerPicker}
           >
-            <Picker.Item label="Reason for Replacement" value="" color={THEME.white} />
-            <Picker.Item label="snetched" value="snetched" color={THEME.white} />
-            <Picker.Item label="broken" value="broken" color={THEME.white} />
+            <Picker.Item label="Reason for Replacement" value="" color={THEME.textPrimary} />
+            <Picker.Item label="snetched" value="snetched" color={THEME.textPrimary} />
+            <Picker.Item label="broken" value="broken" color={THEME.textPrimary} />
           </Picker>
         </View>
 
@@ -105,7 +105,7 @@ const ReplaceCard = (props: any) => {
     return (
       <View style={styles.containerAlert} >
         <View style={styles.ICONcONT} >
-          <Icon name={'alert-circle-outline'} size={30} color={THEME.prinkishBlue} />
+          <Icon name={'alert-circle-outline'} size={30} color={THEME.white} />
         </View>
         <Text style={styles.descriptionbelow}>
           Your existing card will be disabled when the new one is activated.
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
 
   pickerWrapper: {
     borderWidth: 1,
-    borderColor: THEME.gray,
+    borderColor: THEME.white,
     borderRadius: 16,
     marginBottom: 15,
   },
@@ -248,14 +248,14 @@ const styles = StyleSheet.create({
   valueChangeTxt: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onetwo,
-    color: THEME.prinkishBlue,
+    color: THEME.white,
     textAlign: "center",
     marginTop: 15,
     marginBottom: 5
   },
   summaryBox: {
-    backgroundColor: THEME.textPrimary,
-    borderRadius: 20,
+    // backgroundColor: THEME.textPrimary,
+    borderRadius: 10,
     padding: 10,
     marginBottom: 10
   },
@@ -263,18 +263,20 @@ const styles = StyleSheet.create({
 
 
   containerAlert: {
-    backgroundColor: THEME.textPrimary,
+    // backgroundColor: THEME.textPrimary,
     flexDirection: 'row',
     paddingVertical: 15,
     paddingHorizontal: 10,
     borderRadius: 10,
     marginTop: 10,
+    borderWidth: 0.4,
+    borderColor: THEME.white
   },
   descriptionbelow: {
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onefour,
     color: THEME.primary,
-    marginLeft: 10,
+    marginLeft: 5,
     flex: 1,
   },
   okButton: {
@@ -286,7 +288,7 @@ const styles = StyleSheet.create({
   ICONcONT: {
     width: scale(36),
     height: scale(36),
-    backgroundColor: THEME.lightGrey,
+    // backgroundColor: THEME.lightGrey,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,

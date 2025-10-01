@@ -20,8 +20,8 @@ type Props = {
 
 const CardFeatureButtons: React.FC<Props> = ({
   features,
-  buttonColor = '#8C9EFF',  // Default: purplish blue
-  iconColor = '#FFFFFF',     // Default: white
+  buttonColor = '#615d87',  // Default: purplish blue
+  iconColor = THEME.white,     // Default: white
   onPressbtn
 }) => {
   return (
@@ -47,8 +47,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginHorizontal: 20,
-    justifyContent: 'space-between',
+    justifyContent: "space-evenly", 
     marginVertical: 10,
+    marginTop:30
   },
   featureItem: {
     alignItems: 'center',
@@ -57,6 +58,8 @@ const styles = StyleSheet.create({
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
     borderRadius: 100,
+    borderWidth:0.7,
+    borderColor: THEME.white,
     justifyContent: 'center',
     alignItems: 'center',
   },

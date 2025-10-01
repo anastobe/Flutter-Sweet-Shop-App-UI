@@ -14,18 +14,17 @@ import { createCard } from '../../../queries/auth.query';
 import { Toast } from '../../../utils';
 import VerifyAddress from '../../../components/bottomSheet/verifyAddress';
 
-const CreatePhysicalCard = () => {
+const UpdateAddress = () => {
 
   const navigation = useNavigation()
   const cardDetailRef = useRef(null)
 
   const [Open, setOpen] = useState(false);
-  const [cardName, setcardName] = useState('');
-  const [currency, setcurrency] = useState('');
-  const [linkedAC, setlinkedAC] = useState('');
-  const [linkedAccount, setLinkedAccount] = useState('');
-  const [limitType, setLimitType] = useState('Weekly');
-  const [spendingLimit, setSpendingLimit] = useState('');
+  const [streetAddress, setstreetAddress] = useState('');
+  const [apartment, setApartment] = useState('');
+  const [city, setcity] = useState('');
+  const [postalAddress, setpostalAddress] = useState('');
+  const [country, setCountry] = useState('');
 
 
 
@@ -45,10 +44,19 @@ const CreatePhysicalCard = () => {
           marginTp={20}
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Card Name"
-          value={cardName}
-          onChangeText={setcardName}
-          keyboardType={'email-address'}
+          placeholder="Street Address"
+          value={streetAddress}
+          onChangeText={setstreetAddress}
+          margBtm={20}
+        />
+
+        <InputField
+          marginTp={20}
+          autoCapital={'none'}
+          blurOnSubmit={false}
+          placeholder="Apartment/Suite (Optional)"
+          value={apartment}
+          onChangeText={setApartment}
           margBtm={20}
         />
 
@@ -56,26 +64,13 @@ const CreatePhysicalCard = () => {
         <View style={styles.pickerWrapper}>
           <Picker
             dropdownIconColor={THEME.white}
-            selectedValue={currency}
-            onValueChange={itemValue => setcurrency(itemValue)}
+            selectedValue={city}
+            onValueChange={itemValue => setcity(itemValue)}
             style={styles.inputInnerPicker}
           >
-            <Picker.Item label="Currency" value="" color={THEME.textPrimary} />
-            <Picker.Item label="PKR" value="main" color={THEME.textPrimary} />
-            <Picker.Item label="EURO" value="savings" color={THEME.textPrimary} />
-          </Picker>
-        </View>
-
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={linkedAccount}
-            onValueChange={itemValue => setLinkedAccount(itemValue)}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item label="Linked Account" value="" color={THEME.textPrimary} />
-            <Picker.Item label="Main Account" value="main" color={THEME.textPrimary} />
-            <Picker.Item label="Savings" value="savings" color={THEME.textPrimary} />
+            <Picker.Item label="city" value="" color={THEME.textPrimary} />
+            <Picker.Item label="city 2" value="city2" color={THEME.textPrimary} />
+            <Picker.Item label="city 3" value="city3" color={THEME.textPrimary} />
           </Picker>
         </View>
 
@@ -89,9 +84,9 @@ const CreatePhysicalCard = () => {
         marginTp={20}
         autoCapital={'none'}
         blurOnSubmit={false}
-        placeholder="Spending Limit / Month"
-        value={spendingLimit}
-        onChangeText={setSpendingLimit}
+        placeholder="Postal Code"
+        value={postalAddress}
+        onChangeText={setpostalAddress}
         keyboardType={'numeric'}
         margBtm={20}
       />
@@ -101,24 +96,25 @@ const CreatePhysicalCard = () => {
 
   function onPressBtn() {
 
-    if (cardName?.length == '') {
-      Toast.showToast("Please Enter Name", '', 'error');
+    if (streetAddress?.length == '') {
+      Toast.showToast("Please Enter Street Address", '', 'error');
     }
-    else if (currency?.length == '') {
-      Toast.showToast("Please Select Currency", '', 'error');
+    else if (apartment?.length == '') {
+      Toast.showToast("Please Enter Apartment Details", '', 'error');
     }
-    else if (linkedAccount?.length == '') {
-      Toast.showToast("Please Select Linked Account Type", '', 'error');
+    else if (city?.length == '') {
+      Toast.showToast("Please Select City", '', 'error');
     }
-    else if (limitType?.length == '') {
-      Toast.showToast("Please Select Limit Type", '', 'error');
+    else if (postalAddress?.length == '') {
+      Toast.showToast("Please Enter Postal Address", '', 'error');
     }
-    else if (spendingLimit?.length == '') {
-      Toast.showToast("Please Enter Spending Limit", '', 'error');
+    else if (country?.length == '') {
+      Toast.showToast("Please Select Country", '', 'error');
     }
     else {
 
       cardDetailRef?.current?.open()
+      navigation.goBack()
     }
   }
 
@@ -131,20 +127,20 @@ const CreatePhysicalCard = () => {
         <View style={styles.pickerWrapper}>
           <Picker
             dropdownIconColor={THEME.white}
-            selectedValue={linkedAccount}
-            onValueChange={itemValue => setLinkedAccount(itemValue)}
+            selectedValue={country}
+            onValueChange={itemValue => setCountry(itemValue)}
             style={styles.inputInnerPicker}
           >
-            <Picker.Item label="Card Design (Optional)" value="" color={THEME.textPrimary} />
-            <Picker.Item label="option 1" value="option 2" color={THEME.textPrimary} />
-            <Picker.Item label="option 1" value="option 1" color={THEME.textPrimary} />
+            <Picker.Item label="Country" value="" color={THEME.textPrimary} />
+            <Picker.Item label="country 2" value="country 2" color={THEME.textPrimary} />
+            <Picker.Item label="country 3" value="option 3" color={THEME.textPrimary} />
           </Picker>
         </View>
 
 
         <CustomButton
           btnContSty={styles.forgetTxt}
-          title="Next"
+          title="Update" 
           loading={false}
           onPress={() => {
             onPressBtn()
@@ -170,39 +166,24 @@ const CreatePhysicalCard = () => {
     }, 1000);
   }
 
-  function updateLoaction() {
-    cardDetailRef?.current?.close()
-    setTimeout(() => {
-navigation.navigate(HOME_ROUTES.UPDATE_ADDRESS)
-    }, 1000);
-  }
-
   return (
     <MainContainer showBackArrow={true} pressBackArrow={pressBackArrow} isFlatList={true} barStyle="dark-content" mainContainerStyle={styles.container}>
       <View style={{ marginHorizontal: 20 }} >
 
-        <Text style={styles.title}>Request a Physical Card</Text>
+        <Text style={styles.title}>Update Delivery Address</Text>
 
         {renderInputField()}
         {renderlimitType()}
         {renderlimitandBTN()}
+ 
 
-
-        <BottomSheet
-          height={METRICS.height / 2}
-          draggable={false}
-          openTime={500}
-          closeDuration={500}
-          bottomSheetRef={cardDetailRef}
-          children={<VerifyAddress  style={{ flex: 1, paddingHorizontal: 20 }}  backImg={Images.bottogSheetGradient} onPress1={() => { yesConfirm() }}  onPress2={() => { updateLoaction() }} />}
-        />
-
+       
       </View>
     </MainContainer>
   )
 }
 
-export default CreatePhysicalCard;
+export default UpdateAddress;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },

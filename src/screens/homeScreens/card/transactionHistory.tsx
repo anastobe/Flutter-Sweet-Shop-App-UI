@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { BottomSheet, MainContainer, Modal } from '../../../components';
 import { Images } from '../../../config';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -14,6 +14,7 @@ import { SectionList } from 'react-native';
 import { DATA } from '../../../utils/data';
 import CardDetail from '../../../components/bottomSheet/cardDetail';
 import TransactionFilter from '../../../components/bottomSheet/transactionFilter';
+import Metrics from '../../../styles/metrics';
 
 
 const TransactionHistory = () => {
@@ -37,39 +38,36 @@ const TransactionHistory = () => {
                     value={cardName}
                     onChangeText={setcardName}
                     keyboardType={'default'}
-                    imagetintColorLeft={{ color: "#5F6368" }}
+                    imagetintColorLeft={THEME.white}
                     customInpStyle={styles.innerinput}
                 />
-                <TouchableOpacity onPress={()=>{ cardDetailRef?.current?.open() }} style={styles.rightIconCont} >
-                    <Icon name={'filter-outline'} size={23} color={THEME.white} />
-                </TouchableOpacity>
             </View>
         )
     }
 
     function renderTransactions() {
         return(
-        <SectionList
-            sections={DATA}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-                <View style={styles.item}>
-                <View style={styles.sectionLeft} >            
-                    <View style={styles.iconCONT} >
-                    <Icon name={"cart-outline"} size={25} color={THEME.white} />
-                    </View>
-                    <Text style={styles.name}>{item.name}</Text>
-                </View>
-                <View>
-                    <Text style={styles.amount}>{item.amount}</Text>
-                </View>
-                </View>
-            )}
-            contentContainerStyle={{ paddingBottom: 100 }}
-            renderSectionHeader={({ section: { title } }) => (
-                <Text style={styles.header}>{title}</Text>
-            )} 
-            />
+    <FlatList
+      data={DATA}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <View style={styles.item}>
+          <View style={styles.sectionLeft} >            
+            <View style={styles.iconCONT} >
+               <Icon name={"arrow-forward-outline"} size={16} color={THEME.textPrimary} />
+            </View>
+            <View>
+            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.subname}>19 july</Text>
+          </View>
+          </View>
+          <View>
+            <Text style={styles.amount}>{item.amount}</Text>
+          </View>
+        </View>
+      )}
+      contentContainerStyle={{  paddingBottom: 100 }}
+    />
         )
     }
 
@@ -108,7 +106,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     filtersearchContainer:
-    { flexDirection: "row", alignItems: "center", marginVertical: 10 },
+    { flexDirection: "row", alignItems: "center", marginVertical: 10, },
     subtitle:
     {
         fontSize: FONT_SIZES.onesix,
@@ -128,16 +126,17 @@ const styles = StyleSheet.create({
     marginVertical: 5
   },
   innerinput:
-  { paddingLeft: 50, width: METRICS.width - 100, height: 45,backgroundColor: THEME.textPrimary },
+  { paddingLeft: 50, height: 45, width: Metrics.width-40 },
   item: {
-    borderWidth: 1,
-    borderColor: THEME.lightGrey,
+    // borderWidth: 1,
+    backgroundColor: THEME.SlateBlue,
     borderRadius: 10,
-    height: 56,
+    height: 68,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: "center",
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    marginTop: 10
   },
   sectionLeft:
   { flexDirection: "row", alignItems: "center" },
@@ -145,6 +144,12 @@ const styles = StyleSheet.create({
   { width: 36, height: 36, backgroundColor: THEME.darkOffWhite, borderRadius: 10, justifyContent: "center", alignItems: "center" },
   name: {
     fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Light,
+    color: THEME.primary,
+    marginLeft: 10
+  },
+    subname: {
+    fontSize: FONT_SIZES.oneZero,
     fontFamily: FONTFAMILY.Light,
     color: THEME.primary,
     marginLeft: 10

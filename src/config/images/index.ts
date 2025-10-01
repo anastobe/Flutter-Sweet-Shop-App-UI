@@ -4,11 +4,12 @@ const Images = {
   faceID: require("../../assets/images/faceID.png"),
   bottogSheetGradient: require("../../assets/images/bottogSheetGradient.png"),
   accountTab: require("../../assets/images/accountTab.png"),  
+  addCardGradient: require("../../assets/images/addCardGradient.png"),
   paymentTab: require("../../assets/images/paymentTab.png"),  
   homeTab: require("../../assets/images/homeTab.png"),  
   cardTab: require("../../assets/images/cardTab.png"),  
   settingTab: require("../../assets/images/settingTab.png"),  
-  
+  cardGradient: require("../../assets/images/cardGradient.png"),  
 
   eyeClose: require("../../assets/images/eyeclose.png"),
   eyeOpen: require("../../assets/images/eyeopen.png"),
@@ -17,7 +18,7 @@ const Images = {
   lock: require("../../assets/images/lock.png"),
   finger: require("../../assets/images/finger.png"),
   welcome: require("../../assets/images/welcome.png"),
-  cardBack: require("../../assets/images/cardBack.jpeg"),
+  cardBack: require("../../assets/images/cardBack.png"),
   frontPayLogo: require("../../assets/images/frontPayLogo.png"),
   gradientBg: require("../../assets/images/gradientBg.png"),
 

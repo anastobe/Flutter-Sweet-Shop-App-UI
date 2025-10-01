@@ -85,9 +85,9 @@ const InternationalTransfer = () => {
             onValueChange={itemValue => settoAccount(itemValue)}
             style={styles.inputInnerPicker}
           >
-            <Picker.Item label="To Account" value="" color={THEME.white} />
-            <Picker.Item label="account" value="account" color={THEME.white} />
-            <Picker.Item label="cash" value="cash" color={THEME.white} />
+            <Picker.Item label="To Account" value="" color={THEME.textPrimary} />
+            <Picker.Item label="account" value="account" color={THEME.textPrimary} />
+            <Picker.Item label="cash" value="cash" color={THEME.textPrimary} />
           </Picker>
         </View>
 

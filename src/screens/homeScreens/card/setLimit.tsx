@@ -34,8 +34,8 @@ const SetLimits = () => {
             onPress={() => setLimitType(type)}
             style={styles.radioOption}
           >
-            <View style={[styles.radio,{ borderColor: limitType === type ? THEME.prinkishBlue : THEME.gray }]} >
-               {limitType === type && <Icon name="checkmark-outline" size={18} color={THEME.prinkishBlue} />}
+            <View style={[styles.radio,{ borderColor: limitType === type ? THEME.white : THEME.white }]} >
+               {limitType === type && <Icon name="checkmark-outline" size={18} color={THEME.white} />}
             </View>
             <Text style={[styles.radioLabel,{ fontFamily: limitType === type ? FONTFAMILY.Medium : FONTFAMILY.Light  }]}>{type}</Text>
           </TouchableOpacity>
@@ -104,10 +104,10 @@ const SetLimits = () => {
                     style={styles.inputInnerPicker}
                     >
                     <Picker.Item label="Select Card" value="" color={THEME.white} />
-                    <Picker.Item label="Business Visa (•••• 1234)" value="Business Visa (•••• 1234)" color={THEME.white} />
-                    <Picker.Item label="Visa Card (•••• 4321)" value="Visa Card (•••• 4321)" color={THEME.white} />
-                    <Picker.Item label="Business Visa (•••• 1232)" value="Business Visa (•••• 1232)" color={THEME.white} />
-                    <Picker.Item label="Visa Card (•••• 4232)" value="Visa Card (•••• 4232)" color={THEME.white} />
+                    <Picker.Item label="Business Visa (•••• 1234)" value="Business Visa (•••• 1234)" color={THEME.textPrimary} />
+                    <Picker.Item label="Visa Card (•••• 4321)" value="Visa Card (•••• 4321)" color={THEME.textPrimary} />
+                    <Picker.Item label="Business Visa (•••• 1232)" value="Business Visa (•••• 1232)" color={THEME.textPrimary} />
+                    <Picker.Item label="Visa Card (•••• 4232)" value="Visa Card (•••• 4232)" color={THEME.textPrimary} />
                     </Picker>
                 </View>
 
@@ -126,23 +126,23 @@ export default SetLimits;
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: THEME.white },
-    title:
-    {
-        fontSize: FONT_SIZES.threetwo,
-        fontFamily: FONTFAMILY.Light,
-        color: THEME.primary,
-        marginBottom: 10,
-        marginTop: 10
-    },
-    subtitle:
-    {
-        fontSize: FONT_SIZES.onesix,
-        fontFamily: FONTFAMILY.Light,
-        color: THEME.white,
-        marginBottom: 20,
-    },
+ title:
+  {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.primary,
+    marginBottom: 10,
+    marginTop:10
+  },
+  subtitle:
+  {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    marginBottom: 30
+  },
       forgetTxt:
-  { marginTop: 20, marginBottom: 20 },
+  { marginTop: 20, marginBottom: 20, backgroundColor: THEME.primary },
 
 
 
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
     borderRadius: 100,
-    borderWidth: 2,
+    borderWidth: 1,
     marginRight: 6,
     justifyContent: "center",
     alignItems: "center"
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
 
   
     limitInfo: {
-    backgroundColor: THEME.textPrimary,
+    // backgroundColor: THEME.textPrimary,
     padding: 15,
     borderRadius: 10,
     marginBottom: 20,
@@ -199,8 +199,8 @@ const styles = StyleSheet.create({
   },
   boldText: {
     fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.white,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.textPrimary,
     backgroundColor: THEME.white,
   },
   limitNote: {
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
     pickerWrapper: {
     borderWidth: 1,
-    borderColor: THEME.gray,
+    borderColor: THEME.white,
     borderRadius: 16,
     marginBottom: 15,
   },

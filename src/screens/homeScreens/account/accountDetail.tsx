@@ -17,6 +17,7 @@ import CardDetailOptions from '../../../components/cardDetailOptions';
 import { SectionList } from 'react-native';
 import CardDetail from '../../../components/bottomSheet/cardDetail';
 import AccountDetailsCard from '../../../components/bottomSheet/accountDetailsCard';
+import { ImageBackground } from 'react-native';
 
 const AccountDetail = () => {
 
@@ -111,6 +112,7 @@ const TransactionList = () => {
         closeDuration={500}
         bottomSheetRef={manageRef}
         children={
+        <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={[styles.container]}>
           <AccountDetailsCard
           onPressShare={onPressShare}
           onPressCopy={onPressCopy}
@@ -124,6 +126,8 @@ const TransactionList = () => {
               { label: "Linked Cards", value: "Business Visa (**** 1234)", bold: true },
             ]}
           />
+          
+        </ImageBackground>
         }
       />
 

@@ -5,11 +5,13 @@ import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../../styles'; // adjust
 import { Images } from '../../config';
 import CustomButton from '../customButton';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { ImageBackground } from 'react-native';
 
-const AddCardPopup = ({ style, onPress1,onPress2 }:{ style:any, onPress1: any, onPress2: any }) => {
+const AddCardPopup = ({ style, onPress1,onPress2,backImg }:{ style:any, onPress1: any, onPress2: any,backImg: any }) => {
   return (
-  <View style={[styles.container,style]}>
-       <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 }} />
+    <ImageBackground resizeMode="cover" source={backImg} style={style}>
+
+
 
       <Text style={styles.title}>Select Card Type</Text>
 
@@ -17,7 +19,7 @@ const AddCardPopup = ({ style, onPress1,onPress2 }:{ style:any, onPress1: any, o
         <TouchableOpacity onPress={onPress1} style={styles.cardItem}>
           <View style={{ flexDirection: "row" }}>
           <View style={styles.iconBox}>
-            <Icon name="cart-outline" size={24} color={THEME.primary} />
+            <Icon name="card-outline" size={24} color={THEME.textPrimary} />
           </View>
           <View style={styles.textBox}>
             <Text style={styles.cardTitle}>Virtual Card</Text>
@@ -28,7 +30,7 @@ const AddCardPopup = ({ style, onPress1,onPress2 }:{ style:any, onPress1: any, o
           </View>
           
           <View style={{ transform: [{ rotate: '-45deg' }] }}>
-            <Icon name="arrow-forward-outline" size={20} color="#cc66ff" />
+            <Icon name="arrow-forward-outline" size={20} color={THEME.white} />
           </View>
 
         </TouchableOpacity>
@@ -36,7 +38,7 @@ const AddCardPopup = ({ style, onPress1,onPress2 }:{ style:any, onPress1: any, o
         <TouchableOpacity  onPress={onPress2} style={styles.cardItem}>
                  <View style={{ flexDirection: "row" }}>
           <View style={styles.iconBox}>
-            <Icon name="card-outline" size={24} color={THEME.primary} />
+            <Icon name="card-outline" size={24} color={THEME.textPrimary} />
           </View>
           <View style={styles.textBox}>
             <Text style={styles.cardTitle}>Physical Card</Text>
@@ -46,11 +48,11 @@ const AddCardPopup = ({ style, onPress1,onPress2 }:{ style:any, onPress1: any, o
           </View>
           </View>
           <View style={{ transform: [{ rotate: '-45deg' }] }}>
-            <Icon name="arrow-forward-outline" size={20} color="#cc66ff" />
+            <Icon name="arrow-forward-outline" size={20} color={THEME.white} />
           </View>
         </TouchableOpacity>
 
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -62,28 +64,28 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    fontSize: FONT_SIZES.twosix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
     alignSelf: "center",
-    borderBottomWidth: 0.5,
-    borderColor: THEME.lightGrey,
+    // borderBottomWidth: 0.5,
+    // borderColor: THEME.white,
     paddingBottom: 20,
-    marginTop: 10
+    marginTop: 30
   },
   cardItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: "space-between",
-    borderTopWidth: 0.5,
-    borderColor: '#ddd',
+    // borderTopWidth: 0.5,
+    // borderColor: '#ddd',
     paddingVertical: 20,
   },
   iconBox: {
     width: 36,
     height: 36,
-    backgroundColor: THEME.lightGrey,
-    borderRadius: 15,
+    backgroundColor: THEME.primary,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: "center"
   },
@@ -91,12 +93,13 @@ const styles = StyleSheet.create({
     paddingLeft: 10
   },
   cardTitle: {
-    fontFamily: FONTFAMILY.Medium,
+    fontFamily: FONTFAMILY.SemiBold,
     fontSize: FONT_SIZES.onefour,
+    color: THEME.white,
   },
   cardDesc: {
     color: THEME.white,
-    fontFamily: FONTFAMILY.Light,
+    fontFamily: FONTFAMILY.Regular,
     fontSize:  FONT_SIZES.onetwo,
     marginTop: 3,
     width: METRICS.width - 130

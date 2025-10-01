@@ -23,18 +23,9 @@ const CreateVirtualCard = () => {
     const [limitType, setLimitType] = useState('Weekly');
     const [spendingLimit, setSpendingLimit] = useState('');
 
-    
-      const {mutate: createCardFunc, isPending} = createCard({
-        callback: (response: any) => {
-          navigation.navigate(HOME_ROUTES.ConfirmCardRequest)      
-        },
-      });
-
-
     function pressBackArrow() {
         navigation.goBack()
     }
-
 
     function renderInputField() {
       return(
@@ -58,9 +49,9 @@ const CreateVirtualCard = () => {
           onValueChange={itemValue => setcurrency(itemValue)}
           style={styles.inputInnerPicker}
         >
-          <Picker.Item label="Currency" value="" color={THEME.white} />
-          <Picker.Item label="PKR" value="main" color={THEME.white} />
-          <Picker.Item label="EURO" value="savings" color={THEME.white} />
+          <Picker.Item label="Currency" value="" color={THEME.textPrimary} />
+          <Picker.Item label="PKR" value="main" color={THEME.textPrimary} />
+          <Picker.Item label="EURO" value="savings" color={THEME.textPrimary} />
         </Picker>
       </View>
     
@@ -71,9 +62,9 @@ const CreateVirtualCard = () => {
           onValueChange={itemValue => setLinkedAccount(itemValue)}
           style={styles.inputInnerPicker}
         >
-          <Picker.Item label="Linked Account" value="" color={THEME.white} />
-          <Picker.Item label="Visa" value="visa" color={THEME.white} />
-          <Picker.Item label="Savings" value="savings" color={THEME.white} />
+          <Picker.Item label="Linked Account" value="" color={THEME.textPrimary} />
+          <Picker.Item label="Visa" value="visa" color={THEME.textPrimary} />
+          <Picker.Item label="Savings" value="savings" color={THEME.textPrimary} />
         </Picker>
       </View>
 
@@ -92,8 +83,8 @@ const CreateVirtualCard = () => {
             onPress={() => setLimitType(type)}
             style={styles.radioOption}
           >
-            <View style={[styles.radio,{ borderColor: limitType === type ? THEME.prinkishBlue : THEME.gray }]} >
-               {limitType === type && <Icon name="checkmark-outline" size={18} color={THEME.prinkishBlue} />}
+            <View style={[styles.radio,{ borderColor: limitType === type ? THEME.white : THEME.white }]} >
+               {limitType === type && <Icon name="checkmark-outline" size={18} color={THEME.white} />}
             </View>
             <Text style={[styles.radioLabel,{ fontFamily: limitType === type ? FONTFAMILY.Medium : FONTFAMILY.Light  }]}>{type}</Text>
           </TouchableOpacity>
@@ -133,7 +124,7 @@ const CreateVirtualCard = () => {
 
       <CustomButton
         btnContSty={styles.forgetTxt}
-        loading={isPending}
+        loading={false}
         title="Create Virtual Card"
         onPress={() => {
           onPressBtn()
@@ -144,8 +135,7 @@ const CreateVirtualCard = () => {
     }
 
     function onPressBtn() {
-              //  navigation.navigate(HOME_ROUTES.ConfirmCardRequest)     
-              //  return
+
 
       if (cardName?.length == '') {
           Toast.showToast("Please Enter Name", '', 'error');
@@ -173,7 +163,7 @@ const CreateVirtualCard = () => {
           linked_account: linkedAccount,
           card_desgin: "steel" // requirment not clear 
         }    
-        createCardFunc(payload)   
+      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload })
       }
     }
 
@@ -183,7 +173,7 @@ const CreateVirtualCard = () => {
     <View style={{ marginHorizontal: 20 }} >
 
     <Text style={styles.title}>Create Virtual Card</Text>
-
+   <Text style={styles.subtitle}>Enter Details of your virtual card</Text>
     {renderInputField()}
     {renderLimitType()}
     {renderlimitType()}
@@ -204,13 +194,19 @@ const styles = StyleSheet.create({
   text: { fontSize: 20 },
   title:
   {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
     color: THEME.primary,
-    marginBottom: 20,
+    marginBottom: 10,
     marginTop:10
   },
-
+  subtitle:
+  {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    marginBottom: 30
+  },
   label: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
@@ -230,7 +226,7 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
     borderRadius: 100,
-    borderWidth: 2,
+    borderWidth: 1,
     marginRight: 6,
     justifyContent: "center",
     alignItems: "center"
@@ -244,7 +240,7 @@ const styles = StyleSheet.create({
     color: THEME.primary,
   },
     limitInfo: {
-    backgroundColor: THEME.textPrimary,
+    // backgroundColor: THEME.textPrimary,
     padding: 15,
     borderRadius: 10,
     marginBottom: 20,
@@ -262,8 +258,8 @@ const styles = StyleSheet.create({
   },
   boldText: {
     fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.white,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.textPrimary,
     backgroundColor: THEME.white,
   },
   limitNote: {
@@ -276,7 +272,7 @@ const styles = StyleSheet.create({
   { marginTop: 20, marginBottom: 50 },
   pickerWrapper: {
     borderWidth: 1,
-    borderColor: THEME.gray,
+    borderColor: THEME.white,
     borderRadius: 16,
     marginBottom: 15,
   },

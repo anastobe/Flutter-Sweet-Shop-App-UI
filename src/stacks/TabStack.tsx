@@ -42,6 +42,7 @@ import MyAccountTransfer from '../screens/homeScreens/home/myAccountTransfer';
 import InternationalTransfer from '../screens/homeScreens/home/internationalTransfer';
 import BankTansfer from '../screens/homeScreens/home/bankTransfer';
 import Notification from '../screens/homeScreens/home/notification';
+import AddNewCurrencyAcount from '../screens/homeScreens/home/addNewCurrencyAcount';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -94,7 +95,11 @@ const HomeStack = () => {
           component={Notification}
           options={{ headerShown: false }}
         />
-
+                <Stack.Screen
+          name={HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT}
+          component={AddNewCurrencyAcount}
+          options={{ headerShown: false }}
+        />
 
       </Stack.Navigator>
     </>

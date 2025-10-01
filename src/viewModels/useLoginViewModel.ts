@@ -5,7 +5,7 @@ import { useLogin } from "../queries/auth.query";
 import { Alert } from "react-native";
 
 export const useLoginViewModel = (navigation: any) => {
-  const [email, setEmail] = useState("advisor");
+  const [email, setEmail] = useState("superadmin");
   const [password, setPassword] = useState("Uhf@1234");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
@@ -28,7 +28,7 @@ export const useLoginViewModel = (navigation: any) => {
   });
 
   const handleLogin = () => {
-    loginFunc({ username: email, password });
+    loginFunc({ username: email, password: password });
   };
 
   const handleBiometricAuth = () => {

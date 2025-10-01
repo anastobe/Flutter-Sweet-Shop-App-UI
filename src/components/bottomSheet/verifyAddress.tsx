@@ -5,6 +5,7 @@ import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../../styles'; // adjust
 import { Images } from '../../config';
 import CustomButton from '../customButton';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { ImageBackground } from 'react-native';
 
 const InfoRow = ({ icon, label, value }) => (
     <View style={styles.infoRow}>
@@ -17,11 +18,12 @@ const InfoRow = ({ icon, label, value }) => (
     </View>
 );
 
-const VerifyAddress = ({ style, onPress1 }: { style: any, onPress1: any }) => {
+const VerifyAddress = ({ style, onPress1, onPress2, backImg }: { style: any, onPress1: any,onPress2: any,backImg }) => {
 
     function renderCardDetails() {
         return (
             <View style={styles.summaryBox}>
+           
                 <InfoRow icon="card-outline" label="Address" value="Address" />
                 <InfoRow icon="person-outline" label="City" value="London" />
                 <InfoRow icon="home-outline" label="Postal Code" value="NW1 6XE" />
@@ -30,7 +32,7 @@ const VerifyAddress = ({ style, onPress1 }: { style: any, onPress1: any }) => {
         )
     }
 
-    function renderBottomStuffs(onPress1:any) {
+    function renderBottomStuffs(onPress1:any,onPress2: any) {
         return (
             <View>
                 <Text style={styles.subtitle1}>Is this your current address?</Text>
@@ -40,21 +42,29 @@ const VerifyAddress = ({ style, onPress1 }: { style: any, onPress1: any }) => {
                     title="Yes, Continue"
                     onPress={onPress1}
                 />
-                <Text style={styles.subtitle2}>No, Update Address</Text>
+                <CustomButton
+                    btnContSty={styles.forgetTxtDown}
+                    title="No, Update Address"
+                    onPress={onPress2}
+                />
             </View>
         )
     }
 
     return (
-        <View style={[styles.container, style]}>
+         <ImageBackground resizeMode="cover" source={backImg} style={style}>
+
+
+        {/* <View style={[styles.container, style]}> */}
             <View style={styles.stepGrey} />
             <ScrollView showsVerticalScrollIndicator={false} >
             <Text style={styles.title}>Verify Your Registered Address</Text>
             <Text style={styles.subtitle}>Your card is linked to the following address</Text>
             {renderCardDetails()}
-            {renderBottomStuffs(onPress1)}
+            {renderBottomStuffs(onPress1,onPress2)}
             </ScrollView>
-        </View>
+        {/* </View> */}
+        </ImageBackground>
     );
 };
 
@@ -66,18 +76,20 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     forgetTxt:
-        { marginTop: 20, marginBottom: 20 },
+        { marginTop: 20, marginBottom: 20, backgroundColor: THEME.primary },
+    forgetTxtDown:
+        { marginTop: 0, marginBottom: 20, backgroundColor: THEME.white },
     title: {
-        fontSize: FONT_SIZES.threetwo,
-        fontFamily: FONTFAMILY.Light,
-        color: THEME.primary,
+        fontSize: FONT_SIZES.twosix,
+        fontFamily: FONTFAMILY.SemiBold,
+        color: THEME.white,
         alignSelf: "center",
         marginTop: 10,
         textAlign: 'center'
     },
     subtitle: {
         color: THEME.white,
-        fontFamily: FONTFAMILY.Light,
+        fontFamily: FONTFAMILY.Regular,
         fontSize: FONT_SIZES.onesix,
         marginTop: 3,
         // borderBottomWidth: 0.5,
@@ -93,7 +105,6 @@ const styles = StyleSheet.create({
         color: THEME.white,
         fontFamily: FONTFAMILY.Light,
         fontSize: FONT_SIZES.onesix,
-        paddingTop: 10,
         textAlign: "center"
     },
 
@@ -110,7 +121,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: 'center',
-        marginBottom: 10,
+        // marginBottom: 10,
     },
     label: {
         fontFamily: FONTFAMILY.Light,
@@ -129,7 +140,7 @@ const styles = StyleSheet.create({
         color: THEME.primary,
     },
     summaryBox: {
-        backgroundColor: THEME.textPrimary,
+        // backgroundColor: THEME.textPrimary,
         borderRadius: 20,
         padding: 10,
         marginBottom: 10,

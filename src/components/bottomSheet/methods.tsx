@@ -5,14 +5,15 @@ import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles'; // adjust path as 
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Images } from '../../config';
 import CustomButton from '../customButton';
+import { ImageBackground } from 'react-native';
 
-const Methods = ({ style, onPress1,onPress2 ,onPress3 ,onPress4 }: { style: any, onPress1: any, onPress2: any, onPress3: any, onPress4: any }) => {
+const Methods = ({ style, onPress1,onPress2 ,onPress3 ,onPress4,backImg }: { style: any, onPress1: any, onPress2: any, onPress3: any, onPress4: any,backImg: any }) => {
 
     function Listitem(icon:any, title:any, subtitle:any,switchOnpress:any) {
         return (
         <View style={styles.containerAlert} >
             <View style={styles.ICONcONT} >
-                <Icon name={icon} size={20} color={THEME.primary} />
+                <Icon name={icon} size={20} color={THEME.textPrimary} />
             </View>
             <View style={{ flex: 1 }} >
                 <Text style={styles.titleAbove}>
@@ -23,16 +24,17 @@ const Methods = ({ style, onPress1,onPress2 ,onPress3 ,onPress4 }: { style: any,
                 </Text>
             </View>
             <View style={{ justifyContent: "center" }} >
-                <Text>Switch</Text>
+                <Text style={styles.titleAbove} >Switch</Text>
             </View>
         </View>
     )
 }
 
 return (
-    <View style={style}>
+ <ImageBackground resizeMode="cover" source={backImg} style={style}>
 
-        <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} />
+
+        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} /> */}
 
         <Text style={styles.title}>Payment Methods</Text>
         {Listitem('flash-outline', "ATM Withdrawals", "Control and monitor your cash withdrawals from ATMs",onPress1 )}
@@ -40,7 +42,7 @@ return (
         {Listitem('pin-outline', "Chip & PIN Transactions", "Manage in-person card usage with secure PIN entry",onPress3 )}
         {Listitem('card-outline', "Wallets", "Control usage of your card via Apple Pay, Google Pay, and others",onPress4 )}
 
-    </View>
+    </ImageBackground>
 );
 };
 
@@ -49,13 +51,13 @@ export default Methods;
 const styles = StyleSheet.create({
     title: {
         color: THEME.primary,
-        fontFamily: FONTFAMILY.Light,
-        fontSize: FONT_SIZES.threetwo,
+        fontFamily: FONTFAMILY.SemiBold,
+        fontSize: FONT_SIZES.twosix,
         textAlign: "center",
-        marginTop: 20,
+        marginTop: 25,
         paddingBottom: 15,
-        borderBottomWidth: 0.5,
-        borderColor: THEME.lightGrey,
+        // borderBottomWidth: 0.5,
+        // borderColor: THEME.lightGrey,
 
     },
     containerAlert: {
@@ -63,8 +65,8 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 10,
         paddingBottom: 15,
-        borderBottomWidth: 0.5,
-        borderColor: THEME.lightGrey,
+        // borderBottomWidth: 0.5,
+        // borderColor: THEME.lightGrey,
     },
     titleAbove: {
         fontFamily: FONTFAMILY.Medium,
@@ -78,16 +80,10 @@ const styles = StyleSheet.create({
         color: THEME.white,
         marginLeft: 8
     },
-    okButton: {
-        backgroundColor: '#e184ff',
-        borderRadius: 25,
-        width: '100%',
-        paddingVertical: 12,
-    },
     ICONcONT: {
         width: scale(36),
         height: scale(36),
-        backgroundColor: THEME.lightGrey,
+        backgroundColor: THEME.primary,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 12,

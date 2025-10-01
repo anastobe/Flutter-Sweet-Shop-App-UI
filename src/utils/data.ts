@@ -49,23 +49,19 @@ const Accounts = [
 
 const DATA = [
   {
-    title: 'May 21',
-    data: [
-      { id: '1', name: 'Bill Payment', amount: '£51.00' },
-    ],
+    id: '1', 
+    name: 'Bill Payment', 
+    amount: '£51.00' 
   },
   {
-    title: 'May 19',
-    data: [
-      { id: '2', name: 'Amazon Prime', amount: '£20.00' },
-      { id: '3', name: 'Netflix Subscription', amount: '£2.00' },
-    ],
+    id: '2', 
+    name: 'Bill Payment', 
+    amount: '£51.00' 
   },
   {
-    title: 'May 29',
-    data: [
-      { id: '1', name: 'Bill Payment', amount: '£51.00' },
-    ],
+    id: '3', 
+    name: 'Bill Payment', 
+    amount: '£51.00' 
   },
 ];
 
