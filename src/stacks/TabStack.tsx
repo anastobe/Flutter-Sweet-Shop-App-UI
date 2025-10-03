@@ -43,6 +43,7 @@ import InternationalTransfer from '../screens/homeScreens/home/internationalTran
 import BankTansfer from '../screens/homeScreens/home/bankTransfer';
 import Notification from '../screens/homeScreens/home/notification';
 import AddNewCurrencyAcount from '../screens/homeScreens/home/addNewCurrencyAcount';
+import AccountStatement from '../screens/homeScreens/account/accountStatement';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -65,7 +66,107 @@ const HomeStack = () => {
           component={HomeScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+              <Stack.Screen
+        name={HOME_ROUTES.BENEFICIARY_MANAGEMENT}
+        component={BeneficiariesManagement}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ADD_NEW_BENEFICIARY}
+        component={AddnewBeneficiary}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.CURRENCY_EXCHANGE}
+        component={CurrencyExchange}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.MAKE_PAYMENT}
+        component={MakePayment}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.MY_ACCOUNT_TRANSFER}
+        component={MyAccountTransfer}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.BANK_TRANSFER}
+        component={BankTansfer}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.INTERNATIONAL_TRANSFER}
+        component={InternationalTransfer}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ACCOUNT_DETAIL}
+        component={AccountDetail}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.NOTIFICATION}
+        component={Notification}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ACCOUNT_STATEMENT}
+        component={AccountStatement}
+        options={{ headerShown: false }}
+      />
+      
+              <Stack.Screen
+        name={HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT}
+        component={AddNewCurrencyAcount}
+        options={{ headerShown: false }}
+      />
+
+      </Stack.Navigator>
+    </>
+  );
+};
+
+const AccountStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name={HOME_ROUTES.ACCOUNT}
+        component={AccountScreen}
+        options={{ headerShown: false }}
+      />
+            <Stack.Screen
+        name={HOME_ROUTES.ACCOUNT_STATEMENT}
+        component={AccountStatement}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ACCOUNT_DETAIL}
+        component={AccountDetail}
+        options={{ headerShown: false }}
+      />
+              <Stack.Screen
+        name={HOME_ROUTES.BENEFICIARY_MANAGEMENT}
+        component={BeneficiariesManagement}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ADD_NEW_BENEFICIARY}
+        component={AddnewBeneficiary}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.CURRENCY_EXCHANGE}
+        component={CurrencyExchange}
+        options={{ headerShown: false }}
+      />
+            <Stack.Screen
+        name={HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE}
+        component={ConfirmCurrencyExchange}
+        options={{ headerShown: false }}
+      />
+    <Stack.Screen
           name={HOME_ROUTES.MAKE_PAYMENT}
           component={MakePayment}
           options={{ headerShown: false }}
@@ -85,42 +186,11 @@ const HomeStack = () => {
           component={InternationalTransfer}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name={HOME_ROUTES.ACCOUNT_DETAIL}
-          component={AccountDetail}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={HOME_ROUTES.NOTIFICATION}
-          component={Notification}
-          options={{ headerShown: false }}
-        />
-                <Stack.Screen
-          name={HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT}
-          component={AddNewCurrencyAcount}
-          options={{ headerShown: false }}
-        />
-
-      </Stack.Navigator>
-    </>
-  );
-};
-
-const AccountStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name={HOME_ROUTES.ACCOUNT}
-        component={AccountScreen}
+            <Stack.Screen
+        name={HOME_ROUTES.NOTIFICATION}
+        component={Notification}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
-        name={HOME_ROUTES.ACCOUNT_DETAIL}
-        component={AccountDetail}
-        options={{ headerShown: false }}
-      />
-
-
     </Stack.Navigator>
   );
 };
@@ -177,8 +247,16 @@ const CardStack = () => {
         component={AccountDetail}
         options={{ headerShown: false }}
       />
-
-
+            <Stack.Screen
+        name={HOME_ROUTES.NOTIFICATION}
+        component={Notification}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ADD_NEW_BENEFICIARY}
+        component={AddnewBeneficiary}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };

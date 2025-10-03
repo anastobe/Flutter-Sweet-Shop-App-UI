@@ -10,6 +10,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { MainContainer, Modal } from '../../components';
 import InputField from '../../components/textInput';
 import { scale } from 'react-native-size-matters';
+import { ImageBackground } from 'react-native';
 
 type ForgetPasswordProps = {};
 
@@ -23,7 +24,8 @@ export const ForgetPassword: React.FC<ForgetPasswordProps> = ({...props}) => {
     
   function renderPOPUP() {
     return(
-        <View style={styles.modal}>
+       <ImageBackground imageStyle={{   borderRadius: 16,}} source={Images.bottogSheetGradient} style={styles.modal}>
+
           <TouchableOpacity style={styles.closeBtn} onPress={()=>{ setOpen(false) }} >
             <Text style={styles.closeText}>×</Text>
           </TouchableOpacity>
@@ -56,7 +58,7 @@ export const ForgetPassword: React.FC<ForgetPasswordProps> = ({...props}) => {
             }}
           />
 
-        </View>
+        </ImageBackground>
    
     )
   }
@@ -171,7 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
    modal: {
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',

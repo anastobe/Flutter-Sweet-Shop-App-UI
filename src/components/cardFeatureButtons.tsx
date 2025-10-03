@@ -12,7 +12,7 @@ type CardFeatureButton = {
 };
 
 type Props = {
-  features: CardFeatureButton[];
+  features: any;
   buttonColor?: string;
   iconColor?: string;
   onPressbtn?: any
@@ -48,8 +48,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: 20,
     justifyContent: "space-evenly", 
+    alignItems: "center",
     marginVertical: 10,
-    marginTop:30
+    marginTop:20
   },
   featureItem: {
     alignItems: 'center',
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onetwo,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.primary,
+    textAlign: 'center',
     marginTop: 5,
   },
 });

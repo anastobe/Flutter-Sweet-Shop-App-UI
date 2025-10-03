@@ -89,6 +89,7 @@ const FreezeCardModal: React.FC<Props> = ({
 
             <CustomButton
         loading={false}
+        
          btnContSty={{backgroundColor: THEME.white, width: '100%'}}
          title={downConfirmText}
          onPress={onClose}

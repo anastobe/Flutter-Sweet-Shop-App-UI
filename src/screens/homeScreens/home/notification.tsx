@@ -103,17 +103,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 12,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: THEME.whitergba,
     borderRadius: 10,
   },
   message: {
     fontSize: 14,
-    color: "#333",
+    color: THEME.white,
     fontWeight: "500",
   },
   time: {
     fontSize: 12,
-    color: "#777",
+    color: THEME.white,
     marginTop: 4,
   },
   separator: {

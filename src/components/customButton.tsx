@@ -15,7 +15,7 @@ const CustomButton = ({
   tintColor
 }: {
   title: string;
-  onPress: () => void;
+  onPress: any;
   btnContSty?: StyleProp<ViewStyle>;
   txtColor?: StyleProp<ViewStyle>;
   image?: any;

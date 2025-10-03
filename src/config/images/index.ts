@@ -10,7 +10,9 @@ const Images = {
   cardTab: require("../../assets/images/cardTab.png"),  
   settingTab: require("../../assets/images/settingTab.png"),  
   cardGradient: require("../../assets/images/cardGradient.png"),  
-
+  calander: require("../../assets/images/calander.png"),  
+  
+  
   eyeClose: require("../../assets/images/eyeclose.png"),
   eyeOpen: require("../../assets/images/eyeopen.png"),
   mail: require("../../assets/images/mail.png"),

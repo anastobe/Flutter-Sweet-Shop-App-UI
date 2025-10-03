@@ -6,8 +6,9 @@ import { Images } from '../../config';
 import CustomButton from '../customButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import InputField from '../textInput';
+import { ImageBackground } from 'react-native';
 
-const TransactionFilter = ({ style, onPress }: { style: any, onPress: any }) => {
+const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }) => {
 
     const [from, setfrom] = useState('');
     const [to, setto] = useState('');
@@ -45,56 +46,51 @@ const TransactionFilter = ({ style, onPress }: { style: any, onPress: any }) => 
     };
 
 
-    const handlePressStatus = (key: any) => {
-        if (key === 'all') {
-            const newValue = !checkedStatus.all;
-            setCheckedStatus({
-                all: newValue,
-                completed: newValue,
-                pending: newValue,
-                failed: newValue
-            });
-        } else {
-            setCheckedStatus((prev: any) => ({
-                ...prev,
-                [key]: !prev[key],
-                all: false,
-            }));
-        }
-    };
 
     function renderFilterRange() {
         return (
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }} >
+            <View>
                 <InputField
-                    customInpStyle={{ width: METRICS.width / 2 - 25 }}
+                    customInpStyle={{ width: METRICS.width - 40 }}
                     marginTp={20}
                     autoCapital={'none'}
                     blurOnSubmit={false}
                     placeholder="From"
                     value={from}
                     onChangeText={setfrom}
+                    image={"calendar-outline"}
+                    imagetintColor={THEME.white}
                 />
                 <InputField
-                    customInpStyle={{ width: METRICS.width / 2 - 25 }}
-                    marginTp={20}
+                    customInpStyle={{ width: METRICS.width - 40 }}
+                    margTp={20}
                     autoCapital={'none'}
                     blurOnSubmit={false}
                     placeholder="To"
                     value={to}
                     onChangeText={setto}
+                    image={"calendar-outline"}
+                    imagetintColor={THEME.white}
                 />
             </View>
         )
     }
 
-    function renderButton(onPress: any) {
+    function renderButton(onPress: any,onPress2: any) {
         return (
+            <View>
                 <CustomButton
-                    btnContSty={styles.forgetTxt}
+                    btnContSty={styles.forgetTxt1}
                     title="Apply"
                     onPress={onPress}
-                />
+                    />
+
+                <CustomButton
+                    btnContSty={styles.forgetTxt2}
+                    title="Reset"
+                    onPress={onPress2}
+                    />
+            </View>
         )
     }
 
@@ -112,44 +108,9 @@ const TransactionFilter = ({ style, onPress }: { style: any, onPress: any }) => 
                     let checkedValue = checked[item.key]
                     return (
                         <View key={item.key} style={styles.row}>
-                            <TouchableOpacity style={[styles.boxShape, { borderColor: checkedValue ? THEME.prinkishBlue : THEME.gray }]} onPress={() => handlePress(item.key)} >{
+                            <TouchableOpacity style={[styles.boxShape ]} onPress={() => handlePress(item.key)} >{
                                 checkedValue ?
-                                    <Icon name="checkmark" size={17} color="#cc66ff" />
-                                    : null
-                            }
-                            </TouchableOpacity>
-                            <Text style={styles.label}>{item.label}</Text>
-                        </View>
-                    )
-                })}
-            </View>
-        )
-    }
-
-    function renderSeekbar() {
-        return (
-            <View>
-                <Text style={styles.checkmarkTitle} >Amount Range</Text>
-            </View>
-        )
-    }
-
-    function transactionStatusSelection() {
-        return (
-            <View>
-                <Text style={styles.checkmarkTitle} >Status</Text>
-                {[
-                    { key: 'all', label: 'All' },
-                    { key: 'completed', label: 'Completed' },
-                    { key: 'pending', label: 'Pending' },
-                    { key: 'failed', label: 'Failed' }
-                ].map((item) => {
-                    let checkedValue = checkedStatus[item.key]
-                    return (
-                        <View key={item.key} style={styles.row}>
-                            <TouchableOpacity style={[styles.boxShape, { borderColor: checkedValue ? THEME.prinkishBlue : THEME.gray }]} onPress={() => handlePressStatus(item.key)} >{
-                                checkedValue ?
-                                    <Icon name="checkmark" size={17} color="#cc66ff" />
+                                    <Icon name="checkmark" size={17} color={THEME.white} />
                                     : null
                             }
                             </TouchableOpacity>
@@ -162,18 +123,16 @@ const TransactionFilter = ({ style, onPress }: { style: any, onPress: any }) => 
     }
 
     return (
-        <View style={[styles.container, style]}>
-            <View style={styles.nodge} />
-
+  <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} style={styles.container}>
+ 
             <Text style={styles.title}>Filter Transactions</Text>
             <ScrollView showsVerticalScrollIndicator={false} >
                 {renderFilterRange()}
                 {transactionTypeSelection()}
-                {renderSeekbar()}
-                {transactionStatusSelection()}
-                {renderButton(onPress)}
+              
+                {renderButton(onPress,onPress2)}
             </ScrollView>
-        </View>
+        </ImageBackground>
     );
 };
 
@@ -181,22 +140,25 @@ export default TransactionFilter;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#fff',
         flex: 1,
+        paddingHorizontal: 20
     },
     nodge:
     { width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 },
     title: {
-        fontSize: FONT_SIZES.threetwo,
-        fontFamily: FONTFAMILY.Light,
-        color: THEME.primary,
+        fontSize: FONT_SIZES.twosix,
+        fontFamily: FONTFAMILY.SemiBold,
+        color: THEME.white,
         alignSelf: "center",
         paddingBottom: 20,
         marginTop: 10
     },
 
-    forgetTxt:
-        { marginTop: 20, marginBottom: 20 },
+    forgetTxt1:
+        { marginTop: 20, marginBottom: 0, backgroundColor: THEME.primary },
+        
+    forgetTxt2:
+        { marginTop: 20, marginBottom: 20,backgroundColor: THEME.white },
     checkmarkTitle: {
         fontSize: FONT_SIZES.onesix,
         fontFamily: FONTFAMILY.Medium,
@@ -205,7 +167,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     boxShape:
-        { width: 20, height: 20, borderWidth: 1.5, borderRadius: 3 },
+        { width: 20, height: 20, borderWidth: 1.5, borderColor: THEME.white, borderRadius: 3 },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -215,7 +177,7 @@ const styles = StyleSheet.create({
         marginLeft: 8,
         fontSize: FONT_SIZES.onefour,
         fontFamily: FONTFAMILY.Light,
-        color: THEME.primary,
+        color: THEME.white,
     },
 
 });

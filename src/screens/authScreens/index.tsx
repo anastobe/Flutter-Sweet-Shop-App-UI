@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, Text, TouchableOpacity, Pressable, Alert } fro
 import CustomButton from '../../components/customButton';
 import CustomTextField from '../../components/customTextField';
 import Images from '../../config/images';
-import { Auth_ROUTES } from '../../constants';
+import { Auth_ROUTES, HOME_ROUTES } from '../../constants';
 import { useNavigation } from '@react-navigation/native';
 import { FONTFAMILY, FONT_SIZES, METRICS, THEME } from '../../styles'; // Assuming you have this structure
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -145,7 +145,9 @@ Please login and set your Touch ID from Profile.
              onPress={()=>{ vm.setSecure(!vm.secure) }}
              onChangeText={vm.setPassword}
            />
+           <TouchableOpacity onPress={()=>{ navigation.navigate(Auth_ROUTES.FORGETPASSWORD) }} >
              <Text style={styles.forgetTxtAbove}>Forgot Password</Text>
+           </TouchableOpacity>
 
 
        <CustomButton

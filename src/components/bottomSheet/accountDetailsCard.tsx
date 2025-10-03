@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONTFAMILY, FONT_SIZES, THEME } from '../../styles';
 
-const AccountDetailsCard = ({ details, onPressShare, onPressCopy  }) => {
+const AccountDetailsCard = ({ details, onPressShare, onPressCopy,onPressEdit  }) => {
 
     function renderOptons(icon: any, tintColor: any, background: any, press: any) {
         return(
@@ -37,6 +37,7 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy  }) => {
             <View style={{ flexDirection: 'row', justifyContent: "center", marginTop: 20 }} >
               {renderOptons("arrow-redo-outline",THEME.textPrimary,THEME.primary,onPressShare)}
               {renderOptons("copy-outline",THEME.textPrimary,THEME.primary,onPressCopy)}
+              {renderOptons("create-outline",THEME.textPrimary,THEME.primary,onPressEdit)}
             </View>
         <View>
 

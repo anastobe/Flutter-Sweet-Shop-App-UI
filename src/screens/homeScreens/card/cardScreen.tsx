@@ -206,8 +206,8 @@ const TransactionList = () => {
   function Options() {
    return(
     <OptionsHeader
-      onPressNotification={() => console.log("Notification Pressed")}
-      onPressAdd={() => console.log("Add Pressed")}
+      onPressNotification={() => navigation.navigate(HOME_ROUTES.NOTIFICATION) }
+      onPressAdd={() => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY)}
     />
    ) 
   }
@@ -275,6 +275,7 @@ const TransactionList = () => {
           body="Your card is currently frozen for security reasons. Tap below to unfreeze it instantly and resume spending."
           showSubBody={false}
           confirmText="Unfreeze Card"
+          downConfirmText={"Cancel"}
         />
     )
   }

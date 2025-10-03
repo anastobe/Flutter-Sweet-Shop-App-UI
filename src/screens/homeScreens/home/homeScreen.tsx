@@ -18,6 +18,7 @@ import CardFeatureButtons from '../../../components/cardFeatureButtons';
 import { SectionList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
+import LineGraph from '../../../components/lineGraph';
 
 const HomeScreen = () => {
 
@@ -43,8 +44,8 @@ const HomeScreen = () => {
         </View>
 
         <View style={{ flexDirection: "row", alignItems: "center" }} >
-             <TouchableOpacity onPress={Logout} style={{ marginRight: 15 }} >
-               <Icon name={"notifications-outline"} size={25} color={THEME.green} />
+             <TouchableOpacity onPress={()=>{ navigation.navigate(HOME_ROUTES.NOTIFICATION) }} style={{ marginRight: 15 }} >
+               <Icon name={"notifications-outline"} size={25} color={THEME.white} />
              </TouchableOpacity>
              <Image source={{ uri: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTiahjx-m6ySbhuyQ7wbTQupWSjr0KW5DY38Cge23U_7bdxC8UC_gO9pWvIUHkZpQVNx2H-Q2fa4A1JVzJiLAGbQpdbNZ_Cf9sdMjhrRdZJOg" }} style={styles.avatar} />
         </View>
@@ -101,6 +102,19 @@ const SlidingCards = () => {
   );
 };
 
+function renderGrap() {
+  
+  return(
+     <LineGraph
+        labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
+        data={[10, 40, 20, 90, 75, 60, 100]}
+        lineColor={THEME.white}
+        bgColor={THEME.secondary}
+      />
+        )
+}
+
+
 function renderCardFeature() {
   
   return(
@@ -147,7 +161,8 @@ const TransactionList = () => {
        <Image source={Images.logo} style={styles.logo} />
        {renderHeader()}
        {avalableBalance()}
-       {SlidingCards()}
+       {/* {SlidingCards()} */}
+       {renderGrap()}
        {renderCardFeature()}
        {TransactionList()}
 

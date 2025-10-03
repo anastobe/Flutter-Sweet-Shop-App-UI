@@ -37,7 +37,7 @@ export const SetPassword: React.FC<SetPasswordProps> = ({...props}) => {
         return(
           <View style={{ flexDirection: "row", paddingVertical: 5 }} >
             <Icon name={iconCondition ?  "checkmark-circle-outline" : "close-circle-outline"} size={25} color={iconCondition ? THEME.lightred :  THEME.green  } />
-            <Text style={{ marginLeft: 5 }}>{txt}</Text>
+            <Text style={{ marginLeft: 5, color: THEME.white }}>{txt}</Text>
           </View>
         )
     }
@@ -61,7 +61,7 @@ export const SetPassword: React.FC<SetPasswordProps> = ({...props}) => {
             onPress={()=>{ setSecure(!secure) }}
             onChangeText={setpassword}
             margBtm={20}
-            imagetintColor={THEME.gray}
+            imagetintColor={THEME.white}
           />
 
             {renderRule(rules.minLength(password), 'Minimum 8 characters')}
@@ -81,7 +81,7 @@ export const SetPassword: React.FC<SetPasswordProps> = ({...props}) => {
             value={newpassword}
             onPress={()=>{ setSecure2(!secure2) }}
             onChangeText={setnewpassword}
-            imagetintColor={THEME.gray}
+            imagetintColor={THEME.white}
           />
 
       <CustomButton
