@@ -27,6 +27,7 @@ import { ActivityIndicator } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import OptionsHeader from '../../../components/topHeader';
+import { StatusBar } from 'react-native';
 
 const CardScreen = () => {
 
@@ -335,76 +336,78 @@ const TransactionList = () => {
       }, 1000);
     }
 
-
+    
   return(
     <LinearGradient
         colors={['#713d9f', '#2A1E60', '#0C1445']}
         locations={[0.1, 0.3, 1]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={StyleSheet.absoluteFillObject} // 👈 poori screen cover karega
+        style={styles.container} // 👈 poori screen cover karega
       >
-        
-       <Image
-        source={Images.cardGradient}
-        style={{ height: Metrics.halfScreen + 50, width: METRICS.width, position: "absolute" }}
-       />
-        <SafeAreaView>
-        <ScrollView>
-            
+        <SafeAreaView     style={styles.container}>
+        <LinearGradient
+          colors={['#6B3FA0', '#3A2670', '#0C1445']}  // 👈 upar ka color dark kar diya
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 1 }}
+          style={{height: 320, borderBottomLeftRadius: 30, borderBottomRightRadius: 30}} // 👈 poori screen cover karega
+        >
         {Options()}
         {SlidingCards()}     
-        { currentItem?.is_enable ? renderCardFeature() : null}
-        {TransactionList()}
-        {renderModal()}
-        {renderModalUnFreez()}
-          
-        </ScrollView>
-        
-        <BottomSheet
-         height={METRICS.halfScreen - 30}
-         draggable={false}
-         openTime={500}
-         closeDuration={500}
-         bottomSheetRef={AddCardRef}
-         children={<AddCardPopup backImg={Images.addCardGradient} onPress1={()=>HandleOnPress('1')} onPress2={()=>HandleOnPress('2')}  style={{ flex: 1, paddingHorizontal: 20 }} />}
-        />
+       
+        </LinearGradient>     
+          <ScrollView>
+            { currentItem?.is_enable ? renderCardFeature() : null}
+            {TransactionList()}
+            {renderModal()}
+            {renderModalUnFreez()}
+          </ScrollView>
 
-        <BottomSheet
-         height={METRICS.halfScreen}
-         draggable={false}
-         openTime={500}
-         closeDuration={500}
-         bottomSheetRef={cardDetailRef}
-         children={<CardDetail 
-          onPress1={()=>HandleOnPress('1')} 
-          onPress2={()=>HandleOnPress('2')} 
-          style={{ paddingHorizontal: 20 }}  
-          iconColor={THEME.white}
-          />}
-        />
+     <BottomSheet
+      height={METRICS.halfScreen - 30}
+      draggable={false}
+      openTime={500}
+      closeDuration={500}
+      bottomSheetRef={AddCardRef}
+      children={<AddCardPopup backImg={Images.addCardGradient} onPress1={()=>HandleOnPress('1')} onPress2={()=>HandleOnPress('2')}  style={{ flex: 1, paddingHorizontal: 20 }} />}
+     />
 
-        <BottomSheet
-         height={METRICS.height / 1.2}
-         draggable={false}
-         openTime={500}
-         closeDuration={500}
-         bottomSheetRef={methodsRef}
-         children={<Methods  backImg={Images.addCardGradient}  onPress1={()=>{switchOption('1')}} onPress2={()=>{switchOption('2')}} onPress3={()=>{switchOption('3')}} onPress4={()=>{switchOption('4')}} style={{ flex: 1, paddingHorizontal: 20 }}  />}
-        />
+     <BottomSheet
+      height={METRICS.halfScreen}
+      draggable={false}
+      openTime={500}
+      closeDuration={500}
+      bottomSheetRef={cardDetailRef}
+      children={<CardDetail 
+       onPress1={()=>HandleOnPress('1')} 
+       onPress2={()=>HandleOnPress('2')} 
+       style={{ paddingHorizontal: 20 }}  
+       iconColor={THEME.white}
+       />}
+     />
 
-        <BottomSheet
-         height={METRICS.halfScreen}
-         draggable={false}
-         openTime={500}
-         closeDuration={500}
-         bottomSheetRef={manageRef}
-         children={<ManageOption style={{ flex: 1, paddingHorizontal: 20 }} backImg={Images.addCardGradient}  onPress1={()=>{onPressOption('1')}} onPress2={()=>{onPressOption('2')}}  />}
-        />
+     <BottomSheet
+      height={METRICS.height / 1.2}
+      draggable={false}
+      openTime={500}
+      closeDuration={500}
+      bottomSheetRef={methodsRef}
+      children={<Methods  backImg={Images.addCardGradient}  onPress1={()=>{switchOption('1')}} onPress2={()=>{switchOption('2')}} onPress3={()=>{switchOption('3')}} onPress4={()=>{switchOption('4')}} style={{ flex: 1, paddingHorizontal: 20 }}  />}
+     />
 
-        </SafeAreaView>
-    </LinearGradient>
+     <BottomSheet
+      height={METRICS.halfScreen}
+      draggable={false}
+      openTime={500}
+      closeDuration={500}
+      bottomSheetRef={manageRef}
+      children={<ManageOption style={{ flex: 1, paddingHorizontal: 20 }} backImg={Images.addCardGradient}  onPress1={()=>{onPressOption('1')}} onPress2={()=>{onPressOption('2')}}  />}
+     />
+
+       </SafeAreaView>
+      </LinearGradient>
     )
+
 }
 
 export default CardScreen;
@@ -527,3 +530,76 @@ const styles = StyleSheet.create({
 
 
 });
+
+
+
+
+  // return(
+  //   <LinearGradient
+  //       colors={['#713d9f', '#2A1E60', '#0C1445']}
+  //       locations={[0.1, 0.3, 1]}
+  //       start={{ x: 0, y: 0 }}
+  //       end={{ x: 1, y: 1 }}
+  //       style={StyleSheet.absoluteFillObject} // 👈 poori screen cover karega
+  //     >
+        
+  //      <Image
+  //       source={Images.cardGradient}
+  //       style={{ height: Metrics.halfScreen + 50, width: METRICS.width, position: "absolute" }}
+  //      />
+  //       <SafeAreaView>
+  //       <ScrollView>
+            
+  //       {Options()}
+  //       {SlidingCards()}     
+  //       { currentItem?.is_enable ? renderCardFeature() : null}
+  //       {TransactionList()}
+  //       {renderModal()}
+  //       {renderModalUnFreez()}
+          
+  //       </ScrollView>
+        
+  //       <BottomSheet
+  //        height={METRICS.halfScreen - 30}
+  //        draggable={false}
+  //        openTime={500}
+  //        closeDuration={500}
+  //        bottomSheetRef={AddCardRef}
+  //        children={<AddCardPopup backImg={Images.addCardGradient} onPress1={()=>HandleOnPress('1')} onPress2={()=>HandleOnPress('2')}  style={{ flex: 1, paddingHorizontal: 20 }} />}
+  //       />
+
+  //       <BottomSheet
+  //        height={METRICS.halfScreen}
+  //        draggable={false}
+  //        openTime={500}
+  //        closeDuration={500}
+  //        bottomSheetRef={cardDetailRef}
+  //        children={<CardDetail 
+  //         onPress1={()=>HandleOnPress('1')} 
+  //         onPress2={()=>HandleOnPress('2')} 
+  //         style={{ paddingHorizontal: 20 }}  
+  //         iconColor={THEME.white}
+  //         />}
+  //       />
+
+  //       <BottomSheet
+  //        height={METRICS.height / 1.2}
+  //        draggable={false}
+  //        openTime={500}
+  //        closeDuration={500}
+  //        bottomSheetRef={methodsRef}
+  //        children={<Methods  backImg={Images.addCardGradient}  onPress1={()=>{switchOption('1')}} onPress2={()=>{switchOption('2')}} onPress3={()=>{switchOption('3')}} onPress4={()=>{switchOption('4')}} style={{ flex: 1, paddingHorizontal: 20 }}  />}
+  //       />
+
+  //       <BottomSheet
+  //        height={METRICS.halfScreen}
+  //        draggable={false}
+  //        openTime={500}
+  //        closeDuration={500}
+  //        bottomSheetRef={manageRef}
+  //        children={<ManageOption style={{ flex: 1, paddingHorizontal: 20 }} backImg={Images.addCardGradient}  onPress1={()=>{onPressOption('1')}} onPress2={()=>{onPressOption('2')}}  />}
+  //       />
+
+  //       </SafeAreaView>
+  //   </LinearGradient>
+  //   )

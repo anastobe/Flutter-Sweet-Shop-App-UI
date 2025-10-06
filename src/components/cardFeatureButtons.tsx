@@ -4,7 +4,7 @@ import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
 
-const BUTTON_SIZE = 56;
+const BUTTON_SIZE = 54;
 
 type CardFeatureButton = {
   icon: string;
@@ -26,7 +26,7 @@ const CardFeatureButtons: React.FC<Props> = ({
 }) => {
   return (
 <View style={styles.container}>
-      {features.map((feature, index) => (
+      {features.map((feature: any, index: any) => (
         <View key={index} style={styles.featureItem}>
           <TouchableOpacity
             onPress={()=>onPressbtn(feature)}
@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     justifyContent: "space-evenly", 
     alignItems: "center",
-    marginVertical: 10,
-    marginTop:20
+    marginTop:10
   },
   featureItem: {
     alignItems: 'center',
+    height: BUTTON_SIZE+ 40,
   },
   button: {
     width: BUTTON_SIZE,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: FONT_SIZES.oneone,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.primary,
     textAlign: 'center',

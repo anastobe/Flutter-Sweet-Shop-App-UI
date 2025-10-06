@@ -27,6 +27,7 @@ import { Alert } from 'react-native';
 import CustomButton from '../../../components/customButton';
 import EditAccountPreferences from '../../../components/editAccountPreferences';
 import EditAccountDetail from '../../../components/editAccountDetail';
+import { StatusBar } from 'react-native';
 
 const AccountScreen = () => {
 
@@ -212,30 +213,38 @@ function renderSpending() {
  editref?.current?.open()
   }
 
-
-  return(
+    return(
     <LinearGradient
         colors={['#713d9f', '#2A1E60', '#0C1445']}
         locations={[0.1, 0.3, 1]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
-        style={StyleSheet.absoluteFillObject} // 👈 poori screen cover karega
+        style={styles.container} // 👈 poori screen cover karega
       >
-        
-       <ImageBackground
-        source={Images.cardGradient}
-        style={{ height: Metrics.halfScreen + 50, width: METRICS.width, position: "absolute" }}
-       >
+        <StatusBar
+          translucent={true}
+          backgroundColor={THEME.secondary}
+        />
 
-
-        {/* <ScrollView> */}
-        <SafeAreaView>
-
+        <SafeAreaView     style={styles.container}>
+        <LinearGradient
+          colors={['#6B3FA0', '#3A2670', '#0C1445']}  // 👈 upar ka color dark kar diya
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 1 }}
+          style={{height: 300, borderBottomLeftRadius: 30, borderBottomRightRadius: 30}} // 👈 poori screen cover karega
+        >
           {Options()}
-          {renderAccountCardBox()}
-          {renderCardFeature()}
-          {renderGrap()}
-          {renderSpending()}
+          {renderAccountCardBox()} 
+       
+        </LinearGradient>     
+        <ScrollView contentContainerStyle={{ paddingBottom: 100 }} >
+         {renderCardFeature()}
+         {renderGrap()}
+         {renderSpending()}
+
+         
+        </ScrollView>
+
 
       <BottomSheet
         height={METRICS.height / 1.3}
@@ -296,12 +305,12 @@ function renderSpending() {
         />
         }
       />
-
-    </SafeAreaView>
-    {/* </ScrollView> */}
-    </ImageBackground>
-    </LinearGradient>
+  
+       </SafeAreaView>
+      </LinearGradient>
     )
+
+
   }
 
 export default AccountScreen;
@@ -309,7 +318,7 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: THEME.white
+    // backgroundColor: THEME.white
   },
   forgetTxt1:
    { marginTop: 0, marginBottom: 20, backgroundColor: THEME.primary },

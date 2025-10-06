@@ -3,6 +3,7 @@ import { scale, moderateScale } from 'react-native-size-matters';
 const FONT_SIZES = Object.freeze({
   nine: moderateScale(9),
   oneZero: moderateScale(10),
+  oneone: moderateScale(11),
   onetwo: moderateScale(12),
   onefour: moderateScale(14),
   onesix: moderateScale(16),
