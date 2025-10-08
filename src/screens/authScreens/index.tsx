@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import FingerPrintContent from '../../components/bottomSheet/fingerPrintContent';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import { useLogin } from '../../queries/auth.query';
-import { useLoginViewModel } from '../../viewModels/useLoginViewModel';
+import { useLoginViewModel } from '../../viewModels/authViewModel/useLoginViewModel';
 import {authorize} from 'react-native-app-auth';
 import LinearGradient from 'react-native-linear-gradient';
 import { ImageBackground } from 'react-native';

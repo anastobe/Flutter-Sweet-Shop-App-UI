@@ -1,0 +1,41 @@
+// src/viewModels/homeViewModel/useHomeViewModel.ts
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { HOME_ROUTES } from '../../../constants';
+import { CURRENT_ACCOUNT, DATA } from '../../../utils/data';
+
+export const useHomeViewModel = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const Sendoption = [
+    { icon: 'add-outline', onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: 'New Account' },
+    { icon: 'wallet-outline', onPress: HOME_ROUTES.MAKE_PAYMENT, text: 'Send Money' },
+  ];
+
+  const handleLogout = () => {
+    navigation.navigate(HOME_ROUTES.NOTIFICATION);
+  };
+
+  const handlePressCard = (item: any) => {
+    navigation.navigate(item.onPress)
+  };
+
+  const handleNavigateNotification = () => {
+    navigation.navigate(HOME_ROUTES.NOTIFICATION);
+  };
+
+  const handleNavigateTransactionHistory = () => {
+    navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY);
+  };
+
+  return {
+    Sendoption,
+    DATA,
+    CURRENT_ACCOUNT,
+    handleLogout,
+    handlePressCard,
+    handleNavigateNotification,
+    handleNavigateTransactionHistory,
+  };
+};

@@ -208,7 +208,7 @@ const TransactionList = () => {
    return(
     <OptionsHeader
       onPressNotification={() => navigation.navigate(HOME_ROUTES.NOTIFICATION) }
-      onPressAdd={() => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY)}
+      onPressAdd={() => AddCardRef?.current?.open() }
     />
    ) 
   }

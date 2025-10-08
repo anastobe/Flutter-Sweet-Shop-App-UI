@@ -1,169 +1,156 @@
-import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
-import { BottomSheet, MainContainer, Modal } from '../../../components';
-import { Images } from '../../../config';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { MainContainer, BottomSheet } from '../../../components';
+import { THEME, FONT_SIZES, FONTFAMILY } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
-import { useNavigation } from '@react-navigation/native';
 import InputField from '../../../components/textInput';
-import CustomButton from '../../../components/customButton';
-import { scale } from 'react-native-size-matters';
-import { Picker } from '@react-native-picker/picker';
-import { Auth_ROUTES } from '../../../constants';
-import { SectionList } from 'react-native';
-import { DATA } from '../../../utils/data';
-import CardDetail from '../../../components/bottomSheet/cardDetail';
 import TransactionFilter from '../../../components/bottomSheet/transactionFilter';
-import Metrics from '../../../styles/metrics';
+import { scale } from 'react-native-size-matters';
+import { useAccountStatementViewModel } from '../../../viewModels/homeViewModel/account/useAccountStatementViewModel';
 
+const AccountStatementView = () => {
+  const {
+    cardDetailRef,
+    cardName,
+    setCardName,
+    pressBackArrow,
+    openFilterSheet,
+    closeFilterSheet,
+    DATA,
+    Metrics,
+  } = useAccountStatementViewModel();
 
-const AccountStatement = () => {
+  const renderFilter = () => (
+    <View style={styles.filtersearchContainer}>
+      <InputField
+        imageLeft={'search-outline'}
+        autoCapital={'none'}
+        blurOnSubmit={false}
+        placeholder="Search"
+        value={cardName}
+        onChangeText={setCardName}
+        keyboardType={'default'}
+        imagetintColorLeft={THEME.white}
+        customInpStyle={styles.innerinput}
+      />
+      <TouchableOpacity onPress={openFilterSheet} style={styles.rightIconCont}>
+        <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.rightIconCont}>
+        <Icon name="download-outline" size={22} color={THEME.textPrimary} />
+      </TouchableOpacity>
+    </View>
+  );
 
-    const navigation = useNavigation();
-    const cardDetailRef = useRef(null)
-    const [cardName, setcardName] = useState('');
-
-    function pressBackArrow() {
-        navigation.goBack()
-    }
-
-    function renderFilter() {
-        return(
-            <View style={styles.filtersearchContainer} >
-                <InputField
-                    imageLeft={'search-outline'}
-                    autoCapital={'none'}
-                    blurOnSubmit={false} 
-                    placeholder="Search"
-                    value={cardName}
-                    onChangeText={setcardName}
-                    keyboardType={'default'}
-                    imagetintColorLeft={THEME.white}
-                    customInpStyle={styles.innerinput}
-                />
-                <TouchableOpacity onPress={()=>{ cardDetailRef?.current?.open() }} style={{ width: 40, height: 45, backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
-                  <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
-                </TouchableOpacity>
-                <TouchableOpacity style={{ width: 40, height: 45, backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
-                  <Icon name="download-outline" size={22} color={THEME.textPrimary} />
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
-    function renderTransactions() {
-        return(
+  const renderTransactions = () => (
     <FlatList
       data={DATA}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <View style={styles.item}>
-          <View style={styles.sectionLeft} >            
-            <View style={styles.iconCONT} >
-               <Icon name={"arrow-forward-outline"} size={16} color={THEME.textPrimary} />
+          <View style={styles.sectionLeft}>
+            <View style={styles.iconCONT}>
+              <Icon name={'arrow-forward-outline'} size={16} color={THEME.textPrimary} />
             </View>
             <View>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.subname}>19 july</Text>
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.subname}>19 July</Text>
+            </View>
           </View>
-          </View>
-          <View>
-            <Text style={styles.amount}>{item.amount}</Text>
-          </View>
+          <Text style={styles.amount}>{item.amount}</Text>
         </View>
       )}
-      contentContainerStyle={{  paddingBottom: 100 }}
+      contentContainerStyle={{ paddingBottom: 100 }}
     />
-        )
-    }
+  );
 
-    return (
-        <MainContainer refreshingeffect={false} showBackArrow={true} pressBackArrow={pressBackArrow} isFlatList={true} barStyle="dark-content" mainContainerStyle={styles.container}>
-            <View style={{ marginHorizontal: 20 }} >
+  return (
+    <MainContainer
+      refreshingeffect={false}
+      showBackArrow={true}
+      pressBackArrow={pressBackArrow}
+      isFlatList={true}
+      barStyle="dark-content"
+      mainContainerStyle={styles.container}>
+      <View style={{ marginHorizontal: 20 }}>
+        <Text style={styles.title}>Account Statement</Text>
+        {renderFilter()}
+        {renderTransactions()}
 
-                <Text style={styles.title}>Account Statement</Text>
-                {renderFilter()}
-                {renderTransactions()}
+        <BottomSheet
+          height={Metrics.height - 100}
+          draggable={false}
+          openTime={500}
+          closeDuration={500}
+          bottomSheetRef={cardDetailRef}
+          children={<TransactionFilter onPress={closeFilterSheet} onPress2={closeFilterSheet} />}
+        />
+      </View>
+    </MainContainer>
+  );
+};
 
-
-                <BottomSheet
-                    height={METRICS.height - 100}
-                    draggable={false}
-                    openTime={500}
-                    closeDuration={500}
-                    bottomSheetRef={cardDetailRef}
-                    children={<TransactionFilter  onPress={()=>{ cardDetailRef?.current?.close() }} onPress2={()=>{ cardDetailRef?.current?.close() }} />}
-                />
-            </View>
-        </MainContainer>
-    )
-}
-
-export default AccountStatement;
+export default AccountStatementView;
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: THEME.white },
-    title:
-    {
-        fontSize: FONT_SIZES.onesix,
-        fontFamily: FONTFAMILY.SemiBold,
-        color: THEME.white,
-        marginBottom: 10,
-        marginTop: 10
-    },
-    filtersearchContainer:
-    { flexDirection: "row", justifyContent: 'space-between', alignItems: "center", marginVertical: 10, },
-    subtitle:
-    {
-        fontSize: FONT_SIZES.onesix,
-        fontFamily: FONTFAMILY.Light,
-        color: THEME.white,
-        marginBottom: 20,
-    },
-      forgetTxt:
-  { marginTop: 20, marginBottom: 20 },
-  rightIconCont:
-  {  backgroundColor: THEME.primary, width: 50, height: 45, alignItems: "center", justifyContent: 'center', marginLeft: 10, borderRadius: 20},
-
-    header: {
+  container: { flex: 1, backgroundColor: THEME.white },
+  title: {
     fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
-    marginVertical: 5
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+    marginBottom: 10,
+    marginTop: 10,
   },
-  innerinput:
-  { paddingLeft: 50, height: 45, width: Metrics.width-130 },
+  filtersearchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  rightIconCont: {
+    backgroundColor: THEME.primary,
+    width: 40,
+    height: 45,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 10,
+    borderRadius: 10,
+  },
+  innerinput: { paddingLeft: 50, height: 45, width: scale(250) },
   item: {
-    // borderWidth: 1,
     backgroundColor: THEME.SlateBlue,
     borderRadius: 10,
     height: 68,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: "center",
+    alignItems: 'center',
     paddingHorizontal: 10,
-    marginTop: 10
+    marginTop: 10,
   },
-  sectionLeft:
-  { flexDirection: "row", alignItems: "center" },
-  iconCONT:
-  { width: 36, height: 36, backgroundColor: THEME.darkOffWhite, borderRadius: 10, justifyContent: "center", alignItems: "center" },
+  sectionLeft: { flexDirection: 'row', alignItems: 'center' },
+  iconCONT: {
+    width: 36,
+    height: 36,
+    backgroundColor: THEME.darkOffWhite,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   name: {
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Light,
     color: THEME.primary,
-    marginLeft: 10
+    marginLeft: 10,
   },
-    subname: {
+  subname: {
     fontSize: FONT_SIZES.oneZero,
     fontFamily: FONTFAMILY.Light,
     color: THEME.primary,
-    marginLeft: 10
+    marginLeft: 10,
   },
   amount: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary
+    color: THEME.primary,
   },
-
 });

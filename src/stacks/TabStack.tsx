@@ -15,11 +15,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Auth_ROUTES, HOME_ROUTES } from '../constants';
 import HomeScreen from '../screens/homeScreens/home/homeScreen';
 import AccountScreen from '../screens/homeScreens/account/accountScreen';
-import PaymenSScreen from '../screens/homeScreens/payment/paymentScreen';
-import CardScSeen from '../screens/homeScreens/card/cardScreen';
 import MoreScreen from '../screens/homeScreens/more/moreScreen';
 import CardScreen from '../screens/homeScreens/card/cardScreen';
-import PaymentScreen from '../screens/homeScreens/payment/paymentScreen';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { scale } from 'react-native-size-matters';
 import CreateVirtualCard from '../screens/homeScreens/card/createVirtualCard';
@@ -37,13 +34,14 @@ import FAQ from '../screens/homeScreens/more/faq';
 import Support from '../screens/homeScreens/more/support';
 import ConfirmCurrencyExchange from '../screens/homeScreens/more/currencyExchange/confirmCurrencyExchange';
 import AccountDetail from '../screens/homeScreens/account/accountDetail';
-import MakePayment from '../screens/homeScreens/home/makePayment';
+import MakePayment from '../screens/homeScreens/payment/makePayment';
 import MyAccountTransfer from '../screens/homeScreens/home/myAccountTransfer';
 import InternationalTransfer from '../screens/homeScreens/home/internationalTransfer';
 import BankTansfer from '../screens/homeScreens/home/bankTransfer';
 import Notification from '../screens/homeScreens/home/notification';
 import AddNewCurrencyAcount from '../screens/homeScreens/home/addNewCurrencyAcount';
 import AccountStatement from '../screens/homeScreens/account/accountStatement';
+import ConfirmCardRequest from '../screens/homeScreens/card/confirmCardRequest';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -204,7 +202,6 @@ const PaymentStack = () => {
         component={PaymentScreen}
         options={{ headerShown: false }}
       /> */}
-
            <Stack.Screen
           name={HOME_ROUTES.MAKE_PAYMENT}
           component={MakePayment}
@@ -237,9 +234,15 @@ const PaymentStack = () => {
 const CardStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      
       <Stack.Screen
         name={HOME_ROUTES.CARD}
         component={CardScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ConfirmCardRequest}
+        component={ConfirmCardRequest}
         options={{ headerShown: false }}
       />
       <Stack.Screen

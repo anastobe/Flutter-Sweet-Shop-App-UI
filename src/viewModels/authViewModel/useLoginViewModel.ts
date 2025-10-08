@@ -1,7 +1,7 @@
 // viewModels/useLoginViewModel.ts
 import { useState, useEffect, useRef } from "react";
 import ReactNativeBiometrics from "react-native-biometrics";
-import { useLogin } from "../queries/auth.query";
+import { useLogin } from "../../queries/auth.query";
 import { Alert } from "react-native";
 
 export const useLoginViewModel = (navigation: any) => {
