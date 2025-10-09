@@ -1,5 +1,36 @@
 import { HOME_ROUTES } from "../constants";
 
+
+export interface BeneficiaryType {
+  key: string;
+  label: string;
+}
+
+const BENEFICIARY_TYPES: BeneficiaryType[] = [
+  { key: 'frontier', label: 'Frontier Pay User (by @username, email, or phone)' },
+  { key: 'bank', label: 'Bank Account' },
+];
+
+const ACCOUNT_TYPES = [
+  { label: 'Account Type', value: '' },
+  { label: 'Current', value: 'current' },
+  { label: 'Savings', value: 'savings' },
+];
+
+const COUNTRIES = [
+  { label: 'Country', value: '' },
+  { label: 'Pakistan', value: 'pakistan' },
+  { label: 'America', value: 'america' },
+];
+
+const CURRENCIES = [
+  { label: 'Currency', value: '' },
+  { label: 'PKR', value: 'pkr' },
+  { label: 'USD', value: 'usd' },
+  { label: 'GBP', value: 'gbp' },
+];
+
+
 // Sample card data
 const Accounts = [
   {
@@ -209,6 +240,12 @@ export {
     ACTIVE_ACCOUNT,
     CARD_DETAIL,
     CURRENT_ACCOUNT,
-    PAYMENT_OPTION
+    PAYMENT_OPTION,
+    BENEFICIARY_TYPES,
+    ACCOUNT_TYPES,
+    COUNTRIES,
+    CURRENCIES
+
+
 
 };

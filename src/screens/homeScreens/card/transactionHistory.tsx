@@ -8,7 +8,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import useTransactionHistoryViewModel from '../../../viewModels/homeViewModel/card/useTransactionHistoryViewModel';
 import Metrics from '../../../styles/metrics';
 
-export default function TransactionHistoryView() {
+export default function TransactionHistory() {
   const {
     DATA,
     cardName,

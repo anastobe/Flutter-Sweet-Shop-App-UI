@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity } from "react-native
 import { MainContainer } from "../../../components";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useMakePaymentViewModel } from "../../../viewModels/homeViewModel/home/useMakePaymentViewModel";
+import { useMakePaymentViewModel } from "../../../viewModels/homeViewModel/payment/useMakePaymentViewModel";
 
 const MakePayment = () => {
   const { PAYMENT_OPTION, pressBackArrow, handleNavigate } = useMakePaymentViewModel();
