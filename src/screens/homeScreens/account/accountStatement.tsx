@@ -7,8 +7,9 @@ import InputField from '../../../components/textInput';
 import TransactionFilter from '../../../components/bottomSheet/transactionFilter';
 import { scale } from 'react-native-size-matters';
 import { useAccountStatementViewModel } from '../../../viewModels/homeViewModel/account/useAccountStatementViewModel';
+import Metrics from '../../../styles/metrics';
 
-const AccountStatementView = () => {
+const AccountStatement = () => {
   const {
     cardDetailRef,
     cardName,
@@ -20,27 +21,21 @@ const AccountStatementView = () => {
     Metrics,
   } = useAccountStatementViewModel();
 
-  const renderFilter = () => (
-    <View style={styles.filtersearchContainer}>
-      <InputField
-        imageLeft={'search-outline'}
-        autoCapital={'none'}
-        blurOnSubmit={false}
-        placeholder="Search"
-        value={cardName}
-        onChangeText={setCardName}
-        keyboardType={'default'}
-        imagetintColorLeft={THEME.white}
-        customInpStyle={styles.innerinput}
-      />
-      <TouchableOpacity onPress={openFilterSheet} style={styles.rightIconCont}>
-        <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.rightIconCont}>
-        <Icon name="download-outline" size={22} color={THEME.textPrimary} />
-      </TouchableOpacity>
-    </View>
-  );
+  function renderFilter() {
+    return (
+      <View style={styles.filtersearchContainer} >
+        <InputField imageLeft={'search-outline'} autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white} customInpStyle={styles.innerinput} />
+        <TouchableOpacity
+          onPress={() => { cardDetailRef?.current?.open() }}
+          style={{ width: 40, height: 45, backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+          <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
+        </TouchableOpacity>
+        <TouchableOpacity style={{ width: 40, height: 45, backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+          <Icon name="download-outline" size={22} color={THEME.textPrimary} />
+        </TouchableOpacity>
+      </View>
+    )
+  }
 
   const renderTransactions = () => (
     <FlatList
@@ -90,7 +85,7 @@ const AccountStatementView = () => {
   );
 };
 
-export default AccountStatementView;
+export default AccountStatement;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
@@ -116,7 +111,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     borderRadius: 10,
   },
-  innerinput: { paddingLeft: 50, height: 45, width: scale(250) },
+  innerinput: { paddingLeft: 50, height: 45, width: Metrics.width-130 },
   item: {
     backgroundColor: THEME.SlateBlue,
     borderRadius: 10,

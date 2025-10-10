@@ -251,6 +251,7 @@ const TransactionList = () => {
           }}
           showSubBody={true}
           title="Freeze This Card?"
+          downConfirmText={"cancel"}
           body="Freezing will temporarily disable all transactions from this card."
           subBody="The card can be unfrozen at any time. Existing subscriptions may still attempt charges."
           iconName="snow-outline"
@@ -350,7 +351,7 @@ const TransactionList = () => {
           colors={['#6B3FA0', '#3A2670', '#0C1445']}  // 👈 upar ka color dark kar diya
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
-          style={{height: 320, borderBottomLeftRadius: 30, borderBottomRightRadius: 30}} // 👈 poori screen cover karega
+          style={{height: 300, borderBottomLeftRadius: 30, borderBottomRightRadius: 30}} // 👈 poori screen cover karega
         >
         {Options()}
         {SlidingCards()}     

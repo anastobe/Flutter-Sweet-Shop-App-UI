@@ -41,7 +41,7 @@ export default function CreateVirtualCardView() {
           value={cardName}
           onChangeText={setCardName}
           keyboardType="email-address"
-          margBtm={20}
+          margBtm={10}
         />
 
         <View style={styles.pickerWrapper}>
@@ -233,14 +233,14 @@ const styles = StyleSheet.create({
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 16,
-    marginBottom: 15,
+    borderRadius: 10,
+    marginBottom: 10,
   },
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
-    height: scale(60),
+    height: scale(55),
     marginLeft: 10,
   },
 });

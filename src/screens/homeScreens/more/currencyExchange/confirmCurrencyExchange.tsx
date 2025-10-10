@@ -63,14 +63,14 @@ const ConfirmCurrencyExchange = () => {
     <View>
       <InputField
         renderRightInput={renderRightInput}
-        margTp={50}
+        margTp={20}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="Send From"
         value={sendFrom}
         onChangeText={setSendFrom}
         keyboardType={'default'}
-        margBtm={20}
+        margBtm={10}
       />
 
       <View style={styles.pickerWrapper}>
@@ -97,7 +97,7 @@ const ConfirmCurrencyExchange = () => {
         value={youWillReceive}
         onChangeText={setYouWillReceive}
         keyboardType={'default'}
-        margBtm={20}
+        margBtm={10}
       />
 
       <View style={styles.pickerWrapper}>
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   valueBox: {
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderRadius: 8,
+    borderRadius: 10,
   },
   value: {
     fontFamily: FONTFAMILY.Medium,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 16,
+    borderRadius: 10,
     marginBottom: 15,
   },
   inputInnerPicker: {
@@ -199,9 +199,9 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onefour,
     borderColor: THEME.gray,
     borderWidth: 1,
-    borderRadius: 16,
+    borderRadius: 10,
     color: THEME.white,
-    height: scale(60),
+    height: scale(55),
     marginLeft: 10,
   },
   forgetTxt: { marginTop: 20, marginBottom: 50 },

@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: THEME.lightGrey,
     borderRadius: 10,
-    height: 56,
+       height: scale(55),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

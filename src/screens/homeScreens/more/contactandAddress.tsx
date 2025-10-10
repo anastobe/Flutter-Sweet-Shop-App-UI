@@ -131,9 +131,10 @@ const styles = StyleSheet.create({
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 16,
+    borderRadius: 10,
     marginBottom: 15,
     backgroundColor: THEME.whitergba,
+    height: scale(55),
   },
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     color: THEME.white,
-    height: scale(60),
+    height: scale(55),
     marginLeft: 10,
   },
 });

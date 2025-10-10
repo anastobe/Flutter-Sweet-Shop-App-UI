@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 16,
+    borderRadius: 10,
     marginBottom: 15,
   },
   inputInnerPicker: {
@@ -145,9 +145,9 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onefour,
     borderColor: THEME.gray,
     borderWidth: 1,
-    borderRadius: 16,
+    borderRadius: 10,
     color: THEME.white,
-    height: scale(60),
+    height: scale(55),
     marginLeft: 10,
   },
   containerAMOUNT: {
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     padding: 1,
   },
   renderRightInputContainer: {
-    height: scale(50),
+    height: scale(55),
     position: "absolute",
     right: 8,
     flexDirection: "row",

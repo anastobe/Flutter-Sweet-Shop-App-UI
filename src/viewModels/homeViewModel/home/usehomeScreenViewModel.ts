@@ -29,6 +29,10 @@ export const useHomeViewModel = () => {
     navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY);
   };
 
+  const handleNavigateProfile = () => {
+    navigation.navigate(HOME_ROUTES.PROFILE);
+  };
+
   return {
     Sendoption,
     DATA,
@@ -37,5 +41,6 @@ export const useHomeViewModel = () => {
     handlePressCard,
     handleNavigateNotification,
     handleNavigateTransactionHistory,
+    handleNavigateProfile
   };
 };

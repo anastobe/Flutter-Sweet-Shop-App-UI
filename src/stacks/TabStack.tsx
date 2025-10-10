@@ -70,6 +70,11 @@ const HomeStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name={HOME_ROUTES.PROFILE}
+        component={Profile}
+        options={{ headerShown: false }}
+      />      
+      <Stack.Screen
         name={HOME_ROUTES.ADD_NEW_BENEFICIARY}
         component={AddnewBeneficiary}
         options={{ headerShown: false }}
@@ -363,7 +368,7 @@ export const TabStack: React.FC = ({ }) => {
 
   return (
     <Tab.Navigator
-      // initialRouteName='MoreStack'
+      initialRouteName={"HomeStack"}
       screenOptions={{
         tabBarStyle: {
           // height:  90,

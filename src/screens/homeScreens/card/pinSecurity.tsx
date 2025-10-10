@@ -27,7 +27,7 @@ export default function PinSecurityView() {
           value={newPin}
           onChangeText={setNewPin}
           keyboardType="numeric"
-          margBtm={20}
+          margBtm={10}
         />
         <InputField
           marginTp={20}
@@ -35,7 +35,7 @@ export default function PinSecurityView() {
           value={confirmPin}
           onChangeText={setConfirmPin}
           keyboardType="numeric"
-          margBtm={20}
+          margBtm={10}
         />
       </View>
     );

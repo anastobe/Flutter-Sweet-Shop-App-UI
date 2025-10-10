@@ -122,7 +122,7 @@ Please login and set your Touch ID from Profile.
       <Text style={styles.title}>Let’s Sign you In.</Text>
 
       
-         {renderError()}
+         {/* {renderError()} */}
 
       <InputField
              marginTp={20}
@@ -157,7 +157,7 @@ Please login and set your Touch ID from Profile.
          onPress={vm.handleLogin}
        />
 
-      <CustomButton
+      {/* <CustomButton
         txtColor={styles.btnTxt}
         title="Login with Biometrics"
         image={Images.finger}
@@ -165,7 +165,7 @@ Please login and set your Touch ID from Profile.
         showmyStyleOnly={true}
         btnContSty={styles.btnContStyle}
         onPress={() => vm.biometryRef?.current?.open()}
-      />
+      /> */}
 
     <View style={styles.containerline}>
       <View style={styles.line1} />
@@ -175,24 +175,24 @@ Please login and set your Touch ID from Profile.
 
       <CustomButton
         txtColor={styles.btnTxt}
-        title="Login with Face ID"
-        image={Images.faceID}
+        title="Login with Biometrics / Face ID"
+        // image={Images.faceID}
         tintColor={THEME.white}
-        showmyStyleOnly={true}
+        showmyStyleOnly={true} 
         btnContSty={styles.btnContStyle}
         onPress={() => vm.biometryRef?.current?.open()}
       />
 
       <View style={styles.contText}>
         <Text style={styles.dontAcc}>Don’t have an account? </Text>
-        <Pressable>
+        <Pressable onPress={() => Alert.alert("account created") }>
           <Text style={styles.creatAC}>Create Account</Text>
         </Pressable>
       </View>
 
       
 
-       <BottomSheet
+       {/* <BottomSheet
          height={METRICS.halfScreen + 40}
          draggable={false}
          openTime={500}
@@ -201,18 +201,18 @@ Please login and set your Touch ID from Profile.
          children={<FingerPrintContent onPress={vm.handleBiometricAuth}
             style={{ flex: 1, paddingHorizontal: 20 }}
          title="Login with Fingerprint" img={Images.finger} subtitle="Tap your fingerprint sensor to continue" />}
-        />
+        /> */}
 
         
        <BottomSheet
-         height={METRICS.halfScreen + 40}
+         height={METRICS.halfScreen - 40}
          draggable={false}
          openTime={500}
          closeDuration={500}
          bottomSheetRef={vm.biometryRef}
          children={<FingerPrintContent onPress={()=>{ setOpen(true) }}
             style={{ flex: 1, paddingHorizontal: 20 }}
-         title="Login with Face ID" img={Images.faceID} subtitle="Tap your fingerprint sensor to continue" />}
+         title="Login with Biometric and Face ID"  subtitle="" />}
         />
 
         {renderModal()}
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
   { backgroundColor: "transparent", borderColor: THEME.primary, borderWidth: 1, flexDirection: "row", height: scale(54), borderRadius: 10, justifyContent: "center", alignItems: 'center' },
   logo: {
    width: METRICS.width,
-    height: scale(60),
+    height: scale(55),
     resizeMode: 'contain',
     alignSelf: "center",
     marginTop: 60
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   forgetTxt:
-  { marginTop: 20, marginBottom: 20 },
+  { marginTop: 20, marginBottom: 10 },
   title: {
     color: THEME.primary,
     fontFamily: FONTFAMILY.Medium,
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
   containerline: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 20,
+    marginVertical: 10,
   },
   line1: {
     flex: 1,
@@ -336,8 +336,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor:THEME.primary,
     borderRadius: 100,
-    width: scale(50),
-    height: scale(50),
+    width: scale(55),
+    height: scale(55),
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10

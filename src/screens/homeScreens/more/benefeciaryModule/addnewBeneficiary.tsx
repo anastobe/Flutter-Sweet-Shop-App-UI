@@ -45,6 +45,7 @@ const AddNewBeneficiary = () => {
         marginTp={20}
         placeholder="Beneficiary Name"
         value={vm.beneficiaryName}
+           customInpStyle={styles.forgetTxt}
         onChangeText={vm.setBeneficiaryName}
       />
 
@@ -67,14 +68,15 @@ const AddNewBeneficiary = () => {
       </View>
 
       <InputField
-        marginTp={20}
         placeholder="IBAN / Account No."
         value={vm.accountNo}
+                // customInpStyle={styles.forgetTxt}
         onChangeText={vm.setAccountNo}
       />
 
       <InputField
         marginTp={20}
+                customInpStyle={styles.forgetTxt}
         placeholder="SWIFT/BIC (optional)"
         value={vm.bicNo}
         onChangeText={vm.setBicNo}
@@ -191,7 +193,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   container: { flex: 1, backgroundColor: THEME.white },
   checkmarkTitle: {
@@ -211,8 +213,9 @@ const styles = StyleSheet.create({
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 16,
-    marginBottom: 15,
+    borderRadius: 10,
+    height: scale(55),
+    marginBottom: 10 
   },
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
@@ -221,10 +224,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     color: THEME.white,
-    height: scale(60),
+    height: scale(55),
     marginLeft: 10,
   },
-  forgetTxt: { marginTop: 20, marginBottom: 50 },
+  forgetTxt: { marginTop: 10, marginBottom: 10 },
   modal: {
     backgroundColor: 'rgba(64, 64, 65, 0.92)',
     borderRadius: 16,
@@ -236,8 +239,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: 100,
-    width: scale(50),
-    height: scale(50),
+    width: scale(55),
+    height: scale(55),
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,

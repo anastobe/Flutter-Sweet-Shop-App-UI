@@ -36,33 +36,25 @@ const Profile = () => {
       <View>
         <View style={styles.leftCard}>
           <TouchableOpacity onPress={openImagePicker}>
-            <Image
-              resizeMode="cover"
-              defaultSource={Images.account}
-              source={
-                profile
-                  ? { uri: profile }
-                  : {
-                      uri: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTiahjx-m6ySbhuyQ7wbTQupWSjr0KW5DY38Cge23U_7bdxC8UC_gO9pWvIUHkZpQVNx2H-Q2fa4A1JVzJiLAGbQpdbNZ_Cf9sdMjhrRdZJOg',
-                    }
-              }
-              style={styles.backButton}
-            />
             <View
               style={{
-                position: 'absolute',
+                backgroundColor: THEME.SlateBlue,
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 140,
-                height: 140,
+                width: 120,
+                height: 90,
+               borderRadius: 20,
+                borderColor: THEME.white,
+                // borderWidth: 1
               }}
             >
-              <Icon name="camera-outline" size={22} color={THEME.white} />
+              {/* <Icon name="person-circle-outline" size={22} color={THEME.white} /> */}
+              <Text style={styles.profiletxt} >WS</Text>
             </View>
           </TouchableOpacity>
-          <Text style={styles.selectimgTxt}>
+          {/* <Text style={styles.selectimgTxt}>
             For best results, upload a square image (400x400px, JPG or PNG, max 2MB).
-          </Text>
+          </Text> */}
         </View>
 
         <InputField
@@ -73,7 +65,7 @@ const Profile = () => {
           placeholder="Full Name"
           value={name}
           keyboardType={'default'}
-          margBtm={20}
+          margBtm={15}
           customInpStyle={{ backgroundColor: THEME.whitergba }}
         />
         <InputField
@@ -84,7 +76,7 @@ const Profile = () => {
           placeholder="Username"
           value={username}
           keyboardType={'default'}
-          margBtm={20}
+          margBtm={15}
           customInpStyle={{ backgroundColor: THEME.whitergba }}
         />
 
@@ -96,7 +88,7 @@ const Profile = () => {
           value={email}
           onChangeText={setEmail}
           keyboardType={'email-address'}
-          margBtm={20}
+          margBtm={15}
           customInpStyle={{ backgroundColor: THEME.whitergba }}
         />
         <InputField
@@ -107,7 +99,7 @@ const Profile = () => {
           value={phone}
           onChangeText={setPhone}
           keyboardType={'numeric'}
-          margBtm={20}
+          margBtm={15}
           customInpStyle={{ backgroundColor: THEME.whitergba }}
         />
       </View>
@@ -123,7 +115,7 @@ const Profile = () => {
       mainContainerStyle={styles.container}
     >
       <View style={{ marginHorizontal: 20, paddingBottom: 60 }}>
-        <Text style={styles.title}>Profile</Text>
+        <Text style={styles.title}>Edit Account Profile</Text>
         {renderProfileFields()}
 
         <CustomButton
@@ -146,6 +138,12 @@ export const styles = StyleSheet.create({
     color: THEME.primary,
     marginBottom: 10,
     marginTop: 10,
+  },
+  profiletxt: {
+    fontSize: FONT_SIZES.foureight,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    // marginBottom: 10,
   },
   forgetTxt: { marginTop: 20, marginBottom: 50 },
   leftCard: { alignItems: 'center', marginVertical: 14 },

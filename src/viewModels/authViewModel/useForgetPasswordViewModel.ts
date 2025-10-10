@@ -12,9 +12,9 @@ export const useForgetPasswordViewModel = (navigation: any) => {
 
   const handleOkayPress = () => {
     setOpen(false);
-    setTimeout(() => {
-      navigation.navigate(Auth_ROUTES.SETPASSWORD);
-    }, 1000);
+    // setTimeout(() => {
+    //   navigation.navigate(Auth_ROUTES.SETPASSWORD);
+    // }, 1000);
   };
 
   const closePopup = () => setOpen(false);

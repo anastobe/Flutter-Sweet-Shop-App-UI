@@ -14,11 +14,11 @@ const FingerPrintContent = ({ title, subtitle, style, onPress, img }:{ title:any
         <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} />
 
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.titlesub}>{subtitle}</Text>
+      {/* <Text style={styles.titlesub}>{subtitle}</Text> */}
 
-      <View style={{ alignItems: "center", marginTop: 35 }} >
-       <Image tintColor={THEME.white} source={img} style={{ width: scale(60), height: scale(60) }} resizeMode='contain' />
-      </View> 
+      {/* <View style={{ alignItems: "center", marginTop: 35 }} >
+       <Image tintColor={THEME.white} source={img} style={{ width: scale(60), height: scale(55) }} resizeMode='contain' />
+      </View>  */}
 
        <Text style={styles.titlesubbelow}>Having trouble?</Text>
 

@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     color: THEME.white,
-    height: scale(60),
+    height: scale(55),
     marginLeft: 10,
   },
   forgetTxt: { marginTop: 20, marginBottom: 50 },

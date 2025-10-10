@@ -10,7 +10,7 @@ export const InputDropDownStyle = ({title, label, currency, flag, onPress }) => 
     <TouchableOpacity style={styles.containerbelw} onPress={onPress}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {/* If you want icon instead of flag, swap here */}
-        <Icon name={flag} size={28} color={THEME.white} />
+        <Icon name={"flag"} size={28} color={THEME.white} />
         <View style={{ marginLeft: 10 }} >
           <Text style={styles.labeltxt}>{title}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 16,
+    borderRadius: 10,
     paddingHorizontal: 10,
-    height: scale(60),
+    height: scale(55),
     // backgroundColor: THEME.whitergba,
   },
   flag: {

@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1,
     borderRadius: 14,
-    height: 56,
+    height: scale(55),
     alignItems: 'center',
   },
   inputInner: {

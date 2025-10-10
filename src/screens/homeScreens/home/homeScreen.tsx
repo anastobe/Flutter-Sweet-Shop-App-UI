@@ -18,6 +18,7 @@ const HomeScreen = () => {
     CURRENT_ACCOUNT,
     handlePressCard,
     handleNavigateNotification,
+    handleNavigateProfile,
     handleNavigateTransactionHistory,
   } = useHomeViewModel();
 
@@ -29,15 +30,17 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.headerRight}>
-        <TouchableOpacity onPress={handleNavigateNotification} style={{ marginRight: 15 }}>
+        {/* <TouchableOpacity onPress={handleNavigateNotification} style={{ marginRight: 15 }}>
           <Icon name="notifications-outline" size={25} color={THEME.white} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <TouchableOpacity onPress={handleNavigateProfile} >
         <Image
           source={{
             uri: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTiahjx-m6ySbhuyQ7wbTQupWSjr0KW5DY38Cge23U_7bdxC8UC_gO9pWvIUHkZpQVNx2H-Q2fa4A1JVzJiLAGbQpdbNZ_Cf9sdMjhrRdZJOg',
           }}
           style={styles.avatar}
-        />
+          />
+          </TouchableOpacity>
       </View>
     </View>
   );
@@ -108,7 +111,7 @@ const HomeScreen = () => {
       <Image source={Images.logo} style={styles.logo} />
       {renderHeader()}
       {renderBalanceCard()}
-      {renderGraph()}
+      {/* {renderGraph()} */}
       {renderCardFeature()}
       {renderTransactionList()}
     </MainContainer>
@@ -157,6 +160,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 20,
     flexDirection: 'row',
+    marginBottom: 10
   },
   balanceTop: { flexDirection: 'row', alignItems: 'center', marginTop: 8 },
   balanceLabel: { fontSize: FONT_SIZES.onesix, fontFamily: FONTFAMILY.Light, color: THEME.white },

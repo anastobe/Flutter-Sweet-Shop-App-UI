@@ -3,8 +3,10 @@ import { StyleSheet, Text } from 'react-native';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
+import { scale } from 'react-native-size-matters';
+import Metrics from '../styles/metrics';
 
-const BUTTON_SIZE = 54;
+const BUTTON_SIZE = scale(Metrics.width/4-35);
 
 type CardFeatureButton = {
   icon: string;

@@ -106,12 +106,12 @@ const AccountScreen = () => {
             features={vm.features}
             onPressbtn={(item: any) => item.onPress()}
           />
-          <LineGraph
+          {/* <LineGraph
             labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
             data={[10, 40, 20, 90, 75, 60, 100]}
             lineColor={THEME.white}
             bgColor={THEME.secondary}
-          />
+          /> */}
           <View style={styles.statecontainer}>
             <StatCard
               title="Avg monthly spend"
@@ -158,7 +158,7 @@ const AccountScreen = () => {
           </ImageBackground>
         </BottomSheet>
 
-        <BottomSheet height={METRICS.height / 1.5} bottomSheetRef={vm.editRef}>
+        <BottomSheet       draggable={false} height={METRICS.height / 1.5} bottomSheetRef={vm.editRef}>
           <EditAccountPreferences
             accountName="Primary GBP Wallet"
             onPressEdit={() => vm.editAccountRef?.current?.open()}
@@ -168,7 +168,7 @@ const AccountScreen = () => {
           />
         </BottomSheet>
 
-        <BottomSheet height={METRICS.height / 1.8} bottomSheetRef={vm.editAccountRef}>
+        <BottomSheet       draggable={false} height={METRICS.height / 1.8} bottomSheetRef={vm.editAccountRef}>
           <EditAccountDetail
             gbpWallet={vm.gbpWallet}
             setgbpWallet={vm.setGbpWallet}
