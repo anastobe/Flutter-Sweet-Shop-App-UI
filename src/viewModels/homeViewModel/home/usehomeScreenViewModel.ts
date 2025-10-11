@@ -29,6 +29,11 @@ export const useHomeViewModel = () => {
     navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY);
   };
 
+  const handleNavigateTransaction = () => {
+    navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
+  };
+  
+
   const handleNavigateProfile = () => {
     navigation.navigate(HOME_ROUTES.PROFILE);
   };
@@ -41,6 +46,7 @@ export const useHomeViewModel = () => {
     handlePressCard,
     handleNavigateNotification,
     handleNavigateTransactionHistory,
+    handleNavigateTransaction,
     handleNavigateProfile
   };
 };

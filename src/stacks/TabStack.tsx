@@ -42,6 +42,7 @@ import Notification from '../screens/homeScreens/home/notification';
 import AddNewCurrencyAcount from '../screens/homeScreens/home/addNewCurrencyAcount';
 import AccountStatement from '../screens/homeScreens/account/accountStatement';
 import ConfirmCardRequest from '../screens/homeScreens/card/confirmCardRequest';
+import TransactionDetail from '../screens/homeScreens/home/transactionDetail';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -62,6 +63,11 @@ const HomeStack = () => {
         <Stack.Screen
           name={HOME_ROUTES.HOME}
           component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={HOME_ROUTES.TRANSACTION_DETAIL}
+          component={TransactionDetail}
           options={{ headerShown: false }}
         />
               <Stack.Screen
@@ -245,6 +251,11 @@ const CardStack = () => {
         component={CardScreen}
         options={{ headerShown: false }}
       />
+              <Stack.Screen
+          name={HOME_ROUTES.TRANSACTION_DETAIL}
+          component={TransactionDetail}
+          options={{ headerShown: false }}
+        />
       <Stack.Screen
         name={HOME_ROUTES.ConfirmCardRequest}
         component={ConfirmCardRequest}

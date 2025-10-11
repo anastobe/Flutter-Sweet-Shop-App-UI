@@ -20,6 +20,7 @@ const HomeScreen = () => {
     handleNavigateNotification,
     handleNavigateProfile,
     handleNavigateTransactionHistory,
+    handleNavigateTransaction,
   } = useHomeViewModel();
 
   const renderHeader = () => (
@@ -86,7 +87,7 @@ const HomeScreen = () => {
         data={DATA}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.item}>
+          <TouchableOpacity onPress={handleNavigateTransaction} style={styles.item}>
             <View style={styles.sectionLeft}>
               <View style={styles.iconCONT}>
                 <Icon name="cart-outline" size={16} color={THEME.textPrimary} />
@@ -99,7 +100,7 @@ const HomeScreen = () => {
             <View>
               <Text style={styles.amount}>{item.amount}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
         contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 100 }}
       />

@@ -37,7 +37,7 @@ const InternationalTransfer = () => {
 
   const renderRightInput = () => (
     <View style={styles.renderRightInputContainer}>
-      <Text style={styles.inputNumber}>0.00</Text>
+      <Text style={styles.inputNumber}>(Recipient Gets)</Text>
       <View style={styles.inputNumbergbpcont}>
         <Text style={styles.inputNumbergbp}>GBP</Text>
       </View>
@@ -88,7 +88,7 @@ const InternationalTransfer = () => {
             renderRightInput={renderRightInput}
             autoCapital="none"
             blurOnSubmit={false}
-            placeholder="Recipient Gets"
+            placeholder="0.00"
             value={recipientGets}
             onChangeText={setRecipientGets}
             keyboardType="numeric"

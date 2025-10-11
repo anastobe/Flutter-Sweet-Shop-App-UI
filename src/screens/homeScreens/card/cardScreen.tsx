@@ -180,7 +180,7 @@ const TransactionList = () => {
       data={DATA}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <View style={styles.item}>
+   <TouchableOpacity onPress={()=>{ navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL) }} style={styles.item}>
           <View style={styles.sectionLeft} >            
             <View style={styles.iconCONT} >
                <Icon name={"arrow-forward-outline"} size={16} color={THEME.textPrimary} />
@@ -193,7 +193,7 @@ const TransactionList = () => {
           <View>
             <Text style={styles.amount}>{item.amount}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       )}
       contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 100 }}
       renderSectionHeader={({ section: { title } }) => (

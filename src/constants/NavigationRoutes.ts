@@ -15,6 +15,7 @@ export enum Auth_ROUTES {
 
 export enum HOME_ROUTES {
   HOME = "HOME",
+  TRANSACTION_DETAIL= "TRANSACTION_DETAIL", 
   ACCOUNT = "ACCOUNT",
   PAYMENT = "PAYMENT",
   CARD = "CARD",

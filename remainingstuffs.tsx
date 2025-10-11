@@ -26,6 +26,6 @@
 // =>edit profile se image k screen hata do image ki koi chiz nahi hogi saood se discuss kr lena 
 // =>remove notification icon on every where 
 // =>on selection remove picker and show this on bottom sheet if larger list so apply scroll there 
+// =>make profile input field floating like view 
 // =>on bank transfer gbp inputfield midside input is typeable and every thing remain same 
 // =>home p jo transaction ari ha uspe touch kr k detail screen honi chiye figma ma bhi ha
-// =>make profile input field floating like view 

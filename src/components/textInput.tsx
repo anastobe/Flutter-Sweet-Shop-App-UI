@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Animated } from 'react-native';
 
 export default function InputField({...props}) {
   const {
@@ -37,6 +38,18 @@ export default function InputField({...props}) {
     renderRightInput
   } = props || {};
 
+  
+  const [isFocused, setIsFocused] = useState(false);
+  const labelAnim = useRef(new Animated.Value(value ? 1 : 0)).current;
+
+  useEffect(() => {
+    Animated.timing(labelAnim, {
+      toValue: isFocused || value ? 1 : 0,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  }, [isFocused, value]);
+
   return (
     <View style={{marginTop: margTp, marginBottom: margBtm}}>
      {heading && <Text style={styles.text}>{heading}</Text>}
@@ -45,8 +58,30 @@ export default function InputField({...props}) {
               <Icon name={imageLeft} size={23} color={imagetintColorLeft ? imagetintColorLeft : "#000"} />
           </Pressable>
         )}
+
+        
+       <View style={{ position: 'relative' }}>
+         <Animated.Text
+           style={[
+             styles.floatingLabel,
+             {
+               top: labelAnim.interpolate({
+                 inputRange: [0, 1],
+                 outputRange: [18, 4],
+               }),
+               fontSize: labelAnim.interpolate({
+                 inputRange: [0, 1],
+                 outputRange: [16, 12],
+               }),
+               color: isFocused ? THEME.primary : THEME.white,
+             },
+           ]}  
+         >
+           {placeholder}
+         </Animated.Text>
+
         <TextInput
-          placeholder={placeholder}
+          // placeholder={placeholder}
           placeholderTextColor={THEME.white}
           returnKeyType={'next'}
           value={value}
@@ -71,7 +106,7 @@ export default function InputField({...props}) {
         {renderRightInput && (
           renderRightInput()
         )}
-
+    </View>
     </View>
   );
 }
@@ -100,7 +135,8 @@ const styles = StyleSheet.create({
     // width: METRICS.width - 45,
     color: THEME.primary,
     height: scale(55),
-    paddingLeft: 20
+    paddingLeft: 20,
+    paddingTop: 15
   },
   imgView: {
     width: 50,
@@ -129,4 +165,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop:10
   },
+
+  floatingLabel: {
+  position: 'absolute',
+  left: 20,
+  backgroundColor: 'transparent',
+  fontFamily: FONTFAMILY.Medium,
+},
+
+
 });
+

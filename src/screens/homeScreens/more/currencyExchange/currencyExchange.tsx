@@ -21,7 +21,7 @@ const CurrencyExchange = () => {
 
   const renderRightInput = () => (
     <View style={styles.renderRightInputContainer}>
-      <Text style={styles.inputNumber}>1000.00</Text>
+      <Text style={styles.inputNumber}>(Send From)</Text>
       <View style={styles.inputNumbergbpcont}>
         <Text style={styles.inputNumbergbp}>GBP</Text>
       </View>
@@ -35,7 +35,7 @@ const CurrencyExchange = () => {
         margTp={50}
         autoCapital={'none'}
         blurOnSubmit={false}
-        placeholder="Send From"
+        placeholder="0.00"
         value={sendFrom}
         onChangeText={setSendFrom}
         keyboardType={'default'}

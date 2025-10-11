@@ -39,7 +39,7 @@ const MyAccountTransfer = () => {
 
   const renderRightInput = () => (
     <View style={styles.rightInputContainer}>
-      <Text style={styles.rightInputValue}>1000.00</Text>
+      <Text style={styles.rightInputValue}>(Amount to Send)</Text>
       <View style={styles.currencyBox}>
         <Text style={styles.currencyText}>GBP</Text>
       </View>
@@ -85,7 +85,7 @@ const MyAccountTransfer = () => {
             renderRightInput={renderRightInput}
             autoCapital="none"
             blurOnSubmit={false}
-            placeholder="Amount to Send"
+            placeholder="0.00"
             value={amountSpend}
             onChangeText={setAmountSpend}
             keyboardType="numeric"
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   rightInputValue: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.primary,
   },
