@@ -3,13 +3,17 @@ import { useState, useEffect, useRef } from "react";
 import ReactNativeBiometrics from "react-native-biometrics";
 import { useLogin } from "../../queries/auth.query";
 import { Alert } from "react-native";
+import { useDispatch } from "react-redux";
+import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
 
 export const useLoginViewModel = (navigation: any) => {
+
   const [email, setEmail] = useState("superadmin");
   const [password, setPassword] = useState("Uhf@1234");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
 
+  const dispatch = useDispatch()
   const biometryRef = useRef(null);
   const rnBiometrics = new ReactNativeBiometrics();
 
@@ -28,7 +32,13 @@ export const useLoginViewModel = (navigation: any) => {
   });
 
   const handleLogin = () => {
-    loginFunc({ username: email, password: password });
+          
+    let token = {
+      token: "token"
+    }
+    dispatch(storeUserToken(token))  
+
+    // loginFunc({ username: email, password: password });
   };
 
   const handleBiometricAuth = () => {

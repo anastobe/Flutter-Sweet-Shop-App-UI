@@ -24,13 +24,13 @@ const AccountStatement = () => {
   function renderFilter() {
     return (
       <View style={styles.filtersearchContainer} >
-        <InputField imageLeft={'search-outline'} autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white} customInpStyle={styles.innerinput} />
+        <InputField  autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white} customInpStyle={styles.innerinput} />
         <TouchableOpacity
           onPress={() => { cardDetailRef?.current?.open() }}
-          style={{ width: 40, height: 45, backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+          style={{ width: 40, height: scale(55), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
           <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
         </TouchableOpacity>
-        <TouchableOpacity style={{ width: 40, height: 45, backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+        <TouchableOpacity style={{ width: 40, height: scale(55), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
           <Icon name="download-outline" size={22} color={THEME.textPrimary} />
         </TouchableOpacity>
       </View>
@@ -105,13 +105,13 @@ const styles = StyleSheet.create({
   rightIconCont: {
     backgroundColor: THEME.primary,
     width: 40,
-    height: 45,
+    height: 55,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 10,
     borderRadius: 10,
   },
-  innerinput: { paddingLeft: 50, height: 45, width: Metrics.width-130 },
+  innerinput: {  height: scale(55), width: Metrics.width-130 },
   item: {
     backgroundColor: THEME.SlateBlue,
     borderRadius: 10,

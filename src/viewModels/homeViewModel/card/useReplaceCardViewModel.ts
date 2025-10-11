@@ -41,7 +41,7 @@ export default function useReplaceCardViewModel(navigation, props) {
         note: "Card is lost",
       };
       console.log("payload==>", payload);
-      freezUnFreezCardFunc(payload);
+      // freezUnFreezCardFunc(payload);
     }
   }
 

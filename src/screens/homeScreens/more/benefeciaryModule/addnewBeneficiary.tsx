@@ -42,10 +42,11 @@ const AddNewBeneficiary = () => {
       <Text style={styles.checkmarkTitle}>Beneficiary Details</Text>
 
       <InputField
-        marginTp={20}
+        margBtm={10}
+        autoCapital={'none'}
+        blurOnSubmit={false}
         placeholder="Beneficiary Name"
         value={vm.beneficiaryName}
-           customInpStyle={styles.forgetTxt}
         onChangeText={vm.setBeneficiaryName}
       />
 
@@ -75,8 +76,8 @@ const AddNewBeneficiary = () => {
       />
 
       <InputField
-        marginTp={20}
-                customInpStyle={styles.forgetTxt}
+       margTp={10}
+         margBtm={10}
         placeholder="SWIFT/BIC (optional)"
         value={vm.bicNo}
         onChangeText={vm.setBicNo}

@@ -120,7 +120,7 @@ function ConfirmCardRequest(props) {
           title="Pay"
           onPress={function () {
             setOpen(true);
-            createCardFunc(payload);
+            // createCardFunc(payload);
           }}
         />
       </View>

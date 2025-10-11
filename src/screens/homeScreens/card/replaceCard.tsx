@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: THEME.white,
     borderRadius: 16,
-    marginBottom: 15,
+    marginBottom: 15,  
   },
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,

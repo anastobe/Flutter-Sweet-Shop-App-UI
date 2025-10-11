@@ -115,7 +115,7 @@ const CreatePhysicalCard = () => {
           children={
             <VerifyAddress
               style={{ flex: 1, paddingHorizontal: 20 }}
-              backImg={Images.bottogSheetGradient}
+              backImg={Images.addCardGradient}
               onPress1={yesConfirm}
               onPress2={updateLocation}
             />

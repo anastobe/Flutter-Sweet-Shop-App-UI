@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, SectionList, ImageBackground, ScrollView } from 'react-native';
 import { BottomSheet, MainContainer, Modal } from '../../../components';
@@ -38,6 +39,72 @@ const features = [
   { icon: 'options-outline' , text: "Methods" },
   { icon: 'menu-outline', text: "Manage" }
 ]
+const cardsData = [
+  {
+    available_limit: "3993",
+    card_design: null,
+    card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
+    card_name: "Byyh",
+    card_status: "active",
+    cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
+    created_at: "2025-10-07T12:34:12.487Z",
+    currency_type: "PKR",
+    deleted_at: null,
+    expiry_date: "1026",
+    format: "virtual",
+    is_enable: 1,
+    linked_account: "visa",
+    pan: "8410",
+    secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
+    spending_limit: "3993",
+    spending_type: "Weekly",
+    updated_at: null,
+    user_id: "1",
+  },
+  {
+    available_limit: "3893",
+    card_design: null,
+    card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
+    card_name: "Byyh",
+    card_status: "active",
+    cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
+    created_at: "2025-10-07T12:34:12.487Z",
+    currency_type: "PKR",
+    deleted_at: null,
+    expiry_date: "1026",
+    format: "virtual",
+    is_enable: 1,
+    linked_account: "visa",
+    pan: "8410",
+    secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
+    spending_limit: "3993",
+    spending_type: "Weekly",
+    updated_at: null,
+    user_id: "1",
+  },
+  {
+    available_limit: "4993",
+    card_design: null,
+    card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
+    card_name: "Byyh",
+    card_status: "active",
+    cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
+    created_at: "2025-10-07T12:34:12.487Z",
+    currency_type: "PKR",
+    deleted_at: null,
+    expiry_date: "1026",
+    format: "virtual",
+    is_enable: 1,
+    linked_account: "visa",
+    pan: "8410",
+    secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
+    spending_limit: "3993",
+    spending_type: "Weekly",
+    updated_at: null,
+    user_id: "1",
+  },
+]
+
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -53,26 +120,26 @@ const features = [
 
   const {mutate: freezUnFreezCardFunc, isPending: isPendingfreezUnFreezCard} = freezUnFreezCard({
       callback: (response: any) => {
-        refetchgetCardsData().then(()=>{
-         setModalVisible(false)
-         setmodalVisibleUnfreez(false)
-        }).catch(()=>{
-          console.log("Promise Error");          
-        })
+        // refetchgetCardsData().then(()=>{
+        //  setModalVisible(false)
+        //  setmodalVisibleUnfreez(false)
+        // }).catch(()=>{
+        //   console.log("Promise Error");          
+        // })
       },
     });
   
-  // get me
-  const {data: getCardsData, refetch: refetchgetCardsData, isPending} = getCards({
-    enabled: false,
-    dispatch,
-  });
+  // // get me
+  // const {data: getCardsData, refetch: refetchgetCardsData, isPending} = getCards({
+  //   enabled: false,
+  //   dispatch,
+  // });
 
-  let currentItem =  getCardsData?.results?.values[currentIndex]
+  let currentItem =  cardsData[currentIndex]
 
-  useEffect(()=>{
-      refetchgetCardsData()
-  },[])
+  // useEffect(()=>{
+  //     refetchgetCardsData()
+  // },[])
 
   const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
     if (viewableItems.length > 0) {
@@ -83,7 +150,7 @@ const features = [
 
   const onRefresh = () => {
     setRefreshing(true);
-    refetchgetCardsData()
+    // refetchgetCardsData()
     // Simulate a network request or any async task
     setTimeout(() => {
       setRefreshing(false);
@@ -95,22 +162,24 @@ const features = [
 
 
 function openFreezCard() {
-  if (currentItem?.card_status == "active") {
+  // if (currentItem?.card_status == "active") {
     setModalVisible(true) 
-  } else if (currentItem?.card_status == "inactive") {
-    setmodalVisibleUnfreez(true)
-  }
+  // } else if (currentItem?.card_status == "inactive") {
+  //   setmodalVisibleUnfreez(true)
+  // }
 }
 
   function onPressCard(item: any) {
     cardDetailRef?.current?.open()
   }
+  // console.log("getCardsData?.results?.values==>",getCardsData?.results?.values);
+   
 
 const SlidingCards = () => {
   return (
     <View>
       <FlatList
-        data={getCardsData?.results?.values} 
+        data={cardsData} 
         horizontal
         pagingEnabled
         ListEmptyComponent={()=>{
@@ -131,8 +200,20 @@ const SlidingCards = () => {
         }}
       />
         {/* Pagination Dots */}
-      <View style={styles.dotsContainer}>
+      {/* <View style={styles.dotsContainer}>
         {getCardsData?.results?.values?.map((item, index) => (          
+          <View
+            key={index}
+            style={[
+              styles.dot,
+              index == currentIndex ? styles.dotActive : styles.dotInactive,
+            ]}
+          />
+        ))}
+      </View> */}
+
+            <View style={styles.dotsContainer}>
+        {cardsData?.map((item, index) => (          
           <View
             key={index}
             style={[
@@ -180,7 +261,7 @@ const TransactionList = () => {
       data={DATA}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-   <TouchableOpacity onPress={()=>{ navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL) }} style={styles.item}>
+        <View style={styles.item}>
           <View style={styles.sectionLeft} >            
             <View style={styles.iconCONT} >
                <Icon name={"arrow-forward-outline"} size={16} color={THEME.textPrimary} />
@@ -193,7 +274,7 @@ const TransactionList = () => {
           <View>
             <Text style={styles.amount}>{item.amount}</Text>
           </View>
-        </TouchableOpacity>
+        </View>
       )}
       contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 100 }}
       renderSectionHeader={({ section: { title } }) => (
@@ -207,8 +288,9 @@ const TransactionList = () => {
   function Options() {
    return(
     <OptionsHeader
+      showBackIcon={false}
       onPressNotification={() => navigation.navigate(HOME_ROUTES.NOTIFICATION) }
-      onPressAdd={() => AddCardRef?.current?.open() }
+      onPressAdd={() => AddCardRef?.current?.open()}
     />
    ) 
   }
@@ -229,13 +311,15 @@ const TransactionList = () => {
   }
 
   function freezCardApi(status: any) {
+  setModalVisible(false)
+         setmodalVisibleUnfreez(false)
 
-    let payload = {
-      card_id: currentItem?.card_id,
-      status: `${status}`,
-      note: `Card confirmed ${status}`
-    }
-    freezUnFreezCardFunc(payload)    
+    // let payload = {
+    //   card_id: currentItem?.card_id,
+    //   status: `${status}`,
+    //   note: `Card confirmed ${status}`
+    // }
+    // freezUnFreezCardFunc(payload)    
   }
       
   function renderPOPUP() {
@@ -245,13 +329,14 @@ const TransactionList = () => {
           backImg={Images.addCardGradient}
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
-          btnLoader={isPendingfreezUnFreezCard}
+          // btnLoader={isPendingfreezUnFreezCard}
+          btnLoader={false}
           onConfirm={() => {
             freezCardApi("inactive")
           }}
           showSubBody={true}
+          downConfirmText={"Cancel"}
           title="Freeze This Card?"
-          downConfirmText={"cancel"}
           body="Freezing will temporarily disable all transactions from this card."
           subBody="The card can be unfrozen at any time. Existing subscriptions may still attempt charges."
           iconName="snow-outline"
@@ -604,3 +689,6 @@ const styles = StyleSheet.create({
   //       </SafeAreaView>
   //   </LinearGradient>
   //   )
+
+
+
