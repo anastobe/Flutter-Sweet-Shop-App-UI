@@ -10,7 +10,7 @@ export const useMakePaymentViewModel = () => {
 
   const handleNavigate = (route: string) => {
     navigation.navigate(route as never);
-  };
+  }; 
 
   return {
     PAYMENT_OPTION,
