@@ -8,7 +8,7 @@ import { ImageBackground } from 'react-native';
 
 const FingerPrintContent = ({ title, subtitle, style, onPress, img }:{ title:any, subtitle:any, style:any, onPress: any, img: any }) => {
   return (
-    <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} style={style}>
+    <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={style}>
 
 
         <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} />
