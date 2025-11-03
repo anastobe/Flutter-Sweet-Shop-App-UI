@@ -17,7 +17,7 @@ const CustomButton = ({
   title: string;
   onPress: any;
   btnContSty?: StyleProp<ViewStyle>;
-  txtColor?: StyleProp<ViewStyle>;
+  txtColor?: any;
   image?: any;
   showmyStyleOnly?: any
   loading?: boolean;

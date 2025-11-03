@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { DATA } from '../../../utils/data';
 import Metrics from '../../../styles/metrics';
+import { HOME_ROUTES } from '../../../constants';
 
 export const useAccountStatementViewModel = () => {
   const navigation = useNavigation();
@@ -20,6 +21,10 @@ export const useAccountStatementViewModel = () => {
     cardDetailRef?.current?.close();
   }
 
+  const handleNavigateTransactionHistory = () => {
+    navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
+  };
+
   return {
     navigation,
     cardDetailRef,
@@ -28,6 +33,7 @@ export const useAccountStatementViewModel = () => {
     pressBackArrow,
     openFilterSheet,
     closeFilterSheet,
+    handleNavigateTransactionHistory,
     DATA,
     Metrics,
   };

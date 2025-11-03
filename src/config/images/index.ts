@@ -12,6 +12,8 @@ const Images = {
   cardGradient: require("../../assets/images/cardGradient.png"),  
   calander: require("../../assets/images/calander.png"),  
   
+  //back gradient
+  manageCardGradient: require("../../assets/images/backgradient/manageCardGradient.png"),
   
   eyeClose: require("../../assets/images/eyeclose.png"),
   eyeOpen: require("../../assets/images/eyeopen.png"),

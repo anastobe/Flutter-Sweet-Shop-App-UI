@@ -42,11 +42,12 @@ const ContactAdressSheet = ({
                 onPress={() => { setSecure(!secure) }}
                 onChangeText={setconfirmPassword}
                 imagetintColor={THEME.white}
+                maxlen={30} 
             />
 
             <CustomButton
                 btnContSty={styles.forgetTxt}
-                title="Use Password"
+                title="Confirm & Continue"
                 onPress={onPress}
             />
 

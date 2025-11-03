@@ -1,15 +1,16 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { BottomSheet, MainContainer, Modal } from '../../../components';
-import { Images } from '../../../config';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import { BottomSheet, MainContainer, Modal } from '../../../../components';
+import { Images } from '../../../../config';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
+import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { useNavigation } from '@react-navigation/native';
-import InputField from '../../../components/textInput';
-import CustomButton from '../../../components/customButton';
+import InputField from '../../../../components/textInput';
+import CustomButton from '../../../../components/customButton';
 import { scale } from 'react-native-size-matters';
-import { HOME_ROUTES } from '../../../constants';
-import { createCard } from '../../../queries/auth.query';
+import { HOME_ROUTES } from '../../../../constants';
+import { createCard } from '../../../../queries/auth.query';
+import Metrics from '../../../../styles/metrics';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -26,20 +27,13 @@ function InfoRow({ icon, label, value }) {
   );
 }
 
-function ConfirmCardRequest(props) {
+function AdminConfirmCardRequest(props: any) {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
   const [tick, setTick] = useState(false);
   const [open, setOpen] = useState(false);
   const payload = props?.route?.params?.data;
 
-  const { mutate: createCardFunc, isPending } = createCard({
-    callback: function (response) {
-      if (response.success) {
-        setOpen(true);
-      }
-    },
-  });
 
   function pressBackArrow() {
     navigation.goBack();
@@ -58,114 +52,6 @@ function ConfirmCardRequest(props) {
     );
   }
 
-  function renderTotalAmount() {
-    return (
-      <>
-        <Text style={styles.totalLabel}>Total Amount</Text>
-        <Text style={styles.totalAmount}>£4.95 GBP</Text>
-      </>
-    );
-  }
-
-  function chooseFundingAcc() {
-    return (
-      <View style={styles.accountBox}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ width: 55, height: 45, justifyContent: "center", alignItems: "center" }} >
-          <Icon name="flag" size={28} color={THEME.white} />
-          </View>
-          <View>
-            <Text style={styles.accountText}>Choose Funding Account</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <View
-                style={{
-                  backgroundColor: THEME.secondary_hover,
-                  borderRadius: 6,
-                  padding: 2,
-                  marginTop: 2,
-                }}
-              >
-                <Text style={styles.badgeText}>GBP</Text>
-              </View>
-              <Text style={styles.accountTextbelow}>Clearbank Account</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={{ marginRight: 15 }}>
-          <Icon name="caret-down" size={20} color={THEME.white} />
-        </View>
-      </View>
-    );
-  }
-
-  function renderConfirmation() {
-    return (
-      <View style={styles.checkboxContainer}>
-        <TouchableOpacity onPress={() => setTick(!tick)} style={styles.checkbox}>
-          {tick ? <Icon name="checkmark-outline" size={18} color={THEME.white} /> : null}
-        </TouchableOpacity>
-        <Text style={styles.confirmText}>
-          I confirm that <Text style={styles.boldText}>£4.95</Text> will be deducted from my
-          account to issue my physical card.
-        </Text>
-      </View>
-    );
-  }
-
-  function renderButton() {
-    return (
-      <View>
-        <CustomButton
-          btnContSty={styles.forgetTxt}
-          loading={isPending}
-          title="Pay"
-          onPress={function () {
-            setOpen(true);
-            // createCardFunc(payload);
-          }}
-        />
-      </View>
-    );
-  }
-
-  function renderPopup() {
-    return (
-      <View style={styles.modal}>
-        <TouchableOpacity style={styles.closeBtn} onPress={() => setOpen(false)}>
-          <Text style={styles.closeText}>×</Text>
-        </TouchableOpacity>
-
-        <View style={styles.iconCircle}>
-          <Icon name="checkmark" size={25} color={THEME.textPrimary} />
-        </View>
-
-        <Text style={styles.titles}>Card Created Successfully.</Text>
-        <Text style={styles.description}>Virtual card created and ready to use.</Text>
-
-        <CustomButton
-          btnContSty={styles.forgetTxtpop}
-          title="Manage Card"
-          onPress={function () {
-            navigation.navigate(HOME_ROUTES.TABSTACK);
-          }}
-        />
-      </View>
-    );
-  }
-
-  function renderModal() {
-    return (
-      <Modal
-        isVisible={open}
-        isKeyboardAvoidingView={true}
-        children={renderPopup()}
-        onClose={function () {
-          setOpen(false);
-        }}
-      />
-    );
-  }
 
   return (
     <MainContainer
@@ -182,17 +68,31 @@ function ConfirmCardRequest(props) {
         </Text>
 
         {renderCardDetails()}
-        {renderTotalAmount()}
-        {chooseFundingAcc()}
-        {renderConfirmation()}
-        {renderButton()}
-        {renderModal()}
+        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 50 }} >
+          <CustomButton
+            btnContSty={styles.transferBtnReject}
+            loading={false}
+            txtColor={styles.btnStyle}
+            showmyStyleOnly={true}
+            title="Reject"
+            onPress={()=>{Alert.alert("reject") }}
+          />
+
+          <CustomButton
+            btnContSty={styles.transferBtnAccept}
+            loading={false}
+            txtColor={styles.btnStyle2}
+            showmyStyleOnly={true}
+            title="Accept"
+            onPress={()=>{Alert.alert("accept") }}
+          />
+            </View>
       </View>
     </MainContainer>
   );
 }
 
-export default ConfirmCardRequest;
+export default AdminConfirmCardRequest;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
@@ -203,6 +103,34 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 10,
   },
+  btnStyle:{
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+  },
+  btnStyle2:{
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.textPrimary,
+  },
+  transferBtnReject: {
+    backgroundColor: THEME.SlateBlue,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+  height: scale(50),
+    width: Metrics.width/2-30,
+    borderColor: THEME.white,
+    borderWidth: 1.5
+   },
+      transferBtnAccept: {
+       backgroundColor: THEME.primary,
+       borderRadius: 10,
+       justifyContent: "center",
+       alignItems: 'center',
+     height: scale(50),
+       width: Metrics.width/2-30
+      },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
@@ -259,9 +187,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   accountText: {
-    fontFamily: FONTFAMILY.Regular,
+    fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onetwo,
-    color: THEME.gray_med,
+    color: THEME.white,
   },
   accountTextbelow: {
     fontFamily: FONTFAMILY.Light,
@@ -287,13 +215,13 @@ const styles = StyleSheet.create({
   confirmText: {
     flex: 1,
     color: THEME.primary,
-    fontSize: FONT_SIZES.onefour,
-    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.onetwo,
+    fontFamily: FONTFAMILY.Medium,
  
   },
   boldText: { fontWeight: 'bold' },
   modal: {
-    backgroundColor: 'rgba(64, 64, 65, 0.98)',
+    backgroundColor: 'rgba(64, 64, 65, 0.95)',
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
@@ -312,16 +240,14 @@ const styles = StyleSheet.create({
   titles: {
     fontFamily: FONTFAMILY.SemiBold,
     fontSize: FONT_SIZES.twosix,
-    color: THEME.white,
+    color: THEME.primary,
     textAlign: 'center',
-    lineHeight: 30,
-    marginTop: 20
   },
   description: {
     marginTop: 10,
     fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.white,
+    color: THEME.primary,
     textAlign: 'center',
   },
 });

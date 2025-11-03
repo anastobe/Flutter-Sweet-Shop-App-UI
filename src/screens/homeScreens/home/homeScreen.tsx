@@ -31,9 +31,9 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.headerRight}>
-        {/* <TouchableOpacity onPress={handleNavigateNotification} style={{ marginRight: 15 }}>
+        <TouchableOpacity onPress={handleNavigateNotification} style={{ marginRight: 15 }}>
           <Icon name="notifications-outline" size={25} color={THEME.white} />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleNavigateProfile} >
         <Image
           source={{
@@ -90,7 +90,7 @@ const HomeScreen = () => {
           <TouchableOpacity onPress={handleNavigateTransaction} style={styles.item}>
             <View style={styles.sectionLeft}>
               <View style={styles.iconCONT}>
-                <Icon name="cart-outline" size={16} color={THEME.textPrimary} />
+                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"} size={16} color={THEME.textPrimary} />
               </View>
               <View>
                 <Text style={styles.name}>{item.name}</Text>
@@ -219,10 +219,10 @@ const styles = StyleSheet.create({
   },
   sectionLeft: { flexDirection: 'row', alignItems: 'center' },
   iconCONT: {
-    width: 35,
-    height: 35,
+    width: 25,
+    height: 25,
     backgroundColor: THEME.primary,
-    borderRadius: 10,
+    borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

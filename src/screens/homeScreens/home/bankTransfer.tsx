@@ -71,9 +71,11 @@ const BankTransfer = () => {
           <InputField
             renderRightInput={renderRightInput}
             placeholder="0.00"
+            removeTitle={true}
             value={recipientGets}
             onChangeText={setRecipientGets}
             keyboardType={"numeric"}
+            maxlen={10}
             margBtm={20}
           />
 
@@ -85,7 +87,7 @@ const BankTransfer = () => {
               onValueChange={(itemValue) => setBeneficiaryBankCountry(itemValue)}
               style={styles.inputInnerPicker}
             >
-              <Picker.Item label="To Account" value="" color={THEME.textPrimary} />
+              <Picker.Item label="Beneficiary Bank Country" value="" color={THEME.textPrimary} />
               <Picker.Item label="account" value="account" color={THEME.textPrimary} />
               <Picker.Item label="cash" value="cash" color={THEME.textPrimary} />
             </Picker>
@@ -98,7 +100,7 @@ const BankTransfer = () => {
               onValueChange={(itemValue) => setRecipientType(itemValue)}
               style={styles.inputInnerPicker}
             >
-              <Picker.Item label="To Account" value="" color={THEME.textPrimary} />
+              <Picker.Item label="Recipient Type" value="" color={THEME.textPrimary} />
               <Picker.Item label="account" value="account" color={THEME.textPrimary} />
               <Picker.Item label="cash" value="cash" color={THEME.textPrimary} />
             </Picker>
@@ -180,7 +182,7 @@ const styles = StyleSheet.create({
   renderRightInputContainer: {
     height: scale(55),
     position: "absolute",
-    right: 8,
+    right: 20,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -188,7 +190,7 @@ const styles = StyleSheet.create({
   inputNumber: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
   },
   inputNumbergbpcont: {
     backgroundColor: THEME.primary,

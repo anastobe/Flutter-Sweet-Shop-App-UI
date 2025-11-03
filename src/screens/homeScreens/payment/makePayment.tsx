@@ -11,14 +11,14 @@ const MakePayment = () => {
   const renderItem = ({ item }: { item: any }) => (
     <TouchableOpacity onPress={() => handleNavigate(item.route)} style={styles.item}>
       <View style={styles.avatar}>
-        <Icon name={item.icon} size={30} color={THEME.white} />
+        <Icon name={item.icon} size={36} color={THEME.primary} />
       </View>
       <View style={{ flex: 1 }}>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.currency}>{item.detailTxt}</Text>
       </View>
       <View style={{ transform: [{ rotate: "-45deg" }] }}>
-        <Icon name="arrow-forward-outline" size={20} color={THEME.white} />
+        <Icon name="arrow-forward-outline" size={20} color={THEME.primary} />
       </View>
     </TouchableOpacity>
   );

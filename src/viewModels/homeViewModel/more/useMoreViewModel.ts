@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { HOME_ROUTES } from '../../../constants';
@@ -7,6 +7,9 @@ import { storeUserToken } from '../../../Redux/Action/Auth/AuthActions';
 export default function useMoreViewModel() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  
+  const [open, setopen] = useState(false);
+
   const cardDetailRef = useRef(null);
 
   function onPressCurrencyExchange() {
@@ -29,6 +32,10 @@ export default function useMoreViewModel() {
     navigation.navigate(HOME_ROUTES.PROFILE);
   }
 
+  function onPressRequest() {
+    navigation.navigate(HOME_ROUTES.REQUEST);
+  }
+  
   function onPressChangePassword() {
     navigation.navigate(HOME_ROUTES.UpdatePassword);
   }
@@ -38,7 +45,7 @@ export default function useMoreViewModel() {
   }
 
   function onPressSecurity() {
-    navigation.navigate(HOME_ROUTES.PIN_SECURITY);
+    setopen(!open)
   }
 
   function onPressFaqs() {
@@ -72,6 +79,7 @@ export default function useMoreViewModel() {
     onPressBeneficiary,
     onPressAddnewBeneficiary,
     onPressProfile,
+    onPressRequest,
     onPressChangePassword,
     onPresscontact,
     onPressSecurity,
@@ -81,5 +89,7 @@ export default function useMoreViewModel() {
     onPressTermsofUse,
     onPressLogout,
     onCloseHelpSheet,
+    setopen,
+    open
   };
 }

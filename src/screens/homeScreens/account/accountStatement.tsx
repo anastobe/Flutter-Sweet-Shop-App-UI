@@ -8,6 +8,9 @@ import TransactionFilter from '../../../components/bottomSheet/transactionFilter
 import { scale } from 'react-native-size-matters';
 import { useAccountStatementViewModel } from '../../../viewModels/homeViewModel/account/useAccountStatementViewModel';
 import Metrics from '../../../styles/metrics';
+import { DATA_STATEMENT } from '../../../utils/data';
+import { screenWidth } from '../../../utils/style.utils';
+import { Images } from '../../../config';
 
 const AccountStatement = () => {
   const {
@@ -19,18 +22,20 @@ const AccountStatement = () => {
     closeFilterSheet,
     DATA,
     Metrics,
+    handleNavigateTransactionHistory
   } = useAccountStatementViewModel();
+
 
   function renderFilter() {
     return (
       <View style={styles.filtersearchContainer} >
-        <InputField  autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white} customInpStyle={styles.innerinput} />
+        <InputField maxlen={17} image={"search-outline"} imagetintColor={THEME.white} removeTitle={true} autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white}  customInpStyle={styles.innerinput} />
         <TouchableOpacity
           onPress={() => { cardDetailRef?.current?.open() }}
-          style={{ width: 40, height: scale(55), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+          style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
           <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
         </TouchableOpacity>
-        <TouchableOpacity style={{ width: 40, height: scale(55), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+        <TouchableOpacity style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
           <Icon name="download-outline" size={22} color={THEME.textPrimary} />
         </TouchableOpacity>
       </View>
@@ -39,21 +44,21 @@ const AccountStatement = () => {
 
   const renderTransactions = () => (
     <FlatList
-      data={DATA}
+      data={DATA_STATEMENT}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <View style={styles.item}>
+        <TouchableOpacity onPress={handleNavigateTransactionHistory}  style={styles.item}>
           <View style={styles.sectionLeft}>
             <View style={styles.iconCONT}>
-              <Icon name={'arrow-forward-outline'} size={16} color={THEME.textPrimary} />
+              <Icon name={item.id == 2 ? 'swap-horizontal-outline' : 'arrow-forward-outline'} size={16} color={THEME.textPrimary} />
             </View>
-            <View>
+            <View style={{ width: screenWidth - scale(166) }} >
               <Text style={styles.name}>{item.name}</Text>
               <Text style={styles.subname}>19 July</Text>
             </View>
           </View>
           <Text style={styles.amount}>{item.amount}</Text>
-        </View>
+        </TouchableOpacity>
       )}
       contentContainerStyle={{ paddingBottom: 100 }}
     />
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: 7,
   },
   rightIconCont: {
     backgroundColor: THEME.primary,
@@ -111,7 +116,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     borderRadius: 10,
   },
-  innerinput: {  height: scale(55), width: Metrics.width-130 },
+  innerinput: {  height: scale(53), width: Metrics.width-130 },
   item: {
     backgroundColor: THEME.SlateBlue,
     borderRadius: 10,

@@ -67,7 +67,7 @@ export const MainContainer: React.FC<MainContainerProps> = ({
         </TouchableOpacity>
 
         {pressRightArrow && <TouchableOpacity onPress={pressRightArrow} style={styles.rightIconCont}>
-            <Text style={styles.titleRight}>+</Text>
+            <Icon name="add" size={20} color={THEME.textPrimary}  />
         </TouchableOpacity>}
         </View>
       )}

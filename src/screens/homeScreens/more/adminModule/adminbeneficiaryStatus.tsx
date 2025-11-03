@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -13,10 +14,11 @@ import { MainContainer, Modal } from '../../../../components';
 import InputField from '../../../../components/textInput';
 import CustomButton from '../../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
-import { useAddNewBeneficiaryViewModel } from '../../../../viewModels/homeViewModel/more/useAddNewBeneficiaryViewModel';
+import { useAdminBeneficiariesManagementViewModel } from '../../../../viewModels/homeViewModel/more/Admin/adminBeneficiaryStatusViewModel';
+import Metrics from '../../../../styles/metrics';
 
-const AddNewBeneficiary = () => {
-  const vm = useAddNewBeneficiaryViewModel();
+const AdminBeneficiaryStatus = () => {
+  const vm = useAdminBeneficiariesManagementViewModel();
 
   const renderTransactionType = () => (
     <View>
@@ -39,8 +41,6 @@ const AddNewBeneficiary = () => {
 
   const renderInputFields = () => (
     <View>
-      <Text style={styles.checkmarkTitle}>Beneficiary Details</Text>
-
       <InputField
         margBtm={10}
         autoCapital={'none'}
@@ -49,24 +49,6 @@ const AddNewBeneficiary = () => {
         value={vm.beneficiaryName}
         onChangeText={vm.setBeneficiaryName}
       />
-
-      <View style={styles.pickerWrapper}>
-        <Picker
-          dropdownIconColor={THEME.white}
-          selectedValue={vm.accountType}
-          onValueChange={vm.setAccountType}
-          style={styles.inputInnerPicker}
-        >
-          {vm.ACCOUNT_TYPES.map((opt) => (
-            <Picker.Item
-              key={opt.value}
-              label={opt.label}
-              value={opt.value}
-              color={THEME.textPrimary}
-            />
-          ))}
-        </Picker>
-      </View>
 
       <InputField
         placeholder="IBAN / Account No."
@@ -101,23 +83,6 @@ const AddNewBeneficiary = () => {
         </Picker>
       </View>
 
-      <View style={styles.pickerWrapper}>
-        <Picker
-          dropdownIconColor={THEME.white}
-          selectedValue={vm.currency}
-          onValueChange={vm.setCurrency}
-          style={styles.inputInnerPicker}
-        >
-          {vm.CURRENCIES.map((opt) => (
-            <Picker.Item
-              key={opt.value}
-              label={opt.label}
-              value={opt.value}
-              color={THEME.textPrimary}
-            />
-          ))}
-        </Picker>
-      </View>
     </View>
   );
 
@@ -131,16 +96,14 @@ const AddNewBeneficiary = () => {
         <Icon name="checkmark" size={36} color={THEME.textPrimary} />
       </View>
 
-      <Text style={styles.titles}>Beneficiary Added Successfully</Text>
-      <Text style={styles.description}>
-        Beneficiary added successfully and is ready to use in payments.
-      </Text>
+      <Text style={styles.titles}>Beneficiary Accepted</Text>
 
-      <CustomButton
+ <CustomButton
         btnContSty={styles.forgetTxtpop}
-        title="Transfer Money"
+        title="Done"
         onPress={vm.onClosePopup}
       />
+
     </View>
   );
 
@@ -154,19 +117,32 @@ const AddNewBeneficiary = () => {
     >
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
         <View style={{ marginHorizontal: 20 }}>
-          <Text style={styles.title}>Add Beneficiary</Text>
+          <Text style={styles.title}>Beneficiary</Text>
           <Text style={styles.subtitle}>
-            Save recipient details for quicker payments in the future.
+Please review and confirm the beneficiary details before proceeding
           </Text>
 
-          {renderTransactionType()}
           {renderInputFields()}
 
-          <CustomButton
-            btnContSty={styles.forgetTxt}
-            title="Save Beneficiary"
-            onPress={vm.onPressBtn}
+        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 50 }} >
+         <CustomButton
+            btnContSty={styles.transferBtnReject}
+            loading={false}
+            txtColor={styles.btnStyle}
+            showmyStyleOnly={true}
+            title="Reject"
+            onPress={()=>{Alert.alert("reject") }}
           />
+
+          <CustomButton
+            btnContSty={styles.transferBtnAccept}
+            loading={false}
+            txtColor={styles.btnStyle2}
+            showmyStyleOnly={true}
+            title="Accept"
+            onPress={()=>{Alert.alert("accept") }}
+          />
+            </View>
 
           <Modal
             isVisible={vm.open}
@@ -180,13 +156,13 @@ const AddNewBeneficiary = () => {
   );
 };
 
-export default AddNewBeneficiary;
+export default AdminBeneficiaryStatus;
 
 const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.white,
+    color: THEME.primary,
     marginBottom: 10,
     marginTop: 10,
   },
@@ -203,20 +179,48 @@ const styles = StyleSheet.create({
     color: THEME.white,
     marginVertical: 10,
   },
+  btnStyle:{
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+  },
+  btnStyle2:{
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.textPrimary,
+  },
+  transferBtnReject: {
+    backgroundColor: THEME.SlateBlue,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+    height: scale(50),
+    width: Metrics.width/2-30,
+    borderColor: THEME.white,
+    borderWidth: 1.5
+   },
+      transferBtnAccept: {
+       backgroundColor: THEME.primary,
+       borderRadius: 10,
+       justifyContent: "center",
+       alignItems: 'center',
+   height: scale(50),
+       width: Metrics.width/2-30
+      },
   boxShape: { width: 20, height: 20, borderWidth: 1.5, borderRadius: 50 },
   row: { flexDirection: 'row', alignItems: 'center', marginVertical: 4 },
   label: {
     marginLeft: 8,
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Light,
-    color: THEME.white,
+    color: THEME.primary,
   },
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
     borderRadius: 10,
     height: scale(55),
-    marginBottom: 10
+    marginBottom: 10 
   },
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
@@ -262,3 +266,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+

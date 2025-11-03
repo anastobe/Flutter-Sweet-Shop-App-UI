@@ -15,6 +15,7 @@ export const useAccountScreenViewModel = () => {
 
   const [gbpWallet, setGbpWallet] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showbalance, setshowbalance] = useState(false);
 
   const data = [
     { id: "1", total: "€50,000.00", onHold: "€22.50", available: "€53,534.00" },
@@ -56,6 +57,8 @@ export const useAccountScreenViewModel = () => {
     gbpWallet,
     setGbpWallet,
     activeIndex,
+    setshowbalance,
+    showbalance,
     setActiveIndex,
     data,
     features,

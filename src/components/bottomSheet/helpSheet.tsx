@@ -21,7 +21,7 @@ const HelpSheet = ({
       onPress2: any,
     }) => {
     return (
-        <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} style={style}>
+        <ImageBackground resizeMode="cover" source={Images.manageCardGradient} style={style}>
 
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.titlesub}>{subtitle}</Text>

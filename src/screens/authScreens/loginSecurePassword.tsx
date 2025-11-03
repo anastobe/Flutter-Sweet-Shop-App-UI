@@ -62,6 +62,7 @@ export const LoginSecurePassword: React.FC<LoginSecurePasswordProps> = ({...prop
             onChangeText={setpassword}
             margBtm={20}
             imagetintColor={THEME.gray}
+            maxlen={30}
           />
 
             {renderRule(rules.minLength(password), 'Minimum 8 characters')}
@@ -82,6 +83,7 @@ export const LoginSecurePassword: React.FC<LoginSecurePasswordProps> = ({...prop
             onPress={()=>{ setSecure2(!secure2) }}
             onChangeText={setnewpassword}
             imagetintColor={THEME.gray}
+            maxlen={30}
           />
 
       <CustomButton

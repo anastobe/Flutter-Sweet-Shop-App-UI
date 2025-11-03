@@ -15,6 +15,7 @@ import { Animated } from 'react-native';
 export default function InputField({...props}) {
   const {
     heading,
+    removeTitle,
     placeholder,
     margTp,
     margBtm,
@@ -77,7 +78,7 @@ export default function InputField({...props}) {
              },
            ]}  
          >
-           {placeholder}
+           {removeTitle && value?.length ? "" : placeholder}
          </Animated.Text>
 
         <TextInput
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     borderColor: THEME.white,
     borderWidth: 1,
     borderRadius: 10,
-    // width: METRICS.width - 45,
+    width: METRICS.width - 40,
     color: THEME.primary,
     height: scale(55),
     paddingLeft: 20,
@@ -153,6 +154,7 @@ const styles = StyleSheet.create({
     left: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: "red",
     zIndex: 9999
   },
 

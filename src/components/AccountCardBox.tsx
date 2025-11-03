@@ -3,18 +3,29 @@ import { View, Text, StyleSheet } from "react-native";
 import Metrics from "../styles/metrics";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
 import { TouchableOpacity } from "react-native";
+import Icon from 'react-native-vector-icons/Ionicons';
+import { TouchableWithoutFeedback } from "react-native";
 
 type Props = {
   total: string;
   onHold: string;
   available: string;
-  onPress: any
+  onPress: any,
+  onPresseye: any,
+  showBalance: any
 };
 
-const AccountCardBox = ({ total, onHold, available,onPress }: Props) => {
+const AccountCardBox = ({ total, onHold, available,onPress,onPresseye,showBalance }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
-      <Text style={styles.total}>{total}</Text>
+      <TouchableWithoutFeedback>
+      <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center" }} >
+        {showBalance ? <Text style={styles.total}>{total}</Text> : null}
+          <TouchableOpacity onPress={onPresseye} >
+        <Icon name={showBalance ? "eye-outline" : "eye-off" } size={28} color={THEME.white} />
+          </TouchableOpacity>
+      </View>
+      </TouchableWithoutFeedback>
       <Text style={styles.label}>Total Balance</Text>
 
       <View style={styles.row}>
@@ -46,6 +57,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Bold,
     color: THEME.white,
     textAlign: "center",
+    marginRight: 10
   },
   label: {
     fontSize: FONT_SIZES.onefour,

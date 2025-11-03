@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { ImageBackground } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Images from '../config/images';
@@ -27,44 +27,47 @@ const EditAccountPreferences: React.FC<Props> = ({
     <ImageBackground
       resizeMode="cover"
       source={Images.addCardGradient}
-      style={{ flex: 1, width: Metrics.width}}
+      style={{ flex: 1}}
     >
-      <View style={styles.overlay}>
-        {/* Header */}
-        <View style={styles.headerRow}>
-          <Text style={styles.headerText}>
-           {`Update preferences and control\nthis account`}
-          </Text>
-        </View>
-
-        {/* Account Row */}
-        <View style={styles.accountRow}>
-          <Text style={styles.accountLabel}>Account Name</Text>
-          <View style={styles.accountRight}>
-            <Text style={styles.accountValue}>{accountName}</Text>
-            <TouchableOpacity onPress={onPressEdit} >
-              <Icon name="create-outline" size={26} color={THEME.white} />
-            </TouchableOpacity>
+      <ScrollView style={{ paddingBottom: 500 }}>
+        <View style={styles.overlay}>
+          {/* Header */}
+          <View style={styles.headerRow}>
+            <Text style={styles.headerText}>
+            {`Update preferences and control\nthis account`}
+            </Text>
           </View>
-        </View>
 
-        {/* Buttons */}
-        <CustomButton
-          btnContSty={styles.forgetTxt1}
-          title="Save Changes"
-          onPress={onPressSave}
-        />
-        <CustomButton
-          btnContSty={styles.forgetTxt2}
-          title="Freeze Now"
-          onPress={onPressFreeze}
-        />
-        <CustomButton
-          btnContSty={styles.forgetTxt3}
-          title="Delete Account"
-          onPress={onPressDelete}
-        />
-      </View>
+          {/* Account Row */}
+          <View style={styles.accountRow}>
+            <Text style={styles.accountLabel}>Account Name</Text>
+            <View style={styles.accountRight}>
+              <Text style={styles.accountValue}>{accountName}</Text>
+              <TouchableOpacity onPress={onPressEdit} >
+                <Icon name="create-outline" size={26} color={THEME.white} />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/* Buttons */}
+          <CustomButton
+            btnContSty={styles.forgetTxt1}
+            title="Save Changes"
+            onPress={onPressSave}
+          />
+          <CustomButton
+            btnContSty={styles.forgetTxt2}
+            title="Freeze Now"
+            onPress={onPressFreeze}
+          />
+          <CustomButton
+            btnContSty={styles.forgetTxt3}
+            title="Delete Account"
+            onPress={onPressDelete}
+          />
+        </View>
+        
+      </ScrollView>
     </ImageBackground>
   );
 };

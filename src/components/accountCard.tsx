@@ -14,6 +14,7 @@ import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { Images } from '../config';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
+import { scale } from 'react-native-size-matters';
 
 const { width } = Dimensions.get('window');
 
@@ -22,7 +23,7 @@ const AccountCard = ({ item, index, onPressCard,containerStyle }: { item?: any, 
 
     return (
         <TouchableOpacity activeOpacity={1} onPress={()=>{onPressCard(item)}} style={[{ width: METRICS.width , height: 174, borderRadius: 15 },containerStyle]}  >
-        <ImageBackground resizeMode="stretch" source={Images.cardBack} imageStyle={{ borderRadius: 15 }} style={{flex: 1,marginHorizontal: 20 }} >
+        <ImageBackground resizeMode="stretch" source={Images.cardBack} imageStyle={{ borderRadius: 15 }} style={{flex: 1,marginHorizontal: scale(35) }} >
 
             <View style={{ flexDirection: "row", paddingHorizontal: 10, marginTop: 10 }} >
                 <View>

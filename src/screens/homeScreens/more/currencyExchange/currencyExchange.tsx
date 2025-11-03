@@ -31,15 +31,18 @@ const CurrencyExchange = () => {
   const renderInput = () => (
     <View>
       <InputField
+        // customInpStyle={{ paddingRight: 100, backgroundColor: "red" }}
         renderRightInput={renderRightInput}
         margTp={50}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="0.00"
+        removeTitle={true}
         value={sendFrom}
         onChangeText={setSendFrom}
-        keyboardType={'default'}
+        keyboardType={"numeric"}
         margBtm={20}
+        maxlen={10}
       />
 
       <View style={styles.pickerWrapper}>
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     marginBottom: 10,
     marginTop: 10,
   },
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
   renderRightInputContainer: {
     height: scale(55),
     position: 'absolute',
-    right: 8,
+    right: 20,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

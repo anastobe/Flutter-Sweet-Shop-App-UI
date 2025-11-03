@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
@@ -17,7 +17,9 @@ const Profile = () => {
 
   const {
     profile,
+    setName,
     name,
+    setUsername,
     username,
     email,
     phone,
@@ -58,49 +60,53 @@ const Profile = () => {
         </View>
 
         <InputField
+          disabled={false}
           marginTp={20}
           autoCapital={'none'}
-          blurOnSubmit={false}
-          disabled={true}
+          blurOnSubmit={false}         
           placeholder="Full Name"
           value={name}
           keyboardType={'default'}
           margBtm={15}
-          customInpStyle={{ backgroundColor: THEME.whitergba }}
-        />
-        <InputField
-          marginTp={20}
-          autoCapital={'none'}
-          blurOnSubmit={false}
-          disabled={true}
-          placeholder="Username"
-          value={username}
-          keyboardType={'default'}
-          margBtm={15}
-          customInpStyle={{ backgroundColor: THEME.whitergba }}
+          onChangeText={setName}
+          customInpStyle={{ backgroundColor: THEME.whitergba,borderWidth: 0  }}
         />
 
         <InputField
           marginTp={20}
           autoCapital={'none'}
           blurOnSubmit={false}
+          disabled={false}
+          placeholder="Username"
+          value={username}
+          keyboardType={'default'}
+          margBtm={15}
+          onChangeText={setUsername}
+          customInpStyle={{ backgroundColor: THEME.whitergba,borderWidth: 0  }}
+        />
+
+        <InputField
+          marginTp={20}
+          disabled={false}
+          blurOnSubmit={false}
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
           keyboardType={'email-address'}
           margBtm={15}
-          customInpStyle={{ backgroundColor: THEME.whitergba }}
+          customInpStyle={{ backgroundColor: THEME.whitergba, borderWidth: 0 }}
         />
         <InputField
           marginTp={20}
+          disabled={false}
+          placeholder="Phone"
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Mobile Number"
           value={phone}
           onChangeText={setPhone}
           keyboardType={'numeric'}
           margBtm={15}
-          customInpStyle={{ backgroundColor: THEME.whitergba }}
+          customInpStyle={{ backgroundColor: THEME.whitergba, borderWidth: 0 }}
         />
       </View>
     );
@@ -115,15 +121,15 @@ const Profile = () => {
       mainContainerStyle={styles.container}
     >
       <View style={{ marginHorizontal: 20, paddingBottom: 60 }}>
-        <Text style={styles.title}>Edit Account Profile</Text>
+        <Text style={styles.title}>Profile</Text>
         {renderProfileFields()}
 
-        <CustomButton
+        {/* <CustomButton
           btnContSty={styles.forgetTxt}
           title="Update Basic Information"
           loading={false}
           onPress={onPressBtn}
-        />
+        /> */}
       </View>
     </MainContainer>
   );

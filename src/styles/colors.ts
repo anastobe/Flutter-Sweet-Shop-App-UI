@@ -9,7 +9,7 @@ enum THEME {
   white = '#FFFFFF',
   whitergba = 'rgba(255, 255, 255, 0.13)',
   SlateBlue = "rgba(97, 93, 135, 0.4)",
-
+  gray_med = "#626262",
   // old Design 
 
   offWhite = "#F9F9F9",
@@ -17,7 +17,7 @@ enum THEME {
   // T_Black = '#000000',
   // txtCol = '#202020',
   // gray = '#c0c0c0',
-  // gray_med = "#626262",
+  // 
   prinkishBlue = "#DF7FFF",
   // darkGray = '#434343',
   green = "#01d449",

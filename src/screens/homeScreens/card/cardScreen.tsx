@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, SectionList, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, SectionList, ImageBackground, ScrollView, Alert } from 'react-native';
 import { BottomSheet, MainContainer, Modal } from '../../../components';
 import { Images } from '../../../config';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
@@ -261,7 +261,7 @@ const TransactionList = () => {
       data={DATA}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
-        <View style={styles.item}>
+        <TouchableOpacity  onPress={()=>{ navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL)}}  style={styles.item}>
           <View style={styles.sectionLeft} >            
             <View style={styles.iconCONT} >
                <Icon name={"arrow-forward-outline"} size={16} color={THEME.textPrimary} />
@@ -274,7 +274,7 @@ const TransactionList = () => {
           <View>
             <Text style={styles.amount}>{item.amount}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
       )}
       contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 100 }}
       renderSectionHeader={({ section: { title } }) => (
@@ -289,7 +289,9 @@ const TransactionList = () => {
    return(
     <OptionsHeader
       showBackIcon={false}
-      onPressNotification={() => navigation.navigate(HOME_ROUTES.NOTIFICATION) }
+      // onPressNotification={() => navigation.navigate(HOME_ROUTES.NOTIFICATION) }
+      onPressNotification={() => Alert.alert("Api Needed")}
+      
       onPressAdd={() => AddCardRef?.current?.open()}
     />
    ) 
@@ -473,21 +475,21 @@ const TransactionList = () => {
      />
 
      <BottomSheet
-      height={METRICS.height / 1.2}
+      height={METRICS.height / 1.4}
       draggable={false}
       openTime={500}
       closeDuration={500}
       bottomSheetRef={methodsRef}
-      children={<Methods  backImg={Images.addCardGradient}  onPress1={()=>{switchOption('1')}} onPress2={()=>{switchOption('2')}} onPress3={()=>{switchOption('3')}} onPress4={()=>{switchOption('4')}} style={{ flex: 1, paddingHorizontal: 20 }}  />}
+      children={<Methods  backImg={Images.manageCardGradient}  onPress1={()=>{switchOption('1')}} onPress2={()=>{switchOption('2')}} onPress3={()=>{switchOption('3')}} onPress4={()=>{switchOption('4')}} style={{ flex: 1, paddingHorizontal: 20 }}  />}
      />
 
      <BottomSheet
-      height={METRICS.halfScreen}
+      height={METRICS.halfScreen - 80}
       draggable={false}
       openTime={500}
       closeDuration={500}
       bottomSheetRef={manageRef}
-      children={<ManageOption style={{ flex: 1, paddingHorizontal: 20 }} backImg={Images.addCardGradient}  onPress1={()=>{onPressOption('1')}} onPress2={()=>{onPressOption('2')}}  />}
+      children={<ManageOption style={{ flex: 1, paddingHorizontal: 20 }} backImg={Images.manageCardGradient}  onPress1={()=>{onPressOption('1')}} onPress2={()=>{onPressOption('2')}}  />}
      />
 
        </SafeAreaView>
@@ -537,7 +539,7 @@ const styles = StyleSheet.create({
   },
   item: {
     // borderWidth: 1,
-    backgroundColor: THEME.SlateBlue,
+    backgroundColor: THEME.secondary,
     borderRadius: 10,
     height: 68,
     flexDirection: 'row',
@@ -553,19 +555,19 @@ const styles = StyleSheet.create({
   name: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 10
   },
   subname: {
     fontSize: FONT_SIZES.oneZero,
     fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 10
   },
   amount: {
     fontSize: FONT_SIZES.oneeight,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary
+    color: THEME.white
   },
 
   //pagination dots

@@ -24,8 +24,8 @@ const EditAccountDetail: React.FC<Props> = ({
   return (
     <ImageBackground
       resizeMode="cover"
-      source={Images.addCardGradient}
-      style={{ flex: 1, width: Metrics.width}}
+      source={Images.manageCardGradient}
+      style={{ flex: 1}}
     >
       <View style={styles.overlay}>
         {/* Header */}
@@ -42,7 +42,7 @@ const EditAccountDetail: React.FC<Props> = ({
             placeholder="Primary GBP Wallet"
             value={gbpWallet}
             onChangeText={setgbpWallet}
-            keyboardType={'numeric'}
+            keyboardType={'default'}
             margBtm={20}
         />
 

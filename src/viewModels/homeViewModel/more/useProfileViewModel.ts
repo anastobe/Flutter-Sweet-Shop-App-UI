@@ -6,8 +6,8 @@ const useProfileViewModel = () => {
   const [profile, setProfile] = useState<string | null>(null);
   const [name, setName] = useState('William');
   const [username, setUsername] = useState('@william.harp');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('william@gmail.com');
+  const [phone, setPhone] = useState('03322778221');
 
   // ✅ Image Picker
   function openImagePicker() {
@@ -47,7 +47,9 @@ const useProfileViewModel = () => {
 
   return {
     profile,
+    setName,
     name,
+    setUsername,
     username,
     email,
     phone,

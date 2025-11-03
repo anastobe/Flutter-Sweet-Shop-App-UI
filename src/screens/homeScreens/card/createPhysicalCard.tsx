@@ -84,6 +84,7 @@ const CreatePhysicalCard = () => {
           onChangeText={setSpendingLimit}
           keyboardType={'numeric'}
           margBtm={20}
+             maxlen={10}
         />
 
         <View style={styles.pickerWrapper}>

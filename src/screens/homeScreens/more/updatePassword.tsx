@@ -33,7 +33,7 @@ export default function UpdatePassword() {
         <Icon
           name={iconCondition ? 'checkmark-circle-outline' : 'close-circle-outline'}
           size={25}
-          color={iconCondition ? THEME.lightred : THEME.green}
+          color={iconCondition ? THEME.green : THEME.lightred}
         />
         <Text style={styles.ruleText}>{txt}</Text>
       </View>
@@ -63,6 +63,7 @@ export default function UpdatePassword() {
         value={password}
         onPress={() => setSecure(!secure)}
         onChangeText={setPassword}
+        maxlen={30}
       />
 
       <InputField

@@ -15,24 +15,23 @@ export default function TransactionHistory() {
     onSearch,
     cardDetailRef,
     pressBackArrow,
-    closeFilterSheet
+    closeFilterSheet,
+    handleNavigateTransactionHistory
   } = useTransactionHistoryViewModel();
 
   function renderFilter() {
     return (
-      <View style={styles.filtersearchContainer}>
         <InputField
-          imageLeft={'search-outline'}
+          image={'search-outline'}
           autoCapital={'none'}
           blurOnSubmit={false}
           placeholder="Search"
           value={cardName}
           onChangeText={onSearch}
           keyboardType={'default'}
-          imagetintColorLeft={THEME.white}
-          customInpStyle={styles.innerinput}
+          imagetintColor={THEME.white}
+          maxlen={15}
         />
-      </View>
     );
   }
 
@@ -42,10 +41,10 @@ export default function TransactionHistory() {
         data={DATA}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.item}>
+          <TouchableOpacity onPress={handleNavigateTransactionHistory} style={styles.item}>
             <View style={styles.sectionLeft}>
               <View style={styles.iconCONT}>
-                <Icon name="arrow-forward-outline" size={16} color={THEME.textPrimary} />
+                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"}  size={16} color={THEME.textPrimary} />
               </View>
               <View>
                 <Text style={styles.name}>{item.name}</Text>
@@ -53,7 +52,7 @@ export default function TransactionHistory() {
               </View>
             </View>
             <Text style={styles.amount}>{item.amount}</Text>
-          </View>
+          </TouchableOpacity>
         )}
         contentContainerStyle={{ paddingBottom: 100 }}
       />
@@ -98,11 +97,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   filtersearchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    // flexDirection: 'row',
+    // alignItems: 'center',
     marginVertical: 10,
   },
-  innerinput: { paddingLeft: 50, height: 45, width: Metrics.width - 40 },
+  // innerinput: { paddingLeft: 50, height: 45 },
   item: {
     backgroundColor: THEME.SlateBlue,
     borderRadius: 10,

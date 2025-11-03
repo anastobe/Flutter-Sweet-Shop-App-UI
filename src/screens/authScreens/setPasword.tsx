@@ -63,6 +63,7 @@ const SetPassword: React.FC = () => {
         onChangeText={setPassword}
         margBtm={20}
         imagetintColor={THEME.white}
+        maxlen={30}
       />
 
       {renderRule(rules.minLength(password), "Minimum 8 characters")}

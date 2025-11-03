@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onetwo,
-    color: THEME.primary
+    color: THEME.white
   },
   valueWrapper: {
     flexDirection: "row",
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   value: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onetwo,
-    color: THEME.primary,
+    color: THEME.white,
   },
   boxContainer:
   { width: 65, height: 45,justifyContent: "center", alignItems: "center", borderRadius: 65, marginLeft: 10 }

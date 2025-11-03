@@ -3,13 +3,14 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { HOME_ROUTES } from '../../../constants';
 import { CURRENT_ACCOUNT, DATA } from '../../../utils/data';
+import { Alert } from 'react-native';
 
 export const useHomeViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const Sendoption = [
-    { icon: 'add-outline', onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: 'New Account' },
+    { icon: 'add-outline', onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency\nAccount` },
     { icon: 'wallet-outline', onPress: HOME_ROUTES.MAKE_PAYMENT, text: 'Send Money' },
   ];
 
@@ -22,7 +23,7 @@ export const useHomeViewModel = () => {
   };
 
   const handleNavigateNotification = () => {
-    navigation.navigate(HOME_ROUTES.NOTIFICATION);
+    Alert.alert("Api Needed")
   };
 
   const handleNavigateTransactionHistory = () => {

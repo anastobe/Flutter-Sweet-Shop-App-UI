@@ -89,9 +89,11 @@ const InternationalTransfer = () => {
             autoCapital="none"
             blurOnSubmit={false}
             placeholder="0.00"
+            removeTitle={true}
             value={recipientGets}
             onChangeText={setRecipientGets}
             keyboardType="numeric"
+                    maxlen={10}
             margBtm={20}
           />
 
@@ -172,7 +174,7 @@ const styles = StyleSheet.create({
   renderRightInputContainer: {
     height: scale(55),
     position: 'absolute',
-    right: 8,
+    right: 20,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

@@ -43,6 +43,10 @@ import AddNewCurrencyAcount from '../screens/homeScreens/home/addNewCurrencyAcou
 import AccountStatement from '../screens/homeScreens/account/accountStatement';
 import ConfirmCardRequest from '../screens/homeScreens/card/confirmCardRequest';
 import TransactionDetail from '../screens/homeScreens/home/transactionDetail';
+import Request from '../screens/homeScreens/more/adminModule/request';
+import AdminPaymentStatus from '../screens/homeScreens/more/adminModule/adminPaymentStatus';
+import AdminBeneficiaryStatus from '../screens/homeScreens/more/adminModule/adminbeneficiaryStatus';
+import AdminConfirmCardRequest from '../screens/homeScreens/more/adminModule/admincardStatus';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -251,6 +255,7 @@ const CardStack = () => {
         component={CardScreen}
         options={{ headerShown: false }}
       />
+      
               <Stack.Screen
           name={HOME_ROUTES.TRANSACTION_DETAIL}
           component={TransactionDetail}
@@ -288,6 +293,11 @@ const MoreStack = () => {
         component={MoreScreen}
         options={{ headerShown: false }}
       />
+           <Stack.Screen
+          name={HOME_ROUTES.TRANSACTION_DETAIL}
+          component={TransactionDetail}
+          options={{ headerShown: false }}
+        />
       <Stack.Screen
         name={HOME_ROUTES.CONTACTADDRESS}
         component={ContactAddress}
@@ -296,6 +306,11 @@ const MoreStack = () => {
       <Stack.Screen
         name={HOME_ROUTES.PROFILE}
         component={Profile}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.REQUEST}
+        component={Request}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -348,7 +363,21 @@ const MoreStack = () => {
         component={ConfirmCurrencyExchange}
         options={{ headerShown: false }}
       />
-
+      <Stack.Screen
+        name={HOME_ROUTES.ADMIN_PAYMENT_STATUS}
+        component={AdminPaymentStatus}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ADMIN_BENEFICIAY_STATUS}
+        component={AdminBeneficiaryStatus}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ADMIN_CARD_STATUS}
+        component={AdminConfirmCardRequest}
+        options={{ headerShown: false }}
+      />
       
     </Stack.Navigator>
   );
@@ -382,17 +411,18 @@ export const TabStack: React.FC = ({ }) => {
       initialRouteName={"HomeStack"}
       screenOptions={{
         tabBarStyle: {
-          // height:  90,
+          height: scale(65),
           // width: screenHeight >= 926 && isIphoneX() ? '95%' : '95%',
-          paddingBottom: 0,
-          alignSelf: 'center',
-          // backgroundColor: THEME.medRed,
+          // paddingBottom: 0,
+          // alignSelf: 'center',
+          backgroundColor: THEME.darkSecondary,
           // bottom: 5.2,
           // marginBottom: 0,
           // alignItems: 'center',
-          elevation: 0,
-          position: 'absolute',
-          borderTopWidth: 0,
+          // elevation: 0,
+          // position: 'absolute',
+          // borderTopColor: 'rgba(255, 255, 255, 0.3)',
+          // borderTopWidth: 1
         },
         tabBarActiveTintColor: 'blue',
         tabBarInactiveTintColor: 'grey',
@@ -497,14 +527,15 @@ const styles = StyleSheet.create<any>({
     height: scale(24),
   },
   iconBack:
-    { paddingHorizontal: 12, paddingVertical: 6, justifyContent: 'center', alignItems: "center", borderRadius: 16 },
+    { paddingHorizontal: 12,     paddingVertical: 10,justifyContent: 'center', alignItems: "center", borderRadius: 16 },
   tabCont:
   {
-    width: METRICS.width / 5,
-    height: scale(80),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: THEME.darkSecondary,
+    width: METRICS.width / 5-10,
+    // height: scale(50),
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // backgroundColor: THEME.medRed,
+    top: scale(5),
 
   }
 

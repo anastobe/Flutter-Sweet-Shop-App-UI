@@ -21,12 +21,12 @@ const OptionsHeader = ({ onPressNotification, onPressAdd }) => {
 
       {/* Right Icons */}
       <View style={{ flexDirection: "row" }}>
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={onPressNotification}
           style={[styles.rightIconCont, { marginRight: 10 }]}
         >
           <Icon name="notifications-outline" size={16} color={THEME.textPrimary} />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
         <TouchableOpacity onPress={onPressAdd} style={styles.rightIconCont}>
           <Icon name="add" size={16} color={THEME.textPrimary} />

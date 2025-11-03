@@ -113,6 +113,7 @@ export default function CreateVirtualCardView() {
           onChangeText={setSpendingLimit}
           keyboardType="numeric"
           margBtm={20}
+          maxlen={10}
         />
 
         <View style={styles.limitInfo}>

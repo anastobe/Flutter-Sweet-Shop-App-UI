@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { MainContainer, InputDropDownStyle } from '../../../components';
-import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
+import { MainContainer, InputDropDownStyle } from '../../../../components';
+import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
-import InputField from '../../../components/textInput';
-import CustomButton from '../../../components/customButton';
-import { useMyAccountTransferViewModel } from '../../../viewModels/homeViewModel/home/useMyAccountTransferViewModel';
+import InputField from '../../../../components/textInput';
+import CustomButton from '../../../../components/customButton';
+import { useAdminPaymentStatusViewModel } from '../../../../viewModels/homeViewModel/more/Admin/adminPaymentStatusViewModel';
+import Metrics from '../../../../styles/metrics';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: string }) => (
@@ -26,7 +27,7 @@ const BalanceCard = ({ label, amount }: { label: string; amount: string }) => (
   </View>
 );
 
-const MyAccountTransfer = () => {
+const AdminPaymentStatus = () => {
   const {
     amountSpend,
     setAmountSpend,
@@ -35,7 +36,7 @@ const MyAccountTransfer = () => {
     pressBackArrow,
     handlePress,
     onTransfer,
-  } = useMyAccountTransferViewModel();
+  } = useAdminPaymentStatusViewModel();
 
   const renderRightInput = () => (
     <View style={styles.rightInputContainer}>
@@ -105,20 +106,32 @@ const MyAccountTransfer = () => {
             />
           </View>
 
-          {/* Button */}
+          <View style={{ flexDirection: "row", justifyContent: "space-between" }} >
           <CustomButton
-            btnContSty={styles.transferBtn}
+            btnContSty={styles.transferBtnReject}
             loading={false}
-            title="Transfer Payment"
+            txtColor={styles.btnStyle}
+            showmyStyleOnly={true}
+            title="Reject"
             onPress={onTransfer}
           />
+
+          <CustomButton
+            btnContSty={styles.transferBtnAccept}
+            loading={false}
+            txtColor={styles.btnStyle2}
+            showmyStyleOnly={true}
+            title="Accept"
+            onPress={onTransfer}
+          />
+            </View>
         </View>
       </ScrollView>
     </MainContainer>
   );
 };
 
-export default MyAccountTransfer;
+export default AdminPaymentStatus;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
@@ -198,5 +211,32 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },
-  transferBtn: { marginTop: 20, marginBottom: 20 },
+  btnStyle:{
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+  },
+  btnStyle2:{
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.textPrimary,
+  },
+  transferBtnReject: {
+    backgroundColor: THEME.SlateBlue,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+  height: scale(50),
+    width: Metrics.width/2-30,
+    borderColor: THEME.white,
+    borderWidth: 1.5
+   },
+   transferBtnAccept: {
+    backgroundColor: THEME.primary,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+  height: scale(50),
+    width: Metrics.width/2-30
+   }
 });

@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { BottomSheet, CardBox, MainContainer } from '../../../components';
+import { BottomSheet, CardBox, MainContainer, Modal } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
 import LinearGradient from 'react-native-linear-gradient';
 import HelpSheet from '../../../components/bottomSheet/helpSheet';
 import useMoreViewModel from '../../../viewModels/homeViewModel/more/useMoreViewModel';
+import CustomButton from '../../../components/customButton';
 
 const MoreScreen = () => {
   const vm = useMoreViewModel();
@@ -63,6 +64,14 @@ const MoreScreen = () => {
     return (
       <View>
         <Text style={styles.headingTxt}>{heading}</Text>
+        <CardBox
+          rotate="-45deg"
+          titleLeft="Request"
+          iconRight="arrow-forward-outline"
+          TL_radius={10}
+          TR_radius={10}
+          onPress={vm.onPressRequest}
+        />
         <CardBox
           rotate="-45deg"
           titleLeft="Profile"
@@ -130,6 +139,41 @@ const MoreScreen = () => {
     );
   }
 
+      function renderPopup(icon,title,btnTxt) {
+    return (
+      <View style={styles.modal}>
+        <TouchableOpacity style={styles.closeBtn} onPress={vm.onPressSecurity}>
+          <Text style={styles.closeText}>×</Text>
+        </TouchableOpacity>
+
+        <View style={styles.iconCircle}>
+          <Icon name={icon} size={25} color={THEME.textPrimary} />
+        </View>
+
+        <Text style={styles.titles}>{title}</Text>
+        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
+
+        <CustomButton
+          btnContSty={styles.forgetTxtpop}
+          title={btnTxt}
+          onPress={vm.onPressSecurity}
+        />
+      </View>
+    );
+  }
+
+  function renderModalDelete() {
+    return (
+      <Modal
+        isVisible={vm.open}
+        isKeyboardAvoidingView={true}
+        children={renderPopup("alert","Kindly Visit your nearest ATM","Ok")} 
+        onClose={vm.setopen}
+      />
+    );
+  }
+
+
   return (
     <MainContainer
       isFlatList
@@ -151,6 +195,8 @@ const MoreScreen = () => {
 
       {faqSupport()}
       {LogOutBtn()}
+
+      {renderModalDelete()}
 
       <BottomSheet
         height={METRICS.halfScreen - 40}
@@ -202,6 +248,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     marginTop: 15,
   },
+    forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
   headingTxtDiff: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onesix,
@@ -218,4 +265,40 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignItems: 'center',
   },
+  
+    modal: {
+      backgroundColor: 'rgba(64, 64, 65, 0.98)',
+      borderRadius: 16,
+      padding: 24,
+      alignItems: 'center',
+    },
+    closeBtn: { position: 'absolute', top: 10, right: 15 },
+    closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
+    iconCircle: {
+      backgroundColor: THEME.primary,
+      borderRadius: 100,
+      width: scale(55),
+      height: scale(55),
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    titles: {
+      fontFamily: FONTFAMILY.SemiBold,
+      fontSize: FONT_SIZES.twosix,
+      color: THEME.white,
+      textAlign: 'center',
+      lineHeight: 30,
+      marginTop: 20
+    },
+    description: {
+      marginTop: 10,
+      fontFamily: FONTFAMILY.Regular,
+      fontSize: FONT_SIZES.onefour,
+      color: THEME.white,
+      textAlign: 'center',
+    },
+
+
+
 });

@@ -9,6 +9,7 @@ import SetLimits from "../screens/homeScreens/card/setLimit";
 import TransactionHistory from "../screens/homeScreens/card/transactionHistory";
 import UpdateAddress from "../screens/homeScreens/card/updateAddress";
 import AddNewCurrencyAcount from "../screens/homeScreens/home/addNewCurrencyAcount";
+import TransactionDetail from "../screens/homeScreens/home/transactionDetail";
 import { TabStack } from "./TabStack";
 // import { TabStack } from "./TabStack";
 
@@ -63,6 +64,10 @@ export const HomeStack: HomeScreenStacksTypes = [
   {
     name: HOME_ROUTES.UPDATE_ADDRESS,
     component: UpdateAddress,
+  },
+  {
+    name: HOME_ROUTES.TRANSACTION_DETAIL,
+    component: TransactionDetail,
   },
 
 

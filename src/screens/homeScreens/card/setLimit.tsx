@@ -76,6 +76,7 @@ export default function SetLimits() {
         onChangeText={setSpendingLimit}
         keyboardType={'numeric'}
         margBtm={20}
+           maxlen={10}
       />
     );
   }

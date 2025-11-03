@@ -67,9 +67,11 @@ const ConfirmCurrencyExchange = () => {
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="0.00"
+        removeTitle={true}
         value={sendFrom}
         onChangeText={setSendFrom}
-        keyboardType={'default'}
+            keyboardType="numeric"
+                    maxlen={10}
         margBtm={10}
       />
 
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
   renderRightInputContainer: {
     height: scale(55),
     position: 'absolute',
-    right: 8,
+    right: 20,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

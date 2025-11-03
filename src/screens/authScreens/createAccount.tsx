@@ -76,6 +76,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
             onPress={()=>{ setSecure(!secure) }}
             onChangeText={setpassword}
             imagetintColor={THEME.gray}
+            maxlen={30}
           />
 
         <InputField
@@ -90,6 +91,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
             onPress={()=>{ setSecure2(!secure2) }}
             onChangeText={setconfirmPassword}
             imagetintColor={THEME.gray}
+            maxlen={30}
         />
 
       <CustomButton

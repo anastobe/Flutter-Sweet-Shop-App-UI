@@ -77,22 +77,76 @@ const Accounts = [
   },
 ];
 
+const REQUEST_DATA = [
+  {
+    id: 1,
+    title: "Payment Received",
+    status: "Rejected",
+    message: "Your new card has been created and is ready to use.",
+    date: "28/10/2025   12:00pm",
+    by: "Mark Jason",
+    type: "payment",
+    icon: "card-outline",
+  },
+  {
+    id: 2,
+    title: "Order Confirmed",
+    status: "Completed",
+    message: "Your recent order has been successfully confirmed.",
+    date: "29/10/2025   09:30am",
+    by: "Emma Watson",
+    type: "beneficiary",
+    icon: "people-outline",
+  },
+  {
+    id: 3,
+    title: "Card Created",
+    status: "Pending",
+    message: "Your new card has been created and is ready to use.",
+    date: "28/10/2025   10:45am",
+    by: "John Doe",
+    type: "cardcreated",
+   icon: "card-outline",
+  },
+];
+
+
 
 const DATA = [
   {
     id: '1', 
     name: 'Bill Payment', 
-    amount: '£51.00' 
+    amount: '+£51.00' 
   },
   {
     id: '2', 
     name: 'Bill Payment', 
-    amount: '£51.00' 
+    amount: '-£51.00' 
   },
   {
     id: '3', 
     name: 'Bill Payment', 
-    amount: '£51.00' 
+    amount: '+£51.00' 
+  },
+];
+
+
+
+const DATA_STATEMENT = [
+  {
+    id: '1', 
+    name: 'Top-up via debit card (**** 1291)', 
+    amount: '+£51.00' 
+  },
+  {
+    id: '2', 
+    name: 'Exchanged £1,000 to €1,138 @ 1.14 rate', 
+    amount: '-£51.00' 
+  },
+  {
+    id: '3', 
+    name: 'Withdrawn to HSBC Account (****6523)', 
+    amount: '+£51.00' 
   },
 ];
 
@@ -235,6 +289,8 @@ const CURRENT_ACCOUNT = [
 export { 
     Accounts,
     DATA,
+    DATA_STATEMENT,
+    REQUEST_DATA,
     BENEFICIARY_MANAGEMENT_DATA,
     SPECIFIC_ACCOUNT_DETAIL,
     ACTIVE_ACCOUNT,

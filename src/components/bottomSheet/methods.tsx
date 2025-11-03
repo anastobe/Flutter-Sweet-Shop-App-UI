@@ -19,13 +19,16 @@ const Methods = ({ style, onPress1,onPress2 ,onPress3 ,onPress4,backImg }: { sty
   function Listitem(icon:any, title:any, subtitle:any, value:boolean, toggle:()=>void) {
     return (
       <View style={styles.containerAlert}>
+        <View style={{ flexDirection: 'row' }}>
         <View style={styles.ICONcONT}>
           <Icon name={icon} size={20} color={THEME.textPrimary} />
         </View>
-        <View style={{ width: Metrics.width - 110 }}>
+        <View style={{ width: Metrics.width - 130 }}>
           <Text style={styles.titleAbove}>{title}</Text>
           <Text style={styles.descriptionbelow}>{subtitle}</Text>
         </View>
+        </View>
+
         <View style={{ justifyContent: "center" }}>
           <SwitchToggle
             switchOn={value}
@@ -43,7 +46,7 @@ const Methods = ({ style, onPress1,onPress2 ,onPress3 ,onPress4,backImg }: { sty
   }
 
 return (
- <ImageBackground resizeMode="cover" source={backImg} style={style}>
+ <ImageBackground resizeMode="stretch" source={backImg} style={style}>
 
 
         {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} /> */}
@@ -77,17 +80,18 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 10,
         paddingBottom: 15,
+        justifyContent: 'space-between'
         // borderBottomWidth: 0.5,
         // borderColor: THEME.lightGrey,
     },
     titleAbove: {
         fontFamily: FONTFAMILY.Medium,
         fontSize: FONT_SIZES.onefour,
-        color: THEME.primary,
+        color: THEME.white,
         marginLeft: 8
     },
     descriptionbelow: {
-        fontFamily: FONTFAMILY.Light,
+        fontFamily: FONTFAMILY.Regular,
         fontSize: FONT_SIZES.onetwo,
         color: THEME.white,
         marginLeft: 8

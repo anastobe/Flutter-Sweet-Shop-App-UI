@@ -45,7 +45,7 @@ const AccountScreen = () => {
       >
         <View style={styles.content}>
           <Icon name="add" size={20} color="#A855F7" />
-          <Text style={styles.text}>New Account</Text>
+          <Text style={styles.text}>New Currency Account</Text>
         </View>
       </LinearGradient>
     </TouchableOpacity>
@@ -69,7 +69,8 @@ const AccountScreen = () => {
           style={styles.headerContainer}
         >
           <OptionsHeader
-            onPressNotification={() => vm.navigation.navigate(HOME_ROUTES.NOTIFICATION)}
+            // onPressNotification={() => vm.navigation.navigate(HOME_ROUTES.NOTIFICATION)}
+            onPressNotification={() => Alert.alert("Api Needed") }
             onPressAdd={() => vm.navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY)}
           />
           <FlatList
@@ -78,10 +79,12 @@ const AccountScreen = () => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <AccountCardBox
+                showBalance={vm.showbalance}
                 total={item.total}
                 onHold={item.onHold}
                 available={item.available}
                 onPress={() => vm.editRef?.current?.open()}
+                onPresseye={()=>vm.setshowbalance(!vm.showbalance)}
               />
             )}
             horizontal
@@ -101,7 +104,7 @@ const AccountScreen = () => {
         </LinearGradient>
 
         {/* BODY */}
-        <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 100, marginTop: 10 }}>
           <CardFeatureButtons
             features={vm.features}
             onPressbtn={(item: any) => item.onPress()}
@@ -132,7 +135,7 @@ const AccountScreen = () => {
 
         {/* Bottom Sheets */}
         <BottomSheet
-          height={METRICS.height / 1.3}
+          height={METRICS.height - scale(250)}
           draggable={false}
           bottomSheetRef={vm.manageRef}
         >
@@ -141,6 +144,7 @@ const AccountScreen = () => {
             source={Images.addCardGradient}
             style={styles.container}
           >
+            <ScrollView contentContainerStyle={{ paddingBottom: 100 }} >
             <AccountDetailsCard
               onPressShare={vm.onPressShare}
               onPressCopy={vm.onPressCopy}
@@ -155,11 +159,12 @@ const AccountScreen = () => {
                 { label: "Linked Cards", value: "Business Visa (**** 1234)" },
               ]}
             />
+          </ScrollView>
           </ImageBackground>
         </BottomSheet>
 
-        <BottomSheet       draggable={false} height={METRICS.height / 1.5} bottomSheetRef={vm.editRef}>
-          <EditAccountPreferences
+        <BottomSheet       draggable={false} height={400} bottomSheetRef={vm.editRef}>
+            <EditAccountPreferences
             accountName="Primary GBP Wallet"
             onPressEdit={() => vm.editAccountRef?.current?.open()}
             onPressSave={vm.onPressSave}
@@ -168,7 +173,7 @@ const AccountScreen = () => {
           />
         </BottomSheet>
 
-        <BottomSheet       draggable={false} height={METRICS.height / 1.8} bottomSheetRef={vm.editAccountRef}>
+        <BottomSheet       draggable={false} height={270} bottomSheetRef={vm.editAccountRef}>
           <EditAccountDetail
             gbpWallet={vm.gbpWallet}
             setgbpWallet={vm.setGbpWallet}

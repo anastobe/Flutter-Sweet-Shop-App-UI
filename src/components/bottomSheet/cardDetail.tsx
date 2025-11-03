@@ -24,7 +24,7 @@ const CardDetail = ({ style, onPress1,onPress2,iconColor }:{ style:any, onPress1
     }
 
     return (
-    <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={[styles.container,style]}>
+    <ImageBackground resizeMode="stretch" source={Images.manageCardGradient} style={[styles.container,style]}>
     
        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 }} /> */}
 

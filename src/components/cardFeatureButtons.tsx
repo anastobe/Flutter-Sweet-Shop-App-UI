@@ -6,7 +6,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
 import { scale } from 'react-native-size-matters';
 import Metrics from '../styles/metrics';
 
-const BUTTON_SIZE = scale(Metrics.width/4-35);
+const BUTTON_SIZE = scale(Metrics.width/4-37);
 
 type CardFeatureButton = {
   icon: string;
@@ -34,7 +34,7 @@ const CardFeatureButtons: React.FC<Props> = ({
             onPress={()=>onPressbtn(feature)}
             style={[styles.button, { backgroundColor: buttonColor }]}
           >
-            <Icon name={feature.icon} size={25} color={iconColor} />
+            <Icon name={feature.icon} size={scale(27)} color={iconColor} />
           </TouchableOpacity>
           <Text style={styles.label}>
             {feature.text}
