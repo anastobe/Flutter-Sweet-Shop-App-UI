@@ -40,19 +40,21 @@ export default function ReplaceCard(props) {
   function renderField() {
     return (
       <View>
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={reason}
-            onValueChange={itemValue => setReason(itemValue)}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item label="Reason for Replacement" value="" color={THEME.textPrimary} />
-            <Picker.Item label="snetched" value="snetched" color={THEME.textPrimary} />
-            <Picker.Item label="broken" value="broken" color={THEME.textPrimary} />
-          </Picker>
-        </View>
 
+      <InputField
+        disabled={false} 
+        placeholder="Reason for Replacement" 
+        value={reason} 
+        enableDropdown={true}
+        dropdownData={[
+        { label: "snetched" },
+        { label: "broken" },
+        ]}
+        margBtm={15}
+        onDropdownSelect={(item:any )=> setReason(item.label)}
+      />
+      
+      
         <InputField
           marginTp={20}
           autoCapital={'none'}

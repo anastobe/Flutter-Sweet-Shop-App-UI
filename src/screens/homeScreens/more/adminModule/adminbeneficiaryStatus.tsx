@@ -65,23 +65,20 @@ const AdminBeneficiaryStatus = () => {
         onChangeText={vm.setBicNo}
       />
 
-      <View style={styles.pickerWrapper}>
-        <Picker
-          dropdownIconColor={THEME.white}
-          selectedValue={vm.country}
-          onValueChange={vm.setCountry}
-          style={styles.inputInnerPicker}
-        >
-          {vm.COUNTRIES.map((opt) => (
-            <Picker.Item
-              key={opt.value}
-              label={opt.label}
-              value={opt.value}
-              color={THEME.textPrimary}
-            />
-          ))}
-        </Picker>
-      </View>
+      <InputField
+        disabled={false} 
+        placeholder="To Account"
+        value={vm.country} 
+        enableDropdown={true}
+        dropdownData={[
+          { label: "Pak" },
+          { label: "China" },
+        ]} 
+        margBtm={10}
+        onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+      />
+
+    
 
     </View>
   );

@@ -124,40 +124,19 @@ export default function SetLimits() {
           Control how much can be spent from this card per day.
         </Text>
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={reason}
-            onValueChange={(itemValue) => setReason(itemValue)}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item
-              label="Select Card"
-              value=""
-              color={THEME.white}
-            />
-            <Picker.Item
-              label="Business Visa (•••• 1234)"
-              value="Business Visa (•••• 1234)"
-              color={THEME.textPrimary}
-            />
-            <Picker.Item
-              label="Visa Card (•••• 4321)"
-              value="Visa Card (•••• 4321)"
-              color={THEME.textPrimary}
-            />
-            <Picker.Item
-              label="Business Visa (•••• 1232)"
-              value="Business Visa (•••• 1232)"
-              color={THEME.textPrimary}
-            />
-            <Picker.Item
-              label="Visa Card (•••• 4232)"
-              value="Visa Card (•••• 4232)"
-              color={THEME.textPrimary}
-            />
-          </Picker>
-        </View>
+      <InputField
+        disabled={false} 
+        placeholder="Select Card"
+        value={reason} 
+        enableDropdown={true}
+        dropdownData={[
+        { label: "Business Visa (•••• 1234)" },
+        { label: "Visa Card (•••• 4232)" },
+        ]}
+        margBtm={15}
+        onDropdownSelect={(item:any )=> setReason(item.label)}
+      />
+
 
         {renderLimitType()}
         {renderSpendingLimitInput()}

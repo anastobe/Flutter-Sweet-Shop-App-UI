@@ -42,33 +42,25 @@ const AddNewCurrencyAcount = () => {
           value={accountName}
           onChangeText={setAccountName}
           keyboardType={"numeric"}
-          margBtm={20}
+          margBtm={15}
         />
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={currency}
-            onValueChange={setCurrency}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item
-              label="Select Currency"
-              value=""
-              color={THEME.textPrimary}
-            />
-            <Picker.Item
-              label="PKR"
-              value="PKR"
-              color={THEME.textPrimary}
-            />
-            <Picker.Item
-              label="EURO"
-              value="EURO"
-              color={THEME.textPrimary}
-            />
-          </Picker>
-        </View>
+        <InputField
+          disabled={false} 
+          placeholder="Select Currency"
+          value={currency} 
+          enableDropdown={true}
+          dropdownData={[
+            { label: "USD" },
+            { label: "PKR" },
+            { label: "EUR" },
+            { label: "CNY" },
+            { label: "JPY" },
+            { label: "GBP" },
+          ]} 
+          margBtm={15}
+          onDropdownSelect={(item:any )=> setCurrency(item.label)}
+        />
 
         <CustomButton
           btnContSty={styles.forgetTxt}

@@ -76,35 +76,35 @@ const BankTransfer = () => {
             onChangeText={setRecipientGets}
             keyboardType={"numeric"}
             maxlen={10}
-            margBtm={20}
+            margBtm={15}
           />
 
-          {/* Pickers */}
-          <View style={styles.pickerWrapper}>
-            <Picker
-              dropdownIconColor={THEME.white}
-              selectedValue={beneficiaryBankCountry}
-              onValueChange={(itemValue) => setBeneficiaryBankCountry(itemValue)}
-              style={styles.inputInnerPicker}
-            >
-              <Picker.Item label="Beneficiary Bank Country" value="" color={THEME.textPrimary} />
-              <Picker.Item label="account" value="account" color={THEME.textPrimary} />
-              <Picker.Item label="cash" value="cash" color={THEME.textPrimary} />
-            </Picker>
-          </View>
+        
+          <InputField
+            disabled={false} 
+            placeholder="Beneficiary Bank Country"
+            value={beneficiaryBankCountry} 
+            enableDropdown={true}
+            dropdownData={[
+              { label: "Pak" },
+              { label: "China" }
+            ]} 
+            margBtm={15}
+            onDropdownSelect={(item:any )=> setBeneficiaryBankCountry(item.label)}
+          />
 
-          <View style={styles.pickerWrapper}>
-            <Picker
-              dropdownIconColor={THEME.white}
-              selectedValue={recipientType}
-              onValueChange={(itemValue) => setRecipientType(itemValue)}
-              style={styles.inputInnerPicker}
-            >
-              <Picker.Item label="Recipient Type" value="" color={THEME.textPrimary} />
-              <Picker.Item label="account" value="account" color={THEME.textPrimary} />
-              <Picker.Item label="cash" value="cash" color={THEME.textPrimary} />
-            </Picker>
-          </View>
+          <InputField
+            disabled={false} 
+            placeholder="Recipient Type"
+            value={recipientType} 
+            enableDropdown={true}
+            dropdownData={[
+              { label: "account" },
+              { label: "Cash" }
+            ]} 
+            margBtm={15}
+            onDropdownSelect={(item:any )=> setRecipientType(item.label)}
+          />
 
           {/* Button */}
           <CustomButton

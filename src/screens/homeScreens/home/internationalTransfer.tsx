@@ -70,18 +70,18 @@ const InternationalTransfer = () => {
           {BalanceCard({})}
 
           {/* To Account Picker */}
-          <View style={styles.pickerWrapper}>
-            <Picker
-              dropdownIconColor={THEME.white}
-              selectedValue={toAccount}
-              onValueChange={(itemValue) => setToAccount(itemValue)}
-              style={styles.inputInnerPicker}
-            >
-              <Picker.Item label="To Account" value="" color={THEME.textPrimary} />
-              <Picker.Item label="Account" value="account" color={THEME.textPrimary} />
-              <Picker.Item label="Cash" value="cash" color={THEME.textPrimary} />
-            </Picker>
-          </View>
+            <InputField
+                disabled={false} 
+                placeholder="To Account"
+                value={toAccount} 
+                enableDropdown={true}
+                dropdownData={[
+                  { label: "Account" },
+                  { label: "Cash" },
+                ]} 
+                margBtm={15}
+                onDropdownSelect={(item:any )=> setToAccount(item.label)}
+              />
 
           {/* Recipient Gets Input */}
           <InputField

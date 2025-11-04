@@ -41,32 +41,39 @@ export default function CreateVirtualCardView() {
           value={cardName}
           onChangeText={setCardName}
           keyboardType="email-address"
-          margBtm={10}
+          margBtm={20}
         />
+        
+          <InputField
+            disabled={false} 
+            placeholder="Currency"
+            value={linkedAccount} 
+            enableDropdown={true}
+            dropdownData={[
+            { label: "USD" },
+            { label: "PKR" },
+            { label: "EUR" },
+            { label: "CNY" },
+            { label: "JPY" },
+            { label: "GBP" },
+            ]}
+            margBtm={20}
+            onDropdownSelect={(item:any )=> setLinkedAccount(item.label)}
+          />
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={currency}
-            onValueChange={setCurrency}
-            style={styles.inputInnerPicker}>
-            <Picker.Item label="Currency" value="" color={THEME.textPrimary} />
-            <Picker.Item label="PKR" value="PKR" color={THEME.textPrimary} />
-            <Picker.Item label="EURO" value="EURO" color={THEME.textPrimary} />
-          </Picker>
-        </View>
+          <InputField
+            disabled={false} 
+            placeholder="Linked Account"
+            value={linkedAccount} 
+            enableDropdown={true}
+            dropdownData={[
+              { label: "Visa" },
+              { label: "Savings" }
+            ]}
+            margBtm={20}
+            onDropdownSelect={(item:any )=> setLinkedAccount(item.label)}
+          />
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={linkedAccount}
-            onValueChange={setLinkedAccount}
-            style={styles.inputInnerPicker}>
-            <Picker.Item label="Linked Account" value="" color={THEME.textPrimary} />
-            <Picker.Item label="Visa" value="visa" color={THEME.textPrimary} />
-            <Picker.Item label="Savings" value="savings" color={THEME.textPrimary} />
-          </Picker>
-        </View>
       </View>
     );
   }
@@ -112,7 +119,6 @@ export default function CreateVirtualCardView() {
           value={spendingLimit}
           onChangeText={setSpendingLimit}
           keyboardType="numeric"
-          margBtm={20}
           maxlen={10}
         />
 
@@ -230,7 +236,7 @@ const styles = StyleSheet.create({
     color: THEME.white,
     marginTop: 5,
   },
-  forgetTxt: { marginTop: 20, marginBottom: 50 },
+  forgetTxt: { marginBottom: 50 },
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,

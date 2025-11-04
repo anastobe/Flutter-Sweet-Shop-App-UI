@@ -45,18 +45,25 @@ const CurrencyExchange = () => {
         maxlen={10}
       />
 
-      <View style={styles.pickerWrapper}>
-        <Picker
-          dropdownIconColor={THEME.white}
-          selectedValue={receiveIn}
-          onValueChange={(itemValue) => setReceiveIn(itemValue)}
-          style={styles.inputInnerPicker}
-        >
-          <Picker.Item label="Receive In" value="" color={THEME.textPrimary} />
-          <Picker.Item label="Account" value="account" color={THEME.textPrimary} />
-          <Picker.Item label="Cash" value="cash" color={THEME.textPrimary} />
-        </Picker>
-      </View>
+      <InputField
+      disabled={false} 
+      placeholder="Receive In"
+      value={receiveIn} 
+      enableDropdown={true}
+      dropdownData={[
+        { label: "USD" },
+        { label: "PKR" },
+        { label: "GBP" },
+        { label: "USD" },
+        { label: "PKR" },
+        { label: "GBP" },
+        { label: "USD" },
+        { label: "PKR" },
+        { label: "GBP" },
+      ]}
+      onDropdownSelect={(item:any )=> setReceiveIn(item.label)}
+    />
+
     </View>
   );
 

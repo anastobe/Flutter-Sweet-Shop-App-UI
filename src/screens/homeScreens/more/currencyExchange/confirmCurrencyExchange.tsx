@@ -75,18 +75,22 @@ const ConfirmCurrencyExchange = () => {
         margBtm={10}
       />
 
-      <View style={styles.pickerWrapper}>
-        <Picker
-          dropdownIconColor={THEME.white}
-          selectedValue={toCurrency}
-          onValueChange={(itemValue) => setToCurrency(itemValue)}
-          style={styles.inputInnerPicker}
-        >
-          <Picker.Item label="To Currency (PKR)" value="" color={THEME.textPrimary} />
-          <Picker.Item label="Account" value="account" color={THEME.textPrimary} />
-          <Picker.Item label="Cash" value="cash" color={THEME.textPrimary} />
-        </Picker>
-      </View>
+       <InputField
+        disabled={false} 
+        placeholder="To Currency"
+        value={toCurrency} 
+        enableDropdown={true}
+        dropdownData={[
+            { label: "USD" },
+            { label: "PKR" },
+            { label: "EUR" },
+            { label: "CNY" },
+            { label: "JPY" },
+            { label: "GBP" },
+          ]} 
+        margBtm={10}
+        onDropdownSelect={(item:any )=> setToCurrency(item.label)}
+      />
 
       {renderCardDetails()}
 
@@ -102,18 +106,19 @@ const ConfirmCurrencyExchange = () => {
         margBtm={10}
       />
 
-      <View style={styles.pickerWrapper}>
-        <Picker
-          dropdownIconColor={THEME.white}
-          selectedValue={purpose}
-          onValueChange={(itemValue) => setPurpose(itemValue)}
-          style={styles.inputInnerPicker}
-        >
-          <Picker.Item label="Purpose" value="" color={THEME.textPrimary} />
-          <Picker.Item label="Family Support" value="Family Support" color={THEME.textPrimary} />
-          <Picker.Item label="Others" value="others" color={THEME.textPrimary} />
-        </Picker>
-      </View>
+      <InputField
+        disabled={false} 
+        placeholder="Purpose"
+        value={purpose} 
+        enableDropdown={true}
+        dropdownData={[
+            { label: "Family Support" },
+            { label: "Others" },
+            { label: "Enjoy" },
+          ]} 
+        margBtm={10}
+        onDropdownSelect={(item:any )=> setPurpose(item.label)}
+      />
     </View>
   );
 

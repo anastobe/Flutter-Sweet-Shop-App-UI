@@ -475,7 +475,7 @@ const TransactionList = () => {
      />
 
      <BottomSheet
-      height={METRICS.height / 1.4}
+      height={METRICS.height / 1.6}
       draggable={false}
       openTime={500}
       closeDuration={500}

@@ -47,18 +47,19 @@ export default function UpdateAddressView() {
           margBtm={20}
         />
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={city}
-            onValueChange={setCity}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item label="Select City" value="" color={THEME.textPrimary} />
-            <Picker.Item label="City 2" value="city2" color={THEME.textPrimary} />
-            <Picker.Item label="City 3" value="city3" color={THEME.textPrimary} />
-          </Picker>
-        </View>
+      <InputField
+        disabled={false} 
+        placeholder="Select City"
+        value={city} 
+        enableDropdown={true}
+        dropdownData={[
+        { label: "City 1" },
+        { label: "City 2" },
+        ]}
+        margBtm={15}
+        onDropdownSelect={(item:any )=> setCity(item.label)}
+      />
+       
 
         <InputField
           marginTp={20}
@@ -71,18 +72,18 @@ export default function UpdateAddressView() {
           margBtm={20}
         />
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={country}
-            onValueChange={setCountry}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item label="Select Country" value="" color={THEME.textPrimary} />
-            <Picker.Item label="Country 2" value="country2" color={THEME.textPrimary} />
-            <Picker.Item label="Country 3" value="country3" color={THEME.textPrimary} />
-          </Picker>
-        </View>
+      <InputField
+        disabled={false} 
+        placeholder="Select Country"
+        value={country} 
+        enableDropdown={true}
+        dropdownData={[
+        { label: "country 1" },
+        { label: "country 2" },
+        ]}
+        margBtm={15}
+        onDropdownSelect={(item:any )=> setCountry(item.label)}
+      />
 
         <CustomButton
           btnContSty={styles.forgetTxt}

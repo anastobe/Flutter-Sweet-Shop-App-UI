@@ -15,34 +15,39 @@ const ContactAddress = () => {
   function renderInputField() {
     return (
       <View>
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={vm.country}
-            onValueChange={itemValue => vm.setCountry(itemValue)}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item label="Country" value="" color={THEME.textPrimary} />
-            <Picker.Item label="Pakistan" value="Pakistan" color={THEME.textPrimary} />
-            <Picker.Item label="Canada" value="Canada" color={THEME.textPrimary} />
-            <Picker.Item label="Italy" value="Italy" color={THEME.textPrimary} />
-            <Picker.Item label="Ireland" value="Ireland" color={THEME.textPrimary} />
-          </Picker>
-        </View>
+        <InputField
+              disabled={false} 
+              placeholder="Select Country"
+              value={vm.country} 
+              enableDropdown={true}
+              dropdownData={[
+                { label: "Country" },
+                { label: "Pakistan" },
+                { label: "Canada" },
+                { label: "Italy" },
+                { label: "Ireland" },
+              ]}
+                 margBtm={15}
+              onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+            />
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={vm.city}
-            onValueChange={itemValue => vm.setCity(itemValue)}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item label="City" value="" color={THEME.textPrimary} />
-            <Picker.Item label="Lahore" value="Lahore" color={THEME.textPrimary} />
-            <Picker.Item label="Karachi" value="Karachi" color={THEME.textPrimary} />
-            <Picker.Item label="Islamabad" value="Islamabad" color={THEME.textPrimary} />
-          </Picker>
-        </View>
+
+        <InputField
+              disabled={false} 
+              placeholder="City"
+              value={vm.country} 
+              enableDropdown={true}
+              dropdownData={[
+                { label: "Country" },
+                { label: "Pakistan" },
+                { label: "Canada" },
+                { label: "Italy" },
+                { label: "Ireland" },
+              ]}
+              margBtm={15}
+              onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+            />
+
       </View>
     );
   }
@@ -51,7 +56,7 @@ const ContactAddress = () => {
     return (
       <View>
         <InputField
-          customInpStyle={{ backgroundColor: THEME.whitergba }}
+          // customInpStyle={{ backgroundColor: THEME.whitergba }}
           marginTp={20}
           placeholder="Address"
           value={vm.address}
@@ -59,7 +64,7 @@ const ContactAddress = () => {
           margBtm={20}
         />
         <InputField
-          customInpStyle={{ backgroundColor: THEME.whitergba }}
+          // customInpStyle={{ backgroundColor: THEME.whitergba }}
           marginTp={20}
           placeholder="Postal Code"
           value={vm.postalCode}

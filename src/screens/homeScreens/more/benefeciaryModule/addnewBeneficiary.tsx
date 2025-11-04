@@ -50,23 +50,18 @@ const AddNewBeneficiary = () => {
         onChangeText={vm.setBeneficiaryName}
       />
 
-      <View style={styles.pickerWrapper}>
-        <Picker
-          dropdownIconColor={THEME.white}
-          selectedValue={vm.accountType}
-          onValueChange={vm.setAccountType}
-          style={styles.inputInnerPicker}
-        >
-          {vm.ACCOUNT_TYPES.map((opt) => (
-            <Picker.Item
-              key={opt.value}
-              label={opt.label}
-              value={opt.value}
-              color={THEME.textPrimary}
-            />
-          ))}
-        </Picker>
-      </View>
+      <InputField
+        disabled={false} 
+        placeholder='Account Type'
+        value={vm.country} 
+        enableDropdown={true}
+        dropdownData={[
+          { label: "Current" },
+          { label: "Currency" },
+        ]} 
+        margBtm={10}
+        onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+      />
 
       <InputField
         placeholder="IBAN / Account No."
@@ -83,41 +78,36 @@ const AddNewBeneficiary = () => {
         onChangeText={vm.setBicNo}
       />
 
-      <View style={styles.pickerWrapper}>
-        <Picker
-          dropdownIconColor={THEME.white}
-          selectedValue={vm.country}
-          onValueChange={vm.setCountry}
-          style={styles.inputInnerPicker}
-        >
-          {vm.COUNTRIES.map((opt) => (
-            <Picker.Item
-              key={opt.value}
-              label={opt.label}
-              value={opt.value}
-              color={THEME.textPrimary}
-            />
-          ))}
-        </Picker>
-      </View>
+      <InputField
+        disabled={false} 
+        placeholder="Select Country"
+        value={vm.country} 
+        enableDropdown={true}
+        dropdownData={[
+          { label: "Pakistan" },
+          { label: "China" },
+        ]} 
+        margBtm={10}
+        onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+      />
 
-      <View style={styles.pickerWrapper}>
-        <Picker
-          dropdownIconColor={THEME.white}
-          selectedValue={vm.currency}
-          onValueChange={vm.setCurrency}
-          style={styles.inputInnerPicker}
-        >
-          {vm.CURRENCIES.map((opt) => (
-            <Picker.Item
-              key={opt.value}
-              label={opt.label}
-              value={opt.value}
-              color={THEME.textPrimary}
-            />
-          ))}
-        </Picker>
-      </View>
+       <InputField
+        disabled={false} 
+        placeholder='Select Currency'
+        value={vm.currency} 
+        enableDropdown={true}
+        dropdownData={[
+            { label: "USD" },
+            { label: "PKR" },
+            { label: "EUR" },
+            { label: "CNY" },
+            { label: "JPY" },
+            { label: "GBP" },
+          ]} 
+        margBtm={10}
+        onDropdownSelect={(item:any )=> vm.setCurrency(item.label)}
+      />
+
     </View>
   );
 
@@ -230,7 +220,7 @@ const styles = StyleSheet.create({
   },
   forgetTxt: { marginTop: 10, marginBottom: 10 },
   modal: {
-    backgroundColor: 'rgba(64, 64, 65, 0.92)',
+    backgroundColor: 'rgba(64, 64, 65, 0.98)',
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',

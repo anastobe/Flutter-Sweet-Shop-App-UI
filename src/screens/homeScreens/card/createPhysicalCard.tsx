@@ -49,31 +49,35 @@ const CreatePhysicalCard = () => {
           margBtm={20}
         />
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={currency}
-            onValueChange={(itemValue) => setcurrency(itemValue)}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item label="Currency" value="" color={THEME.textPrimary} />
-            <Picker.Item label="PKR" value="pkr" color={THEME.textPrimary} />
-            <Picker.Item label="EURO" value="euro" color={THEME.textPrimary} />
-          </Picker>
-        </View>
+        <InputField
+          disabled={false} 
+          placeholder="Currency"
+          value={currency} 
+          enableDropdown={true}
+          dropdownData={[
+            { label: "USD" },
+            { label: "PKR" },
+            { label: "EUR" },
+            { label: "CNY" },
+            { label: "JPY" },
+            { label: "GBP" },
+          ]}
+          margBtm={20}
+          onDropdownSelect={(item:any )=> setcurrency(item.label)}
+        />
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={linkedAccount}
-            onValueChange={(itemValue) => setLinkedAccount(itemValue)}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item label="Linked Account" value="" color={THEME.textPrimary} />
-            <Picker.Item label="Main Account" value="main" color={THEME.textPrimary} />
-            <Picker.Item label="Savings" value="savings" color={THEME.textPrimary} />
-          </Picker>
-        </View>
+            <InputField
+              disabled={false} 
+              placeholder="Linked Account"
+              value={currency} 
+              enableDropdown={true}
+              dropdownData={[
+                { label: "Main Account" },
+                { label: "Savings" }
+              ]}
+              onDropdownSelect={(item:any )=> setLinkedAccount(item.label)}
+               margBtm={20}
+            />
 
         <InputField
           marginTp={20}
@@ -87,18 +91,17 @@ const CreatePhysicalCard = () => {
              maxlen={10}
         />
 
-        <View style={styles.pickerWrapper}>
-          <Picker
-            dropdownIconColor={THEME.white}
-            selectedValue={linkedAccount}
-            onValueChange={(itemValue) => setLinkedAccount(itemValue)}
-            style={styles.inputInnerPicker}
-          >
-            <Picker.Item label="Card Design (Optional)" value="" color={THEME.textPrimary} />
-            <Picker.Item label="Option 1" value="option1" color={THEME.textPrimary} />
-            <Picker.Item label="Option 2" value="option2" color={THEME.textPrimary} />
-          </Picker>
-        </View>
+         <InputField
+            disabled={false} 
+            placeholder="Card Design (Optional)"
+            value={linkedAccount} 
+            enableDropdown={true}
+            dropdownData={[
+              { label: "Option 1" },
+              { label: "Option 2" }
+            ]}
+            onDropdownSelect={(item:any )=> setLinkedAccount(item.label)}
+          />
 
         <CustomButton
           btnContSty={styles.forgetTxt}

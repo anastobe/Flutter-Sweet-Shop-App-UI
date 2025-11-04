@@ -27,6 +27,10 @@ export function useCreatePhysicalCardViewModel() {
     } else if (!spendingLimit) {
       Toast.showToast('Please Enter Spending Limit', '', 'error');
     } else {
+
+      console.log("ASdasdsasa====>",cardName,currency,linkedAccount,limitType,spendingLimit);
+      
+
       cardDetailRef?.current?.open();
     }
   };
