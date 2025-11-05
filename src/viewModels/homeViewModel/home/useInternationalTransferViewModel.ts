@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Images } from '../../../config';
+import { Alert } from 'react-native';
+import { SHOW_CLIENT } from '../../../APICall/constants';
 
 export const  useInternationalTransferViewModel = () => {
   const [toAccount, setToAccount] = useState('');
@@ -15,7 +17,7 @@ export const  useInternationalTransferViewModel = () => {
   };
 
   const handleTransfer = () => {
-    console.log('Transfer initiated');
+    Alert.alert("NEED",SHOW_CLIENT)
   };
 
   return {

@@ -35,7 +35,7 @@ export default function Request() {
           onChangeText={onSearch}
           keyboardType={'default'}
           imagetintColor={THEME.white}
-          maxlen={20}
+          customInpStyle={styles.innerinput}
         />
     );
   }
@@ -188,4 +188,6 @@ iconCONT:{
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+    innerinput: {  height: scale(53), paddingRight: 50 },
+
 });

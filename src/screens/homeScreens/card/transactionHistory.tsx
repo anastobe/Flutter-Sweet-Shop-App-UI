@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import useTransactionHistoryViewModel from '../../../viewModels/homeViewModel/card/useTransactionHistoryViewModel';
 import Metrics from '../../../styles/metrics';
+import { scale } from 'react-native-size-matters';
 
 export default function TransactionHistory() {
   const {
@@ -23,6 +24,7 @@ export default function TransactionHistory() {
     return (
         <InputField
           image={'search-outline'}
+          customInpStyle={styles.innerinput}
           autoCapital={'none'}
           blurOnSubmit={false}
           placeholder="Search"
@@ -30,7 +32,7 @@ export default function TransactionHistory() {
           onChangeText={onSearch}
           keyboardType={'default'}
           imagetintColor={THEME.white}
-          maxlen={15}
+          // maxlen={15}
         />
     );
   }
@@ -138,4 +140,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.primary,
   },
+    innerinput: {  height: scale(53),  paddingRight: 50 },
+
 });

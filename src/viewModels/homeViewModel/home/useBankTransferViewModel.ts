@@ -1,6 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Images } from "../../../config";
+import { SHOW_CLIENT } from "../../../APICall/constants";
+import { Alert } from "react-native";
 
 export const useBankTransferViewModel = () => {
   const navigation = useNavigation();
@@ -21,7 +23,7 @@ export const useBankTransferViewModel = () => {
   };
 
   const handleTransfer = () => {
-    console.log("Transfer Payment clicked");
+    Alert.alert("NEED",SHOW_CLIENT)
   };
 
   return {

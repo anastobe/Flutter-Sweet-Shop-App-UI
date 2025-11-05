@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { MainContainer, BottomSheet } from '../../../components';
 import { THEME, FONT_SIZES, FONTFAMILY } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -11,6 +11,7 @@ import Metrics from '../../../styles/metrics';
 import { DATA_STATEMENT } from '../../../utils/data';
 import { screenWidth } from '../../../utils/style.utils';
 import { Images } from '../../../config';
+import { SHOW_CLIENT } from '../../../APICall/constants';
 
 const AccountStatement = () => {
   const {
@@ -29,13 +30,13 @@ const AccountStatement = () => {
   function renderFilter() {
     return (
       <View style={styles.filtersearchContainer} >
-        <InputField maxlen={17} image={"search-outline"} imagetintColor={THEME.white} removeTitle={true} autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white}  customInpStyle={styles.innerinput} />
+        <InputField  image={"search-outline"} imagetintColor={THEME.white} removeTitle={true} autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white}  customInpStyle={styles.innerinput} />
         <TouchableOpacity
-          onPress={() => { cardDetailRef?.current?.open() }}
+          onPress={() => { Alert.alert("NEED",SHOW_CLIENT) }}
           style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
           <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
         </TouchableOpacity>
-        <TouchableOpacity style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+        <TouchableOpacity onPress={() => { Alert.alert("NEED",SHOW_CLIENT) }}  style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
           <Icon name="download-outline" size={22} color={THEME.textPrimary} />
         </TouchableOpacity>
       </View>
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     borderRadius: 10,
   },
-  innerinput: {  height: scale(53), width: Metrics.width-130 },
+  innerinput: {  height: scale(53), width: Metrics.width-130, paddingRight: 50 },
   item: {
     backgroundColor: THEME.SlateBlue,
     borderRadius: 10,

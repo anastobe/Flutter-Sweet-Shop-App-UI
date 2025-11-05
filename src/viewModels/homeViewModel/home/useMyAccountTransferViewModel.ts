@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Images } from '../../../config';
+import { Alert } from 'react-native';
+import { SHOW_CLIENT } from '../../../APICall/constants';
 
 export const useMyAccountTransferViewModel = () => {
   const navigation = useNavigation();
@@ -19,7 +21,7 @@ export const useMyAccountTransferViewModel = () => {
 
   const pressBackArrow = () => navigation.goBack();
   const handlePress = () => {};
-  const onTransfer = () => console.log('Transfer Initiated');
+  const onTransfer = () =>     Alert.alert("NEED",SHOW_CLIENT);
 
   return {
     amountSpend,

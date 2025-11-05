@@ -83,26 +83,66 @@ const AdminBeneficiaryStatus = () => {
     </View>
   );
 
-  const renderPopup = () => (
-    <View style={styles.modal}>
-      <TouchableOpacity style={styles.closeBtn} onPress={vm.onClosePopup}>
-        <Text style={styles.closeText}>×</Text>
-      </TouchableOpacity>
 
-      <View style={styles.iconCircle}>
-        <Icon name="checkmark" size={36} color={THEME.textPrimary} />
+      function renderPopup(icon: any,title: any,btnTxt: any, whichModal: Boolean) {
+    return (
+      <View style={styles.modal}>
+        <TouchableOpacity style={styles.closeBtn} onPress={()=>{
+          if (!whichModal) {
+            vm.setOpen(!vm.open)
+          }else{
+            vm.setOpen2(!vm.open2)
+          }
+        }}>
+          <Text style={styles.closeText}>×</Text>
+        </TouchableOpacity>
+
+        {/* <View style={styles.iconCircle}>
+          <Icon name={icon} size={25} color={THEME.textPrimary} />
+        </View> */}
+
+        <Text style={styles.titles}>{title}</Text>
+        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
+
+        <CustomButton
+          btnContSty={[styles.button,{ backgroundColor: !whichModal ? THEME.medRed : THEME.primary }]}
+          title={btnTxt}
+          showmyStyleOnly={true}
+          txtColor={[styles.buttonText,{ color: !whichModal ?  THEME.white : THEME.textPrimary }]}
+           onPress={()=>{
+          if (!whichModal) {
+            vm.setOpen(!vm.open)
+          }else{
+            vm.setOpen2(!vm.open2)
+          }
+        }}
+        />
       </View>
+    );
+  }
 
-      <Text style={styles.titles}>Beneficiary Accepted</Text>
-
- <CustomButton
-        btnContSty={styles.forgetTxtpop}
-        title="Done"
-        onPress={vm.onClosePopup}
+  function renderAccept() {
+    return (
+      <Modal
+        isVisible={vm.open}
+        isKeyboardAvoidingView={true}
+        children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
+        onClose={vm.setOpen}
       />
-
-    </View>
+    );
+  }
+  
+  function renderReject() {
+  return (
+    <Modal
+      isVisible={vm.open2}
+      isKeyboardAvoidingView={true}
+      children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      onClose={vm.setOpen2}
+    />
   );
+}
+
 
   return (
     <MainContainer
@@ -128,25 +168,21 @@ Please review and confirm the beneficiary details before proceeding
             txtColor={styles.btnStyle}
             showmyStyleOnly={true}
             title="Reject"
-            onPress={()=>{Alert.alert("reject") }}
+            onPress={()=>{ vm.setOpen(!vm.open) }}
           />
 
           <CustomButton
             btnContSty={styles.transferBtnAccept}
             loading={false}
             txtColor={styles.btnStyle2}
-            showmyStyleOnly={true}
+            showmyStyleOnly={true} 
             title="Accept"
-            onPress={()=>{Alert.alert("accept") }}
+            onPress={()=>{ vm.setOpen2(!vm.open2) }}
           />
             </View>
 
-          <Modal
-            isVisible={vm.open}
-            isKeyboardAvoidingView
-            children={renderPopup()}
-            onClose={vm.onClosePopup}
-          />
+            {renderAccept()}
+            {renderReject()}
         </View>
       </ScrollView>
     </MainContainer>
@@ -253,7 +289,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.twosix,
     color: THEME.white,
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 50,
   },
   description: {
     marginTop: 10,
@@ -261,6 +297,19 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
     textAlign: 'center',
+  },
+      button: {
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+    height: scale(55),
+    width: '100%',
+    marginTop: 20
+
+  },
+  buttonText: {
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.oneeight
   },
 });
 

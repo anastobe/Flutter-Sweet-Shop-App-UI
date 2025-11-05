@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES } from '../../../utils/data';
+import { Alert } from 'react-native';
+import { SHOW_CLIENT } from '../../../APICall/constants';
 
 export const useAddNewBeneficiaryViewModel = () => {
   const navigation = useNavigation();
@@ -22,7 +24,11 @@ export const useAddNewBeneficiaryViewModel = () => {
     setOpen(true);
   };
 
-  const onClosePopup = () => setOpen(false);
+  const onClosePopup = () =>{
+    Alert.alert("NEED",SHOW_CLIENT)
+    setOpen(false)
+    
+    };
 
   return {
     checked,

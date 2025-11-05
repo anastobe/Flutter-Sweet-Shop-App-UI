@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { MainContainer, InputDropDownStyle } from '../../../../components';
+import { MainContainer, InputDropDownStyle, Modal } from '../../../../components';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
@@ -8,6 +8,7 @@ import InputField from '../../../../components/textInput';
 import CustomButton from '../../../../components/customButton';
 import { useAdminPaymentStatusViewModel } from '../../../../viewModels/homeViewModel/more/Admin/adminPaymentStatusViewModel';
 import Metrics from '../../../../styles/metrics';
+import { TouchableOpacity } from 'react-native';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: string }) => (
@@ -36,6 +37,10 @@ const AdminPaymentStatus = () => {
     pressBackArrow,
     handlePress,
     onTransfer,
+    open,
+    setOpen,
+    open2,
+    setOpen2,
   } = useAdminPaymentStatusViewModel();
 
   const renderRightInput = () => (
@@ -46,6 +51,67 @@ const AdminPaymentStatus = () => {
       </View>
     </View>
   );
+
+  
+      function renderPopup(icon: any,title: any,btnTxt: any, whichModal: Boolean) {
+    return (
+      <View style={styles.modal}>
+        <TouchableOpacity style={styles.closeBtn} onPress={()=>{
+          if (!whichModal) {
+            setOpen(!open)
+          }else{
+            setOpen2(!open2)
+          }
+        }}>
+          <Text style={styles.closeText}>×</Text>
+        </TouchableOpacity>
+
+        {/* <View style={styles.iconCircle}>
+          <Icon name={icon} size={25} color={THEME.textPrimary} />
+        </View> */}
+
+        <Text style={styles.titles}>{title}</Text>
+        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
+
+        <CustomButton
+          btnContSty={[styles.button,{ backgroundColor: !whichModal ? THEME.medRed : THEME.primary }]}
+          title={btnTxt}
+          showmyStyleOnly={true}
+          txtColor={[styles.buttonText,{ color: !whichModal ?  THEME.white : THEME.textPrimary }]}
+           onPress={()=>{
+          if (!whichModal) {
+            setOpen(!open)
+          }else{
+            setOpen2(!open2)
+          }
+        }}
+        />
+      </View>
+    );
+  }
+
+  function renderAccept() {
+    return (
+      <Modal
+        isVisible={open}
+        isKeyboardAvoidingView={true}
+        children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
+        onClose={setOpen}
+      />
+    );
+  }
+  
+  function renderReject() {
+  return (
+    <Modal
+      isVisible={open2}
+      isKeyboardAvoidingView={true}
+      children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      onClose={setOpen2}
+    />
+  );
+}
+
 
   return (
     <MainContainer
@@ -68,7 +134,7 @@ const AdminPaymentStatus = () => {
             label={fromAcc.label}
             currency={fromAcc.currency}
             flag="business-outline"
-            onPress={handlePress}
+            // onPress={handlePress}
           />
 
           <BalanceCard label="Available Balance" amount="£1,250.00" />
@@ -78,7 +144,7 @@ const AdminPaymentStatus = () => {
             label={toAcc.label}
             currency={toAcc.currency}
             flag="business-outline"
-            onPress={handlePress}
+            // onPress={handlePress}
           />
 
           <InputField
@@ -122,10 +188,13 @@ const AdminPaymentStatus = () => {
             txtColor={styles.btnStyle2}
             showmyStyleOnly={true}
             title="Accept"
-            onPress={onTransfer}
+            onPress={handlePress}
           />
             </View>
         </View>
+            {renderAccept()}
+            {renderReject()}
+
       </ScrollView>
     </MainContainer>
   );
@@ -238,5 +307,51 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   height: scale(50),
     width: Metrics.width/2-30
-   }
+   },
+   
+  modal: {
+    backgroundColor: 'rgba(64, 64, 65, 0.92)',
+    borderRadius: 16,
+    padding: 24,
+    alignItems: 'center',
+  },
+  closeBtn: { position: 'absolute', top: 10, right: 15 },
+  closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
+  iconCircle: {
+    backgroundColor: THEME.primary,
+    borderRadius: 100,
+    width: scale(55),
+    height: scale(55),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  forgetTxtpop: { width: '100%', marginTop: 30, marginBottom: 20 },
+  titles: {
+    fontFamily: FONTFAMILY.SemiBold,
+    fontSize: FONT_SIZES.twosix,
+    color: THEME.white,
+    textAlign: 'center',
+    marginTop: 50,
+  },
+  description: {
+    marginTop: 10,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.onefour,
+    color: THEME.white,
+    textAlign: 'center',
+  },
+      button: {
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+    height: scale(55),
+    width: '100%',
+    marginTop: 20
+
+  },
+  buttonText: {
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.oneeight
+  },
 });

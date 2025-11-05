@@ -5,6 +5,8 @@ import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES } from '../../.
 export const useAdminBeneficiariesManagementViewModel = () => {
   const navigation = useNavigation();
 
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [checked, setChecked] = useState('frontier');
   const [beneficiaryName, setBeneficiaryName] = useState('');
   const [accountType, setAccountType] = useState('');
@@ -12,7 +14,6 @@ export const useAdminBeneficiariesManagementViewModel = () => {
   const [bicNo, setBicNo] = useState('');
   const [country, setCountry] = useState('');
   const [currency, setCurrency] = useState('');
-  const [open, setOpen] = useState(false);
 
   const handlePressType = (key: string) => setChecked(key);
   const pressBackArrow = () => navigation.goBack();
@@ -33,6 +34,7 @@ export const useAdminBeneficiariesManagementViewModel = () => {
     country,
     currency,
     open,
+    setOpen,
     BENEFICIARY_TYPES,
     ACCOUNT_TYPES,
     COUNTRIES,
@@ -47,6 +49,8 @@ export const useAdminBeneficiariesManagementViewModel = () => {
     pressBackArrow,
     onPressBtn,
     onClosePopup,
+    setOpen2,
+    open2,
   };
 };
 

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Auth_ROUTES } from '../../constants';
+import { Alert } from 'react-native';
+import { SHOW_CLIENT } from '../../APICall/constants';
 
 export const useForgetPasswordViewModel = (navigation: any) => {
   const [email, setEmail] = useState('');
@@ -12,6 +14,7 @@ export const useForgetPasswordViewModel = (navigation: any) => {
 
   const handleOkayPress = () => {
     setOpen(false);
+    Alert.alert("NEED",SHOW_CLIENT)
     // setTimeout(() => {
     //   navigation.navigate(Auth_ROUTES.SETPASSWORD);
     // }, 1000);

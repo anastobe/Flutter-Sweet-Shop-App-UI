@@ -102,7 +102,7 @@ const ConfirmCurrencyExchange = () => {
         placeholder="You will Receive"
         value={youWillReceive}
         onChangeText={setYouWillReceive}
-        keyboardType={'default'}
+        keyboardType={'numeric'}
         margBtm={10}
       />
 

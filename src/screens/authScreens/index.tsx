@@ -18,6 +18,7 @@ import { useLoginViewModel } from '../../viewModels/authViewModel/useLoginViewMo
 import {authorize} from 'react-native-app-auth';
 import LinearGradient from 'react-native-linear-gradient';
 import { ImageBackground } from 'react-native';
+import { SHOW_CLIENT } from '../../APICall/constants';
 
 type LoginProps = {};
 
@@ -90,6 +91,7 @@ Please login and set your Touch ID from Profile.
             btnContSty={styles.forgetTxtpop}
             title="OK"
             onPress={() => {
+            Alert.alert("NEED",SHOW_CLIENT)
             setOpen(false)
             }}
           />
@@ -136,7 +138,8 @@ Please login and set your Touch ID from Profile.
       />
            <InputField
              marginTp={20}
-             image={vm.secure ? "eye-outline" : "eye-outline" }
+             secureEntry={vm.secure}
+             image={vm.secure ? "eye-off-outline" : "eye-outline" }
              autoCapital={'none'}
              blurOnSubmit={false}
              placeholder="Password"
@@ -185,7 +188,7 @@ Please login and set your Touch ID from Profile.
 
       <View style={styles.contText}>
         <Text style={styles.dontAcc}>Don’t have an account? </Text>
-        <Pressable onPress={() => Alert.alert("account created") }>
+        <Pressable onPress={() => Alert.alert("NEED",SHOW_CLIENT) }>
           <Text style={styles.creatAC}>Create Account</Text>
         </Pressable>
       </View>

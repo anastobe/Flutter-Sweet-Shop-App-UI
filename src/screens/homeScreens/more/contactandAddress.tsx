@@ -35,17 +35,15 @@ const ContactAddress = () => {
         <InputField
               disabled={false} 
               placeholder="City"
-              value={vm.country} 
+              value={vm.city} 
               enableDropdown={true}
               dropdownData={[
-                { label: "Country" },
-                { label: "Pakistan" },
-                { label: "Canada" },
-                { label: "Italy" },
-                { label: "Ireland" },
+                { label: "City A" },
+                { label: "City B" },
+                { label: "City C" }
               ]}
               margBtm={15}
-              onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+              onDropdownSelect={(item:any )=> vm.setCity(item.label)}
             />
 
       </View>

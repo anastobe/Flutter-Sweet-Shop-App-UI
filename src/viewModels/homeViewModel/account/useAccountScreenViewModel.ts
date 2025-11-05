@@ -4,6 +4,7 @@ import { Alert, FlatList, NativeScrollEvent, NativeSyntheticEvent } from "react-
 import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
 import { ACTIVE_ACCOUNT } from "../../../utils/data";
+import { SHOW_CLIENT } from "../../../APICall/constants";
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
@@ -42,11 +43,11 @@ export const useAccountScreenViewModel = () => {
   const onPressCopy = () => Alert.alert("copy", "copy");
   const onPressEdit = () => editRef?.current?.open();
 
-  const onPressSave = () => Alert.alert("Save Changes");
-  const onPressFreeze = () => Alert.alert("Freeze Account");
-  const onPressDelete = () => Alert.alert("Delete Account");
+  const onPressSave = () =>{ Alert.alert("NEED",SHOW_CLIENT) };
+  const onPressFreeze = () =>{ Alert.alert("NEED",SHOW_CLIENT) }
+  const onPressDelete = () => { Alert.alert("NEED",SHOW_CLIENT) }
 
-  const onPressEditSave = () => editAccountRef?.current?.close();
+  const onPressEditSave = () => Alert.alert("NEED",SHOW_CLIENT);
 
   return {
     navigation,

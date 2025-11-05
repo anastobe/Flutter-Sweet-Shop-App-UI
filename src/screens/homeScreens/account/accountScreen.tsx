@@ -30,6 +30,7 @@ import EditAccountDetail from "../../../components/editAccountDetail";
 import Images from "../../../config/images";
 import { useNavigation } from "@react-navigation/native";
 import { HOME_ROUTES } from "../../../constants";
+import { SHOW_CLIENT } from "../../../APICall/constants";
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -70,7 +71,7 @@ const AccountScreen = () => {
         >
           <OptionsHeader
             // onPressNotification={() => vm.navigation.navigate(HOME_ROUTES.NOTIFICATION)}
-            onPressNotification={() => Alert.alert("Api Needed") }
+            onPressNotification={() => Alert.alert("NEED",SHOW_CLIENT) }
             onPressAdd={() => vm.navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY)}
           />
           <FlatList
@@ -173,7 +174,7 @@ const AccountScreen = () => {
           />
         </BottomSheet>
 
-        <BottomSheet       draggable={false} height={270} bottomSheetRef={vm.editAccountRef}>
+        <BottomSheet       draggable={false} height={scale(240)} bottomSheetRef={vm.editAccountRef}>
           <EditAccountDetail
             gbpWallet={vm.gbpWallet}
             setgbpWallet={vm.setGbpWallet}

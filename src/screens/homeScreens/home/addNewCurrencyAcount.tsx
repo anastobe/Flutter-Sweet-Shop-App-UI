@@ -41,7 +41,7 @@ const AddNewCurrencyAcount = () => {
           placeholder="Account Name"
           value={accountName}
           onChangeText={setAccountName}
-          keyboardType={"numeric"}
+          keyboardType={"default"}
           margBtm={15}
         />
 

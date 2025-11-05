@@ -39,7 +39,7 @@ const BeneficiariesManagement = () => {
             <TouchableOpacity style={[styles.butnCont]} onPress={onPressDelete} >
               <Icon name="trash-outline" size={20} color={THEME.primary} />
             </TouchableOpacity>
-          <View style={{ transform: [{ rotate: '-45deg' }], marginLeft: 15 }}>
+          <View style={{ transform: [{ rotate: '-45deg' }], marginLeft: 0 }}>
             <TouchableOpacity style={styles.butnCont}  onPress={onPressView}>
               <Icon name="arrow-forward-outline" size={20} color={THEME.primary} />
               </TouchableOpacity>
@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 12,
+    marginLeft: 5
   },
   avatarText: {
     color: THEME.textPrimary,
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
   },
   forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
   butnCont:
-  { width: 37, height:40, justifyContent: "center", alignItems: "center" },
+  { width: 35, height:40, justifyContent: "center", alignItems: "center" },
 
   
     modal: {

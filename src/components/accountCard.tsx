@@ -23,7 +23,7 @@ const AccountCard = ({ item, index, onPressCard,containerStyle }: { item?: any, 
 
     return (
         <TouchableOpacity activeOpacity={1} onPress={()=>{onPressCard(item)}} style={[{ width: METRICS.width , height: 174, borderRadius: 15 },containerStyle]}  >
-        <ImageBackground resizeMode="stretch" source={Images.cardBack} imageStyle={{ borderRadius: 15 }} style={{flex: 1,marginHorizontal: scale(35) }} >
+        <ImageBackground resizeMode="stretch" source={Images.cardBack} imageStyle={{ borderRadius: 15 }} style={{flex: 1,marginHorizontal: scale(25) }} >
 
             <View style={{ flexDirection: "row", paddingHorizontal: 10, marginTop: 10 }} >
                 <View>

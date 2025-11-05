@@ -6,6 +6,8 @@ import { Alert } from 'react-native';
 export const useAdminPaymentStatusViewModel = () => {
   const navigation = useNavigation();
 
+    const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [amountSpend, setAmountSpend] = useState('');
   const [fromAcc] = useState({
     label: 'Clearbank Account',
@@ -19,8 +21,8 @@ export const useAdminPaymentStatusViewModel = () => {
   });
 
   const pressBackArrow = () => navigation.goBack();
-  const handlePress = () => {};
-  const onTransfer = () => Alert.alert("Reject")
+  const handlePress = () => setOpen2(!open2)
+  const onTransfer = () => setOpen(!open)
 
   return {
     amountSpend,
@@ -30,5 +32,9 @@ export const useAdminPaymentStatusViewModel = () => {
     pressBackArrow,
     handlePress,
     onTransfer,
+    open,
+    setOpen,
+    open2,
+    setOpen2,
   };
 };

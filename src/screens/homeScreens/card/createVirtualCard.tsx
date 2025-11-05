@@ -47,7 +47,7 @@ export default function CreateVirtualCardView() {
           <InputField
             disabled={false} 
             placeholder="Currency"
-            value={linkedAccount} 
+            value={currency} 
             enableDropdown={true}
             dropdownData={[
             { label: "USD" },
@@ -58,7 +58,7 @@ export default function CreateVirtualCardView() {
             { label: "GBP" },
             ]}
             margBtm={20}
-            onDropdownSelect={(item:any )=> setLinkedAccount(item.label)}
+            onDropdownSelect={(item:any )=> setCurrency(item.label)}
           />
 
           <InputField

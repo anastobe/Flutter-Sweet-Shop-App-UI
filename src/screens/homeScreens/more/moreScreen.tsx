@@ -167,7 +167,7 @@ const MoreScreen = () => {
       <Modal
         isVisible={vm.open}
         isKeyboardAvoidingView={true}
-        children={renderPopup("alert","Kindly Visit your nearest ATM","Ok")} 
+        children={renderPopup("alert","Kindly visit your nearest ATM","Ok")} 
         onClose={vm.setopen}
       />
     );

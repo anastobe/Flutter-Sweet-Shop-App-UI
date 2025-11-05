@@ -1,15 +1,11 @@
-import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
-import { BottomSheet, MainContainer, Modal } from '../../../../components';
-import { Images } from '../../../../config';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { useNavigation } from '@react-navigation/native';
-import InputField from '../../../../components/textInput';
-import CustomButton from '../../../../components/customButton';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
-import { HOME_ROUTES } from '../../../../constants';
-import { createCard } from '../../../../queries/auth.query';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { MainContainer, Modal } from '../../../../components';
+import CustomButton from '../../../../components/customButton';
+import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import Metrics from '../../../../styles/metrics';
 
 // InfoRow Component
@@ -32,6 +28,7 @@ function AdminConfirmCardRequest(props: any) {
   const cardDetailRef = useRef(null);
   const [tick, setTick] = useState(false);
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const payload = props?.route?.params?.data;
 
 
@@ -52,6 +49,65 @@ function AdminConfirmCardRequest(props: any) {
     );
   }
 
+
+      function renderPopup(icon: any,title: any,btnTxt: any, whichModal: Boolean) {
+    return (
+      <View style={styles.modal}>
+        <TouchableOpacity style={styles.closeBtn} onPress={()=>{
+          if (!whichModal) {
+            setOpen(!open)
+          }else{
+            setOpen2(!open2)
+          }
+        }}>
+          <Text style={styles.closeText}>×</Text>
+        </TouchableOpacity>
+
+        {/* <View style={styles.iconCircle}>
+          <Icon name={icon} size={25} color={THEME.textPrimary} />
+        </View> */}
+
+        <Text style={styles.titles}>{title}</Text>
+        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
+
+        <CustomButton
+          btnContSty={[styles.button,{ backgroundColor: !whichModal ? THEME.medRed : THEME.primary }]}
+          title={btnTxt}
+          showmyStyleOnly={true}
+          txtColor={[styles.buttonText,{ color: !whichModal ?  THEME.white : THEME.textPrimary }]}
+           onPress={()=>{
+          if (!whichModal) {
+            setOpen(!open)
+          }else{
+            setOpen2(!open2)
+          }
+        }}
+        />
+      </View>
+    );
+  }
+
+  function renderAccept() {
+    return (
+      <Modal
+        isVisible={open}
+        isKeyboardAvoidingView={true}
+        children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
+        onClose={setOpen}
+      />
+    );
+  }
+  
+  function renderReject() {
+  return (
+    <Modal
+      isVisible={open2}
+      isKeyboardAvoidingView={true}
+      children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      onClose={setOpen2}
+    />
+  );
+}
 
   return (
     <MainContainer
@@ -75,7 +131,7 @@ function AdminConfirmCardRequest(props: any) {
             txtColor={styles.btnStyle}
             showmyStyleOnly={true}
             title="Reject"
-            onPress={()=>{Alert.alert("reject") }}
+            onPress={()=>{ setOpen(!open) }}
           />
 
           <CustomButton
@@ -84,9 +140,11 @@ function AdminConfirmCardRequest(props: any) {
             txtColor={styles.btnStyle2}
             showmyStyleOnly={true}
             title="Accept"
-            onPress={()=>{Alert.alert("accept") }}
+            onPress={()=>{ setOpen2(!open2) }}
           />
             </View>
+            {renderAccept()}
+            {renderReject()}
       </View>
     </MainContainer>
   );
@@ -102,6 +160,19 @@ const styles = StyleSheet.create({
     color: THEME.primary,
     marginBottom: 20,
     marginTop: 10,
+  },
+    button: {
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+    height: scale(55),
+    width: '100%',
+    marginTop: 20
+
+  },
+  buttonText: {
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.oneeight
   },
   btnStyle:{
     fontSize: FONT_SIZES.twozero,
@@ -137,7 +208,7 @@ const styles = StyleSheet.create({
     color: THEME.white,
     marginBottom: 10,
   },
-  forgetTxt: { marginTop: 30, marginBottom: 50 }, forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
+  forgetTxt: { marginTop: 30, marginBottom: 50 }, forgetTxtpop:{  width: '100%', marginTop: 20, marginBottom: 20 },
   summaryBox: { borderRadius: 1, padding: 10, marginBottom: 10 },
   infoRow: {
     flexDirection: 'row',
@@ -242,6 +313,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.twosix,
     color: THEME.primary,
     textAlign: 'center',
+        marginTop: 50,
   },
   description: {
     marginTop: 10,

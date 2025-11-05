@@ -36,7 +36,7 @@ export const useAddNewCurrencyAccountViewModel = () => {
       visible: modalAddCurrency,
       onClose: handleCloseAddCurrency,
       onConfirm: handleConfirmAddCurrency,
-      title: "Do you want to Add New Currency?",
+      title: "Sure, You want to add new currency?",
       body: "",
       confirmText: "Yes",
       downConfirmText: "No",

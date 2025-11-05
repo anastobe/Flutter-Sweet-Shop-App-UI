@@ -5,11 +5,13 @@ import { useLogin } from "../../queries/auth.query";
 import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
+import { SHOW_CLIENT } from "../../APICall/constants";
+import { Toast } from "../../utils";
 
 export const useLoginViewModel = (navigation: any) => {
 
-  const [email, setEmail] = useState("superadmin");
-  const [password, setPassword] = useState("Uhf@1234");
+  const [email, setEmail] = useState("hlahooti@frontier-pay.com");
+  const [password, setPassword] = useState("test-post-auth@Front1er");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
 
@@ -37,8 +39,16 @@ export const useLoginViewModel = (navigation: any) => {
       token: "token"
     }
     dispatch(storeUserToken(token))  
-
-    // loginFunc({ username: email, password: password });
+    // Alert.alert("NEED",SHOW_CLIENT)
+return
+    if (email == "") {
+      Toast.showToast("Please Enter Email Address", '', 'error');
+    } else if (password == ""){
+      Toast.showToast("Please Enter Password", '', 'error');
+    }
+    else{
+      loginFunc({ username: email, password: password });
+    }
   };
 
   const handleBiometricAuth = () => {

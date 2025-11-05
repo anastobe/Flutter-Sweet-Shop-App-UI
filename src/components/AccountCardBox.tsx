@@ -20,7 +20,7 @@ const AccountCardBox = ({ total, onHold, available,onPress,onPresseye,showBalanc
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <TouchableWithoutFeedback>
       <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center" }} >
-        {showBalance ? <Text style={styles.total}>{total}</Text> : null}
+        {showBalance ? <Text style={styles.total}>{total}</Text> : <Text style={styles.total}>**********</Text> }
           <TouchableOpacity onPress={onPresseye} >
         <Icon name={showBalance ? "eye-outline" : "eye-off" } size={28} color={THEME.white} />
           </TouchableOpacity>
@@ -30,11 +30,11 @@ const AccountCardBox = ({ total, onHold, available,onPress,onPresseye,showBalanc
 
       <View style={styles.row}>
         <View style={styles.column}>
-          <Text style={styles.sub}>{onHold}</Text>
+          <Text style={styles.sub}>{!showBalance? "****" : onHold}</Text>
           <Text style={styles.subLabel}>On Hold or Pending</Text>
         </View>
         <View style={styles.column}>
-          <Text style={styles.sub}>{available}</Text>
+          <Text style={styles.sub}>{!showBalance? "****" : available}</Text>
           <Text style={styles.subLabel}>Available to Use</Text>
         </View>
       </View>
