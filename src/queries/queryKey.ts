@@ -1,5 +1,10 @@
 export default class QueryKey {
     static GET_CARD_DATA = 'GET_CARD_DATA';
-  
+    static GET_LOGIN_USER_DETAIL = 'GET_LOGIN_USER_DETAIL';
+    static GET_BENEFICIARY = 'GET_BENEFICIARY';
+    static GET_COUNTRY = 'GET_COUNTRY';
+    static GET_CURRENCY = 'GET_CURRENCY';
+    static GET_ACCOUNT_TYPE_DATA = 'GET_ACCOUNT_TYPE_DATA';
+    static GET_ACCOUNTS = 'GET_ACCOUNTS';
   }
   

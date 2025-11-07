@@ -11,6 +11,7 @@ import { CommonUtils } from "./src/utils";
 import { MainStack } from "./src/stacks/MainStack";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
+import {LoaderFullScreen, } from "./src/components/activityIndicator";
 
 const App: React.FC = () => {
 
@@ -75,9 +76,8 @@ const App: React.FC = () => {
       />
     ),
   }; 
-
-
     dataHandlerService.setStore(Store);
+
 
   return (
     <QueryClientProvider client={queryClient} contextSharing={true} >
@@ -89,6 +89,7 @@ const App: React.FC = () => {
           // ref={(ref: any) => NavigationService.setTopLevelNavigator(ref)} 
           >
           <MainStack />
+          <LoaderFullScreen />
           <Toast config={toastConfig} />
         </NavigationContainer>
       </PersistGate>

@@ -21,6 +21,8 @@ const BankTransfer = () => {
     pressBackArrow,
     handlePress,
     handleTransfer,
+    openDropdown,
+    toggleDropdown
   } = useBankTransferViewModel();
 
   const BalanceCard = ({ label = "Available Balance", amount = "£1,250.00" }) => (
@@ -86,11 +88,13 @@ const BankTransfer = () => {
             value={beneficiaryBankCountry} 
             enableDropdown={true}
             dropdownData={[
-              { label: "Pak" },
-              { label: "China" }
+              { name: "Pak" },
+              { name: "China" }
             ]} 
             margBtm={15}
-            onDropdownSelect={(item:any )=> setBeneficiaryBankCountry(item.label)}
+            isOpen={openDropdown === 'country'} 
+            onToggleDropdown={() => toggleDropdown('country')}
+            onDropdownSelect={(item:any )=> setBeneficiaryBankCountry(item.name)}
           />
 
           <InputField
@@ -99,11 +103,13 @@ const BankTransfer = () => {
             value={recipientType} 
             enableDropdown={true}
             dropdownData={[
-              { label: "account" },
-              { label: "Cash" }
+              { name: "account" },
+              { name: "Cash" }
             ]} 
             margBtm={15}
-            onDropdownSelect={(item:any )=> setRecipientType(item.label)}
+            isOpen={openDropdown === 'recepitantType'} 
+            onToggleDropdown={() => toggleDropdown('recepitantType')}
+            onDropdownSelect={(item:any )=> setRecipientType(item.name)}
           />
 
           {/* Button */}

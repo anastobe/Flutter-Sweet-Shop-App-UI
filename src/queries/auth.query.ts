@@ -95,7 +95,7 @@ export const getCards  = (    {
   dispatch?: any
 }
 ) =>
-  useQuery({
+  useQuery({ 
     queryKey: [QueryKey.GET_CARD_DATA],
     initialData: [],
     queryFn: ()=> apis.getCards(dispatch),

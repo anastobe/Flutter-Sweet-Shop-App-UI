@@ -36,21 +36,8 @@ const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
   const navigation = useNavigation()
 
-  const NewAccountCard = ({ onPress }: { onPress: any }) => (
-    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
-      <LinearGradient
-        colors={["#C8FAFF", "#FFFFFF"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.card}
-      >
-        <View style={styles.content}>
-          <Icon name="add" size={20} color="#A855F7" />
-          <Text style={styles.text}>New Currency Account</Text>
-        </View>
-      </LinearGradient>
-    </TouchableOpacity>
-  );
+  console.log("asdsa=>",vm.currentAccDetail); 
+  
 
   return (
     <LinearGradient
@@ -76,14 +63,14 @@ const AccountScreen = () => {
           />
           <FlatList
             ref={vm.flatListRef}
-            data={vm.data}
+            data={vm.getAccounts_Data}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+            renderItem={( {item} ) => (
               <AccountCardBox
                 showBalance={vm.showbalance}
-                total={item.total}
-                onHold={item.onHold}
-                available={item.available}
+                total={`${item?.currency?.iso_code} ${item?.available_balance}`}
+                onHold={`${item?.currency?.iso_code} ${item?.pending_balance}`}
+                available={`${item?.currency?.iso_code} ${item?.available_balance}`}
                 onPress={() => vm.editRef?.current?.open()}
                 onPresseye={()=>vm.setshowbalance(!vm.showbalance)}
               />
@@ -118,14 +105,14 @@ const AccountScreen = () => {
           /> */}
           <View style={styles.statecontainer}>
             <StatCard
-              title="Avg monthly spend"
+              title="Avg monthly spend (DUMMY)"
               amount="£820.00"
               percentage={11.9}
               onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
               isPositive
             />
             <StatCard
-              title="Spent this month"
+              title="Spent this month (DUMMY)"
               amount="£440.24"
               percentage={11.9}
               onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
@@ -151,13 +138,13 @@ const AccountScreen = () => {
               onPressCopy={vm.onPressCopy}
               onPressEdit={vm.onPressEdit}
               details={[
-                { label: "Account Name", value: "Primary GBP Wallet", bold: true },
-                { label: "IBAN", value: "GB29 NWBK 6016 1331 9023 29" },
-                { label: "SWIFT Code", value: "NWBKGB2L" },
-                { label: "Currency", value: "GBP" },
-                { label: "Account Type", value: "Personal – Multi-Currency" },
-                { label: "Created On", value: "18 February 2024" },
-                { label: "Linked Cards", value: "Business Visa (**** 1234)" },
+                { label: "Account Name", value: vm.currentAccDetail.name , bold: true },
+                { label: "IBAN", value: vm.currentAccDetail.iban },
+                { label: "SWIFT Code", value: "DUMMY" },
+                { label: "Currency", value: vm.currentAccDetail.linkedAccount },
+                { label: "Account Type", value: "DUMMY" },
+                { label: "Created On", value: vm.currentAccDetail.created_at },
+                { label: "Linked Cards", value: vm.currentAccDetail.iso_code },
               ]}
             />
           </ScrollView>

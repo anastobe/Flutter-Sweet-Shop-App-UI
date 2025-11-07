@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Images } from "../../../config";
+import { Alert } from "react-native";
+import { SHOW_CLIENT } from "../../../APICall/constants";
 
 export const useAddNewCurrencyAccountViewModel = () => {
   const navigation = useNavigation();
 
+  const [openDropdown, setOpenDropdown] = useState(null); 
   const [accountName, setAccountName] = useState("");
   const [currency, setCurrency] = useState("");
   const [modalAddCurrency, setModalAddCurrency] = useState(false);
@@ -19,12 +22,14 @@ export const useAddNewCurrencyAccountViewModel = () => {
   };
 
   const handleConfirmAddCurrency = () => {
-    setModalAddCurrency(false);
-    setRequestSubmitted(true);
+    // setModalAddCurrency(false);
+    // setRequestSubmitted(true);
+       Alert.alert("NEED",SHOW_CLIENT)
   };
 
   const handleCloseAddCurrency = () => {
     setModalAddCurrency(false);
+           Alert.alert("NEED",SHOW_CLIENT)
   };
 
   const handleCloseRequestSubmitted = () => {
@@ -56,6 +61,11 @@ export const useAddNewCurrencyAccountViewModel = () => {
     },
   };
 
+  const toggleDropdown = (key: any) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
+ 
+
   return {
     accountName,
     setAccountName,
@@ -66,5 +76,7 @@ export const useAddNewCurrencyAccountViewModel = () => {
     pressBackArrow,
     handleAddCurrency,
     freezeModalProps,
+    toggleDropdown,
+    openDropdown
   };
 };

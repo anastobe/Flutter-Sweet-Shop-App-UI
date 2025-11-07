@@ -8,6 +8,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import HelpSheet from '../../../components/bottomSheet/helpSheet';
 import useMoreViewModel from '../../../viewModels/homeViewModel/more/useMoreViewModel';
 import CustomButton from '../../../components/customButton';
+import { SHOW_CLIENT } from '../../../APICall/constants';
 
 const MoreScreen = () => {
   const vm = useMoreViewModel();
@@ -24,14 +25,14 @@ const MoreScreen = () => {
           TR_radius={10}
           onPress={vm.onPressCurrencyExchange}
         />
-        <CardBox
+        {/* <CardBox
           rotate="-45deg"
           titleLeft="Conversion history"
           iconRight="arrow-forward-outline"
           BL_radius={10}
           BR_radius={10}
           onPress={vm.ConversionHistory}
-        />
+        /> */}
       </View>
     );
   }
@@ -120,7 +121,7 @@ const MoreScreen = () => {
 
         <TouchableOpacity onPress={vm.onPressTermsofUse} style={styles.policyRow}>
           <Icon name="arrow-forward-outline" size={24} color={THEME.primary} style={styles.rotateIcon} />
-          <Text style={styles.boxTitleText}>Terms of Use</Text>
+          <Text style={styles.boxTitleText}>{SHOW_CLIENT}</Text>
         </TouchableOpacity>
       </LinearGradient>
     );
@@ -210,7 +211,7 @@ const MoreScreen = () => {
           onPress2={vm.onCloseHelpSheet}
           style={{ flex: 1, paddingHorizontal: 20 }}
           title="Need Help?"
-          subtitle="You can reach us at anytime at:"
+          subtitle={`You can reach us at anytime at: \n ${SHOW_CLIENT}`}
         />
       </BottomSheet>
     </MainContainer>

@@ -7,6 +7,7 @@ import { Alert } from "react-native";
 export const useBankTransferViewModel = () => {
   const navigation = useNavigation();
 
+  const [openDropdown, setOpenDropdown] = useState(null); 
   const [recipientGets, setRecipientGets] = useState("");
   const [beneficiaryBankCountry, setBeneficiaryBankCountry] = useState();
   const [recipientType, setRecipientType] = useState();
@@ -26,6 +27,9 @@ export const useBankTransferViewModel = () => {
     Alert.alert("NEED",SHOW_CLIENT)
   };
 
+  const toggleDropdown = (key: any) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
   return {
     recipientGets,
     setRecipientGets,
@@ -37,5 +41,7 @@ export const useBankTransferViewModel = () => {
     pressBackArrow,
     handlePress,
     handleTransfer,
+    openDropdown,
+    toggleDropdown
   };
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { SHOW_CLIENT } from '../../../APICall/constants';
 
 const Privacypolicy = () => (
   <View style={styles.container}> 
-    <Text style={styles.text}>Privacypolicy</Text>
+    <Text style={styles.text}>{SHOW_CLIENT}</Text>
   </View>
 );
 

@@ -1,6 +1,6 @@
 import { useTheme } from '@react-navigation/native';
 import React, { useRef } from 'react';
-import { View, StyleSheet, Text, ViewStyle } from 'react-native';
+import { View, StyleSheet, Text, ViewStyle, Alert } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 // import { useTheme } from '../../hooks';
 
@@ -11,12 +11,13 @@ interface BottomSheetProps {
   openTime?: number;
   customContainerStyle?: ViewStyle;
   draggable?: any;
-  closeDuration?: any
+  closeDuration?: any;
+  onClose?: any
 }
 
 
 
-export const BottomSheet: React.FC<BottomSheetProps> = ({ bottomSheetRef,closeDuration,draggable, children, height, openTime, customContainerStyle, ...rest }) => {
+export const BottomSheet: React.FC<BottomSheetProps> = ({onClose, bottomSheetRef,closeDuration,draggable, children, height, openTime, customContainerStyle, ...rest }) => {
 
   const { colors } = useTheme()
 
@@ -29,6 +30,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({ bottomSheetRef,closeDu
       openDuration={openTime ? openTime : 300}
       closeOnPressMask={true} 
       closeOnPressBack={true}
+      onClose={onClose}
       draggable={draggable == false ? false : true}
       customStyles={
         customContainerStyle ? 

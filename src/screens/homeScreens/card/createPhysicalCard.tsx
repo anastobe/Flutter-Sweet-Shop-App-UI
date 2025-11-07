@@ -16,7 +16,7 @@ const CreatePhysicalCard = () => {
     cardName,
     setcardName,
     currency,
-    setcurrency,
+    setCurrency,
     linkedAccount,
     setLinkedAccount,
     spendingLimit,
@@ -25,6 +25,13 @@ const CreatePhysicalCard = () => {
     onPressBtn,
     yesConfirm,
     updateLocation,
+    countryList,
+    currencyList,
+    accountTypeList,
+    design, 
+    setdesign,
+    openDropdown, 
+    toggleDropdown
   } = useCreatePhysicalCardViewModel();
 
   return (
@@ -52,32 +59,26 @@ const CreatePhysicalCard = () => {
         <InputField
           disabled={false} 
           placeholder="Currency"
-          value={currency} 
+          value={currency.iso_code} 
           enableDropdown={true}
-          dropdownData={[
-            { label: "USD" },
-            { label: "PKR" },
-            { label: "EUR" },
-            { label: "CNY" },
-            { label: "JPY" },
-            { label: "GBP" },
-          ]}
+          dropdownData={currencyList}
           margBtm={20}
-          onDropdownSelect={(item:any )=> setcurrency(item.label)}
+          isOpen={openDropdown === 'currency'}
+          onToggleDropdown={() => toggleDropdown('currency')}
+          onDropdownSelect={(item) => setCurrency(item)}
+          />
+      
+        <InputField
+          disabled={false} 
+          placeholder="Linked Account"
+          value={linkedAccount.name} 
+          enableDropdown={true}
+          dropdownData={accountTypeList}
+          margBtm={20}
+          isOpen={openDropdown === 'linked'}
+          onToggleDropdown={() => toggleDropdown('linked')}
+          onDropdownSelect={(item) => setLinkedAccount(item)}
         />
-
-            <InputField
-              disabled={false} 
-              placeholder="Linked Account"
-              value={currency} 
-              enableDropdown={true}
-              dropdownData={[
-                { label: "Main Account" },
-                { label: "Savings" }
-              ]}
-              onDropdownSelect={(item:any )=> setLinkedAccount(item.label)}
-               margBtm={20}
-            />
 
         <InputField
           marginTp={20}
@@ -90,17 +91,24 @@ const CreatePhysicalCard = () => {
           margBtm={20}
              maxlen={10}
         />
-
-         <InputField
+ 
+          <InputField
             disabled={false} 
             placeholder="Card Design (Optional)"
-            value={linkedAccount} 
+            value={design.name} 
             enableDropdown={true}
             dropdownData={[
-              { label: "Option 1" },
-              { label: "Option 2" }
+              { id: 1, name: "Option 1" },
+              { id: 2,  name: "Option 2" },
+              { id: 3, name: "Option 3" },
+              { id: 4,  name: "Option 4" },
+              { id: 5, name: "Option 5" },
+              { id: 6,  name: "Option 6" }
             ]}
-            onDropdownSelect={(item:any )=> setLinkedAccount(item.label)}
+            margBtm={20}
+            isOpen={openDropdown === 'design'}
+            onToggleDropdown={() => toggleDropdown('design')}
+            onDropdownSelect={(item:any )=> setdesign(item)}
           />
 
         <CustomButton
@@ -111,7 +119,7 @@ const CreatePhysicalCard = () => {
         />
 
         <BottomSheet
-          height={METRICS.height / 2}
+          height={METRICS.height / 1.35}
           draggable={false}
           openTime={500}
           closeDuration={500}

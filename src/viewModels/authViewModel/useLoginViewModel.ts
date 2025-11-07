@@ -35,12 +35,12 @@ export const useLoginViewModel = (navigation: any) => {
 
   const handleLogin = () => { 
           
-    let token = {
-      token: "token"
-    }
-    dispatch(storeUserToken(token))  
-    // Alert.alert("NEED",SHOW_CLIENT)
-return
+//     let token = {
+//       token: "token"
+//     }
+//     dispatch(storeUserToken(token))  
+//     // Alert.alert("NEED",SHOW_CLIENT)
+// return
     if (email == "") {
       Toast.showToast("Please Enter Email Address", '', 'error');
     } else if (password == ""){

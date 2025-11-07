@@ -33,7 +33,7 @@ const CardDetail = ({ style, onPress1,onPress2,iconColor }:{ style:any, onPress1
 
       {cardDetailBox("Card Number:", "1234 5678 9012 3456" , "copy-outline",THEME.white )}
       {cardDetailBox("Valid Thru", "••/••" , "eye-outline",THEME.white )}
-      {cardDetailBox("Card Number:", "1234 5678 9012 3456" , "eye-outline",THEME.white )}
+      {cardDetailBox("CVV:", "1234 5678 9012 3456" , "eye-outline",THEME.white )}
 
     </ImageBackground>
   );

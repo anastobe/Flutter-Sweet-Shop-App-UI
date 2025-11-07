@@ -20,6 +20,8 @@ const { width } = Dimensions.get('window');
 
 const AccountCard = ({ item, index, onPressCard,containerStyle }: { item?: any, index?: any, onPressCard?: any, containerStyle?: StyleSheet }) => {
 
+    console.log("item=>",item.format);
+    
 
     return (
         <TouchableOpacity activeOpacity={1} onPress={()=>{onPressCard(item)}} style={[{ width: METRICS.width , height: 174, borderRadius: 15 },containerStyle]}  >
@@ -30,14 +32,15 @@ const AccountCard = ({ item, index, onPressCard,containerStyle }: { item?: any, 
                     <Image source={Images.frontPayLogo} style={{ width: 34, height: 37 }} resizeMode='contain' />
                 </View>
                 <View>
-                    <Text style={styles.cardTitle}>Business Visa (•••• 1234)</Text>
+                    <Text style={styles.cardTitle}>  Business Visa (•••• 1234)</Text>
                 </View>
             </View>
 
             <View style={{ flexDirection: 'row', width: '100%', position: "absolute", bottom: 10, alignItems: "flex-end", justifyContent: "space-between", paddingHorizontal: 10 }} >
                 <View>
+                    <Text style={styles.limitTxtUp}>({item.format})</Text>
                     <Text style={styles.limitTxt}>Daily/Available Limit:</Text>
-                    <Text style={styles.balanceTxt}>£{item?.spending_limit}</Text>
+                    <Text style={styles.balanceTxt}>£{item?.available_limit}</Text>
                 </View>
 
                 {/* <View>
@@ -69,6 +72,11 @@ const styles = StyleSheet.create({
         fontFamily: FONTFAMILY.Medium,
         marginLeft: 10,
         marginTop: 5
+    },
+    limitTxtUp:{
+        color: THEME.textPrimary,
+        fontSize: FONT_SIZES.oneZero,
+        fontFamily: FONTFAMILY.SemiBold
     },
     limitTxt: {
         color: THEME.textPrimary,

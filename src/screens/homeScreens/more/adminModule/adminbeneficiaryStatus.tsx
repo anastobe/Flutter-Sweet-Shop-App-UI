@@ -71,11 +71,13 @@ const AdminBeneficiaryStatus = () => {
         value={vm.country} 
         enableDropdown={true}
         dropdownData={[
-          { label: "Pak" },
-          { label: "China" },
+          { name: "Pak" },
+          { name: "China" },
         ]} 
         margBtm={10}
-        onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+      isOpen={vm.openDropdown === 'acc_type'} 
+        onToggleDropdown={() => vm.toggleDropdown('acc_type')}
+        onDropdownSelect={(item:any )=> vm.setCountry(item.name)}
       />
 
     

@@ -6,6 +6,7 @@ import { HOME_ROUTES } from '../../../constants';
 export default function useCurrencyExchangeViewModel() {
   const navigation = useNavigation();
 
+  const [openDropdown, setOpenDropdown] = useState(null); 
   const [sendFrom, setSendFrom] = useState('');
   const [receiveIn, setReceiveIn] = useState('');
 
@@ -19,6 +20,9 @@ export default function useCurrencyExchangeViewModel() {
     navigation.navigate(HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE);
   };
 
+  const toggleDropdown = (key: any) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
   return {
     sendFrom,
     setSendFrom,
@@ -26,5 +30,7 @@ export default function useCurrencyExchangeViewModel() {
     setReceiveIn,
     pressBackArrow,
     onPressBtn,
+    toggleDropdown,
+    openDropdown
   };
 }

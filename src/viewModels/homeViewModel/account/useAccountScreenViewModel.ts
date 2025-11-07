@@ -1,22 +1,41 @@
 import { useNavigation } from "@react-navigation/native";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Alert, FlatList, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
 import { ACTIVE_ACCOUNT } from "../../../utils/data";
 import { SHOW_CLIENT } from "../../../APICall/constants";
+import { getCards } from "../../../queries/auth.query";
+import { getAccounts } from "../../../queries/accountQueries/accountQuery";
+import { useDispatch } from "react-redux";
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const manageRef = useRef<any>(null);
   const editRef = useRef<any>(null);
   const editAccountRef = useRef<any>(null);
   const flatListRef = useRef<FlatList>(null);
 
+  const [currentAccDetail, setcurrentAccDetail] = useState({
+        asset_type_id: "", 
+        name: "", 
+        iban: "", 
+        currency_id: "", 
+        created_at: "",
+        iso_code: "",
+        linkedAccount: ""
+      });
+
   const [gbpWallet, setGbpWallet] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [showbalance, setshowbalance] = useState(false);
+  
+  const { data: getAccounts_Data, refetch: refetchgetAccounts, isPending } = getAccounts({
+    enabled: false, 
+    dispatch,
+  });
 
   const data = [
     { id: "1", total: "€50,000.00", onHold: "€22.50", available: "€53,534.00" },
@@ -37,7 +56,25 @@ export const useAccountScreenViewModel = () => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const index = Math.round(offsetX / Metrics.width);
     setActiveIndex(index);
+
+    if (!getAccounts_Data) return; //if no data found so return from their
+
+    if (getAccounts_Data?.length) {
+    const currentItem = getAccounts_Data[index];
+     
+    if (currentItem) {
+      setcurrentAccDetail({ 
+        asset_type_id: currentItem.asset_type_id,
+        name: currentItem.account?.name,
+        iban: currentItem.account?.iban,
+        currency_id: currentItem.currency_id,
+        created_at: currentItem.created_at,
+        iso_code: currentItem.currency?.iso_code,
+        linkedAccount:  currentItem.currency?.name,
+      });
+  }
   };
+}
 
   const onPressShare = () => Alert.alert("share", "share");
   const onPressCopy = () => Alert.alert("copy", "copy");
@@ -48,6 +85,30 @@ export const useAccountScreenViewModel = () => {
   const onPressDelete = () => { Alert.alert("NEED",SHOW_CLIENT) }
 
   const onPressEditSave = () => Alert.alert("NEED",SHOW_CLIENT);
+
+
+  useEffect(() => {
+    if (getAccounts_Data?.length) {
+    const firstItem = getAccounts_Data[0];
+     
+    if (firstItem) {
+      setcurrentAccDetail({ 
+        asset_type_id: firstItem.asset_type_id,
+        name: firstItem.account?.name,
+        iban: firstItem.account?.iban,
+        currency_id: firstItem.currency_id,
+        created_at: firstItem.created_at,
+        iso_code: firstItem.currency?.iso_code,
+        linkedAccount: firstItem.currency?.name,
+      });
+  }
+}
+
+  }, [getAccounts_Data?.length]);
+
+  useEffect(() => {
+    refetchgetAccounts();
+  }, []);
 
   return {
     navigation,
@@ -72,5 +133,9 @@ export const useAccountScreenViewModel = () => {
     onPressFreeze,
     onPressDelete,
     onPressEditSave,
+    getAccounts_Data,
+    refetchgetAccounts,
+    isPending,
+    currentAccDetail
   };
 };

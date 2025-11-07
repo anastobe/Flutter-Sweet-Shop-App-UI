@@ -51,7 +51,7 @@ const Profile = () => {
               }}
             >
               {/* <Icon name="person-circle-outline" size={22} color={THEME.white} /> */}
-              <Text style={styles.profiletxt} >WS</Text>
+              <Text style={styles.profiletxt} >SN</Text>
             </View>
           </TouchableOpacity>
           {/* <Text style={styles.selectimgTxt}>

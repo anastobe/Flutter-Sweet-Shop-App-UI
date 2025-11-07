@@ -35,6 +35,8 @@ export default function ReplaceCard(props) {
     isPendingFreezUnFreezCard,
     pressBackArrow,
     reqReplacement,
+    toggleDropdown,
+    openDropdown
   } = useReplaceCardViewModel(navigation, props);
 
   function renderField() {
@@ -47,11 +49,13 @@ export default function ReplaceCard(props) {
         value={reason} 
         enableDropdown={true}
         dropdownData={[
-        { label: "snetched" },
-        { label: "broken" },
+        { name: "snetched" },
+        { name: "broken" },
         ]}
         margBtm={15}
-        onDropdownSelect={(item:any )=> setReason(item.label)}
+        isOpen={openDropdown === 'currency'} 
+        onToggleDropdown={() => toggleDropdown('currency')}
+        onDropdownSelect={(item:any )=> setReason(item.name)}
       />
       
       

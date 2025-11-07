@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: THEME.white,
-    fontSize: FONT_SIZES.oneZero,
+    fontSize: FONT_SIZES.nine,
     fontFamily: FONTFAMILY.Medium,
   },
   amount: {

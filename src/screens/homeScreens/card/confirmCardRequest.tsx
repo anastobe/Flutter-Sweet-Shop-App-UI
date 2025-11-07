@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import { BottomSheet, MainContainer, Modal } from '../../../components';
 import { Images } from '../../../config';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,6 +10,7 @@ import CustomButton from '../../../components/customButton';
 import { scale } from 'react-native-size-matters';
 import { HOME_ROUTES } from '../../../constants';
 import { createCard } from '../../../queries/auth.query';
+import { Toast } from '../../../utils';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -26,7 +27,7 @@ function InfoRow({ icon, label, value }) {
   );
 }
 
-function ConfirmCardRequest(props) {
+function ConfirmCardRequest(props: any) {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
   const [tick, setTick] = useState(false);
@@ -62,7 +63,7 @@ function ConfirmCardRequest(props) {
     return (
       <>
         <Text style={styles.totalLabel}>Total Amount</Text>
-        <Text style={styles.totalAmount}>£4.95 GBP</Text>
+        <Text style={styles.totalAmount}>{payload.spending_limits}</Text>
       </>
     );
   }
@@ -119,10 +120,14 @@ function ConfirmCardRequest(props) {
         <CustomButton
           btnContSty={styles.forgetTxt}
           loading={isPending}
-          title="Pay"
+          title="Create Card"
           onPress={function () {
-            setOpen(true);
-            // createCardFunc(payload);
+            if (!tick) {
+              Alert.alert("Allow","Please confirm the deduction by checking the box before continuing.")
+              // Toast.showToast("Please confirm the deduction by checking the box before continuing.", '', 'error');
+            } else {
+              createCardFunc(payload);
+            }
           }}
         />
       </View>
@@ -132,7 +137,12 @@ function ConfirmCardRequest(props) {
   function renderPopup() {
     return (
       <View style={styles.modal}>
-        <TouchableOpacity style={styles.closeBtn} onPress={() => setOpen(false)}>
+        <TouchableOpacity style={styles.closeBtn} onPress={() =>{
+          setOpen(false)
+          setTimeout(() => {
+            navigation.navigate(HOME_ROUTES.TABSTACK);
+          }, 500);
+        }}>
           <Text style={styles.closeText}>×</Text>
         </TouchableOpacity>
 
@@ -147,7 +157,10 @@ function ConfirmCardRequest(props) {
           btnContSty={styles.forgetTxtpop}
           title="Manage Card"
           onPress={function () {
-            navigation.navigate(HOME_ROUTES.TABSTACK);
+            setOpen(false)
+            setTimeout(() => {
+              navigation.navigate(HOME_ROUTES.TABSTACK);
+            }, 500);
           }}
         />
       </View>

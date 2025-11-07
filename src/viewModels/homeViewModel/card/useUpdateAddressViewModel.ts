@@ -7,6 +7,7 @@ export default function useUpdateAddressViewModel() {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
 
+  const [openDropdown, setOpenDropdown] = useState(null)
   const [streetAddress, setStreetAddress] = useState('');
   const [apartment, setApartment] = useState('');
   const [city, setCity] = useState('');
@@ -50,6 +51,10 @@ export default function useUpdateAddressViewModel() {
     }, 1000);
   }
 
+  const toggleDropdown = (key: any) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
+
   return {
     navigation,
     pressBackArrow,
@@ -66,5 +71,7 @@ export default function useUpdateAddressViewModel() {
     country,
     setCountry,
     cardDetailRef,
+    openDropdown,
+    toggleDropdown
   };
 }

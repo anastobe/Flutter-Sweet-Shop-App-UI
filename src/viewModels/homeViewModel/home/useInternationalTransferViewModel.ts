@@ -5,6 +5,7 @@ import { SHOW_CLIENT } from '../../../APICall/constants';
 
 export const  useInternationalTransferViewModel = () => {
   const [toAccount, setToAccount] = useState('');
+  const [openDropdown, setOpenDropdown] = useState(null); 
   const [recipientGets, setRecipientGets] = useState('');
   const [fromAccount, setFromAccount] = useState({
     label: 'Clearbank Account',
@@ -20,6 +21,9 @@ export const  useInternationalTransferViewModel = () => {
     Alert.alert("NEED",SHOW_CLIENT)
   };
 
+  const toggleDropdown = (key: any) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
   return {
     toAccount,
     setToAccount,
@@ -28,5 +32,7 @@ export const  useInternationalTransferViewModel = () => {
     fromAccount,
     handleFromAccountPress,
     handleTransfer,
+    openDropdown,
+    toggleDropdown
   };
 }

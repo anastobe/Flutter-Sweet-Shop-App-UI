@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Alert, AppState, Easing, TouchableOpacity, View, useColorScheme } from 'react-native';
 import { Auth_ROUTES, HOME_ROUTES } from '../constants';
 import { CommonUtils, Toast } from '../utils';
-import { Images, NavigationService } from '../config';
+import { Images } from '../config';
 import apis from '../services';
 
 type RootStackParamList = HomeStackParamList & AuthStackParamList;
@@ -21,7 +21,7 @@ export const MainStack = () => {
   const dispatch = useDispatch()
   const userData = useSelector((state: any) => state?.AuthReducer?.userData);
 
-  console.log("REDUX=>",userData);
+  // console.log("REDUX=>",userData);
   
 
   const AuthScreens = AuthStack?.map(stack => (
@@ -60,8 +60,6 @@ export const MainStack = () => {
        : 
        AuthScreens
       }
-
-
     </Stack.Navigator>
   );
 };

@@ -1,5 +1,5 @@
 // src/screens/Home/HomeScreen.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import { MainContainer } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
@@ -10,6 +10,8 @@ import CardFeatureButtons from '../../../components/cardFeatureButtons';
 import LineGraph from '../../../components/lineGraph';
 import AccountCard from '../../../components/accountCard';
 import {useHomeViewModel} from '../../../viewModels/homeViewModel/home/usehomeScreenViewModel';
+import { screenWidth } from '../../../utils/style.utils';
+import { SHOW_CLIENT } from '../../../APICall/constants';
 
 const HomeScreen = () => {
   const {
@@ -19,15 +21,20 @@ const HomeScreen = () => {
     handlePressCard,
     handleNavigateNotification,
     handleNavigateProfile,
-    handleNavigateTransactionHistory,
+    handleNavigateTransactionHistory, 
     handleNavigateTransaction,
+    loginUserData,
+    personal_customers
   } = useHomeViewModel();
+  
 
   const renderHeader = () => (
     <View style={styles.headerContainer}>
       <View>
         <Text style={styles.title}>Great to See You,</Text>
-        <Text style={styles.titlesub}>Alex!</Text>
+        <Text 
+        numberOfLines={1} ellipsizeMode="tail"
+        style={styles.titlesub}>{personal_customers?.first_name + " " + personal_customers?.last_name }</Text>
       </View>
 
       <View style={styles.headerRight}>
@@ -77,7 +84,7 @@ const HomeScreen = () => {
   const renderTransactionList = () => (
     <View>
       <View style={styles.cardHeader}>
-        <Text style={styles.cardTransactionTXT}>Activity</Text>
+        <Text style={styles.cardTransactionTXT}>Activity  ({"DUMMY DATA-" + SHOW_CLIENT})</Text>
         <TouchableOpacity onPress={handleNavigateTransactionHistory}>
           <Text style={styles.viewAllTxt}>View All</Text>
         </TouchableOpacity>
@@ -145,6 +152,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.threetwo,
     color: THEME.primary,
+    width: screenWidth - 150,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -194,7 +202,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   cardTransactionTXT: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: FONT_SIZES.oneone,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },

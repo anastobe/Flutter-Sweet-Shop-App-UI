@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import { MainContainer } from '../../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -30,6 +31,10 @@ export default function CreateVirtualCardView() {
     setSpendingLimit,
     pressBackArrow,
     onPressBtn,
+    currencyList,
+    accountTypeList,
+    openDropdown, 
+    toggleDropdown
   } = useCreateVirtualCardViewModel();
 
   function renderInputField() {
@@ -47,31 +52,25 @@ export default function CreateVirtualCardView() {
           <InputField
             disabled={false} 
             placeholder="Currency"
-            value={currency} 
+            value={currency.iso_code} 
             enableDropdown={true}
-            dropdownData={[
-            { label: "USD" },
-            { label: "PKR" },
-            { label: "EUR" },
-            { label: "CNY" },
-            { label: "JPY" },
-            { label: "GBP" },
-            ]}
+            dropdownData={currencyList}
             margBtm={20}
-            onDropdownSelect={(item:any )=> setCurrency(item.label)}
-          />
-
+            isOpen={openDropdown === 'currency'}
+            onToggleDropdown={() => toggleDropdown('currency')}
+            onDropdownSelect={(item) => setCurrency(item)}
+            />
+        
           <InputField
             disabled={false} 
             placeholder="Linked Account"
-            value={linkedAccount} 
+            value={linkedAccount.name} 
             enableDropdown={true}
-            dropdownData={[
-              { label: "Visa" },
-              { label: "Savings" }
-            ]}
+            dropdownData={accountTypeList}
             margBtm={20}
-            onDropdownSelect={(item:any )=> setLinkedAccount(item.label)}
+            isOpen={openDropdown === 'linked'}
+            onToggleDropdown={() => toggleDropdown('linked')}
+            onDropdownSelect={(item) => setLinkedAccount(item)}
           />
 
       </View>

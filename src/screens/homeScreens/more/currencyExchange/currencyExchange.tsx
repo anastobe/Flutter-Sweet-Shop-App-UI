@@ -17,6 +17,8 @@ const CurrencyExchange = () => {
     setReceiveIn,
     pressBackArrow,
     onPressBtn,
+    toggleDropdown,
+    openDropdown
   } = useCurrencyExchangeViewModel();
 
   const renderRightInput = () => (
@@ -51,17 +53,19 @@ const CurrencyExchange = () => {
       value={receiveIn} 
       enableDropdown={true}
       dropdownData={[
-        { label: "USD" },
-        { label: "PKR" },
-        { label: "GBP" },
-        { label: "USD" },
-        { label: "PKR" },
-        { label: "GBP" },
-        { label: "USD" },
-        { label: "PKR" },
-        { label: "GBP" },
+        { name: "USD" },
+        { name: "PKR" },
+        { name: "GBP" },
+        { name: "USD" },
+        { name: "PKR" },
+        { name: "GBP" },
+        { name: "USD" },
+        { name: "PKR" },
+        { name: "GBP" },
       ]}
-      onDropdownSelect={(item:any )=> setReceiveIn(item.label)}
+      isOpen={openDropdown === 'currency'} 
+      onToggleDropdown={() => toggleDropdown('currency')}
+      onDropdownSelect={(item:any )=> setReceiveIn(item.name)}
     />
 
     </View>

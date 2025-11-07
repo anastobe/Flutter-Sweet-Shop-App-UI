@@ -7,6 +7,7 @@ import { freezUnFreezCard } from '../../../queries/auth.query';
 export default function useReplaceCardViewModel(navigation, props) {
   const [reason, setReason] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [openDropdown, setOpenDropdown] = useState(null)
 
   const { mutate: useReplaceCardFunc, isPending } = useReplaceCard({
     callback: (response) => {
@@ -29,6 +30,10 @@ export default function useReplaceCardViewModel(navigation, props) {
     navigation.goBack();
   }
 
+  const toggleDropdown = (key: any) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
+
   function reqReplacement() {
     if (reason === "") {
       Toast.showToast("Please Select Reason for Replacement", "", "error");
@@ -40,8 +45,9 @@ export default function useReplaceCardViewModel(navigation, props) {
         status: "lost",
         note: "Card is lost",
       };
-      console.log("payload==>", payload);
-      // freezUnFreezCardFunc(payload);
+      console.log("payload==>",payload);
+      // return
+      freezUnFreezCardFunc(payload);
     }
   }
 
@@ -54,5 +60,7 @@ export default function useReplaceCardViewModel(navigation, props) {
     isPendingFreezUnFreezCard,
     pressBackArrow,
     reqReplacement,
+    toggleDropdown,
+    openDropdown
   };
 }

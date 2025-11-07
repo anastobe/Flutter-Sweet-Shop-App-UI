@@ -22,6 +22,8 @@ export default function UpdateAddressView() {
     setPostalAddress,
     country,
     setCountry,
+    openDropdown,
+    toggleDropdown
   } = useUpdateAddressViewModel();
 
   function renderInputFields() {
@@ -53,11 +55,13 @@ export default function UpdateAddressView() {
         value={city} 
         enableDropdown={true}
         dropdownData={[
-        { label: "City 1" },
-        { label: "City 2" },
+        { name: "City 1" },
+        { name: "City 2" },
         ]}
         margBtm={15}
-        onDropdownSelect={(item:any )=> setCity(item.label)}
+        isOpen={openDropdown === 'city'} 
+        onToggleDropdown={() => toggleDropdown('city')}
+        onDropdownSelect={(item:any )=> setCity(item.name)}
       />
        
 
@@ -78,11 +82,13 @@ export default function UpdateAddressView() {
         value={country} 
         enableDropdown={true}
         dropdownData={[
-        { label: "country 1" },
-        { label: "country 2" },
+        { name: "country 1" },
+        { name: "country 2" },
         ]}
         margBtm={15}
-        onDropdownSelect={(item:any )=> setCountry(item.label)}
+        isOpen={openDropdown === 'country'} 
+        onToggleDropdown={() => toggleDropdown('country')}
+        onDropdownSelect={(item:any )=> setCountry(item.name)}
       />
 
         <CustomButton

@@ -378,7 +378,33 @@ const MoreStack = () => {
         component={AdminConfirmCardRequest}
         options={{ headerShown: false }}
       />
-      
+      <Stack.Screen
+        name={HOME_ROUTES.MAKE_PAYMENT}
+        component={MakePayment}
+        options={{ headerShown: false }}
+      />
+
+        <Stack.Screen
+          name={HOME_ROUTES.MY_ACCOUNT_TRANSFER}
+          component={MyAccountTransfer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={HOME_ROUTES.BANK_TRANSFER}
+          component={BankTansfer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={HOME_ROUTES.INTERNATIONAL_TRANSFER}
+          component={InternationalTransfer}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={HOME_ROUTES.ACCOUNT_DETAIL}
+          component={AccountDetail}
+          options={{ headerShown: false }}
+        />
+        
     </Stack.Navigator>
   );
 };

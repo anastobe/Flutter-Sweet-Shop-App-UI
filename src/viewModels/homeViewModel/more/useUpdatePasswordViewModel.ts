@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Auth_ROUTES } from '../../../constants';
+import { Alert } from 'react-native';
+import { SHOW_CLIENT } from '../../../APICall/constants';
+import { Toast } from '../../../utils';
 
 export default function useUpdatePasswordViewModel() {
   const navigation = useNavigation();
@@ -25,8 +28,19 @@ export default function useUpdatePasswordViewModel() {
   }
 
   function onUpdatePress() {
-    navigation.navigate(Auth_ROUTES.LOGIN);
-  }
+    if (!password) {
+      Toast.showToast('Please enter password', '', 'error');
+    } 
+    else if (!newPassword) {
+      Toast.showToast('Please enter new password', '', 'error');
+    } 
+    else if (confirmNewPassword !== newPassword) {
+      Toast.showToast('Password not match', '', 'error');
+    } 
+    else { 
+      Alert.alert("NEED",SHOW_CLIENT)
+    }
+  } 
 
   return {
     password,

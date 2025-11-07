@@ -25,11 +25,6 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy,onPressEdit  })
                         <Text style={[styles.value]}>
                         {item.value}
                         </Text>
-                        {/* {item.copy && (
-                        <TouchableOpacity onPress={item.onCopy}>
-                            <Icon name="copy-outline" size={16} color={THEME.prinkishBlue} style={{ marginLeft: 6 }} />
-                        </TouchableOpacity>
-                        )} */}
                     </View>
                     </View>
                 ))}

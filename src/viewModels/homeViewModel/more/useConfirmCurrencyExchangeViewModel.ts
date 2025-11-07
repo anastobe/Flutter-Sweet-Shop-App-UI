@@ -7,6 +7,7 @@ import { SHOW_CLIENT } from '../../../APICall/constants';
 export default function useConfirmCurrencyExchangeViewModel() {
   const navigation = useNavigation();
 
+  const [openDropdown, setOpenDropdown] = useState(null); 
   const [sendFrom, setSendFrom] = useState('');
   const [toCurrency, setToCurrency] = useState('');
   const [youWillReceive, setYouWillReceive] = useState('');
@@ -22,6 +23,10 @@ export default function useConfirmCurrencyExchangeViewModel() {
     // You can place API logic here later if needed
   };
 
+  const toggleDropdown = (key: any) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
+
   return {
     sendFrom,
     setSendFrom,
@@ -33,5 +38,7 @@ export default function useConfirmCurrencyExchangeViewModel() {
     setPurpose,
     pressBackArrow,
     onPressBtn,
+    toggleDropdown,
+    openDropdown
   };
 }

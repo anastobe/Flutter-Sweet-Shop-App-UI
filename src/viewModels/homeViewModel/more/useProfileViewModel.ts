@@ -1,13 +1,21 @@
 import { useState } from 'react';
 import { Toast } from '../../../utils';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useProfileViewModel = () => {
+
+  const dispatch = useDispatch();
+  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData)
+   const personal_customers = loginUserData?.personal_customers[0]
+
   const [profile, setProfile] = useState<string | null>(null);
-  const [name, setName] = useState('William');
-  const [username, setUsername] = useState('@william.harp');
-  const [email, setEmail] = useState('william@gmail.com');
-  const [phone, setPhone] = useState('03322778221');
+  const [name, setName] = useState(`${personal_customers?.first_name + " " + personal_customers?.last_name }`);
+  const [username, setUsername] = useState((`${personal_customers?.first_name}`));
+  const [email, setEmail] = useState(`${loginUserData?.email}`);
+  const [phone, setPhone] = useState(`${loginUserData?.telephone}`);
+  
+
 
   // ✅ Image Picker
   function openImagePicker() {

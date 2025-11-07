@@ -130,11 +130,11 @@ export default function SetLimits() {
         value={reason} 
         enableDropdown={true}
         dropdownData={[
-        { label: "Business Visa (•••• 1234)" },
-        { label: "Visa Card (•••• 4232)" },
+        { name: "Business Visa (•••• 1234)" },
+        { name: "Visa Card (•••• 4232)" },
         ]}
         margBtm={15}
-        onDropdownSelect={(item:any )=> setReason(item.label)}
+        onDropdownSelect={(item:any )=> setReason(item.name)}
       />
 
 

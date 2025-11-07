@@ -34,6 +34,8 @@ const ConfirmCurrencyExchange = () => {
     setPurpose,
     pressBackArrow,
     onPressBtn,
+    toggleDropdown,
+    openDropdown
   } = useConfirmCurrencyExchangeViewModel();
 
   const renderCardDetails = () => (
@@ -81,15 +83,17 @@ const ConfirmCurrencyExchange = () => {
         value={toCurrency} 
         enableDropdown={true}
         dropdownData={[
-            { label: "USD" },
-            { label: "PKR" },
-            { label: "EUR" },
-            { label: "CNY" },
-            { label: "JPY" },
-            { label: "GBP" },
+            { name: "USD" },
+            { name: "PKR" },
+            { name: "EUR" },
+            { name: "CNY" },
+            { name: "JPY" },
+            { name: "GBP" },
           ]} 
         margBtm={10}
-        onDropdownSelect={(item:any )=> setToCurrency(item.label)}
+        isOpen={openDropdown === 'currency'} 
+        onToggleDropdown={() => toggleDropdown('currency')}
+        onDropdownSelect={(item:any )=> setToCurrency(item.name)}
       />
 
       {renderCardDetails()}
@@ -112,12 +116,14 @@ const ConfirmCurrencyExchange = () => {
         value={purpose} 
         enableDropdown={true}
         dropdownData={[
-            { label: "Family Support" },
-            { label: "Others" },
-            { label: "Enjoy" },
+            { name: "Family Support" },
+            { name: "Others" },
+            { name: "Enjoy" },
           ]} 
         margBtm={10}
-        onDropdownSelect={(item:any )=> setPurpose(item.label)}
+        isOpen={openDropdown === 'purpose'} 
+        onToggleDropdown={() => toggleDropdown('purpose')}
+        onDropdownSelect={(item:any )=> setPurpose(item.name)}
       />
     </View>
   );

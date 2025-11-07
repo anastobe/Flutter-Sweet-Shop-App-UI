@@ -18,6 +18,8 @@ const AddNewCurrencyAcount = () => {
     pressBackArrow,
     handleAddCurrency,
     freezeModalProps,
+    toggleDropdown,
+    openDropdown
   } = useAddNewCurrencyAccountViewModel();
 
   return (
@@ -51,15 +53,17 @@ const AddNewCurrencyAcount = () => {
           value={currency} 
           enableDropdown={true}
           dropdownData={[
-            { label: "USD" },
-            { label: "PKR" },
-            { label: "EUR" },
-            { label: "CNY" },
-            { label: "JPY" },
-            { label: "GBP" },
+            { name: "USD" },
+            { name: "PKR" },
+            { name: "EUR" },
+            { name: "CNY" },
+            { name: "JPY" },
+            { name: "GBP" },
           ]} 
           margBtm={15}
-          onDropdownSelect={(item:any )=> setCurrency(item.label)}
+          isOpen={openDropdown === 'currency'}
+          onToggleDropdown={() => toggleDropdown('currency')}
+          onDropdownSelect={(item:any )=> setCurrency(item.name)}
         />
 
         <CustomButton

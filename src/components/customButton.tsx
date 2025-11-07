@@ -29,7 +29,7 @@ const CustomButton = ({
     disabled={loading} // Disable button while loading
   >
     {loading ? (
-      <ActivityIndicator size="small" color={THEME.white} />
+      <ActivityIndicator size="small" color={THEME.textPrimary} />
     ) : (
       <>
         {image && <Image source={image} resizeMode='contain' tintColor={tintColor} style={{ width: 20, height: 20, marginRight: 6 }} />}

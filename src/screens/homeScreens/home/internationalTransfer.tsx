@@ -20,6 +20,8 @@ const InternationalTransfer = () => {
     fromAccount,
     handleFromAccountPress,
     handleTransfer,
+    openDropdown,
+    toggleDropdown
   } = useInternationalTransferViewModel();
 
   function pressBackArrow() {
@@ -76,11 +78,13 @@ const InternationalTransfer = () => {
                 value={toAccount} 
                 enableDropdown={true}
                 dropdownData={[
-                  { label: "Account" },
-                  { label: "Cash" },
+                  { name: "Account" },
+                  { name: "Cash" },
                 ]} 
                 margBtm={15}
-                onDropdownSelect={(item:any )=> setToAccount(item.label)}
+                isOpen={openDropdown === 'account'}  
+                onToggleDropdown={() => toggleDropdown('account')}
+                onDropdownSelect={(item:any )=> setToAccount(item.name)}
               />
 
           {/* Recipient Gets Input */}

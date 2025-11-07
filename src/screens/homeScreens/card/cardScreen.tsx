@@ -18,7 +18,6 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Auth_ROUTES, HOME_ROUTES } from '../../../constants';
 import CustomButton from '../../../components/customButton';
 import FreezeCardModal from '../../../components/Modal/FreezeCardModal ';
-import Toast from 'react-native-toast-message';
 import { createCard,  freezUnFreezCard, getCards, unfreezCard } from '../../../queries/auth.query';
 import { useDispatch } from 'react-redux';
 import CardDetail from '../../../components/bottomSheet/cardDetail';
@@ -29,6 +28,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import OptionsHeader from '../../../components/topHeader';
 import { StatusBar } from 'react-native';
+import { SHOW_CLIENT } from '../../../APICall/constants';
+import { Toast } from "../../../utils";
 
 const CardScreen = () => {
 
@@ -39,73 +40,73 @@ const features = [
   { icon: 'options-outline' , text: "Methods" },
   { icon: 'menu-outline', text: "Manage" }
 ]
-const cardsData = [
-  {
-    available_limit: "3993",
-    card_design: null,
-    card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
-    card_name: "Byyh",
-    card_status: "active",
-    cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
-    created_at: "2025-10-07T12:34:12.487Z",
-    currency_type: "PKR",
-    deleted_at: null,
-    expiry_date: "1026",
-    format: "virtual",
-    is_enable: 1,
-    linked_account: "visa",
-    pan: "8410",
-    secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
-    spending_limit: "3993",
-    spending_type: "Weekly",
-    updated_at: null,
-    user_id: "1",
-  },
-  {
-    available_limit: "3893",
-    card_design: null,
-    card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
-    card_name: "Byyh",
-    card_status: "active",
-    cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
-    created_at: "2025-10-07T12:34:12.487Z",
-    currency_type: "PKR",
-    deleted_at: null,
-    expiry_date: "1026",
-    format: "virtual",
-    is_enable: 1,
-    linked_account: "visa",
-    pan: "8410",
-    secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
-    spending_limit: "3993",
-    spending_type: "Weekly",
-    updated_at: null,
-    user_id: "1",
-  },
-  {
-    available_limit: "4993",
-    card_design: null,
-    card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
-    card_name: "Byyh",
-    card_status: "active",
-    cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
-    created_at: "2025-10-07T12:34:12.487Z",
-    currency_type: "PKR",
-    deleted_at: null,
-    expiry_date: "1026",
-    format: "virtual",
-    is_enable: 1,
-    linked_account: "visa",
-    pan: "8410",
-    secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
-    spending_limit: "3993",
-    spending_type: "Weekly",
-    updated_at: null,
-    user_id: "1",
-  },
-]
+// const cardsData = [
+//   {
+//     available_limit: "3993",
+//     card_design: null,
+//     card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
+//     card_name: "Byyh",
+//     card_status: "active",
+//     cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
+//     created_at: "2025-10-07T12:34:12.487Z",
+//     currency_type: "PKR",
+//     deleted_at: null,
+//     expiry_date: "1026",
+//     format: "virtual",
+//     is_enable: 1,
+//     linked_account: "visa",
+//     pan: "8410",
+//     secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
+//     spending_limit: "3993",
+//     spending_type: "Weekly",
+//     updated_at: null,
+//     user_id: "1",
+//   },
+//   {
+//     available_limit: "3893",
+//     card_design: null,
+//     card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
+//     card_name: "Byyh",
+//     card_status: "active",
+//     cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
+//     created_at: "2025-10-07T12:34:12.487Z",
+//     currency_type: "PKR",
+//     deleted_at: null,
+//     expiry_date: "1026",
+//     format: "virtual",
+//     is_enable: 1,
+//     linked_account: "visa",
+//     pan: "8410",
+//     secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
+//     spending_limit: "3993",
+//     spending_type: "Weekly",
+//     updated_at: null,
+//     user_id: "1",
+//   },
+//   {
+//     available_limit: "4993",
+//     card_design: null,
+//     card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
+//     card_name: "Byyh",
+//     card_status: "active",
+//     cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
+//     created_at: "2025-10-07T12:34:12.487Z",
+//     currency_type: "PKR",
+//     deleted_at: null,
+//     expiry_date: "1026",
+//     format: "virtual",
+//     is_enable: 1,
+//     linked_account: "visa",
+//     pan: "8410",
+//     secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
+//     spending_limit: "3993",
+//     spending_type: "Weekly",
+//     updated_at: null,
+//     user_id: "1",
+//   },
+// ]
 
-
+  const [open, setopen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -130,16 +131,16 @@ const cardsData = [
     });
   
   // // get me
-  // const {data: getCardsData, refetch: refetchgetCardsData, isPending} = getCards({
-  //   enabled: false,
-  //   dispatch,
-  // });
+  const {data: getCardsData, refetch: refetchgetCardsData, isPending} = getCards({
+    enabled: false,
+    dispatch,
+  });
 
-  let currentItem =  cardsData[currentIndex]
+  let currentItem =  getCardsData?.results?.values[currentIndex]
 
-  // useEffect(()=>{
-  //     refetchgetCardsData()
-  // },[])
+  useEffect(()=>{
+      refetchgetCardsData()
+  },[])
 
   const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
     if (viewableItems.length > 0) {
@@ -179,7 +180,7 @@ const SlidingCards = () => {
   return (
     <View>
       <FlatList
-        data={cardsData} 
+        data={getCardsData?.results?.values} 
         horizontal
         pagingEnabled
         ListEmptyComponent={()=>{
@@ -199,21 +200,9 @@ const SlidingCards = () => {
           // marginHorizontal: 20 
         }}
       />
-        {/* Pagination Dots */}
-      {/* <View style={styles.dotsContainer}>
+       
+    <View style={styles.dotsContainer}>
         {getCardsData?.results?.values?.map((item, index) => (          
-          <View
-            key={index}
-            style={[
-              styles.dot,
-              index == currentIndex ? styles.dotActive : styles.dotInactive,
-            ]}
-          />
-        ))}
-      </View> */}
-
-            <View style={styles.dotsContainer}>
-        {cardsData?.map((item, index) => (          
           <View
             key={index}
             style={[
@@ -227,6 +216,46 @@ const SlidingCards = () => {
 
   );
 };
+
+function onPressSecurity() {
+  setopen(false)
+}
+
+      function renderPopup(icon,title,btnTxt) {
+    return (
+      <View style={styles.modal}>
+        <TouchableOpacity style={styles.closeBtn} onPress={onPressSecurity}>
+          <Text style={styles.closeText}>×</Text>
+        </TouchableOpacity>
+
+        <View style={styles.iconCircle}>
+          <Icon name={icon} size={25} color={THEME.textPrimary} />
+        </View>
+
+        <Text style={styles.titles}>{title}</Text>
+        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
+
+        <CustomButton
+          btnContSty={styles.forgetTxtpop}
+          title={btnTxt}
+          onPress={onPressSecurity}
+        />
+      </View>
+    );
+  }
+
+  function renderNearestAtm() {
+    return (
+      <Modal
+        isVisible={open}
+        isKeyboardAvoidingView={true}
+        children={renderPopup("alert","Kindly visit your nearest ATM","Ok")} 
+        onClose={setopen}
+      />
+    );
+  }
+
+
 
 function onPressfeature(item: any) {
 
@@ -252,7 +281,7 @@ const TransactionList = () => {
   return (
     <View>
       <View style={styles.cardHeadr} >
-        <Text style={styles.cardTransactinTXT} >Card Transactions</Text>
+        <Text style={styles.cardTransactinTXT} >Card Transactions ({"DUMMY DATA"})</Text>
         <TouchableOpacity onPress={()=>{ navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY) }} >
           <Text style={styles.viewAllTxt} >View All</Text>
         </TouchableOpacity>
@@ -290,7 +319,7 @@ const TransactionList = () => {
     <OptionsHeader
       showBackIcon={false}
       // onPressNotification={() => navigation.navigate(HOME_ROUTES.NOTIFICATION) }
-      onPressNotification={() => Alert.alert("Api Needed")}
+      onPressNotification={() => Alert.alert(SHOW_CLIENT)}
       
       onPressAdd={() => AddCardRef?.current?.open()}
     />
@@ -411,7 +440,7 @@ const TransactionList = () => {
 
     function callFunction(id: any) {
       if (id == 1) {
-        navigation.navigate(HOME_ROUTES.SET_LIMIT)
+        setopen(true)
       } else if (id == 2) {
         navigation.navigate(HOME_ROUTES.PIN_SECURITY)    
       }      
@@ -424,6 +453,7 @@ const TransactionList = () => {
       }, 1000);
     }
 
+    console.log("ASdasdassa====>",methodsRef);
     
   return(
     <LinearGradient
@@ -450,6 +480,8 @@ const TransactionList = () => {
             {renderModal()}
             {renderModalUnFreez()}
           </ScrollView>
+          
+          {renderNearestAtm()}
 
      <BottomSheet
       height={METRICS.halfScreen - 30}
@@ -479,7 +511,10 @@ const TransactionList = () => {
       draggable={false}
       openTime={500}
       closeDuration={500}
-      bottomSheetRef={methodsRef}
+      onClose={()=>{
+         Toast.showToast(SHOW_CLIENT, '', 'error');
+      }}
+      bottomSheetRef={methodsRef} 
       children={<Methods  backImg={Images.manageCardGradient}  onPress1={()=>{switchOption('1')}} onPress2={()=>{switchOption('2')}} onPress3={()=>{switchOption('3')}} onPress4={()=>{switchOption('4')}} style={{ flex: 1, paddingHorizontal: 20 }}  />}
      />
 
@@ -586,7 +621,7 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.lightGrey,
   },
   dotActive: {
-    backgroundColor: THEME.primary,
+    backgroundColor: THEME.textPrimary,
   },
 
 
@@ -604,7 +639,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
-  },
+  }, 
 
   cardHeadr: 
   { flexDirection: 'row',justifyContent: "space-between", marginHorizontal: 20, marginVertical: 15 },
@@ -616,6 +651,42 @@ const styles = StyleSheet.create({
   ICONcONT:
   { width: scale(36), height: scale(36), backgroundColor: THEME.lightGrey, justifyContent: "center", alignItems: "center", borderRadius: 12 },
 
+
+  
+    modal: {
+      backgroundColor: 'rgba(64, 64, 65, 0.98)',
+      borderRadius: 16,
+      padding: 24,
+      alignItems: 'center',
+    },
+    closeBtn: { position: 'absolute', top: 10, right: 15 },
+    closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
+    iconCircle: {
+      backgroundColor: THEME.primary,
+      borderRadius: 100,
+      width: scale(55),
+      height: scale(55),
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 10,
+    },
+    titles: {
+      fontFamily: FONTFAMILY.SemiBold,
+      fontSize: FONT_SIZES.twosix,
+      color: THEME.white,
+      textAlign: 'center',
+      lineHeight: 30,
+      marginTop: 20
+    },
+    description: {
+      marginTop: 10,
+      fontFamily: FONTFAMILY.Regular,
+      fontSize: FONT_SIZES.onefour,
+      color: THEME.white,
+      textAlign: 'center',
+    },
+
+    forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
 
 });
 

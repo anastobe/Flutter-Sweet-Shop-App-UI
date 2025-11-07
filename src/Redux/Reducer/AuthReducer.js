@@ -1,7 +1,8 @@
 import ActionType from '../Action/ActionType/actionType';
 
 const initialState = {
-  userData: {}
+  userData: {},
+  loader: false
   
 };
 
@@ -13,12 +14,17 @@ export default (state = initialState, action) => {
         ...state,
         userData: action.payload,
       };
-
+    case ActionType.LOADER:
+      return {
+        ...state,
+        loader: action.payload,
+      };
 
     case ActionType.LOGOUT:
       return {
         ...state,
-        userData: {}
+        userData: {},
+        loader: false
       };
       // userToken
     default:

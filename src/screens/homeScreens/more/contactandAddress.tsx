@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { MainContainer, BottomSheet } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
 import { Picker } from '@react-native-picker/picker';
@@ -8,6 +8,7 @@ import CustomButton from '../../../components/customButton';
 import ContactAdressSheet from '../../../components/bottomSheet/contactAdressSheet';
 import { scale } from 'react-native-size-matters';
 import useContactAddressViewModel from '../../../viewModels/homeViewModel/more/useContactAddressViewModel';
+import { SHOW_CLIENT } from '../../../APICall/constants';
 
 const ContactAddress = () => {
   const vm = useContactAddressViewModel();
@@ -21,29 +22,33 @@ const ContactAddress = () => {
               value={vm.country} 
               enableDropdown={true}
               dropdownData={[
-                { label: "Country" },
-                { label: "Pakistan" },
-                { label: "Canada" },
-                { label: "Italy" },
-                { label: "Ireland" },
+                { name: "Country" },
+                { name: "Pakistan" },
+                { name: "Canada" },
+                { name: "Italy" },
+                { name: "Ireland" },
               ]}
                  margBtm={15}
-              onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+              isOpen={vm.openDropdown === 'country'}
+              onToggleDropdown={() => vm.toggleDropdown('country')}
+              onDropdownSelect={(item:any )=> vm.setCountry(item.name)}
             />
 
-
+            
         <InputField
               disabled={false} 
               placeholder="City"
               value={vm.city} 
               enableDropdown={true}
               dropdownData={[
-                { label: "City A" },
-                { label: "City B" },
-                { label: "City C" }
+                { name: "City A" },
+                { name: "City B" },
+                { name: "City C" }
               ]}
               margBtm={15}
-              onDropdownSelect={(item:any )=> vm.setCity(item.label)}
+              isOpen={vm.openDropdown === 'city'}
+              onToggleDropdown={() => vm.toggleDropdown('city')}
+              onDropdownSelect={(item:any )=> vm.setCity(item.name)}
             />
 
       </View>
@@ -103,7 +108,7 @@ const ContactAddress = () => {
           bottomSheetRef={vm.cardDetailRef}
           children={
             <ContactAdressSheet
-              onPress={() => vm.cardDetailRef?.current?.close()}
+              onPress={() => Alert.alert("NEED",SHOW_CLIENT) }
               style={{ flex: 1, paddingHorizontal: 20 }}
               confirmPassword={vm.confirmPassword}
               setconfirmPassword={vm.setConfirmPassword}

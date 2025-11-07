@@ -3,6 +3,8 @@ import {BASE_PATH, BASE_URL} from '../APICall/constants';
 import dataHandlerService from '../APICall/dataHandler.service';
 import MessageHandler from '../APICall/messageHandler';
 import Toast from "react-native-toast-message";
+import { Auth_ROUTES } from '../constants';
+import { Alert } from 'react-native';
 
 const createAxiosInstance = (baseURL: any) => {
   const api = axios.create({
@@ -37,15 +39,17 @@ const createAxiosInstance = (baseURL: any) => {
   api.interceptors.response.use(
     response => {
 
-            console.log('axios response success===>', response);
-
+   // ✅ Only show success message if NOT disabled
+    if (response.config?.showSuccessMessage !== false) {
       MessageHandler(response?.data);
+    }
+
       return response;
     },
     error => {
-      console.log('axios error===>', error?.response?.data);
-      // if (error?.response?.data?.message == 'Unauthorized resource') {
-      //   NavigationService.navigate(Auth_ROUTES.Login, {commingFrom: 'expire'});
+      // console.log('axios error===>', error?.response?.data);
+      // if (error?.response?.data == 'Unauthenticated User') {
+      //   Alert.alert("Perform")
       //   return;
       // }
 

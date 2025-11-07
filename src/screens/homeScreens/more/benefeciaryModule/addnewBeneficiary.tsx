@@ -18,6 +18,9 @@ import { useAddNewBeneficiaryViewModel } from '../../../../viewModels/homeViewMo
 const AddNewBeneficiary = () => {
   const vm = useAddNewBeneficiaryViewModel();
 
+    //   countryList,
+    // currencyList,
+    // accountTypeList
   const renderTransactionType = () => (
     <View>
       <Text style={styles.checkmarkTitle}>Select Beneficiary Type</Text>
@@ -53,14 +56,13 @@ const AddNewBeneficiary = () => {
       <InputField
         disabled={false} 
         placeholder='Account Type'
-        value={vm.country} 
+        value={vm.accountType} 
         enableDropdown={true}
-        dropdownData={[
-          { label: "Current" },
-          { label: "Currency" },
-        ]} 
+        dropdownData={vm.accountTypeList} 
         margBtm={10}
-        onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+        isOpen={vm.openDropdown === 'acc_type'} 
+        onToggleDropdown={() => vm.toggleDropdown('acc_type')}
+        onDropdownSelect={(item:any )=> vm.setAccountType(item.name)}
       />
 
       <InputField
@@ -83,12 +85,11 @@ const AddNewBeneficiary = () => {
         placeholder="Select Country"
         value={vm.country} 
         enableDropdown={true}
-        dropdownData={[
-          { label: "Pakistan" },
-          { label: "China" },
-        ]} 
+        dropdownData={vm.countryList} 
         margBtm={10}
-        onDropdownSelect={(item:any )=> vm.setCountry(item.label)}
+        isOpen={vm.openDropdown === 'country'} 
+        onToggleDropdown={() => vm.toggleDropdown('country')}
+        onDropdownSelect={(item:any )=> vm.setCountry(item.name)}
       />
 
        <InputField
@@ -96,16 +97,11 @@ const AddNewBeneficiary = () => {
         placeholder='Select Currency'
         value={vm.currency} 
         enableDropdown={true}
-        dropdownData={[
-            { label: "USD" },
-            { label: "PKR" },
-            { label: "EUR" },
-            { label: "CNY" },
-            { label: "JPY" },
-            { label: "GBP" },
-          ]} 
+        dropdownData={vm.currencyList} 
         margBtm={10}
-        onDropdownSelect={(item:any )=> vm.setCurrency(item.label)}
+        isOpen={vm.openDropdown === 'currency'} 
+        onToggleDropdown={() => vm.toggleDropdown('currency')}
+        onDropdownSelect={(item:any )=> vm.setCurrency(item.iso_code)}
       />
 
     </View>
@@ -129,7 +125,7 @@ const AddNewBeneficiary = () => {
       <CustomButton
         btnContSty={styles.forgetTxtpop}
         title="Transfer Money"
-        onPress={vm.onClosePopup}
+        onPress={vm.pressTransferMoney}
       />
     </View>
   );
@@ -155,6 +151,7 @@ const AddNewBeneficiary = () => {
           <CustomButton
             btnContSty={styles.forgetTxt}
             title="Save Beneficiary"
+            loading={vm.isPending_AddnewBeneficiaryApi}
             onPress={vm.onPressBtn}
           />
 

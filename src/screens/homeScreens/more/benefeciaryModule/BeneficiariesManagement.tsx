@@ -7,17 +7,31 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { useBeneficiariesManagementViewModel } from '../../../../viewModels/homeViewModel/more/useBeneficiariesManagementModel';
 import { scale } from 'react-native-size-matters';
 import CustomButton from '../../../../components/customButton';
+import { ActivityIndicator } from 'react-native';
+import { LoaderOnly } from '../../../../components/activityIndicator';
 
 const BeneficiariesManagement = () => {
-  const { data, pressBackArrow, pressRightArrow, onBeneficiaryPress, open, setOpen,open2, setOpen2,onPressDelete ,onPressView } =
+  const { data, pressBackArrow, pressRightArrow, onBeneficiaryPress, open, setOpen,open2, setOpen2,onPressDelete,onPressDeleteBtn ,onPressView,
+    getBeneficiaryDetail_Data,
+    isFetchingBeneficiary,
+    isPendingDeleteBeneficiary,
+    onRefresh,
+    refreshing,
+    setrefreshing
+   } =
     useBeneficiariesManagementViewModel();
 
+    console.log("ASDasdas==>",isFetchingBeneficiary);
+    
 
   function renderItem({ item }: any) {
-    const initials = item.name
+    const initials = `${item?.first_name + " " + item?.last_name}`
       .split(' ')
       .map((n: any) => n[0])
       .join('');
+
+      console.log("ASdass==>",`${item?.first_name + " " + item?.last_name}`);
+      
 
     return (
       <View>
@@ -31,12 +45,12 @@ const BeneficiariesManagement = () => {
             <Text style={styles.avatarText}>{initials}</Text>
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.name}>{item?.first_name +" "+ item?.last_name}</Text>
             <Text style={styles.currency}>{item.currency}</Text>
           </View>
 
           <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity style={[styles.butnCont]} onPress={onPressDelete} >
+            <TouchableOpacity style={[styles.butnCont]} onPress={()=>onPressDelete(item)} >
               <Icon name="trash-outline" size={20} color={THEME.primary} />
             </TouchableOpacity>
           <View style={{ transform: [{ rotate: '-45deg' }], marginLeft: 0 }}>
@@ -68,7 +82,8 @@ const BeneficiariesManagement = () => {
         <CustomButton
           btnContSty={styles.forgetTxtpop}
           title={btnTxt}
-          onPress={onPressDelete}
+          loading={isPendingDeleteBeneficiary}
+          onPress={onPressDeleteBtn}
         />
       </View>
     );
@@ -79,7 +94,7 @@ const BeneficiariesManagement = () => {
       <Modal
         isVisible={open}
         isKeyboardAvoidingView={true}
-        children={renderPopup("warning","Are you sure you want to delete this Beneficiary","Continue")} 
+        children={renderPopup("warning","Are you sure you want to delete this beneficiary","Continue")} 
         onClose={function () {
           setOpen(false);
         }}
@@ -94,6 +109,9 @@ const BeneficiariesManagement = () => {
       pressBackArrow={pressBackArrow}
       isFlatList={true}
       barStyle="dark-content"
+      // refreshingeffect={true}
+      // onRefresh={onRefresh}
+      // refreshing={isFetchingBeneficiary}
       mainContainerStyle={styles.container}
     >
       <View style={{ marginHorizontal: 20 }}>
@@ -102,11 +120,20 @@ const BeneficiariesManagement = () => {
           Manage your saved recipients for faster and easier payments.
         </Text>
 
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+        {isFetchingBeneficiary ? (
+            <LoaderOnly />
+          ) : (
+          <FlatList
+              data={getBeneficiaryDetail_Data.results}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.id}
+              ListEmptyComponent={()=>{
+              return(
+                <Text  style={styles.txtEmptyTxt} >No Beneficiary Found</Text>
+              )
+            }}
+            />
+        )}
       </View>
 
       {renderModalDelete()}
@@ -125,11 +152,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
   },
+  txtEmptyTxt: {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    marginBottom: 10,
+    textAlign: "center"
+  },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 50,
+    marginBottom: 30,
   },
   container: { flex: 1, backgroundColor: THEME.white },
 

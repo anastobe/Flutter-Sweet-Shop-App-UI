@@ -4,13 +4,30 @@ import { useState } from 'react';
 import { Toast } from '../../../utils';
 import { HOME_ROUTES } from '../../../constants';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
 export default function useCreateVirtualCardViewModel() {
   const navigation = useNavigation();
 
+  const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
+  const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
+  const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
+
+  const [openDropdown, setOpenDropdown] = useState(null); 
   const [cardName, setCardName] = useState('');
-  const [currency, setCurrency] = useState('');
-  const [linkedAccount, setLinkedAccount] = useState('');
+  const [currency, setCurrency] = useState({
+    __typename: "",
+    id: "",
+    iso_code: "",
+    num_code: ""
+  });
+  const [linkedAccount, setLinkedAccount] = useState({
+    __typename: "",
+    id: "",
+    name: "",
+    description: "",
+    created_at: ""
+  });
   const [limitType, setLimitType] = useState('Weekly');
   const [spendingLimit, setSpendingLimit] = useState('');
 
@@ -18,12 +35,17 @@ export default function useCreateVirtualCardViewModel() {
     navigation.goBack();
   }
 
+  const toggleDropdown = (key) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
+  
+
   function onPressBtn() {
     if (cardName?.length === 0) {
       Toast.showToast('Please Enter Name', '', 'error');
-    } else if (currency?.length === 0) {
+    } else if (currency?.iso_code?.length === 0) {
       Toast.showToast('Please Select Currency', '', 'error');
-    } else if (linkedAccount?.length === 0) {
+    } else if (linkedAccount?.name?.length === 0) {
       Toast.showToast('Please Select Linked Account Type', '', 'error');
     } else if (limitType?.length === 0) {
       Toast.showToast('Please Select Limit Type', '', 'error');
@@ -35,10 +57,15 @@ export default function useCreateVirtualCardViewModel() {
         card_name: cardName,
         spending_limits: spendingLimit,
         limit_type: limitType,
-        currency_type: currency,
-        linked_account: linkedAccount,
+        currency_type: currency.iso_code,
+        linked_account: linkedAccount.name,
         card_desgin: 'steel',
+        pin: "4567"
       };
+
+      // console.log("ASdasd=>",payload);
+      // return
+
       navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
     }
   }
@@ -56,5 +83,11 @@ export default function useCreateVirtualCardViewModel() {
     setSpendingLimit,
     pressBackArrow,
     onPressBtn,
+    countryList,
+    currencyList,
+    accountTypeList,
+    openDropdown, 
+    setOpenDropdown,
+    toggleDropdown
   };
 }

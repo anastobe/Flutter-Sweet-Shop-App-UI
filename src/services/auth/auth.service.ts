@@ -15,12 +15,12 @@ export const createCard = async (body: any) => {
   return response.data;
 };
 
-export const getCards = async (body: any) => {
-  const response = await axiosInstance.get('/card', {});
+export const freezUnFreezCard = async (body: any) => {
+  const response = await axiosInstance.post('/card/status', body);
   return response.data;
 };
 
-export const freezUnFreezCard = async (body: any) => {
-  const response = await axiosInstance.post('/card/status', body);
+export const getCards = async (body: any) => {
+  const response = await axiosInstance.get('/card', {});
   return response.data;
 };

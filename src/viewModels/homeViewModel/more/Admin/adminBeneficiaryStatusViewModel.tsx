@@ -14,6 +14,7 @@ export const useAdminBeneficiariesManagementViewModel = () => {
   const [bicNo, setBicNo] = useState('');
   const [country, setCountry] = useState('');
   const [currency, setCurrency] = useState('');
+  const [openDropdown, setOpenDropdown] = useState(null); 
 
   const handlePressType = (key: string) => setChecked(key);
   const pressBackArrow = () => navigation.goBack();
@@ -24,6 +25,10 @@ export const useAdminBeneficiariesManagementViewModel = () => {
   };
 
   const onClosePopup = () => setOpen(false);
+  
+  const toggleDropdown = (key: any) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
 
   return {
     checked,
@@ -51,6 +56,8 @@ export const useAdminBeneficiariesManagementViewModel = () => {
     onClosePopup,
     setOpen2,
     open2,
+    toggleDropdown,
+    openDropdown
   };
 };
 

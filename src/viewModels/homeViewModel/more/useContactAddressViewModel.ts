@@ -2,11 +2,14 @@ import { useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { Toast } from '../../../utils';
+import { SHOW_CLIENT } from '../../../APICall/constants';
+import { Alert } from 'react-native';
 
 export default function useContactAddressViewModel() {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
 
+  const [openDropdown, setOpenDropdown] = useState(null); 
   const [open, setOpen] = useState(false);
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
@@ -20,12 +23,13 @@ export default function useContactAddressViewModel() {
   }
 
   function onPressBtn() {
-    cardDetailRef?.current?.open();
-
     if (!country) return Toast.showToast('Please Select Country', '', 'error');
-    if (!city) return Toast.showToast('Please Select City', '', 'error');
-    if (!address) return Toast.showToast('Please Enter Address', '', 'error');
-    if (!postalCode) return Toast.showToast('Please Enter Postal Code', '', 'error');
+    else if (!city) return Toast.showToast('Please Select City', '', 'error');
+    else if (!address) return Toast.showToast('Please Enter Address', '', 'error');
+    else if (!postalCode) return Toast.showToast('Please Enter Postal Code', '', 'error');
+    else{
+        cardDetailRef?.current?.open();
+    }
   }
 
   function yesConfirm() {
@@ -34,6 +38,10 @@ export default function useContactAddressViewModel() {
       navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: {} });
     }, 1000);
   }
+
+  const toggleDropdown = (key: any) => {
+    setOpenDropdown(openDropdown === key ? null : key);
+  };
 
   return {
     pressBackArrow,
@@ -54,5 +62,8 @@ export default function useContactAddressViewModel() {
     setConfirmPassword,
     secure,
     setSecure,
+    toggleDropdown,
+    openDropdown, 
+    setOpenDropdown,
   };
 }
