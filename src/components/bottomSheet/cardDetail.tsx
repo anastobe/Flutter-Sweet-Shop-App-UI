@@ -7,7 +7,7 @@ import CustomButton from '../customButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ImageBackground } from 'react-native';
 
-const CardDetail = ({ style, onPress1,onPress2,iconColor }:{ style:any, onPress1: any, onPress2: any,iconColor: any }) => {
+const CardDetail = ({ saveCureentDisplayData,style, onPress1,onPress2,iconColor }:{ saveCureentDisplayData: any,style:any, onPress1: any, onPress2: any,iconColor: any }) => {
 
     function cardDetailBox(title: any, desc: any, icon: any,iconColor: any) {
         return(
@@ -23,17 +23,20 @@ const CardDetail = ({ style, onPress1,onPress2,iconColor }:{ style:any, onPress1
         )
     }
 
+    console.log("DATAAA=>",saveCureentDisplayData);
+    
+
     return (
     <ImageBackground resizeMode="stretch" source={Images.manageCardGradient} style={[styles.container,style]}>
     
        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 }} /> */}
 
-      <Text style={styles.title}>Account Details</Text>
+      <Text style={styles.title}>{saveCureentDisplayData?.format} Card Details</Text>
       <Text style={styles.subtitle}>Use this information to make online purchases</Text>
 
-      {cardDetailBox("Card Number:", "1234 5678 9012 3456" , "copy-outline",THEME.white )}
-      {cardDetailBox("Valid Thru", "••/••" , "eye-outline",THEME.white )}
-      {cardDetailBox("CVV:", "1234 5678 9012 3456" , "eye-outline",THEME.white )}
+      {cardDetailBox("Card Number:", "DUMMY" , "copy-outline",THEME.white )}
+      {cardDetailBox("Valid Thru", saveCureentDisplayData?.expiry_date , "eye-outline",THEME.white )}
+      {cardDetailBox("CVV:", "DUMMY" , "eye-outline",THEME.white )}
 
     </ImageBackground>
   );
@@ -49,9 +52,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.twosix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     alignSelf: "center",
-    marginTop: 10
+    marginTop: 10,
+     textTransform: 'capitalize'
   },
   subtitle: {
     color: THEME.white,

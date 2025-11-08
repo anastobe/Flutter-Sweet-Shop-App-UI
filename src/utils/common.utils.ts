@@ -76,6 +76,13 @@ const promiseAllSettled = (promises: any) =>
     )
   );
 
+function capitalizeFirstLetter(string: any) {
+  if (!string) {
+    return "";
+  }
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 const RegEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const getSelectedIds = (array: any) => {
@@ -219,5 +226,6 @@ export default {
   // handleDynamicLinks,
   formatDateTime,
   updateThumbnailUrls,
-  removeTypeAndName
+  removeTypeAndName,
+  capitalizeFirstLetter
 };

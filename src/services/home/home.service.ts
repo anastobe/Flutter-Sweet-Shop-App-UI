@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import axiosInstance from "../https.service";
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
-import { storeLoginUserData } from "../../Redux/Action/Home/HomeActions";
+import { storeLoginUserData, storeCurrArrayData } from "../../Redux/Action/Home/HomeActions";
 
 
 export const getUserDetail = async (dispatch: any) => {
@@ -12,3 +12,11 @@ export const getUserDetail = async (dispatch: any) => {
   return response.data;
 };
 
+
+export const getCurrencyAccount = async (dispatch: any) => {
+  const response = await axiosInstance.get("/assets/all", {
+    showSuccessMessage: false
+  });
+  dispatch(storeCurrArrayData(response.data?.results))  
+  return response.data;
+};

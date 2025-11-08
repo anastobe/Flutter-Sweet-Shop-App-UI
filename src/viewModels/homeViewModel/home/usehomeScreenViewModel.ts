@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HOME_ROUTES } from '../../../constants';
 import { CURRENT_ACCOUNT, DATA } from '../../../utils/data';
 import { Alert } from 'react-native';
-import {  getAssetType, getCoutry, getCurrency, getUserDetail } from '../../../queries/homeQueries/homeQuery';
-import { useEffect } from 'react';
+import {  getAssetType, getCoutry, getCurrency, getCurrencyAccount, getUserDetail } from '../../../queries/homeQueries/homeQuery';
+import { useEffect, useMemo, useState } from 'react';
 import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 
@@ -13,7 +13,12 @@ export const useHomeViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
+  const [selectedCurrency, setSelectedCurrency] = useState(null);
+  const [assetsList, setAssetsList] = useState([]);
+
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
+  const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
 
   const Sendoption = [ 
     { icon: 'add-outline', onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency\nAccount` },
@@ -69,6 +74,14 @@ export const useHomeViewModel = () => {
     dispatch,
   });
 
+  // get my account detail
+  const {data: getCurrencyAccount_DATA, refetch: refetchgetCurrencyAccount, isFetching } = getCurrencyAccount({
+    enabled: false,
+    dispatch,
+  });
+
+  console.log("API=>",getCurrencyAccount_DATA);
+  
   
 const fetchAllInitialData = async () => {
   try {
@@ -79,6 +92,7 @@ const fetchAllInitialData = async () => {
       refetchgetCoutry_Data(),
       refetchgetCurrency_Data(),
       refetchgetAssetType_Data(),
+      refetchgetCurrencyAccount()
     ]);
 
   } catch (error) {
@@ -92,6 +106,41 @@ const fetchAllInitialData = async () => {
 useEffect(()=>{
 fetchAllInitialData()
 },[])
+
+// console.log("getCurrencyAccount_DATA=>",getCurrencyAccount_DATA,"Ssaas",getCurrencyAccArray);
+ 
+
+useEffect(() => {
+  if (Array.isArray(getCurrencyAccount_DATA?.results)) {
+
+    // save assets list (array)
+    setAssetsList(getCurrencyAccount_DATA.results);
+
+    // set default selected currency
+    setSelectedCurrency(getCurrencyAccount_DATA.results[0]);
+  }
+}, [getCurrencyAccount_DATA]);
+ 
+console.log("assetsList==>",getCurrencyAccount_DATA?.results);
+
+
+// const currencyOptions = useMemo(() => {
+//   if (!Array.isArray(assetsList)) return [];  // ✅ No crash
+
+//   const map: any = {};
+
+//   assetsList?.forEach(asset => {
+//     map[asset.currency.iso_code] = asset;
+//   });
+
+//   return Object.values(map);
+// }, [assetsList]);
+
+
+const onSelectCurrency = (asset: any) => {
+  setSelectedCurrency(asset);
+  setShowCurrencyDropdown(false);
+};
 
    const personal_customers = loginUserData?.personal_customers?.length && loginUserData?.personal_customers[0]
 
@@ -109,5 +158,16 @@ fetchAllInitialData()
     refetchgetUserDetail,
     loginUserData,
     personal_customers,
+    getCurrencyAccount_DATA,
+    showCurrencyDropdown, 
+    setShowCurrencyDropdown,
+    selectedCurrency, 
+    setSelectedCurrency,
+    assetsList, 
+    setAssetsList,
+    onSelectCurrency,
+    isFetching,
+    // currencyOptions
+
   };
 };

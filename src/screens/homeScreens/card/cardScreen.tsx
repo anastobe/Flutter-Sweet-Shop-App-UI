@@ -108,6 +108,7 @@ const features = [
 
   const [open, setopen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [saveCureentDisplayData, setsaveCureentDisplayData] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [modalVisibleUnfreez, setmodalVisibleUnfreez] = useState(false);
@@ -121,15 +122,12 @@ const features = [
 
   const {mutate: freezUnFreezCardFunc, isPending: isPendingfreezUnFreezCard} = freezUnFreezCard({
       callback: (response: any) => {
-        // refetchgetCardsData().then(()=>{
-        //  setModalVisible(false)
-        //  setmodalVisibleUnfreez(false)
-        // }).catch(()=>{
-        //   console.log("Promise Error");          
-        // })
+        refetchgetCardsData()
+        setModalVisible(false)
+        setmodalVisibleUnfreez(false)
       },
     });
-  
+   
   // // get me
   const {data: getCardsData, refetch: refetchgetCardsData, isPending} = getCards({
     enabled: false,
@@ -140,7 +138,7 @@ const features = [
 
   useEffect(()=>{
       refetchgetCardsData()
-  },[])
+  },[FOCUS])
 
   const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
     if (viewableItems.length > 0) {
@@ -163,14 +161,15 @@ const features = [
 
 
 function openFreezCard() {
-  // if (currentItem?.card_status == "active") {
+  if (currentItem?.card_status == "active") {
     setModalVisible(true) 
-  // } else if (currentItem?.card_status == "inactive") {
-  //   setmodalVisibleUnfreez(true)
-  // }
+  } else  {
+    setmodalVisibleUnfreez(true)
+  }
 }
 
   function onPressCard(item: any) {
+    setsaveCureentDisplayData(item)
     cardDetailRef?.current?.open()
   }
   // console.log("getCardsData?.results?.values==>",getCardsData?.results?.values);
@@ -342,15 +341,15 @@ const TransactionList = () => {
   }
 
   function freezCardApi(status: any) {
-  setModalVisible(false)
-         setmodalVisibleUnfreez(false)
+  // setModalVisible(false)
+  //        setmodalVisibleUnfreez(false)
 
-    // let payload = {
-    //   card_id: currentItem?.card_id,
-    //   status: `${status}`,
-    //   note: `Card confirmed ${status}`
-    // }
-    // freezUnFreezCardFunc(payload)    
+    let payload = {
+      card_id: currentItem?.card_id,
+      status: `${status}`,
+      note: `Card confirmed ${status}`
+    }
+    freezUnFreezCardFunc(payload)    
   }
       
   function renderPOPUP() {
@@ -439,10 +438,14 @@ const TransactionList = () => {
     }
 
     function callFunction(id: any) {
-      if (id == 1) {
+      if (id == 1 && currentItem?.format == "physical") {
         setopen(true)
-      } else if (id == 2) {
-        navigation.navigate(HOME_ROUTES.PIN_SECURITY)    
+      }
+      else if (id == 1 && currentItem?.format == "virtual") {
+        navigation.navigate(HOME_ROUTES.PIN_SECURITY,{cardDetail: currentItem })  
+      }
+      else if (id == 2) {
+        navigation.navigate(HOME_ROUTES.SET_LIMIT,{cardDetail: currentItem, getCardsData: getCardsData})    
       }      
     }
     
@@ -499,6 +502,7 @@ const TransactionList = () => {
       closeDuration={500}
       bottomSheetRef={cardDetailRef}
       children={<CardDetail 
+      saveCureentDisplayData={saveCureentDisplayData}
        onPress1={()=>HandleOnPress('1')} 
        onPress2={()=>HandleOnPress('2')} 
        style={{ paddingHorizontal: 20 }}  

@@ -81,3 +81,20 @@ export const getUserDetail  = (    {
   });
 
   
+    export const getCurrencyAccount  = (    {
+  enabled,
+  dispatch
+}: {
+  enabled?: boolean;
+  dispatch?: any
+}
+) =>
+  useQuery({
+    queryKey: [QueryKey.GET_CURR_ACCOUNTS],
+    initialData: [],
+    queryFn: ()=> apis.getCurrencyAccount(dispatch),
+    enabled: enabled,
+
+    staleTime: 0, // Data will never be considered stale
+    retry: false // Disable retry on failure
+  });

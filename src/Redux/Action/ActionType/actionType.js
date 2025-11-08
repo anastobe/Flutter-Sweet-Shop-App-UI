@@ -7,5 +7,5 @@ export default class ActionType {
   static GET_COUNTRY = 'GET_COUNTRY';
   static GET_CURRENCY = 'GET_CURRENCY';
   static GET_ACCOUNT_TYPE_DATA = 'GET_ACCOUNT_TYPE_DATA';
-
+    static GET_CURR_ACCOUNTS = 'GET_CURR_ACCOUNTS';
 }

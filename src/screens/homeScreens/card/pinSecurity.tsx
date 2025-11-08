@@ -8,7 +8,7 @@ import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import usePinSecurityViewModel from '../../../viewModels/homeViewModel/card/usePinSecurityViewModel';
 
-export default function PinSecurityView() {
+export default function PinSecurityView({...props}) {
   const {
     newPin,
     setNewPin,
@@ -16,7 +16,8 @@ export default function PinSecurityView() {
     setConfirmPin,
     pressBackArrow,
     onUpdatePin,
-  } = usePinSecurityViewModel();
+    isPendingsetPinSecurity
+  } = usePinSecurityViewModel(props);
 
   function renderFields() {
     return (
@@ -44,6 +45,7 @@ export default function PinSecurityView() {
   function renderButton() {
     return (
       <CustomButton
+        loading={isPendingsetPinSecurity}
         btnContSty={styles.forgetTxt}
         title="Update PIN"
         onPress={onUpdatePin}

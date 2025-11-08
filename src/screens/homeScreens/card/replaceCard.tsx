@@ -10,6 +10,7 @@ import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import { scale } from 'react-native-size-matters';
 import useReplaceCardViewModel from '../../../viewModels/homeViewModel/card/useReplaceCardViewModel';
+import { REASON_OPTION } from '../../../utils/data';
 
 function InfoRow({ label, value }) {
   return (
@@ -36,7 +37,8 @@ export default function ReplaceCard(props) {
     pressBackArrow,
     reqReplacement,
     toggleDropdown,
-    openDropdown
+    openDropdown,
+    loginUserData
   } = useReplaceCardViewModel(navigation, props);
 
   function renderField() {
@@ -48,14 +50,11 @@ export default function ReplaceCard(props) {
         placeholder="Reason for Replacement" 
         value={reason} 
         enableDropdown={true}
-        dropdownData={[
-        { name: "snetched" },
-        { name: "broken" },
-        ]}
+        dropdownData={REASON_OPTION}
         margBtm={15}
         isOpen={openDropdown === 'currency'} 
         onToggleDropdown={() => toggleDropdown('currency')}
-        onDropdownSelect={(item:any )=> setReason(item.name)}
+        onDropdownSelect={(item:any )=> setReason(item.label)}
       />
       
       
@@ -77,10 +76,10 @@ export default function ReplaceCard(props) {
     return (
       <View style={styles.summaryBox}>
         <Text style={styles.labelHead}>Cards will be sent to your default address:</Text>
-        <InfoRow label="Address" value="221B Baker Street" />
-        <InfoRow label="City" value="London" />
-        <InfoRow label="Postal Code" value="NW1 6XE" />
-        <InfoRow label="Country" value="United Kingdom" />
+        <InfoRow label="Address" value={loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3}/>
+        <InfoRow label="City" value="DUMMY" />
+        <InfoRow label="Postal Code" value={loginUserData.postcode} />
+        <InfoRow label="Country" value={JSON.stringify(loginUserData.county)}  />
         <View style={styles.botmLine}></View>
         <Text style={styles.valueChangeTxt}>Change Address</Text>
       </View>

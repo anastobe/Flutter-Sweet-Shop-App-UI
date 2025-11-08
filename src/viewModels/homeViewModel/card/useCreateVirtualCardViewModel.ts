@@ -12,6 +12,7 @@ export default function useCreateVirtualCardViewModel() {
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
+  const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [cardName, setCardName] = useState('');
@@ -28,7 +29,7 @@ export default function useCreateVirtualCardViewModel() {
     description: "",
     created_at: ""
   });
-  const [limitType, setLimitType] = useState('Weekly');
+  const [limitType, setLimitType] = useState('');
   const [spendingLimit, setSpendingLimit] = useState('');
 
   function pressBackArrow() {
@@ -88,6 +89,7 @@ export default function useCreateVirtualCardViewModel() {
     accountTypeList,
     openDropdown, 
     setOpenDropdown,
-    toggleDropdown
+    toggleDropdown,
+    getCurrencyAccArray
   };
 }

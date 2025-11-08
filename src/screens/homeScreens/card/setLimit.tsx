@@ -10,19 +10,26 @@ import CustomButton from '../../../components/customButton';
 import { scale } from 'react-native-size-matters';
 import { THEME, FONT_SIZES, FONTFAMILY } from '../../../styles';
 import useSetLimitsViewModel from '../../../viewModels/homeViewModel/card/useSetLimitsViewModel';
+import { CommonUtils } from '../../../utils';
 
-export default function SetLimits() {
+export default function SetLimits({...props}) {
   const navigation = useNavigation();
   const {
     limitType,
     setLimitType,
-    reason,
-    setReason,
+    selectedCards,
+    setselectedCards,
     spendingLimit,
     setSpendingLimit,
     pressBackArrow,
     handleSaveLimit,
-  } = useSetLimitsViewModel(navigation);
+    toggleDropdown,
+    openDropdown, 
+    setOpenDropdown,
+    isPendingsetSpendLimit
+  } = useSetLimitsViewModel(props);
+
+    const{ getCardsData } = props?.route?.params
 
   function renderLimitType() {
     return (
@@ -76,7 +83,7 @@ export default function SetLimits() {
         onChangeText={setSpendingLimit}
         keyboardType={'numeric'}
         margBtm={20}
-           maxlen={10}
+        maxlen={10}
       />
     );
   }
@@ -103,6 +110,7 @@ export default function SetLimits() {
   function renderSaveButton() {
     return (
       <CustomButton
+        loading={isPendingsetSpendLimit}
         btnContSty={styles.forgetTxt}
         title="Save Limit"
         onPress={handleSaveLimit}
@@ -126,15 +134,22 @@ export default function SetLimits() {
 
       <InputField
         disabled={false} 
-        placeholder="Select Card"
-        value={reason} 
+        placeholder="Select Card (DUMMY)"
+        value={selectedCards?.card_name} 
         enableDropdown={true}
-        dropdownData={[
-        { name: "Business Visa (•••• 1234)" },
-        { name: "Visa Card (•••• 4232)" },
-        ]}
+        // dropdownData={[
+        // { name: "Business Visa (•••• 1234)--DUMMY" },
+        // { name: "Visa Card (•••• 4232)--DUMMY" },
+        // ]}
+        dropdownData={getCardsData?.results?.values} 
         margBtm={15}
-        onDropdownSelect={(item:any )=> setReason(item.name)}
+        isOpen={openDropdown === 'select_card'}
+        onToggleDropdown={() => toggleDropdown('select_card')}
+        onDropdownSelect={(item) => setselectedCards({
+          card_id: item.card_id,
+          card_name: `${CommonUtils.capitalizeFirstLetter(item?.format)} (...${item?.pan})`,
+          pan: item?.pan
+        })} 
       />
 
 

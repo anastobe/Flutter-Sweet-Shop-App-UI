@@ -8,3 +8,9 @@ export const storeLoginUserData = (res) => {
       dispatch({type: ActionType.LOGIN_USER_DATA, payload: res });
     };
   };
+
+  export const storeCurrArrayData = (res) => {
+  return dispatch => {
+      dispatch({type: ActionType.GET_CURR_ACCOUNTS, payload: res });
+  };
+  };

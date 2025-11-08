@@ -49,12 +49,14 @@ function ConfirmCardRequest(props: any) {
   function renderCardDetails() {
     return (
       <View style={styles.summaryBox}>
-        <InfoRow icon="card-outline" label="Card Type" value="Visa" />
-        <InfoRow icon="person-outline" label="Cardholder Name" value="John Doe" />
+        <InfoRow icon="card-outline" label="Card Type" value={payload?.format} />
+        <InfoRow icon="person-outline" label="Cardholder Name" value={payload?.card_name} />
+        {payload?.format?.toLowerCase() == "physical" ? <>
         <InfoRow icon="home-outline" label="Delivery Address" value="221B Baker Street" />
         <InfoRow icon="time-outline" label="Estimated Delivery" value="3–5 Business Days" />
         <InfoRow icon="pricetag-outline" label="Card Issuance Fee" value="£4.95 GBP" />
         <InfoRow icon="flash-outline" label="Delivery Fee" value="Free" />
+        </> : null} 
       </View>
     );
   }

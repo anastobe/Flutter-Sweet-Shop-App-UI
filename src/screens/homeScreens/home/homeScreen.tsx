@@ -1,6 +1,6 @@
 // src/screens/Home/HomeScreen.tsx
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Pressable } from 'react-native';
 import { MainContainer } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
 import { scale } from 'react-native-size-matters';
@@ -12,6 +12,7 @@ import AccountCard from '../../../components/accountCard';
 import {useHomeViewModel} from '../../../viewModels/homeViewModel/home/usehomeScreenViewModel';
 import { screenWidth } from '../../../utils/style.utils';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+import { ActivityIndicator } from 'react-native';
 
 const HomeScreen = () => {
   const {
@@ -24,7 +25,16 @@ const HomeScreen = () => {
     handleNavigateTransactionHistory, 
     handleNavigateTransaction,
     loginUserData,
-    personal_customers
+    personal_customers,
+    getCurrencyAccount_DATA,
+    showCurrencyDropdown, 
+    setShowCurrencyDropdown,
+    selectedCurrency, 
+    setSelectedCurrency,
+    assetsList, 
+    setAssetsList,
+    onSelectCurrency,
+    isFetching
   } = useHomeViewModel();
   
 
@@ -53,20 +63,72 @@ const HomeScreen = () => {
     </View>
   );
 
-  const renderBalanceCard = () => (
-    <View style={styles.balanceCard}>
-      <View>
-        <View style={styles.balanceTop}>
-          <Text style={styles.balanceLabel}>Available Balance</Text>
-          <View style={styles.currencySelector}>
-            <Text style={styles.currencyText}>Euro</Text>
-            <Icon name="caret-down-outline" size={9} color={THEME.textPrimary} />
-          </View>
-        </View>
-        <Text style={styles.availableBalance}>€29,309.91</Text>
+  console.log("selectedCurrency==>",selectedCurrency); 
+  
+
+const renderBalanceCard = () => (
+  <View style={styles.balanceCard}>
+    <View>
+
+      {/* Top Row */}
+      <View style={styles.balanceTop}>
+        <Text style={styles.balanceLabel}>Available Balance</Text>
+
+        {/* CURRENCY DROPDOWN BUTTON */}
+        <Pressable
+          style={styles.currencySelector}
+          onPress={() => setShowCurrencyDropdown(!showCurrencyDropdown)}
+        >
+          <Text style={styles.currencyText}>
+            {selectedCurrency?.currency?.iso_code || "---"}
+          </Text>
+          <Icon 
+            name={showCurrencyDropdown ? "caret-up-outline" : "caret-down-outline"} 
+            size={9} 
+            color={THEME.textPrimary} 
+          />
+        </Pressable>
       </View>
+ 
+      {/* BALANCE VALUE */}
+      {isFetching  ? 
+        <View style={styles.indicatorLoaderBoc} >
+          <ActivityIndicator size="small" color={THEME.primary} />
+        </View>
+         :
+        <Text style={styles.availableBalance}>
+        {selectedCurrency
+          ? `${selectedCurrency.currency.iso_code} ${selectedCurrency.available_balance}`
+          : "---"}
+      </Text>}
+
+      {/* DROPDOWN LIST */}
+      {showCurrencyDropdown && (
+        <View style={styles.dropdownContainer}>
+          <FlatList
+            nestedScrollEnabled
+            bounces={false}
+            data={getCurrencyAccount_DATA?.results}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Pressable 
+                style={styles.dropdownItem}
+                onPress={() => onSelectCurrency(item)}
+              >
+                <Text style={styles.dropdownItemText}>
+                  {item.currency.iso_code} 
+                  {/* — {item.available_balance} */}
+                </Text>
+              </Pressable>
+            )}
+          />
+        </View>
+      )}
+
     </View>
-  );
+  </View>
+);
+
 
   const renderGraph = () => (
     <LineGraph
@@ -78,11 +140,13 @@ const HomeScreen = () => {
   );
 
   const renderCardFeature = () => (
+    <View style={{ zIndex: -9 }} >
     <CardFeatureButtons features={Sendoption} onPressbtn={(item: any) => handlePressCard(item)} />
+    </View>
   );
 
   const renderTransactionList = () => (
-    <View>
+    <View style={{ zIndex: -9 }} >
       <View style={styles.cardHeader}>
         <Text style={styles.cardTransactionTXT}>Activity  ({"DUMMY DATA-" + SHOW_CLIENT})</Text>
         <TouchableOpacity onPress={handleNavigateTransactionHistory}>
@@ -161,6 +225,45 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   headerRight: { flexDirection: 'row', alignItems: 'center' },
+//   dropdownContainer: {
+//   backgroundColor: THEME.white,
+//   borderRadius: 10,
+//   marginTop: 8,
+  
+//   maxHeight: 180,
+//   overflow: "hidden",
+// },
+
+  dropdownContainer: {
+  position: "absolute",
+  zIndex: 9999,
+  backgroundColor: THEME.white,
+  borderRadius: 10,
+  marginTop: 8,
+  // height: 150,
+  right: 0,
+  top: 33,
+  width: 100,
+  // maxHeight: 150,
+  // overflow: "hidden",
+},
+
+dropdownItem: {
+  // paddingVertical: 10,
+  // paddingHorizontal: 12,
+  borderBottomWidth: 0.5,
+  justifyContent: "center",
+  paddingLeft:10,
+  // borderBottomColor: THEME.white,
+  height: 32
+},
+
+dropdownItemText: {
+  color: THEME.textPrimary,
+  fontSize: FONT_SIZES.onefour,
+  fontFamily: FONTFAMILY.Medium,
+},
+
   balanceCard: {
     backgroundColor: THEME.whitergba,
     borderRadius: 20,
@@ -180,19 +283,25 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     marginLeft: 10,
-    paddingHorizontal: 10,
+    width: 100,
+    height: 30
   },
   currencyText: {
-    marginTop: -1,
+    // marginTop: -1,
     marginRight: 4,
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },
+  indicatorLoaderBoc:{
+    position: "absolute",
+    bottom: 25,
+    left: 0
+  },
   availableBalance: {
     fontSize: FONT_SIZES.threesix,
     fontFamily: FONTFAMILY.Light,
-    marginTop: 10,
+    marginTop: 0,
     color: THEME.primary,
   },
   cardHeader: {

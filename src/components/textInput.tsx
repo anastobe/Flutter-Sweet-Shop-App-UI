@@ -79,7 +79,7 @@ export default function InputField(props: any) {
   const filtered = useMemo(() => {
     if (!query.trim()) return dropdownData;
     return dropdownData.filter((i: any) =>
-      (i.label || i.name || i.iso_code)
+      (i.label || i.name || i.iso_code || `${i.format} (... ${i.pan})`)
         ?.toLowerCase()
         .includes(query.toLowerCase())
     );
@@ -190,7 +190,7 @@ export default function InputField(props: any) {
                   style={styles.row}
                 >
                   <Text style={styles.rowText}>
-                    {item.label || item.name || item.iso_code}
+                    {item.label || item.name || item.iso_code || `${item.format} (... ${item.pan})`}
                   </Text>
                 </Pressable>
               )}

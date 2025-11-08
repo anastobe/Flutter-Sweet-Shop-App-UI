@@ -1,8 +1,8 @@
 import ActionType from '../Action/ActionType/actionType';
 
 const initialState = {
-  loginUserData: {}
-  
+  loginUserData: {},
+  getCurrencyAccArray: []
 };
 
 export default (state = initialState, action) => {
@@ -12,6 +12,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loginUserData: action.payload,
+      };
+
+      case ActionType.GET_CURR_ACCOUNTS:
+      return {
+        ...state,
+        getCurrencyAccArray: action.payload,
       };
 
 

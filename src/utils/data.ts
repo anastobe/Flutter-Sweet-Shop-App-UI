@@ -286,6 +286,21 @@ const CURRENT_ACCOUNT = [
     },
   ]
 
+const REASON_OPTION = [
+      { value: 'lost', label: 'Lost' },
+      { value: 'stolen', label: 'Stolen' },
+      { value: 'destroyed', label: 'Damaged',},
+      // { value: 'expired', label: 'Expired' },
+      // { value: 'risk', label: 'Risk' },
+      { value: 'fraud', label: 'Fraud' },
+  ]
+
+const TIME_LIMIT = [
+      { value: 'Monthly', label: 'Monthly' },
+      { value: 'Weekly', label: 'Weekly' },
+      { value: 'Daily', label: 'Daily',},
+  ]
+
 export { 
     Accounts,
     DATA,
@@ -300,7 +315,9 @@ export {
     BENEFICIARY_TYPES,
     ACCOUNT_TYPES,
     COUNTRIES,
-    CURRENCIES
+    CURRENCIES,
+    REASON_OPTION,
+    TIME_LIMIT
 
 
 

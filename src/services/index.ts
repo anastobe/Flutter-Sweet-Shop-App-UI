@@ -12,14 +12,18 @@ import {
 } from './auth/auth.service';
 
 import {
-    useReplaceCard
+    freezUnFreezCardNoMessage,
+    useReplaceCard,
+    setSpendLimit,
+    setPinSecurity
     
 
 
-} from './auth/card.service';
+} from './card/card.service';
 
 import { 
-    getUserDetail 
+    getUserDetail,
+    getCurrencyAccount
 
 } from './home/home.service';
 
@@ -29,7 +33,8 @@ import {
     AddnewBeneficiaryApi,
     getCoutry,
     getCurrency,
-    getAssetType
+    getAssetType,
+    
     
 } from './more/more.service';
 
@@ -47,7 +52,11 @@ const apis = {
   getCoutry,
   getCurrency,
   getAssetType,
-  getAccounts
+  getCurrencyAccount,
+  getAccounts,
+  setSpendLimit,
+  setPinSecurity,
+  freezUnFreezCardNoMessage
   
   };
   
