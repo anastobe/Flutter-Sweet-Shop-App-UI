@@ -22,12 +22,11 @@ export default function useCreateVirtualCardViewModel() {
     iso_code: "",
     num_code: ""
   });
-  const [linkedAccount, setLinkedAccount] = useState({
-    __typename: "",
+  const [linkedAccount, setLinkedAccount] = useState( {
     id: "",
     name: "",
-    description: "",
-    created_at: ""
+    iso_code: "",
+    num_code: ""
   });
   const [limitType, setLimitType] = useState('');
   const [spendingLimit, setSpendingLimit] = useState('');
@@ -59,12 +58,12 @@ export default function useCreateVirtualCardViewModel() {
         spending_limits: spendingLimit,
         limit_type: limitType,
         currency_type: currency.iso_code,
-        linked_account: linkedAccount.name,
+        linked_account: linkedAccount.id,
         card_desgin: 'steel',
         pin: "4567"
       };
 
-      // console.log("ASdasd=>",payload);
+      console.log("ASdasd=>",payload);
       // return
 
       navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });

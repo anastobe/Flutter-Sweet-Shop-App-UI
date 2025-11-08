@@ -31,7 +31,9 @@ const CreatePhysicalCard = () => {
     design, 
     setdesign,
     openDropdown, 
-    toggleDropdown
+    toggleDropdown,
+    getCurrencyAccArray,
+    loginUserData
   } = useCreatePhysicalCardViewModel();
 
   return (
@@ -73,11 +75,17 @@ const CreatePhysicalCard = () => {
           placeholder="Linked Account"
           value={linkedAccount.name} 
           enableDropdown={true}
-          dropdownData={accountTypeList}
+          dropdownData={getCurrencyAccArray}
           margBtm={20}
           isOpen={openDropdown === 'linked'}
           onToggleDropdown={() => toggleDropdown('linked')}
-          onDropdownSelect={(item) => setLinkedAccount(item)}
+          onDropdownSelect={(item) => setLinkedAccount({
+              id: JSON.stringify(item?.currency_id),
+              name: item?.currency?.name,
+              iso_code: item?.currency?.iso_code,
+              num_code:  item?.currency?.num_code,
+            })
+          }
         />
 
         <InputField
@@ -128,6 +136,8 @@ const CreatePhysicalCard = () => {
             <VerifyAddress
               style={{ flex: 1, paddingHorizontal: 20 }}
               backImg={Images.addCardGradient}
+              loginUserData={loginUserData}
+              // value={loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3}
               onPress1={yesConfirm}
               onPress2={updateLocation}
             />

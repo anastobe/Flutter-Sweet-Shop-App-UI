@@ -10,7 +10,7 @@ import CustomButton from '../../../components/customButton';
 import { scale } from 'react-native-size-matters';
 import { HOME_ROUTES } from '../../../constants';
 import { createCard } from '../../../queries/auth.query';
-import { Toast } from '../../../utils';
+import { CommonUtils, Toast } from '../../../utils';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -33,6 +33,7 @@ function ConfirmCardRequest(props: any) {
   const [tick, setTick] = useState(false);
   const [open, setOpen] = useState(false);
   const payload = props?.route?.params?.data;
+  const address = props?.route?.params?.address;
 
   const { mutate: createCardFunc, isPending } = createCard({
     callback: function (response) {
@@ -49,13 +50,13 @@ function ConfirmCardRequest(props: any) {
   function renderCardDetails() {
     return (
       <View style={styles.summaryBox}>
-        <InfoRow icon="card-outline" label="Card Type" value={payload?.format} />
+        <InfoRow icon="card-outline" label="Card Type" value={CommonUtils.capitalizeFirstLetter(payload?.format)} />
         <InfoRow icon="person-outline" label="Cardholder Name" value={payload?.card_name} />
         {payload?.format?.toLowerCase() == "physical" ? <>
-        <InfoRow icon="home-outline" label="Delivery Address" value="221B Baker Street" />
-        <InfoRow icon="time-outline" label="Estimated Delivery" value="3–5 Business Days" />
-        <InfoRow icon="pricetag-outline" label="Card Issuance Fee" value="£4.95 GBP" />
-        <InfoRow icon="flash-outline" label="Delivery Fee" value="Free" />
+        <InfoRow icon="home-outline" label="Delivery Address" value={address} />
+        <InfoRow icon="time-outline" label="Estimated Delivery" value="DUMMY" />
+        <InfoRow icon="pricetag-outline" label="Card Issuance Fee" value="DUMMY" />
+        <InfoRow icon="flash-outline" label="Delivery Fee" value="DUMMY" />
         </> : null} 
       </View>
     );
@@ -65,7 +66,7 @@ function ConfirmCardRequest(props: any) {
     return (
       <>
         <Text style={styles.totalLabel}>Total Amount</Text>
-        <Text style={styles.totalAmount}>{payload.spending_limits}</Text>
+        <Text style={styles.totalAmount}>{payload.currency_type} {payload.spending_limits}</Text>
       </>
     );
   }
@@ -78,7 +79,7 @@ function ConfirmCardRequest(props: any) {
           <Icon name="flag" size={28} color={THEME.white} />
           </View>
           <View>
-            <Text style={styles.accountText}>Choose Funding Account</Text>
+            <Text style={styles.accountText}>Funding Account</Text>
             <View style={{ flexDirection: 'row' }}>
               <View
                 style={{
@@ -88,16 +89,16 @@ function ConfirmCardRequest(props: any) {
                   marginTop: 2,
                 }}
               >
-                <Text style={styles.badgeText}>GBP</Text>
+                <Text style={styles.badgeText}>{payload.currency_type}</Text>
               </View>
-              <Text style={styles.accountTextbelow}>Clearbank Account</Text>
+              {/* <Text style={styles.accountTextbelow}>Clearbank Account</Text> */}
             </View>
           </View>
         </View>
 
-        <View style={{ marginRight: 15 }}>
+        {/* <View style={{ marginRight: 15 }}>
           <Icon name="caret-down" size={20} color={THEME.white} />
-        </View>
+        </View> */}
       </View>
     );
   }
@@ -109,7 +110,7 @@ function ConfirmCardRequest(props: any) {
           {tick ? <Icon name="checkmark-outline" size={18} color={THEME.white} /> : null}
         </TouchableOpacity>
         <Text style={styles.confirmText}>
-          I confirm that <Text style={styles.boldText}>£4.95</Text> will be deducted from my
+          I confirm that <Text style={styles.boldText}>£4.95 ("DUMMY")</Text> will be deducted from my
           account to issue my physical card.
         </Text>
       </View>
@@ -288,6 +289,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onetwo,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
+    paddingHorizontal: 5
   },
   checkboxContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 16,    marginBottom: 20 },
   checkbox: {

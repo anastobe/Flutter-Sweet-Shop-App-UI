@@ -1,12 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { MainContainer, Modal } from '../../../../components';
 import CustomButton from '../../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import Metrics from '../../../../styles/metrics';
+import { SHOW_CLIENT } from '../../../../APICall/constants';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -76,6 +77,7 @@ function AdminConfirmCardRequest(props: any) {
           showmyStyleOnly={true}
           txtColor={[styles.buttonText,{ color: !whichModal ?  THEME.white : THEME.textPrimary }]}
            onPress={()=>{
+                Alert.alert("NEED",SHOW_CLIENT)
           if (!whichModal) {
             setOpen(!open)
           }else{

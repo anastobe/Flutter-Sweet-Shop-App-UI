@@ -121,7 +121,7 @@ const MoreScreen = () => {
 
         <TouchableOpacity onPress={vm.onPressTermsofUse} style={styles.policyRow}>
           <Icon name="arrow-forward-outline" size={24} color={THEME.primary} style={styles.rotateIcon} />
-          <Text style={styles.boxTitleText}>{SHOW_CLIENT}</Text>
+          <Text style={styles.boxTitleText}>Terms of Use</Text>
         </TouchableOpacity>
       </LinearGradient>
     );

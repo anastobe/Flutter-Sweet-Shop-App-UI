@@ -43,9 +43,9 @@ const EditAccountPreferences: React.FC<Props> = ({
             <Text style={styles.accountLabel}>Account Name</Text>
             <View style={styles.accountRight}>
               <Text style={styles.accountValue}>{accountName}</Text>
-              <TouchableOpacity onPress={onPressEdit} >
+              {/* <TouchableOpacity onPress={onPressEdit} >
                 <Icon name="create-outline" size={26} color={THEME.white} />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
 

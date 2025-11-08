@@ -362,7 +362,7 @@ const TransactionList = () => {
           // btnLoader={isPendingfreezUnFreezCard}
           btnLoader={false}
           onConfirm={() => {
-            freezCardApi("inactive")
+            freezCardApi("freeze")
           }}
           showSubBody={true}
           downConfirmText={"Cancel"}

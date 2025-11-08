@@ -16,6 +16,7 @@ import CustomButton from '../../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { useAdminBeneficiariesManagementViewModel } from '../../../../viewModels/homeViewModel/more/Admin/adminBeneficiaryStatusViewModel';
 import Metrics from '../../../../styles/metrics';
+import { SHOW_CLIENT } from '../../../../APICall/constants';
 
 const AdminBeneficiaryStatus = () => {
   const vm = useAdminBeneficiariesManagementViewModel();
@@ -112,6 +113,8 @@ const AdminBeneficiaryStatus = () => {
           showmyStyleOnly={true}
           txtColor={[styles.buttonText,{ color: !whichModal ?  THEME.white : THEME.textPrimary }]}
            onPress={()=>{
+            
+     Alert.alert("NEED",SHOW_CLIENT)
           if (!whichModal) {
             vm.setOpen(!vm.open)
           }else{

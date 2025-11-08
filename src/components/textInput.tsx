@@ -190,7 +190,7 @@ export default function InputField(props: any) {
                   style={styles.row}
                 >
                   <Text style={styles.rowText}>
-                    {item.label || item.name || item.iso_code || `${item.format} (... ${item.pan})`}
+                    {item.label || item?.currency?.name || item.name || item.iso_code || `${item.format} (... ${item.pan})`}
                   </Text>
                 </Pressable>
               )}

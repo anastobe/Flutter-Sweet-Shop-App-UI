@@ -15,6 +15,7 @@ import { Images } from '../config';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
 import { scale } from 'react-native-size-matters';
+import { CommonUtils } from '../utils';
 
 const { width } = Dimensions.get('window');
 
@@ -38,7 +39,7 @@ const AccountCard = ({ item, index, onPressCard,containerStyle }: { item?: any, 
 
             <View style={{ flexDirection: 'row', width: '100%', position: "absolute", bottom: 10, alignItems: "flex-end", justifyContent: "space-between", paddingHorizontal: 10 }} >
                 <View>
-                    <Text style={styles.limitTxtUp}>({item.format})</Text>
+                    <Text style={styles.limitTxtUp}>({CommonUtils.capitalizeFirstLetter(item.format)})</Text>
                     <Text style={styles.limitTxt}>Daily/Available Limit:</Text>
                     <Text style={styles.balanceTxt}>£{item?.available_limit}</Text>
                 </View>
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     limitTxtUp:{
         color: THEME.textPrimary,
         fontSize: FONT_SIZES.oneZero,
-        fontFamily: FONTFAMILY.SemiBold
+        fontFamily: FONTFAMILY.SemiBold,
     },
     limitTxt: {
         color: THEME.textPrimary,

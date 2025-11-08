@@ -18,16 +18,16 @@ const InfoRow = ({ icon, label, value }) => (
     </View>
 );
 
-const VerifyAddress = ({ style, onPress1, onPress2, backImg }: { style: any, onPress1: any,onPress2: any,backImg }) => {
+const VerifyAddress = ({ style, onPress1, onPress2, backImg,loginUserData }: { style: any, onPress1: any,onPress2: any,backImg : any, loginUserData: any }) => {
 
     function renderCardDetails() {
         return (
             <View style={styles.summaryBox}>
            
-                <InfoRow icon="card-outline" label="Address" value="Address" />
-                <InfoRow icon="person-outline" label="City" value="London" />
-                <InfoRow icon="home-outline" label="Postal Code" value="NW1 6XE" />
-                <InfoRow icon="time-outline" label="Country" value="United Kingdom" />
+                <InfoRow icon="card-outline" label="Address" value={loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3} />
+                <InfoRow icon="person-outline" label="City" value={"DUMMY"}/>
+                <InfoRow icon="home-outline" label="Postal Code" value={loginUserData.postcode} />
+                <InfoRow icon="time-outline" label="Country" value={loginUserData.county} />
             </View>
         )
     }

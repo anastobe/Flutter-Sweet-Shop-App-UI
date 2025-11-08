@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { MainContainer, InputDropDownStyle, Modal } from '../../../../components';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -9,6 +9,7 @@ import CustomButton from '../../../../components/customButton';
 import { useAdminPaymentStatusViewModel } from '../../../../viewModels/homeViewModel/more/Admin/adminPaymentStatusViewModel';
 import Metrics from '../../../../styles/metrics';
 import { TouchableOpacity } from 'react-native';
+import { SHOW_CLIENT } from '../../../../APICall/constants';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: string }) => (
@@ -73,12 +74,13 @@ const AdminPaymentStatus = () => {
         <Text style={styles.titles}>{title}</Text>
         {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
 
-        <CustomButton
+        <CustomButton 
           btnContSty={[styles.button,{ backgroundColor: !whichModal ? THEME.medRed : THEME.primary }]}
           title={btnTxt}
           showmyStyleOnly={true}
           txtColor={[styles.buttonText,{ color: !whichModal ?  THEME.white : THEME.textPrimary }]}
            onPress={()=>{
+                Alert.alert("NEED",SHOW_CLIENT)
           if (!whichModal) {
             setOpen(!open)
           }else{

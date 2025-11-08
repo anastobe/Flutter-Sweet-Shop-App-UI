@@ -4,7 +4,7 @@ import { SHOW_CLIENT } from '../../../APICall/constants';
 
 const Privacypolicy = () => (
   <View style={styles.container}> 
-    <Text style={styles.text}>{SHOW_CLIENT}</Text>
+    <Text style={styles.text}>Not Provided</Text>
   </View>
 );
 

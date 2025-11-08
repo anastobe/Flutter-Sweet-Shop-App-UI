@@ -34,7 +34,8 @@ export default function CreateVirtualCardView() {
     currencyList,
     accountTypeList,
     openDropdown, 
-    toggleDropdown
+    toggleDropdown,
+    getCurrencyAccArray
   } = useCreateVirtualCardViewModel();
 
   function renderInputField() {
@@ -66,11 +67,17 @@ export default function CreateVirtualCardView() {
             placeholder="Linked Account"
             value={linkedAccount.name} 
             enableDropdown={true}
-            dropdownData={accountTypeList}
+            dropdownData={getCurrencyAccArray}
             margBtm={20}
-            isOpen={openDropdown === 'linked'}
+            isOpen={openDropdown === 'linked'}  
             onToggleDropdown={() => toggleDropdown('linked')}
-            onDropdownSelect={(item) => setLinkedAccount(item)}
+            onDropdownSelect={(item: any) => setLinkedAccount({
+                id: JSON.stringify(item?.currency_id),
+                name: item?.currency?.name,
+                iso_code: item?.currency?.iso_code,
+                num_code:  item?.currency?.num_code,
+              })
+            }
           />
 
       </View>

@@ -8,9 +8,11 @@ export function useCreatePhysicalCardViewModel() {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
 
+  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
+  const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [design, setdesign] = useState({id: "", name: ""});
@@ -21,13 +23,14 @@ export function useCreatePhysicalCardViewModel() {
     iso_code: "",
     num_code: ""
   });
-  const [linkedAccount, setLinkedAccount] = useState({
-    __typename: "",
+  
+  const [linkedAccount, setLinkedAccount] = useState( {
     id: "",
     name: "",
-    description: "",
-    created_at: ""
+    iso_code: "",
+    num_code: ""
   });
+
   const [limitType, setLimitType] = useState('Weekly');
   const [spendingLimit, setSpendingLimit] = useState('');
 
@@ -59,6 +62,7 @@ export function useCreatePhysicalCardViewModel() {
 
   const yesConfirm = () => {
     cardDetailRef?.current?.close();
+    let completeAddress = loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3
     setTimeout(() => {
       const payload = {
         format: 'physical',
@@ -70,7 +74,7 @@ export function useCreatePhysicalCardViewModel() {
         card_desgin: 'steel',
         pin: "4567"
       };
-      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
+      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, address: completeAddress });
     }, 800);
   };
 
@@ -104,6 +108,8 @@ export function useCreatePhysicalCardViewModel() {
     setdesign,
     openDropdown, 
     setOpenDropdown,
-    toggleDropdown
+    toggleDropdown,
+    getCurrencyAccArray,
+    loginUserData
   };
 }
