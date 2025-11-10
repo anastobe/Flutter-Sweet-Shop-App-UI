@@ -91,7 +91,7 @@ function ConfirmCardRequest(props: any) {
               >
                 <Text style={styles.badgeText}>{payload.currency_type}</Text>
               </View>
-              {/* <Text style={styles.accountTextbelow}>Clearbank Account</Text> */}
+              <Text style={styles.accountTextbelow}> {payload.linked_account}</Text>
             </View>
           </View>
         </View>
@@ -162,7 +162,9 @@ function ConfirmCardRequest(props: any) {
           onPress={function () {
             setOpen(false)
             setTimeout(() => {
-              navigation.navigate(HOME_ROUTES.TABSTACK);
+              navigation.navigate(HOME_ROUTES.TABSTACK, {
+                  screen: "CardStack",
+              });
             }, 500);
           }}
         />

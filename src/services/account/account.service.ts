@@ -11,3 +11,19 @@ export const getAccounts = async (dispatch: any) => {
   });
   return response?.data?.results;
 };
+
+export const AccFreeze = async (payload: any) => {
+
+  let originalPayload = {
+    status: payload.status,
+    name: payload.name
+  }
+
+  const response = await axiosInstance.put(`/account/${payload.id}`, originalPayload);
+  return response.data;
+};
+
+export const AccDelete = async (id: any) => {
+  const response = await axiosInstance.delete(`/account/${id}`, {});
+  return response.data;
+};

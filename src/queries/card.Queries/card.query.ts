@@ -2,6 +2,7 @@ import {useMutation, useQuery} from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import {  storeUserToken } from '../../Redux/Action/Auth/AuthActions';
 import apis from '../../services';
+import QueryKey from '../queryKey';
 
 export const useReplaceCard = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
@@ -96,3 +97,62 @@ export const setPinSecurity = ({callback} : {callback: (res: any) => void}) => {
     }
   });
 };
+
+
+export const updateUsageRules = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.updateUsageRules,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+    }  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('updateUsageRules error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    }
+  });
+};
+
+export const getSucureCard  = (    {
+  enabled,
+  dispatch,
+  card_id
+}: {
+  enabled?: boolean;
+  dispatch?: any;
+  card_id?: any
+}
+) =>
+  useQuery({ 
+    queryKey: [QueryKey.GET_CARDS_RULES,card_id],
+    initialData: [],
+    queryFn: ()=> apis.getSucureCard(card_id),
+    enabled: enabled,
+
+    staleTime: 0, // Data will never be considered stale
+    retry: false // Disable retry on failure
+  });
+
+export const getCardsUsageRules  = (    {
+  enabled,
+  dispatch,
+  card_id
+}: {
+  enabled?: boolean;
+  dispatch?: any;
+  card_id?: any
+}
+) =>
+  useQuery({ 
+    queryKey: [QueryKey.GET_CARDS_RULES,card_id],
+    initialData: [],
+    queryFn: ()=> apis.getCardsUsageRules(card_id),
+    enabled: enabled,
+
+    staleTime: 0, // Data will never be considered stale
+    retry: false // Disable retry on failure
+  });

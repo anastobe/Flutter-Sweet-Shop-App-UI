@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { scale } from 'react-native-size-matters'; // if you're using scale
 import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../../styles'; // adjust path as needed
 import { Images } from '../../config';
@@ -7,17 +7,20 @@ import CustomButton from '../customButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ImageBackground } from 'react-native';
 
-const CardDetail = ({ saveCureentDisplayData,style, onPress1,onPress2,iconColor }:{ saveCureentDisplayData: any,style:any, onPress1: any, onPress2: any,iconColor: any }) => {
+const CardDetail = ({ saveCureentDisplayData,style, onPress1,onPress2,getSucureCardData,isPendinggetSucureCard }:{ saveCureentDisplayData: any,style:any, onPress1: any, onPress2: any,getSucureCardData: any,isPendinggetSucureCard: any }) => {
 
-    function cardDetailBox(title: any, desc: any, icon: any,iconColor: any) {
+    function cardDetailBox(loading:any, onPress:any, title: any, desc: any, icon: any,iconColor: any) {
         return(
         <View style={styles.textBox}>
-            <View>
+            <TouchableOpacity onPress={onPress} >
                 <Icon name={icon} size={22} color={iconColor} />
-            </View>
+            </TouchableOpacity>
             <View>
                 <Text style={styles.cardTitle}>{title}</Text>
-                <Text style={styles.cardDesc}>{desc}</Text>
+                {loading ?
+                <ActivityIndicator size="small" color={THEME.white}  />
+                :
+                <Text style={styles.cardDesc}>{desc}</Text>}
             </View>
         </View>
         )
@@ -34,9 +37,9 @@ const CardDetail = ({ saveCureentDisplayData,style, onPress1,onPress2,iconColor 
       <Text style={styles.title}>{saveCureentDisplayData?.format} Card Details</Text>
       <Text style={styles.subtitle}>Use this information to make online purchases</Text>
 
-      {cardDetailBox("Card Number:", "DUMMY" , "copy-outline",THEME.white )}
-      {cardDetailBox("Valid Thru", saveCureentDisplayData?.expiry_date , "eye-outline",THEME.white )}
-      {cardDetailBox("CVV:", "DUMMY" , "eye-outline",THEME.white )}
+      {cardDetailBox(null, null ,"Card Number:", "DUMMY" , "copy-outline",THEME.white )}
+      {cardDetailBox(isPendinggetSucureCard, onPress1, "Valid Thru",saveCureentDisplayData?.expiry_date , "eye-outline",THEME.white )}
+      {cardDetailBox(isPendinggetSucureCard, onPress2,"CVV:", "DUMMY" , "eye-outline",THEME.white )}
 
     </ImageBackground>
   );

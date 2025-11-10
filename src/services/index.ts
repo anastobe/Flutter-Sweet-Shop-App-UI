@@ -1,6 +1,12 @@
 
 
-import { getAccounts } from './account/account.service';
+import { 
+    getAccounts,
+    AccFreeze,
+    AccDelete,
+    
+} from './account/account.service';
+
 import {
     userLogin,
     createCard,
@@ -15,8 +21,10 @@ import {
     freezUnFreezCardNoMessage,
     useReplaceCard,
     setSpendLimit,
-    setPinSecurity
-    
+    setPinSecurity,
+    updateUsageRules,
+    getCardsUsageRules,
+    getSucureCard
 
 
 } from './card/card.service';
@@ -38,7 +46,6 @@ import {
     
 } from './more/more.service';
 
-
 const apis = {
   userLogin,
   createCard,
@@ -56,7 +63,12 @@ const apis = {
   getAccounts,
   setSpendLimit,
   setPinSecurity,
-  freezUnFreezCardNoMessage
+  freezUnFreezCardNoMessage,
+  AccFreeze,
+  AccDelete,
+  updateUsageRules,
+  getCardsUsageRules,
+  getSucureCard
   
   };
   

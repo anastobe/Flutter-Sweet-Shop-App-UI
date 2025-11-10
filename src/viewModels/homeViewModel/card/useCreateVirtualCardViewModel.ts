@@ -58,7 +58,7 @@ export default function useCreateVirtualCardViewModel() {
         spending_limits: spendingLimit,
         limit_type: limitType,
         currency_type: currency.iso_code,
-        linked_account: linkedAccount.id,
+        linked_account: linkedAccount.name,
         card_desgin: 'steel',
         pin: "4567"
       };

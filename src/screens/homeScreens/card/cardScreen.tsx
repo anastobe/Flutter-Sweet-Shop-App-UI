@@ -30,6 +30,8 @@ import OptionsHeader from '../../../components/topHeader';
 import { StatusBar } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Toast } from "../../../utils";
+import { getCardsUsageRules, getSucureCard, updateUsageRules } from '../../../queries/card.Queries/card.query';
+import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
 
 const CardScreen = () => {
 
@@ -40,71 +42,11 @@ const features = [
   { icon: 'options-outline' , text: "Methods" },
   { icon: 'menu-outline', text: "Manage" }
 ]
-// const cardsData = [
-//   {
-//     available_limit: "3993",
-//     card_design: null,
-//     card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
-//     card_name: "Byyh",
-//     card_status: "active",
-//     cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
-//     created_at: "2025-10-07T12:34:12.487Z",
-//     currency_type: "PKR",
-//     deleted_at: null,
-//     expiry_date: "1026",
-//     format: "virtual",
-//     is_enable: 1,
-//     linked_account: "visa",
-//     pan: "8410",
-//     secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
-//     spending_limit: "3993",
-//     spending_type: "Weekly",
-//     updated_at: null,
-//     user_id: "1",
-//   },
-//   {
-//     available_limit: "3893",
-//     card_design: null,
-//     card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
-//     card_name: "Byyh",
-//     card_status: "active",
-//     cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
-//     created_at: "2025-10-07T12:34:12.487Z",
-//     currency_type: "PKR",
-//     deleted_at: null,
-//     expiry_date: "1026",
-//     format: "virtual",
-//     is_enable: 1,
-//     linked_account: "visa",
-//     pan: "8410",
-//     secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
-//     spending_limit: "3993",
-//     spending_type: "Weekly",
-//     updated_at: null,
-//     user_id: "1",
-//   },
-//   {
-//     available_limit: "4993",
-//     card_design: null,
-//     card_id: "92f5d904-52d2-4a0d-baf6-87bf43a566c5",
-//     card_name: "Byyh",
-//     card_status: "active",
-//     cloud9_user_id: "6bc5bc09-fcf4-45a1-875d-a5d5887ef1b4",
-//     created_at: "2025-10-07T12:34:12.487Z",
-//     currency_type: "PKR",
-//     deleted_at: null,
-//     expiry_date: "1026",
-//     format: "virtual",
-//     is_enable: 1,
-//     linked_account: "visa",
-//     pan: "8410",
-//     secure_id: "5ef1b439-3ee8-464c-9f4c-033e6c41b955",
-//     spending_limit: "3993",
-//     spending_type: "Weekly",
-//     updated_at: null,
-//     user_id: "1",
-//   },
-// ]
+
+  const [atmSwitch, setAtmSwitch] = useState(true);
+  const [onlineSwitch, setOnlineSwitch] = useState(false);
+  const [chipSwitch, setChipSwitch] = useState(true);
+  const [walletSwitch, setWalletSwitch] = useState(false);
 
   const [open, setopen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -127,6 +69,14 @@ const features = [
         setmodalVisibleUnfreez(false)
       },
     });
+
+    const {mutate: updateUsageRulesFunc, isPending: isPendingupdateUsageRules} = updateUsageRules({
+      callback: (response: any) => {
+        refetchgetCardsData()
+        setModalVisible(false)
+        setmodalVisibleUnfreez(false)
+      },
+    });
    
   // // get me
   const {data: getCardsData, refetch: refetchgetCardsData, isPending} = getCards({
@@ -135,6 +85,27 @@ const features = [
   });
 
   let currentItem =  getCardsData?.results?.values[currentIndex]
+
+  const {data: getCardsUsageRulesData, refetch: refetchgetCardsUsageRules, isFetching: isPendingGetCardsUsageRules } = getCardsUsageRules({
+    enabled: false,
+    dispatch,
+    card_id: currentItem?.card_id
+  });
+
+  const {data: getSucureCardData, refetch: refetchgetSucureCard, isFetching: isPendinggetSucureCard } = getSucureCard({
+    enabled: false,
+    dispatch,
+    card_id: currentItem?.card_id
+  });
+
+  console.log("ASdasdasd=>",getCardsUsageRulesData);
+  
+  useEffect(()=>{
+    if (getCardsUsageRulesData?.success) {
+      const rule = findRule(getCardsUsageRulesData?.results?.usages, "allow_atm_withdrawal");
+      setAtmSwitch(rule?.enabled)
+    }
+  },[getCardsUsageRulesData])
 
   useEffect(()=>{
       refetchgetCardsData()
@@ -146,6 +117,10 @@ const features = [
     }
   }).current;
 
+  
+  const findRule = (rulesArray, ruleName) => {
+    return rulesArray.find(item => item.name === ruleName);
+  }; 
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -255,24 +230,33 @@ function onPressSecurity() {
   }
 
 
-
 function onPressfeature(item: any) {
-
-  if (item.text == "Freeze Card") {
-    openFreezCard()
-  } else if(item.text == "Replace Card"){
-    navigation.navigate(HOME_ROUTES.REPLACE_CARD,{cardDetail: currentItem})
-  } else if(item.text == "Methods"){
-     methodsRef?.current?.open() 
-  } else if(item.text == "Manage"){
-    manageRef?.current?.open()
+  if(!currentItem){
+    return    
+  }
+  else{
+    if (item.text == "Freeze Card" || item.text == "UnFreeze Card" ) {
+      openFreezCard()
+    } else if(item.text == "Replace Card"){
+      navigation.navigate(HOME_ROUTES.REPLACE_CARD,{cardDetail: currentItem})
+    } else if(item.text == "Methods"){
+      methodsRef?.current?.open() 
+      refetchgetCardsUsageRules()
+    } else if(item.text == "Manage"){
+      manageRef?.current?.open()
+    }
   }
 }
 
 function renderCardFeature() {
   
   return(
-    <CardFeatureButtons features={features} onPressbtn={(item: any)=>{onPressfeature(item)}} />
+    <CardFeatureButtons features={[
+  { icon: 'snow-outline', text: (currentItem?.card_status == "freeze" || currentItem?.card_status == "inactive") ? "UnFreeze Card" : "Freeze Card" },
+  { icon: 'copy-outline', text: "Replace Card" },
+  { icon: 'options-outline' , text: "Methods" },
+  { icon: 'menu-outline', text: "Manage" }
+]} onPressbtn={(item: any)=>{onPressfeature(item)}} />
   )
 }
 
@@ -325,6 +309,7 @@ const TransactionList = () => {
    ) 
   }
 
+  
   function HandleOnPress(txt: any) {
     if (txt == 1) {
       AddCardRef?.current?.close()
@@ -337,6 +322,19 @@ const TransactionList = () => {
       setTimeout(()=>{
         navigation.navigate(HOME_ROUTES.CREATE_PC)
       },500)
+    }
+  }
+
+
+  async function HandleOnPressCardDetail(txt: any) {
+    if (txt == 1) {
+      // cardDetailRef?.current?.close()
+        await refetchgetSucureCard();
+      
+    }    
+    else{
+      // cardDetailRef?.current?.close()
+        await refetchgetSucureCard();
     }
   }
 
@@ -360,7 +358,7 @@ const TransactionList = () => {
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
           // btnLoader={isPendingfreezUnFreezCard}
-          btnLoader={false}
+          btnLoader={isPendingfreezUnFreezCard}
           onConfirm={() => {
             freezCardApi("freeze")
           }}
@@ -425,17 +423,6 @@ const TransactionList = () => {
       );
     }
   
-    function switchOption(id: any) {
-      if (id == 1) {
-        console.log("1");        
-      } else if (id == 2) {
-        console.log("2");
-      } else if (id == 3) {
-        console.log("3");
-      } else if (id == 4) {
-        console.log("4");
-      }      
-    }
 
     function callFunction(id: any) {
       if (id == 1 && currentItem?.format == "physical") {
@@ -478,7 +465,9 @@ const TransactionList = () => {
        
         </LinearGradient>     
           <ScrollView>
-            { currentItem?.is_enable ? renderCardFeature() : null}
+            {/* { currentItem?.is_enable ? */}
+             {renderCardFeature() }
+            {/* //  : null} */}
             {TransactionList()}
             {renderModal()}
             {renderModalUnFreez()}
@@ -502,9 +491,11 @@ const TransactionList = () => {
       closeDuration={500}
       bottomSheetRef={cardDetailRef}
       children={<CardDetail 
+        isPendinggetSucureCard={isPendinggetSucureCard}
+        getSucureCardData={getSucureCardData}
       saveCureentDisplayData={saveCureentDisplayData}
-       onPress1={()=>HandleOnPress('1')} 
-       onPress2={()=>HandleOnPress('2')} 
+       onPress1={()=>HandleOnPressCardDetail('1')} 
+       onPress2={()=>HandleOnPressCardDetail('2')} 
        style={{ paddingHorizontal: 20 }}  
        iconColor={THEME.white}
        />}
@@ -516,10 +507,29 @@ const TransactionList = () => {
       openTime={500}
       closeDuration={500}
       onClose={()=>{
-         Toast.showToast(SHOW_CLIENT, '', 'error');
+        let payload = {
+          card_id: currentItem.card_id,
+          usage: [
+            { name: "allow_atm_withdrawal", "enabled": atmSwitch }
+            
+          ]
+        }
+        updateUsageRulesFunc(payload)
       }}
       bottomSheetRef={methodsRef} 
-      children={<Methods  backImg={Images.manageCardGradient}  onPress1={()=>{switchOption('1')}} onPress2={()=>{switchOption('2')}} onPress3={()=>{switchOption('3')}} onPress4={()=>{switchOption('4')}} style={{ flex: 1, paddingHorizontal: 20 }}  />}
+      children={<Methods  
+        Data={getCardsUsageRulesData}
+        loading={isPendingGetCardsUsageRules}
+        atmSwitch={atmSwitch}
+        setAtmSwitch={setAtmSwitch}
+        onlineSwitch={onlineSwitch}
+        setOnlineSwitch={setOnlineSwitch}
+        chipSwitch={chipSwitch}
+        setChipSwitch={setChipSwitch}
+        walletSwitch={walletSwitch}
+        setWalletSwitch={setWalletSwitch}
+        backImg={Images.manageCardGradient} 
+        style={{ flex: 1, paddingHorizontal: 20 }}  />}
      />
 
      <BottomSheet

@@ -13,7 +13,9 @@ type Props = {
   onPressSave?: () => void;
   onPressFreeze?: () => void;
   onPressDelete?: () => void;
-  onPressEdit?: () => void;
+  onPressEdit?: () => void
+  isPendingAccFreeze: any,
+  isPendingAccDelete: any
 };
 
 const EditAccountPreferences: React.FC<Props> = ({
@@ -21,7 +23,9 @@ const EditAccountPreferences: React.FC<Props> = ({
   onPressSave,
   onPressFreeze,
   onPressDelete,
-  onPressEdit
+  onPressEdit,
+  isPendingAccFreeze,
+  isPendingAccDelete
 }) => {
   return (
     <ImageBackground
@@ -50,17 +54,19 @@ const EditAccountPreferences: React.FC<Props> = ({
           </View>
 
           {/* Buttons */}
-          <CustomButton
+          {/* <CustomButton
             btnContSty={styles.forgetTxt1}
             title="Save Changes"
             onPress={onPressSave}
-          />
+          /> */}
           <CustomButton
+            loading={isPendingAccFreeze}
             btnContSty={styles.forgetTxt2}
             title="Freeze Now"
             onPress={onPressFreeze}
           />
           <CustomButton
+            loading={isPendingAccDelete}
             btnContSty={styles.forgetTxt3}
             title="Delete Account"
             onPress={onPressDelete}

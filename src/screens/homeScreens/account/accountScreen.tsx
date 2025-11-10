@@ -31,6 +31,7 @@ import Images from "../../../config/images";
 import { useNavigation } from "@react-navigation/native";
 import { HOME_ROUTES } from "../../../constants";
 import { SHOW_CLIENT } from "../../../APICall/constants";
+import { ActivityIndicator } from "react-native";
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -64,6 +65,13 @@ const AccountScreen = () => {
           <FlatList
             ref={vm.flatListRef}
             data={vm.getAccounts_Data}
+            ListEmptyComponent={()=>{
+              return(
+                <View style={styles.cardLoadingContainer} >
+                  <ActivityIndicator size="small" color={THEME.primary} />
+                </View>
+              )
+            }}
             keyExtractor={(item) => item.id}
             renderItem={( {item} ) => (
               <AccountCardBox
@@ -82,7 +90,7 @@ const AccountScreen = () => {
             scrollEventThrottle={16}
           />
           <View style={styles.pagination}>
-            {vm.data.map((_, index) => (
+            {vm.getAccounts_Data.map((_, index) => (
               <View
                 key={index}
                 style={[styles.dot, vm.activeIndex === index && styles.activeDot]}
@@ -156,6 +164,8 @@ const AccountScreen = () => {
             accountName="Primary GBP Wallet"
             onPressEdit={() => vm.editAccountRef?.current?.open()}
             onPressSave={vm.onPressSave}
+            isPendingAccFreeze={vm.isPendingAccFreeze}
+            isPendingAccDelete={vm.isPendingAccDelete}
             onPressFreeze={vm.onPressFreeze}
             onPressDelete={vm.onPressDelete}
           />
@@ -183,6 +193,9 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
   },
+  
+  cardLoadingContainer:
+  { height: 174, justifyContent: "center", alignItems: "center", width: METRICS.width},
   card: {
     width: METRICS.width - 40,
     height: 174,

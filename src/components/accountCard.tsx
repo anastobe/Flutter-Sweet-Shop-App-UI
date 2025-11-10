@@ -40,7 +40,7 @@ const AccountCard = ({ item, index, onPressCard,containerStyle }: { item?: any, 
             <View style={{ flexDirection: 'row', width: '100%', position: "absolute", bottom: 10, alignItems: "flex-end", justifyContent: "space-between", paddingHorizontal: 10 }} >
                 <View>
                     <Text style={styles.limitTxtUp}>({CommonUtils.capitalizeFirstLetter(item.format)})</Text>
-                    <Text style={styles.limitTxt}>Daily/Available Limit:</Text>
+                    <Text style={styles.limitTxt}>{item?.spending_type} /Available Limit:</Text>
                     <Text style={styles.balanceTxt}>£{item?.available_limit}</Text>
                 </View>
 

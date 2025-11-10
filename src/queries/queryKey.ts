@@ -7,5 +7,7 @@ export default class QueryKey {
     static GET_ACCOUNT_TYPE_DATA = 'GET_ACCOUNT_TYPE_DATA';
     static GET_ACCOUNTS = 'GET_ACCOUNTS';
     static GET_CURR_ACCOUNTS = 'GET_CURR_ACCOUNTS';
+    static GET_CARDS_RULES = 'GET_CARDS_RULES';
+
   }
   

@@ -6,13 +6,16 @@ import { HOME_ROUTES } from "../../../constants";
 import { ACTIVE_ACCOUNT } from "../../../utils/data";
 import { SHOW_CLIENT } from "../../../APICall/constants";
 import { getCards } from "../../../queries/auth.query";
-import { getAccounts } from "../../../queries/accountQueries/accountQuery";
+import { AccDelete, AccFreeze, getAccounts } from "../../../queries/accountQueries/accountQuery";
 import { useDispatch } from "react-redux";
+import { useQueryClient } from "@tanstack/react-query";
+import QueryKey from "../../../queries/queryKey";
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const queryClient = useQueryClient();
   const manageRef = useRef<any>(null);
   const editRef = useRef<any>(null);
   const editAccountRef = useRef<any>(null);
@@ -25,7 +28,8 @@ export const useAccountScreenViewModel = () => {
         currency_id: "", 
         created_at: "",
         iso_code: "",
-        linkedAccount: ""
+        linkedAccount: "",
+        id: ""
       });
 
   const [gbpWallet, setGbpWallet] = useState("");
@@ -36,6 +40,30 @@ export const useAccountScreenViewModel = () => {
     enabled: false, 
     dispatch,
   });
+
+  
+  const {mutate: AccFreezeFunc, isPending: isPendingAccFreeze} = AccFreeze({
+      callback: (response: any) => {
+        if (response.success) {
+          refetchgetAccounts()
+          setTimeout(() => {
+            editRef?.current?.close() 
+          }, 500);
+        }
+      },
+    });
+
+    
+  const {mutate: AccDeleteFunc, isPending: isPendingAccDelete} = AccDelete({
+      callback: (response: any) => {
+        if (response.success) {
+          refetchgetAccounts()
+          setTimeout(() => {
+            editRef?.current?.close() 
+          }, 500);
+        }
+      },
+    });
 
   const data = [
     { id: "1", total: "€50,000.00", onHold: "€22.50", available: "€53,534.00" },
@@ -71,6 +99,7 @@ export const useAccountScreenViewModel = () => {
         created_at: currentItem.created_at,
         iso_code: currentItem.currency?.iso_code,
         linkedAccount:  currentItem.currency?.name,
+        id: currentItem.id
       });
   }
   };
@@ -81,8 +110,18 @@ export const useAccountScreenViewModel = () => {
   const onPressEdit = () => editRef?.current?.open();
 
   const onPressSave = () =>{ Alert.alert("NEED",SHOW_CLIENT) };
-  const onPressFreeze = () =>{ Alert.alert("NEED",SHOW_CLIENT) }
-  const onPressDelete = () => { Alert.alert("NEED",SHOW_CLIENT) }
+  
+  const onPressFreeze = () =>{ 
+    let payload ={
+      status: "frozen",
+      name: currentAccDetail.name,
+      id: currentAccDetail?.id
+    }
+      AccFreezeFunc(payload)
+  }
+  const onPressDelete = () => { 
+      AccDeleteFunc(currentAccDetail?.id)
+  }
 
   const onPressEditSave = () => Alert.alert("NEED",SHOW_CLIENT);
 
@@ -100,6 +139,7 @@ export const useAccountScreenViewModel = () => {
         created_at: firstItem.created_at,
         iso_code: firstItem.currency?.iso_code,
         linkedAccount: firstItem.currency?.name,
+        id: firstItem?.id
       });
   }
 }
@@ -136,6 +176,8 @@ export const useAccountScreenViewModel = () => {
     getAccounts_Data,
     refetchgetAccounts,
     isPending,
-    currentAccDetail
+    currentAccDetail,
+    isPendingAccFreeze,
+    isPendingAccDelete
   };
 };

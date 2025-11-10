@@ -8,13 +8,41 @@ import CustomButton from '../customButton';
 import SwitchToggle from "react-native-switch-toggle";
 import { ImageBackground } from 'react-native';
 import Metrics from '../../styles/metrics';
+import { ActivityIndicator } from 'react-native';
 
-const Methods = ({ style, onPress1,onPress2 ,onPress3 ,onPress4,backImg }: { style: any, onPress1: any, onPress2: any, onPress3: any, onPress4: any,backImg: any }) => {
+const Methods = ({ 
+        Data,
+        loading,
+        atmSwitch,
+        setAtmSwitch,
+        onlineSwitch,
+        setOnlineSwitch,
+        chipSwitch,
+        setChipSwitch,
+        walletSwitch,
+        setWalletSwitch,
+        style, 
+        backImg 
+      } 
+       : 
+      { 
+        Data: any;
+        loading: any;
+        atmSwitch: any,
+        setAtmSwitch: any,
+        onlineSwitch: any,
+        setOnlineSwitch: any,
+        chipSwitch: any,
+        setChipSwitch: any,
+        walletSwitch: any,
+        setWalletSwitch: any,
+        style: any,
+        backImg: any 
+      }) => {
 
-  const [atmSwitch, setAtmSwitch] = useState(true);
-  const [onlineSwitch, setOnlineSwitch] = useState(false);
-  const [chipSwitch, setChipSwitch] = useState(true);
-  const [walletSwitch, setWalletSwitch] = useState(false);
+        console.log("asdkjasasgasd=>",loading);
+        
+
     
   function Listitem(icon:any, title:any, subtitle:any, value:boolean, toggle:()=>void) {
     return (
@@ -44,19 +72,24 @@ const Methods = ({ style, onPress1,onPress2 ,onPress3 ,onPress4,backImg }: { sty
       </View>
     )
   }
+    
 
 return (
  <ImageBackground resizeMode="stretch" source={backImg} style={style}>
 
-
-        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} /> */}
-
         <Text style={styles.title}>Payment Methods</Text>
-
-      {Listitem('flash-outline', "ATM Withdrawals", "Control and monitor your cash withdrawals from ATMs", atmSwitch, () => setAtmSwitch(!atmSwitch))}
-      {Listitem('cash-outline', "Online Payments", "Enable or disable card usage for online purchases", onlineSwitch, () => setOnlineSwitch(!onlineSwitch))}
-      {Listitem('pin-outline', "Chip & PIN Transactions", "Manage in-person card usage with secure PIN entry", chipSwitch, () => setChipSwitch(!chipSwitch))}
-      {Listitem('card-outline', "Wallets", "Control usage of your card via Apple Pay, Google Pay, and others", walletSwitch, () => setWalletSwitch(!walletSwitch))}
+      {loading ?
+      <View style={{ marginTop: 20 }} >
+        <ActivityIndicator size="small" color={THEME.primary} />
+      </View>
+      :
+      <View>
+        {Listitem('flash-outline', "ATM Withdrawals", "Control and monitor your cash withdrawals from ATMs", atmSwitch, () => setAtmSwitch(!atmSwitch))}
+        {Listitem('cash-outline', "Online Payments", "Enable or disable card usage for online purchases", onlineSwitch, () => setOnlineSwitch(!onlineSwitch))}
+        {Listitem('pin-outline', "Chip & PIN Transactions", "Manage in-person card usage with secure PIN entry", chipSwitch, () => setChipSwitch(!chipSwitch))}
+        {Listitem('card-outline', "Wallets", "Control usage of your card via Apple Pay, Google Pay, and others", walletSwitch, () => setWalletSwitch(!walletSwitch))}
+      </View>
+      }
     </ImageBackground>
 );
 };
