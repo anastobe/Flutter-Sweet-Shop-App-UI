@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FONT_SIZES.oneone,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
     textAlign: 'center',
     marginTop: 5,
   },

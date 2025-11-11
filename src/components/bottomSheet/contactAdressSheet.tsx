@@ -37,7 +37,7 @@ const ContactAdressSheet = ({
                 autoCapital={'none'}
                 secureEntry={secure}
                 blurOnSubmit={false}
-                placeholder="Confirm New Password"
+                placeholder="Confirm Password"
                 value={confirmPassword}
                 onPress={() => { setSecure(!secure) }}
                 onChangeText={setconfirmPassword}

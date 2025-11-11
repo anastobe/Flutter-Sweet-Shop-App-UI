@@ -105,12 +105,7 @@ const AccountScreen = () => {
             features={vm.features}
             onPressbtn={(item: any) => item.onPress()}
           />
-          {/* <LineGraph
-            labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
-            data={[10, 40, 20, 90, 75, 60, 100]}
-            lineColor={THEME.white}
-            bgColor={THEME.secondary}
-          /> */}
+          
           <View style={styles.statecontainer}>
             <StatCard
               title="Avg monthly spend (DUMMY)"

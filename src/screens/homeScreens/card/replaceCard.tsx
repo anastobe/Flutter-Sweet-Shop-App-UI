@@ -76,10 +76,10 @@ export default function ReplaceCard(props) {
     return (
       <View style={styles.summaryBox}>
         <Text style={styles.labelHead}>Cards will be sent to your default address:</Text>
-        <InfoRow label="Address" value={loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3}/>
+        <InfoRow label="Address" value={loginUserData.address_line1  || "" + " " + loginUserData.address_line2 || "" + " " + loginUserData.address_line3 || "" }/>
         <InfoRow label="City" value="DUMMY" />
         <InfoRow label="Postal Code" value={loginUserData.postcode} />
-        <InfoRow label="Country" value={JSON.stringify(loginUserData.county)}  />
+        <InfoRow label="Country" value={loginUserData.county || ""}   />
         <View style={styles.botmLine}></View>
         <Text style={styles.valueChangeTxt}>Change Address</Text>
       </View>
