@@ -104,17 +104,19 @@ function ConfirmCardRequest(props: any) {
   }
 
   function renderConfirmation() {
-    return (
-      <View style={styles.checkboxContainer}>
-        <TouchableOpacity onPress={() => setTick(!tick)} style={styles.checkbox}>
-          {tick ? <Icon name="checkmark-outline" size={18} color={THEME.white} /> : null}
-        </TouchableOpacity>
-        <Text style={styles.confirmText}>
-          I confirm that <Text style={styles.boldText}>£4.95 ("DUMMY")</Text> will be deducted from my
-          account to issue my physical card.
-        </Text>
-      </View>
-    );
+    if (payload?.format?.toLowerCase() == "physical" ) {
+      return (
+        <View style={styles.checkboxContainer}>
+          <TouchableOpacity onPress={() => setTick(!tick)} style={styles.checkbox}>
+            {tick ? <Icon name="checkmark-outline" size={18} color={THEME.white} /> : null}
+          </TouchableOpacity>
+          <Text style={styles.confirmText}>
+            I confirm that <Text style={styles.boldText}>£4.95 ("DUMMY")</Text> will be deducted from my
+            account to issue my physical card.
+          </Text>
+        </View>
+      );
+    }
   }
 
   function renderButton() {
@@ -125,7 +127,7 @@ function ConfirmCardRequest(props: any) {
           loading={isPending}
           title="Create Card"
           onPress={function () {
-            if (!tick) {
+            if (payload?.format?.toLowerCase() == "physical" && !tick) {
               Alert.alert("Allow","Please confirm the deduction by checking the box before continuing.")
               // Toast.showToast("Please confirm the deduction by checking the box before continuing.", '', 'error');
             } else {
@@ -329,8 +331,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   titles: {
-    fontFamily: FONTFAMILY.SemiBold,
-    fontSize: FONT_SIZES.twosix,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.twotwo,
     color: THEME.white,
     textAlign: 'center',
     lineHeight: 30,

@@ -330,8 +330,8 @@ const styles = StyleSheet.create({
   },
   forgetTxtpop: { width: '100%', marginTop: 30, marginBottom: 20 },
   titles: {
-    fontFamily: FONTFAMILY.SemiBold,
-    fontSize: FONT_SIZES.twosix,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.twotwo,
     color: THEME.white,
     textAlign: 'center',
     marginTop: 50,

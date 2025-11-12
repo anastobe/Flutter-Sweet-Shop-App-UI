@@ -106,12 +106,8 @@ const CreatePhysicalCard = () => {
             value={design.name} 
             enableDropdown={true}
             dropdownData={[
-              { id: 1, name: "Option 1" },
-              { id: 2,  name: "Option 2" },
-              { id: 3, name: "Option 3" },
-              { id: 4,  name: "Option 4" },
-              { id: 5, name: "Option 5" },
-              { id: 6,  name: "Option 6" }
+              { id: 1, name: "Metalic" },
+              { id: 2,  name: "Plastic" }
             ]}
             margBtm={20}
             isOpen={openDropdown === 'design'}

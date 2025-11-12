@@ -311,8 +311,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   titles: {
-    fontFamily: FONTFAMILY.SemiBold,
-    fontSize: FONT_SIZES.twosix,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.twotwo,
     color: THEME.primary,
     textAlign: 'center',
         marginTop: 50,

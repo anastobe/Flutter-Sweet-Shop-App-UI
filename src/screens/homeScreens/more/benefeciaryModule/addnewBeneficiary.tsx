@@ -235,15 +235,15 @@ const styles = StyleSheet.create({
   },
   forgetTxtpop: { width: '100%', marginTop: 30, marginBottom: 20 },
   titles: {
-    fontFamily: FONTFAMILY.SemiBold,
-    fontSize: FONT_SIZES.twosix,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.twotwo,
     color: THEME.white,
     textAlign: 'center',
     marginTop: 10,
   },
   description: {
     marginTop: 10,
-    fontFamily: FONTFAMILY.Medium,
+    fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
     textAlign: 'center',
