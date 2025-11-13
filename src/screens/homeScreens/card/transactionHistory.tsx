@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { BottomSheet, MainContainer } from '../../../components';
 import TransactionFilter from '../../../components/bottomSheet/transactionFilter';
 import InputField from '../../../components/textInput';
@@ -8,11 +8,13 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import useTransactionHistoryViewModel from '../../../viewModels/homeViewModel/card/useTransactionHistoryViewModel';
 import Metrics from '../../../styles/metrics';
 import { scale } from 'react-native-size-matters';
+import { SHOW_CLIENT } from '../../../APICall/constants';
 
 export default function TransactionHistory() {
   const {
     DATA,
     cardName,
+    setCardName,
     onSearch,
     cardDetailRef,
     pressBackArrow,
@@ -22,19 +24,18 @@ export default function TransactionHistory() {
 
   function renderFilter() {
     return (
-        <InputField
-          image={'search-outline'}
-          customInpStyle={styles.innerinput}
-          autoCapital={'none'}
-          blurOnSubmit={false}
-          placeholder="Search"
-          value={cardName}
-          onChangeText={onSearch}
-          keyboardType={'default'}
-          imagetintColor={THEME.white}
-          // maxlen={15}
-        />
-    );
+      <View style={styles.filtersearchContainer} >
+        <InputField  image={"search-outline"} imagetintColor={THEME.white} removeTitle={true} autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white}  customInpStyle={styles.innerinput} />
+        <TouchableOpacity
+          onPress={() => { cardDetailRef?.current?.open() }}
+          style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+          <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
+        </TouchableOpacity>
+        {/* <TouchableOpacity onPress={() => { Alert.alert("NEED",SHOW_CLIENT) }}  style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+          <Icon name="download-outline" size={22} color={THEME.textPrimary} />
+        </TouchableOpacity> */}
+      </View>
+    )
   }
 
   function renderTransactions() {
@@ -76,7 +77,7 @@ export default function TransactionHistory() {
         {renderTransactions()}
 
         <BottomSheet
-          height={Metrics.height - 100}
+          height={Metrics.height - 150}
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -99,9 +100,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   filtersearchContainer: {
-    // flexDirection: 'row',
-    // alignItems: 'center',
-    marginVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 7,
   },
   // innerinput: { paddingLeft: 50, height: 45 },
   item: {
@@ -140,6 +142,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.primary,
   },
-    innerinput: {  height: scale(53),  paddingRight: 50 },
+  innerinput: {  height: scale(53), width: Metrics.width-95, paddingRight: 50 },
 
 });

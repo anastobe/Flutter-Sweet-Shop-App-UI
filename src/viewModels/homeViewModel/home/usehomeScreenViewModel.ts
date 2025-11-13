@@ -13,6 +13,7 @@ export const useHomeViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const [showbalance, setshowbalance] = useState(false);
   const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(null);
   const [assetsList, setAssetsList] = useState([]);
@@ -167,6 +168,8 @@ const onSelectCurrency = (asset: any) => {
     setAssetsList,
     onSelectCurrency,
     isFetching,
+    showbalance, 
+    setshowbalance
     // currencyOptions
 
   };

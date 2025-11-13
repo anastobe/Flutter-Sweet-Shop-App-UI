@@ -80,6 +80,15 @@ export const useAccountScreenViewModel = () => {
 
   const onPressCard = () => navigation.navigate(HOME_ROUTES.ACCOUNT_DETAIL);
 
+  const handleNavigateTransactionHistory = () => {
+    // navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY);
+    navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)
+  };
+
+  const handleNavigateTransaction = () => {
+    navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
+  };
+  
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const index = Math.round(offsetX / Metrics.width);
@@ -178,6 +187,8 @@ export const useAccountScreenViewModel = () => {
     isPending,
     currentAccDetail,
     isPendingAccFreeze,
-    isPendingAccDelete
+    isPendingAccDelete,
+    handleNavigateTransactionHistory,
+    handleNavigateTransaction
   };
 };

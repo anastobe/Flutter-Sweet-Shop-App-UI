@@ -213,6 +213,15 @@ function removeTypeAndName(array) {
   });
 }
 
+const getInitials = (text: String) => {
+  if (!text.trim()) return "";
+
+  const parts = text?.trim().split(" ");
+  const firstInitial = parts[0]?.[0]?.toUpperCase() || "";
+  const secondInitial = parts[1]?.[0]?.toUpperCase() || "";
+
+  return firstInitial + secondInitial;
+};
 
 export default {
   objectContainsKey,
@@ -227,5 +236,6 @@ export default {
   formatDateTime,
   updateThumbnailUrls,
   removeTypeAndName,
-  capitalizeFirstLetter
+  capitalizeFirstLetter,
+  getInitials
 };

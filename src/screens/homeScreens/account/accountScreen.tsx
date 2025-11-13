@@ -32,6 +32,8 @@ import { useNavigation } from "@react-navigation/native";
 import { HOME_ROUTES } from "../../../constants";
 import { SHOW_CLIENT } from "../../../APICall/constants";
 import { ActivityIndicator } from "react-native";
+import GradientLineGraph from "../../../components/gradientLineGraph";
+import { DATA } from "../../../utils/data";
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -39,7 +41,38 @@ const AccountScreen = () => {
 
   console.log("asdsa=>",vm.currentAccDetail); 
   
+  const renderTransactionList = () => (
+    <View style={{ zIndex: -9 }} >
+      <View style={styles.cardHeader}>
+        <Text style={styles.cardTransactionTXT}>Activity  ({"DUMMY DATA-" + SHOW_CLIENT})</Text>
+        <TouchableOpacity onPress={vm.handleNavigateTransactionHistory}>
+          <Text style={styles.viewAllTxt}>View All</Text>
+        </TouchableOpacity>
+      </View>
 
+      <FlatList
+        data={DATA}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={vm.handleNavigateTransaction} style={styles.item}>
+            <View style={styles.sectionLeft}>
+              <View style={styles.iconCONT}>
+                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"} size={16} color={THEME.textPrimary} />
+              </View>
+              <View>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.subname}>19 July</Text>
+              </View>
+            </View>
+            <View>
+              <Text style={styles.amount}>{item.amount}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+        contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 100 }}
+      />
+    </View>
+  );
   return (
     <LinearGradient
       colors={["#713d9f", "#2A1E60", "#0C1445"]}
@@ -106,22 +139,37 @@ const AccountScreen = () => {
             onPressbtn={(item: any) => item.onPress()}
           />
           
+          {/* <LineGraph
+            labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
+            data={[10, 40, 20, 90, 75, 60, 100]}
+            lineColor={THEME.white}
+            // bgColor={THEME.secondary}
+          /> */}
+
+          <GradientLineGraph />
+
           <View style={styles.statecontainer}>
             <StatCard
               title="Avg monthly spend (DUMMY)"
               amount="£820.00"
               percentage={11.9}
-              onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
+              // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
+              onPress={() => console.log("Avg monthly ")
+              }
               isPositive
             />
             <StatCard
               title="Spent this month (DUMMY)"
               amount="£440.24"
               percentage={11.9}
-              onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
+              // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
+              onPress={() => console.log("Avg monthly ")}
               isPositive={false}
             />
           </View>
+
+          {renderTransactionList()}
+
         </ScrollView>
 
         {/* Bottom Sheets */}
@@ -229,4 +277,64 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 16,
   },
+
+  
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginVertical: 10,
+  },
+  cardTransactionTXT: {
+    fontSize: FONT_SIZES.oneone,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
+  },
+  viewAllTxt: {
+    fontSize: FONT_SIZES.onetwo,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
+    backgroundColor: THEME.SlateBlue,
+    paddingHorizontal: 9,
+    paddingVertical: 3,
+    borderRadius: 10,
+  },
+  item: {
+    backgroundColor: THEME.SlateBlue,
+    borderRadius: 10,
+    height: 68,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    marginTop: 10,
+  },
+  sectionLeft: { flexDirection: 'row', alignItems: 'center' },
+  iconCONT: {
+    width: 25,
+    height: 25,
+    backgroundColor: THEME.primary,
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  name: {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.primary,
+    marginLeft: 10,
+  },
+  subname: {
+    fontSize: FONT_SIZES.oneZero,
+    fontFamily: FONTFAMILY.Light,
+    color: THEME.primary,
+    marginLeft: 10,
+  },
+  amount: {
+    fontSize: FONT_SIZES.oneeight,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.primary,
+  },
+
+
 });

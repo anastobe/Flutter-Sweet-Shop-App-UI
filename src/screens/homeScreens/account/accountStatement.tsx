@@ -32,7 +32,7 @@ const AccountStatement = () => {
       <View style={styles.filtersearchContainer} >
         <InputField  image={"search-outline"} imagetintColor={THEME.white} removeTitle={true} autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white}  customInpStyle={styles.innerinput} />
         <TouchableOpacity
-          onPress={() => { Alert.alert("NEED",SHOW_CLIENT) }}
+          onPress={() => {  cardDetailRef?.current?.open()  }}
           style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
           <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
         </TouchableOpacity>
@@ -79,7 +79,7 @@ const AccountStatement = () => {
         {renderTransactions()}
 
         <BottomSheet
-          height={Metrics.height - 100}
+          height={Metrics.height - 150}
           draggable={false}
           openTime={500}
           closeDuration={500}

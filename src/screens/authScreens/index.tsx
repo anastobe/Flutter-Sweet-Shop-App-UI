@@ -188,7 +188,7 @@ Please login and set your Touch ID from Profile.
 
       <View style={styles.contText}>
         <Text style={styles.dontAcc}>Don’t have an account? </Text>
-        <Pressable onPress={() => Alert.alert("NEED",SHOW_CLIENT) }>
+        <Pressable onPress={() => navigation.navigate(Auth_ROUTES.CREATEACCOUNT) }>
           <Text style={styles.creatAC}>Create Account</Text>
         </Pressable>
       </View>

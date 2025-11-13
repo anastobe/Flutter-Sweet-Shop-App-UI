@@ -9,6 +9,7 @@ import CustomButton from '../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import { Images } from '../../../config';
 import useProfileViewModel from '../../../viewModels/homeViewModel/more/useProfileViewModel';
+import { CommonUtils } from '../../../utils';
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -51,7 +52,7 @@ const Profile = () => {
               }}
             >
               {/* <Icon name="person-circle-outline" size={22} color={THEME.white} /> */}
-              <Text style={styles.profiletxt} >SN</Text>
+              <Text style={styles.profiletxt} >{CommonUtils.getInitials(name)}</Text>
             </View>
           </TouchableOpacity>
           {/* <Text style={styles.selectimgTxt}>
