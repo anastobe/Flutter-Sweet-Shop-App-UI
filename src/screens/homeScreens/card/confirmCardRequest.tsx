@@ -140,7 +140,7 @@ function ConfirmCardRequest(props: any) {
   }
 
   function renderPopup() {
-    return (
+    return ( 
       <View style={styles.modal}>
         <TouchableOpacity style={styles.closeBtn} onPress={() =>{
           setOpen(false)

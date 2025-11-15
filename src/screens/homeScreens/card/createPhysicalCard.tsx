@@ -33,7 +33,9 @@ const CreatePhysicalCard = () => {
     openDropdown, 
     toggleDropdown,
     getCurrencyAccArray,
-    loginUserData
+    loginUserData,
+    pin, 
+    setPin
   } = useCreatePhysicalCardViewModel();
 
   return (
@@ -114,6 +116,17 @@ const CreatePhysicalCard = () => {
             onToggleDropdown={() => toggleDropdown('design')}
             onDropdownSelect={(item:any )=> setdesign(item)}
           />
+
+           <InputField
+              marginTp={20}
+              margBtm={20}
+              placeholder="PIN"
+              value={pin}
+              onChangeText={setPin}
+              keyboardType="numeric"
+              maxlen={10}
+            />
+          
 
         <CustomButton
           btnContSty={styles.forgetTxt}

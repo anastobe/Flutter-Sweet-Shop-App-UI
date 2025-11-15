@@ -35,7 +35,9 @@ export default function CreateVirtualCardView() {
     accountTypeList,
     openDropdown, 
     toggleDropdown,
-    getCurrencyAccArray
+    getCurrencyAccArray,
+    pin,
+    setPin
   } = useCreateVirtualCardViewModel();
 
   function renderInputField() {
@@ -143,6 +145,17 @@ export default function CreateVirtualCardView() {
           </Text>
         </View>
 
+        <InputField
+          marginTp={20}
+          margBtm={20}
+          placeholder="PIN"
+          value={pin}
+          onChangeText={setPin}
+          keyboardType="numeric"
+          maxlen={10}
+        />
+
+
         <CustomButton
           title="Create Virtual Card"
           onPress={onPressBtn}
@@ -217,7 +230,7 @@ const styles = StyleSheet.create({
   limitInfo: {
     padding: 15,
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 0,
   },
   limitTitle: {
     fontSize: FONT_SIZES.onesix,

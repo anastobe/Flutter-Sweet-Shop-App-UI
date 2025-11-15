@@ -16,6 +16,7 @@ export function useCreatePhysicalCardViewModel() {
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [design, setdesign] = useState({id: "", name: ""});
+  const [pin, setPin] = useState('');
   const [cardName, setcardName] = useState('');
   const [currency, setCurrency] = useState({
     __typename: "",
@@ -51,7 +52,13 @@ export function useCreatePhysicalCardViewModel() {
       Toast.showToast('Please Select Limit Type', '', 'error');
     } else if (!spendingLimit) {
       Toast.showToast('Please Enter Spending Limit', '', 'error');
-    } else {
+    } else if (pin?.length === 0) {
+      Toast.showToast('Please Your Security Pin', '', 'error');
+    } else if (pin?.length < 4) {
+      Toast.showToast('Security Pin Must be 4 Digit', '', 'error');
+    } else if (pin?.length > 4) {
+      Toast.showToast('Security Pin Must be 4 Digit', '', 'error');
+    }  else {
 
       console.log("ASdasdsasa====>",cardName,currency,linkedAccount,limitType,spendingLimit);
       
@@ -72,7 +79,7 @@ export function useCreatePhysicalCardViewModel() {
         currency_type: currency.iso_code,
         linked_account: linkedAccount.name,
         card_desgin: 'steel',
-        pin: "4567"
+        pin: pin
       };
       navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, address: completeAddress });
     }, 800);
@@ -110,6 +117,8 @@ export function useCreatePhysicalCardViewModel() {
     setOpenDropdown,
     toggleDropdown,
     getCurrencyAccArray,
-    loginUserData
+    loginUserData,
+    pin, 
+    setPin
   };
 }
