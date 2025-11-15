@@ -14,6 +14,8 @@ import InputField from '../../../../components/textInput';
 import CustomButton from '../../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { useAddNewBeneficiaryViewModel } from '../../../../viewModels/homeViewModel/more/useAddNewBeneficiaryViewModel';
+import FreezeCardModal from '../../../../components/Modal/FreezeCardModal ';
+import { Images } from '../../../../config';
 
 const AddNewBeneficiary = () => {
   const vm = useAddNewBeneficiaryViewModel();
@@ -108,27 +110,55 @@ const AddNewBeneficiary = () => {
   );
 
   const renderPopup = () => (
-    <View style={styles.modal}>
-      <TouchableOpacity style={styles.closeBtn} onPress={vm.onClosePopup}>
-        <Text style={styles.closeText}>×</Text>
-      </TouchableOpacity>
-
-      <View style={styles.iconCircle}>
-        <Icon name="checkmark" size={36} color={THEME.textPrimary} />
-      </View>
-
-      <Text style={styles.titles}>Beneficiary Added Successfully</Text>
-      <Text style={styles.description}>
-        Beneficiary added successfully and is ready to use in payments.
-      </Text>
-
-      <CustomButton
-        btnContSty={styles.forgetTxtpop}
-        title="Transfer Money"
-        onPress={vm.pressTransferMoney}
+    <FreezeCardModal
+        style={{ flex: 1, paddingHorizontal: 20 }}
+        backImg={Images.addCardGradient}
+        visible={vm.modalVisible}
+        btnLoader={false}
+        onClose={vm.onClosePopup}
+        onConfirm={vm.pressTransferMoney}
+        title="Beneficiary Added Successfully"
+        body={`Beneficiary added successfully and is ready to use in payments.`}
+        showSubBody={false}
+        confirmText="Transfer Money"
+        downConfirmText={"Cancel"}
       />
-    </View>
   );
+
+  
+         
+  function renderPOPUP() {
+    return(
+        <FreezeCardModal
+          style={{ flex: 1, paddingHorizontal: 20 }}
+          backImg={Images.addCardGradient}
+          visible={vm.modalVisible}
+          btnLoader={vm.isPending_AddnewBeneficiaryApi}
+          onClose={() => vm.setModalVisible(false)}
+          onConfirm={vm.onPressBtn}
+          title="Save Beneficiary"
+          body={`Sure, You want to add this beneficiary to your account?`}
+          showSubBody={false}
+          confirmText="Save"
+          downConfirmText={"Cancel"}
+        />
+    )
+  }
+    
+
+
+  function renderModal() {
+      return (
+        <Modal
+          isVisible={vm.modalVisible}
+          isKeyboardAvoidingView={true}
+          children={renderPOPUP()}
+          onClose={() => {
+            console.log('close');
+          }}
+        />
+      );
+    }
 
   return (
     <MainContainer
@@ -151,8 +181,8 @@ const AddNewBeneficiary = () => {
           <CustomButton
             btnContSty={styles.forgetTxt}
             title="Save Beneficiary"
-            loading={vm.isPending_AddnewBeneficiaryApi}
-            onPress={vm.onPressBtn}
+            loading={false}
+            onPress={vm.openConfirmationModal}
           />
 
           <Modal
@@ -162,6 +192,7 @@ const AddNewBeneficiary = () => {
             onClose={vm.onClosePopup}
           />
         </View>
+        {renderModal()}
       </ScrollView>
     </MainContainer>
   );

@@ -7,6 +7,7 @@ import CustomButton from '../customButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import InputField from '../textInput';
 import { ImageBackground } from 'react-native';
+import CustomCalendar from '../customCalander';
 
 const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }) => {
 
@@ -50,7 +51,7 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
     function renderFilterRange() {
         return (
             <View>
-                <InputField
+                {/* <InputField
                     customInpStyle={{ width: METRICS.width - 40 }}
                     marginTp={20}
                     autoCapital={'none'}
@@ -60,8 +61,9 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
                     onChangeText={setfrom}
                     image={"calendar-outline"}
                     imagetintColor={THEME.white}
-                />
-                <InputField
+                /> */}
+
+                {/* <InputField
                     customInpStyle={{ width: METRICS.width - 40 }}
                     margTp={20}
                     autoCapital={'none'}
@@ -71,6 +73,19 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
                     onChangeText={setto}
                     image={"calendar-outline"}
                     imagetintColor={THEME.white}
+                /> */}
+
+                <CustomCalendar 
+                  placeholder="From"
+                  value={from}
+                  onDateChange={setfrom}
+                 />
+
+                <CustomCalendar
+                  margTp={20}
+                  placeholder="To"
+                  value={to}
+                  onDateChange={setto}
                 />
             </View>
         )
@@ -121,6 +136,10 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
             </View>
         )
     }
+  
+    const handleDateSelect = (date: string) => {
+    console.log('Selected date:', date);
+  };
 
     return (
   <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} style={styles.container}>
@@ -129,7 +148,7 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
             <ScrollView showsVerticalScrollIndicator={false} >
                 {renderFilterRange()}
                 {transactionTypeSelection()}
-              
+
                 {renderButton(onPress,onPress2)}
             </ScrollView>
         </ImageBackground>

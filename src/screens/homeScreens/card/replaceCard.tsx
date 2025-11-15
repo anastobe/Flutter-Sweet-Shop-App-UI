@@ -1,7 +1,7 @@
 // ReplaceCardView.js
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MainContainer } from '../../../components';
+import { MainContainer, Modal } from '../../../components';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 import { THEME, FONTFAMILY, FONT_SIZES } from '../../../styles';
@@ -11,6 +11,8 @@ import CustomButton from '../../../components/customButton';
 import { scale } from 'react-native-size-matters';
 import useReplaceCardViewModel from '../../../viewModels/homeViewModel/card/useReplaceCardViewModel';
 import { REASON_OPTION } from '../../../utils/data';
+import FreezeCardModal from '../../../components/Modal/FreezeCardModal ';
+import { Images } from '../../../config';
 
 function InfoRow({ label, value }) {
   return (
@@ -38,7 +40,10 @@ export default function ReplaceCard(props) {
     reqReplacement,
     toggleDropdown,
     openDropdown,
-    loginUserData
+    loginUserData,
+    modalVisible, 
+    setModalVisible,
+    openConfirmationModal,
   } = useReplaceCardViewModel(navigation, props);
 
   function renderField() {
@@ -104,12 +109,55 @@ export default function ReplaceCard(props) {
     return (
       <CustomButton
         btnContSty={styles.forgetTxt}
-        loading={isPending || isPendingFreezUnFreezCard}
+        loading={false}
         title="Request Replacement"
         onPress={reqReplacement}
       />
     );
   }
+
+    
+         
+  function renderPOPUP() {
+    return(
+        <FreezeCardModal
+          style={{ flex: 1, paddingHorizontal: 20 }}
+          backImg={Images.addCardGradient}
+          visible={modalVisible}
+          btnLoader={isPending || isPendingFreezUnFreezCard}
+          onClose={() =>{ 
+            if (isPending || isPendingFreezUnFreezCard) {
+              console.log("not allow api call");
+            }
+            else{
+              setModalVisible(false)
+            }
+          }}
+          onConfirm={openConfirmationModal}
+          title="Replace Card"
+          body={`Sure, You want to replace this card?`}
+          showSubBody={false}
+          confirmText="Yes"
+          downConfirmText={"Cancel"}
+        />
+    )
+  }
+    
+
+
+  function renderModal() {
+      return (
+        <Modal
+          isVisible={modalVisible}
+          isKeyboardAvoidingView={true}
+          children={renderPOPUP()}
+          onClose={() => {
+            console.log('close');
+          }}
+        />
+      );
+    }
+
 
   return (
     <MainContainer
@@ -130,6 +178,7 @@ export default function ReplaceCard(props) {
         {renderWarning()}
         {renderBtn()}
       </View>
+      {renderModal()}
     </MainContainer>
   );
 }

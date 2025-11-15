@@ -156,7 +156,7 @@ function ConfirmCardRequest(props: any) {
         </View>
 
         <Text style={styles.titles}>Card Created Successfully.</Text>
-        <Text style={styles.description}>Virtual card created and ready to use.</Text>
+        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
 
         <CustomButton
           btnContSty={styles.forgetTxtpop}

@@ -16,6 +16,7 @@ export const useAddNewBeneficiaryViewModel = () => {
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
   
+  const [modalVisible, setModalVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [checked, setChecked] = useState('frontier');
   const [beneficiaryName, setBeneficiaryName] = useState('');
@@ -31,7 +32,10 @@ export const useAddNewBeneficiaryViewModel = () => {
 
   const { mutate: AddnewBeneficiaryApiFunc, isPending: isPending_AddnewBeneficiaryApi } = AddnewBeneficiaryApi({
     callback: (res: any) => {
-      setOpen(true)
+      setModalVisible(false)
+      setTimeout(() => {
+        setOpen(true)  
+      }, 1000);
     },
   });
 
@@ -39,7 +43,8 @@ export const useAddNewBeneficiaryViewModel = () => {
     setOpenDropdown(openDropdown === key ? null : key);
   };
 
-  const onPressBtn = () => {
+  function openConfirmationModal() {
+    
       if (!checked) {
         Toast.showToast("Please enter beneficiary name", '', 'error');
         return false;
@@ -69,6 +74,11 @@ export const useAddNewBeneficiaryViewModel = () => {
         return false;
       }
       else{
+        setModalVisible(true)
+      }
+  }
+
+  const onPressBtn = () => {
       let payload = {
           first_name: beneficiaryName,
           last_name: "",
@@ -83,8 +93,6 @@ export const useAddNewBeneficiaryViewModel = () => {
         //   branch_code: "BR123"
         }
         AddnewBeneficiaryApiFunc(payload)
-      }
-
   };
 
   const onClosePopup = () =>{
@@ -94,7 +102,9 @@ export const useAddNewBeneficiaryViewModel = () => {
     };
 
   const pressTransferMoney = () =>{
-    setOpen(false)
+    setTimeout(() => {
+      setOpen(false) 
+    }, 500);
     navigation.navigate(HOME_ROUTES.MAKE_PAYMENT)    
     };
 
@@ -128,6 +138,10 @@ export const useAddNewBeneficiaryViewModel = () => {
     accountTypeList,
     isPending_AddnewBeneficiaryApi,
     toggleDropdown,
-    openDropdown
+    openDropdown,
+    modalVisible, 
+    setModalVisible,
+    openConfirmationModal,
+    
   };
 };

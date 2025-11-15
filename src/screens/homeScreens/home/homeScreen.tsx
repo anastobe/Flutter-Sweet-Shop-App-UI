@@ -83,7 +83,7 @@ const renderBalanceCard = () => (
         </View>
         :
       <>
-        <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center" }} >
+        <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", }} >
         {showbalance ? <Text style={styles.total}>{selectedCurrency?.currency?.iso_code} {selectedCurrency?.available_balance}</Text> : <Text style={styles.total}>**********</Text> }
           <TouchableOpacity onPress={()=>setshowbalance(!showbalance)} >
         <Icon name={showbalance ? "eye-outline" : "eye-off" } size={28} color={THEME.white} />
@@ -106,11 +106,7 @@ const renderBalanceCard = () => (
               color={THEME.textPrimary} 
             />
           </Pressable>
-        </View>
-      </>
-      }
 
-      {/* DROPDOWN LIST */}
       {showCurrencyDropdown && (
         <View style={styles.dropdownContainer}>
           <FlatList
@@ -133,6 +129,11 @@ const renderBalanceCard = () => (
         </View>
       )}
 
+        </View>
+      </>
+      }
+
+
     
   </View>
 );
@@ -148,7 +149,7 @@ const renderBalanceCard = () => (
   );
 
   const renderCardFeature = () => (
-    <View style={{ zIndex: -9 }} >
+    <View style={{ zIndex: -9, marginBottom: 35 }} >
     <CardFeatureButtons features={Sendoption} onPressbtn={(item: any) => handlePressCard(item)} />
     </View>
   );
@@ -202,7 +203,7 @@ const renderBalanceCard = () => (
       </SafeAreaView>
         </LinearGradient>
 
-      <GradientLineGraph />
+      <GradientLineGraph marginTop={20} />
 
       {/* {renderGraph()} */}
       {renderCardFeature()}
@@ -281,10 +282,10 @@ const styles = StyleSheet.create({
   zIndex: 9999,
   backgroundColor: THEME.white,
   borderRadius: 6,
-  marginTop: 8,
+  marginTop: 0,
   // height: 150,
-  right: 50,
-  top: 78,
+  right: 0,
+  top: 32,
   width: 100,
   // maxHeight: 150,
   // overflow: "hidden",
@@ -307,10 +308,11 @@ dropdownItemText: {
 },
 
   balanceCard: {
-    // backgroundColor: THEME.whitergba,
+// backgroundColor: "blue",
+
     borderRadius: 20,
     height: scale(84),
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
     marginHorizontal: 20,
     marginTop: 30,
     // flexDirection: 'row',
@@ -318,7 +320,7 @@ dropdownItemText: {
     justifyContent: "center",
     marginBottom: 10
   },
-  balanceTop: { flexDirection: 'row', alignItems: 'center', marginTop: 8 },
+  balanceTop: { flexDirection: 'row', alignItems: 'center', marginTop: 8,  },
   balanceLabel: { fontSize: FONT_SIZES.onesix, fontFamily: FONTFAMILY.Light, color: THEME.white },
   currencySelector: {
     flexDirection: 'row',
@@ -358,7 +360,7 @@ dropdownItemText: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    marginVertical: 10,
+    marginTop: 10,
   },
   cardTransactionTXT: {
     fontSize: FONT_SIZES.oneone,

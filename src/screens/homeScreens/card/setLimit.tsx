@@ -1,7 +1,7 @@
 // SetLimitsView.js
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { MainContainer } from '../../../components';
+import { MainContainer, Modal } from '../../../components';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -11,6 +11,8 @@ import { scale } from 'react-native-size-matters';
 import { THEME, FONT_SIZES, FONTFAMILY } from '../../../styles';
 import useSetLimitsViewModel from '../../../viewModels/homeViewModel/card/useSetLimitsViewModel';
 import { CommonUtils } from '../../../utils';
+import FreezeCardModal from '../../../components/Modal/FreezeCardModal ';
+import { Images } from '../../../config';
 
 export default function SetLimits({...props}) {
   const navigation = useNavigation();
@@ -26,10 +28,13 @@ export default function SetLimits({...props}) {
     toggleDropdown,
     openDropdown, 
     setOpenDropdown,
-    isPendingsetSpendLimit
+    isPendingsetSpendLimit,
+    modalVisible, 
+    setModalVisible,
+    SaveLimit
   } = useSetLimitsViewModel(props);
 
-    const{ getCardsData } = props?.route?.params
+    const{ getCardsData, cardDetail } = props?.route?.params
 
   function renderLimitType() {
     return (
@@ -110,13 +115,47 @@ export default function SetLimits({...props}) {
   function renderSaveButton() {
     return (
       <CustomButton
-        loading={isPendingsetSpendLimit}
+        loading={false}
         btnContSty={styles.forgetTxt}
         title="Save Limit"
         onPress={handleSaveLimit}
       />
     );
   }
+
+         
+  function renderPOPUP() {
+    return(
+        <FreezeCardModal
+          style={{ flex: 1, paddingHorizontal: 20 }}
+          backImg={Images.addCardGradient}
+          visible={modalVisible}
+          btnLoader={isPendingsetSpendLimit}
+          onClose={() => setModalVisible(false)}
+          onConfirm={SaveLimit}
+          title="Set Spending Limit"
+          body={`Sure, You want to set ${spendingLimit} spending limit of your ${cardDetail?.format} card number ${cardDetail?.pan}`}
+          showSubBody={false}
+          confirmText="Continue"
+          downConfirmText={"Cancel"}
+        />
+    )
+  }
+    
+
+
+  function renderModal() {
+      return (
+        <Modal
+          isVisible={modalVisible}
+          isKeyboardAvoidingView={true}
+          children={renderPOPUP()}
+          onClose={() => {
+            console.log('close');
+          }}
+        />
+      );
+    }
 
   return (
     <MainContainer
@@ -127,7 +166,7 @@ export default function SetLimits({...props}) {
       mainContainerStyle={styles.container}
     >
       <View style={{ marginHorizontal: 20 }}>
-        <Text style={styles.title}>Set Daily Spending Limit</Text>
+        <Text style={styles.title}>Set Spending Limit</Text>
         <Text style={styles.subtitle}>
           Control how much can be spent from this card per day.
         </Text>
@@ -158,6 +197,7 @@ export default function SetLimits({...props}) {
         {renderLimitInfo()}
         {renderSaveButton()}
       </View>
+      {renderModal()}
     </MainContainer>
   );
 }

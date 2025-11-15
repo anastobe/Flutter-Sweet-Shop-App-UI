@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function useSetLimitsViewModel({...props}) {
 
   const navigation = useNavigation()
+  const [modalVisible, setModalVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [limitType, setLimitType] = useState('Weekly');
   const [selectedCards, setselectedCards] = useState({
@@ -47,7 +48,7 @@ export default function useSetLimitsViewModel({...props}) {
     setOpenDropdown(openDropdown === key ? null : key);
   };
 
-  function handleSaveLimit() {
+  function SaveLimit() {
     if (!selectedCards?.card_id) {
       Toast.showToast("Invalid card id", '', 'error');
     } else if (!limitType){
@@ -68,6 +69,10 @@ export default function useSetLimitsViewModel({...props}) {
 
   }
 
+  function handleSaveLimit() {
+      setModalVisible(true)
+  }
+
   return {
     limitType,
     setLimitType,
@@ -80,6 +85,9 @@ export default function useSetLimitsViewModel({...props}) {
     toggleDropdown,
     openDropdown, 
     setOpenDropdown,
-    isPendingsetSpendLimit
+    isPendingsetSpendLimit,
+    modalVisible, 
+    setModalVisible,
+    SaveLimit
   };
 }

@@ -4,7 +4,7 @@ import { LineChart } from 'react-native-gifted-charts';
 import Metrics from '../styles/metrics';
 import { METRICS } from '../styles';
 
-const GradientLineGraph = () => {
+const GradientLineGraph = ({marginTop}) => {
   const data = [
     {value: 10, label: 'Mon'},
     {value: 40, label: 'Tue'},
@@ -16,7 +16,7 @@ const GradientLineGraph = () => {
   ];
 
   return (
-    <View style={{ paddingHorizontal: 20, marginTop: 10, marginBottom: 10, zIndex: -9 }} > 
+    <View style={{ paddingHorizontal: 20, marginTop: marginTop, marginBottom: 10, zIndex: -9 }} > 
 <LineChart
   areaChart
   curved

@@ -145,8 +145,7 @@ const AccountScreen = () => {
             lineColor={THEME.white}
             // bgColor={THEME.secondary}
           /> */}
-
-          <GradientLineGraph />
+          <GradientLineGraph marginTop={60} />
 
           <View style={styles.statecontainer}>
             <StatCard

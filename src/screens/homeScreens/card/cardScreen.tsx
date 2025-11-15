@@ -35,13 +35,6 @@ import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
 
 const CardScreen = () => {
 
-  
-const features = [
-  { icon: 'snow-outline', text: "Freeze Card" },
-  { icon: 'copy-outline', text: "Replace Card" },
-  { icon: 'options-outline' , text: "Methods" },
-  { icon: 'menu-outline', text: "Manage" }
-]
 
   const [atmSwitch, setAtmSwitch] = useState(true);
   const [onlineSwitch, setOnlineSwitch] = useState(false);
@@ -235,7 +228,7 @@ function onPressfeature(item: any) {
     return    
   }
   else{
-    if (item.text == "Freeze Card" || item.text == "UnFreeze Card" ) {
+    if (item.text == "Freeze Card" || item.text == "Unfreeze Card" ) {
       openFreezCard()
     } else if(item.text == "Replace Card"){
       navigation.navigate(HOME_ROUTES.REPLACE_CARD,{cardDetail: currentItem})
@@ -252,7 +245,7 @@ function renderCardFeature() {
   
   return(
     <CardFeatureButtons features={[
-  { icon: 'snow-outline', text: (currentItem?.card_status == "freeze" || currentItem?.card_status == "inactive") ? "UnFreeze Card" : "Freeze Card" },
+  { icon: 'snow-outline', text: (currentItem?.card_status == "freeze" || currentItem?.card_status == "inactive") ? "Unfreeze Card" : "Freeze Card" },
   { icon: 'copy-outline', text: "Replace Card" },
   { icon: 'options-outline' , text: "Methods" },
   { icon: 'menu-outline', text: "Manage" }
@@ -262,7 +255,7 @@ function renderCardFeature() {
 
 const TransactionList = () => {
   return (
-    <View>
+    <View style={{ marginTop: 30 }} >
       <View style={styles.cardHeadr} >
         <Text style={styles.cardTransactinTXT} >Card Transactions ({"DUMMY DATA"})</Text>
         <TouchableOpacity onPress={()=>{ navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY) }} >
@@ -656,7 +649,7 @@ const styles = StyleSheet.create({
   }, 
 
   cardHeadr: 
-  { flexDirection: 'row',justifyContent: "space-between", marginHorizontal: 20, marginVertical: 15 },
+  { flexDirection: 'row',justifyContent: "space-between", marginHorizontal: 20, marginVertical: 5 },
   cardTransactinTXT:
   { fontSize: FONT_SIZES.onetwo, fontFamily: FONTFAMILY.Medium, color: THEME.white },
   viewAllTxt:

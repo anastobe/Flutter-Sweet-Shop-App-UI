@@ -42,16 +42,39 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
   onNavigationStateChange={handleNavChange}
   style={{ flex: 1 }}
   onMessage={(event) => {
-    // console.log(event.nativeEvent.data);
-    const apiData = JSON.parse(event?.nativeEvent?.data);
-    const responseObj = JSON.parse(apiData?.response);
-    console.log("apiData==>",responseObj?.results?.token);
+  try {
+    const apiData = JSON.parse(event.nativeEvent.data);
     
-    // const token = JSON.parse(apiData.response?.results?.token)
-    // if (token) {
-    //   console.log('✅ Token:', token);
-    // }
-  }}
+    if (apiData?.url?.includes('/api/login')) {
+      const responseObj = JSON.parse(apiData?.response);
+      const token = responseObj?.results?.token;
+
+      if (token) {
+        console.log('✅ Login token:', token);
+
+        // Store token if needed, e.g., AsyncStorage
+        // await AsyncStorage.setItem('authToken', token);
+
+        // Go back or navigate to another screen
+        navigation.goBack();
+      }
+    }
+  } catch (err) {
+    console.log('❌ Error parsing WebView message:', err);
+  }
+}}
+
+  // onMessage={(event) => {
+  //   // console.log(event.nativeEvent.data);
+  //   const apiData = JSON?.parse(event?.nativeEvent?.data);
+  //   const responseObj = JSON?.parse(apiData?.response);
+  //   console.log("apiData==>",responseObj?.results?.token);
+    
+  //   if (responseObj?.results?.token) {
+  //     navigation.goBack();
+  //   }
+  
+  // }}
   injectedJavaScript={`
     (function() {
       // Intercept fetch requests

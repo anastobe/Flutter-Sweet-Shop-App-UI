@@ -9,12 +9,14 @@ export default function useReplaceCardViewModel(navigation, props) {
 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
 
+  const [modalVisible, setModalVisible] = useState(false);
   const [reason, setReason] = useState("");
   const [firstName, setFirstName] = useState("");
   const [openDropdown, setOpenDropdown] = useState(null)
 
   const { mutate: useReplaceCardFunc, isPending } = useReplaceCard({
     callback: (response) => {
+      setModalVisible(false)
       navigation.goBack();
     },
   });
@@ -38,20 +40,22 @@ export default function useReplaceCardViewModel(navigation, props) {
     setOpenDropdown(openDropdown === key ? null : key);
   };
 
+  function openConfirmationModal() {
+    let payload = {
+      card_id: props?.route?.params?.cardDetail?.card_id,
+      status: "lost", //always
+      note: reason,
+    };
+    freezUnFreezCardFunc(payload);
+  }
+
   function reqReplacement() {
     if (reason === "") {
       Toast.showToast("Please Select Reason for Replacement", "", "error");
     } else if (firstName === "") {
       Toast.showToast("Please enter your name", "", "error");
     } else {
-      let payload = {
-        card_id: props?.route?.params?.cardDetail?.card_id,
-        status: "lost", //always
-        note: reason,
-      };
-      // console.log("payload==>",payload);
-      // // return
-      freezUnFreezCardFunc(payload);
+      setModalVisible(true)
     }
   }
 
@@ -66,6 +70,9 @@ export default function useReplaceCardViewModel(navigation, props) {
     reqReplacement,
     toggleDropdown,
     openDropdown,
-    loginUserData
+    loginUserData,
+    modalVisible, 
+    setModalVisible,
+    openConfirmationModal,
   };
 }

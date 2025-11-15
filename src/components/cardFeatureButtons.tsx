@@ -6,7 +6,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
 import { scale } from 'react-native-size-matters';
 import Metrics from '../styles/metrics';
 
-const BUTTON_SIZE = scale(Metrics.width/4-40);
+const BUTTON_SIZE = 54
 
 type CardFeatureButton = {
   icon: string;
@@ -37,7 +37,7 @@ const CardFeatureButtons: React.FC<Props> = ({
             <Icon name={feature.icon} size={scale(27)} color={iconColor} />
           </TouchableOpacity>
           <Text style={styles.label}>
-            {feature?.text?.toLowerCase()}
+            {feature?.text}
           </Text>
         </View>
       ))}
@@ -51,11 +51,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     justifyContent: "space-evenly", 
     alignItems: "center",
-    marginTop:10
+    marginTop:15 
   },
   featureItem: {
     alignItems: 'center',
-    height: BUTTON_SIZE+ 40,
+    height: BUTTON_SIZE,
   },
   button: {
     width: BUTTON_SIZE,

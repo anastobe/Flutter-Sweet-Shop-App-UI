@@ -120,7 +120,7 @@ export default function InputField(props: any) {
                 inputRange: [0, 1],
                 outputRange: [16, 12],
               }),
-              color: isFocused ? THEME.primary : THEME.white,
+              color: isFocused ? THEME.white : THEME.white,
             },
           ]}
         >
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: 8,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
     fontSize: FONT_SIZES.onesix,
   },
 
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     width: METRICS.width - 40,
-    color: THEME.primary,
+    color: THEME.white,
     height: scale(55),
     paddingLeft: 20,
     paddingTop: 15,
@@ -394,7 +394,7 @@ const styles = StyleSheet.create({
 //                  inputRange: [0, 1],
 //                  outputRange: [16, 12],
 //                }),
-//                color: isFocused ? THEME.primary : THEME.white,
+//                color: isFocused ? THEME.white : THEME.white,
 //              },
 //            ]}  
 //          >
@@ -460,7 +460,7 @@ const styles = StyleSheet.create({
 //     marginLeft: 10,
 //     marginBottom: 8,
 //     fontFamily: FONTFAMILY.Medium,
-//     color: THEME.primary,
+//     color: THEME.white,
 //     fontSize: FONT_SIZES.onesix
 //   },
 //   inputFieldView: {
@@ -477,7 +477,7 @@ const styles = StyleSheet.create({
 //     borderWidth: 1,
 //     borderRadius: 10,
 //     width: METRICS.width - 40,
-//     color: THEME.primary,
+//     color: THEME.white,
 //     height: scale(55),
 //     paddingLeft: 20,
 //     paddingTop: 15
@@ -506,7 +506,7 @@ const styles = StyleSheet.create({
 //   {
 //     fontSize: FONT_SIZES.onefour,
 //     fontFamily: FONTFAMILY.SemiBold,
-//     color: THEME.primary,
+//     color: THEME.white,
 //     marginBottom: 10,
 //     marginTop:10
 //   },
