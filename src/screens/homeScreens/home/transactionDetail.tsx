@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { BottomSheet, MainContainer, Modal } from '../../../components';
 import { Images } from '../../../config';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -10,6 +10,7 @@ import CustomButton from '../../../components/customButton';
 import { scale } from 'react-native-size-matters';
 import { HOME_ROUTES } from '../../../constants';
 import { createCard } from '../../../queries/auth.query';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -29,7 +30,8 @@ function InfoRow({ icon, label, value }) {
 function TransactionDetail(props) {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
-  const [tick, setTick] = useState(false);
+  const [comments, setcomments] = useState("");
+  const [Profile, setProfile] = useState("");
   const [open, setOpen] = useState(false);
   const payload = props?.route?.params?.data;
 
@@ -76,6 +78,64 @@ function TransactionDetail(props) {
     );
   }
 
+  function renderUpload() {
+    return(
+        <TouchableOpacity onPress={openImagePicker} style={styles.downloadCont} >
+         <Icon name={"download-outline"} size={25} color={THEME.primary} />
+         <Text style={styles.txtUpload}>Upload Photo or Receipt</Text>
+        </TouchableOpacity>
+    )
+  }
+  
+  function renderInputandBtn() {
+    return(
+      <View>
+        <TextInput
+          multiline
+          placeholderTextColor={THEME.white}
+          style={styles.inputBackground}
+          placeholder="Comment"
+          value={comments}
+          onChangeText={setcomments}
+          keyboardType={"default"}
+        />
+        
+        <CustomButton
+          btnContSty={styles.forgetTxt}
+          loading={false}
+          title="Download PDF"
+          onPress={downloadPdf}
+        />
+      </View>
+    )
+  }
+
+    // ✅ Image Picker
+    function openImagePicker() {
+      const options = {
+        mediaType: 'photo',
+        includeBase64: false,
+        maxHeight: 1000,
+        maxWidth: 1000,
+        selectionLimit: 1,
+      };
+  
+      launchImageLibrary(options, (response: any) => {
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        } else if (response.errorCode) {
+          console.log('Image picker error: ', response.errorMessage);
+        } else {
+          const uri = response?.assets?.[0]?.uri;
+          if (uri) setProfile(uri);
+        }
+      });
+    }
+
+  function downloadPdf() {
+    console.log("downloadPdf");
+  }
+
   return (
     <MainContainer
       showBackArrow={true}
@@ -93,6 +153,10 @@ function TransactionDetail(props) {
         {renderCardDetails()}
         {renderTotalAmount()}
         {rendermoredetail()}
+        {renderUpload()}
+        {renderInputandBtn()}
+
+
       </View>
     </MainContainer>
   );
@@ -115,7 +179,12 @@ const styles = StyleSheet.create({
     color: THEME.white,
     marginBottom: 10,
   },
-  forgetTxt: { marginTop: 30, marginBottom: 50 }, forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
+  txtUpload: {
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.primary,
+  },
+  forgetTxt: { marginTop: 15, marginBottom: 50 }, forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
   summaryBox: { borderRadius: 1, padding: 10, marginBottom: 10 },
   infoRow: {
     flexDirection: 'row',
@@ -147,85 +216,15 @@ const styles = StyleSheet.create({
     color: THEME.primary,
     marginBottom: 30,
   },
-  accountBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 0.5,
-    borderColor: THEME.white,
-    borderRadius: 16,
-    height: 60,
-    marginBottom: 10,
-  },
-  flag: {
-    width: 40,
-    height: 40,
-    marginRight: 10,
-    borderRadius: 16,
-    marginLeft: 10,
-  },
-  accountText: {
-    fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onetwo,
-    color: THEME.white,
-  },
-  accountTextbelow: {
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onesix,
-    color: THEME.primary,
-    marginLeft: 5,
-  },
-  badgeText: {
-    fontSize: FONT_SIZES.onetwo,
-    fontFamily: FONTFAMILY.Medium,
-    color: THEME.white,
-  },
-  checkboxContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 16,    marginBottom: 20 },
-  checkbox: {
-    width: 22,
-    height: 22,
-    borderWidth: 1,
-    borderColor: THEME.white,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10,
-  },
-  confirmText: {
-    flex: 1,
-    color: THEME.primary,
-    fontSize: FONT_SIZES.onetwo,
-    fontFamily: FONTFAMILY.Medium,
- 
-  },
-  boldText: { fontWeight: 'bold' },
-  modal: {
-    backgroundColor: 'rgba(64, 64, 65, 0.95)',
-    borderRadius: 16,
-    padding: 24,
-    alignItems: 'center',
-  },
-  closeBtn: { position: 'absolute', top: 10, right: 15 },
-  closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
-  iconCircle: {
-    backgroundColor: THEME.primary,
-    borderRadius: 100,
-    width: scale(55),
-    height: scale(55),
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  titles: {
-    fontFamily: FONTFAMILY.SemiBold,
-    fontSize: FONT_SIZES.twosix,
-    color: THEME.primary,
-    textAlign: 'center',
-  },
-  description: {
-    marginTop: 10,
-    fontFamily: FONTFAMILY.Regular,
+  downloadCont:
+  { height: 100, borderRadius: 10, borderColor: THEME.white, borderWidth: 1, borderStyle: "dashed", justifyContent: "center", alignItems: "center" },
+  inputBackground:
+  { height: 120,textAlignVertical: 'top',paddingHorizontal: 20, marginTop: 13,    fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
-    textAlign: 'center',
-  },
+    borderColor: THEME.white,
+    borderWidth: 1,
+    borderRadius: 10,
+    color: THEME.white,
+   }
+
 });

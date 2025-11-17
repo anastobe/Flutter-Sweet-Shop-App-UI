@@ -45,6 +45,7 @@ export default function InputField(props: any) {
     onDropdownSelect = () => {},
     isOpen,
     onToggleDropdown,
+    multiline
   } = props || {};
 
   const [isFocused, setIsFocused] = useState(false);
@@ -143,6 +144,7 @@ export default function InputField(props: any) {
           editable={disabled}
           autoCapitalize={autoCapital} 
           selection={selection}
+          multiline={multiline}
           // onFocus={() => setIsFocused(true)}
           // onBlur={() => setIsFocused(false)}
         />

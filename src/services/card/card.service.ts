@@ -1,3 +1,4 @@
+import { CardUsageResponse } from "../../models/card/CardUsageResponse.model";
 import axiosInstance from "../https.service";
 
 export const useReplaceCard = async (body: any) => {
@@ -39,7 +40,7 @@ export const getSucureCard = async (ID: any) => {
 };
 
 
-export const getCardsUsageRules = async (ID: any) => {
+export const getCardsUsageRules = async ( ID: any): Promise<CardUsageResponse > => {
   // console.log("check=>",`/card/usage-rules/${ID}`);
   // return
   const response = await axiosInstance.get(`/card/usage-rules/${ID}`, { showSuccessMessage: false });

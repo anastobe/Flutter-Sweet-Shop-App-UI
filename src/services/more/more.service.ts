@@ -3,9 +3,13 @@ import axiosInstance from "../https.service";
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
 import { storeLoginUserData } from "../../Redux/Action/Home/HomeActions";
 import { storeAccTypeData, storeCountryData, storeCurrenryData } from "../../Redux/Action/More/MoreActions";
+import { BeneficiaryResponse } from "../../models/more/beneficiaryResponse.model";
+import { CountryApiResponse } from "../../models/more/countryApiResponse.model";
+import { CurrencyApiResponse } from "../../models/more/currencyApiResponse.model";
+import { AssetTypeApiResponse } from "../../models/more/assetTypeApiResponse.model";
 
 
-export const getBeneficiaryDetail = async (dispatch: any) => {
+export const getBeneficiaryDetail = async (): Promise<BeneficiaryResponse[]> => {
   const response = await axiosInstance.get('/beneficiary', {
     showSuccessMessage: false
   });
@@ -17,7 +21,7 @@ export const DeleteBeneficiary = async (id: any) => {
   return response.data;
 };
 
-export const getCoutry = async (dispatch: any) => {
+export const getCoutry = async ( dispatch: any): Promise<CountryApiResponse> => {
   const response = await axiosInstance.get("lov/country", {
     showSuccessMessage: false
   });
@@ -25,7 +29,7 @@ export const getCoutry = async (dispatch: any) => {
   return response.data;
 };
 
-export const getCurrency = async (dispatch: any) => {
+export const getCurrency = async ( dispatch: any): Promise<CurrencyApiResponse> => {
   const response = await axiosInstance.get("lov/currency", {
     showSuccessMessage: false
   });
@@ -33,7 +37,7 @@ export const getCurrency = async (dispatch: any) => {
   return response.data;
 };
 
-export const getAssetType = async (dispatch: any) => {
+export const getAssetType = async ( dispatch: any): Promise<AssetTypeApiResponse> => {
   const response = await axiosInstance.get("lov/asset-type", {
     showSuccessMessage: false
   });

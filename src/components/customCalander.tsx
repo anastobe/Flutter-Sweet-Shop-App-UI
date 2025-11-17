@@ -6,6 +6,7 @@ import InputField from '../components/textInput';
 import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
+import { TouchableOpacity } from 'react-native';
 
 type CustomCalendarProps = {
   placeholder?: string;
@@ -31,7 +32,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
 
   return (
     <View>
-      {/* 🔹 Reusing your InputField */}
+      <TouchableOpacity activeOpacity={0.8} onPress={() => setShowCalendar(true)}  >
       <InputField
         placeholder={placeholder}
         value={selectedDate}
@@ -42,8 +43,9 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
         disabled={false}
         customInpStyle={{ width: METRICS.width - 40 }}
       />
+      </TouchableOpacity>
 
-      {/* 🔹 Calendar Modal */}
+      {/* 🔹 Calendar Modal */} 
       <Modal
         visible={showCalendar}
         transparent
