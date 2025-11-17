@@ -1,4 +1,3 @@
-import api from "../../../APICall/api";
 import MessageHandler from "../../../APICall/messageHandler";
 import { Toast } from "../../../utils";
 import ActionType from "../ActionType/actionType";

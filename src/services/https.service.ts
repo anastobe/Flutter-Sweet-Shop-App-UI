@@ -5,6 +5,7 @@ import MessageHandler from '../APICall/messageHandler';
 import Toast from "react-native-toast-message";
 import { Auth_ROUTES } from '../constants';
 import { Alert } from 'react-native';
+import { logoutUser } from '../utils/logout.helper';
 
 const createAxiosInstance = (baseURL: any) => {
   const api = axios.create({
@@ -38,20 +39,19 @@ const createAxiosInstance = (baseURL: any) => {
   // Interceptor for response handling
   api.interceptors.response.use(
     response => {
-
+      
    // ✅ Only show success message if NOT disabled
     if (response.config?.showSuccessMessage !== false) {
       MessageHandler(response?.data);
     }
-
+ 
       return response;
     },
     error => {
-      // console.log('axios error===>', error?.response?.data);
-      // if (error?.response?.data == 'Unauthenticated User') {
-      //   Alert.alert("Perform")
-      //   return;
-      // }
+      if (error?.response?.data?.message == "Unauthenticated User") {
+        logoutUser();
+        return;
+      }
 
       MessageHandler(error?.response?.data);
 

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ActivityIndicator, Alert, AppState, Linking, PermissionsAndroid, Platform, StatusBar, Text, View, useColorScheme } from "react-native";
+import { ActivityIndicator, Alert, AppState, BackHandler, Linking, PermissionsAndroid, Platform, StatusBar, Text, View, useColorScheme } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { Persistor, Store } from "./src/Redux/Store/Store";
@@ -12,10 +12,36 @@ import { MainStack } from "./src/stacks/MainStack";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 import {LoaderFullScreen, } from "./src/components/activityIndicator";
+import { isRootDetected, isEmulator, isDebuggable } from 'react-native-root-detection';
 
 const App: React.FC = () => {
 
     const queryClient = new QueryClient();
+
+ React.useEffect(() => {
+    const check = () => {
+
+      if (isRootDetected()) {
+        Alert.alert(
+          "Security Warning",
+          "This device is rooted. App cannot run on rooted devices.",
+          [
+            { text: "Exit", onPress: () => BackHandler.exitApp() }
+          ]
+        );
+      }
+
+      if (isDebuggable()) {
+        console.log("⚠ Debug build detected");
+      }
+
+      if (isEmulator()) {
+        console.log("⚠ Emulator detected");
+      }
+    };
+
+    check();
+  }, []);
 
   const toastConfig = {
     info: (props: any) => (
