@@ -9,9 +9,28 @@ import HelpSheet from '../../../components/bottomSheet/helpSheet';
 import useMoreViewModel from '../../../viewModels/homeViewModel/more/useMoreViewModel';
 import CustomButton from '../../../components/customButton';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+// import * as Keychain from 'react-native-keychain';
 
 const MoreScreen = () => {
   const vm = useMoreViewModel();
+
+//   async function getToken() {
+//   try {
+//     const credentials = await Keychain.getGenericPassword();
+//     if (credentials) {
+//       console.log('Token retrieved:', credentials.password);
+//       return credentials.password; // this is your token
+//     } else {
+//       console.log('No token stored');
+//       return null;
+//     }
+//   } catch (error) {
+//     console.log('Error retrieving token:', error);
+//     return null;
+//   }
+// }
+
+// getToken()
 
   function renderExchangeCurrency(heading) {
     return (

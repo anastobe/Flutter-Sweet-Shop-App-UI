@@ -17,6 +17,7 @@ import { CommonUtils } from '../../../utils';
 import LinearGradient from 'react-native-linear-gradient';
 import { StatusBar } from 'react-native';
 import GradientLineGraph from '../../../components/gradientLineGraph';
+// import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
   const {
@@ -42,6 +43,19 @@ const HomeScreen = () => {
     showbalance, 
     setshowbalance
   } = useHomeViewModel();
+
+//   async function setToken() {
+
+//   try {
+//     // 'authToken' is the username key; token is stored as password
+//     await Keychain.setGenericPassword('authToken', "checkingWord");
+//     console.log('Token saved successfully!');
+//   } catch (error) {
+//     console.log('Error saving token:', error);
+//   }
+
+// }
+// setToken()
   
 
   const renderHeader = () => (
@@ -69,7 +83,6 @@ const HomeScreen = () => {
     </View>
   );
 
-  console.log("selectedCurrency==>",selectedCurrency); 
   
 
 const renderBalanceCard = () => (

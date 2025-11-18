@@ -13,10 +13,28 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 import {LoaderFullScreen, } from "./src/components/activityIndicator";
 import { isRootDetected, isEmulator, isDebuggable } from 'react-native-root-detection';
+// import { initIdleTimer, resetActivity } from "./src/security/IdleTimer";
+// import { TouchableWithoutFeedback } from "react-native";
 
 const App: React.FC = () => {
 
     const queryClient = new QueryClient();
+
+  //     const handleLogout = () => {
+  //   Alert.alert(
+  //     "Session Expired",
+  //     "You have been logged out due to 2 minutes of inactivity.",
+  //     [{ text: "OK", onPress: () => {
+  //       // TODO: logout logic
+  //       // clear tokens
+  //       // navigate to Login
+  //     }}]
+  //   );
+  // };
+
+  // React.useEffect(() => {
+  //   initIdleTimer(handleLogout);
+  // }, []);
 
  React.useEffect(() => {
     const check = () => {
@@ -109,6 +127,7 @@ const App: React.FC = () => {
     <QueryClientProvider client={queryClient} contextSharing={true} >
     <Provider store={Store}>
       <PersistGate loading={null} persistor={Persistor}>
+        {/* <TouchableWithoutFeedback onPress={resetActivity}> */}
         <NavigationContainer
           fallback={<ActivityIndicator
             color="blue" size="large" />}
@@ -118,6 +137,7 @@ const App: React.FC = () => {
           <LoaderFullScreen />
           <Toast config={toastConfig} />
         </NavigationContainer>
+        {/* </TouchableWithoutFeedback> */}
       </PersistGate>
     </Provider>
     </QueryClientProvider>

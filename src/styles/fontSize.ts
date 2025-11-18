@@ -12,6 +12,7 @@ const FONT_SIZES = Object.freeze({
   twotwo: moderateScale(22),
   twosix: moderateScale(26),
   threesix:  moderateScale(26),
+  threezero:  moderateScale(30),
   threetwo:  moderateScale(32),
   foureight:  moderateScale(48)
 });

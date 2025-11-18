@@ -144,7 +144,7 @@ function TransactionDetail(props) {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: 16 }}>
         <Text style={styles.title}>Transaction Details</Text>
         <Text style={styles.subtitle}>
           Transport for london.
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     marginBottom: 20,
     marginTop: 10,
   },
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
   },
-  valueBox: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8 },
+  valueBox: {  paddingVertical: 1, borderRadius: 8 },
   value: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   totalAmount: {
     textAlign: 'center',
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     color: THEME.primary,
     marginBottom: 30,
   },
