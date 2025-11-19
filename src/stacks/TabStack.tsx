@@ -549,11 +549,11 @@ const styles = StyleSheet.create<any>({
   },
   imgTab:
   {
-    width: scale(24),
-    height: scale(24),
+    width: scale(25),
+    height: scale(25),
   },
   iconBack:
-    { paddingHorizontal: 12,     paddingVertical: 10,justifyContent: 'center', alignItems: "center", borderRadius: 16 },
+    { paddingVertical: 10,justifyContent: 'center', alignItems: "center", borderRadius: 16 },
   tabCont:
   {
     width: METRICS.width / 5-10,

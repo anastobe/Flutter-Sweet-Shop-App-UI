@@ -49,7 +49,7 @@ const Methods = ({
       <View style={styles.containerAlert}>
         <View style={{ flexDirection: 'row', alignItems :'center' }}>
         <View style={styles.ICONcONT}>
-          <Icon name={icon} size={20} color={THEME.textPrimary} />
+          <Image source={icon} style={{ width: 20, height: 20 }} resizeMode="contain" />
         </View>
         <View style={{ width: Metrics.width - 130 }}>
           <Text style={styles.titleAbove}>{title}</Text>
@@ -84,10 +84,10 @@ return (
       </View>
       :
       <View>
-        {Listitem('wallet-outline', "ATM Withdrawals", "Control and monitor your cash withdrawals from ATMs", atmSwitch, () => setAtmSwitch(!atmSwitch))}
-        {Listitem('cash-outline', "Online Payments", "Enable or disable card usage for online purchases", onlineSwitch, () => setOnlineSwitch(!onlineSwitch))}
-        {Listitem('pin-outline', "Chip & PIN Transactions", "Manage in-person card usage with secure PIN entry", chipSwitch, () => setChipSwitch(!chipSwitch))}
-        {Listitem('card-outline', "International Transactions", "Control usage of your card via Apple Pay, Google Pay, and others", walletSwitch, () => setWalletSwitch(!walletSwitch))}
+        {Listitem(Images.atmWithdrawl, "ATM Withdrawals", "Control and monitor your cash withdrawals from ATMs", atmSwitch, () => setAtmSwitch(!atmSwitch))}
+        {Listitem(Images.onlinePayments, "Online Payments", "Enable or disable card usage for online purchases", onlineSwitch, () => setOnlineSwitch(!onlineSwitch))}
+        {Listitem(Images.chipandPinTransaction, "Chip & PIN Transactions", "Manage in-person card usage with secure PIN entry", chipSwitch, () => setChipSwitch(!chipSwitch))}
+        {Listitem(Images.internationalTransaction, "International Transactions", "Control usage of your card via Apple Pay, Google Pay, and others", walletSwitch, () => setWalletSwitch(!walletSwitch))}
       </View>
       }
     </ImageBackground>

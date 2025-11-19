@@ -71,7 +71,7 @@ const HomeScreen = () => {
 
       <View style={styles.headerRight}>
         <TouchableOpacity  style={styles.titlePicNotification} onPress={handleNavigateNotification}>
-          <Icon name="notifications-outline" size={25} color={THEME.white} />
+          <Icon name="notifications-outline" size={18} color={THEME.textPrimary} />
         </TouchableOpacity>
           <TouchableOpacity style={styles.titlePicBack} onPress={handleNavigateProfile} >
           <Text style={styles.titlePic}>
@@ -97,10 +97,14 @@ const renderBalanceCard = () => (
         </View>
         :
       <>
-        <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", }} >
-        {showbalance ? <Text style={styles.total}>{selectedCurrency?.currency?.iso_code} {selectedCurrency?.available_balance}</Text> : <Text style={styles.total}>**********</Text> }
-          <TouchableOpacity onPress={()=>setshowbalance(!showbalance)} >
-        <Icon name={showbalance ? "eye-outline" : "eye-off" } size={28} color={THEME.white} />
+        <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: 50 }} >
+        {showbalance ? 
+        <Text style={styles.total}>{selectedCurrency?.currency?.iso_code} {selectedCurrency?.available_balance}</Text> 
+        : 
+        <Text style={styles.total}>**********</Text> 
+        }
+          <TouchableOpacity style={{  alignItems: "center", justifyContent: "center",height: 50 }} onPress={()=>setshowbalance(!showbalance)} >
+        <Icon name={showbalance ? "eye-outline" : "eye-off" } style={{ top: 2 }} size={20} color={THEME.white} />
           </TouchableOpacity>
         </View>
 
@@ -244,15 +248,15 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   titlePicBack: {
-    justifyContent: "center", alignItems: "center", width: scale(42),height: scale(42), backgroundColor: THEME.whitergba, borderRadius: 100
+    justifyContent: "center", alignItems: "center", width: scale(29),height: scale(29), backgroundColor: THEME.whitergba, borderRadius: 100
   },
   titlePicNotification:{
-    justifyContent: "center", alignItems: "center", width: scale(42),height: scale(42), marginRight: 10, borderRadius: 100
+    justifyContent: "center", backgroundColor: THEME.white, alignItems: "center", width: scale(28),height: scale(28), marginRight: 8, borderRadius: 100
   },
   titlePic: {
     color: THEME.primary,
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: FONT_SIZES.onetwo,
 
   },
   title: {
@@ -263,7 +267,7 @@ const styles = StyleSheet.create({
   titlesub: {
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.threetwo,
-    color: THEME.primary,
+    color: THEME.white,
     width: screenWidth - 150,
   },
   headerContainerParent:{
@@ -281,7 +285,7 @@ const styles = StyleSheet.create({
     // marginHorizontal: 20,
     // marginTop: 20,
   },
-  headerRight: { flexDirection: 'row', marginTop: 15, },
+  headerRight: { flexDirection: 'row', marginTop: 15,  height: 50, alignItems: "center" },
 //   dropdownContainer: {
 //   backgroundColor: THEME.white,
 //   borderRadius: 10,
@@ -299,8 +303,8 @@ const styles = StyleSheet.create({
   marginTop: 0,
   // height: 150,
   right: 0,
-  top: 32,
-  width: 100,
+  top: 28,
+  width: 70,
   // maxHeight: 150,
   // overflow: "hidden",
 },
@@ -335,7 +339,7 @@ dropdownItemText: {
     marginBottom: 10
   },
   balanceTop: { flexDirection: 'row', alignItems: 'center', marginTop: 8,  },
-  balanceLabel: { fontSize: FONT_SIZES.onesix, fontFamily: FONTFAMILY.Light, color: THEME.white },
+  balanceLabel: { fontSize: FONT_SIZES.onefour, fontFamily: FONTFAMILY.Medium, color: THEME.white },
   currencySelector: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -343,8 +347,8 @@ dropdownItemText: {
     borderRadius: 5,
     justifyContent: 'center',
     marginLeft: 10,
-    width: 100,
-    height: 30
+    width: 70,
+    height: 25
   },
   currencyText: {
     // marginTop: -1,
@@ -412,13 +416,13 @@ dropdownItemText: {
   name: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 10,
   },
   subname: {
     fontSize: FONT_SIZES.oneZero,
     fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 10,
   },
     total: {
@@ -431,6 +435,6 @@ dropdownItemText: {
   amount: {
     fontSize: FONT_SIZES.oneeight,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
   },
 });

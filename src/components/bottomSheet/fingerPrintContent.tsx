@@ -5,8 +5,9 @@ import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles'; // adjust path as 
 import { Images } from '../../config';
 import CustomButton from '../customButton';
 import { ImageBackground } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
-const FingerPrintContent = ({ title, subtitle, style, onPress, img }:{ title:any, subtitle:any, style:any, onPress: any, img: any }) => {
+const FingerPrintContent = ({refrence, title, subtitle, style, onPress, img }:{refrence:any, title:any, subtitle:any, style:any, onPress: any, img: any }) => {
   return (
     <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={style}>
 
@@ -20,12 +21,14 @@ const FingerPrintContent = ({ title, subtitle, style, onPress, img }:{ title:any
        <Image tintColor={THEME.white} source={img} style={{ width: scale(60), height: scale(55) }} resizeMode='contain' />
       </View>  */}
 
+      <TouchableOpacity onPress={onPress} >
        <Text style={styles.titlesubbelow}>Having trouble?</Text>
+      </TouchableOpacity>
 
        <CustomButton
         btnContSty={styles.forgetTxt}
         title="Use Password"
-        onPress={onPress}
+        onPress={()=>{refrence?.current?.close() }}
       />
 
 
@@ -37,7 +40,7 @@ export default FingerPrintContent;
 
 const styles = StyleSheet.create({
   title: {
-    color: THEME.primary,
+    color: THEME.white,
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.threetwo,
     textAlign: "center",

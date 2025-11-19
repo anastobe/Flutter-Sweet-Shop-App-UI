@@ -22,9 +22,9 @@ const GradientLineGraph = ({marginTop}) => {
   curved
   data={data}
   hideDataPoints={false}
-  startFillColor={'#00C6FF'}
+  startFillColor={"transparent"}
   endFillColor={'#0072FF'}
-  startOpacity={0.3}
+  startOpacity={0}
   endOpacity={0.05}
   width={Metrics.width} 
   height={150}

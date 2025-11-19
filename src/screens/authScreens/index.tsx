@@ -83,8 +83,8 @@ const config = {
         
 
            <Text style={styles.description}>
-          Looks like you have not set your Touch ID.
-Please login and set your Touch ID from Profile.
+          {`Looks like you have not set your Touch ID.
+Please login and set your Touch ID from Profile.`}
           </Text>
 
          <CustomButton
@@ -143,7 +143,7 @@ Please login and set your Touch ID from Profile.
              autoCapital={'none'}
              blurOnSubmit={false}
              placeholder="Password"
-             imagetintColor={THEME.primary}
+             imagetintColor={THEME.white}
              value={vm.password}
              onPress={()=>{ vm.setSecure(!vm.secure) }}
              onChangeText={vm.setPassword}
@@ -213,7 +213,7 @@ Please login and set your Touch ID from Profile.
          openTime={500}
          closeDuration={500}
          bottomSheetRef={vm.biometryRef}
-         children={<FingerPrintContent onPress={()=>{ setOpen(true) }}
+         children={<FingerPrintContent refrence={vm.biometryRef} onPress={()=>{ setOpen(true) }}
             style={{ flex: 1, paddingHorizontal: 20 }}
          title="Login with Biometric and Face ID"  subtitle="" />}
         />
@@ -231,9 +231,9 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.white
   },
   btnTxt:
-  { color: THEME.primary, fontFamily: FONTFAMILY.Medium, fontSize: FONT_SIZES.onesix, marginLeft: 10 },
+  { color: THEME.white, fontFamily: FONTFAMILY.Regular, fontSize: FONT_SIZES.onesix, marginLeft: 10 },
   btnContStyle:
-  { backgroundColor: "transparent", borderColor: THEME.primary, borderWidth: 1, flexDirection: "row", height: scale(54), borderRadius: 10, justifyContent: "center", alignItems: 'center' },
+  { backgroundColor: "transparent", borderColor: THEME.white, borderWidth: 1, flexDirection: "row", height: scale(54), borderRadius: 10, justifyContent: "center", alignItems: 'center' },
   logo: {
    width: METRICS.width,
     height: scale(55),
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   forgetTxt:
   { marginTop: 20, marginBottom: 10 },
   title: {
-    color: THEME.primary,
+    color: THEME.white,
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.twotwo,
     marginBottom: scale(30),
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
   contText:
   { flexDirection: "row", justifyContent: "center", paddingBottom: 50, marginTop: 30 },
   dontAcc: {
-    color: THEME.primary,
+    color: THEME.white,
     fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
   },
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     height: scale(55),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10
+    marginBottom: 23
   },
   forgetTxtpop:{
 width: '100%',
@@ -359,9 +359,10 @@ marginTop: 30, marginBottom: 20
   description: {
     marginTop: 10,
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: FONT_SIZES.onesix,
     color: THEME.white,
     textAlign: 'center',
+    lineHeight: 18
 
   },
 

@@ -45,7 +45,14 @@ const Images = {
   arrow: require("../../assets/figmaImages/arrow/Icons.png"),
   exchangeRate: require("../../assets/figmaImages/exchangeRate/Vector.png"),
   universalGradientBackground: require("../../assets/figmaImages/universalGradientBackground/Screen.png"),
+  backArrow: require("../../assets/figmaImages/backArrow/Icons.png"),
   
+  //card
+    atmWithdrawl: require("../../assets/figmaImages/atmWithdrawl/Icons.png"),
+    onlinePayments: require("../../assets/figmaImages/onlinePayments/Icons.png"),
+    chipandPinTransaction: require("../../assets/figmaImages/chipandPinTransaction/grommet-icons_transaction.png"),
+    internationalTransaction: require("../../assets/figmaImages/internationalTransaction/Vector.png"),
+    topcurveGradient: require("../../assets/figmaImages/topcurveGradient/Rectangle.png"),
 
 };
 
