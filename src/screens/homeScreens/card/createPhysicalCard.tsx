@@ -91,10 +91,10 @@ const CreatePhysicalCard = () => {
         />
 
         <InputField
-          marginTp={20}
+          margTp={0}
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Spending Limit / Month"
+          placeholder="Spending Limit"
           value={spendingLimit}
           onChangeText={setSpendingLimit}
           keyboardType={'numeric'}
@@ -118,7 +118,7 @@ const CreatePhysicalCard = () => {
           />
 
            <InputField
-              marginTp={20}
+              margTp={0}
               margBtm={20}
               placeholder="PIN"
               value={pin}
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     marginBottom: 30,
     marginTop: 10,
   },

@@ -47,7 +47,7 @@ const Methods = ({
   function Listitem(icon:any, title:any, subtitle:any, value:boolean, toggle:()=>void) {
     return (
       <View style={styles.containerAlert}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', alignItems :'center' }}>
         <View style={styles.ICONcONT}>
           <Icon name={icon} size={20} color={THEME.textPrimary} />
         </View>
@@ -64,7 +64,7 @@ const Methods = ({
             circleColorOff={THEME.white}
             circleColorOn={THEME.white}
             backgroundColorOn={THEME.primary}
-            backgroundColorOff={THEME.textPrimary}
+            backgroundColorOff={"#4D4F5E"}
             containerStyle={styles.toggleContainer}
             circleStyle={styles.toggleCircle}
           />
@@ -84,10 +84,10 @@ return (
       </View>
       :
       <View>
-        {Listitem('flash-outline', "ATM Withdrawals", "Control and monitor your cash withdrawals from ATMs", atmSwitch, () => setAtmSwitch(!atmSwitch))}
+        {Listitem('wallet-outline', "ATM Withdrawals", "Control and monitor your cash withdrawals from ATMs", atmSwitch, () => setAtmSwitch(!atmSwitch))}
         {Listitem('cash-outline', "Online Payments", "Enable or disable card usage for online purchases", onlineSwitch, () => setOnlineSwitch(!onlineSwitch))}
         {Listitem('pin-outline', "Chip & PIN Transactions", "Manage in-person card usage with secure PIN entry", chipSwitch, () => setChipSwitch(!chipSwitch))}
-        {Listitem('card-outline', "Wallets", "Control usage of your card via Apple Pay, Google Pay, and others", walletSwitch, () => setWalletSwitch(!walletSwitch))}
+        {Listitem('card-outline', "International Transactions", "Control usage of your card via Apple Pay, Google Pay, and others", walletSwitch, () => setWalletSwitch(!walletSwitch))}
       </View>
       }
     </ImageBackground>
@@ -98,22 +98,24 @@ export default Methods;
 
 const styles = StyleSheet.create({
     title: {
-        color: THEME.primary,
+        color: THEME.white,
         fontFamily: FONTFAMILY.SemiBold,
         fontSize: FONT_SIZES.twosix,
         textAlign: "center",
         marginTop: 25,
-        paddingBottom: 15,
+        paddingBottom: 30,
         // borderBottomWidth: 0.5,
         // borderColor: THEME.lightGrey,
 
     },
     containerAlert: {
         flexDirection: 'row',
-        paddingVertical: 15,
+        // backgroundColor: "red",
+        marginBottom: 30,
+        // paddingVertical: 15,
         borderRadius: 10,
-        paddingBottom: 15,
-        justifyContent: 'space-between'
+        // paddingBottom: 15,
+        justifyContent: 'space-between',
         // borderBottomWidth: 0.5,
         // borderColor: THEME.lightGrey,
     },
@@ -127,7 +129,9 @@ const styles = StyleSheet.create({
         fontFamily: FONTFAMILY.Regular,
         fontSize: FONT_SIZES.onetwo,
         color: THEME.white,
-        marginLeft: 8
+        marginLeft: 8,
+        marginTop: 2,
+        lineHeight: 16
     },
     ICONcONT: {
         width: scale(36),

@@ -54,7 +54,7 @@ export default function SetLimits({...props}) {
                 ]}
               >
                 {limitType === type && (
-                  <Icon name="checkmark-outline" size={18} color={THEME.white} />
+                  <Icon name="checkmark-outline" size={16} color={THEME.white} />
                 )}
               </View>
               <Text
@@ -63,7 +63,7 @@ export default function SetLimits({...props}) {
                   {
                     fontFamily:
                       limitType === type
-                        ? FONTFAMILY.Medium
+                        ? FONTFAMILY.Regular
                         : FONTFAMILY.Light,
                   },
                 ]}
@@ -80,7 +80,7 @@ export default function SetLimits({...props}) {
   function renderSpendingLimitInput() {
     return (
       <InputField
-        marginTp={20}
+        margTp={10}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="Spending Limit"
@@ -99,9 +99,13 @@ export default function SetLimits({...props}) {
         <Text style={styles.limitTitle}>{limitType} Limit</Text>
         <Text style={styles.limitDetail}>
           You've set a limit of{' '}
-          <Text style={styles.boldText}>
-            €{spendingLimit || '0'}/{limitType.toLowerCase()}
-          </Text>{' '}
+          <View style={{ backgroundColor: THEME.primary, borderRadius: 6, paddingHorizontal: 3 }} >
+            <Text style={styles.boldText}>
+              €{spendingLimit || '0'}/{limitType.toLowerCase()}
+            </Text>
+          </View>
+          
+          {' '}
           for this card.
         </Text>
         <Text style={styles.limitNote}>
@@ -186,7 +190,7 @@ export default function SetLimits({...props}) {
         onToggleDropdown={() => toggleDropdown('select_card')}
         onDropdownSelect={(item) => setselectedCards({
           card_id: item.card_id,
-          card_name: `${CommonUtils.capitalizeFirstLetter(item?.format)} (...${item?.pan})`,
+          card_name: `${CommonUtils.capitalizeFirstLetter(item?.format)} (.... .... .... ${item?.pan})`,
           pan: item?.pan
         })} 
       />
@@ -207,17 +211,17 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
-    marginBottom: 10,
+    color: THEME.white,
+    marginBottom: 16,
     marginTop: 10,
   },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 30,
+    marginBottom: 21,
   },
-  forgetTxt: { marginTop: 20, marginBottom: 20, backgroundColor: THEME.primary },
+  forgetTxt: { marginTop: 10, marginBottom: 20, backgroundColor: THEME.primary },
   label: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
@@ -234,20 +238,21 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   radio: {
-    height: 24,
-    width: 24,
+    height: 20,
+    width: 20,
     borderRadius: 100,
-    borderWidth: 1,
-    marginRight: 6,
+    borderWidth: 1.5,
+    marginRight: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },
   radioLabel: {
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
   },
   limitInfo: {
-    padding: 15,
+    marginTop: 0,
+    paddingHorizontal: 12,
     borderRadius: 10,
     marginBottom: 20,
   },
@@ -257,22 +262,21 @@ const styles = StyleSheet.create({
     color: THEME.white,
   },
   limitDetail: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
     marginTop: 3,
   },
   boldText: {
-    fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
-    backgroundColor: THEME.white,
   },
   limitNote: {
     fontSize: FONT_SIZES.onetwo,
-    fontFamily: FONTFAMILY.Medium,
+    fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginTop: 5,
+    marginTop: 4,
   },
   pickerWrapper: {
     borderWidth: 1,

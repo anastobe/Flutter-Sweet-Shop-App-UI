@@ -36,7 +36,7 @@ export default function useSetLimitsViewModel({...props}) {
    
     setselectedCards({
       card_id: cardDetail?.card_id,
-      card_name: `${ CommonUtils.capitalizeFirstLetter(cardDetail?.format)} (...${cardDetail?.pan})`,
+      card_name: `${ CommonUtils.capitalizeFirstLetter(cardDetail?.format)} (.... .... .... ${cardDetail?.pan})`,
       pan:  cardDetail.pan
     })
     setSpendingLimit(cardDetail?.spending_limit)

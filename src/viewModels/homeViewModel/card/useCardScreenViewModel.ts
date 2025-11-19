@@ -1,7 +1,7 @@
 // src/viewModels/homeViewModel/card/useCardScreenViewModel.ts
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import {
   createCard,
@@ -14,10 +14,12 @@ import {
   updateUsageRules,
 } from '../../../queries/card.Queries/card.query';
 import { Images } from '../../../config';
+import { HOME_ROUTES } from '../../../constants';
 
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
   const FOCUS = useIsFocused();
+  const navigation = useNavigation()
 
   // UI toggles
   const [atmSwitch, setAtmSwitch] = useState(true);
@@ -182,12 +184,14 @@ export const useCardScreenViewModel = () => {
     manageRef?.current?.close();
     setTimeout(() => {
       if (id == 1) {
-        if (currentItem?.format == 'physical') setopen(true);
-        else if (currentItem?.format == 'virtual') {
-          // navigate to PIN_SECURITY
+        if (currentItem?.format == 'physical') {
+          setopen(true);
         }
-      } else if (id == 2) {
-        // navigate to set limit, pass data
+        else if (currentItem?.format == 'virtual') {
+          navigation.navigate(HOME_ROUTES.PIN_SECURITY, { cardDetail: currentItem })    
+        }
+      } else if (id == 2) {  
+        navigation.navigate(HOME_ROUTES.SET_LIMIT, { cardDetail: currentItem, getCardsData: getCardsData })    
       }
     }, 1000);
   }
