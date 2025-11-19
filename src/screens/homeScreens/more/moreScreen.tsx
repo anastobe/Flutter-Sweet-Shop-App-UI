@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { BottomSheet, CardBox, MainContainer, Modal } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -9,6 +9,7 @@ import HelpSheet from '../../../components/bottomSheet/helpSheet';
 import useMoreViewModel from '../../../viewModels/homeViewModel/more/useMoreViewModel';
 import CustomButton from '../../../components/customButton';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+import { Images } from '../../../config';
 // import * as Keychain from 'react-native-keychain';
 
 const MoreScreen = () => {
@@ -31,6 +32,23 @@ const MoreScreen = () => {
 // }
 
 // getToken()
+
+
+  function renderExchangeReq(heading) {
+    return (
+      <View>
+        <Text style={styles.headingTxt}>{heading}</Text>
+        <CardBox
+          rotate="-45deg"
+          titleLeft="Request"
+          iconRight="arrow-forward-outline"
+          TL_radius={10}
+          TR_radius={10}
+          onPress={vm.onPressRequest}
+        />
+      </View>
+    );
+  }
 
   function renderExchangeCurrency(heading) {
     return (
@@ -84,14 +102,7 @@ const MoreScreen = () => {
     return (
       <View>
         <Text style={styles.headingTxt}>{heading}</Text>
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Request"
-          iconRight="arrow-forward-outline"
-          TL_radius={10}
-          TR_radius={10}
-          onPress={vm.onPressRequest}
-        />
+       
         <CardBox
           rotate="-45deg"
           titleLeft="Profile"
@@ -132,14 +143,14 @@ const MoreScreen = () => {
         end={{ x: 1, y: 1 }}
         style={styles.boxContainerBigBox}
       >
-        <Text style={styles.boxTitleText}>Legal & Policies</Text>
+        <Text style={styles.boxTitleTextHeading}>Legal & Policies</Text>
         <TouchableOpacity onPress={vm.onPressPrivacyPolicy} style={styles.policyRow}>
-          <Icon name="arrow-forward-outline" size={24} color={THEME.primary} style={styles.rotateIcon} />
+          <Image style={{ width: 24, height: 24, marginRight: 10 }} source={Images.arrow} resizeMode='contain' />
           <Text style={styles.boxTitleText}>Privacy Policy</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={vm.onPressTermsofUse} style={styles.policyRow}>
-          <Icon name="arrow-forward-outline" size={24} color={THEME.primary} style={styles.rotateIcon} />
+          <Image style={{ width: 24, height: 24, marginRight: 10 }} source={Images.arrow} resizeMode='contain' />
           <Text style={styles.boxTitleText}>Terms of Use</Text>
         </TouchableOpacity>
       </LinearGradient>
@@ -203,6 +214,7 @@ const MoreScreen = () => {
     >
       <Text style={styles.title}>More</Text>
 
+      {renderExchangeReq('Request')}
       {renderExchangeCurrency('Currency Exchange')}
       {renderBeneficiaries('Beneficiaries')}
       {renderSettings('Settings')}
@@ -242,15 +254,21 @@ export default MoreScreen;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginTop: 10,
+    marginTop: 20,
+    marginBottom: 30
+  },
+  boxTitleTextHeading:{
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.twozero,
+    color: THEME.white,    
   },
   boxTitleText: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onesix,
-    color: THEME.white,
+    color: THEME.primary,
   },
   boxContainerBigBox: {
     backgroundColor: THEME.textPrimary,
@@ -263,10 +281,10 @@ const styles = StyleSheet.create({
   },
   headingTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: FONT_SIZES.onetwo,
     color: THEME.white,
     paddingBottom: 5,
-    marginTop: 15,
+    marginTop: 16,
   },
     forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
   headingTxtDiff: {

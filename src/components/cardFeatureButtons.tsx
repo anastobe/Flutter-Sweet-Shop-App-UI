@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { Image, StyleSheet, Text } from 'react-native';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
 import { scale } from 'react-native-size-matters';
 import Metrics from '../styles/metrics';
+import { Images } from '../config';
 
 const BUTTON_SIZE = 54
 
@@ -34,7 +35,8 @@ const CardFeatureButtons: React.FC<Props> = ({
             onPress={()=>onPressbtn(feature)}
             style={[styles.button, { backgroundColor: buttonColor }]}
           >
-            <Icon name={feature.icon} size={scale(27)} color={iconColor} />
+            <Image style={{ width: 22, height: 22 }}  source={feature.icon} resizeMode='contain' />
+            {/* <Icon name={feature.icon} size={scale(27)} color={iconColor} /> */}
           </TouchableOpacity>
           <Text style={styles.label}>
             {feature?.text}

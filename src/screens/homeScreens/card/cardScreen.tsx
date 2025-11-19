@@ -111,6 +111,9 @@ const CardScreen = () => {
   const SlidingCards = () => {
     return (
       <View>
+        <View>
+          <Text style={styles.titleTop}>Manage Cards</Text>
+        </View>
         <FlatList
           data={vm.getCardsData?.results?.values}
           horizontal
@@ -154,10 +157,10 @@ const CardScreen = () => {
 
   const TransactionList = () => {
     return (
-      <View style={{ marginTop: 30 }}>
+      <View style={{ marginTop: 35 }}>
         <View style={styles.cardHeadr}>
           <Text style={styles.cardTransactinTXT}>
-            Card Transactions ({'DUMMY DATA'})
+            
           </Text>
           <TouchableOpacity
             onPress={() => navigation.navigate('TRANSACTIONHISTORY' as any)}
@@ -223,7 +226,7 @@ const CardScreen = () => {
           start={{ x: 0, y: 0 }}
           end={{ x: 0, y: 1 }}
           style={{
-            height: 300,
+            height: 340,
             borderBottomLeftRadius: 30,
             borderBottomRightRadius: 30,
           }}
@@ -380,6 +383,16 @@ export default CardScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+
+  titleTop:{
+    fontFamily: FONTFAMILY.SemiBold,
+    fontSize: FONT_SIZES.oneeight,
+    color: THEME.white,
+    marginLeft: scale(25),
+    // backgroundColor: "red",
+    marginTop: 12,
+    marginBottom: 10
+  },
   cardLoadingContainer: {
     height: 174,
     justifyContent: 'center',
@@ -424,7 +437,7 @@ const styles = StyleSheet.create({
   inputNumber: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
   },
   inputNumbergbpcont: {
     backgroundColor: THEME.primary,
@@ -472,7 +485,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    marginVertical: 5,
+    // marginVertical: 5,
   },
   cardTransactinTXT: {
     fontSize: FONT_SIZES.onetwo,
@@ -480,7 +493,7 @@ const styles = StyleSheet.create({
     color: THEME.white,
   },
   viewAllTxt: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: FONT_SIZES.oneone,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     backgroundColor: THEME.SlateBlue,
@@ -495,13 +508,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     marginTop: 10,
   },
   sectionLeft: { flexDirection: 'row', alignItems: 'center' },
   iconCONT: {
-    width: 22,
-    height: 22,
+    width: 25,
+    height: 25,
     backgroundColor: THEME.primary,
     borderRadius: 100,
     justifyContent: 'center',
@@ -511,13 +524,13 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginLeft: 10,
+    marginLeft: 15,
   },
   subname: {
     fontSize: FONT_SIZES.oneZero,
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginLeft: 10,
+    marginLeft: 15,
   },
   amount: {
     fontSize: FONT_SIZES.oneeight,

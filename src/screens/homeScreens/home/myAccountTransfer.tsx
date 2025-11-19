@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { MainContainer, InputDropDownStyle } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -7,12 +7,13 @@ import { scale } from 'react-native-size-matters';
 import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import { useMyAccountTransferViewModel } from '../../../viewModels/homeViewModel/home/useMyAccountTransferViewModel';
+import { Images } from '../../../config';
 
 // ✅ Reusable Components
-const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: string }) => (
+const InfoRow = ({ icon, label, value }: { icon: any; label: string; value: string }) => (
   <View style={styles.infoRow}>
     <View style={styles.infoLeft}>
-      <Icon name={icon} size={18} color={THEME.white} style={styles.infoIcon} />
+      <Image source={icon} style={styles.infoIcon} resizeMode="contain" />
       <Text style={styles.label}>{label}</Text>
     </View>
     <Text style={styles.value}>{value}</Text>
@@ -96,10 +97,10 @@ const MyAccountTransfer = () => {
 
           {/* Summary Section */}
           <View style={styles.summaryBox}>
-            <InfoRow icon="add-outline" label="Conversion Fee" value="£2.00" />
-            <InfoRow icon="add-outline" label="Total After Fee" value="£1002.00" />
+            <InfoRow icon={Images.add} label="Conversion Fee" value="£2.00" />
+            <InfoRow icon={Images.add} label="Total After Fee" value="£1002.00" />
             <InfoRow
-              icon="wallet-outline"
+              icon={Images.exchangeRate}
               label="Exchange Rate (Live)"
               value="1 GBP = 1.1425 EUR"
             />
@@ -135,16 +136,16 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 30,
+    marginBottom: 56,
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 9,
   },
   infoLeft: { flexDirection: 'row', alignItems: 'center' },
-  infoIcon: { marginRight: 8 },
+  infoIcon: { marginRight: 8, width: 15, height: 15 },
   label: {
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onefour,
@@ -153,9 +154,9 @@ const styles = StyleSheet.create({
   value: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
   },
-  summaryBox: { borderRadius: 10, padding: 10, marginBottom: 10 },
+  summaryBox: { borderRadius: 10, marginBottom: 10 },
   balanceContainer: {
     backgroundColor: THEME.whitergba,
     padding: scale(10),
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
   rightInputValue: {
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
   },
   currencyBox: {
     backgroundColor: THEME.primary,
@@ -198,5 +199,5 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },
-  transferBtn: { marginTop: 20, marginBottom: 20 },
+  transferBtn: { marginTop: 5, marginBottom: 20 },
 });

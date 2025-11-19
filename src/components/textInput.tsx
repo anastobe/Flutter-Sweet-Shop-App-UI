@@ -9,11 +9,13 @@ import {
   Pressable,
   StyleSheet,
   FlatList,
+  Image,
 } from 'react-native';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Animated } from 'react-native';
+import { Images } from '../config';
 
 export default function InputField(props: any) {
   const {
@@ -164,10 +166,10 @@ export default function InputField(props: any) {
             style={styles.iconRightDropDown}
             onPress={() => onToggleDropdown()}
           >
-            <Icon
-              name={isOpen ? 'chevron-up' : 'chevron-down'}
-              size={20}
-              color={THEME.white}
+            <Image
+              source={Images.dropDown}
+              style={{ width: 26, height: 26 }}
+              tintColor={THEME.white}
             />
           </Pressable>
         )}
@@ -256,7 +258,7 @@ const styles = StyleSheet.create({
   iconRightDropDown: {
     position: 'absolute',
     height: scale(55),
-    paddingRight: 20,
+    paddingRight: 15,
     justifyContent: 'center',
     alignItems: 'flex-end',
     width: '100%',

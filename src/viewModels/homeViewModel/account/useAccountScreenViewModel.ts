@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
-import { Alert, FlatList, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
+import { Alert, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
 import { ACTIVE_ACCOUNT } from "../../../utils/data";
@@ -10,6 +10,7 @@ import { AccDelete, AccFreeze, getAccounts } from "../../../queries/accountQueri
 import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import QueryKey from "../../../queries/queryKey";
+import { Images } from "../../../config";
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
@@ -72,10 +73,10 @@ export const useAccountScreenViewModel = () => {
   ];
 
   const features = [
-    { icon: "add-outline", text: `Add\nBeneficiary`, onPress: () => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY) },
-    { icon: "card-outline", text: "Transfer", onPress: () => navigation.navigate(HOME_ROUTES.MAKE_PAYMENT) },
-    { icon: "reader-outline", text: "View Details", onPress: () => manageRef?.current?.open() },
-    { icon: "server-outline", text: "Convert", onPress: () => navigation.navigate(HOME_ROUTES.CURRENCY_EXCHANGE) },
+    { icon: Images.add, text: `Add\nBeneficiary`, onPress: () => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY) },
+    { icon: Images.transfer, text: "Transfer", onPress: () => navigation.navigate(HOME_ROUTES.MAKE_PAYMENT) },
+    { icon: Images.detail, text: "View Details", onPress: () => manageRef?.current?.open() },
+    { icon: Images.convert, text: "Convert", onPress: () => navigation.navigate(HOME_ROUTES.CURRENCY_EXCHANGE) },
   ];
 
   const onPressCard = () => navigation.navigate(HOME_ROUTES.ACCOUNT_DETAIL);

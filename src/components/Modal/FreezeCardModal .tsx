@@ -202,9 +202,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   description: {
-    fontFamily: FONTFAMILY.Light,
+    fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
+    lineHeight: 18,
     textAlign: 'center',
     marginTop: 10,
   },
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
   },
   forgetTxt: {
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 15,
     width: '100%',
   },
   cancelTxt: {

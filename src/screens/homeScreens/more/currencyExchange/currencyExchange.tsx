@@ -35,7 +35,7 @@ const CurrencyExchange = () => {
       <InputField
         // customInpStyle={{ paddingRight: 100, backgroundColor: "red" }}
         renderRightInput={renderRightInput}
-        margTp={50}
+        margTp={64}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="0.00"
@@ -126,7 +126,13 @@ const styles = StyleSheet.create({
   inputNumber: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
+  },
+  
+  inputNumberNum:{
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
   },
   inputNumbergbpcont: {
     backgroundColor: THEME.primary,

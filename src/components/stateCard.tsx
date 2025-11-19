@@ -14,12 +14,12 @@ const StatCard = ({ title, amount, percentage, isPositive, onPress }) => {
           <Icon
             name={isPositive ? "arrow-up-outline" : "arrow-down-outline"}
             size={14}
-            color={isPositive ? THEME.white : THEME.medRed}
+            color={isPositive ? THEME.primary : THEME.medRed}
           />
           <Text
             style={[
               styles.percentage,
-              { color: isPositive ? THEME.white : THEME.medRed },
+              { color: isPositive ? THEME.primary : THEME.medRed },
             ]}
           >
             {percentage}%
@@ -34,7 +34,7 @@ export default StatCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: THEME.darkSecondary, // dark card background
+    backgroundColor: "#0e0e2f", // dark card background
     borderRadius: 12,
     height: 80,
     width: Metrics.width/2- 20,
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
   },
   title: {
     color: THEME.white,
-    fontSize: FONT_SIZES.nine,
+    fontSize: FONT_SIZES.oneone,
     fontFamily: FONTFAMILY.Medium,
   },
   amount: {
     color: THEME.white,
-    fontSize: FONT_SIZES.oneeight,
+    fontSize: FONT_SIZES.twozero,
     fontFamily: FONTFAMILY.Medium,
   },
   percentRow: {
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   percentage: {
-    fontSize: 12,
-    fontWeight: "500",
+    fontSize: FONT_SIZES.oneone,
+    fontFamily: FONTFAMILY.Regular,
     marginLeft: 2,
   },
 });

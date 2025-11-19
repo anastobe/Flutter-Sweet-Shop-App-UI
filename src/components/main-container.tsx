@@ -63,7 +63,7 @@ export const MainContainer: React.FC<MainContainerProps> = ({
       {showBackArrow && (
         <View style={{ flexDirection: "row", justifyContent: 'space-between' }} >
         <TouchableOpacity onPress={pressBackArrow} style={styles.arrowCont}>
-          <Icon name="arrow-back-outline" size={36} color={THEME.white} />
+          <Icon name="arrow-back-outline" size={34} color={THEME.white} />
         </TouchableOpacity>
 
         {pressRightArrow && <TouchableOpacity onPress={pressRightArrow} style={styles.rightIconCont}>

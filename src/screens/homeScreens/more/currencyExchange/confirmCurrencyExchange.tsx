@@ -57,7 +57,7 @@ const ConfirmCurrencyExchange = () => {
 
   const renderRightInputTextOnly = () => (
     <View style={styles.renderRightInputContainer}>
-      <Text style={styles.inputNumber}>696,906.41</Text>
+      <Text style={styles.inputNumberNum}>696,906.41</Text>
     </View>
   );
 
@@ -65,7 +65,7 @@ const ConfirmCurrencyExchange = () => {
     <View>
       <InputField
         renderRightInput={renderRightInput}
-        margTp={20}
+        margTp={70}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="0.00"
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     marginBottom: 10,
     marginTop: 10,
   },
@@ -176,14 +176,16 @@ const styles = StyleSheet.create({
   },
   summaryBox: {
     borderRadius: 1,
-    padding: 10,
-    marginBottom: 10,
+    marginTop: 10,
+    // padding: 10,
+    // marginBottom: 6,
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    // backgroundColor: 'red',
+    marginBottom: 9,
   },
   label: {
     fontFamily: FONTFAMILY.Light,
@@ -198,7 +200,7 @@ const styles = StyleSheet.create({
   value: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
   },
   container: { flex: 1, backgroundColor: THEME.white },
   pickerWrapper: {
@@ -229,7 +231,12 @@ const styles = StyleSheet.create({
   inputNumber: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
+  },
+  inputNumberNum:{
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
   },
   inputNumbergbpcont: {
     backgroundColor: THEME.primary,

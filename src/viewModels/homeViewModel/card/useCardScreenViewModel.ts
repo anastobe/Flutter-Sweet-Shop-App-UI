@@ -151,10 +151,10 @@ export const useCardScreenViewModel = () => {
 
   function renderCardFeature() {
     return [
-      { icon: 'snow-outline', text: currentItem?.card_status == 'freeze' || currentItem?.card_status == 'inactive' ? 'Unfreeze Card' : 'Freeze Card' },
-      { icon: 'copy-outline', text: 'Replace Card' },
-      { icon: 'options-outline', text: 'Methods' },
-      { icon: 'menu-outline', text: 'Manage' },
+      { icon: Images.freeze, text: currentItem?.card_status == 'freeze' || currentItem?.card_status == 'inactive' ? 'Unfreeze Card' : 'Freeze Card' },
+      { icon: Images.replace, text: 'Replace Card' },
+      { icon: Images.methods, text: 'Methods' },
+      { icon: Images.manage, text: 'Manage' },
     ];
   }
 

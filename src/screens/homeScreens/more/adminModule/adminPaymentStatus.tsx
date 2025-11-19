@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
   rightInputValue: {
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
   },
   currencyBox: {
     backgroundColor: THEME.primary,

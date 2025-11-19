@@ -150,7 +150,7 @@ const AccountScreen = () => {
           <View style={styles.statecontainer}>
             <StatCard
               title="Avg monthly spend (DUMMY)"
-              amount="£820.00"
+              amount="£820.0"
               percentage={11.9}
               // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
               onPress={() => console.log("Avg monthly ")

@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+import { Images } from '../config';
 
 interface Props {
   rotate: any;
@@ -60,8 +61,9 @@ export const CardBox: React.FC<Props> = ({
       </View>
       </View>
 
-        <View style={{ transform: [{ rotate: rotate }] }}>
-          <Icon name={iconRight} size={24} color={THEME.primary} />
+        <View>
+          <Image style={{ width: 24, height: 24 }} source={Images.arrow} />
+          {/* <Icon name={iconRight} size={24} color={THEME.primary} /> */}
         </View>
 
     </LinearGradient>
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
   },
   boxTitleText: {
    fontFamily: FONTFAMILY.Medium,
-   fontSize: FONT_SIZES.onesix,
+   fontSize: FONT_SIZES.onefour,
    color: THEME.white,
   },
 });

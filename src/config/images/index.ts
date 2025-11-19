@@ -26,6 +26,27 @@ const Images = {
   frontPayLogo: require("../../assets/images/frontPayLogo.png"),
   gradientBg: require("../../assets/images/gradientBg.png"),
 
+  // figmaImages 
+  //card
+  freeze: require("../../assets/figmaImages/freeze/Vector.png"),
+  replace: require("../../assets/figmaImages/replace/Vector.png"),
+  manage: require("../../assets/figmaImages/manage/Vector.png"),
+  methods: require("../../assets/figmaImages/methods/Vector.png"),
+
+  //acount
+  add: require("../../assets/figmaImages/add/Vector.png"),
+  transfer: require("../../assets/figmaImages/transfer/Wallet.png"),
+  detail: require("../../assets/figmaImages/detail/Vector.png"),
+  convert: require("../../assets/figmaImages/convert/Ticket.png"),
+
+  //home
+  sendMoney: require("../../assets/figmaImages/sendMoney/Icons.png"),
+  dropDown: require("../../assets/figmaImages/dropDown/Icons.png"),
+  arrow: require("../../assets/figmaImages/arrow/Icons.png"),
+  exchangeRate: require("../../assets/figmaImages/exchangeRate/Vector.png"),
+  universalGradientBackground: require("../../assets/figmaImages/universalGradientBackground/Screen.png"),
+  
+
 };
 
 export default Images;

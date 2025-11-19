@@ -186,7 +186,12 @@ const styles = StyleSheet.create({
   inputNumber: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
+  },
+      inputNumberNum:{
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
   },
   inputNumbergbpcont: {
     backgroundColor: THEME.primary,

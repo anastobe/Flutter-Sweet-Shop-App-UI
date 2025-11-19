@@ -30,16 +30,17 @@ const AccountCard = ({ item, index, onPressCard,containerStyle }: { item?: any, 
 
             <View style={{ flexDirection: "row", paddingHorizontal: 10, marginTop: 10 }} >
                 <View>
-                    <Image source={Images.frontPayLogo} style={{ width: 34, height: 37 }} resizeMode='contain' />
+                    <View style={{ width: 40, }} />
+                    {/* <Image source={Images.frontPayLogo} style={{ width: 34, height: 37 }} resizeMode='contain' /> */}
                 </View>
                 <View>
-                    <Text style={styles.cardTitle}>  Business Visa (•••• 1234)</Text>
+                    <Text style={styles.cardTitle}>{CommonUtils.capitalizeFirstLetter(item.format)} (*** **** **** {item?.pan})</Text>
                 </View>
             </View>
 
-            <View style={{ flexDirection: 'row', width: '100%', position: "absolute", bottom: 10, alignItems: "flex-end", justifyContent: "space-between", paddingHorizontal: 10 }} >
+            <View style={{ flexDirection: 'row', width: '100%', position: "absolute", bottom: 18, alignItems: "flex-end", justifyContent: "space-between", paddingHorizontal: 12 }} >
                 <View>
-                    <Text style={styles.limitTxtUp}>({CommonUtils.capitalizeFirstLetter(item.format)})  ({CommonUtils.capitalizeFirstLetter(item.card_status)})</Text>
+                    <Text style={styles.limitTxtUp}>({CommonUtils.capitalizeFirstLetter(item.card_status)})</Text>
                     <Text style={styles.limitTxt}>{item?.spending_type} /Available Limit:</Text>
                     <Text style={styles.balanceTxt}>£{item?.available_limit}</Text>
                 </View>

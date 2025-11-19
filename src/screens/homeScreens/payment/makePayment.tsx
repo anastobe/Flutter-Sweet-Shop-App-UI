@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from "react-native";
 import { MainContainer } from "../../../components";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useMakePaymentViewModel } from "../../../viewModels/homeViewModel/payment/useMakePaymentViewModel";
+import { Images } from "../../../config";
 
 const MakePayment = () => {
   const { PAYMENT_OPTION, pressBackArrow, handleNavigate } = useMakePaymentViewModel();
@@ -17,8 +18,8 @@ const MakePayment = () => {
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.currency}>{item.detailTxt}</Text>
       </View>
-      <View style={{ transform: [{ rotate: "-45deg" }] }}>
-        <Icon name="arrow-forward-outline" size={20} color={THEME.primary} />
+      <View>
+          <Image style={{ width: 24, height: 24 }} source={Images.arrow} />
       </View>
     </TouchableOpacity>
   );
@@ -62,7 +63,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 20,
+    lineHeight: 18,
+    marginBottom: 30,
   },
   item: {
     flexDirection: "row",
@@ -86,7 +88,9 @@ const styles = StyleSheet.create({
     color: THEME.white,
   },
   currency: {
-    fontSize: FONT_SIZES.onefour,
+    marginTop: 2,
+    fontSize: FONT_SIZES.onetwo,
+    lineHeight: 15,
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
   },

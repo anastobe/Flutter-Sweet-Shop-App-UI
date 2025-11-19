@@ -17,6 +17,7 @@ import { CommonUtils } from '../../../utils';
 import LinearGradient from 'react-native-linear-gradient';
 import { StatusBar } from 'react-native';
 import GradientLineGraph from '../../../components/gradientLineGraph';
+import HomeCardFeatureButtons from '../../../components/homeCardFeatureButtons';
 // import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
@@ -163,7 +164,7 @@ const renderBalanceCard = () => (
 
   const renderCardFeature = () => (
     <View style={{ zIndex: -9, marginBottom: 35 }} >
-    <CardFeatureButtons features={Sendoption} onPressbtn={(item: any) => handlePressCard(item)} />
+    <HomeCardFeatureButtons features={Sendoption} onPressbtn={(item: any) => handlePressCard(item)} />
     </View>
   );
 

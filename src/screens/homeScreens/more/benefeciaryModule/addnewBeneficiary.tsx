@@ -29,11 +29,11 @@ const AddNewBeneficiary = () => {
       {vm.BENEFICIARY_TYPES.map((item) => (
         <View key={item.key} style={styles.row}>
           <TouchableOpacity
-            style={[styles.boxShape, { borderColor: THEME.white }]}
+            style={[styles.boxShape, { borderColor: THEME.primary }]}
             onPress={() => vm.handlePressType(item.key)}
           >
             {vm.checked === item.key && (
-              <Icon name="checkmark" size={15} color={THEME.white} />
+              <Icon name="checkmark" size={15} color={THEME.primary} />
             )}
           </TouchableOpacity>
           <Text style={styles.label}>{item.label}</Text>
@@ -44,10 +44,10 @@ const AddNewBeneficiary = () => {
 
   const renderInputFields = () => (
     <View>
-      <Text style={styles.checkmarkTitle}>Beneficiary Details</Text>
+      <Text style={styles.checkmarkTitleDown}>Beneficiary Details</Text>
 
       <InputField
-        margBtm={10}
+        margBtm={23}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="Beneficiary Name"
@@ -61,13 +61,14 @@ const AddNewBeneficiary = () => {
         value={vm.accountType} 
         enableDropdown={true}
         dropdownData={vm.accountTypeList} 
-        margBtm={10}
+        margBtm={23}
         isOpen={vm.openDropdown === 'acc_type'} 
         onToggleDropdown={() => vm.toggleDropdown('acc_type')}
         onDropdownSelect={(item:any )=> vm.setAccountType(item.name)}
       />
 
       <InputField
+        margBtm={23}
         placeholder="IBAN / Account No."
         value={vm.accountNo}
                 // customInpStyle={styles.forgetTxt}
@@ -75,8 +76,7 @@ const AddNewBeneficiary = () => {
       />
 
       <InputField
-       margTp={10}
-         margBtm={10}
+        margBtm={23}
         placeholder="SWIFT/BIC (optional)"
         value={vm.bicNo}
         onChangeText={vm.setBicNo}
@@ -88,7 +88,7 @@ const AddNewBeneficiary = () => {
         value={vm.country} 
         enableDropdown={true}
         dropdownData={vm.countryList} 
-        margBtm={10}
+        margBtm={23}
         isOpen={vm.openDropdown === 'country'} 
         onToggleDropdown={() => vm.toggleDropdown('country')}
         onDropdownSelect={(item:any )=> vm.setCountry(item.name)}
@@ -100,7 +100,7 @@ const AddNewBeneficiary = () => {
         value={vm.currency} 
         enableDropdown={true}
         dropdownData={vm.currencyList} 
-        margBtm={10}
+        margBtm={23}
         isOpen={vm.openDropdown === 'currency'} 
         onToggleDropdown={() => vm.toggleDropdown('currency')}
         onDropdownSelect={(item:any )=> vm.setCurrency(item.iso_code)}
@@ -212,21 +212,28 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 20,
+    marginBottom: 34,
   },
   container: { flex: 1, backgroundColor: THEME.white },
   checkmarkTitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
-    marginVertical: 10,
+    marginBottom: 18
+  },
+  checkmarkTitleDown: {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
+    marginBottom: 24,
+    marginTop: 30
   },
   boxShape: { width: 20, height: 20, borderWidth: 1.5, borderRadius: 50 },
   row: { flexDirection: 'row', alignItems: 'center', marginVertical: 4 },
   label: {
     marginLeft: 8,
     fontSize: FONT_SIZES.onefour,
-    fontFamily: FONTFAMILY.Light,
+    fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
   },
   pickerWrapper: {
@@ -246,7 +253,7 @@ const styles = StyleSheet.create({
     height: scale(55),
     marginLeft: 10,
   },
-  forgetTxt: { marginTop: 10, marginBottom: 10 },
+  forgetTxt: { marginTop: 43, marginBottom: 10 },
   modal: {
     backgroundColor: 'rgba(64, 64, 65, 0.98)',
     borderRadius: 16,

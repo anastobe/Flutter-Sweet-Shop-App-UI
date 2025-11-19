@@ -8,6 +8,7 @@ import {  getAssetType, getCoutry, getCurrency, getCurrencyAccount, getUserDetai
 import { useEffect, useMemo, useState } from 'react';
 import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+import { Images } from '../../../config';
 
 export const useHomeViewModel = () => {
   const navigation = useNavigation();
@@ -22,8 +23,8 @@ export const useHomeViewModel = () => {
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
 
   const Sendoption = [ 
-    { icon: 'add-outline', onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency\nAccount` },
-    { icon: 'wallet-outline', onPress: HOME_ROUTES.MAKE_PAYMENT, text: 'Send Money' },
+    { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency\nAccount` },
+    { icon: Images.sendMoney, onPress: HOME_ROUTES.MAKE_PAYMENT, text: 'Send Money' },
   ];
 
   const handleLogout = () => {
