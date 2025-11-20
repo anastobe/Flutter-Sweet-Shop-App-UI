@@ -9,6 +9,7 @@ import {
   ImageBackground,
   Alert,
   StatusBar,
+  Image,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -34,6 +35,7 @@ import { SHOW_CLIENT } from "../../../APICall/constants";
 import { ActivityIndicator } from "react-native";
 import GradientLineGraph from "../../../components/gradientLineGraph";
 import { DATA } from "../../../utils/data";
+import Metrics from "../../../styles/metrics";
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -73,24 +75,16 @@ const AccountScreen = () => {
       />
     </View>
   );
-  return (
-    <LinearGradient
-      colors={["#713d9f", "#2A1E60", "#0C1445"]}
-      locations={[0.1, 0.3, 1]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.container}
-    >
-      <StatusBar translucent backgroundColor={THEME.secondary} />
-      <SafeAreaView style={styles.container}>
-        {/* HEADER + CARDS */}
-        <LinearGradient
-          colors={["#6B3FA0", "#3A2670", "#0C1445"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          style={styles.headerContainer}
-        >
-          <OptionsHeader
+
+  function renderHeaderStuffs() {
+    return(
+            <ImageBackground
+       imageStyle={styles.botmRadius}
+       style={styles.headerContainer}
+       source={Images.checking2}
+       resizeMode="stretch"
+       >
+              <OptionsHeader
             // onPressNotification={() => vm.navigation.navigate(HOME_ROUTES.NOTIFICATION)}
             onPressNotification={() => Alert.alert("NEED",SHOW_CLIENT) }
             onPressAdd={() => vm.navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY)}
@@ -130,29 +124,38 @@ const AccountScreen = () => {
               />
             ))}
           </View>
-        </LinearGradient>
+       </ImageBackground>
+    )
+  }
+  return (
+    <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
+      <SafeAreaView style={styles.container}>
+      <StatusBar translucent backgroundColor={"#7c4fc3"} />
+       {renderHeaderStuffs()}
 
-        {/* BODY */}
-        <ScrollView contentContainerStyle={{ paddingBottom: 100, marginTop: 10 }}>
-          <CardFeatureButtons
-            features={vm.features}
-            onPressbtn={(item: any) => item.onPress()}
-          />
+
+         {/* BODY */}
+         <ScrollView contentContainerStyle={{ paddingBottom: 100, marginTop: 10 }}>
+           <CardFeatureButtons
+             features={vm.features}
+             onPressbtn={(item: any) => item.onPress()}
+           />
           
-          {/* <LineGraph
-            labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
-            data={[10, 40, 20, 90, 75, 60, 100]}
-            lineColor={THEME.white}
-            // bgColor={THEME.secondary}
-          /> */}
-          <GradientLineGraph marginTop={60} />
+           {/* <LineGraph
+             labels={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
+             data={[10, 40, 20, 90, 75, 60, 100]}
+             lineColor={THEME.white}
+              bgColor={THEME.secondary}
+           /> */}
+    
+           <GradientLineGraph marginTop={60} />
 
-          <View style={styles.statecontainer}>
-            <StatCard
-              title="Avg monthly spend (DUMMY)"
-              amount="£820.0"
-              percentage={11.9}
-              // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
+           <View style={styles.statecontainer}>
+             <StatCard
+               title="Avg monthly spend (DUMMY)"
+               amount="£820.0"
+               percentage={11.9}
+    //           // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
               onPress={() => console.log("Avg monthly ")
               }
               isPositive
@@ -171,7 +174,7 @@ const AccountScreen = () => {
 
         </ScrollView>
 
-        {/* Bottom Sheets */}
+    {/* Bottom Sheets */}
         <BottomSheet
           height={METRICS.height - scale(250)}
           draggable={false}
@@ -221,8 +224,9 @@ const AccountScreen = () => {
             onPressSave={vm.onPressEditSave}
           />
         </BottomSheet>
-      </SafeAreaView>
-    </LinearGradient>
+
+    </SafeAreaView>
+    </ImageBackground>
   );
 };
 
@@ -231,7 +235,14 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: { flex: 1 },
   headerContainer: {
-    height: 300,
+    height: Metrics.halfScreen - 40,
+    width: Metrics.width,
+    // backgroundColor: "red",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    // position: 'absolute'
+  },
+  botmRadius:{
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
   },

@@ -1,6 +1,6 @@
 // src/screens/Home/HomeScreen.tsx
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Pressable, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Pressable } from 'react-native';
 import { MainContainer } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
 import { scale } from 'react-native-size-matters';
@@ -18,6 +18,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import { StatusBar } from 'react-native';
 import GradientLineGraph from '../../../components/gradientLineGraph';
 import HomeCardFeatureButtons from '../../../components/homeCardFeatureButtons';
+import Metrics from '../../../styles/metrics';
+import { ImageBackground } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native';
 // import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
@@ -204,10 +208,37 @@ const renderBalanceCard = () => (
       />
     </View>
   );
+
+  function renderHeaderStuffs() {
+    return(
+      <ImageBackground
+          imageStyle={styles.botmRadius}
+          style={styles.headerContainer}
+          source={Images.checking2}
+          resizeMode="stretch"
+          >
+          {renderHeader()}
+          {renderBalanceCard()}          
+        </ImageBackground>
+    )
+  }
  
   return (
-    <MainContainer isFlatList barStyle="dark-content" mainContainerStyle={styles.container}>
-      {/* <Image source={Images.logo} style={styles.logo} /> */}
+    <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
+      <SafeAreaView style={styles.container}>
+      <StatusBar translucent backgroundColor={"#7c4fc3"} />
+       {renderHeaderStuffs()}
+
+         <ScrollView contentContainerStyle={{ paddingBottom: 100, marginTop: 10 }}>
+          <GradientLineGraph marginTop={20} />
+          {renderCardFeature()}
+          {renderTransactionList()}
+         </ScrollView>
+       
+      </SafeAreaView>
+    </ImageBackground>
+
+    /* <MainContainer isFlatList barStyle="dark-content" mainContainerStyle={styles.container}>
         <LinearGradient
           colors={["#6B3FA0", "#3A2670", "#0C1445"]}
           start={{ x: 0, y: 0 }}
@@ -223,17 +254,28 @@ const renderBalanceCard = () => (
 
       <GradientLineGraph marginTop={20} />
 
-      {/* {renderGraph()} */}
       {renderCardFeature()}
       {renderTransactionList()}
-    </MainContainer>
+    </MainContainer> */
   );
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: THEME.white },
+  container: { flex: 1},
+  headerContainer: {
+    height: Metrics.halfScreen - 40,
+    width: Metrics.width,
+    // backgroundColor: "red",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    // position: 'absolute'
+  },
+  botmRadius:{
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+  },
   logo: {
     width: METRICS.width,
     height: scale(25),

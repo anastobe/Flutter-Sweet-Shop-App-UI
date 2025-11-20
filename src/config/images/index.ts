@@ -54,6 +54,8 @@ const Images = {
     internationalTransaction: require("../../assets/figmaImages/internationalTransaction/Vector.png"),
     topcurveGradient: require("../../assets/figmaImages/topcurveGradient/Rectangle.png"),
 
+    //check
+    checking2: require("../../assets/images/checking2.png"),
 };
 
 export default Images;

@@ -30,6 +30,9 @@ import ManageOption from '../../../components/bottomSheet/manageOption';
 import OptionsHeader from '../../../components/topHeader';
 import { useCardScreenViewModel } from '../../../viewModels/homeViewModel/card/useCardScreenViewModel';
 import { DATA } from '../../../utils/data';
+import { StatusBar } from 'react-native';
+import { ImageBackground } from 'react-native';
+import Metrics from '../../../styles/metrics';
 
 const CardScreen = () => {
   const navigation = useNavigation<any>();
@@ -212,88 +215,86 @@ const CardScreen = () => {
     );
   }
 
+  function renderHeaderStuffs() {
+    return(
+    <ImageBackground
+       imageStyle={styles.botmRadius}
+       style={styles.headerContainer}
+       source={Images.checking2}
+       resizeMode="stretch"
+       >
+      {Options()}
+      {SlidingCards()}
+    </ImageBackground>
+    )
+  }
+
   return (
-    <LinearGradient
-      colors={['#713d9f', '#2A1E60', '#0C1445']}
-      locations={[0.1, 0.3, 1]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.container}
-    >
+    <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
       <SafeAreaView style={styles.container}>
-        <LinearGradient
-          colors={['#6B3FA0', '#3A2670', '#0C1445']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          style={{
-            height: 340,
-            borderBottomLeftRadius: 30,
-            borderBottomRightRadius: 30,
-          }}
-        >
-          {Options()}
-          {SlidingCards()}
-        </LinearGradient>
+      <StatusBar translucent backgroundColor={"#7c4fc3"} />
+       {renderHeaderStuffs()}
+       
+       
+         <ScrollView>
+           {renderCardFeatureButtons()}
+           {TransactionList()}
+           {/* Modals */}
+           <Modal
+             isVisible={vm.modalVisible}
+             isKeyboardAvoidingView={true}
+             children={
+               <FreezeCardModal
+                 style={{ flex: 1, paddingHorizontal: 20 }}
+                 backImg={Images.addCardGradient}
+                 visible={vm.modalVisible}
+                 onClose={() => vm.setModalVisible(false)}
+                 btnLoader={vm.isPendingfreezUnFreezCard}
+                 onConfirm={() => vm.freezCardApi('freeze')}
+                 showSubBody={true}
+                 downConfirmText={'Cancel'}
+                 title={'Freeze This Card?'}
+                 body={
+                   'Freezing will temporarily disable all transactions from this card.'
+                 }
+                 subBody={
+                   'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
+                 }
+                 iconName={'snow-outline'}
+                 confirmText={'Freeze Card'}
+               />
+             }
+             onClose={() => {}}
+           />
 
-        <ScrollView>
-          {renderCardFeatureButtons()}
-          {TransactionList()}
-          {/* Modals */}
-          <Modal
-            isVisible={vm.modalVisible}
-            isKeyboardAvoidingView={true}
-            children={
-              <FreezeCardModal
-                style={{ flex: 1, paddingHorizontal: 20 }}
-                backImg={Images.addCardGradient}
-                visible={vm.modalVisible}
-                onClose={() => vm.setModalVisible(false)}
-                btnLoader={vm.isPendingfreezUnFreezCard}
-                onConfirm={() => vm.freezCardApi('freeze')}
-                showSubBody={true}
-                downConfirmText={'Cancel'}
-                title={'Freeze This Card?'}
-                body={
-                  'Freezing will temporarily disable all transactions from this card.'
-                }
-                subBody={
-                  'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
-                }
-                iconName={'snow-outline'}
-                confirmText={'Freeze Card'}
-              />
-            }
-            onClose={() => {}}
-          />
+           <Modal
+             isVisible={vm.modalVisibleUnfreez}
+             isKeyboardAvoidingView={true}
+             children={
+               <FreezeCardModal
+                 style={{ flex: 1, paddingHorizontal: 20 }}
+                 backImg={Images.addCardGradient}
+                 visible={vm.modalVisibleUnfreez}
+                 btnLoader={vm.isPendingfreezUnFreezCard}
+                 onClose={() => vm.setmodalVisibleUnfreez(false)}
+                 onConfirm={() => vm.freezCardApi('active')}
+                 title={'Card is Frozen'}
+                 body={
+                   'Your card is currently frozen for security reasons. Tap below to unfreeze it instantly and resume spending.'
+                 }
+                 showSubBody={false}
+                 confirmText={'Unfreeze Card'}
+                 downConfirmText={'Cancel'}
+               />
+             }
+             onClose={() => {}}
+           />
+         </ScrollView>
+    
+         {renderNearestAtm()}
 
-          <Modal
-            isVisible={vm.modalVisibleUnfreez}
-            isKeyboardAvoidingView={true}
-            children={
-              <FreezeCardModal
-                style={{ flex: 1, paddingHorizontal: 20 }}
-                backImg={Images.addCardGradient}
-                visible={vm.modalVisibleUnfreez}
-                btnLoader={vm.isPendingfreezUnFreezCard}
-                onClose={() => vm.setmodalVisibleUnfreez(false)}
-                onConfirm={() => vm.freezCardApi('active')}
-                title={'Card is Frozen'}
-                body={
-                  'Your card is currently frozen for security reasons. Tap below to unfreeze it instantly and resume spending.'
-                }
-                showSubBody={false}
-                confirmText={'Unfreeze Card'}
-                downConfirmText={'Cancel'}
-              />
-            }
-            onClose={() => {}}
-          />
-        </ScrollView>
-
-        {renderNearestAtm()}
-
-        {/* BottomSheets */}
-        <BottomSheet
+         {/* BottomSheets */}
+         <BottomSheet
           height={METRICS.halfScreen - 30}
           draggable={false}
           openTime={500}
@@ -374,8 +375,173 @@ const CardScreen = () => {
             />
           }
         />
-      </SafeAreaView>
-    </LinearGradient>
+
+       </SafeAreaView>
+      </ImageBackground>
+
+    // <LinearGradient
+    //   colors={['#713d9f', '#2A1E60', '#0C1445']}
+    //   locations={[0.1, 0.3, 1]}
+    //   start={{ x: 0, y: 0 }}
+    //   end={{ x: 1, y: 1 }}
+    //   style={styles.container}
+    // >
+    //   <SafeAreaView style={styles.container}>
+    //     <LinearGradient
+    //       colors={['#6B3FA0', '#3A2670', '#0C1445']}
+    //       start={{ x: 0, y: 0 }}
+    //       end={{ x: 0, y: 1 }}
+    //       style={{
+    //         height: 340,
+    //         borderBottomLeftRadius: 30,
+    //         borderBottomRightRadius: 30,
+    //       }}
+    //     >
+    //       {Options()}
+    //       {SlidingCards()}
+    //     </LinearGradient>
+
+    //     <ScrollView>
+    //       {renderCardFeatureButtons()}
+    //       {TransactionList()}
+    //       {/* Modals */}
+    //       <Modal
+    //         isVisible={vm.modalVisible}
+    //         isKeyboardAvoidingView={true}
+    //         children={
+    //           <FreezeCardModal
+    //             style={{ flex: 1, paddingHorizontal: 20 }}
+    //             backImg={Images.addCardGradient}
+    //             visible={vm.modalVisible}
+    //             onClose={() => vm.setModalVisible(false)}
+    //             btnLoader={vm.isPendingfreezUnFreezCard}
+    //             onConfirm={() => vm.freezCardApi('freeze')}
+    //             showSubBody={true}
+    //             downConfirmText={'Cancel'}
+    //             title={'Freeze This Card?'}
+    //             body={
+    //               'Freezing will temporarily disable all transactions from this card.'
+    //             }
+    //             subBody={
+    //               'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
+    //             }
+    //             iconName={'snow-outline'}
+    //             confirmText={'Freeze Card'}
+    //           />
+    //         }
+    //         onClose={() => {}}
+    //       />
+
+    //       <Modal
+    //         isVisible={vm.modalVisibleUnfreez}
+    //         isKeyboardAvoidingView={true}
+    //         children={
+    //           <FreezeCardModal
+    //             style={{ flex: 1, paddingHorizontal: 20 }}
+    //             backImg={Images.addCardGradient}
+    //             visible={vm.modalVisibleUnfreez}
+    //             btnLoader={vm.isPendingfreezUnFreezCard}
+    //             onClose={() => vm.setmodalVisibleUnfreez(false)}
+    //             onConfirm={() => vm.freezCardApi('active')}
+    //             title={'Card is Frozen'}
+    //             body={
+    //               'Your card is currently frozen for security reasons. Tap below to unfreeze it instantly and resume spending.'
+    //             }
+    //             showSubBody={false}
+    //             confirmText={'Unfreeze Card'}
+    //             downConfirmText={'Cancel'}
+    //           />
+    //         }
+    //         onClose={() => {}}
+    //       />
+    //     </ScrollView>
+
+    //     {renderNearestAtm()}
+
+    //     {/* BottomSheets */}
+    //     <BottomSheet
+    //       height={METRICS.halfScreen - 30}
+    //       draggable={false}
+    //       openTime={500}
+    //       closeDuration={500}
+    //       bottomSheetRef={vm.AddCardRef}
+    //       children={
+    //         <AddCardPopup
+    //           backImg={Images.addCardGradient}
+    //           onPress1={() => vm.HandleOnPress('1', navigation)}
+    //           onPress2={() => vm.HandleOnPress('2', navigation)}
+    //           style={{ flex: 1, paddingHorizontal: 20 }}
+    //         />
+    //       }
+    //     />
+
+    //     <BottomSheet
+    //       height={METRICS.halfScreen}
+    //       draggable={false}
+    //       openTime={500}
+    //       closeDuration={500}
+    //       bottomSheetRef={vm.cardDetailRef}
+    //       children={
+    //         <CardDetail
+    //           isPendinggetSucureCard={vm.isPendinggetSucureCard}
+    //           getSucureCardData={vm.getSucureCardData}
+    //           saveCureentDisplayData={vm.saveCureentDisplayData}
+    //           onPress1={() => vm.HandleOnPressCardDetail('1')}
+    //           onPress2={() => vm.HandleOnPressCardDetail('2')}
+    //           style={{ paddingHorizontal: 20 }}
+    //           iconColor={THEME.white}
+    //         />
+    //       }
+    //     />
+
+    //     <BottomSheet
+    //       height={METRICS.height / 1.6}
+    //       draggable={false}
+    //       openTime={500}
+    //       closeDuration={500}
+    //       onClose={() => {
+    //         const payload = {
+    //           card_id: currentItem?.card_id,
+    //           usage: [{ name: 'allow_atm_withdrawal', enabled: vm.atmSwitch }],
+    //         };
+    //         vm.updateUsageRulesFunc(payload);
+    //       }}
+    //       bottomSheetRef={vm.methodsRef}
+    //       children={
+    //         <Methods
+    //           Data={vm.getCardsUsageRulesData}
+    //           loading={vm.isPendingGetCardsUsageRules}
+    //           atmSwitch={vm.atmSwitch}
+    //           setAtmSwitch={vm.setAtmSwitch}
+    //           onlineSwitch={vm.onlineSwitch}
+    //           setOnlineSwitch={vm.setOnlineSwitch}
+    //           chipSwitch={vm.chipSwitch}
+    //           setChipSwitch={vm.setChipSwitch}
+    //           walletSwitch={vm.walletSwitch}
+    //           setWalletSwitch={vm.setWalletSwitch}
+    //           backImg={Images.manageCardGradient}
+    //           style={{ flex: 1, paddingHorizontal: 20 }}
+    //         />
+    //       }
+    //     />
+
+    //     <BottomSheet
+    //       height={METRICS.halfScreen - 80}
+    //       draggable={false}
+    //       openTime={500}
+    //       closeDuration={500}
+    //       bottomSheetRef={vm.manageRef}
+    //       children={
+    //         <ManageOption
+    //           style={{ flex: 1, paddingHorizontal: 20 }}
+    //           backImg={Images.manageCardGradient}
+    //           onPress1={() => vm.onPressOption('1')}
+    //           onPress2={() => vm.onPressOption('2')}
+    //         />
+    //       }
+    //     />
+    //   </SafeAreaView>
+    // </LinearGradient>
   );
 };
 
@@ -383,7 +549,18 @@ export default CardScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-
+  headerContainer: {
+    height: Metrics.halfScreen - 20,
+    width: Metrics.width,
+    // backgroundColor: "red",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    // position: 'absolute'
+  },
+  botmRadius:{
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+  },
   titleTop:{
     fontFamily: FONTFAMILY.SemiBold,
     fontSize: FONT_SIZES.oneeight,
