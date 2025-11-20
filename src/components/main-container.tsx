@@ -56,7 +56,7 @@ export const MainContainer: React.FC<MainContainerProps> = ({
           style={{ flexDirection: "row", justifyContent: "space-between" }}
         >
           <TouchableOpacity onPress={pressBackArrow} style={styles.arrowCont}>
-            <Image source={Images.backArrow} style={{ width: 34, height: 34 }} resizeMode="contain" />
+            <Image source={Images.backArrow} style={{ width: 30, height: 30 }} resizeMode="contain" />
             {/* <Icon name="arrow-back-outline" size={34} color={THEME.white} /> */}
           </TouchableOpacity>
 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: 20,
-    marginLeft: 20,
+    marginLeft: 10,
   },
   rightIconCont: {
     width: 28,

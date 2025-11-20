@@ -1,4 +1,6 @@
+import { Image } from "react-native";
 import { HOME_ROUTES } from "../constants";
+import { Images } from "../config";
 
 
 export interface BeneficiaryType {
@@ -180,9 +182,9 @@ const BENEFICIARY_MANAGEMENT_DATA = [
 ];
 
 const PAYMENT_OPTION = [
-  { id: '1', name: 'Bank Transfer', detailTxt: 'Transfer funds to any bank account locally.', icon: "business-outline", route: HOME_ROUTES.BANK_TRANSFER },
-  { id: '2', name: 'International Transfer', detailTxt: 'Send payments across borders in multiple currencies.', icon: "earth-outline", route: HOME_ROUTES.INTERNATIONAL_TRANSFER  },
-  { id: '3', name: 'To My Account', detailTxt: 'Move money between your own accounts.', icon: "wallet-outline", route: HOME_ROUTES.MY_ACCOUNT_TRANSFER  }
+  { id: '1', name: 'Bank Transfer', detailTxt: 'Transfer funds to any bank account locally.', icon: Images.bank, route: HOME_ROUTES.BANK_TRANSFER },
+  { id: '2', name: 'International Transfer', detailTxt: 'Send payments across borders in multiple currencies.', icon: Images.international, route: HOME_ROUTES.INTERNATIONAL_TRANSFER  },
+  { id: '3', name: 'To My Account', detailTxt: 'Move money between your own accounts.', icon: Images.toMyAcc, route: HOME_ROUTES.MY_ACCOUNT_TRANSFER  }
 ];
 
 

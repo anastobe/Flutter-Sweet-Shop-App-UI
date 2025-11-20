@@ -62,7 +62,7 @@ export const CardBox: React.FC<Props> = ({
       </View>
 
         <View>
-          <Image style={{ width: 24, height: 24 }} source={Images.arrow} />
+          <Image style={{ width: 22, height: 22 }} source={Images.arrow} />
           {/* <Icon name={iconRight} size={24} color={THEME.primary} /> */}
         </View>
 

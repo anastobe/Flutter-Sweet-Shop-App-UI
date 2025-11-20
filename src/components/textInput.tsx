@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   },
 
   inputInner: {
-    fontFamily: FONTFAMILY.Medium,
+    fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
     borderColor: THEME.white,
     borderWidth: 1,
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 20,
     backgroundColor: 'transparent',
-    fontFamily: FONTFAMILY.Medium,
+    fontFamily: FONTFAMILY.Regular,
   },
 
   imgView: {
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   iconRightDropDown: {
     position: 'absolute',
     height: scale(55),
-    paddingRight: 15,
+    paddingRight: 12,
     justifyContent: 'center',
     alignItems: 'flex-end',
     width: '100%',

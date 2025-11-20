@@ -50,7 +50,7 @@ const CardFeatureButtons: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginHorizontal: 20,
+    marginHorizontal: 0,
     justifyContent: "space-evenly", 
     alignItems: "center",
     marginTop:15 
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: 'center',
-    marginTop: 5,
+    marginTop: 8.5,
   },
 });
 

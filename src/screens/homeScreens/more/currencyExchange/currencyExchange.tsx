@@ -35,7 +35,7 @@ const CurrencyExchange = () => {
       <InputField
         // customInpStyle={{ paddingRight: 100, backgroundColor: "red" }}
         renderRightInput={renderRightInput}
-        margTp={64}
+        margTp={30}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="0.00"
@@ -104,16 +104,17 @@ export default CurrencyExchange;
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
+    marginBottom: 15,
     marginTop: 10,
   },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
+    lineHeight: 20
   },
   renderRightInputContainer: {
     height: scale(55),
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputNumber: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },

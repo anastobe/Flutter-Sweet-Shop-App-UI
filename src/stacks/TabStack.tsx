@@ -545,7 +545,7 @@ export const TabStack: React.FC = ({ }) => {
 const styles = StyleSheet.create<any>({
   tabTxt:
   {
-    fontFamily: FONTFAMILY.Regular, fontSize: FONT_SIZES.nine, marginTop: 4
+    fontFamily: FONTFAMILY.Regular, fontSize: FONT_SIZES.nine, marginTop: 3
   },
   imgTab:
   {
@@ -553,10 +553,10 @@ const styles = StyleSheet.create<any>({
     height: scale(25),
   },
   iconBack:
-    { paddingVertical: 10,justifyContent: 'center', alignItems: "center", borderRadius: 16 },
+    { paddingVertical: 10,justifyContent: 'center', alignItems: "center", borderRadius: 8 },
   tabCont:
   {
-    width: METRICS.width / 5-10,
+    width: METRICS.width / 5-22,
     // height: scale(50),
     // justifyContent: 'center',
     // alignItems: 'center',

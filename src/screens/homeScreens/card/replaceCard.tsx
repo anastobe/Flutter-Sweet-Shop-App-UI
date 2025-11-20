@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.threetwo,
     fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    color: THEME.white,
     marginBottom: 10,
     marginTop: 10,
   },
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   labelHead: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
     marginVertical: 5,
   },
   botmLine: { height: 1, backgroundColor: THEME.lightGray },
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
   value: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
   },
   valueChangeTxt: {
     fontFamily: FONTFAMILY.Medium,
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
   descriptionbelow: {
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 5,
     flex: 1,
   },

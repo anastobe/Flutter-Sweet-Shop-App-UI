@@ -12,7 +12,8 @@ const MakePayment = () => {
   const renderItem = ({ item }: { item: any }) => (
     <TouchableOpacity onPress={() => handleNavigate(item.route)} style={styles.item}>
       <View style={styles.avatar}>
-        <Icon name={item.icon} size={36} color={THEME.primary} />
+        <Image source={item.icon} style={{ width: 36, height: 36 }} resizeMode="contain" />
+        {/* <Icon name={item.icon} size={36} color={THEME.primary} /> */}
       </View>
       <View style={{ flex: 1 }}>
         <Text style={styles.name}>{item.name}</Text>
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    lineHeight: 18,
+    lineHeight: 20,
     marginBottom: 30,
   },
   item: {

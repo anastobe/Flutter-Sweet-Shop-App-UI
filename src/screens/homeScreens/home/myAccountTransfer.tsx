@@ -129,14 +129,15 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
+    marginBottom: 15,
     marginTop: 10,
   },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 56,
+    marginBottom: 30,
+    lineHeight: 20
   },
   infoRow: {
     flexDirection: 'row',

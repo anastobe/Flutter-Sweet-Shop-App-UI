@@ -96,9 +96,9 @@ export default function CreateVirtualCardView() {
               key={type}
               onPress={() => setLimitType(type)}
               style={styles.radioOption}>
-              <View style={styles.radio}>
+              <View style={[styles.radio,{ borderColor: limitType === type ? THEME.primary : THEME.white}]}>
                 {limitType === type && (
-                  <Icon name="checkmark-outline" size={18} color={THEME.white} />
+                  <Icon name="checkmark-outline" size={18} color={THEME.primary} />
                 )}
               </View>
               <Text
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     marginBottom: 10,
     marginTop: 10,
   },
@@ -221,11 +221,11 @@ const styles = StyleSheet.create({
     marginRight: 6,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: THEME.white,
+
   },
   radioLabel: {
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
   },
   limitInfo: {
     padding: 15,

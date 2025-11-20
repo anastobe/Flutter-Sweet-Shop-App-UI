@@ -53,6 +53,14 @@ const Images = {
     chipandPinTransaction: require("../../assets/figmaImages/chipandPinTransaction/grommet-icons_transaction.png"),
     internationalTransaction: require("../../assets/figmaImages/internationalTransaction/Vector.png"),
     topcurveGradient: require("../../assets/figmaImages/topcurveGradient/Rectangle.png"),
+    increase: require("../../assets/figmaImages/increase/Vector.png"),
+    decrease: require("../../assets/figmaImages/decrease/Vector.png"),
+    uploadPhoto: require("../../assets/figmaImages/uploadPhoto/Vector.png"),
+    
+    //payment
+    toMyAcc: require("../../assets/figmaImages/toMyAcc/pt_cards_icons.png"),
+    international: require("../../assets/figmaImages/international/pt_cards_icons.png"),
+    bank: require("../../assets/figmaImages/bankTransfer/bank.png"),
 
     //check
     checking2: require("../../assets/images/checking2.png"),

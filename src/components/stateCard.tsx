@@ -1,21 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet,TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../styles"; // apne path ke hisaab se import karo
 import Metrics from "../styles/metrics";
+import { Images } from "../config";
 
 const StatCard = ({ title, amount, percentage, isPositive, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <Text style={styles.title}>{title}</Text>
-      <View style={{ flexDirection: "row", alignItems: "flex-end" }}>
+      <View style={{ flexDirection: "row", alignItems: "flex-end",justifyContent: "space-between" }}>
         <Text style={styles.amount}>{amount}</Text>
         <View style={styles.percentRow}>
-          <Icon
-            name={isPositive ? "arrow-up-outline" : "arrow-down-outline"}
-            size={14}
-            color={isPositive ? THEME.primary : THEME.medRed}
-          />
+          <Image tintColor={isPositive ? THEME.primary : THEME.medRed} source={isPositive ? Images.increase : Images.decrease} style={{ width: 15, height: 15, marginRight: 5.8 }} resizeMode="contain" />
+         
           <Text
             style={[
               styles.percentage,
@@ -39,7 +37,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: Metrics.width/2- 20,
     justifyContent: "center",
-    paddingLeft: 10
+    paddingHorizontal: 10
   },
   title: {
     color: THEME.white,

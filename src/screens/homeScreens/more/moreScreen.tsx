@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
     marginTop: 20,
-    marginBottom: 30
+    marginBottom: 10
   },
   boxTitleTextHeading:{
     fontFamily: FONTFAMILY.Medium,

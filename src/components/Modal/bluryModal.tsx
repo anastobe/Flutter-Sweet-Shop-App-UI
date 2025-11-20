@@ -1,0 +1,233 @@
+// FreezeCardModal.tsx
+import React from 'react';
+import {
+  Modal,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+  Image,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import CustomButton from '../customButton';            // adjust the import to your path
+import {
+  THEME,
+  FONTFAMILY,
+  FONT_SIZES,
+} from '../../styles';
+import { scale } from 'react-native-size-matters';
+import { ImageBackground } from 'react-native';
+import { BlurView } from "@react-native-community/blur";
+import { Images } from '../../config';
+
+type Props = {
+  visible: boolean;
+  onClose: () => void;
+  btnLoader: boolean;
+  showCancelBtn: Boolean;
+  onConfirm: () => void;
+  title: string;
+  showSubBody?: boolean;
+  body: string;
+  subBody?: string;
+  iconName?: string;
+  confirmText?: string;
+  backImg?: any;
+  style?: any;
+  downConfirmText?: any
+};
+
+const BluryModal: React.FC<Props> = ({
+  visible,
+  onClose,
+  btnLoader,
+  showCancelBtn,
+  onConfirm,
+  title,
+  showSubBody,
+  body,
+  subBody = '',
+  iconName = 'snow-outline',
+  confirmText = '',
+  downConfirmText = "",
+  backImg,
+  style
+}) => {
+  return (
+<View style={{ width: '100%', paddingBottom: 20, paddingHorizontal: 0 }}>
+  
+  <View style={[{ 
+    borderRadius: 16, 
+    overflow: "hidden",
+    padding: 0 
+  },styles.modal]}>
+    
+    {/* 🔥 Background blur */}
+    <BlurView
+      style={StyleSheet.absoluteFill}
+      blurAmount={13}        // 25–30
+      blurType="chromeMaterialDark"       // iOS
+    //   reducedTransparencyFallbackColor="#000"
+    //   blurAmount={10}    // 👈 increase this (20–30)
+    //   reducedTransparencyFallbackColor="rgba(255,255,255,0.15)" // 👈 optional
+    />
+
+    {/* 🔥 Actual modal content (THIS WAS OUTSIDE) */}
+    {/* <View style={[styles.modal]}> */}
+      
+      {/* CLOSE BUTTON */}
+      <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
+        <Text style={styles.closeText}>×</Text>
+      </TouchableOpacity>
+
+      {/* ICON */}
+      <View style={{ alignItems: 'center', marginTop: 20 }}>
+        <View style={styles.iconCircle}>
+          <Icon name={iconName} size={40} color={THEME.textPrimary} />
+        </View>
+      </View>
+
+      {/* TITLE */}
+      <Text style={styles.titles}>{title}</Text>
+
+      {/* BODY */}
+      {body && <Text style={styles.description}>{body}</Text>}
+
+      {/* SUB BODY */}
+      {showSubBody && (
+        <View style={styles.containerAlert}>
+          <View style={styles.ICONcONT}>
+            <Icon name={'alert-circle-outline'} size={22} color={THEME.primary} />
+          </View>
+          <Text style={styles.descriptionbelow}>{subBody}</Text>
+        </View>
+      )}
+
+      {/* CONFIRM BUTTON */}
+      <CustomButton
+        loading={btnLoader}
+        btnContSty={styles.forgetTxt}
+        title={confirmText}
+        onPress={onConfirm}
+      />
+
+      {/* CANCEL BUTTON */}
+      {showCancelBtn && <CustomButton
+        loading={false}
+        btnContSty={{ backgroundColor: THEME.white, width: '100%' }}
+        title={downConfirmText}
+        onPress={onClose}
+      />}
+
+    {/* </View> */}
+
+  </View>
+
+</View>
+
+  );
+};
+
+export default BluryModal;
+
+/* ------------------------------------------------------------------ */
+/* 🔽  Styles – copied verbatim from the object you provided + backdrop */
+
+const styles = StyleSheet.create({
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.35)',
+  },
+
+  modal: {
+    // backgroundColor:  'rgba(0,0,0,0.8)',
+    borderRadius: 16,
+    // opacity: 0.8,
+    padding: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // marginTop: 'auto',
+    // marginBottom: 'auto',
+    
+    // width: '100%'
+  },
+  closeBtn: {
+    position: 'absolute',
+    top: 10,
+    right: 15,
+    width: 35, height: 35, justifyContent: "center", alignItems: "center"
+  },
+  closeText: {
+    fontSize: 36,
+    color: THEME.white,
+  },
+  iconCircle: {
+    backgroundColor: THEME.primary,
+    borderRadius: 50,
+    width: scale(65),
+    height: scale(65),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  icon: {
+    width: scale(30),
+    height: scale(30),
+    resizeMode: 'contain',
+  },
+  titles: {
+    fontFamily: FONTFAMILY.SemiBold,
+    fontSize: FONT_SIZES.twosix,
+    color: THEME.white,
+    textAlign: 'center',
+  },
+  description: {
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.onefour,
+    color: THEME.white,
+    lineHeight: 18,
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  containerAlert: {
+    // backgroundColor: THEME.textPrimary,
+    flexDirection: 'row',
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    marginTop: 10,
+  },
+  descriptionbelow: {
+    fontFamily: FONTFAMILY.Light,
+    fontSize: FONT_SIZES.onefour,
+    color: THEME.white,
+    marginLeft: 10,
+    // flex: 1,
+  },
+  okButton: {
+    backgroundColor: '#e184ff',
+    borderRadius: 25,
+    width: '100%',
+    paddingVertical: 12,
+  },
+  ICONcONT: {
+    width: scale(36),
+    height: scale(36),
+    // backgroundColor: THEME.lightGrey,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+  },
+  forgetTxt: {
+    marginTop: 20,
+    marginBottom: 15,
+    width: '100%',
+  },
+  cancelTxt: {
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: FONT_SIZES.onesix,
+    color: THEME.primary,
+  },
+});

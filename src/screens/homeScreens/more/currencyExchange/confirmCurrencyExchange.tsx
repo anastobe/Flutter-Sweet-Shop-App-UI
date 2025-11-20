@@ -65,7 +65,7 @@ const ConfirmCurrencyExchange = () => {
     <View>
       <InputField
         renderRightInput={renderRightInput}
-        margTp={70}
+        margTp={30}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="0.00"
@@ -166,13 +166,14 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
+    marginBottom: 15,
     marginTop: 10,
   },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
+    lineHeight: 20
   },
   summaryBox: {
     borderRadius: 1,
@@ -229,12 +230,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   inputNumber: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
   inputNumberNum:{
-    fontSize: FONT_SIZES.twozero,
+    fontSize: FONT_SIZES.oneeight,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },

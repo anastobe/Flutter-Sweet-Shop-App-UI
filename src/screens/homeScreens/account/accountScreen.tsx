@@ -275,8 +275,8 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   dot: {
-    height: 6,
-    width: 6,
+    height: 8,
+    width: 8,
     borderRadius: 10,
     backgroundColor: THEME.SlateBlue,
     marginHorizontal: 4,
@@ -331,19 +331,19 @@ const styles = StyleSheet.create({
   name: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 10,
   },
   subname: {
     fontSize: FONT_SIZES.oneZero,
     fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 10,
   },
   amount: {
     fontSize: FONT_SIZES.oneeight,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
   },
 
 

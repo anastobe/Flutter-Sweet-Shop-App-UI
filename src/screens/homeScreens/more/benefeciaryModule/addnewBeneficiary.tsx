@@ -16,6 +16,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { useAddNewBeneficiaryViewModel } from '../../../../viewModels/homeViewModel/more/useAddNewBeneficiaryViewModel';
 import FreezeCardModal from '../../../../components/Modal/FreezeCardModal ';
 import { Images } from '../../../../config';
+import Metrics from '../../../../styles/metrics';
 
 const AddNewBeneficiary = () => {
   const vm = useAddNewBeneficiaryViewModel();
@@ -29,7 +30,7 @@ const AddNewBeneficiary = () => {
       {vm.BENEFICIARY_TYPES.map((item) => (
         <View key={item.key} style={styles.row}>
           <TouchableOpacity
-            style={[styles.boxShape, { borderColor: THEME.primary }]}
+            style={[styles.boxShape, { borderColor:vm.checked === item.key ? THEME.primary : THEME.white }]}
             onPress={() => vm.handlePressType(item.key)}
           >
             {vm.checked === item.key && (
@@ -177,14 +178,6 @@ const AddNewBeneficiary = () => {
 
           {renderTransactionType()}
           {renderInputFields()}
-
-          <CustomButton
-            btnContSty={styles.forgetTxt}
-            title="Save Beneficiary"
-            loading={false}
-            onPress={vm.openConfirmationModal}
-          />
-
           <Modal
             isVisible={vm.open}
             isKeyboardAvoidingView
@@ -194,6 +187,16 @@ const AddNewBeneficiary = () => {
         </View>
         {renderModal()}
       </ScrollView>
+            
+        <View style={{ backgroundColor: "#0e1546", width: Metrics.width, position: "absolute", bottom: 0, alignSelf: "center" }} >
+          <CustomButton
+            btnContSty={styles.forgetTxt}
+            title="Save Beneficiary"
+            loading={false}
+            onPress={vm.openConfirmationModal}
+            />
+        </View>
+
     </MainContainer>
   );
 };
@@ -212,7 +215,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 34,
+    marginBottom: 24,
+    lineHeight: 20
   },
   container: { flex: 1, backgroundColor: THEME.white },
   checkmarkTitle: {
@@ -225,8 +229,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
-    marginBottom: 24,
-    marginTop: 30
+    marginBottom: 14,
+    marginTop: 20
   },
   boxShape: { width: 20, height: 20, borderWidth: 1.5, borderRadius: 50 },
   row: { flexDirection: 'row', alignItems: 'center', marginVertical: 4 },
@@ -253,7 +257,7 @@ const styles = StyleSheet.create({
     height: scale(55),
     marginLeft: 10,
   },
-  forgetTxt: { marginTop: 43, marginBottom: 10 },
+  forgetTxt: { marginTop: 10, marginBottom: 20, marginHorizontal: 20 },
   modal: {
     backgroundColor: 'rgba(64, 64, 65, 0.98)',
     borderRadius: 16,

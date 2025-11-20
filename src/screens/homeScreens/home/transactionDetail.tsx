@@ -81,7 +81,8 @@ function TransactionDetail(props) {
   function renderUpload() {
     return(
         <TouchableOpacity onPress={openImagePicker} style={styles.downloadCont} >
-         <Icon name={"download-outline"} size={25} color={THEME.primary} />
+          <Image source={Images.uploadPhoto} style={{ width: 20, height: 20 }} resizeMode="contain" />
+         {/* <Icon name={"download-outline"} size={25} color={THEME.primary} /> */}
          <Text style={styles.txtUpload}>Upload Photo or Receipt</Text>
         </TouchableOpacity>
     )
@@ -144,7 +145,7 @@ function TransactionDetail(props) {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
-      <View style={{ marginHorizontal: 16 }}>
+      <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Transaction Details</Text>
         <Text style={styles.subtitle}>
           Transport for london.
@@ -183,6 +184,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.primary,
+    marginTop: 12
   },
   forgetTxt: { marginTop: 15, marginBottom: 50 }, forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
   summaryBox: { borderRadius: 1, padding: 10, marginBottom: 10 },

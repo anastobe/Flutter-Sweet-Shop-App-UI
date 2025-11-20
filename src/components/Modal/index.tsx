@@ -15,6 +15,7 @@ import { THEME } from "../../styles";
 
 type ModalProps = {
   isVisible: boolean;
+  backOpacityColor: any;
   isKeyboardAvoidingView?: boolean;
   children: React.ReactChild[] | React.ReactChild;
   onClose?: (event: GestureResponderEvent) => void;
@@ -30,6 +31,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
     children,
     onClose = () => {},
     contentStyles = {},
+    backOpacityColor,
   } = props;
 
   const { colors } = useTheme();
@@ -45,7 +47,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
   };
   return (
     <RNModal animationType="slide" transparent={true} visible={isVisible}>
-      <View style={[styles.centeredView,{  backgroundColor: 'rgba(0,0,0,0.5)', }]}>
+      <View style={[styles.centeredView,{  backgroundColor: backOpacityColor ? backOpacityColor : 'rgba(0,0,0,0.5)', }]}>
         <View style={[styles.modalView(THEME.white) ]}>
 
           {isKeyboardAvoidingView ? (

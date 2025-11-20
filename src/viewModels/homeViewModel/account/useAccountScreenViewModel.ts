@@ -73,7 +73,7 @@ export const useAccountScreenViewModel = () => {
   ];
 
   const features = [
-    { icon: Images.add, text: `Add\nBeneficiary`, onPress: () => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY) },
+    { icon: Images.add, text: `Add Beneficiary`, onPress: () => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY) },
     { icon: Images.transfer, text: "Transfer", onPress: () => navigation.navigate(HOME_ROUTES.MAKE_PAYMENT) },
     { icon: Images.detail, text: "View Details", onPress: () => manageRef?.current?.open() },
     { icon: Images.convert, text: "Convert", onPress: () => navigation.navigate(HOME_ROUTES.CURRENCY_EXCHANGE) },

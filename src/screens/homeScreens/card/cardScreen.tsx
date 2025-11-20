@@ -33,6 +33,7 @@ import { DATA } from '../../../utils/data';
 import { StatusBar } from 'react-native';
 import { ImageBackground } from 'react-native';
 import Metrics from '../../../styles/metrics';
+import BluryModal from '../../../components/Modal/bluryModal';
 
 const CardScreen = () => {
   const navigation = useNavigation<any>();
@@ -241,17 +242,19 @@ const CardScreen = () => {
            {TransactionList()}
            {/* Modals */}
            <Modal
+             backOpacityColor={'rgba(0,0,0,0.4)'}
              isVisible={vm.modalVisible}
              isKeyboardAvoidingView={true}
              children={
-               <FreezeCardModal
-                 style={{ flex: 1, paddingHorizontal: 20 }}
+               <BluryModal
+                style={{ flex: 1, paddingHorizontal: 20 }}
                  backImg={Images.addCardGradient}
                  visible={vm.modalVisible}
                  onClose={() => vm.setModalVisible(false)}
                  btnLoader={vm.isPendingfreezUnFreezCard}
                  onConfirm={() => vm.freezCardApi('freeze')}
                  showSubBody={true}
+                 showCancelBtn={false}
                  downConfirmText={'Cancel'}
                  title={'Freeze This Card?'}
                  body={
@@ -268,10 +271,12 @@ const CardScreen = () => {
            />
 
            <Modal
+             backOpacityColor={'rgba(0,0,0,0.4)'}
              isVisible={vm.modalVisibleUnfreez}
              isKeyboardAvoidingView={true}
              children={
-               <FreezeCardModal
+               <BluryModal
+                showCancelBtn={false}
                  style={{ flex: 1, paddingHorizontal: 20 }}
                  backImg={Images.addCardGradient}
                  visible={vm.modalVisibleUnfreez}
@@ -720,8 +725,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   dot: { width: 8, height: 8, borderRadius: 5, marginHorizontal: 2 },
-  dotInactive: { backgroundColor: THEME.lightGrey },
-  dotActive: { backgroundColor: THEME.textPrimary },
+  dotInactive: { backgroundColor: THEME.SlateBlue },
+  dotActive: { backgroundColor: THEME.white },
 });
 
 

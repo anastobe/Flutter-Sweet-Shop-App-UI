@@ -50,11 +50,11 @@ export default function SetLimits({...props}) {
               <View
                 style={[
                   styles.radio,
-                  { borderColor: limitType === type ? THEME.white : THEME.white },
+                  { borderColor: limitType === type ? THEME.primary : THEME.white },
                 ]}
               >
                 {limitType === type && (
-                  <Icon name="checkmark-outline" size={16} color={THEME.white} />
+                  <Icon name="checkmark-outline" size={16} color={THEME.primary} />
                 )}
               </View>
               <Text
@@ -97,7 +97,28 @@ export default function SetLimits({...props}) {
     return (
       <View style={styles.limitInfo}>
         <Text style={styles.limitTitle}>{limitType} Limit</Text>
-        <Text style={styles.limitDetail}>
+
+<View style={{ flexDirection: "row", flexWrap: "wrap", }}>
+  <Text style={styles.limitDetail}>
+    You’ve set a limit of {" "}
+  </Text>
+
+  <View style={{
+    backgroundColor: THEME.primary,
+    borderRadius: 6,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    alignSelf: "center"
+  }}>
+    <Text style={styles.boldText}>€{spendingLimit || '0'}/{limitType.toLowerCase()}</Text>
+  </View>
+
+  <Text style={styles.limitDetail}>
+    {" "}for this card.
+  </Text>
+</View>
+
+        {/* <Text style={styles.limitDetail}>
           You've set a limit of{' '}
           <View style={{ backgroundColor: THEME.primary, borderRadius: 6, paddingHorizontal: 3 }} >
             <Text style={styles.boldText}>
@@ -107,7 +128,7 @@ export default function SetLimits({...props}) {
           
           {' '}
           for this card.
-        </Text>
+        </Text> */}
         <Text style={styles.limitNote}>
           This means your card won’t allow spending above this amount within a
           calendar month.

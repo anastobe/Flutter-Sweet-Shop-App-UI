@@ -362,7 +362,7 @@ marginTop: 30, marginBottom: 20
     fontSize: FONT_SIZES.onesix,
     color: THEME.white,
     textAlign: 'center',
-    lineHeight: 18
+    lineHeight: 20
 
   },
 

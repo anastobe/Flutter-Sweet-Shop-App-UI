@@ -23,7 +23,7 @@ export const useHomeViewModel = () => {
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
 
   const Sendoption = [ 
-    { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency\nAccount` },
+    { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency Account` },
     { icon: Images.sendMoney, onPress: HOME_ROUTES.MAKE_PAYMENT, text: 'Send Money' },
   ];
 
