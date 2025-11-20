@@ -62,14 +62,14 @@ const MoreScreen = () => {
           TR_radius={10}
           onPress={vm.onPressCurrencyExchange}
         />
-        {/* <CardBox
+        <CardBox
           rotate="-45deg"
           titleLeft="Conversion history"
           iconRight="arrow-forward-outline"
           BL_radius={10}
           BR_radius={10}
           onPress={vm.ConversionHistory}
-        /> */}
+        />
       </View>
     );
   }

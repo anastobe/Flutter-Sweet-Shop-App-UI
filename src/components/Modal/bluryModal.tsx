@@ -66,8 +66,8 @@ const BluryModal: React.FC<Props> = ({
     {/* 🔥 Background blur */}
     <BlurView
       style={StyleSheet.absoluteFill}
-      blurAmount={13}        // 25–30
-      blurType="chromeMaterialDark"       // iOS
+      blurAmount={15}        // 25–30
+      blurType="dark"       // iOS
     //   reducedTransparencyFallbackColor="#000"
     //   blurAmount={10}    // 👈 increase this (20–30)
     //   reducedTransparencyFallbackColor="rgba(255,255,255,0.15)" // 👈 optional
