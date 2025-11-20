@@ -301,7 +301,15 @@ const TIME_LIMIT = [
       { value: 'Daily', label: 'Daily',},
   ]
 
+  
+const cardsScroll = [
+  { id: '1', lastDigits: '6243', amount: '£53,556.50' },
+  { id: '2', lastDigits: '6243', amount: '£9,842.00' },
+  { id: '3', lastDigits: '1122', amount: '£1,200.00' },
+];
+
 export { 
+  cardsScroll,
     Accounts,
     DATA,
     DATA_STATEMENT,

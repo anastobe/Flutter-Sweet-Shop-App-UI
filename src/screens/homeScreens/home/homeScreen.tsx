@@ -22,6 +22,7 @@ import Metrics from '../../../styles/metrics';
 import { ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native';
+import { cardsScroll } from '../../../utils/data';
 // import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
@@ -222,6 +223,34 @@ const renderBalanceCard = () => (
         </ImageBackground>
     )
   }
+
+  
+  
+
+
+const ScrollableCards = () => {
+  return (
+    <FlatList
+      data={cardsScroll}
+      keyExtractor={(item) => item.id}
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingHorizontal: 16, marginTop: 10 }}
+      renderItem={({ item }) => (
+        <LinearGradient
+          colors={['#0d1133', '#0a0f2b']}
+          style={styles.card}
+        >
+          <Text style={styles.lastDigits}>..... {item.lastDigits}</Text>
+          <Text style={styles.amountt}>{item.amount}</Text>
+          <Text style={styles.balanceTxt}>Balance</Text>
+        </LinearGradient>
+      )}
+    />
+  );
+};
+
+
  
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
@@ -231,12 +260,18 @@ const renderBalanceCard = () => (
 
          <ScrollView contentContainerStyle={{ paddingBottom: 100, marginTop: 10 }}>
           <GradientLineGraph marginTop={20} />
+          {ScrollableCards()}
           {renderCardFeature()}
           {renderTransactionList()}
          </ScrollView>
        
       </SafeAreaView>
     </ImageBackground>
+  );
+};
+
+export default HomeScreen;
+
 
     /* <MainContainer isFlatList barStyle="dark-content" mainContainerStyle={styles.container}>
         <LinearGradient
@@ -257,10 +292,6 @@ const renderBalanceCard = () => (
       {renderCardFeature()}
       {renderTransactionList()}
     </MainContainer> */
-  );
-};
-
-export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1},
@@ -469,4 +500,32 @@ dropdownItemText: {
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
+   card: {
+    width: Metrics.width * 0.45,
+    padding: 16,
+    marginRight: 14,
+    borderRadius: 16,
+    justifyContent: 'space-between',
+  },
+  lastDigits: {
+    color: THEME.white,
+    fontSize: FONT_SIZES.twozero,
+    fontFamily: FONTFAMILY.Medium
+  },
+  amountt: {
+    color: THEME.white,
+    fontSize: FONT_SIZES.oneeight,
+    fontFamily: FONTFAMILY.Medium,
+    marginTop: 6,
+  },
+  balanceTxt: {
+    color: THEME.white,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Medium,
+    marginTop: 4,
+  },
+
+
+
+  
 });

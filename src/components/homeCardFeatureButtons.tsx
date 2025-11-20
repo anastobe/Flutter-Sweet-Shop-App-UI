@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     justifyContent: "space-evenly", 
     alignItems: "center",
-    marginTop:15 
+    marginTop:17 
   },
   featureItem: {
     alignItems: 'center',
