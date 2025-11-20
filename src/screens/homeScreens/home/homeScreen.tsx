@@ -317,16 +317,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30
   },
-  headerContainer: {
-        height: 300,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30
-
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // marginHorizontal: 20,
-    // marginTop: 20,
-  },
   headerRight: { flexDirection: 'row', marginTop: 15,  height: 50, alignItems: "center" },
 //   dropdownContainer: {
 //   backgroundColor: THEME.white,
