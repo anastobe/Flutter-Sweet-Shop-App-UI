@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 16,
+    marginBottom: 15,
     marginTop: 10,
   },
   subtitle: {
@@ -241,6 +241,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     marginBottom: 21,
+    lineHeight: 20
   },
   forgetTxt: { marginTop: 10, marginBottom: 20, backgroundColor: THEME.primary },
   label: {

@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
+    marginBottom: 15,
     marginTop: 10,
   },
   subtitle: {
@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     marginBottom: 30,
+    lineHeight: 20
   },
   pickerWrapper: {
     borderWidth: 1,

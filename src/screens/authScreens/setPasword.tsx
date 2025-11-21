@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    color: THEME.primary,
+    color: THEME.white,
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.threesix,
     marginBottom: scale(10),
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     lineHeight: 35,
   },
   titlesub: {
-    color: THEME.primary,
+    color: THEME.white,
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onesix,
     marginBottom: scale(40),

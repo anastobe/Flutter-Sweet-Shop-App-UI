@@ -219,8 +219,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
-    marginBottom: 20,
+    color: THEME.white,
+    marginBottom: 15,
     marginTop: 10,
   },
   subtitle: {
@@ -228,6 +228,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     marginBottom: 10,
+    lineHeight: 20
   },
   forgetTxt: { marginTop: 30, marginBottom: 50 }, forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
   summaryBox: { borderRadius: 1, padding: 10, marginBottom: 10 },

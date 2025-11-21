@@ -76,16 +76,17 @@ export default function PinSecurityView({...props}) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
-    marginBottom: 10,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+    marginBottom: 15,
     marginTop: 10,
   },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
+    lineHeight: 20,
     marginBottom: 20,
   },
   forgetTxt: { marginTop: 20, marginBottom: 20 },

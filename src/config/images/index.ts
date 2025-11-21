@@ -63,6 +63,8 @@ const Images = {
     toMyAcc: require("../../assets/figmaImages/toMyAcc/pt_cards_icons.png"),
     international: require("../../assets/figmaImages/international/pt_cards_icons.png"),
     bank: require("../../assets/figmaImages/bankTransfer/bank.png"),
+    freezBackground: require("../../assets/figmaImages/freezBackground/Frame.png"),
+    
 
     //check
     checking2: require("../../assets/images/checking2.png"),

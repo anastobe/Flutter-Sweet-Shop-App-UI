@@ -142,7 +142,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
+    color: THEME.white,
     marginBottom: 10,
     marginTop: 10,
   },

@@ -68,7 +68,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: THEME.lightGrey,
     paddingBottom: 20,
-    textAlign: "center"
+    textAlign: "center",
+    lineHeight: 20
   },
 
   textBox: {

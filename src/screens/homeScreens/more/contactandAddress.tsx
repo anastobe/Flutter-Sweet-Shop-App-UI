@@ -129,10 +129,10 @@ export default ContactAddress;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
-    marginBottom: 20,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+    marginBottom: 30,
     marginTop: 10,
   },
   forgetTxt: { marginTop: 20, marginBottom: 50 },
