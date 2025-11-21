@@ -23,6 +23,10 @@ export const AuthStack: AuthScreenStacksTypes = [
     name: Auth_ROUTES.LOGIN,
     component: Login,
   },
+      {
+    name: Auth_ROUTES.WELCOME,
+    component: Welcome,
+  },
   {
     name: Auth_ROUTES.FORGETPASSWORD,
     component: ForgetPassword,
@@ -35,10 +39,7 @@ export const AuthStack: AuthScreenStacksTypes = [
     name: Auth_ROUTES.CREATEACCOUNT,
     component: CreateAccount,
   },
-  {
-    name: Auth_ROUTES.WELCOME,
-    component: Welcome,
-  },
+
     {
     name: Auth_ROUTES.LOGIN_SECURE_PASS,
     component: LoginSecurePassword,

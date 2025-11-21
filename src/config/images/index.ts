@@ -46,7 +46,9 @@ const Images = {
   exchangeRate: require("../../assets/figmaImages/exchangeRate/Vector.png"),
   universalGradientBackground: require("../../assets/figmaImages/universalGradientBackground/Screen.png"),
   backArrow: require("../../assets/figmaImages/backArrow/Icons.png"),
+  curveLine: require("../../assets/figmaImages/curveLine/Vector.png"),
   
+
   //card
     atmWithdrawl: require("../../assets/figmaImages/atmWithdrawl/Icons.png"),
     onlinePayments: require("../../assets/figmaImages/onlinePayments/Icons.png"),
