@@ -13,12 +13,18 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 import {LoaderFullScreen, } from "./src/components/activityIndicator";
 import { isRootDetected, isEmulator, isDebuggable } from 'react-native-root-detection';
+import SplashScreen from "react-native-splash-screen";
 // import { initIdleTimer, resetActivity } from "./src/security/IdleTimer";
 // import { TouchableWithoutFeedback } from "react-native";
 
 const App: React.FC = () => {
 
     const queryClient = new QueryClient();
+
+  React.useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
 
   //     const handleLogout = () => {
   //   Alert.alert(

@@ -43,6 +43,7 @@
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^4.13.1",
     "react-native-size-matters": "^0.4.2",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^15.14.0",
     "react-native-switch-toggle": "^2.2.1",
     "react-native-toast-message": "^2.3.3",

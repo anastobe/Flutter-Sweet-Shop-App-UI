@@ -10,7 +10,7 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
-      android:theme="@style/AppTheme"
+      android:theme="@style/SplashTheme"
       android:usesCleartextTraffic="true"
       android:supportsRtl="true">
 <activity
@@ -20,6 +20,7 @@
     android:launchMode="singleTask"
     android:windowSoftInputMode="adjustResize"
     android:screenOrientation="portrait"
+    android:theme="@style/SplashTheme"
     android:exported="true">
 
     <!-- This makes your app show on home screen -->
