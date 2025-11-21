@@ -40,31 +40,7 @@ const CardScreen = () => {
   const vm = useCardScreenViewModel();
 
   const currentItem = vm.getCardsData?.results?.values?.[vm.currentIndex];
-
-  function pressBack() {
-    navigation.goBack();
-  }
-
-  const BalanceCard = ({
-    label = 'Available Balance',
-    amount = '£1,250.00',
-  }) => (
-    <View style={styles.balanceContainer}>
-      <View style={styles.amountBox}>
-        <Text style={styles.balanceAmountTxt}>{amount}</Text>
-      </View>
-      <Text style={styles.balanceTxt}>{label}</Text>
-    </View>
-  );
-
-  const renderRightInput = () => (
-    <View style={styles.renderRightInputContainer}>
-      <Text style={styles.inputNumber}>(Recipient Gets)</Text>
-      <View style={styles.inputNumbergbpcont}>
-        <Text style={styles.inputNumbergbp}>GBP</Text>
-      </View>
-    </View>
-  );
+ 
 
   function renderPopup(icon: any, title: any, btnTxt: any) {
     return (
