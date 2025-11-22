@@ -532,7 +532,7 @@ export const TabStack: React.FC = ({ }) => {
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             return (
-              <RenderTab focus={focused} txt="More" img={Images.settingTab} sty={{ borderTopRightRadius: 0, }} />
+              <RenderTab focus={focused} txt="Settings" img={Images.settingTab} sty={{ borderTopRightRadius: 0, }} />
             )
           }
         }}
@@ -561,7 +561,7 @@ const styles = StyleSheet.create<any>({
     // justifyContent: 'center',
     // alignItems: 'center',
     // backgroundColor: THEME.medRed,
-    top: scale(5),
+    top: 10,
 
   }
 

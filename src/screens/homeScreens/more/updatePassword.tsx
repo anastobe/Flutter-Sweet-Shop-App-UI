@@ -29,7 +29,7 @@ export default function UpdatePassword() {
 
   function renderRule(iconCondition: boolean, txt: string) {
     return (
-      <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
+      <View style={{ flexDirection: 'row', paddingVertical: 1, alignItems: "center" }}>
         <Icon
           name={iconCondition ? 'checkmark-circle-outline' : 'close-circle-outline'}
           size={25}
@@ -49,10 +49,10 @@ export default function UpdatePassword() {
       customeStyle={{ paddingHorizontal: 20 }}
       mainContainerStyle={styles.container}
     >
-      <Text style={styles.title}>Update Password</Text>
+      <Text style={styles.title}>Change Password</Text>
 
       <InputField
-        margTp={20}
+        margTp={15}
         margBtm={20}
         image={secure ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
@@ -86,7 +86,7 @@ export default function UpdatePassword() {
       {renderRule(rules.specialChar(newPassword), 'At least 1 special character (e.g., !@#$%^&*)')}
 
       <InputField
-        margTp={10}
+        margTp={30}
         margBtm={10}
         image={secure3 ? 'eye-outline' : 'eye-outline'}
         autoCapital="none"
@@ -117,17 +117,17 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
+    marginBottom: 15,
     marginTop: 10,
   },
   ruleText: {
     marginLeft: 5,
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: FONT_SIZES.onefour,
     color: THEME.white,
-    fontFamily: FONTFAMILY.Regular,
+    fontFamily: FONTFAMILY.Light,
   },
   forgetTxt: {
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 20,
   },
 });

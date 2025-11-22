@@ -31,7 +31,7 @@ const AdminBeneficiaryStatus = () => {
             onPress={() => vm.handlePressType(item.key)}
           >
             {vm.checked === item.key && (
-              <Icon name="checkmark" size={15} color={THEME.white} />
+              <Icon name="checkmark" size={13} color={THEME.white} />
             )}
           </TouchableOpacity>
           <Text style={styles.label}>{item.label}</Text>
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
    height: scale(50),
        width: Metrics.width/2-30
       },
-  boxShape: { width: 20, height: 20, borderWidth: 1.5, borderRadius: 50 },
+  boxShape: { width: 20, height: 20, borderWidth: 1.5, borderRadius: 50,justifyContent: "center", alignItems: 'center' },
   row: { flexDirection: 'row', alignItems: 'center', marginVertical: 4 },
   label: {
     marginLeft: 8,

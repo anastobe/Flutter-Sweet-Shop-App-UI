@@ -20,12 +20,14 @@ const InfoRow = ({ icon, label, value }: { icon: any; label: string; value: stri
   </View>
 );
 
-const BalanceCard = ({ label, amount }: { label: string; amount: string }) => (
-  <View style={styles.balanceContainer}>
-    <Text style={styles.balanceAmount}>{amount}</Text>
-    <Text style={styles.balanceLabel}>{label}</Text>
-  </View>
-);
+  const BalanceCard = ({ label = 'Available Balance', amount = '£1,250.00' }) => (
+    <View style={styles.containerAMOUNT}>
+      <View style={styles.amountBox}>
+        <Text style={styles.balanceAmountTxt}>{amount}</Text>
+      </View>
+      <Text style={styles.balanceTxt}>{label}</Text>
+    </View>
+  );
 
 const MyAccountTransfer = () => {
   const {
@@ -158,23 +160,38 @@ const styles = StyleSheet.create({
     color: THEME.white,
   },
   summaryBox: { borderRadius: 10, marginBottom: 10 },
-  balanceContainer: {
+
+  containerAMOUNT: {
     backgroundColor: THEME.whitergba,
-    padding: scale(10),
-    borderRadius: scale(12),
-    alignItems: 'center',
-    justifyContent: 'center',
+    // padding: scale(8),
+    width: "100%",
+    height: 80,
+    // alignSelf: "center",
     marginVertical: 15,
+    borderRadius: scale(12),
+    alignItems: "center",
+    // justifyContent: "center",
   },
-  balanceLabel: {
+  amountBox: {
+    // paddingHorizontal: scale(10),
+    // paddingVertical: scale(4),
+    // borderRadius: scale(6),
+    // marginTop: 5,
+  },
+  balanceTxt: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
+    // marginTop: 5,
   },
-  balanceAmount: {
+  balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.threetwo,
     color: THEME.white,
+    // backgroundColor :'red',
+    // paddingBottom: 5,
+    marginTop: 5,
+    paddingBottom: 1,
   },
   rightInputContainer: {
     height: scale(55),

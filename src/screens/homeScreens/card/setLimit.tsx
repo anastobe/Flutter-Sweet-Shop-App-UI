@@ -54,7 +54,7 @@ export default function SetLimits({...props}) {
                 ]}
               >
                 {limitType === type && (
-                  <Icon name="checkmark-outline" size={16} color={THEME.primary} />
+                  <Icon name="checkmark-outline" size={14} color={THEME.primary} />
                 )}
               </View>
               <Text
@@ -296,6 +296,7 @@ const styles = StyleSheet.create({
   },
   limitNote: {
     fontSize: FONT_SIZES.onetwo,
+    lineHeight: 18,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     marginTop: 4,

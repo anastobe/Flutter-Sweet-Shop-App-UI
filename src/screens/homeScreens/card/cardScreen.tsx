@@ -44,7 +44,12 @@ const CardScreen = () => {
 
   function renderPopup(icon: any, title: any, btnTxt: any) {
     return (
-      <View style={styles.modal}>
+        <ImageBackground
+          imageStyle={{ borderRadius: 16 }}
+          source={Images.addCardGradient}
+          style={styles.modal}
+        > 
+
         <TouchableOpacity
           style={styles.closeBtn}
           onPress={() => vm.setopen(false)}
@@ -63,7 +68,7 @@ const CardScreen = () => {
           title={btnTxt}
           onPress={() => vm.setopen(false)}
         />
-      </View>
+        </ImageBackground>
     );
   }
 
@@ -91,9 +96,6 @@ const CardScreen = () => {
   const SlidingCards = () => {
     return (
       <View>
-        <View>
-          <Text style={styles.titleTop}>Manage Cards</Text>
-        </View>
         <FlatList
           data={vm.getCardsData?.results?.values}
           horizontal
@@ -176,7 +178,7 @@ const CardScreen = () => {
               </View>
             </TouchableOpacity>
           )}
-          contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 100 }}
+          contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 40 }}
         />
       </View>
     );
@@ -185,6 +187,7 @@ const CardScreen = () => {
   function Options() {
     return (
       <OptionsHeader
+        leftTxt={"Manage Cards"}
         showBackIcon={false}
         onPressNotification={() => Alert.alert('SHOW_CLIENT')}
         onPressAdd={() => vm.AddCardRef?.current?.open()}
@@ -283,7 +286,7 @@ const CardScreen = () => {
           bottomSheetRef={vm.AddCardRef}
           children={
             <AddCardPopup
-              backImg={Images.addCardGradient}
+              backImg={Images.manageCardGradient}
               onPress1={() => vm.HandleOnPress('1', navigation)}
               onPress2={() => vm.HandleOnPress('2', navigation)}
               style={{ flex: 1, paddingHorizontal: 20 }}
@@ -531,7 +534,7 @@ export default CardScreen;
 const styles = StyleSheet.create({
   container: { flex: 1 },
   headerContainer: {
-    height: Metrics.halfScreen - 20,
+    height: 300,
     width: Metrics.width,
     // backgroundColor: "red",
     borderBottomLeftRadius: 30,
@@ -633,11 +636,11 @@ const styles = StyleSheet.create({
   },
   titles: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.twotwo,
+    fontSize: FONT_SIZES.onesix,
     color: THEME.white,
     textAlign: 'center',
     lineHeight: 30,
-    marginTop: 20,
+    marginTop: 13,
   },
   cardHeadr: {
     flexDirection: 'row',
@@ -698,9 +701,9 @@ const styles = StyleSheet.create({
   dotsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical: 10,
+    marginTop: 15,
   },
-  dot: { width: 8, height: 8, borderRadius: 5, marginHorizontal: 2 },
+  dot: { width: 6, height: 6, borderRadius: 5, marginHorizontal: 2 },
   dotInactive: { backgroundColor: THEME.SlateBlue },
   dotActive: { backgroundColor: THEME.white },
 });

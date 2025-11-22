@@ -67,7 +67,7 @@ const HomeScreen = () => {
   const renderHeader = () => (
     <View>
       <View style={{ flexDirection: "row", justifyContent: 'space-between', marginHorizontal: 20 }} >
-      <View style={{marginTop: 60}} >
+      <View style={{marginTop: 20, }} >
         <Text style={styles.title}>Great to See You,</Text>
         <Text 
         numberOfLines={1} ellipsizeMode="tail"
@@ -162,18 +162,18 @@ const renderBalanceCard = () => (
 );
 
 
-  const renderGraph = () => (
-    <LineGraph
-      labels={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-      data={[10, 40, 20, 90, 75, 60, 100]}
-      lineColor={THEME.white}
-      bgColor={THEME.secondary}
-    />
-  );
+  // const renderGraph = () => (
+  //   <LineGraph
+  //     labels={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
+  //     data={[10, 40, 20, 90, 75, 60, 100]}
+  //     lineColor={THEME.white}
+  //     bgColor={THEME.secondary}
+  //   />
+  // );
 
   const renderCardFeature = () => (
     <View style={{ zIndex: -9, marginBottom: 35 }} >
-    <HomeCardFeatureButtons features={Sendoption} onPressbtn={(item: any) => handlePressCard(item)} />
+    <HomeCardFeatureButtons  features={Sendoption} onPressbtn={(item: any) => handlePressCard(item)} />
     </View>
   );
 
@@ -205,7 +205,7 @@ const renderBalanceCard = () => (
             </View>
           </TouchableOpacity>
         )}
-        contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 100 }}
+        contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 50 }}
       />
     </View>
   );
@@ -258,7 +258,7 @@ const ScrollableCards = () => {
       <StatusBar translucent backgroundColor={"#7c4fc3"} />
        {renderHeaderStuffs()}
 
-         <ScrollView contentContainerStyle={{ paddingBottom: 100, marginTop: 10 }}>
+         <ScrollView contentContainerStyle={{ paddingBottom: 0, marginTop: 10 }}>
           <GradientLineGraph marginTop={20} />
           {ScrollableCards()}
           {renderCardFeature()}
@@ -296,12 +296,13 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: { flex: 1},
   headerContainer: {
-    height: Metrics.halfScreen - 40,
+    height: 230,
     width: Metrics.width,
     // backgroundColor: "red",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
-    // position: 'absolute'
+    // position: 'absolute',
+    zIndex: 999
   },
   botmRadius:{
     borderBottomLeftRadius: 30,

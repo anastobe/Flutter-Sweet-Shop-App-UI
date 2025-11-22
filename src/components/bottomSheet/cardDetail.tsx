@@ -9,9 +9,9 @@ import { ImageBackground } from 'react-native';
 
 const CardDetail = ({ saveCureentDisplayData,style, onPress1,onPress2,getSucureCardData,isPendinggetSucureCard }:{ saveCureentDisplayData: any,style:any, onPress1: any, onPress2: any,getSucureCardData: any,isPendinggetSucureCard: any }) => {
 
-    function cardDetailBox(loading:any, onPress:any, title: any, desc: any, icon: any,iconColor: any) {
+    function cardDetailBox(loading:any, onPress:any, title: any, desc: any, icon: any,iconColor: any, show: any) {
         return(
-        <View style={styles.textBox}>
+        <View style={[styles.textBox,{    borderBottomWidth: show ? 0.5 : 0, }]}>
             <TouchableOpacity onPress={onPress} >
                 <Icon name={icon} size={22} color={iconColor} />
             </TouchableOpacity>
@@ -37,9 +37,9 @@ const CardDetail = ({ saveCureentDisplayData,style, onPress1,onPress2,getSucureC
       <Text style={styles.title}>{saveCureentDisplayData?.format} Card Details</Text>
       <Text style={styles.subtitle}>Use this information to make online purchases</Text>
 
-      {cardDetailBox(null, null ,"Card Number:", "DUMMY" , "copy-outline",THEME.white )}
-      {cardDetailBox(isPendinggetSucureCard, onPress1, "Valid Thru",saveCureentDisplayData?.expiry_date , "eye-outline",THEME.white )}
-      {cardDetailBox(isPendinggetSucureCard, onPress2,"CVV:", "DUMMY" , "eye-outline",THEME.white )}
+      {cardDetailBox(null, null ,"Card Number:", "DUMMY" , "copy-outline",THEME.white, true )}
+      {cardDetailBox(isPendinggetSucureCard, onPress1, "Valid Thru",saveCureentDisplayData?.expiry_date , "eye-outline",THEME.white, true )}
+      {cardDetailBox(isPendinggetSucureCard, onPress2,"CVV:", "DUMMY" , "eye-outline",THEME.white, false )}
 
     </ImageBackground>
   );
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
 
   textBox: {
     marginTop: 3,
-    borderBottomWidth: 0.5,
+
     // backgroundColor: "red",
     borderColor: THEME.lightGrey,
     flexDirection: "row",

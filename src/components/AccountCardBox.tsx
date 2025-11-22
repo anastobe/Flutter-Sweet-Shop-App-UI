@@ -19,7 +19,7 @@ const AccountCardBox = ({ total, onHold, available,onPress,onPresseye,showBalanc
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <TouchableWithoutFeedback>
-      <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: 55 }} >
+      <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: 50, }} >
         {showBalance ? <Text style={styles.total}>{total}</Text> : <Text style={styles.total}>**********</Text> }
           <TouchableOpacity onPress={onPresseye}  style={{  alignItems: "center", justifyContent: "center",height: 55 }}>
         <Icon name={showBalance ? "eye-outline" : "eye-off" } style={{ top: 2 }} size={20} color={THEME.white} />
@@ -49,8 +49,9 @@ const styles = StyleSheet.create({
     // padding: 20,
     // margin: 10,
     width: Metrics.width,
-    height: Metrics.halfScreen - 180,
-    justifyContent: "center"
+    marginTop: 10,
+    // height: 180,
+    // justifyContent: "center"
   },
   total: {
     fontSize: FONT_SIZES.threetwo,
@@ -69,10 +70,13 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginHorizontal: 23,
+    // backgroundColor: "red"
   },
   column: {
-    alignItems: "center",
-    flex: 1,
+    // alignItems: "center",
+    // backgroundColor: "red"
+    // flex: 1,
   },
   sub: {
     fontSize: FONT_SIZES.onesix,

@@ -34,7 +34,7 @@ const AddNewBeneficiary = () => {
             onPress={() => vm.handlePressType(item.key)}
           >
             {vm.checked === item.key && (
-              <Icon name="checkmark" size={15} color={THEME.primary} />
+              <Icon name="checkmark" size={13} color={THEME.primary} />
             )}
           </TouchableOpacity>
           <Text style={styles.label}>{item.label}</Text>
@@ -91,7 +91,7 @@ const AddNewBeneficiary = () => {
         dropdownData={vm.countryList} 
         margBtm={23}
         isOpen={vm.openDropdown === 'country'} 
-        onToggleDropdown={() => vm.toggleDropdown('country')}
+        onToggleDropdown={() =>{ vm.toggleDropdown('country') }}
         onDropdownSelect={(item:any )=> vm.setCountry(item.name)}
       />
 
@@ -103,7 +103,9 @@ const AddNewBeneficiary = () => {
         dropdownData={vm.currencyList} 
         margBtm={23}
         isOpen={vm.openDropdown === 'currency'} 
-        onToggleDropdown={() => vm.toggleDropdown('currency')}
+        onToggleDropdown={() =>{ vm.toggleDropdown('currency') 
+          // vm.setadjustScrollHeight(!vm.adjustScrollHeight)
+        }}
         onDropdownSelect={(item:any )=> vm.setCurrency(item.iso_code)}
       />
 
@@ -167,9 +169,9 @@ const AddNewBeneficiary = () => {
       pressBackArrow={vm.pressBackArrow}
       isFlatList={false}
       barStyle="dark-content"
-      mainContainerStyle={styles.container}
+      mainContainerStyle={styles.container}     
     >
-      <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 250 }}> 
         <View style={{ marginHorizontal: 20 }}>
           <Text style={styles.title}>Add Beneficiary</Text>
           <Text style={styles.subtitle}>
@@ -232,13 +234,14 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     marginTop: 20
   },
-  boxShape: { width: 20, height: 20, borderWidth: 1.5, borderRadius: 50 },
+  boxShape: { width: 20, height: 20, borderWidth: 1.5, borderRadius: 50, justifyContent: "center", alignItems: 'center' },
   row: { flexDirection: 'row', alignItems: 'center', marginVertical: 4 },
   label: {
     marginLeft: 8,
     fontSize: FONT_SIZES.onefour,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
+    lineHeight: 18
   },
   pickerWrapper: {
     borderWidth: 1,

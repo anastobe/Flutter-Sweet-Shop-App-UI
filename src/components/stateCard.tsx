@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#0e0e2f", // dark card background
     borderRadius: 12,
-    height: 80,
+    height: 81,
     width: Metrics.width/2- 20,
     justifyContent: "center",
     paddingHorizontal: 10
@@ -43,11 +43,13 @@ const styles = StyleSheet.create({
     color: THEME.white,
     fontSize: FONT_SIZES.oneone,
     fontFamily: FONTFAMILY.Medium,
+    lineHeight: 14
   },
   amount: {
     color: THEME.white,
-    fontSize: FONT_SIZES.twozero,
+    fontSize: FONT_SIZES.twotwo,
     fontFamily: FONTFAMILY.Medium,
+    marginTop: 6
   },
   percentRow: {
     flexDirection: "row",

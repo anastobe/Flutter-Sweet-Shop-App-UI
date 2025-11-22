@@ -10,6 +10,7 @@ import useMoreViewModel from '../../../viewModels/homeViewModel/more/useMoreView
 import CustomButton from '../../../components/customButton';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Images } from '../../../config';
+import { ImageBackground } from 'react-native';
 // import * as Keychain from 'react-native-keychain';
 
 const MoreScreen = () => {
@@ -172,7 +173,13 @@ const MoreScreen = () => {
 
       function renderPopup(icon,title,btnTxt) {
     return (
-      <View style={styles.modal}>
+        <ImageBackground
+          imageStyle={{ borderRadius: 16 }}
+          source={Images.addCardGradient}
+          style={styles.modal}
+        >
+
+      {/* <View style={styles.modal}> */}
         <TouchableOpacity style={styles.closeBtn} onPress={vm.onPressSecurity}>
           <Text style={styles.closeText}>×</Text>
         </TouchableOpacity>
@@ -189,7 +196,7 @@ const MoreScreen = () => {
           title={btnTxt}
           onPress={vm.onPressSecurity}
         />
-      </View>
+      </ImageBackground>
     );
   }
 
@@ -289,7 +296,7 @@ const styles = StyleSheet.create({
     forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
   headingTxtDiff: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: FONT_SIZES.onefive,
     color: THEME.white,
     paddingBottom: 5,
     marginTop: 15,
@@ -323,11 +330,11 @@ const styles = StyleSheet.create({
     },
     titles: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.twotwo,
+    fontSize: FONT_SIZES.onesix,
       color: THEME.white,
       textAlign: 'center',
       lineHeight: 30,
-      marginTop: 20
+      marginTop: 13
     },
     description: {
       marginTop: 10,

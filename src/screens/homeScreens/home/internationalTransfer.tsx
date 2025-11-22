@@ -29,7 +29,7 @@ const InternationalTransfer = () => {
   }
 
   const BalanceCard = ({ label = 'Available Balance', amount = '£1,250.00' }) => (
-    <View style={styles.balanceContainer}>
+    <View style={styles.containerAMOUNT}>
       <View style={styles.amountBox}>
         <Text style={styles.balanceAmountTxt}>{amount}</Text>
       </View>
@@ -149,32 +149,37 @@ const styles = StyleSheet.create({
     height: scale(55),
     marginLeft: 10,
   },
-  balanceContainer: {
+  containerAMOUNT: {
     backgroundColor: THEME.whitergba,
-    padding: scale(8),
-    width: '100%',
-    alignSelf: 'center',
+    // padding: scale(8),
+    width: "100%",
+    height: 80,
+    // alignSelf: "center",
     marginVertical: 15,
     borderRadius: scale(12),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    // justifyContent: "center",
   },
   amountBox: {
-    paddingHorizontal: scale(10),
-    paddingVertical: scale(4),
-    borderRadius: scale(6),
-    marginTop: 5,
+    // paddingHorizontal: scale(10),
+    // paddingVertical: scale(4),
+    // borderRadius: scale(6),
+    // marginTop: 5,
   },
   balanceTxt: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
+    // marginTop: 5,
   },
   balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.threetwo,
     color: THEME.white,
-    padding: 1,
+    // backgroundColor :'red',
+    // paddingBottom: 5,
+    marginTop: 5,
+     paddingBottom: 1,
   },
   renderRightInputContainer: {
     height: scale(55),

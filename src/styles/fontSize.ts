@@ -6,6 +6,7 @@ const FONT_SIZES = Object.freeze({
   oneone: moderateScale(11),
   onetwo: moderateScale(12),
   onefour: moderateScale(14),
+  onefive: moderateScale(15),
   onesix: moderateScale(16),
   oneeight: moderateScale(18),
   twozero: moderateScale(20),

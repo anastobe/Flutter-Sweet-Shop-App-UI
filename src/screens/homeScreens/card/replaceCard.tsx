@@ -185,19 +185,35 @@ export default function ReplaceCard(props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
-  title: {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
+  // title: {
+  //   fontSize: FONT_SIZES.threetwo,
+  //   fontFamily: FONTFAMILY.Light,
+  //   color: THEME.white,
+  //   marginBottom: 10,
+  //   marginTop: 10,
+  // },
+  // subtitle: {
+  //   fontSize: FONT_SIZES.onesix,
+  //   fontFamily: FONTFAMILY.Light,
+  //   color: THEME.white,
+  //   marginBottom: 20,
+  // },
+
+    title: {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
     marginBottom: 10,
     marginTop: 10,
   },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Light,
+    fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 20,
+    marginBottom: 30,
   },
+
+
   forgetTxt: { marginTop: 20, marginBottom: 20 },
   pickerWrapper: {
     borderWidth: 1,
@@ -270,6 +286,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
     marginLeft: 5,
+    lineHeight: 18,
     flex: 1,
   },
   ICONcONT: {

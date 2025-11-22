@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     height: scale(65),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
   },
   icon: {
     width: scale(30),
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
-    lineHeight: 18,
+    lineHeight: 20,
     textAlign: 'center',
     marginTop: 10,
   },
@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
     marginLeft: 10,
+    lineHeight: 20
     // flex: 1,
   },
   okButton: {

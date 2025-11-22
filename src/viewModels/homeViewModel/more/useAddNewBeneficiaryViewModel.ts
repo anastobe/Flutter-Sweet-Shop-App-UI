@@ -16,6 +16,8 @@ export const useAddNewBeneficiaryViewModel = () => {
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
   
+  const [adjustScrollHeight, setadjustScrollHeight] = useState(false);
+  const [adjustScrollHeightCountry, setadjustScrollHeightCountry] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [checked, setChecked] = useState('frontier');
@@ -142,6 +144,9 @@ export const useAddNewBeneficiaryViewModel = () => {
     modalVisible, 
     setModalVisible,
     openConfirmationModal,
-    
+    adjustScrollHeight,
+    setadjustScrollHeight,
+    adjustScrollHeightCountry, 
+    setadjustScrollHeightCountry
   };
 };

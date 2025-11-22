@@ -154,7 +154,7 @@ export default function InputField(props: any) {
         {/* Right Icon */}
         {image && (
           <Pressable onPress={onPress} style={styles.imgView}>
-            <Icon name={image} size={23} color={imagetintColor} />
+            <Icon name={image} size={22} color={imagetintColor} />
           </Pressable>
         )}
 

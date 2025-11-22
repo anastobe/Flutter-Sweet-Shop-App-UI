@@ -39,7 +39,7 @@ const ManageOption = ({ style, onPress1,onPress2,backImg }:{  style:any, onPress
 
       <Text style={styles.title}>Manage Cards</Text>
       {Listitem('pin-outline', "Pin & Security",onPress1,'arrow-forward-outline',"Generate an instant-use card for safer online payments." )}
-      {Listitem('lock-closed-outline', "Set Daily Limit",onPress2,'arrow-forward-outline',"Order a card to use in-store, online, and for ATM withdrawals." )}
+      {Listitem('lock-closed-outline', "Set Spending Limit",onPress2,'arrow-forward-outline',"Order a card to use in-store, online, and for ATM withdrawals." )}
       
 
     </ImageBackground>

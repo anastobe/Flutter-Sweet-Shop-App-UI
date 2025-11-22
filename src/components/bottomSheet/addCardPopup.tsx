@@ -9,7 +9,7 @@ import { ImageBackground } from 'react-native';
 
 const AddCardPopup = ({ style, onPress1,onPress2,backImg }:{ style:any, onPress1: any, onPress2: any,backImg: any }) => {
   return (
-    <ImageBackground resizeMode="cover" source={backImg} style={style}>
+    <ImageBackground resizeMode="stretch" source={backImg} style={style}>
 
 
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text } from 'react-native';
 import { View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
+import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { scale } from 'react-native-size-matters';
 import Metrics from '../styles/metrics';
 import { Images } from '../config';
@@ -35,7 +35,7 @@ const HomeCardFeatureButtons: React.FC<Props> = ({
             onPress={()=>onPressbtn(feature)}
             style={[styles.button, { backgroundColor: index == 0 ? THEME.prinkishBlue : THEME.primary }]}
           >
-            <Image style={{ width: 20, height: 20 }}  source={feature.icon} resizeMode='contain' />
+            <Image style={{ width: feature.width, height: feature.height }}  source={feature.icon} resizeMode='contain' />
             {/* <Icon name={feature.icon} size={scale(27)} color={iconColor} /> */}
           </TouchableOpacity>
           <Text style={styles.label}>
@@ -50,14 +50,20 @@ const HomeCardFeatureButtons: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
     justifyContent: "space-evenly", 
     alignItems: "center",
-    marginTop:17 
+    marginTop:17,
+    // backgroundColor: "blue",
+    paddingVertical: 10
+    // width: '50%'
   },
   featureItem: {
     alignItems: 'center',
     height: BUTTON_SIZE,
+    width: METRICS.width/2,
+    // marginLeft:1,
+    // backgroundColor: "red"
   },
   button: {
     width: BUTTON_SIZE,

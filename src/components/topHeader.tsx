@@ -1,22 +1,24 @@
 import React from "react";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Image, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
-import { THEME } from "../styles";
+import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
+import { Images } from "../config";
+import { scale } from "react-native-size-matters";
 
-const OptionsHeader = ({ onPressNotification, onPressAdd }) => {
+const OptionsHeader = ({ leftTxt, onPressNotification, onPressAdd }) => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.headerContainer}>
       {/* Left Back Arrow */}
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        {/* <TouchableOpacity
+        <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.arrowCont}
         >
-          <Icon name="arrow-back-outline" size={36} color={THEME.white} />
-        </TouchableOpacity> */}
+          <Text style={styles.titleTop}>{leftTxt}</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Right Icons */}
@@ -25,11 +27,11 @@ const OptionsHeader = ({ onPressNotification, onPressAdd }) => {
           onPress={onPressNotification}
           style={[styles.rightIconCont, { marginRight: 10 }]}
         >
-          <Icon name="notifications-outline" size={16} color={THEME.textPrimary} />
+          <Icon name="notifications-outline" size={17} color={THEME.textPrimary} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={onPressAdd} style={styles.rightIconCont}>
-          <Icon name="add" size={16} color={THEME.textPrimary} />
+          <Image source={Images.add} style={{ width: 11, height: 11 }} tintColor={THEME.textPrimary} />
         </TouchableOpacity>
       </View>
     </View>
@@ -42,7 +44,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginVertical: 10,
-    marginHorizontal: 20,
+    marginHorizontal: 24,
+  },
+    titleTop:{
+    fontFamily: FONTFAMILY.SemiBold,
+    fontSize: FONT_SIZES.oneeight,
+    color: THEME.white,
+    marginLeft: scale(5),
+    // backgroundColor: "red",
+    // marginTop: 12,
+    // marginBottom: 10
   },
   rightIconCont: {
     width: 28,
@@ -54,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.white,
   },
   arrowCont: {
-    marginTop: 20,
+    marginTop: 25,
   },
 });
 

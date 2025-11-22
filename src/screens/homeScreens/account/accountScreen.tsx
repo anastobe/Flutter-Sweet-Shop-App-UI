@@ -71,7 +71,7 @@ const AccountScreen = () => {
             </View>
           </TouchableOpacity>
         )}
-        contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 100 }}
+        contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 50 }}
       />
     </View>
   );
@@ -92,6 +92,7 @@ const AccountScreen = () => {
           <FlatList
             ref={vm.flatListRef}
             data={vm.getAccounts_Data}
+            // contentContainerStyle={{ backgroundColor: "red" }}
             ListEmptyComponent={()=>{
               return(
                 <View style={styles.cardLoadingContainer} >
@@ -135,7 +136,7 @@ const AccountScreen = () => {
 
 
          {/* BODY */}
-         <ScrollView contentContainerStyle={{ paddingBottom: 100, marginTop: 10 }}>
+         <ScrollView contentContainerStyle={{ paddingBottom: 0, marginTop: 10 }}>
            <CardFeatureButtons
              features={vm.features}
              onPressbtn={(item: any) => item.onPress()}
@@ -235,7 +236,7 @@ export default AccountScreen;
 const styles = StyleSheet.create({
   container: { flex: 1 },
   headerContainer: {
-    height: Metrics.halfScreen - 40,
+    height: 260,
     width: Metrics.width,
     // backgroundColor: "red",
     borderBottomLeftRadius: 30,
@@ -275,13 +276,13 @@ const styles = StyleSheet.create({
     marginVertical: 12,
   },
   dot: {
-    height: 8,
-    width: 8,
+    height: 6,
+    width: 6,
     borderRadius: 10,
     backgroundColor: THEME.SlateBlue,
     marginHorizontal: 4,
   },
-  activeDot: { backgroundColor: THEME.white, width: 8, height: 8 },
+  activeDot: { backgroundColor: THEME.white, width: 6, height: 6 },
   statecontainer: {
     flexDirection: "row",
     justifyContent: "space-between",
