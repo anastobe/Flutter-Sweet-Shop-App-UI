@@ -174,8 +174,9 @@ const MoreScreen = () => {
       function renderPopup(icon,title,btnTxt) {
     return (
         <ImageBackground
-          imageStyle={{ borderRadius: 16 }}
-          source={Images.addCardGradient}
+          // imageStyle={{ borderRadius: 16 }}
+          source={Images.universalModalBack} 
+          resizeMode="contain"
           style={styles.modal}
         >
 
@@ -312,10 +313,14 @@ const styles = StyleSheet.create({
   },
   
     modal: {
-      backgroundColor: 'rgba(64, 64, 65, 0.98)',
-      borderRadius: 16,
-      padding: 24,
+      // backgroundColor: 'rgba(64, 64, 65, 0.98)',
+      // borderRadius: 16,
+      // padding: 24,
+      height: 270,
+      paddingHorizontal: 20,
+      justifyContent: "center",
       alignItems: 'center',
+
     },
     closeBtn: { position: 'absolute', top: 10, right: 15 },
     closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },

@@ -23,6 +23,7 @@ import { ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native';
 import { cardsScroll } from '../../../utils/data';
+import { useIsFocused } from '@react-navigation/native';
 // import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
@@ -249,8 +250,6 @@ const ScrollableCards = () => {
     />
   );
 };
-
-
  
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>

@@ -1,5 +1,5 @@
 // src/viewModels/homeViewModel/useHomeViewModel.ts
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { HOME_ROUTES } from '../../../constants';
 import { CURRENT_ACCOUNT, DATA } from '../../../utils/data';
@@ -9,10 +9,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Images } from '../../../config';
+import { StatusBar } from 'react-native';
 
 export const useHomeViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const FOCUS = useIsFocused();
 
   const [showbalance, setshowbalance] = useState(false);
   const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
@@ -21,6 +23,10 @@ export const useHomeViewModel = () => {
 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
+  
+  useEffect(()=>{
+    StatusBar.setBackgroundColor("#7c4fc3")
+  },[FOCUS]) 
 
   const Sendoption = [ 
     { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency Account`, width: 15, height: 15 },

@@ -116,10 +116,10 @@ export default function Request() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
-    marginBottom: 10,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+    marginBottom: 15,
     marginTop: 10,
   },
   filtersearchContainer: {
@@ -176,6 +176,7 @@ iconCONT:{
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
     marginVertical: 5,
+    lineHeight: 16,
     width: '80%'
   },
   subname: {

@@ -45,11 +45,12 @@ const CardScreen = () => {
   function renderPopup(icon: any, title: any, btnTxt: any) {
     return (
         <ImageBackground
-          imageStyle={{ borderRadius: 16 }}
-          source={Images.addCardGradient}
+          // imageStyle={{ borderRadius: 16 }}
+          source={Images.universalModalBack} 
+          resizeMode="contain"
           style={styles.modal}
-        > 
-
+        >
+ 
         <TouchableOpacity
           style={styles.closeBtn}
           onPress={() => vm.setopen(false)}
@@ -221,7 +222,6 @@ const CardScreen = () => {
            {TransactionList()}
            {/* Modals */}
            <Modal
-             backOpacityColor={'rgba(0,0,0,0.4)'}
              isVisible={vm.modalVisible}
              isKeyboardAvoidingView={true}
              children={
@@ -250,7 +250,6 @@ const CardScreen = () => {
            />
 
            <Modal
-             backOpacityColor={'rgba(0,0,0,0.4)'}
              isVisible={vm.modalVisibleUnfreez}
              isKeyboardAvoidingView={true}
              children={
@@ -618,10 +617,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   modal: {
-    backgroundColor: 'rgba(64, 64, 65, 0.98)',
-    borderRadius: 16,
-    padding: 24,
+    // backgroundColor: 'rgba(64, 64, 65, 0.98)',
+    // borderRadius: 16,
+    // padding: 24,
+    height: 270,
+    paddingHorizontal: 20,
+    justifyContent: "center",
     alignItems: 'center',
+
   },
   closeBtn: { position: 'absolute', top: 10, right: 15 },
   closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },

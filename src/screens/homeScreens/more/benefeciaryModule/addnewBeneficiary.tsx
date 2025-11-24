@@ -171,7 +171,7 @@ const AddNewBeneficiary = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}     
     >
-      <ScrollView contentContainerStyle={{ paddingBottom: 250 }}> 
+      <ScrollView contentContainerStyle={{ paddingBottom: 80 }}> 
         <View style={{ marginHorizontal: 20 }}>
           <Text style={styles.title}>Add Beneficiary</Text>
           <Text style={styles.subtitle}>
@@ -188,16 +188,16 @@ const AddNewBeneficiary = () => {
           />
         </View>
         {renderModal()}
-      </ScrollView>
-            
-        <View style={{ backgroundColor: "#0e1546", width: Metrics.width, position: "absolute", bottom: 0, alignSelf: "center" }} >
           <CustomButton
             btnContSty={styles.forgetTxt}
             title="Save Beneficiary"
             loading={false}
             onPress={vm.openConfirmationModal}
             />
-        </View>
+      </ScrollView>
+            
+        {/* <View style={{ backgroundColor: "#0e1546", width: Metrics.width, position: "absolute", bottom: 0, alignSelf: "center" }} > */}
+        {/* </View> */}
 
     </MainContainer>
   );

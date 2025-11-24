@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
 import { scale } from 'react-native-size-matters';
+import { Images } from '../config';
 
 export const InputDropDownStyle = ({title, label, currency, flag, onPress }) => {
   return (
@@ -22,7 +23,11 @@ export const InputDropDownStyle = ({title, label, currency, flag, onPress }) => 
         </View>
       </View>
 
-      <Icon name="caret-down-outline" size={16} color={THEME.white} />
+      <Image
+        source={Images.dropDown}
+        style={{ width: 26, height: 26 }}
+        tintColor={THEME.white}
+      />
     </TouchableOpacity>
   );
 };

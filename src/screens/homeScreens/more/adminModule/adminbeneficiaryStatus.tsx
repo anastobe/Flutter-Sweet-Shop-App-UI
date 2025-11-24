@@ -200,15 +200,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
-    marginBottom: 10,
+    color: THEME.white,
+    marginBottom: 15,
     marginTop: 10,
   },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 20,
+    marginBottom: 30,
+    lineHeight: 20
   },
   container: { flex: 1, backgroundColor: THEME.white },
   checkmarkTitle: {

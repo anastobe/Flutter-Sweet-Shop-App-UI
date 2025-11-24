@@ -44,7 +44,7 @@ function AdminConfirmCardRequest(props: any) {
         <InfoRow icon="person-outline" label="Cardholder Name" value="John Doe" />
         <InfoRow icon="home-outline" label="Delivery Address" value="221B Baker Street" />
         <InfoRow icon="time-outline" label="Estimated Delivery" value="3–5 Business Days" />
-        <InfoRow icon="pricetag-outline" label="Card Issuance Fee" value="£4.95 GBP" />
+        <InfoRow icon="time-outline" label="Card Issuance Fee" value="£4.95 GBP" />
         <InfoRow icon="flash-outline" label="Delivery Fee" value="Free" />
       </View>
     );
@@ -126,7 +126,7 @@ function AdminConfirmCardRequest(props: any) {
         </Text>
 
         {renderCardDetails()}
-        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 50 }} >
+        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 40 }} >
           <CustomButton
             btnContSty={styles.transferBtnReject}
             loading={false}
@@ -159,9 +159,16 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.primary,
-    marginBottom: 20,
+    color: THEME.white,
+    marginBottom: 15,
     marginTop: 10,
+  },
+  subtitle: {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    marginBottom: 30,
+    lineHeight: 20
   },
     button: {
     borderRadius: 10,
@@ -204,19 +211,13 @@ const styles = StyleSheet.create({
      height: scale(50),
        width: Metrics.width/2-30
       },
-  subtitle: {
-    fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Regular,
-    color: THEME.white,
-    marginBottom: 10,
-  },
   forgetTxt: { marginTop: 30, marginBottom: 50 }, forgetTxtpop:{  width: '100%', marginTop: 20, marginBottom: 20 },
-  summaryBox: { borderRadius: 1, padding: 10, marginBottom: 10 },
+  summaryBox: { borderRadius: 1, padding: 0, marginBottom: 0 },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 7,
   },
   label: {
     fontFamily: FONTFAMILY.Light,

@@ -10,12 +10,14 @@ import { useAdminPaymentStatusViewModel } from '../../../../viewModels/homeViewM
 import Metrics from '../../../../styles/metrics';
 import { TouchableOpacity } from 'react-native';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
+import { Image } from 'react-native';
+import { Images } from '../../../../config';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: string }) => (
   <View style={styles.infoRow}>
     <View style={styles.infoLeft}>
-      <Icon name={icon} size={18} color={THEME.white} style={styles.infoIcon} />
+      <Image source={icon} style={styles.infoIcon} resizeMode="contain" />
       <Text style={styles.label}>{label}</Text>
     </View>
     <Text style={styles.value}>{value}</Text>
@@ -165,10 +167,10 @@ const AdminPaymentStatus = () => {
 
           {/* Summary Section */}
           <View style={styles.summaryBox}>
-            <InfoRow icon="add-outline" label="Conversion Fee" value="£2.00" />
-            <InfoRow icon="add-outline" label="Total After Fee" value="£1002.00" />
+            <InfoRow icon={Images.add} label="Conversion Fee" value="£2.00" />
+            <InfoRow icon={Images.add} label="Total After Fee" value="£1002.00" />
             <InfoRow
-              icon="wallet-outline"
+              icon={Images.exchangeRate}
               label="Exchange Rate (Live)"
               value="1 GBP = 1.1425 EUR"
             />
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
+    marginBottom: 15,
     marginTop: 10,
   },
   subtitle: {
@@ -220,7 +222,9 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     marginBottom: 30,
+    lineHeight: 20
   },
+    infoIcon: { marginRight: 8, width: 15, height: 15 },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -228,7 +232,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   infoLeft: { flexDirection: 'row', alignItems: 'center' },
-  infoIcon: { marginRight: 8 },
   label: {
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onefour,
@@ -237,7 +240,7 @@ const styles = StyleSheet.create({
   value: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
+    color: THEME.white,
   },
   summaryBox: { borderRadius: 10, padding: 10, marginBottom: 10 },
   balanceContainer: {

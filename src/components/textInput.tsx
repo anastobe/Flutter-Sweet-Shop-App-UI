@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     color: THEME.white,
     height: scale(55),
     paddingLeft: 20,
-    paddingTop: 15,
+    // paddingTop: 15,
   },
 
   floatingLabel: {

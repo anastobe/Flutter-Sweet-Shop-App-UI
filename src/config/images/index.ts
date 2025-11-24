@@ -65,6 +65,9 @@ const Images = {
     bank: require("../../assets/figmaImages/bankTransfer/bank.png"),
     freezBackground: require("../../assets/figmaImages/freezBackground/Frame.png"),
     
+    //seting
+    universalModalBack: require("../../assets/figmaImages/universalModalBack/Group.png"),
+    
 
     //check
     checking2: require("../../assets/images/checking2.png"),
