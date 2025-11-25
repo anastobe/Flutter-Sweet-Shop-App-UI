@@ -103,7 +103,7 @@ export default function InputField(props: any) {
         <Pressable onPress={onPress} style={styles.imgViewLeft}>
           <Icon
             name={imageLeft}
-            size={23}
+            size={20}
             color={imagetintColorLeft || '#000'}
           />
         </Pressable>
@@ -113,7 +113,7 @@ export default function InputField(props: any) {
         {/* Floating Label */}
         <Animated.Text
           style={[
-            styles.floatingLabel,
+            styles.floatingLabel,{ left: imageLeft ? 40 : 20 }, //40 calculated value due to left icon
             {
               top: labelAnim.interpolate({
                 inputRange: [0, 1],
@@ -218,6 +218,7 @@ const styles = StyleSheet.create({
   inputInner: {
     fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
+    // lineHeight: 16,
     borderColor: THEME.white,
     borderWidth: 1,
     borderRadius: 10,
@@ -230,7 +231,6 @@ const styles = StyleSheet.create({
 
   floatingLabel: {
     position: 'absolute',
-    left: 20,
     backgroundColor: 'transparent',
     fontFamily: FONTFAMILY.Regular,
   },
@@ -245,13 +245,13 @@ const styles = StyleSheet.create({
   },
 
   imgViewLeft: {
-    width: 50,
-    height: 45,
+    width: 35,
+    height: scale(55),
     position: 'absolute',
     left: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     zIndex: 9999,
   },
 

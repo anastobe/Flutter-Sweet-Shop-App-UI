@@ -19,6 +19,7 @@ import {authorize} from 'react-native-app-auth';
 import LinearGradient from 'react-native-linear-gradient';
 import { ImageBackground } from 'react-native';
 import { SHOW_CLIENT } from '../../APICall/constants';
+import BluryModal from '../../components/Modal/bluryModal';
 
 type LoginProps = {};
 
@@ -70,41 +71,50 @@ const config = {
 
       function renderPOPUP() {
     return(
-          <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} imageStyle={{ borderRadius: 16,}} style={styles.modal}>
+//           <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} imageStyle={{ borderRadius: 16,}} style={styles.modal}>
 
-          <TouchableOpacity style={styles.closeBtn} onPress={()=>{ setOpen(false) }} >
-            <Text style={styles.closeText}>×</Text>
-          </TouchableOpacity>
+//           <TouchableOpacity style={styles.closeBtn} onPress={()=>{ setOpen(false) }} >
+//             <Text style={styles.closeText}>×</Text>
+//           </TouchableOpacity>
 
       
-            <View style={styles.iconCircle}>
-                <Icon name="alert-outline" size={36} color={THEME.textPrimary} /> 
-            </View>
+//             <View style={styles.iconCircle}>
+//                 <Icon name="alert-outline" size={36} color={THEME.textPrimary} /> 
+//             </View>
         
 
-           <Text style={styles.description}>
-          {`Looks like you have not set your Touch ID.
-Please login and set your Touch ID from Profile.`}
-          </Text>
+//            <Text style={styles.description}>
+//           {`Looks like you have not set your Touch ID.
+// Please login and set your Touch ID from Profile.`}
+//           </Text>
 
-         <CustomButton
-            btnContSty={styles.forgetTxtpop}
-            title="OK"
-            onPress={() => {
-            Alert.alert("NEED",SHOW_CLIENT)
-            setOpen(false)
-            }}
-          />
+//          <CustomButton
+//             btnContSty={styles.forgetTxtpop}
+//             title="OK"
+//             onPress={() => {
+//             Alert.alert("NEED",SHOW_CLIENT)
+//             setOpen(false)
+//             }}
+//           />
 
-          </ImageBackground>
+//           </ImageBackground>
    
+      <BluryModal
+        style={{ flex: 1, paddingHorizontal: 20 }}
+        onClose={()=>{setOpen(false) }}
+        btnLoader={false}
+        marginTopTitle={20}
+        onConfirm={()=>{setOpen(false) }}
+        title={`Looks like you have not set your Touch ID. Please login and set your Touch ID from Profile.`}
+        iconName={"alert-outline"}
+        confirmText={'ok'}
+      />
     )
   }
 
       function renderModal() {
         return (
           <Modal
-
             isVisible={Open}
             isKeyboardAvoidingView={true}
             children={renderPOPUP()}

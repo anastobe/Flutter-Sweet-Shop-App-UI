@@ -27,7 +27,10 @@ export default function Request() {
   function renderFilter() {
     return (
         <InputField
-          image={'search-outline'}
+          removeTitle
+          imageLeft={'search-outline'}
+          imagetintColorLeft={THEME.white}
+          // image={'search-outline'}
           autoCapital={'none'}
           blurOnSubmit={false}
           placeholder="Search"
@@ -189,6 +192,10 @@ iconCONT:{
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
-    innerinput: {  height: scale(53), paddingRight: 50 },
+    innerinput: 
+    {  
+      height: scale(53), 
+      paddingLeft: 40   //calculated value  
+    },
 
 });

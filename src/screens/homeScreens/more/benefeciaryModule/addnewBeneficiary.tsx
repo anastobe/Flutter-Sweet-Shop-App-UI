@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -17,6 +18,8 @@ import { useAddNewBeneficiaryViewModel } from '../../../../viewModels/homeViewMo
 import FreezeCardModal from '../../../../components/Modal/FreezeCardModal ';
 import { Images } from '../../../../config';
 import Metrics from '../../../../styles/metrics';
+import BluryModal from '../../../../components/Modal/bluryModal';
+import { SHOW_CLIENT } from '../../../../APICall/constants';
 
 const AddNewBeneficiary = () => {
   const vm = useAddNewBeneficiaryViewModel();
@@ -113,38 +116,72 @@ const AddNewBeneficiary = () => {
   );
 
   const renderPopup = () => (
-    <FreezeCardModal
+    // <FreezeCardModal
+    //     style={{ flex: 1, paddingHorizontal: 20 }}
+    //     backImg={Images.addCardGradient}
+    //     visible={vm.modalVisible}
+    //     btnLoader={false}
+    //     onClose={vm.onClosePopup}
+    //     onConfirm={vm.pressTransferMoney}
+    //     title="Beneficiary Added Successfully"
+    //     body={`Beneficiary added successfully and is ready to use in payments.`}
+    //     showSubBody={false}
+    //     confirmText="Transfer Money"
+    //     downConfirmText={"Cancel"}
+    //   />
+
+
+     <BluryModal
         style={{ flex: 1, paddingHorizontal: 20 }}
-        backImg={Images.addCardGradient}
-        visible={vm.modalVisible}
-        btnLoader={false}
-        onClose={vm.onClosePopup}
-        onConfirm={vm.pressTransferMoney}
-        title="Beneficiary Added Successfully"
-        body={`Beneficiary added successfully and is ready to use in payments.`}
-        showSubBody={false}
-        confirmText="Transfer Money"
-        downConfirmText={"Cancel"}
+          onClose={vm.onClosePopup}
+          btnLoader={false}
+          marginTopTitle={40}
+          onConfirm={vm.pressTransferMoney}
+          showSubBody={false} 
+          showCancelBtn={false}
+          downConfirmText={'Cancel'}
+          title={"Beneficiary Added Successfully"}
+          body={`Beneficiary added successfully and is ready to use in payments.`}
+          iconName={""}
+          confirmText={"Transfer Money"}
       />
+
+
   );
 
   
          
   function renderPOPUP() {
     return(
-        <FreezeCardModal
+        // <FreezeCardModal
+        //   style={{ flex: 1, paddingHorizontal: 20 }}
+        //   backImg={Images.addCardGradient}
+        //   visible={vm.modalVisible}
+        //   btnLoader={vm.isPending_AddnewBeneficiaryApi}
+        //   onClose={() => vm.setModalVisible(false)}
+        //   onConfirm={vm.onPressBtn}
+        //   title="Save Beneficiary"
+        //   body={`Sure, You want to add this beneficiary to your account?`}
+        //   showSubBody={false}
+        //   confirmText="Save"
+        //   downConfirmText={"Cancel"}
+        // />
+
+        
+        <BluryModal
           style={{ flex: 1, paddingHorizontal: 20 }}
-          backImg={Images.addCardGradient}
-          visible={vm.modalVisible}
-          btnLoader={vm.isPending_AddnewBeneficiaryApi}
-          onClose={() => vm.setModalVisible(false)}
-          onConfirm={vm.onPressBtn}
-          title="Save Beneficiary"
-          body={`Sure, You want to add this beneficiary to your account?`}
-          showSubBody={false}
-          confirmText="Save"
-          downConfirmText={"Cancel"}
-        />
+            onClose={() => vm.setModalVisible(false)}
+            btnLoader={vm.isPending_AddnewBeneficiaryApi}
+            marginTopTitle={40}
+            onConfirm={vm.onPressBtn}
+            showSubBody={false} 
+            showCancelBtn={false}
+            downConfirmText={'Cancel'}
+            title={'Save Beneficiary'}
+            body={`Sure, You want to add this beneficiary to your account?`}
+            iconName={""}
+            confirmText={'Save'}
+          />
     )
   }
     
@@ -152,6 +189,7 @@ const AddNewBeneficiary = () => {
 
   function renderModal() {
       return (
+        <>
         <Modal
           isVisible={vm.modalVisible}
           isKeyboardAvoidingView={true}
@@ -160,6 +198,14 @@ const AddNewBeneficiary = () => {
             console.log('close');
           }}
         />
+
+        <Modal
+          isVisible={vm.open}
+          isKeyboardAvoidingView
+          children={renderPopup()}
+          onClose={vm.onClosePopup}
+        />
+        </>
       );
     }
 
@@ -180,12 +226,6 @@ const AddNewBeneficiary = () => {
 
           {renderTransactionType()}
           {renderInputFields()}
-          <Modal
-            isVisible={vm.open}
-            isKeyboardAvoidingView
-            children={renderPopup()}
-            onClose={vm.onClosePopup}
-          />
         </View>
         {renderModal()}
           <CustomButton
@@ -203,6 +243,29 @@ const AddNewBeneficiary = () => {
   );
 };
 
+
+        //  <BluryModal
+        //     style={{ flex: 1, paddingHorizontal: 20 }}
+        //     backImg={Images.addCardGradient}
+        //     visible={vm.modalVisible}
+        //     onClose={() => vm.setModalVisible(false)}
+        //     btnLoader={false}
+        //     marginTopTitle={40}
+        //     onConfirm={() => {
+        //       Alert.alert('NEED', SHOW_CLIENT);
+        //       vm.setModalVisible(!vm.modalVisible);
+        //     }}
+        //     showSubBody={false}
+        //     showCancelBtn={false}
+        //     downConfirmText={'Cancel'}
+        //     title={'Are you sure you want to reject'}
+        //     body={''}
+        //     subBody={
+        //       'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
+        //     }
+        //     iconName={'alert-outline'}
+        //     confirmText={'Yes'}
+        //   />
 export default AddNewBeneficiary;
 
 const styles = StyleSheet.create({

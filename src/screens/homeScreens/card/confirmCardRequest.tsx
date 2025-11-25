@@ -11,6 +11,7 @@ import { scale } from 'react-native-size-matters';
 import { HOME_ROUTES } from '../../../constants';
 import { createCard } from '../../../queries/auth.query';
 import { CommonUtils, Toast } from '../../../utils';
+import BluryModal from '../../../components/Modal/bluryModal';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -141,27 +142,41 @@ function ConfirmCardRequest(props: any) {
 
   function renderPopup() {
     return ( 
-      <View style={styles.modal}>
-        <TouchableOpacity style={styles.closeBtn} onPress={() =>{
-          setOpen(false)
-          setTimeout(() => {
-            navigation.navigate(HOME_ROUTES.TABSTACK);
-          }, 500);
-        }}>
-          <Text style={styles.closeText}>×</Text>
-        </TouchableOpacity>
+      // <View style={styles.modal}>
+      //   <TouchableOpacity style={styles.closeBtn} onPress={() =>{
+      //     setOpen(false)
+      //     setTimeout(() => {
+      //       navigation.navigate(HOME_ROUTES.TABSTACK);
+      //     }, 500);
+      //   }}>
+      //     <Text style={styles.closeText}>×</Text>
+      //   </TouchableOpacity>
 
-        <View style={styles.iconCircle}>
-          <Icon name="checkmark" size={25} color={THEME.textPrimary} />
-        </View>
+      //   <View style={styles.iconCircle}>
+      //     <Icon name="checkmark" size={25} color={THEME.textPrimary} />
+      //   </View>
 
-        <Text style={styles.titles}>Card Created Successfully.</Text>
-        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
+      //   <Text style={styles.titles}>Card Created Successfully.</Text>
+      //   {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
 
-        <CustomButton
-          btnContSty={styles.forgetTxtpop}
-          title="Manage Card"
-          onPress={function () {
+      //   <CustomButton
+      //     btnContSty={styles.forgetTxtpop}
+      //     title="Manage Card"
+      //     onPress={function () {
+      //       setOpen(false)
+      //       setTimeout(() => {
+      //         navigation.navigate(HOME_ROUTES.TABSTACK, {
+      //             screen: "CardStack",
+      //         });
+      //       }, 500);
+      //     }}
+      //   />
+      // </View>
+
+      
+        <BluryModal
+          style={{ flex: 1, paddingHorizontal: 20 }}
+          onClose={() =>{
             setOpen(false)
             setTimeout(() => {
               navigation.navigate(HOME_ROUTES.TABSTACK, {
@@ -169,8 +184,21 @@ function ConfirmCardRequest(props: any) {
               });
             }, 500);
           }}
+          btnLoader={false}
+          marginTopTitle={50}
+          onConfirm={()=>{
+            setOpen(false)
+            setTimeout(() => {
+              navigation.navigate(HOME_ROUTES.TABSTACK, {
+                  screen: "CardStack",
+              });
+            }, 500);
+          }}
+          title={"Card Created Successfully."}
+          body={`${payload?.format} card created and ready to use.`}
+          iconName={""}
+          confirmText={'Yes'}
         />
-      </View>
     );
   }
 

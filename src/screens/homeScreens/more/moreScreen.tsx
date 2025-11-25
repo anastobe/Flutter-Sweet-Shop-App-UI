@@ -11,6 +11,7 @@ import CustomButton from '../../../components/customButton';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Images } from '../../../config';
 import { ImageBackground } from 'react-native';
+import BluryModal from '../../../components/Modal/bluryModal';
 // import * as Keychain from 'react-native-keychain';
 
 const MoreScreen = () => {
@@ -206,8 +207,20 @@ const MoreScreen = () => {
       <Modal
         isVisible={vm.open}
         isKeyboardAvoidingView={true}
-        children={renderPopup("alert","Kindly visit your nearest ATM","Ok")} 
-        onClose={vm.setopen}
+        children={
+          // renderPopup("alert","Kindly visit your nearest ATM","Ok")
+          <BluryModal
+            style={{ flex: 1, paddingHorizontal: 20 }}
+            onClose={vm.onPressSecurity}
+            btnLoader={false}
+            marginTopTitle={20}
+            onConfirm={vm.onPressSecurity}
+            title={"Kindly visit your nearest ATM"}
+            iconName={"alert-outline"}
+            confirmText={'Continue'}
+          />
+        } 
+        onClose={vm.onPressSecurity}
       />
     );
   }

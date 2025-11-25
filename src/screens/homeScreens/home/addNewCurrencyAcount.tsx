@@ -8,6 +8,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
 import { scale } from "react-native-size-matters";
 import { useAddNewCurrencyAccountViewModel } from "../../../viewModels/homeViewModel/home/useAddNewCurrencyAccountViewModel";
 import FreezeCardModal from "../../../components/Modal/FreezeCardModal ";
+import BluryModal from "../../../components/Modal/bluryModal";
 
 const AddNewCurrencyAcount = () => {
   const {
@@ -72,15 +73,36 @@ const AddNewCurrencyAcount = () => {
           onPress={handleAddCurrency}
         />
 
+        <Modal
+          isVisible={freezeModalProps.addCurrency.visible}
+          isKeyboardAvoidingView={true}
+          children={
+            // renderPopup("alert","Kindly visit your nearest ATM","Ok")
+            <BluryModal {...freezeModalProps.addCurrency}
+            />
+          } 
+          onClose={freezeModalProps.addCurrency.onClose}
+        />
+
+      <Modal
+        isVisible={freezeModalProps.requestSubmitted.visible}
+        isKeyboardAvoidingView={true}
+        children={
+          // renderPopup("alert","Kindly visit your nearest ATM","Ok")
+           <BluryModal {...freezeModalProps.requestSubmitted} />
+        } 
+        onClose={freezeModalProps.requestSubmitted.onClose}
+      />
+
         {/* Add Currency Confirmation Modal */}
-        <Modal isVisible={freezeModalProps.addCurrency.visible}>
+        {/* <Modal isVisible={freezeModalProps.addCurrency.visible}>
           <FreezeCardModal {...freezeModalProps.addCurrency} />
-        </Modal>
+        </Modal> */}
 
         {/* Request Submitted Modal */}
-        <Modal isVisible={freezeModalProps.requestSubmitted.visible}>
+        {/* <Modal isVisible={freezeModalProps.requestSubmitted.visible}>
           <FreezeCardModal {...freezeModalProps.requestSubmitted} />
-        </Modal>
+        </Modal> */}
       </View>
     </MainContainer>
   );

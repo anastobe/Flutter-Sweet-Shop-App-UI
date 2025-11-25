@@ -24,18 +24,40 @@ export default function TransactionHistory() {
 
   function renderFilter() {
     return (
-      <View style={styles.filtersearchContainer} >
-        <InputField  image={"search-outline"} imagetintColor={THEME.white} removeTitle={true} autoCapital={'none'} blurOnSubmit={false} placeholder="Search" value={cardName} onChangeText={setCardName} keyboardType={'default'} imagetintColorLeft={THEME.white}  customInpStyle={styles.innerinput} />
+      <View style={styles.filtersearchContainer}>
+        <InputField
+          removeTitle
+          imageLeft={'search-outline'}
+          imagetintColorLeft={THEME.white}
+          // image={'search-outline'}
+          autoCapital={'none'}
+          blurOnSubmit={false}
+          placeholder="Search"
+          value={cardName}
+          onChangeText={setCardName}
+          keyboardType={'default'}
+          customInpStyle={styles.innerinput}
+        />
         <TouchableOpacity
-          onPress={() => { cardDetailRef?.current?.open() }}
-          style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
+          onPress={() => {
+            cardDetailRef?.current?.open();
+          }}
+          style={{
+            width: 40,
+            height: scale(42),
+            backgroundColor: THEME.primary,
+            borderRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
         </TouchableOpacity>
         {/* <TouchableOpacity onPress={() => { Alert.alert("NEED",SHOW_CLIENT) }}  style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
           <Icon name="download-outline" size={22} color={THEME.textPrimary} />
         </TouchableOpacity> */}
       </View>
-    )
+    );
   }
 
   function renderTransactions() {
@@ -93,9 +115,9 @@ export default function TransactionHistory() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.threetwo,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
     marginBottom: 10,
     marginTop: 10,
   },
@@ -142,6 +164,11 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.primary,
   },
-  innerinput: {  height: scale(53), width: Metrics.width-95, paddingRight: 50 },
-
+  // innerinput: {  height: scale(53), width: Metrics.width-95, paddingRight: 50 },
+    innerinput: 
+    {  
+      height: scale(53), 
+      width: Metrics.width-95,
+      paddingLeft: 40   //calculated value  
+    }
 });

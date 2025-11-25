@@ -17,6 +17,8 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { useAdminBeneficiariesManagementViewModel } from '../../../../viewModels/homeViewModel/more/Admin/adminBeneficiaryStatusViewModel';
 import Metrics from '../../../../styles/metrics';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
+import BluryModal from '../../../../components/Modal/bluryModal';
+import { Images } from '../../../../config';
 
 const AdminBeneficiaryStatus = () => {
   const vm = useAdminBeneficiariesManagementViewModel();
@@ -125,13 +127,37 @@ const AdminBeneficiaryStatus = () => {
       </View>
     );
   }
-
+  
   function renderAccept() {
-    return (
+    return ( 
       <Modal
         isVisible={vm.open}
         isKeyboardAvoidingView={true}
-        children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
+        // children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
+        children={
+          <BluryModal
+          style={{ flex: 1, paddingHorizontal: 20 }}
+            backImg={Images.addCardGradient}
+            visible={vm.open}
+            onClose={() => vm.setOpen(false)}
+            btnLoader={false}
+            marginTopTitle={40}
+            onConfirm={() =>{
+               Alert.alert("NEED",SHOW_CLIENT)
+              vm.setOpen(!vm.open)
+            }}
+            showSubBody={false} 
+            showCancelBtn={false}
+            downConfirmText={'Cancel'}
+            title={'Are you sure you want to reject'}
+            body={''}
+            subBody={
+              'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
+            }
+            iconName={"alert-outline"}
+            confirmText={'Yes'}
+          />
+        }
         onClose={vm.setOpen}
       />
     );
@@ -142,7 +168,31 @@ const AdminBeneficiaryStatus = () => {
     <Modal
       isVisible={vm.open2}
       isKeyboardAvoidingView={true}
-      children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      // children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      children={
+        <BluryModal
+        style={{ flex: 1, paddingHorizontal: 20 }}
+          backImg={Images.addCardGradient}
+          visible={vm.open2}
+          onClose={() => vm.setOpen2(false)}
+          btnLoader={false}
+          marginTopTitle={40}
+          onConfirm={() =>{
+              Alert.alert("NEED",SHOW_CLIENT)
+            vm.setOpen2(!vm.open2)
+          }}
+          showSubBody={false} 
+          showCancelBtn={false}
+          downConfirmText={'Cancel'}
+          title={'Are you sure you want to accept'}
+          body={''}
+          subBody={
+            'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
+          }
+          iconName={"checkmark-outline"}
+          confirmText={'Yes'}
+        />
+      }
       onClose={vm.setOpen2}
     />
   );
@@ -222,11 +272,13 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.twozero,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
+    lineHeight: 20,
   },
   btnStyle2:{
     fontSize: FONT_SIZES.twozero,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.textPrimary,
+    lineHeight: 20,
   },
   transferBtnReject: {
     backgroundColor: THEME.SlateBlue,

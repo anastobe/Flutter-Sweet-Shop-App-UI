@@ -13,6 +13,7 @@ import useReplaceCardViewModel from '../../../viewModels/homeViewModel/card/useR
 import { REASON_OPTION } from '../../../utils/data';
 import FreezeCardModal from '../../../components/Modal/FreezeCardModal ';
 import { Images } from '../../../config';
+import BluryModal from '../../../components/Modal/bluryModal';
 
 function InfoRow({ label, value }) {
   return (
@@ -120,25 +121,37 @@ export default function ReplaceCard(props) {
          
   function renderPOPUP() {
     return(
-        <FreezeCardModal
+        // <FreezeCardModal
+        //   style={{ flex: 1, paddingHorizontal: 20 }}
+        //   backImg={Images.addCardGradient}
+        //   visible={modalVisible}
+        //   btnLoader={isPending || isPendingFreezUnFreezCard}
+        //   onClose={() =>{ 
+        //     if (isPending || isPendingFreezUnFreezCard) {
+        //       console.log("not allow api call");
+        //     }
+        //     else{
+        //       setModalVisible(false)
+        //     }
+        //   }}
+        //   onConfirm={openConfirmationModal}
+        //   title="Replace Card"
+        //   body={`Sure, You want to replace this card?`}
+        //   showSubBody={false}
+        //   confirmText="Yes"
+        //   downConfirmText={"Cancel"}
+        // />
+
+        <BluryModal
           style={{ flex: 1, paddingHorizontal: 20 }}
-          backImg={Images.addCardGradient}
-          visible={modalVisible}
+          onClose={() => setModalVisible(false)}
           btnLoader={isPending || isPendingFreezUnFreezCard}
-          onClose={() =>{ 
-            if (isPending || isPendingFreezUnFreezCard) {
-              console.log("not allow api call");
-            }
-            else{
-              setModalVisible(false)
-            }
-          }}
+          marginTopTitle={50}
           onConfirm={openConfirmationModal}
-          title="Replace Card"
+          title={"Replace Card"}
           body={`Sure, You want to replace this card?`}
-          showSubBody={false}
-          confirmText="Yes"
-          downConfirmText={"Cancel"}
+          iconName={""}
+          confirmText={'Yes'}
         />
     )
   }

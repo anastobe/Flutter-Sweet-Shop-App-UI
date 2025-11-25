@@ -8,6 +8,8 @@ import CustomButton from '../../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import Metrics from '../../../../styles/metrics';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
+import BluryModal from '../../../../components/Modal/bluryModal';
+import { Images } from '../../../../config';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -89,12 +91,37 @@ function AdminConfirmCardRequest(props: any) {
     );
   }
 
+  
   function renderAccept() {
-    return (
+    return ( 
       <Modal
         isVisible={open}
         isKeyboardAvoidingView={true}
-        children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
+        // children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
+        children={
+          <BluryModal
+          style={{ flex: 1, paddingHorizontal: 20 }}
+            backImg={Images.addCardGradient}
+            visible={open}
+            onClose={() => setOpen(false)}
+            btnLoader={false}
+            marginTopTitle={40}
+            onConfirm={() =>{
+               Alert.alert("NEED",SHOW_CLIENT)
+              setOpen(!open)
+            }}
+            showSubBody={false} 
+            showCancelBtn={false}
+            downConfirmText={'Cancel'}
+            title={'Are you sure you want to reject'}
+            body={''}
+            subBody={
+              'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
+            }
+            iconName={"alert-outline"}
+            confirmText={'Yes'}
+          />
+        }
         onClose={setOpen}
       />
     );
@@ -105,7 +132,31 @@ function AdminConfirmCardRequest(props: any) {
     <Modal
       isVisible={open2}
       isKeyboardAvoidingView={true}
-      children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      // children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      children={
+        <BluryModal
+        style={{ flex: 1, paddingHorizontal: 20 }}
+          backImg={Images.addCardGradient}
+          visible={open2}
+          onClose={() => setOpen2(false)}
+          btnLoader={false}
+          marginTopTitle={40}
+          onConfirm={() =>{
+              Alert.alert("NEED",SHOW_CLIENT)
+            setOpen2(!open2)
+          }}
+          showSubBody={false} 
+          showCancelBtn={false}
+          downConfirmText={'Cancel'}
+          title={'Are you sure you want to accept'}
+          body={''}
+          subBody={
+            'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
+          }
+          iconName={"checkmark-outline"}
+          confirmText={'Yes'}
+        />
+      }
       onClose={setOpen2}
     />
   );
@@ -187,9 +238,11 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.twozero,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
+    lineHeight: 20,
   },
   btnStyle2:{
     fontSize: FONT_SIZES.twozero,
+    lineHeight: 20,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.textPrimary,
   },

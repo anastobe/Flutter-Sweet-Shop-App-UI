@@ -13,6 +13,7 @@ import useSetLimitsViewModel from '../../../viewModels/homeViewModel/card/useSet
 import { CommonUtils } from '../../../utils';
 import FreezeCardModal from '../../../components/Modal/FreezeCardModal ';
 import { Images } from '../../../config';
+import BluryModal from '../../../components/Modal/bluryModal';
 
 export default function SetLimits({...props}) {
   const navigation = useNavigation();
@@ -151,19 +152,31 @@ export default function SetLimits({...props}) {
          
   function renderPOPUP() {
     return(
-        <FreezeCardModal
-          style={{ flex: 1, paddingHorizontal: 20 }}
-          backImg={Images.addCardGradient}
-          visible={modalVisible}
-          btnLoader={isPendingsetSpendLimit}
-          onClose={() => setModalVisible(false)}
-          onConfirm={SaveLimit}
-          title="Set Spending Limit"
-          body={`Sure, You want to set ${spendingLimit} spending limit of your ${cardDetail?.format} card number ${cardDetail?.pan}`}
-          showSubBody={false}
-          confirmText="Continue"
-          downConfirmText={"Cancel"}
-        />
+        // <FreezeCardModal
+        //   style={{ flex: 1, paddingHorizontal: 20 }}
+        //   backImg={Images.addCardGradient}
+        //   visible={modalVisible}
+        //   btnLoader={isPendingsetSpendLimit}
+        //   onClose={() => setModalVisible(false)}
+        //   onConfirm={SaveLimit}
+        //   title="Set Spending Limit"
+        //   body={`Sure, You want to set ${spendingLimit} spending limit of your ${cardDetail?.format} card number ${cardDetail?.pan}`}
+        //   showSubBody={false}
+        //   confirmText="Continue"
+        //   downConfirmText={"Cancel"}
+        // />
+
+         <BluryModal
+            style={{ flex: 1, paddingHorizontal: 20 }}
+            onClose={() => setModalVisible(false)}
+            btnLoader={isPendingsetSpendLimit}
+            marginTopTitle={50}
+            onConfirm={SaveLimit}
+            title={"Set Spending Limit"}
+            body={`Sure, You want to set ${spendingLimit} spending limit of your ${cardDetail?.format} card number ${cardDetail?.pan}`}
+            iconName={""}
+            confirmText={'Continue'}
+          />
     )
   }
     

@@ -22,14 +22,14 @@ import { BlurView } from "@react-native-community/blur";
 import { Images } from '../../config';
 
 type Props = {
-  visible: boolean;
-  onClose: () => void;
-  btnLoader: boolean;
-  showCancelBtn: Boolean;
-  onConfirm: () => void;
+  onClose?: () => void;
+  btnLoader?: boolean;
+  showCancelBtn?: Boolean;
+  onConfirm?: () => void;
   title: string;
+  marginTopTitle?: number;
   showSubBody?: boolean;
-  body: string;
+  body?: string;
   subBody?: string;
   iconName?: string;
   confirmText?: string;
@@ -39,12 +39,12 @@ type Props = {
 };
 
 const BluryModal: React.FC<Props> = ({
-  visible,
   onClose,
   btnLoader,
   showCancelBtn,
   onConfirm,
   title,
+  marginTopTitle,
   showSubBody,
   body,
   subBody = '',
@@ -55,12 +55,11 @@ const BluryModal: React.FC<Props> = ({
   style
 }) => {
   return (
-<View style={{ width: '100%', paddingBottom: 20, paddingHorizontal: 0 }}>
+<View style={{ width: '100%'}}>
   
   <View style={[{ 
     borderRadius: 16, 
     overflow: "hidden",
-    padding: 0 
   },styles.modal]}>
     
     {/* 🔥 Background blur */}
@@ -72,20 +71,19 @@ const BluryModal: React.FC<Props> = ({
     //   blurAmount={10}    // 👈 increase this (20–30)
     //   reducedTransparencyFallbackColor="rgba(255,255,255,0.15)" // 👈 optional
     />
-
-    {/* 🔥 Actual modal content (THIS WAS OUTSIDE) */}
-    {/* <View style={[styles.modal]}> */}
       
       {/* CLOSE BUTTON */}
       <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
-        <Text style={styles.closeText}>×</Text>
+        {/* <Text style={styles.closeText}>×</Text> */}
+        <Image source={Images.modalCross} style={{ width: 32, height: 32  }} resizeMode="contain" />
+        
       </TouchableOpacity>
 
       {/* ICON */}
-      <View style={{ alignItems: 'center', marginTop: 20 }}>
-        <View style={styles.iconCircle}>
+      <View style={{ alignItems: 'center', marginTop: marginTopTitle ? marginTopTitle : 20 }}>
+       {iconName && <View style={styles.iconCircle}>
           <Icon name={iconName} size={40} color={THEME.textPrimary} />
-        </View>
+        </View>}
       </View>
 
       {/* TITLE */}
@@ -154,7 +152,7 @@ const styles = StyleSheet.create({
   },
   closeBtn: {
     position: 'absolute',
-    top: 10,
+    top: 15,
     right: 15,
     width: 35, height: 35, justifyContent: "center", alignItems: "center"
   },
@@ -178,7 +176,8 @@ const styles = StyleSheet.create({
   },
   titles: {
     fontFamily: FONTFAMILY.SemiBold,
-    fontSize: FONT_SIZES.twosix,
+    fontSize: FONT_SIZES.twotwo,
+    lineHeight: 26,
     color: THEME.white,
     textAlign: 'center',
   },

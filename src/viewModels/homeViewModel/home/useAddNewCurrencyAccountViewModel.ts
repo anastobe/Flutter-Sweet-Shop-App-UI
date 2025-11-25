@@ -22,14 +22,16 @@ export const useAddNewCurrencyAccountViewModel = () => {
   };
 
   const handleConfirmAddCurrency = () => {
-    // setModalAddCurrency(false);
-    // setRequestSubmitted(true);
-       Alert.alert("NEED",SHOW_CLIENT)
+    setModalAddCurrency(false);
+    setTimeout(()=>{
+      setRequestSubmitted(true);
+    },1000)
+   
+    //  Alert.alert("NEED",SHOW_CLIENT)
   };
 
   const handleCloseAddCurrency = () => {
     setModalAddCurrency(false);
-           Alert.alert("NEED",SHOW_CLIENT)
   };
 
   const handleCloseRequestSubmitted = () => {
@@ -42,17 +44,19 @@ export const useAddNewCurrencyAccountViewModel = () => {
       onClose: handleCloseAddCurrency,
       onConfirm: handleConfirmAddCurrency,
       title: "Sure, You want to add new currency?",
+      marginTopTitle: 40,
       body: "",
       confirmText: "Yes",
       downConfirmText: "No",
       backImg: Images.addCardGradient,
-      iconName: "checkmark-outline",
+      iconName: "",
     },
     requestSubmitted: {
       visible: requestSubmitted,
       onClose: handleCloseRequestSubmitted,
       onConfirm: handleCloseRequestSubmitted,
       title: "Account Request Submitted",
+      marginTopTitle: 30,
       body: "Your request to open a new currency account has been submitted successfully. We’ll notify you once it’s approved and ready to use.",
       confirmText: "OK",
       downConfirmText: "Cancel",

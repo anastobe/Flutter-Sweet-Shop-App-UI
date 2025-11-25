@@ -42,44 +42,53 @@ const CardScreen = () => {
   const currentItem = vm.getCardsData?.results?.values?.[vm.currentIndex];
  
 
-  function renderPopup(icon: any, title: any, btnTxt: any) {
-    return (
-        <ImageBackground
-          // imageStyle={{ borderRadius: 16 }}
-          source={Images.universalModalBack} 
-          resizeMode="contain"
-          style={styles.modal}
-        >
+  // function renderPopup(icon: any, title: any, btnTxt: any) {
+  //   return (
+  //       <ImageBackground
+  //         // imageStyle={{ borderRadius: 16 }}
+  //         source={Images.universalModalBack} 
+  //         resizeMode="contain"
+  //         style={styles.modal}
+  //       >
  
-        <TouchableOpacity
-          style={styles.closeBtn}
-          onPress={() => vm.setopen(false)}
-        >
-          <Text style={styles.closeText}>×</Text>
-        </TouchableOpacity>
+  //       <TouchableOpacity
+  //         style={styles.closeBtn}
+  //         onPress={() => vm.setopen(false)}
+  //       >
+  //         <Text style={styles.closeText}>×</Text>
+  //       </TouchableOpacity>
 
-        <View style={styles.iconCircle}>
-          <Icon name={icon} size={25} color={THEME.textPrimary} />
-        </View>
+  //       <View style={styles.iconCircle}>
+  //         <Icon name={icon} size={25} color={THEME.textPrimary} />
+  //       </View>
 
-        <Text style={styles.titles}>{title}</Text>
+  //       <Text style={styles.titles}>{title}</Text>
 
-        <CustomButton
-          btnContSty={styles.forgetTxtpop}
-          title={btnTxt}
-          onPress={() => vm.setopen(false)}
-        />
-        </ImageBackground>
-    );
-  }
+  //       <CustomButton
+  //         btnContSty={styles.forgetTxtpop}
+  //         title={btnTxt}
+  //         onPress={() => vm.setopen(false)}
+  //       />
+  //       </ImageBackground>
+  //   );
+  // }
 
   function renderNearestAtm() {
     return (
       <Modal
         isVisible={vm.open}
         isKeyboardAvoidingView={true}
-        children={renderPopup('alert', 'Kindly visit your nearest ATM', 'Ok')}
-        onClose={vm.setopen}
+        children={<BluryModal
+            style={{ flex: 1, paddingHorizontal: 20 }}
+            onClose={() => vm.setopen(false)}
+            btnLoader={false}
+            marginTopTitle={20}
+            onConfirm={() => vm.setopen(false)}
+            title={"Kindly visit your nearest ATM"}
+            iconName={"alert-outline"}
+            confirmText={'Continue'}
+          />}
+        onClose={() => vm.setopen(false)}
       />
     );
   }

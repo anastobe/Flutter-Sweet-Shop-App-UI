@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { MainContainer, Modal } from '../../../../components';
@@ -9,6 +9,9 @@ import { scale } from 'react-native-size-matters';
 import CustomButton from '../../../../components/customButton';
 import { ActivityIndicator } from 'react-native';
 import { LoaderOnly } from '../../../../components/activityIndicator';
+import BluryModal from '../../../../components/Modal/bluryModal';
+import { Images } from '../../../../config';
+import { SHOW_CLIENT } from '../../../../APICall/constants';
 
 const BeneficiariesManagement = () => {
   const { data, pressBackArrow, pressRightArrow, onBeneficiaryPress, open, setOpen,open2, setOpen2,onPressDelete,onPressDeleteBtn ,onPressView,
@@ -94,7 +97,20 @@ const BeneficiariesManagement = () => {
       <Modal
         isVisible={open}
         isKeyboardAvoidingView={true}
-        children={renderPopup("warning","Are you sure you want to delete this beneficiary","Continue")} 
+        children={
+          // renderPopup("warning","Are you sure you want to delete this beneficiary","Continue")
+
+          <BluryModal
+            style={{ flex: 1, paddingHorizontal: 20 }}
+            onClose={() => setOpen(false)}
+            btnLoader={isPendingDeleteBeneficiary}
+            marginTopTitle={20}
+            onConfirm={onPressDeleteBtn}
+            title={"Are you sure you want to delete this beneficiary"}
+            iconName={"warning-outline"}
+            confirmText={'Continue'}
+          />
+        } 
         onClose={function () {
           setOpen(false);
         }}

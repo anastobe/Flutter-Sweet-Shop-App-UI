@@ -12,6 +12,7 @@ import { LoaderOnly } from '../../../components/activityIndicator';
 import { useConversionHistoryViewModel } from '../../../viewModels/homeViewModel/more/useConversionHistoryViewModel';
 import InputField from '../../../components/textInput';
 import { SectionList } from 'react-native';
+import { Images } from '../../../config';
 
 const ConversionHistory = () => {
   const {  
@@ -24,7 +25,10 @@ const ConversionHistory = () => {
      function renderFilter() {
        return (
            <InputField
-             image={'search-outline'}
+             imageLeft={'search-outline'}
+             imagetintColorLeft={THEME.white}
+            //  image={'search-outline'}
+             removeTitle
              autoCapital={'none'}
              blurOnSubmit={false}
              placeholder="Search"
@@ -109,7 +113,7 @@ const HistoryList = () => {
       mainContainerStyle={styles.container}
     >
       <View style={{ marginHorizontal: 20 }}>
-        <Text style={styles.title}>Currency Exchange</Text>
+        <Text style={styles.title}>Currency History</Text>
         <Text style={styles.subtitle}>
           Track all your quick exchange and transfer orders here.
         </Text> 
@@ -141,7 +145,11 @@ const styles = StyleSheet.create({
     lineHeight: 20
   },
   container: { flex: 1, backgroundColor: THEME.white },
-    innerinput: {  height: scale(53), paddingRight: 50 },
+    innerinput: 
+    {  
+      height: scale(53), 
+      paddingLeft: 40   //calculated value  
+    },
 
 
 

@@ -12,6 +12,7 @@ import { TouchableOpacity } from 'react-native';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
 import { Image } from 'react-native';
 import { Images } from '../../../../config';
+import BluryModal from '../../../../components/Modal/bluryModal';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: string }) => (
@@ -56,50 +57,36 @@ const AdminPaymentStatus = () => {
   );
 
   
-      function renderPopup(icon: any,title: any,btnTxt: any, whichModal: Boolean) {
-    return (
-      <View style={styles.modal}>
-        <TouchableOpacity style={styles.closeBtn} onPress={()=>{
-          if (!whichModal) {
-            setOpen(!open)
-          }else{
-            setOpen2(!open2)
-          }
-        }}>
-          <Text style={styles.closeText}>×</Text>
-        </TouchableOpacity>
-
-        {/* <View style={styles.iconCircle}>
-          <Icon name={icon} size={25} color={THEME.textPrimary} />
-        </View> */}
-
-        <Text style={styles.titles}>{title}</Text>
-        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
-
-        <CustomButton 
-          btnContSty={[styles.button,{ backgroundColor: !whichModal ? THEME.medRed : THEME.primary }]}
-          title={btnTxt}
-          showmyStyleOnly={true}
-          txtColor={[styles.buttonText,{ color: !whichModal ?  THEME.white : THEME.textPrimary }]}
-           onPress={()=>{
-                Alert.alert("NEED",SHOW_CLIENT)
-          if (!whichModal) {
-            setOpen(!open)
-          }else{
-            setOpen2(!open2)
-          }
-        }}
-        />
-      </View>
-    );
-  }
-
   function renderAccept() {
-    return (
+    return ( 
       <Modal
         isVisible={open}
         isKeyboardAvoidingView={true}
-        children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
+        // children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
+        children={
+          <BluryModal
+          style={{ flex: 1, paddingHorizontal: 20 }}
+            backImg={Images.addCardGradient}
+            visible={open}
+            onClose={() => setOpen(false)}
+            btnLoader={false}
+            marginTopTitle={40}
+            onConfirm={() =>{
+               Alert.alert("NEED",SHOW_CLIENT)
+              setOpen(!open)
+            }}
+            showSubBody={false} 
+            showCancelBtn={false}
+            downConfirmText={'Cancel'}
+            title={'Are you sure you want to reject'}
+            body={''}
+            subBody={
+              'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
+            }
+            iconName={"alert-outline"}
+            confirmText={'Yes'}
+          />
+        }
         onClose={setOpen}
       />
     );
@@ -110,7 +97,31 @@ const AdminPaymentStatus = () => {
     <Modal
       isVisible={open2}
       isKeyboardAvoidingView={true}
-      children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      // children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      children={
+        <BluryModal
+        style={{ flex: 1, paddingHorizontal: 20 }}
+          backImg={Images.addCardGradient}
+          visible={open2}
+          onClose={() => setOpen2(false)}
+          btnLoader={false}
+          marginTopTitle={40}
+          onConfirm={() =>{
+              Alert.alert("NEED",SHOW_CLIENT)
+            setOpen2(!open2)
+          }}
+          showSubBody={false} 
+          showCancelBtn={false}
+          downConfirmText={'Cancel'}
+          title={'Are you sure you want to accept'}
+          body={''}
+          subBody={
+            'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
+          }
+          iconName={"checkmark-outline"}
+          confirmText={'Yes'}
+        />
+      }
       onClose={setOpen2}
     />
   );
@@ -287,11 +298,13 @@ const styles = StyleSheet.create({
   },
   btnStyle:{
     fontSize: FONT_SIZES.twozero,
+    lineHeight: 20,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
   },
   btnStyle2:{
     fontSize: FONT_SIZES.twozero,
+    lineHeight: 20,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.textPrimary,
   },
