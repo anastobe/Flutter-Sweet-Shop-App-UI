@@ -1,10 +1,13 @@
-import { useRef, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useRef, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { Toast } from '../../../utils';
 import { useSelector } from 'react-redux';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export function useCreatePhysicalCardViewModel() {
+  const FOCUS = useIsFocused()
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
 
@@ -34,6 +37,12 @@ export function useCreatePhysicalCardViewModel() {
 
   const [limitType, setLimitType] = useState('Weekly');
   const [spendingLimit, setSpendingLimit] = useState('');
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const pressBackArrow = () => navigation.goBack();
 

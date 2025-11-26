@@ -1,11 +1,14 @@
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Images } from '../../../config';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export const useMyAccountTransferViewModel = () => {
   const navigation = useNavigation();
+  const FOCUS = useIsFocused()
 
   const [amountSpend, setAmountSpend] = useState('');
   const [fromAcc] = useState({
@@ -18,6 +21,13 @@ export const useMyAccountTransferViewModel = () => {
     currency: 'EUR',
     flag: Images.account,
   });
+
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const pressBackArrow = () => navigation.goBack();
   const handlePress = () => {};

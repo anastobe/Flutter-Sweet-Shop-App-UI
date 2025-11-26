@@ -103,9 +103,9 @@ export default function Request() {
         {renderTransactions()}
 
         <BottomSheet
-          height={Metrics.height - 100}
+          height={((Metrics.height / 2) + 100)}
           draggable={false}
-          openTime={500}
+          openTime={500} 
           closeDuration={500}
           bottomSheetRef={cardDetailRef}
         >
@@ -194,7 +194,7 @@ iconCONT:{
   },
     innerinput: 
     {  
-      height: scale(53), 
+      height: 56,
       paddingLeft: 40   //calculated value  
     },
 

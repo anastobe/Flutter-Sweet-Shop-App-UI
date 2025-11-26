@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     lineHeight: 20
   },
   renderRightInputContainer: {
-    height: scale(55),
+    height: 56,
     position: 'absolute',
     right: 20,
     flexDirection: 'row',
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     marginLeft: 10,
   },
   forgetTxt: { marginTop: 20, marginBottom: 50 },

@@ -24,22 +24,23 @@ const ManageOption = ({ style, onPress1,onPress2,backImg }:{  style:any, onPress
                         {desc}
                     </Text>
                 </View>
-                <View style={{ justifyContent: "center",transform: [{ rotate: '-45deg' }] }} >
-                     <Icon name={iconRight} size={25} color={THEME.primary} />
+                <View style={{ justifyContent: "center" }} >
+                     {/* <Icon name={iconRight} size={25} color={THEME.primary} /> */}
+                     <Image source={Images.arrow} style={{ width: 24, height: 24 }} resizeMode="contain" />
                 </View>
             </TouchableOpacity>
         )
     }
 
   return (
- <ImageBackground resizeMode="stretch" source={backImg} style={style}>
+ <ImageBackground resizeMode="cover" source={backImg} style={style}>
    
 
         {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} /> */}
 
       <Text style={styles.title}>Manage Cards</Text>
       {Listitem('pin-outline', "Pin & Security",onPress1,'arrow-forward-outline',"Generate an instant-use card for safer online payments." )}
-      {Listitem('lock-closed-outline', "Set Spending Limit",onPress2,'arrow-forward-outline',"Order a card to use in-store, online, and for ATM withdrawals." )}
+      {Listitem('card-outline', "Set Spending Limit",onPress2,'arrow-forward-outline',"Order a card to use in-store, online, and for ATM withdrawals." )}
       
 
     </ImageBackground>
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 10,
         paddingBottom: 15,
+        alignItems: "center"
         // borderBottomWidth: 0.5,
         // borderColor: THEME.primary,
     },
@@ -76,6 +78,7 @@ const styles = StyleSheet.create({
         fontFamily: FONTFAMILY.Regular,
         fontSize: FONT_SIZES.onetwo,
         color: THEME.white,
+        lineHeight: 16,
         marginHorizontal: 8,
         marginTop: 3
     },

@@ -24,7 +24,7 @@ const EditAccountDetail: React.FC<Props> = ({
   return (
     <ImageBackground
       resizeMode="cover"
-      source={Images.manageCardGradient}
+      source={Images.addCardGradient}
       style={{ flex: 1}}
     >
       <View style={styles.overlay}>

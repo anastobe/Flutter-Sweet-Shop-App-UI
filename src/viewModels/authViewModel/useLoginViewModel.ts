@@ -7,6 +7,9 @@ import { useDispatch } from "react-redux";
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
 import { SHOW_CLIENT } from "../../APICall/constants";
 import { Toast } from "../../utils";
+import { StatusBar } from "react-native";
+import { THEME } from "../../styles";
+import { useIsFocused } from "@react-navigation/native";
 
 export const useLoginViewModel = (navigation: any) => {
 
@@ -18,6 +21,13 @@ export const useLoginViewModel = (navigation: any) => {
   const dispatch = useDispatch()
   const biometryRef = useRef(null);
   const rnBiometrics = new ReactNativeBiometrics();
+  const FOCUS = useIsFocused()
+  
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   useEffect(() => {
     rnBiometrics.isSensorAvailable().then(result => {

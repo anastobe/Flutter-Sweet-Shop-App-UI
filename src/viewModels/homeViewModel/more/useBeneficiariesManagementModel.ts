@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { BENEFICIARY_MANAGEMENT_DATA } from '../../../utils/data';
 import { useEffect, useState } from 'react';
@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { DeleteBeneficiary, getBeneficiaryDetail } from '../../../queries/moreQueries/moreQuery';
 import QueryKey from '../../../queries/queryKey';
 import { useQueryClient } from '@tanstack/react-query';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export const useBeneficiariesManagementViewModel = () => {
 
@@ -16,6 +18,13 @@ export const useBeneficiariesManagementViewModel = () => {
   const [clickableBeneficiaryObject, setclickableBeneficiaryObject] = useState({});
   const navigation = useNavigation();
   const queryClient = useQueryClient();
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

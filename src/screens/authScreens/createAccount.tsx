@@ -36,8 +36,8 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
       mainContainerStyle={styles.container}
     >
      {/* <WebView  source={{ uri: 'https://www.fgconboarding.com/Identity/Account/Register' }} /> */}
-<WebView
-  source={{ uri: 'http://fp.avengers.pk/sign-in' }}
+<WebView 
+  source={{ uri: 'https://www.fgconboarding.com/Identity/Account/Register' }}
   javaScriptEnabled
   onNavigationStateChange={handleNavChange}
   style={{ flex: 1 }}
@@ -381,7 +381,7 @@ export default CreateAccount;
 //   },
 //   logo: {
 //    width: METRICS.width,
-//     height: scale(55),
+//     height: 56,
 //     resizeMode: 'contain',
 //     alignSelf: "center",
 //     marginTop: 45

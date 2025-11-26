@@ -1,12 +1,22 @@
-import { useRef, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useRef, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { HOME_ROUTES } from '../../../constants';
 import { storeUserToken } from '../../../Redux/Action/Auth/AuthActions';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function useMoreViewModel() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
+
   
   const [open, setopen] = useState(false);
 

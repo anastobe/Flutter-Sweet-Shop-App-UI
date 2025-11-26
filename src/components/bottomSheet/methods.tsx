@@ -75,7 +75,7 @@ const Methods = ({
     
 
 return (
- <ImageBackground resizeMode="stretch" source={backImg} style={style}>
+ <ImageBackground resizeMode="cover" source={backImg} style={style}>
 
         <Text style={styles.title}>Payment Methods</Text>
       {loading ?
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         // backgroundColor: "red",
         marginBottom: 30,
         // paddingVertical: 15,
-        borderRadius: 10,
+        // borderRadius: 10,
         // paddingBottom: 15,
         justifyContent: 'space-between',
         // borderBottomWidth: 0.5,

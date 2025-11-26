@@ -90,7 +90,7 @@ const MoreScreen = () => {
         />
         <CardBox
           rotate="-45deg"
-          titleLeft="Add New Beneficiary"
+          titleLeft="Add Beneficiary"
           iconRight="arrow-forward-outline"
           BL_radius={10}
           BR_radius={10}
@@ -215,7 +215,8 @@ const MoreScreen = () => {
             btnLoader={false}
             marginTopTitle={20}
             onConfirm={vm.onPressSecurity}
-            title={"Kindly visit your nearest ATM"}
+            iconNameBottom={-20}
+            body={"Kindly visit your nearest ATM"}
             iconName={"alert-outline"}
             confirmText={'Continue'}
           />
@@ -340,8 +341,8 @@ const styles = StyleSheet.create({
     iconCircle: {
       backgroundColor: THEME.primary,
       borderRadius: 100,
-      width: scale(55),
-      height: scale(55),
+      width: 56,
+      height: 56,
       justifyContent: 'center',
       alignItems: 'center',
       marginBottom: 10,

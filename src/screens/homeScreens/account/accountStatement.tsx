@@ -87,9 +87,9 @@ const AccountStatement = () => {
             <View style={styles.iconCONT}>
               <Icon name={item.id == 2 ? 'swap-horizontal-outline' : 'arrow-forward-outline'} size={16} color={THEME.textPrimary} />
             </View>
-            <View style={{ width: screenWidth - scale(166) }} >
+            <View style={{ width: screenWidth - 160 }} >
               <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.subname}>19 July</Text>
+              {/* <Text style={styles.subname}>19 July</Text> */}
             </View>
           </View>
           <Text style={styles.amount}>{item.amount}</Text>
@@ -113,7 +113,7 @@ const AccountStatement = () => {
         {renderTransactions()}
 
         <BottomSheet
-          height={Metrics.height - 150}
+          height={((Metrics.height / 2) + 100)}
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -154,14 +154,14 @@ const styles = StyleSheet.create({
   // innerinput: {  height: scale(53), width: Metrics.width-130, paddingRight: 50 },
       innerinput: 
     {  
-      height: scale(53), 
+      height: 56, 
       width: Metrics.width-130,
       paddingLeft: 40   //calculated value  
     },
   item: {
     backgroundColor: THEME.SlateBlue,
     borderRadius: 10,
-    height: 68,
+    height: 56,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -172,26 +172,28 @@ const styles = StyleSheet.create({
   iconCONT: {
     width: 36,
     height: 36,
-    backgroundColor: THEME.darkOffWhite,
+    backgroundColor: THEME.primary,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   name: {
-    fontSize: FONT_SIZES.onefour,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    fontSize: FONT_SIZES.onetwo,
+    lineHeight: 20, 
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
     marginLeft: 10,
   },
   subname: {
     fontSize: FONT_SIZES.oneZero,
+    // 
     fontFamily: FONTFAMILY.Light,
     color: THEME.primary,
     marginLeft: 10,
   },
   amount: {
-    fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    fontSize: FONT_SIZES.onetwo,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
   },
 });

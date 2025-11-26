@@ -15,6 +15,8 @@ import {
 } from '../../../queries/card.Queries/card.query';
 import { Images } from '../../../config';
 import { HOME_ROUTES } from '../../../constants';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
@@ -40,6 +42,12 @@ export const useCardScreenViewModel = () => {
   const cardDetailRef = useRef<any>(null);
   const methodsRef = useRef<any>(null);
   const manageRef = useRef<any>(null);
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.gradientStatusBarColor)
+    }
+  },[FOCUS]) 
 
   // queries / mutations (hooks you already used)
   const { mutate: freezUnFreezCardFunc, isPending: isPendingfreezUnFreezCard } =
@@ -151,10 +159,10 @@ export const useCardScreenViewModel = () => {
 
   function renderCardFeature() {
     return [
-      { icon: Images.freeze, text: currentItem?.card_status == 'freeze' || currentItem?.card_status == 'inactive' ? 'Unfreeze Card' : 'Freeze Card' },
-      { icon: Images.replace, text: 'Replace Card' },
-      { icon: Images.methods, text: 'Methods' },
-      { icon: Images.manage, text: 'Manage' },
+      { icon: Images.freeze, text: currentItem?.card_status == 'freeze' || currentItem?.card_status == 'inactive' ? 'Unfreeze Card' : 'Freeze Card', width: 22, height: 22 },
+      { icon: Images.replace, text: 'Replace Card', width: 22, height: 22 },
+      { icon: Images.methods, text: 'Methods', width: 22, height: 22 },
+      { icon: Images.manage, text: 'Manage', width: 22, height: 22 },
     ];
   }
 

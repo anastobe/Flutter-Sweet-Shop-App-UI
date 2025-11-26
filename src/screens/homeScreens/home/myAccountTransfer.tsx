@@ -8,6 +8,7 @@ import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import { useMyAccountTransferViewModel } from '../../../viewModels/homeViewModel/home/useMyAccountTransferViewModel';
 import { Images } from '../../../config';
+import BalanceBox from '../../../components/balanceBox';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: any; label: string; value: string }) => (
@@ -20,14 +21,6 @@ const InfoRow = ({ icon, label, value }: { icon: any; label: string; value: stri
   </View>
 );
 
-  const BalanceCard = ({ label = 'Available Balance', amount = '£1,250.00' }) => (
-    <View style={styles.containerAMOUNT}>
-      <View style={styles.amountBox}>
-        <Text style={styles.balanceAmountTxt}>{amount}</Text>
-      </View>
-      <Text style={styles.balanceTxt}>{label}</Text>
-    </View>
-  );
 
 const MyAccountTransfer = () => {
   const {
@@ -73,7 +66,9 @@ const MyAccountTransfer = () => {
             onPress={handlePress}
           />
 
-          <BalanceCard label="Available Balance" amount="£1,250.00" />
+          <BalanceBox amount="£1,250.00" label="Available Balance" containerHeight={78} />
+
+          {/* <BalanceCard label="Available Balance" amount="£1,250.00" /> */}
 
           <InputDropDownStyle
             title="To Account"
@@ -194,7 +189,7 @@ const styles = StyleSheet.create({
     paddingBottom: 1,
   },
   rightInputContainer: {
-    height: scale(55),
+    height: 56,
     position: 'absolute',
     right: 20,
     flexDirection: 'row',

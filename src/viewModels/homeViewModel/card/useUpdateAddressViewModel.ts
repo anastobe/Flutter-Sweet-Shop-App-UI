@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useRef, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Toast } from '../../../utils';
 import { HOME_ROUTES } from '../../../constants';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function useUpdateAddressViewModel() {
   const navigation = useNavigation();
@@ -15,6 +17,13 @@ export default function useUpdateAddressViewModel() {
   const [city, setCity] = useState('');
   const [postalAddress, setPostalAddress] = useState('');
   const [country, setCountry] = useState('');
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

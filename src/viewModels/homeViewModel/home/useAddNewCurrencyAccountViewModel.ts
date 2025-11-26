@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Images } from "../../../config";
 import { Alert } from "react-native";
 import { SHOW_CLIENT } from "../../../APICall/constants";
+import { StatusBar } from "react-native";
+import { THEME } from "../../../styles";
 
 export const useAddNewCurrencyAccountViewModel = () => {
   const navigation = useNavigation();
@@ -12,6 +14,14 @@ export const useAddNewCurrencyAccountViewModel = () => {
   const [currency, setCurrency] = useState("");
   const [modalAddCurrency, setModalAddCurrency] = useState(false);
   const [requestSubmitted, setRequestSubmitted] = useState(false);
+
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const pressBackArrow = () => {
     navigation.goBack();
@@ -44,7 +54,7 @@ export const useAddNewCurrencyAccountViewModel = () => {
       onClose: handleCloseAddCurrency,
       onConfirm: handleConfirmAddCurrency,
       title: "Sure, You want to add new currency?",
-      marginTopTitle: 40,
+      marginTopTitle: 30,
       body: "",
       confirmText: "Yes",
       downConfirmText: "No",

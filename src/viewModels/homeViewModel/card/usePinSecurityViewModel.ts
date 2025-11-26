@@ -1,9 +1,11 @@
 // src/screens/Home/viewModel/PinSecurityViewModel.js
 
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Toast } from '../../../utils'; // optional if you want validation toasts
 import { setPinSecurity } from '../../../queries/card.Queries/card.query';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function usePinSecurityViewModel({...props}) {
 
@@ -12,6 +14,13 @@ export default function usePinSecurityViewModel({...props}) {
   const navigation = useNavigation();
   const [newPin, setNewPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const {mutate: setPinSecurityFunc, isPending: isPendingsetPinSecurity} = setPinSecurity({
     callback: (response: any) => {

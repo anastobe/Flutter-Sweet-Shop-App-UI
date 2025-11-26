@@ -1,9 +1,12 @@
 // ReplaceCardViewModel.js
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Toast } from '../../../utils';
 import { freezUnFreezCardNoMessage, useReplaceCard } from '../../../queries/card.Queries/card.query';
 import { freezUnFreezCard } from '../../../queries/auth.query';
 import { useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function useReplaceCardViewModel(navigation, props) {
 
@@ -13,6 +16,13 @@ export default function useReplaceCardViewModel(navigation, props) {
   const [reason, setReason] = useState("");
   const [firstName, setFirstName] = useState("");
   const [openDropdown, setOpenDropdown] = useState(null)
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const { mutate: useReplaceCardFunc, isPending } = useReplaceCard({
     callback: (response) => {

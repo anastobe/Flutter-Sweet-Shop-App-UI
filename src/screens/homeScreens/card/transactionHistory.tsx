@@ -99,7 +99,7 @@ export default function TransactionHistory() {
         {renderTransactions()}
 
         <BottomSheet
-          height={Metrics.height - 150}
+          height={((Metrics.height / 2) + 100)}
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -142,32 +142,32 @@ const styles = StyleSheet.create({
   iconCONT: {
     width: 36,
     height: 36,
-    backgroundColor: THEME.darkOffWhite,
+    backgroundColor: THEME.primary,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   name: {
     fontSize: FONT_SIZES.onefour,
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
     marginLeft: 10,
   },
   subname: {
-    fontSize: FONT_SIZES.oneZero,
+    fontSize: FONT_SIZES.onetwo,
     fontFamily: FONTFAMILY.Light,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 10,
   },
   amount: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.primary,
+    color: THEME.white,
   },
   // innerinput: {  height: scale(53), width: Metrics.width-95, paddingRight: 50 },
     innerinput: 
     {  
-      height: scale(53), 
+      height: 56,
       width: Metrics.width-95,
       paddingLeft: 40   //calculated value  
     }

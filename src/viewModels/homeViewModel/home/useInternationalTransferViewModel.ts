@@ -1,17 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Images } from '../../../config';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+import { useIsFocused } from '@react-navigation/native';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export const  useInternationalTransferViewModel = () => {
   const [toAccount, setToAccount] = useState('');
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [recipientGets, setRecipientGets] = useState('');
+  const FOCUS = useIsFocused()
+  
   const [fromAccount, setFromAccount] = useState({
     label: 'Clearbank Account',
     currency: 'GBP',
     flag: Images.accountTab,
   });
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const handleFromAccountPress = () => {
     console.log('From Account Pressed');

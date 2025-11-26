@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Auth_ROUTES } from '../../../constants';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Toast } from '../../../utils';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function useUpdatePasswordViewModel() {
   const navigation = useNavigation();
@@ -14,6 +16,13 @@ export default function useUpdatePasswordViewModel() {
   const [secure, setSecure] = useState(true);
   const [secure2, setSecure2] = useState(true);
   const [secure3, setSecure3] = useState(true);
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const rules = {
     minLength: (text: string) => text.length >= 8,

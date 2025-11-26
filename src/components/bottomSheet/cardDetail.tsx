@@ -30,16 +30,16 @@ const CardDetail = ({ saveCureentDisplayData,style, onPress1,onPress2,getSucureC
     
 
     return (
-    <ImageBackground resizeMode="stretch" source={Images.manageCardGradient} style={[styles.container,style]}>
+    <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={[styles.container,style]}>
     
        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 }} /> */}
 
       <Text style={styles.title}>{saveCureentDisplayData?.format} Card Details</Text>
       <Text style={styles.subtitle}>Use this information to make online purchases</Text>
 
-      {cardDetailBox(null, null ,"Card Number:", "DUMMY" , "copy-outline",THEME.white, true )}
-      {cardDetailBox(isPendinggetSucureCard, onPress1, "Valid Thru",saveCureentDisplayData?.expiry_date , "eye-outline",THEME.white, true )}
-      {cardDetailBox(isPendinggetSucureCard, onPress2,"CVV:", "DUMMY" , "eye-outline",THEME.white, false )}
+      {cardDetailBox(null, null ,"Card Number:", "DUMMY" , "copy-outline",THEME.primary, true )}
+      {cardDetailBox(isPendinggetSucureCard, onPress1, "Valid Thru",saveCureentDisplayData?.expiry_date , "eye-outline",THEME.primary, true )}
+      {cardDetailBox(isPendinggetSucureCard, onPress2,"CVV:", "DUMMY" , "eye-outline",THEME.primary, false )}
 
     </ImageBackground>
   );

@@ -1,12 +1,21 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { CARD_DETAIL, SPECIFIC_ACCOUNT_DETAIL } from '../../../utils/data';
 import { HOME_ROUTES } from '../../../constants';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export const useAccountDetailViewModel = () => {
   const navigation = useNavigation();
   const manageRef = useRef<any>(null);
+  const FOCUS = useIsFocused()
+  
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const pressBackArrow = () => navigation.goBack();
 

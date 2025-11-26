@@ -9,7 +9,7 @@ import { ImageBackground } from 'react-native';
 
 const AddCardPopup = ({ style, onPress1,onPress2,backImg }:{ style:any, onPress1: any, onPress2: any,backImg: any }) => {
   return (
-    <ImageBackground resizeMode="stretch" source={backImg} style={style}>
+    <ImageBackground resizeMode="cover" source={backImg} style={style}>
 
 
 
@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     fontSize:  FONT_SIZES.onetwo,
     marginTop: 3,
-    width: METRICS.width - 130
+    width: METRICS.width - 130,
+    lineHeight: 16
     // width: '80%'
   },
 

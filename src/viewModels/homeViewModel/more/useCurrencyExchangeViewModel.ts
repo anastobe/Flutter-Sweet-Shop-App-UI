@@ -1,7 +1,9 @@
 // CurrencyExchangeViewModel.js
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function useCurrencyExchangeViewModel() {
   const navigation = useNavigation();
@@ -9,6 +11,13 @@ export default function useCurrencyExchangeViewModel() {
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [sendFrom, setSendFrom] = useState('');
   const [receiveIn, setReceiveIn] = useState('');
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   // 🔙 Back button
   const pressBackArrow = () => {

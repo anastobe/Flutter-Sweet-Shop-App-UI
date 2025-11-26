@@ -8,6 +8,7 @@ import InputField from "../../../components/textInput";
 import CustomButton from "../../../components/customButton";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
 import { useBankTransferViewModel } from "../../../viewModels/homeViewModel/home/useBankTransferViewModel";
+import BalanceBox from "../../../components/balanceBox";
 
 const BankTransfer = () => {
   const {
@@ -25,14 +26,6 @@ const BankTransfer = () => {
     toggleDropdown
   } = useBankTransferViewModel();
 
-  const BalanceCard = ({ label = "Available Balance", amount = "£1,250.00" }) => (
-    <View style={styles.containerAMOUNT}>
-      <View style={styles.amountBox}>
-        <Text style={styles.balanceAmountTxt}>{amount}</Text>
-      </View>
-      <Text style={styles.balanceTxt}>{label}</Text>
-    </View>
-  );
 
   const renderRightInput = () => (
     <View style={styles.renderRightInputContainer}>
@@ -67,7 +60,8 @@ const BankTransfer = () => {
             onPress={handlePress}
           />
 
-          {BalanceCard({ label: "Available Balance", amount: "£1,250.00" })}
+          {/* {BalanceCard({ label: "Available Balance", amount: "£1,250.00" })} */}
+              <BalanceBox amount="£1,250.00" label="Available Balance" containerHeight={78} />
 
           {/* Input Field */}
           <InputField
@@ -156,7 +150,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     marginLeft: 10,
   },
   containerAMOUNT: {
@@ -168,7 +162,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     borderRadius: scale(12),
     alignItems: "center",
-    // justifyContent: "center",
+    justifyContent: "center",
   },
   amountBox: {
     // paddingHorizontal: scale(10),
@@ -188,11 +182,11 @@ const styles = StyleSheet.create({
     color: THEME.white,
     // backgroundColor :'red',
     // paddingBottom: 5,
-    marginTop: 5,
-    paddingBottom: 1,
+    // marginTop: 5,
+    // paddingBottom: 1,
   },
   renderRightInputContainer: {
-    height: scale(55),
+    height: 56,
     position: "absolute",
     right: 20,
     flexDirection: "row",

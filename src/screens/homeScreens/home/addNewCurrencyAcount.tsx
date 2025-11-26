@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     marginBottom: 30,
+    lineHeight: 20
   },
   forgetTxt: { marginTop: 20, marginBottom: 20 },
   pickerWrapper: {
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     marginLeft: 10,
   },
 });

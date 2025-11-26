@@ -49,12 +49,12 @@ const BeneficiariesManagement = () => {
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.name}>{item?.first_name +" "+ item?.last_name}</Text>
-            <Text style={styles.currency}>{item.currency}</Text>
+            <Text style={styles.currency}>{item.currency || "GBP(DUMMY)"}</Text>
           </View>
 
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity style={[styles.butnCont]} onPress={()=>onPressDelete(item)} >
-              <Icon name="trash-outline" size={20} color={THEME.primary} />
+              <Icon name="trash-outline" size={20} color={THEME.white} />
             </TouchableOpacity>
           <View style={{ transform: [{ rotate: '-45deg' }], marginLeft: 0 }}>
             <TouchableOpacity style={styles.butnCont}  onPress={onPressView}>
@@ -105,10 +105,11 @@ const BeneficiariesManagement = () => {
             onClose={() => setOpen(false)}
             btnLoader={isPendingDeleteBeneficiary}
             marginTopTitle={20}
+            iconNameBottom={-20}
             onConfirm={onPressDeleteBtn}
-            title={"Are you sure you want to delete this beneficiary"}
+            body={"Are you sure you want to delete this beneficiary"}
             iconName={"warning-outline"}
-            confirmText={'Continue'}
+            confirmText={'Delete'}
           />
         } 
         onClose={function () {
@@ -179,6 +180,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
+    lineHeight: 18,
     marginBottom: 30,
   },
   container: { flex: 1, backgroundColor: THEME.white },
@@ -208,7 +210,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Medium,
+    fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
   currency: {
@@ -232,8 +234,8 @@ const styles = StyleSheet.create({
     iconCircle: {
       backgroundColor: THEME.primary,
       borderRadius: 100,
-      width: scale(55),
-      height: scale(55),
+      width: 56,
+      height: 56,
       justifyContent: 'center',
       alignItems: 'center',
       marginBottom: 10,

@@ -18,6 +18,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
 import Icon from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Images } from "../config";
+import Metrics from "../styles/metrics";
 
 export const MainContainer: React.FC<MainContainerProps> = ({
   children,
@@ -37,16 +38,18 @@ export const MainContainer: React.FC<MainContainerProps> = ({
   return (
     <SafeAreaView style={[{ flex: 1 }, mainContainerStyle]}>
       <StatusBar
-        translucent={true}
-        hidden={hidden}
+        // translucent={true}
+        // hidden={hidden}
         barStyle={"light-content"}
-        backgroundColor="transparent"
+        // backgroundColor="transparent"
       />
 
       {/* 🔥 BACKGROUND IMAGE (REPLACES LINEAR GRADIENT) */}
       <ImageBackground
         source={Images.universalGradientBackground}
         style={StyleSheet.absoluteFillObject}
+        // source={Images.universalBackLine}
+        // style={{width: Metrics.width, height: Metrics.height}}
         resizeMode="stretch" // contain / stretch / cover (you can choose)
       />
 

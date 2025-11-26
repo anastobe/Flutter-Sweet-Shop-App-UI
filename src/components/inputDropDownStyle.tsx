@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     borderColor: THEME.white,
     borderRadius: 10,
     paddingHorizontal: 10,
-    height: scale(55),
+    height: 56,
     // backgroundColor: THEME.whitergba,
   },
   flag: {

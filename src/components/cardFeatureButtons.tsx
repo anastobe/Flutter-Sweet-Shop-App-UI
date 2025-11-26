@@ -35,7 +35,7 @@ const CardFeatureButtons: React.FC<Props> = ({
             onPress={()=>onPressbtn(feature)}
             style={[styles.button, { backgroundColor: buttonColor }]}
           >
-            <Image style={{ width: 22, height: 22 }}  source={feature.icon} resizeMode='contain' />
+            <Image style={{ width: feature.width, height: feature.height }}  source={feature.icon} resizeMode='contain' />
             {/* <Icon name={feature.icon} size={scale(27)} color={iconColor} /> */}
           </TouchableOpacity>
           <Text style={styles.label}>

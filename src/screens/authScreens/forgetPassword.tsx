@@ -18,7 +18,7 @@ export const ForgetPassword: React.FC = () => {
     return (
       <ImageBackground
         imageStyle={{ borderRadius: 16 }}
-        source={Images.bottogSheetGradient}
+        source={Images.addCardGradient}
         style={styles.modal}
       >
         <TouchableOpacity style={styles.closeBtn} onPress={vm.closePopup}>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: METRICS.width,
-    height: scale(55),
+    height: 56,
     resizeMode: 'contain',
     alignSelf: 'center',
     marginTop: 45,

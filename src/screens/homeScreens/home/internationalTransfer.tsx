@@ -9,6 +9,7 @@ import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import { useInternationalTransferViewModel } from "../../../viewModels/homeViewModel/home/useInternationalTransferViewModel";
+import BalanceBox from '../../../components/balanceBox';
 
 const InternationalTransfer = () => {
   const navigation = useNavigation();
@@ -28,14 +29,6 @@ const InternationalTransfer = () => {
     navigation.goBack();
   }
 
-  const BalanceCard = ({ label = 'Available Balance', amount = '£1,250.00' }) => (
-    <View style={styles.containerAMOUNT}>
-      <View style={styles.amountBox}>
-        <Text style={styles.balanceAmountTxt}>{amount}</Text>
-      </View>
-      <Text style={styles.balanceTxt}>{label}</Text>
-    </View>
-  );
 
   const renderRightInput = () => (
     <View style={styles.renderRightInputContainer}>
@@ -69,7 +62,8 @@ const InternationalTransfer = () => {
           />
 
           {/* Balance Card */}
-          {BalanceCard({})}
+          {/* {BalanceCard({})} */}
+          <BalanceBox amount="£1,250.00" label="Available Balance" containerHeight={78} />
 
           {/* To Account Picker */}
             <InputField
@@ -146,7 +140,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     marginLeft: 10,
   },
   containerAMOUNT: {
@@ -182,7 +176,7 @@ const styles = StyleSheet.create({
      paddingBottom: 1,
   },
   renderRightInputContainer: {
-    height: scale(55),
+    height: 56,
     position: 'absolute',
     right: 20,
     flexDirection: 'row',

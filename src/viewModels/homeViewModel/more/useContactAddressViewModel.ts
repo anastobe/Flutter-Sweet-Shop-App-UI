@@ -1,13 +1,16 @@
-import { useRef, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useRef, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { Toast } from '../../../utils';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Alert } from 'react-native';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function useContactAddressViewModel() {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
+  const FOCUS = useIsFocused()
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [open, setOpen] = useState(false);
@@ -17,6 +20,12 @@ export default function useContactAddressViewModel() {
   const [postalCode, setPostalCode] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secure, setSecure] = useState(true);
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

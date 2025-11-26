@@ -1,13 +1,16 @@
 // src/screens/Home/viewModel/CreateVirtualCardViewModel.js
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Toast } from '../../../utils';
 import { HOME_ROUTES } from '../../../constants';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function useCreateVirtualCardViewModel() {
   const navigation = useNavigation();
+  const FOCUS = useIsFocused()
 
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
@@ -31,6 +34,13 @@ export default function useCreateVirtualCardViewModel() {
   });
   const [limitType, setLimitType] = useState('');
   const [spendingLimit, setSpendingLimit] = useState('');
+
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

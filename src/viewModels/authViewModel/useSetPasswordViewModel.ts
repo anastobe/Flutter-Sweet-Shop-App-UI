@@ -1,11 +1,12 @@
 // src/screens/Auth/useSetPasswordViewModel.ts
 
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Auth_ROUTES } from "../../constants";
 import { THEME } from "../../styles";
 import Icon from "react-native-vector-icons/Ionicons";
 import { View, Text } from "react-native";
+import { StatusBar } from "react-native";
 
 export const useSetPasswordViewModel = () => {
   const navigation = useNavigation();
@@ -14,6 +15,13 @@ export const useSetPasswordViewModel = () => {
   const [newPassword, setNewPassword] = useState("");
   const [secure, setSecure] = useState(true);
   const [secure2, setSecure2] = useState(true);
+  const FOCUS = useIsFocused()
+  
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const toggleSecure = () => setSecure(!secure);
   const toggleSecure2 = () => setSecure2(!secure2);

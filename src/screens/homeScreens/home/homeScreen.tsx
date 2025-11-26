@@ -254,7 +254,7 @@ const ScrollableCards = () => {
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
       <SafeAreaView style={styles.container}>
-      <StatusBar translucent backgroundColor={"#7c4fc3"} />
+      {/* <StatusBar translucent backgroundColor={THEME.gradientStatusBarColor} /> */}
        {renderHeaderStuffs()}
 
          <ScrollView contentContainerStyle={{ paddingBottom: 0, marginTop: 10 }}>
@@ -411,12 +411,13 @@ dropdownItemText: {
     justifyContent: 'center',
     marginLeft: 10,
     width: 70,
-    height: 25
+    height: 30
   },
   currencyText: {
     // marginTop: -1,
     marginRight: 4,
     fontSize: FONT_SIZES.onefour,
+    lineHeight: 14,
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },

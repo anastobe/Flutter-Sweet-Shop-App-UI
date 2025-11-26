@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     marginLeft: 10,
   },
 });

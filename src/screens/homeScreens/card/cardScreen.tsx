@@ -84,7 +84,8 @@ const CardScreen = () => {
             btnLoader={false}
             marginTopTitle={20}
             onConfirm={() => vm.setopen(false)}
-            title={"Kindly visit your nearest ATM"}
+            iconNameBottom={-20}
+            body={"Kindly visit your nearest ATM"}
             iconName={"alert-outline"}
             confirmText={'Continue'}
           />}
@@ -222,7 +223,7 @@ const CardScreen = () => {
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
       <SafeAreaView style={styles.container}>
-      <StatusBar translucent backgroundColor={"#7c4fc3"} />
+      {/* <StatusBar translucent backgroundColor={"#7c4fc3"} /> */}
        {renderHeaderStuffs()}
        
        
@@ -294,7 +295,7 @@ const CardScreen = () => {
           bottomSheetRef={vm.AddCardRef}
           children={
             <AddCardPopup
-              backImg={Images.manageCardGradient}
+              backImg={Images.addCardGradient}
               onPress1={() => vm.HandleOnPress('1', navigation)}
               onPress2={() => vm.HandleOnPress('2', navigation)}
               style={{ flex: 1, paddingHorizontal: 20 }}
@@ -303,7 +304,7 @@ const CardScreen = () => {
         />
 
         <BottomSheet
-          height={METRICS.halfScreen}
+          height={290}
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -346,7 +347,7 @@ const CardScreen = () => {
               setChipSwitch={vm.setChipSwitch}
               walletSwitch={vm.walletSwitch}
               setWalletSwitch={vm.setWalletSwitch}
-              backImg={Images.manageCardGradient}
+              backImg={Images.addCardGradient}
               style={{ flex: 1, paddingHorizontal: 20 }}
             />
           }
@@ -361,7 +362,7 @@ const CardScreen = () => {
           children={
             <ManageOption
               style={{ flex: 1, paddingHorizontal: 20 }}
-              backImg={Images.manageCardGradient}
+              backImg={Images.bottogSheetGradient}
               onPress1={() => vm.onPressOption('1')}
               onPress2={() => vm.onPressOption('2')}
             />
@@ -596,7 +597,7 @@ const styles = StyleSheet.create({
     padding: 1,
   },
   renderRightInputContainer: {
-    height: scale(55),
+    height: 56,
     position: 'absolute',
     right: 20,
     flexDirection: 'row',
@@ -640,8 +641,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: 100,
-    width: scale(55),
-    height: scale(55),
+    width: 56,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -1398,8 +1399,8 @@ const styles = StyleSheet.create({
 //     iconCircle: {
 //       backgroundColor: THEME.primary,
 //       borderRadius: 100,
-//       width: scale(55),
-//       height: scale(55),
+//       width: 56,
+//       height: 56,
 //       justifyContent: 'center',
 //       alignItems: 'center',
 //       marginBottom: 10,

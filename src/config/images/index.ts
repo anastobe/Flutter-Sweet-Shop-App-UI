@@ -68,6 +68,8 @@ const Images = {
     //seting
     universalModalBack: require("../../assets/figmaImages/universalModalBack/Group.png"),
     modalCross: require("../../assets/figmaImages/modalCross/Icons.png"),
+    universalBackLine: require("../../assets/figmaImages/universalBackLine/Icon.png"),
+    
 
     //check
     checking2: require("../../assets/images/checking2.png"),

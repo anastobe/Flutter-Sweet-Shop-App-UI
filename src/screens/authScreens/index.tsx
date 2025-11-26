@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   { backgroundColor: "transparent", borderColor: THEME.white, borderWidth: 1, flexDirection: "row", height: scale(54), borderRadius: 10, justifyContent: "center", alignItems: 'center' },
   logo: {
    width: METRICS.width,
-    height: scale(55),
+    height: 56,
     resizeMode: 'contain',
     alignSelf: "center",
     marginTop: 60
@@ -349,8 +349,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor:THEME.primary,
     borderRadius: 100,
-    width: scale(55),
-    height: scale(55),
+    width: 56,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 23

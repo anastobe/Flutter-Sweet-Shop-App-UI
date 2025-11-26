@@ -13,6 +13,7 @@ import { SHOW_CLIENT } from '../../../../APICall/constants';
 import { Image } from 'react-native';
 import { Images } from '../../../../config';
 import BluryModal from '../../../../components/Modal/bluryModal';
+import BalanceBox from '../../../../components/balanceBox';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: string }) => (
@@ -152,7 +153,8 @@ const AdminPaymentStatus = () => {
             // onPress={handlePress}
           />
 
-          <BalanceCard label="Available Balance" amount="£1,250.00" />
+          {/* <BalanceCard label="Available Balance" amount="£1,250.00" /> */}
+          <BalanceBox amount="£1,250.00" label="Available Balance" containerHeight={78} />
 
           <InputDropDownStyle
             title="To Account"
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
     color: THEME.white,
   },
   rightInputContainer: {
-    height: scale(55),
+    height: 56,
     position: 'absolute',
     right: 20,
     flexDirection: 'row',
@@ -338,8 +340,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: 100,
-    width: scale(55),
-    height: scale(55),
+    width: 56,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -363,7 +365,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: 'center',
-    height: scale(55),
+    height: 56,
     width: '100%',
     marginTop: 20
 

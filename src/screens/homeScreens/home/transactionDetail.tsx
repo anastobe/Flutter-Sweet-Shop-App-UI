@@ -1,16 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 import { BottomSheet, MainContainer, Modal } from '../../../components';
 import { Images } from '../../../config';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import { scale } from 'react-native-size-matters';
 import { HOME_ROUTES } from '../../../constants';
 import { createCard } from '../../../queries/auth.query';
 import { launchImageLibrary } from 'react-native-image-picker';
+import { StatusBar } from 'react-native';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -30,11 +31,19 @@ function InfoRow({ icon, label, value }) {
 function TransactionDetail(props) {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
+  const FOCUS = useIsFocused()
   const [comments, setcomments] = useState("");
   const [Profile, setProfile] = useState("");
   const [open, setOpen] = useState(false);
   const payload = props?.route?.params?.data;
+  
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
+  
   const { mutate: createCardFunc, isPending } = createCard({
     callback: function (response) {
       if (response.success) {
@@ -179,6 +188,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     marginBottom: 10,
+    lineHeight: 20
   },
   txtUpload: {
     fontSize: FONT_SIZES.onefour,

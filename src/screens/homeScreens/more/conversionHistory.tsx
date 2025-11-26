@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
     innerinput: 
     {  
-      height: scale(53), 
+      height: 56,
       paddingLeft: 40   //calculated value  
     },
 

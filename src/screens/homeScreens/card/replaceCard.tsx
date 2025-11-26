@@ -96,7 +96,7 @@ export default function ReplaceCard(props) {
     return (
       <View style={styles.containerAlert}>
         <View style={styles.ICONcONT}>
-          <Icon name={'alert-circle-outline'} size={30} color={THEME.white} />
+          <Icon name={'alert-circle-outline'} size={25} color={THEME.primary} />
         </View>
         <Text style={styles.descriptionbelow}>
           Your existing card will be disabled when the new one is activated.
@@ -224,6 +224,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     marginBottom: 30,
+    lineHeight: 18,
   },
 
 
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     marginLeft: 10,
   },
   infoRow: {
@@ -275,7 +276,7 @@ const styles = StyleSheet.create({
   valueChangeTxt: {
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onetwo,
-    color: THEME.white,
+    color: THEME.primary,
     textAlign: "center",
     marginTop: 15,
     marginBottom: 5,

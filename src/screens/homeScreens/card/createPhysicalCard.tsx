@@ -136,7 +136,7 @@ const CreatePhysicalCard = () => {
         />
 
         <BottomSheet
-          height={METRICS.height / 1.35}
+          height={METRICS.height / 1.6}
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     marginLeft: 10,
   },
 });

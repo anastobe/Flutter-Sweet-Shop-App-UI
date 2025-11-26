@@ -65,9 +65,12 @@ const EditAccountPreferences: React.FC<Props> = ({
             title="Freeze Now"
             onPress={onPressFreeze}
           />
+          
           <CustomButton
+            showmyStyleOnly={true}
             loading={isPendingAccDelete}
-            btnContSty={styles.forgetTxt3}
+            btnContSty={styles.button}
+            txtColor={styles.buttonText}
             title="Delete Account"
             onPress={onPressDelete}
           />
@@ -87,6 +90,22 @@ const styles = StyleSheet.create({
     // alignItems:"center"
 
   },
+
+  button: {
+    backgroundColor: THEME.white,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+    height: 56,
+
+  },
+  buttonText: {
+    color: THEME.medRed,
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.oneeight
+  },
+
+
   headerRow: {
     marginBottom: 20,
   },
@@ -125,7 +144,7 @@ const styles = StyleSheet.create({
   forgetTxt2: {
     marginTop: 0,
     marginBottom: 20,
-    backgroundColor: THEME.white,
+    backgroundColor: THEME.primary,
   },
   forgetTxt3: {
     marginTop: 0,

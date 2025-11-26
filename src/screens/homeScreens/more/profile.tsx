@@ -44,9 +44,9 @@ const Profile = () => {
                 backgroundColor: THEME.SlateBlue,
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 120,
+                width: 90,
                 height: 90,
-               borderRadius: 20,
+               borderRadius: 200,
                 borderColor: THEME.white,
                 // borderWidth: 1
               }}

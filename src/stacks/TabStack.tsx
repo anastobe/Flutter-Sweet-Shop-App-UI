@@ -47,6 +47,8 @@ import Request from '../screens/homeScreens/more/adminModule/request';
 import AdminPaymentStatus from '../screens/homeScreens/more/adminModule/adminPaymentStatus';
 import AdminBeneficiaryStatus from '../screens/homeScreens/more/adminModule/adminbeneficiaryStatus';
 import AdminConfirmCardRequest from '../screens/homeScreens/more/adminModule/admincardStatus';
+import { StatusBar } from 'react-native';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -435,6 +437,20 @@ export const TabStack: React.FC = ({ }) => {
   return (
     <Tab.Navigator
       initialRouteName={"HomeStack"}
+      // screenListeners={{
+      //   tabPress: e => {
+      //     const routeName = e?.target?.split('-')[0];
+
+      //     console.log("checking=> ",e);
+          
+
+      //     if (["HomeStack", "AccountStack", "CardStack"].includes(routeName)) {
+      //       StatusBar.setBackgroundColor(THEME.gradientStatusBarColor);
+      //     } else {
+      //       StatusBar.setBackgroundColor(THEME.darkSecondary);
+      //     }
+      //   }
+      // }}
       screenOptions={{
         tabBarStyle: {
           height: scale(65),
@@ -461,7 +477,37 @@ export const TabStack: React.FC = ({ }) => {
         // },
         tabBarShowLabel: false,
         // tabBarStyle: { display: 'none' },
-      }}>
+      }}
+        // screenOptions={({ route }) => {
+        //   const routeName =
+        //     getFocusedRouteNameFromRoute(route) ?? route.name;
+
+        //   console.log("checking2=> ", routeName);
+
+        //   // List of main tab root screens
+        //   const MAIN_SCREENS = [
+        //     "HOME",
+        //     "AccountScreen", 
+        //     "CardScreen"
+        //   ]; 
+
+        //   if (MAIN_SCREENS.includes(routeName)) {
+        //     StatusBar.setBackgroundColor(THEME.gradientStatusBarColor);
+        //   } else {
+        //     StatusBar.setBackgroundColor(THEME.darkSecondary);
+        //   }
+
+        //   return {
+        //     tabBarStyle: {
+        //       height: scale(65),
+        //       backgroundColor: THEME.darkSecondary
+        //     },
+        //     tabBarShowLabel: false,
+        //   };
+        // }}
+
+
+      >
 
              <Tab.Screen
         key={'AccountStack'}

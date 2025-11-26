@@ -2,11 +2,14 @@
 import { useEffect, useState } from 'react';
 import { setSpendLimit } from '../../../queries/card.Queries/card.query';
 import { CommonUtils, Toast } from '../../../utils';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function useSetLimitsViewModel({...props}) {
 
   const navigation = useNavigation()
+  const FOCUS = useIsFocused()
   const [modalVisible, setModalVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [limitType, setLimitType] = useState('Weekly');
@@ -18,6 +21,13 @@ export default function useSetLimitsViewModel({...props}) {
   const [spendingLimit, setSpendingLimit] = useState('');
 
   const{ cardDetail } = props?.route?.params
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
+
 
   const {mutate: setSpendLimitFunc, isPending: isPendingsetSpendLimit} = setSpendLimit({
     callback: (response: any) => {

@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
 import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES } from '../../../utils/data';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
@@ -7,10 +7,13 @@ import { Toast } from '../../../utils';
 import { useSelector } from 'react-redux';
 import { AddnewBeneficiaryApi } from '../../../queries/moreQueries/moreQuery';
 import { HOME_ROUTES } from '../../../constants';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export const useAddNewBeneficiaryViewModel = () => {
 
   const navigation = useNavigation();
+  const FOCUS = useIsFocused()
 
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
@@ -28,6 +31,12 @@ export const useAddNewBeneficiaryViewModel = () => {
   const [country, setCountry] = useState('');
   const [currency, setCurrency] = useState('');
   const [open, setOpen] = useState(false);
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const handlePressType = (key: string) => setChecked(key);
   const pressBackArrow = () => navigation.goBack();

@@ -6,6 +6,8 @@
         <item name="android:forceDarkAllowed">false</item>
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:statusBarColor">@color/purple</item>
+        <item name="android:navigationBarColor">@color/darkSecondary</item>
     </style>
 
     <!-- Splash Screen Theme -->

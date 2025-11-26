@@ -1,11 +1,14 @@
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 import { Images } from "../../../config";
 import { SHOW_CLIENT } from "../../../APICall/constants";
 import { Alert } from "react-native";
+import { StatusBar } from "react-native";
+import { THEME } from "../../../styles";
 
 export const useBankTransferViewModel = () => {
   const navigation = useNavigation();
+  const FOCUS = useIsFocused()
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [recipientGets, setRecipientGets] = useState("");
@@ -16,6 +19,13 @@ export const useBankTransferViewModel = () => {
     currency: "GBP",
     flag: Images.account,
   });
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
+
 
   const pressBackArrow = () => navigation.goBack();
 

@@ -56,7 +56,7 @@ const VerifyAddress = ({ style, onPress1, onPress2, backImg,loginUserData }: { s
 
 
         {/* <View style={[styles.container, style]}> */}
-            <View style={styles.stepGrey} />
+            {/* <View style={styles.stepGrey} /> */}
             <ScrollView showsVerticalScrollIndicator={false} >
             <Text style={styles.title}>Verify Your Registered Address</Text>
             <Text style={styles.subtitle}>Your card is linked to the following address</Text>
@@ -81,17 +81,19 @@ const styles = StyleSheet.create({
         { marginTop: 0, marginBottom: 20, backgroundColor: THEME.white },
     title: {
         fontSize: FONT_SIZES.twosix,
+        lineHeight: 32,
         fontFamily: FONTFAMILY.SemiBold,
         color: THEME.white,
         alignSelf: "center",
-        marginTop: 10,
+        marginTop: 20,
         textAlign: 'center'
     },
     subtitle: {
         color: THEME.white,
         fontFamily: FONTFAMILY.Regular,
         fontSize: FONT_SIZES.onesix,
-        marginTop: 3,
+        marginTop: 10,
+        lineHeight: 18,
         // borderBottomWidth: 0.5,
         // borderColor: THEME.lightGrey,
         paddingBottom: 20,

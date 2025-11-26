@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
+    lineHeight: 18,
     marginBottom: 30,
   },
   label: {
@@ -266,7 +267,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onefour,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     marginLeft: 10,
   },
 });

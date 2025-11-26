@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: METRICS.width,
-    height: scale(55),
+    height: 56,
     resizeMode: "contain",
     alignSelf: "center",
     marginTop: 45,

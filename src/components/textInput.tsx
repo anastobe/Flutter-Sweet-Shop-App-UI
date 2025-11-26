@@ -117,13 +117,14 @@ export default function InputField(props: any) {
             {
               top: labelAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [18, 4],
+                outputRange: [17, 4],
               }),
               fontSize: labelAnim.interpolate({
                 inputRange: [0, 1],
                 outputRange: [16, 12],
               }),
-              color: isFocused ? THEME.white : THEME.white,
+              color: THEME.white,
+              // backgroundColor: "red"
             },
           ]}
         >
@@ -133,6 +134,7 @@ export default function InputField(props: any) {
         {/* Input */}
         <TextInput
           placeholderTextColor={THEME.white}
+          // placeholder={placeholder}
           returnKeyType={'next'}
           value={value}
           keyboardType={keyboardType}
@@ -154,7 +156,7 @@ export default function InputField(props: any) {
         {/* Right Icon */}
         {image && (
           <Pressable onPress={onPress} style={styles.imgView}>
-            <Icon name={image} size={22} color={imagetintColor} />
+            <Icon name={image} size={20} color={imagetintColor} />
           </Pressable>
         )}
 
@@ -218,13 +220,13 @@ const styles = StyleSheet.create({
   inputInner: {
     fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
-    // lineHeight: 16,
+    lineHeight: 16,
     borderColor: THEME.white,
     borderWidth: 1,
     borderRadius: 10,
     width: METRICS.width - 40,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     paddingLeft: 20,
     // paddingTop: 15,
   },
@@ -233,11 +235,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'transparent',
     fontFamily: FONTFAMILY.Regular,
+    fontSize: FONT_SIZES.onefour,
+
   },
 
   imgView: {
     width: 50,
-    height: scale(55),
+    height: 56,
     position: 'absolute',
     right: 5,
     justifyContent: 'center',
@@ -246,7 +250,7 @@ const styles = StyleSheet.create({
 
   imgViewLeft: {
     width: 35,
-    height: scale(55),
+    height: 56,
     position: 'absolute',
     left: 5,
     justifyContent: 'center',
@@ -257,7 +261,7 @@ const styles = StyleSheet.create({
 
   iconRightDropDown: {
     position: 'absolute',
-    height: scale(55),
+    height: 56,
     paddingRight: 12,
     justifyContent: 'center',
     alignItems: 'flex-end',
@@ -278,11 +282,16 @@ const styles = StyleSheet.create({
   row: {
     height: scale(45),
     justifyContent: 'center',
-    paddingLeft: 10,
+    // paddingLeft: 10,
+    // backgroundColor: "red",
+    borderBottomColor: THEME.dividerCol,
+    borderBottomWidth: 0.2,
+    marginHorizontal: 10
   },
 
   rowText: {
     fontSize: 15,
+    marginLeft: 10,
     color: THEME.white,
   },
 });
@@ -471,7 +480,7 @@ const styles = StyleSheet.create({
 //     flexDirection: 'row',
 //     borderWidth: 1,
 //     borderRadius: 14,
-//     height: scale(55),
+//     height: 56,
 //     alignItems: 'center',
 //   },
 //   inputInner: {
@@ -482,13 +491,13 @@ const styles = StyleSheet.create({
 //     borderRadius: 10,
 //     width: METRICS.width - 40,
 //     color: THEME.white,
-//     height: scale(55),
+//     height: 56,
 //     paddingLeft: 20,
 //     paddingTop: 15
 //   },
 //   imgView: {
 //     width: 50,
-//     height: scale(55),
+//     height: 56,
 //     position: 'absolute',
 //     right: 5,
 //     justifyContent: 'center',
@@ -528,7 +537,7 @@ const styles = StyleSheet.create({
 //    iconRightDropDown: {
 //      position: 'absolute',
 //     //  right: 10,
-//      height: scale(55),
+//      height: 56,
 //      paddingRight: 20,
 //      justifyContent: 'center',
 //      alignItems: "flex-end",

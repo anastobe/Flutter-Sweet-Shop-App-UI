@@ -1,17 +1,26 @@
 // ConfirmCurrencyExchangeViewModel.js
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 export default function useConfirmCurrencyExchangeViewModel() {
   const navigation = useNavigation();
+  const FOCUS = useIsFocused()
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [sendFrom, setSendFrom] = useState('');
   const [toCurrency, setToCurrency] = useState('');
   const [youWillReceive, setYouWillReceive] = useState('');
   const [purpose, setPurpose] = useState('');
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const pressBackArrow = () => {
     navigation.goBack();

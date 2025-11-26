@@ -7,12 +7,21 @@ import { useDispatch } from "react-redux";
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
 import { SHOW_CLIENT } from "../../APICall/constants";
 import { Toast } from "../../utils";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Auth_ROUTES } from "../../constants";
+import { StatusBar } from "react-native";
+import { THEME } from "../../styles";
 
 export const useWelcomeViewModel = () => {
 
   const navigation = useNavigation();
+  const FOCUS = useIsFocused()
+  
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const onPressLogin = () => { 
     navigation.navigate(Auth_ROUTES.LOGIN)

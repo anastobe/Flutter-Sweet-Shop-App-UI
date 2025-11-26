@@ -123,9 +123,9 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
                     let checkedValue = checked[item.key]
                     return (
                         <View key={item.key} style={styles.row}>
-                            <TouchableOpacity style={[styles.boxShape ]} onPress={() => handlePress(item.key)} >{
+                            <TouchableOpacity style={[styles.boxShape,{borderColor: checkedValue ? THEME.primary : THEME.white } ]} onPress={() => handlePress(item.key)} >{
                                 checkedValue ?
-                                    <Icon name="checkmark" size={17} color={THEME.white} />
+                                    <Icon name="checkmark" size={17} color={checkedValue ? THEME.primary : THEME.white} />
                                     : null
                             }
                             </TouchableOpacity>
@@ -142,7 +142,7 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
   };
 
     return (
-  <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} style={styles.container}>
+  <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={styles.container}>
  
             <Text style={styles.title}>Filter Transactions</Text>
             <ScrollView showsVerticalScrollIndicator={false} >
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
         { marginTop: 20, marginBottom: 0, backgroundColor: THEME.primary },
         
     forgetTxt2:
-        { marginTop: 20, marginBottom: 20,backgroundColor: THEME.white },
+        { marginTop: 10, marginBottom: 20,backgroundColor: THEME.white },
     checkmarkTitle: {
         fontSize: FONT_SIZES.onesix,
         fontFamily: FONTFAMILY.Medium,
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     boxShape:
-        { width: 20, height: 20, borderWidth: 1.5, borderColor: THEME.white, borderRadius: 3 },
+        { width: 20, height: 20, borderWidth: 1.5, borderRadius: 3 },
     row: {
         flexDirection: 'row',
         alignItems: 'center',

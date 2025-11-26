@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Toast } from '../../../utils';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../../styles';
 
 const useProfileViewModel = () => {
 
@@ -14,7 +17,13 @@ const useProfileViewModel = () => {
   const [username, setUsername] = useState((`${personal_customers?.first_name}`));
   const [email, setEmail] = useState(`${loginUserData?.email}`);
   const [phone, setPhone] = useState(`${loginUserData?.telephone}`);
-  
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
 
   // ✅ Image Picker

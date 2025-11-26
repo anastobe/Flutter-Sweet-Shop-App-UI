@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   logo: {
    width: METRICS.width,
-    height: scale(55),
+    height: 56,
     resizeMode: 'contain',
     alignSelf: "center",
     marginTop: 60
@@ -152,7 +152,7 @@ export default Welcome;
 //   },
 //   logo: {
 //    width: METRICS.width,
-//     height: scale(55),
+//     height: 56,
 //     resizeMode: 'contain',
 //     alignSelf: "center",
 //     marginTop: 45

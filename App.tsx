@@ -22,7 +22,9 @@ const App: React.FC = () => {
     const queryClient = new QueryClient();
 
   React.useEffect(() => {
-    SplashScreen.hide();
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
   }, []);
 
 

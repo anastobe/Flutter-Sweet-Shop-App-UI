@@ -24,6 +24,7 @@ import { Images } from '../../config';
 type Props = {
   onClose?: () => void;
   btnLoader?: boolean;
+  iconNameBottom?: any;
   showCancelBtn?: Boolean;
   onConfirm?: () => void;
   title: string;
@@ -51,6 +52,7 @@ const BluryModal: React.FC<Props> = ({
   iconName = 'snow-outline',
   confirmText = '',
   downConfirmText = "",
+  iconNameBottom,
   backImg,
   style
 }) => {
@@ -81,7 +83,7 @@ const BluryModal: React.FC<Props> = ({
 
       {/* ICON */}
       <View style={{ alignItems: 'center', marginTop: marginTopTitle ? marginTopTitle : 20 }}>
-       {iconName && <View style={styles.iconCircle}>
+       {iconName && <View style={[styles.iconCircle,{ marginBottom: iconNameBottom ? iconNameBottom : 20, }]}>
           <Icon name={iconName} size={40} color={THEME.textPrimary} />
         </View>}
       </View>
@@ -167,7 +169,6 @@ const styles = StyleSheet.create({
     height: scale(65),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
   },
   icon: {
     width: scale(30),

@@ -18,7 +18,7 @@ function InfoRow({ icon, label, value }) {
   return (
     <View style={styles.infoRow}>
       <View style={{ flexDirection: 'row' }}>
-        <Icon name={icon} size={18} color={THEME.white} style={{ marginRight: 8 }} />
+        <Icon name={icon} size={18} color={THEME.primary} style={{ marginRight: 8 }} />
         <Text style={styles.label}>{label}</Text>
       </View>
       <View style={styles.valueBox}>
@@ -108,8 +108,8 @@ function ConfirmCardRequest(props: any) {
     if (payload?.format?.toLowerCase() == "physical" ) {
       return (
         <View style={styles.checkboxContainer}>
-          <TouchableOpacity onPress={() => setTick(!tick)} style={styles.checkbox}>
-            {tick ? <Icon name="checkmark-outline" size={18} color={THEME.white} /> : null}
+          <TouchableOpacity onPress={() => setTick(!tick)} style={[styles.checkbox,{ borderColor: tick ? THEME.primary : THEME.white }]}>
+            {tick ? <Icon name="checkmark-outline" size={18} color={tick ? THEME.primary : THEME.white} /> : null}
           </TouchableOpacity>
           <Text style={styles.confirmText}>
             I confirm that <Text style={styles.boldText}>£4.95 ("DUMMY")</Text> will be deducted from my
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
   accountTextbelow: {
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onesix,
-    color: THEME.primary,
+    color: THEME.white,
     marginLeft: 5,
   },
   badgeText: {
@@ -329,15 +329,15 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderWidth: 1,
-    borderColor: THEME.white,
+
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
   },
   confirmText: {
-    flex: 1,
-    color: THEME.primary,
+    color: THEME.white,
     fontSize: FONT_SIZES.onefour,
+    lineHeight: 16,
     fontFamily: FONTFAMILY.Regular,
  
   },
@@ -353,8 +353,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: 100,
-    width: scale(55),
-    height: scale(55),
+    width: 56,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,

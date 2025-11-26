@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import { Alert, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import Metrics from "../../../styles/metrics";
@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import QueryKey from "../../../queries/queryKey";
 import { Images } from "../../../config";
+import { StatusBar } from "react-native";
+import { THEME } from "../../../styles";
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
@@ -21,6 +23,7 @@ export const useAccountScreenViewModel = () => {
   const editRef = useRef<any>(null);
   const editAccountRef = useRef<any>(null);
   const flatListRef = useRef<FlatList>(null);
+  const FOCUS = useIsFocused()
 
   const [currentAccDetail, setcurrentAccDetail] = useState({
         asset_type_id: "", 
@@ -37,6 +40,12 @@ export const useAccountScreenViewModel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showbalance, setshowbalance] = useState(false);
   
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.gradientStatusBarColor)
+    }
+  },[FOCUS]) 
+
   const { data: getAccounts_Data, refetch: refetchgetAccounts, isPending } = getAccounts({
     enabled: false, 
     dispatch,
@@ -73,10 +82,10 @@ export const useAccountScreenViewModel = () => {
   ];
 
   const features = [
-    { icon: Images.add, text: `Add Beneficiary`, onPress: () => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY) },
-    { icon: Images.transfer, text: "Transfer", onPress: () => navigation.navigate(HOME_ROUTES.MAKE_PAYMENT) },
-    { icon: Images.detail, text: "View Details", onPress: () => manageRef?.current?.open() },
-    { icon: Images.convert, text: "Convert", onPress: () => navigation.navigate(HOME_ROUTES.CURRENCY_EXCHANGE) },
+    { icon: Images.add, text: `Add Beneficiary`, onPress: () => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY), width: 18, height: 18 },
+    { icon: Images.transfer, text: "Transfer", onPress: () => navigation.navigate(HOME_ROUTES.MAKE_PAYMENT), width: 22, height: 22 },
+    { icon: Images.detail, text: "View Details", onPress: () => manageRef?.current?.open(), width: 22, height: 22 },
+    { icon: Images.convert, text: "Convert", onPress: () => navigation.navigate(HOME_ROUTES.CURRENCY_EXCHANGE), width: 22, height: 22 },
   ];
 
   const onPressCard = () => navigation.navigate(HOME_ROUTES.ACCOUNT_DETAIL);

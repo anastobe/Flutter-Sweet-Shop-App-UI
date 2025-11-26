@@ -25,12 +25,11 @@ export const useHomeViewModel = () => {
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   
-  // useEffect(()=>{
-  //   StatusBar.setBackgroundColor("#7c4fc3")
-  //   return ()=>{
-  //     StatusBar.setBackgroundColor(THEME.darkSecondary)
-  //   }
-  // },[FOCUS]) 
+  useEffect(()=>{
+    if (FOCUS) { 
+      StatusBar.setBackgroundColor(THEME.gradientStatusBarColor)
+    }
+  },[FOCUS]) 
 
   const Sendoption = [ 
     { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency Account`, width: 15, height: 15 },

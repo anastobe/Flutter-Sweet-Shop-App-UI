@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: 'center',
-    height: scale(55),
+    height: 56,
     width: '100%',
     marginTop: 20
 
@@ -358,8 +358,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: 100,
-    width: scale(55),
-    height: scale(55),
+    width: 56,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,

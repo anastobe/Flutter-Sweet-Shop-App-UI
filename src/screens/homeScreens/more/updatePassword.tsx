@@ -56,7 +56,7 @@ export default function UpdatePassword() {
         margBtm={20}
         image={secure ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
-        imagetintColor={THEME.primary}
+        imagetintColor={THEME.white}
         blurOnSubmit={false}
         secureEntry={secure}
         placeholder="Current Password"
@@ -70,7 +70,7 @@ export default function UpdatePassword() {
         margBtm={20}
         image={secure2 ? 'eye-outline' : 'eye-outline'}
         autoCapital="none"
-        imagetintColor={THEME.primary}
+        imagetintColor={THEME.white}
         secureEntry={secure2}
         blurOnSubmit={false}
         placeholder="New Password"
@@ -96,7 +96,7 @@ export default function UpdatePassword() {
         value={confirmNewPassword}
         onPress={() => setSecure3(!secure3)}
         onChangeText={setConfirmNewPassword}
-        imagetintColor={THEME.primary}
+        imagetintColor={THEME.white}
       />
 
       <CustomButton

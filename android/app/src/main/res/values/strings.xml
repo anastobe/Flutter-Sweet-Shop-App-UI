@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Frontier Pay</string>
+    <color name="purple">#7c4fc3</color>
+    <color name="darkSecondary">#0C1544</color>
 </resources>

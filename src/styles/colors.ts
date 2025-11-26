@@ -10,6 +10,9 @@ enum THEME {
   whitergba = 'rgba(255, 255, 255, 0.13)',
   SlateBlue = "rgba(97, 93, 135, 0.4)",
   gray_med = "#626262",
+  gradientStatusBarColor = "#7c4fc3",
+  dividerCol = "#6d738f",
+
   // old Design 
 
   offWhite = "#F9F9F9",

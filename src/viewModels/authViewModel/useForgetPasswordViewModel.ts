@@ -1,11 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Auth_ROUTES } from '../../constants';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../APICall/constants';
+import { StatusBar } from 'react-native';
+import { THEME } from '../../styles';
+import { useIsFocused } from '@react-navigation/native';
 
 export const useForgetPasswordViewModel = (navigation: any) => {
   const [email, setEmail] = useState('');
   const [Open, setOpen] = useState(false);
+  const FOCUS = useIsFocused()
+  
+  useEffect(()=>{
+    if (FOCUS) {
+      StatusBar.setBackgroundColor(THEME.darkSecondary)
+    }
+  },[FOCUS]) 
 
   const handleSendResetLink = () => {
     // Placeholder for API integration if needed later

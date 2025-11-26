@@ -131,7 +131,7 @@ const AccountScreen = () => {
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
       <SafeAreaView style={styles.container}>
-      <StatusBar translucent backgroundColor={"#7c4fc3"} />
+      {/* <StatusBar translucent backgroundColor={"#7c4fc3"} /> */}
        {renderHeaderStuffs()}
 
 
@@ -177,7 +177,7 @@ const AccountScreen = () => {
 
     {/* Bottom Sheets */}
         <BottomSheet
-          height={METRICS.height - scale(250)}
+          height={METRICS.height - 250}
           draggable={false}
           bottomSheetRef={vm.manageRef}
         >
@@ -186,7 +186,7 @@ const AccountScreen = () => {
             source={Images.addCardGradient}
             style={styles.container}
           >
-            <ScrollView contentContainerStyle={{ paddingBottom: 100 }} >
+            <ScrollView contentContainerStyle={{ paddingBottom: 0 }} >
             <AccountDetailsCard
               onPressShare={vm.onPressShare}
               onPressCopy={vm.onPressCopy}
@@ -205,7 +205,7 @@ const AccountScreen = () => {
           </ImageBackground>
         </BottomSheet>
 
-        <BottomSheet       draggable={false} height={400} bottomSheetRef={vm.editRef}>
+        <BottomSheet       draggable={false} height={300} bottomSheetRef={vm.editRef}>
             <EditAccountPreferences
             accountName="Primary GBP Wallet"
             onPressEdit={() => vm.editAccountRef?.current?.open()}

@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: THEME.white,
     borderRadius: 10,
-    height: scale(55),
+    height: 56,
     marginBottom: 10
   },
   inputInnerPicker: {
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     color: THEME.white,
-    height: scale(55),
+    height: 56,
     marginLeft: 10,
   },
   forgetTxt: { marginTop: 10, marginBottom: 20, marginHorizontal: 20 },
@@ -335,8 +335,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: 100,
-    width: scale(55),
-    height: scale(55),
+    width: 56,
+    height: 56,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
