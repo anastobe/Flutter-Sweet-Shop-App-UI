@@ -26,7 +26,9 @@ export default function TransactionHistory() {
     return (
       <View style={styles.filtersearchContainer}>
         <InputField
-          // removeTitle
+          removeTitle={true}
+          textInputStyle={styles.innerinput}
+          imgViewLeft={styles.imgViewLeft}
           imageLeft={'search-outline'}
           imagetintColorLeft={THEME.white}
           // image={'search-outline'}
@@ -43,8 +45,8 @@ export default function TransactionHistory() {
             cardDetailRef?.current?.open();
           }}
           style={{
-            width: 40,
-            height: scale(42),
+            width: 46,
+            height: 46,
             backgroundColor: THEME.primary,
             borderRadius: 10,
             justifyContent: 'center',
@@ -167,8 +169,21 @@ const styles = StyleSheet.create({
   // innerinput: {  height: scale(53), width: Metrics.width-95, paddingRight: 50 },
     innerinput: 
     {  
-      height: 56,
+      height: 46,
       width: Metrics.width-95,
-      paddingLeft: 40   //calculated value  
-    }
+      paddingLeft: 20,   //calculated value  
+      fontFamily: FONTFAMILY.Regular,
+      fontSize: FONT_SIZES.onefour,
+      color: THEME.white
+    },
+        imgViewLeft: {
+        width: 35,
+        height: 46,
+        position: 'absolute',
+        left: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: 'red',
+        zIndex: 9999,
+      },
 });

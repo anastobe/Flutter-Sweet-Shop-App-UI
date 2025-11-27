@@ -25,6 +25,9 @@ const ConversionHistory = () => {
      function renderFilter() {
        return (
            <InputField
+             removeTitle={true}
+             textInputStyle={styles.innerinput}
+             imgViewLeft={styles.imgViewLeft}
              imageLeft={'search-outline'}
              imagetintColorLeft={THEME.white}
             //  image={'search-outline'}
@@ -148,9 +151,21 @@ const styles = StyleSheet.create({
     innerinput: 
     {  
       height: 56,
-      paddingLeft: 40   //calculated value  
+      fontFamily: FONTFAMILY.Regular,
+      fontSize: FONT_SIZES.onefour,
+      color: THEME.white,
+      paddingLeft: 20   //calculated value  
     },
-
+    imgViewLeft: {
+    width: 35,
+    height: 56,
+    position: 'absolute',
+    left: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+    zIndex: 9999,
+  },
 
 
 

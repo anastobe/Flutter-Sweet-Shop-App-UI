@@ -27,7 +27,9 @@ export default function Request() {
   function renderFilter() {
     return (
         <InputField
-          // removeTitle
+          removeTitle={true}
+          textInputStyle={styles.innerinput}
+          imgViewLeft={styles.imgViewLeft}
           imageLeft={'search-outline'}
           imagetintColorLeft={THEME.white}
           // image={'search-outline'}
@@ -195,7 +197,20 @@ iconCONT:{
     innerinput: 
     {  
       height: 56,
-      paddingLeft: 40   //calculated value  
+      paddingLeft: 20,   //calculated value 
+      fontFamily: FONTFAMILY.Regular,
+      fontSize: FONT_SIZES.onefour, 
+      color: THEME.white
     },
+    imgViewLeft: {
+    width: 35,
+    height: 56,
+    position: 'absolute',
+    left: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+    zIndex: 9999,
+  },
 
 });

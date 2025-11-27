@@ -17,8 +17,10 @@ import { Images } from '../config';
 export default function InputField(props: any) {
   const {
     heading,
+    imgViewLeft,
     autoFocused,
     removeTitle,
+    textInputStyle,
     placeholder,
     margTp,
     margBtm,
@@ -108,7 +110,7 @@ export default function InputField(props: any) {
       {heading && <Text style={styles.text}>{heading}</Text>}
 
       {imageLeft && (
-        <Pressable onPress={onPress} style={styles.imgViewLeft}>
+        <Pressable onPress={onPress} style={imgViewLeft}>
           <Icon
             name={imageLeft}
             size={20}
@@ -119,13 +121,13 @@ export default function InputField(props: any) {
 
       <View style={[styles.inputContainer,customInpStyle]} >
         {/* Floating Label */}
-        <Animated.Text
+       {removeTitle ? null : (isFocused || value?.length) ? <Animated.Text
           style={[
             styles.floatingLabel,{ left: imageLeft ? 40 : 20 }, //40 calculated value due to left icon
             {
               top: labelAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [16.5,  (isFocused || value?.length) ? 8 : 4],
+                outputRange: [16.5,  (isFocused || value?.length) ? 8 : 4 ], //4 and initial focused text 16.5 not our concern as becouse we show placeholder and apply condition
               }),
               fontSize: labelAnim.interpolate({
                 inputRange: [0, 1],
@@ -136,20 +138,21 @@ export default function InputField(props: any) {
             },
           ]}
         >
-          {removeTitle && value?.length ? '' : placeholder}
-        </Animated.Text>
+          {/* {removeTitle && value?.length ? '' : placeholder} */}
+          {placeholder}
+        </Animated.Text> : null}
 
         {/* Input */}
         <TextInput
           placeholderTextColor={THEME.white}
-          // placeholder={placeholder}
+          placeholder={removeTitle ? placeholder : (isFocused ? "" : placeholder)}
           returnKeyType={'next'}
           value={value}
           keyboardType={keyboardType}
           onChangeText={onChangeText}
           secureTextEntry={secureEntry}
           // style={[styles.inputInner, { paddingTop: (isFocused || value?.length) ? 25 : 0 } , customInpStyle]}
-          style={[styles.inputInner, { top: (isFocused || value?.length) ? 8 : 0 } ]}
+          style={[textInputStyle ? textInputStyle : styles.inputInner, removeTitle ? null : { top: (isFocused || value?.length) ? 8 : 0 } ]}
           ref={inputRef} 
           maxLength={maxlen}
           onSubmitEditing={onSubmitEditing}
@@ -230,7 +233,7 @@ const styles = StyleSheet.create({
   inputInner: {
     fontFamily: FONTFAMILY.Regular,
     fontSize: FONT_SIZES.onefour,
-    // lineHeight: 14,
+    // lineHeight: 16,
     // backgroundColor: "transparent",
 
     // borderColor: THEME.white, 
@@ -268,16 +271,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  imgViewLeft: {
-    width: 35,
-    height: 56,
-    position: 'absolute',
-    left: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: 'red',
-    zIndex: 9999,
-  },
+
 
   iconRightDropDown: {
     position: 'absolute',

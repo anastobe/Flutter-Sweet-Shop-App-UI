@@ -31,7 +31,9 @@ const AccountStatement = () => {
     return (
       <View style={styles.filtersearchContainer}>
         <InputField
-          removeTitle
+          removeTitle={true}
+          textInputStyle={styles.innerinput}
+          imgViewLeft={styles.imgViewLeft}
           imageLeft={'search-outline'}
           imagetintColorLeft={THEME.white}
           // image={'search-outline'}
@@ -136,6 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
   },
+
   filtersearchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -152,12 +155,25 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   // innerinput: {  height: scale(53), width: Metrics.width-130, paddingRight: 50 },
-      innerinput: 
+    innerinput: 
     {  
-      height: 56, 
+      height: 46, 
       width: Metrics.width-130,
-      paddingLeft: 40   //calculated value  
+      paddingLeft: 20,   //calculated value  
+      fontFamily: FONTFAMILY.Regular,
+      fontSize: FONT_SIZES.onefour,
+      color: THEME.white
     },
+    imgViewLeft: {
+    width: 35,
+    height: 46,
+    position: 'absolute',
+    left: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+    zIndex: 9999,
+  },
   item: {
     backgroundColor: THEME.SlateBlue,
     borderRadius: 10,
