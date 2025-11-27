@@ -66,7 +66,7 @@ const MoreScreen = () => {
         />
         <CardBox
           rotate="-45deg"
-          titleLeft="Conversion history"
+          titleLeft="Conversion History"
           iconRight="arrow-forward-outline"
           BL_radius={10}
           BR_radius={10}
@@ -234,7 +234,7 @@ const MoreScreen = () => {
       customeStyle={{ paddingHorizontal: 20, paddingBottom: 100 }}
       mainContainerStyle={styles.container}
     >
-      <Text style={styles.title}>More</Text>
+      <Text style={styles.title}>Settings</Text>
 
       {renderExchangeReq('Request')}
       {renderExchangeCurrency('Currency Exchange')}

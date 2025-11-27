@@ -116,7 +116,7 @@ const HistoryList = () => {
       mainContainerStyle={styles.container}
     >
       <View style={{ marginHorizontal: 20 }}>
-        <Text style={styles.title}>Currency History</Text>
+        <Text style={styles.title}>Conversion History</Text>
         <Text style={styles.subtitle}>
           Track all your quick exchange and transfer orders here.
         </Text> 
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
     innerinput: 
     {  
-      height: 56,
+      height: 46,
       fontFamily: FONTFAMILY.Regular,
       fontSize: FONT_SIZES.onefour,
       color: THEME.white,
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     },
     imgViewLeft: {
     width: 35,
-    height: 56,
+    height: 46,
     position: 'absolute',
     left: 5,
     justifyContent: 'center',
