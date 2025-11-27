@@ -60,7 +60,7 @@ export default function InputField(props: any) {
   useEffect(() => {
     Animated.timing(labelAnim, {
       toValue: isFocused || value ? 1 : 0,
-      duration: 200,
+      duration: 0,
       useNativeDriver: false,
     }).start();
   }, [isFocused]);
