@@ -51,7 +51,7 @@ const AccountStatement = () => {
           }}
           style={{
             width: 40,
-            height: scale(42),
+            height: 46,
             backgroundColor: THEME.primary,
             borderRadius: 10,
             justifyContent: 'center',
@@ -66,7 +66,7 @@ const AccountStatement = () => {
           }}
           style={{
             width: 40,
-            height: scale(42),
+            height: 46,
             backgroundColor: THEME.primary,
             borderRadius: 10,
             justifyContent: 'center',
@@ -162,7 +162,8 @@ const styles = StyleSheet.create({
       paddingLeft: 20,   //calculated value  
       fontFamily: FONTFAMILY.Regular,
       fontSize: FONT_SIZES.onefour,
-      color: THEME.white
+      color: THEME.white,
+      justifyContent: "center"
     },
     imgViewLeft: {
     width: 35,

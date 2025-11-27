@@ -174,7 +174,8 @@ const styles = StyleSheet.create({
       paddingLeft: 20,   //calculated value  
       fontFamily: FONTFAMILY.Regular,
       fontSize: FONT_SIZES.onefour,
-      color: THEME.white
+      color: THEME.white,
+      justifyContent: "center"
     },
         imgViewLeft: {
         width: 35,

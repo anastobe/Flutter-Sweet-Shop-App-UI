@@ -149,12 +149,13 @@ const styles = StyleSheet.create({
   },
   container: { flex: 1, backgroundColor: THEME.white },
     innerinput: 
-    {  
+    {   
       height: 46,
       fontFamily: FONTFAMILY.Regular,
       fontSize: FONT_SIZES.onefour,
       color: THEME.white,
-      paddingLeft: 20   //calculated value  
+      paddingLeft: 20,   //calculated value  
+      justifyContent: "center"
     },
     imgViewLeft: {
     width: 35,
