@@ -185,7 +185,9 @@ export default function InputField(props: any) {
           </Pressable>
         )}
 
-        {/* Dropdown List */}
+
+      </View>
+              {/* Dropdown List */}
         {enableDropdown && (
           <Animated.View
             style={[
@@ -212,7 +214,6 @@ export default function InputField(props: any) {
             />
           </Animated.View>
         )}
-      </View>
     </View>
   );
 }
