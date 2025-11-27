@@ -2,6 +2,7 @@ import { useTheme } from '@react-navigation/native';
 import React, { useRef } from 'react';
 import { View, StyleSheet, Text, ViewStyle, Alert } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { THEME } from '../../styles';
 // import { useTheme } from '../../hooks';
 
 interface BottomSheetProps {
@@ -48,7 +49,8 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({onClose, bottomSheetRef
 const styles = StyleSheet.create({
   container: {
     borderTopLeftRadius: 20,
-    borderTopRightRadius: 20
+    borderTopRightRadius: 20,
+    backgroundColor: THEME.gray
   },
  
 

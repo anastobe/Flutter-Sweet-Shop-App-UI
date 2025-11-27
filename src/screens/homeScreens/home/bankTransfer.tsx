@@ -44,7 +44,7 @@ const BankTransfer = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
         <View style={{ marginHorizontal: 20 }}>
           <Text style={styles.title}>Bank Transfer</Text>
           <Text style={styles.subtitle}>
@@ -97,7 +97,7 @@ const BankTransfer = () => {
             value={recipientType} 
             enableDropdown={true}
             dropdownData={[
-              { name: "account" },
+              // { name: "account" },
               { name: "Cash" }
             ]} 
             margBtm={15}

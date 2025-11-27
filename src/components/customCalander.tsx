@@ -23,10 +23,12 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
 }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>(value || '');
+  const [autoFocused, setautoFocused] = useState<boolean>(false);
 
   const handleDayPress = (day: any) => {
     setSelectedDate(day.dateString);
     onDateChange?.(day.dateString);
+    setautoFocused(true)
     setShowCalendar(false);
   };
 
@@ -39,6 +41,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
         onPress={() => setShowCalendar(true)} // open calendar on press
         image="calendar-outline"
         margTp={margTp}
+        autoFocused={autoFocused}
         imagetintColor={THEME.white}
         disabled={false}
         customInpStyle={{ width: METRICS.width - 40 }}
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: THEME.white,
-    borderRadius: 12,
+    borderRadius: 12, 
     width: METRICS.width - 30,
     padding: 10,
   },

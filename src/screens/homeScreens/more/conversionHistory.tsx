@@ -28,7 +28,7 @@ const ConversionHistory = () => {
              imageLeft={'search-outline'}
              imagetintColorLeft={THEME.white}
             //  image={'search-outline'}
-             removeTitle
+            //  removeTitle
              autoCapital={'none'}
              blurOnSubmit={false}
              placeholder="Search"

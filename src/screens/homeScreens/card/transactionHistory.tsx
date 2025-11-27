@@ -26,7 +26,7 @@ export default function TransactionHistory() {
     return (
       <View style={styles.filtersearchContainer}>
         <InputField
-          removeTitle
+          // removeTitle
           imageLeft={'search-outline'}
           imagetintColorLeft={THEME.white}
           // image={'search-outline'}

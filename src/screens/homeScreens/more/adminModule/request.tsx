@@ -27,7 +27,7 @@ export default function Request() {
   function renderFilter() {
     return (
         <InputField
-          removeTitle
+          // removeTitle
           imageLeft={'search-outline'}
           imagetintColorLeft={THEME.white}
           // image={'search-outline'}

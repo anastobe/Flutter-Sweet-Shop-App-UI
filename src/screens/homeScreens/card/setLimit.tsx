@@ -88,6 +88,7 @@ export default function SetLimits({...props}) {
         value={spendingLimit}
         onChangeText={setSpendingLimit}
         keyboardType={'numeric'}
+        autoFocused={true}
         margBtm={20}
         maxlen={10}
       />
@@ -210,6 +211,7 @@ export default function SetLimits({...props}) {
         </Text>
 
       <InputField
+        autoFocused={true}
         disabled={false} 
         placeholder="Select Card (DUMMY)"
         value={selectedCards?.card_name} 

@@ -44,8 +44,8 @@ const Profile = () => {
                 backgroundColor: THEME.SlateBlue,
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 90,
-                height: 90,
+                width: 95,
+                height: 95,
                borderRadius: 200,
                 borderColor: THEME.white,
                 // borderWidth: 1
@@ -70,7 +70,7 @@ const Profile = () => {
           keyboardType={'default'}
           margBtm={15}
           onChangeText={setName}
-          customInpStyle={{ backgroundColor: THEME.whitergba,borderWidth: 0  }}
+          customInpStyle={{ backgroundColor: THEME.whitergba,borderWidth: 0, borderRadius: 10,  }}
         />
 
         <InputField
@@ -83,7 +83,7 @@ const Profile = () => {
           keyboardType={'default'}
           margBtm={15}
           onChangeText={setUsername}
-          customInpStyle={{ backgroundColor: THEME.whitergba,borderWidth: 0  }}
+          customInpStyle={{ backgroundColor: THEME.whitergba,borderWidth: 0, borderRadius: 10,  }}
         />
 
         <InputField
@@ -95,7 +95,7 @@ const Profile = () => {
           onChangeText={setEmail}
           keyboardType={'email-address'}
           margBtm={15}
-          customInpStyle={{ backgroundColor: THEME.whitergba, borderWidth: 0 }}
+          customInpStyle={{ backgroundColor: THEME.whitergba, borderWidth: 0, borderRadius: 10, }}
         />
         <InputField
           marginTp={20}
@@ -107,7 +107,7 @@ const Profile = () => {
           onChangeText={setPhone}
           keyboardType={'numeric'}
           margBtm={15}
-          customInpStyle={{ backgroundColor: THEME.whitergba, borderWidth: 0 }}
+          customInpStyle={{ backgroundColor: THEME.whitergba, borderWidth: 0, borderRadius: 10, }}
         />
       </View>
     );
@@ -147,7 +147,7 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   profiletxt: {
-    fontSize: FONT_SIZES.foureight,
+    fontSize: FONT_SIZES.threetwo,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     // marginBottom: 10,
