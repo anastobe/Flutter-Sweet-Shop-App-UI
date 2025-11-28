@@ -38,15 +38,15 @@ const HomeScreen = () => {
     handleNavigateTransaction,
     loginUserData,
     personal_customers,
-    getCurrencyAccount_DATA,
+    // getCurrencyAccount_DATA,
     showCurrencyDropdown, 
     setShowCurrencyDropdown,
-    selectedCurrency, 
-    setSelectedCurrency,
+    // selectedCurrency, 
+    // setSelectedCurrency,
     assetsList, 
     setAssetsList,
     onSelectCurrency,
-    isFetching,
+    loader,
     showbalance, 
     setshowbalance
   } = useHomeViewModel();
@@ -97,7 +97,7 @@ const renderBalanceCard = () => (
 
 
       {/* BALANCE VALUE */}
-      {isFetching ?
+      {loader ?
         <View style={styles.indicatorLoaderBoc} >
           <ActivityIndicator size="small" color={THEME.primary} />
         </View>
@@ -105,7 +105,7 @@ const renderBalanceCard = () => (
       <>
         <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: 50 }} >
         {showbalance ? 
-        <Text style={styles.total}>{selectedCurrency?.currency?.iso_code} {selectedCurrency?.available_balance}</Text> 
+        <Text style={styles.total}>{assetsList?.firstObject?.currency?.iso_code} {assetsList?.firstObject?.available_balance}</Text> 
         : 
         <Text style={styles.total}>**********</Text> 
         }
@@ -122,7 +122,7 @@ const renderBalanceCard = () => (
             onPress={() => setShowCurrencyDropdown(!showCurrencyDropdown)}
           >
             <Text style={styles.currencyText}>
-              {selectedCurrency?.currency?.iso_code || "---"}
+              {assetsList?.firstObject?.currency?.iso_code || "---"}
             </Text>
             <Icon 
               name={showCurrencyDropdown ? "caret-up-outline" : "caret-down-outline"} 
@@ -136,7 +136,7 @@ const renderBalanceCard = () => (
           <FlatList
             nestedScrollEnabled
             bounces={false}
-            data={getCurrencyAccount_DATA?.results}
+            data={assetsList?.array}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <Pressable 
@@ -254,7 +254,6 @@ const ScrollableCards = () => {
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
       <SafeAreaView style={styles.container}>
-      {/* <StatusBar translucent backgroundColor={THEME.gradientStatusBarColor} /> */}
        {renderHeaderStuffs()}
 
          <ScrollView contentContainerStyle={{ paddingBottom: 0, marginTop: 10 }}>

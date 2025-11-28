@@ -11,6 +11,7 @@ import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Images } from '../../../config';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import apis from '../../../services';
 
 export const useHomeViewModel = () => {
   const navigation = useNavigation();
@@ -19,9 +20,13 @@ export const useHomeViewModel = () => {
 
   const [showbalance, setshowbalance] = useState(false);
   const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState(null);
-  const [assetsList, setAssetsList] = useState([]);
+  // const [selectedCurrency, setSelectedCurrency] = useState<any>();
+  const [assetsList, setAssetsList] = useState<any>({
+    firstObject: {},
+    array: []
+  });
 
+  const loader = useSelector((state: any) => state?.AuthReducer?.loader);
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   
@@ -61,50 +66,27 @@ export const useHomeViewModel = () => {
     navigation.navigate(HOME_ROUTES.PROFILE);
   };
 
-  // get my account detail
-  const {data: getUserDetail_Data, refetch: refetchgetUserDetail } = getUserDetail({
-    enabled: false,
-    dispatch,
-  });
-
-    // get my account detail
-  const {data: getCoutry_Data, refetch: refetchgetCoutry_Data } = getCoutry({
-    enabled: false,
-    dispatch,
-  });
-
-    // get my account detail
-  const {data: getCurrency_Data, refetch: refetchgetCurrency_Data } = getCurrency({
-    enabled: false,
-    dispatch,
-  });
-
-    // get my account detail
-  const {data: getAssetType_Data, refetch: refetchgetAssetType_Data } = getAssetType({
-    enabled: false,
-    dispatch,
-  });
-
-  // get my account detail
-  const {data: getCurrencyAccount_DATA, refetch: refetchgetCurrencyAccount, isFetching } = getCurrencyAccount({
-    enabled: false,
-    dispatch,
-  });
-
-  console.log("API=>",getCurrencyAccount_DATA);
-  
   
 const fetchAllInitialData = async () => {
   try {
     dispatch(handleLoader(true));
 
+    const [userDetailRes, countryRes, currencyRes, assetTypeRes, currencyAccountRes] =
     await Promise.all([
-      refetchgetUserDetail(),
-      refetchgetCoutry_Data(),
-      refetchgetCurrency_Data(),
-      refetchgetAssetType_Data(),
-      refetchgetCurrencyAccount()
-    ]);
+      apis.getUserDetail(dispatch),
+      apis.getCoutry(dispatch),
+      apis.getCurrency(dispatch),
+      apis.getAssetType(dispatch),
+      apis.getCurrencyAccount(dispatch), // ✅ This returns your array
+    ]);    
+
+    if (currencyAccountRes?.results) {
+      // setSelectedCurrency(currencyAccountRes?.results[0]);
+      setAssetsList({
+        firstObject: currencyAccountRes?.results[0],
+        array: currencyAccountRes?.results
+      })
+    }
 
   } catch (error) {
     dispatch(handleLoader(false))
@@ -121,20 +103,7 @@ fetchAllInitialData()
 // console.log("getCurrencyAccount_DATA=>",getCurrencyAccount_DATA,"Ssaas",getCurrencyAccArray);
  
 
-useEffect(() => {
-  if (Array.isArray(getCurrencyAccount_DATA?.results)) {
-
-    // save assets list (array)
-    setAssetsList(getCurrencyAccount_DATA.results);
-
-    // set default selected currency
-    setSelectedCurrency(getCurrencyAccount_DATA.results[0]);
-  }
-}, [getCurrencyAccount_DATA]);
  
-console.log("assetsList==>",getCurrencyAccount_DATA?.results);
-
-
 // const currencyOptions = useMemo(() => {
 //   if (!Array.isArray(assetsList)) return [];  // ✅ No crash
 
@@ -149,12 +118,16 @@ console.log("assetsList==>",getCurrencyAccount_DATA?.results);
 
 
 const onSelectCurrency = (asset: any) => {
-  setSelectedCurrency(asset);
+  // setSelectedCurrency(asset);
+  setAssetsList((prev: any )=> ({
+    ...prev,          // keep previous keys same
+    firstObject: asset  // only update this one
+  }));
   setShowCurrencyDropdown(false);
 };
 
    const personal_customers = loginUserData?.personal_customers?.length && loginUserData?.personal_customers[0]
-
+  
   return {
     Sendoption,
     DATA,
@@ -165,19 +138,14 @@ const onSelectCurrency = (asset: any) => {
     handleNavigateTransactionHistory,
     handleNavigateTransaction,
     handleNavigateProfile,
-    getUserDetail_Data,
-    refetchgetUserDetail,
     loginUserData,
     personal_customers,
-    getCurrencyAccount_DATA,
     showCurrencyDropdown, 
     setShowCurrencyDropdown,
-    selectedCurrency, 
-    setSelectedCurrency,
     assetsList, 
-    setAssetsList,
+    setAssetsList, 
     onSelectCurrency,
-    isFetching,
+     loader,
     showbalance, 
     setshowbalance
     // currencyOptions

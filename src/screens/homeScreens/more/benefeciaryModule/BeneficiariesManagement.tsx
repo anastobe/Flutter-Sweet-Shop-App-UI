@@ -124,7 +124,7 @@ const BeneficiariesManagement = () => {
       pressRightArrow={pressRightArrow}
       showBackArrow={true}
       pressBackArrow={pressBackArrow}
-      isFlatList={true}
+      isFlatList={false}
       barStyle="dark-content"
       // refreshingeffect={true}
       // onRefresh={onRefresh}
@@ -137,12 +137,16 @@ const BeneficiariesManagement = () => {
           Manage your saved recipients for faster and easier payments.
         </Text>
 
-        {isFetchingBeneficiary ? (
+          {isFetchingBeneficiary && !getBeneficiaryDetail_Data?.results?.length ? (
             <LoaderOnly />
           ) : (
           <FlatList
               data={getBeneficiaryDetail_Data.results}
               renderItem={renderItem}
+              onEndReachedThreshold={0.1}
+              onEndReached={() => {
+                console.log("User reached the bottom!");
+              }}
               keyExtractor={(item) => item.id}
               ListEmptyComponent={()=>{
               return(
