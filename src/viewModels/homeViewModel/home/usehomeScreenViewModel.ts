@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HOME_ROUTES } from '../../../constants';
 import { CURRENT_ACCOUNT, DATA } from '../../../utils/data';
 import { Alert } from 'react-native';
-import {  getAssetType, getCoutry, getCurrency, getCurrencyAccount, getUserDetail } from '../../../queries/homeQueries/homeQuery';
 import { useEffect, useMemo, useState } from 'react';
 import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
 import { SHOW_CLIENT } from '../../../APICall/constants';

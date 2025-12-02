@@ -3,25 +3,29 @@ import { useState, useEffect, useRef } from "react";
 import ReactNativeBiometrics from "react-native-biometrics";
 import { useLogin } from "../../queries/auth.query";
 import { Alert } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
 import { SHOW_CLIENT } from "../../APICall/constants";
 import { Toast } from "../../utils";
 import { StatusBar } from "react-native";
-import { THEME } from "../../styles";
+import { THEME } from "../../styles"; 
 import { useIsFocused } from "@react-navigation/native";
 
 export const useLoginViewModel = (navigation: any) => {
 
+  // const countryList = useSelector((state: any) => state);
+  
   const [email, setEmail] = useState("hlahooti@frontier-pay.com");
   const [password, setPassword] = useState("test-post-auth@Front1er");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
 
   const dispatch = useDispatch()
-  const biometryRef = useRef(null);
+  const biometryRef = useRef(null); 
   const rnBiometrics = new ReactNativeBiometrics();
   const FOCUS = useIsFocused()
+
+  // console.log("countryList==?>",countryList); check redux data removed or not
   
   useEffect(()=>{
     if (FOCUS) {

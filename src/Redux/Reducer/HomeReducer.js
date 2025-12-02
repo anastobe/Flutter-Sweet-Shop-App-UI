@@ -20,6 +20,12 @@ export default (state = initialState, action) => {
         getCurrencyAccArray: action.payload,
       };
 
+      case ActionType.LOGOUT:
+      return {
+        ...state,
+        loginUserData: {},
+        getCurrencyAccArray: []
+      };
 
     default:
       return state;

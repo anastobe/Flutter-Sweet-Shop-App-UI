@@ -5,6 +5,7 @@ import { HOME_ROUTES } from '../../../constants';
 import { storeUserToken } from '../../../Redux/Action/Auth/AuthActions';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import { logoutUser } from '../../../utils/logout.helper';
 
 export default function useMoreViewModel() {
   const navigation = useNavigation();
@@ -75,7 +76,8 @@ export default function useMoreViewModel() {
   }
 
   function onPressLogout() {
-    dispatch(storeUserToken({}));
+    logoutUser()
+    // dispatch(storeUserToken({}));
   }
 
   function onCloseHelpSheet() {

@@ -28,6 +28,13 @@ export default (state = initialState, action) => {
         accountTypeList: action.payload,
       };
 
+    case ActionType.LOGOUT:
+    return {
+      ...state,
+      countryList: [],
+      currencyList: [],
+      accountTypeList: []
+    };
 
     default:
       return state;
