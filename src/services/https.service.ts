@@ -59,7 +59,7 @@ const axiosInstance = async (
         ? JSON.parse(error.bodyString)
         : error.bodyString;
 
-    if (errorResponse?.message?.includes('Unauthenticated')) {
+    if (errorResponse?.message?.toLowerCase()?.includes('unauthenticated')) {
       logoutUser();
       return; 
     }
