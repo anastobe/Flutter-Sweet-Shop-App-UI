@@ -304,7 +304,7 @@ const CardScreen = () => {
         />
 
         <BottomSheet
-          height={290}
+          height={300}
           draggable={false}
           openTime={500}
           closeDuration={500}

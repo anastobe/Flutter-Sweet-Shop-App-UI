@@ -124,7 +124,7 @@ const BeneficiariesManagement = () => {
       pressRightArrow={pressRightArrow}
       showBackArrow={true}
       pressBackArrow={pressBackArrow}
-      isFlatList={false}
+      isFlatList={true}
       barStyle="dark-content"
       // refreshingeffect={true}
       // onRefresh={onRefresh}
@@ -143,6 +143,8 @@ const BeneficiariesManagement = () => {
           <FlatList
               data={getBeneficiaryDetail_Data.results}
               renderItem={renderItem}
+              // scrollEnabled
+              // nestedScrollEnabled
               onEndReachedThreshold={0.1}
               onEndReached={() => {
                 console.log("User reached the bottom!");
