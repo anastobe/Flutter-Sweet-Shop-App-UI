@@ -1,49 +1,35 @@
 import { CardUsageResponse } from "../../models/card/CardUsageResponse.model";
 import axiosInstance from "../https.service";
 
+// Replace card
 export const useReplaceCard = async (body: any) => {
-  const response = await axiosInstance.post('/card/replace', body);
-  return response.data;
+  return await axiosInstance('/card/replace', 'POST', body, true);
 };
 
+// Set spend limit
 export const setSpendLimit = async (body: any) => {
-  const response = await axiosInstance.post('/card/update-usage-limit', body);
-  return response.data;
+  return await axiosInstance('/card/update-usage-limit', 'POST', body, true);
 };
 
+// Freeze/Unfreeze card without showing success message
 export const freezUnFreezCardNoMessage = async (body: any) => {
-  const response = await axiosInstance.post(
-    '/card/status', 
-    body,
-    { showSuccessMessage: false }
-  );
-  return response.data;
+  return await axiosInstance('/card/status', 'POST', body, true);
 };
 
+// Set PIN security
 export const setPinSecurity = async (body: any) => {
-  const response = await axiosInstance.post('/card/set-pin', body);
-  return response.data;
+  return await axiosInstance('/card/set-pin', 'POST', body,true);
 };
 
+// Update card usage rules without showing success message
 export const updateUsageRules = async (body: any) => {
-  const response = await axiosInstance.post('/card/usage-rules', body, { showSuccessMessage: false });
-  return response.data;
+  return await axiosInstance('/card/usage-rules', 'POST', body , false);
 };
 
-
-export const getSucureCard = async (ID: any) => {
-  // console.log("check=>",`/card/usage-rules/${ID}`);
-  // return
-  const response = await axiosInstance.get(`/card/detail/${ID}`, { showSuccessMessage: false });
-
-  return response.data;
+export const getSucureCard = async (ID: string) => {
+  return await axiosInstance(`/card/detail/${ID}`, 'GET', undefined , false);
 };
 
-
-export const getCardsUsageRules = async ( ID: any): Promise<CardUsageResponse > => {
-  // console.log("check=>",`/card/usage-rules/${ID}`);
-  // return
-  const response = await axiosInstance.get(`/card/usage-rules/${ID}`, { showSuccessMessage: false });
-
-  return response.data;
+export const getCardsUsageRules = async (ID: string): Promise<CardUsageResponse> => {
+  return await axiosInstance(`/card/usage-rules/${ID}`, 'GET', undefined , false);
 };

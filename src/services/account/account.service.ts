@@ -1,29 +1,34 @@
-import { useDispatch } from "react-redux";
-import axiosInstance from "../https.service";
+import axiosInstance from "../https.service"; 
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
 import { storeLoginUserData } from "../../Redux/Action/Home/HomeActions";
 import { storeAccTypeData, storeCountryData, storeCurrenryData } from "../../Redux/Action/More/MoreActions";
 
 
-export const getAccounts = async (dispatch: any) => {
-  const response = await axiosInstance.get('/assets', {
-    showSuccessMessage: false
-  });
-  return response?.data?.results;
+// 🔹 Get accounts
+export const getAccounts = async () => {
+  const response = await axiosInstance('/assets', 'GET', undefined, false );
+  console.log("=>services=> getAccounts", response);
+  return response?.results;
 };
 
+
+// 🔹 Freeze / Unfreeze Account
 export const AccFreeze = async (payload: any) => {
 
-  let originalPayload = {
+  const body = {
     status: payload.status,
     name: payload.name
-  }
+  };
 
-  const response = await axiosInstance.put(`/account/${payload.id}`, originalPayload);
-  return response.data;
+  const response = await axiosInstance(`/account/${payload.id}`, 'PUT', body, true);
+  console.log("=>services=> AccFreeze", response);
+  return response;
 };
 
+
+// 🔹 Delete Account
 export const AccDelete = async (id: any) => {
-  const response = await axiosInstance.delete(`/account/${id}`, {});
-  return response.data;
+  const response = await axiosInstance(`/account/${id}`, 'DELETE', undefined, false );
+  console.log("=>services=> AccDelete", response);
+  return response;
 };

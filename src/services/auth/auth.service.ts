@@ -1,28 +1,23 @@
-// import { useDispatch } from "react-redux";
-import axiosInstance from "../https.service";
-// import { SaveEventCategoryData } from "../../Redux/Action/Create/CreateActions";
-// import { getMyCurrentuserData, savedMyFriendsData } from "../../Redux/Action/Auth/AuthActions";
-// import { LIMIT, LIMIT_15, LIMIT_5 } from "../../hooks";
-
+import axiosInstance from "../https.service"; // Ye tumhare global SSL pinning wrapper hai
 
 export const userLogin = async (body: any) => {
-  const response = await axiosInstance.post('/login', body);
-  return response.data;
+  // POST axiosInstance using global wrapper
+  const response = await axiosInstance('/login', 'POST', body, true);
+  console.log("=>sercices=>",response);
+  return response;
 };
 
 export const createCard = async (body: any) => {
-  const response = await axiosInstance.post('/card/create', body);
-  return response.data;
+  const response = await axiosInstance('/card/create', 'POST', body, true);
+  return response;
 };
 
 export const freezUnFreezCard = async (body: any) => {
-  const response = await axiosInstance.post('/card/status', body);
-  return response.data;
+  const response = await axiosInstance('/card/status', 'POST', body, true);
+  return response;
 };
 
-export const getCards = async (body: any) => {
-  const response = await axiosInstance.get('/card', {
-    showSuccessMessage: false
-  });
-  return response.data;
+export const getCards = async () => {
+  const response = await axiosInstance('/card', 'GET', undefined, false); // showSuccessMessage = false
+  return response;
 };
