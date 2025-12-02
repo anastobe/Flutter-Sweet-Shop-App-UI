@@ -2,9 +2,9 @@ import * as React from "react";
 import { ActivityIndicator, Alert, AppState, BackHandler, Linking, PermissionsAndroid, Platform, StatusBar, Text, View, useColorScheme } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { Persistor, Store } from "./src/Redux/Store/Store";
+import { Store } from "./src/Redux/Store/Store";
 import dataHandlerService from "./src/APICall/dataHandler.service";
-import { PersistGate } from 'redux-persist/integration/react';
+// import { PersistGate } from 'redux-persist/integration/react';
 import { HOME_ROUTES } from "./src/constants";
 import apis from "./src/services";
 import { CommonUtils } from "./src/utils";
@@ -131,11 +131,12 @@ const App: React.FC = () => {
     dataHandlerService.setStore(Store);
 
 
+    {/* <PersistGate loading={null} persistor={Persistor}> remove due to security reason */} 
+      {/* <TouchableWithoutFeedback onPress={resetActivity}> */}
+
   return (
     <QueryClientProvider client={queryClient} contextSharing={true} >
     <Provider store={Store}>
-      <PersistGate loading={null} persistor={Persistor}>
-        {/* <TouchableWithoutFeedback onPress={resetActivity}> */}
         <NavigationContainer
           fallback={<ActivityIndicator
             color="blue" size="large" />}
@@ -145,8 +146,6 @@ const App: React.FC = () => {
           <LoaderFullScreen />
           <Toast config={toastConfig} />
         </NavigationContainer>
-        {/* </TouchableWithoutFeedback> */}
-      </PersistGate>
     </Provider>
     </QueryClientProvider>
   );
