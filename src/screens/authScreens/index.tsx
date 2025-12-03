@@ -27,7 +27,6 @@ export const Login: React.FC = () => {
 
   const navigation = useNavigation();
   const vm = useLoginViewModel(navigation);
-    const [Open, setOpen] = useState(false);
   function renderError() {
     return(
     <View style={styles.errorCont} >
@@ -71,42 +70,22 @@ const config = {
 
       function renderPOPUP() {
     return(
-//           <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} imageStyle={{ borderRadius: 16,}} style={styles.modal}>
-
-//           <TouchableOpacity style={styles.closeBtn} onPress={()=>{ setOpen(false) }} >
-//             <Text style={styles.closeText}>×</Text>
-//           </TouchableOpacity>
-
-      
-//             <View style={styles.iconCircle}>
-//                 <Icon name="alert-outline" size={36} color={THEME.textPrimary} /> 
-//             </View>
-        
-
-//            <Text style={styles.description}>
-//           {`Looks like you have not set your Touch ID.
-// Please login and set your Touch ID from Profile.`}
-//           </Text>
-
-//          <CustomButton
-//             btnContSty={styles.forgetTxtpop}
-//             title="OK"
-//             onPress={() => {
-//             Alert.alert("NEED",SHOW_CLIENT)
-//             setOpen(false)
-//             }}
-//           />
-
-//           </ImageBackground>
-   
       <BluryModal
         style={{ flex: 1, paddingHorizontal: 20 }}
-        onClose={()=>{setOpen(false) }}
+        onClose={()=>{vm.setOpen({
+            open: false,
+            text: ""
+          }) 
+        }}
         btnLoader={false}
-        marginTopTitle={20}
-        onConfirm={()=>{setOpen(false) }}
-        title={`Looks like you have not set your Touch ID. Please login and set your Touch ID from Profile.`}
-        iconName={"alert-outline"}
+        // marginTopTitle={20}
+        onConfirm={()=>{vm.setOpen({
+            open: false,
+            text: ""
+          }) 
+        }}
+        body={vm.Open.text}
+        iconName={""}
         confirmText={'ok'}
       />
     )
@@ -115,7 +94,7 @@ const config = {
       function renderModal() {
         return (
           <Modal
-            isVisible={Open}
+            isVisible={vm.Open.open}
             isKeyboardAvoidingView={true}
             children={renderPOPUP()}
             onClose={() => {
@@ -223,7 +202,7 @@ const config = {
          openTime={500}
          closeDuration={500}
          bottomSheetRef={vm.biometryRef}
-         children={<FingerPrintContent refrence={vm.biometryRef} onPress={()=>{ setOpen(true) }}
+         children={<FingerPrintContent refrence={vm.biometryRef} onPress={()=>{ vm.setOpen({ open: true, text: "Looks like you have not set your Touch ID. Please login and set your Touch ID from Profile." }) }}
             style={{ flex: 1, paddingHorizontal: 20 }}
          title="Login with Biometric and Face ID"  subtitle="" />}
         />

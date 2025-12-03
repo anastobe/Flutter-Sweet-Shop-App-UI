@@ -3,6 +3,7 @@ import CreateAccount from "../screens/authScreens/createAccount";
 import ForgetPassword from "../screens/authScreens/forgetPassword";
 import { Login } from "../screens/authScreens/index";
 import LoginSecurePassword from "../screens/authScreens/loginSecurePassword";
+import OtpVerify from "../screens/authScreens/otpVerify";
 import SetPassword from "../screens/authScreens/setPasword";
 import Welcome from "../screens/authScreens/welcome";
 // import { SignupUploadProfile } from "../screens/authScreens/signupScreens/signupUploadProfile";
@@ -30,6 +31,10 @@ export const AuthStack: AuthScreenStacksTypes = [
   {
     name: Auth_ROUTES.FORGETPASSWORD,
     component: ForgetPassword,
+  },
+  {
+    name: Auth_ROUTES.OTPVERIFY,
+    component: OtpVerify,
   },
   {
     name: Auth_ROUTES.SETPASSWORD,

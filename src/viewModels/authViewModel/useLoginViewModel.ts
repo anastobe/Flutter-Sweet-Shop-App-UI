@@ -10,6 +10,7 @@ import { Toast } from "../../utils";
 import { StatusBar } from "react-native";
 import { THEME } from "../../styles"; 
 import { useIsFocused } from "@react-navigation/native";
+import { Auth_ROUTES } from "../../constants";
 
 export const useLoginViewModel = (navigation: any) => {
 
@@ -19,6 +20,10 @@ export const useLoginViewModel = (navigation: any) => {
   const [password, setPassword] = useState("test-post-auth@Front1er");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
+  const [Open, setOpen] = useState({
+    open: false,
+    text: ""
+  });
 
   const dispatch = useDispatch()
   const biometryRef = useRef(null); 
@@ -48,6 +53,11 @@ export const useLoginViewModel = (navigation: any) => {
   });
 
   const handleLogin = () => { 
+
+    // setOpen({ open: true, text: "Your device is not registered, Please register your device" })
+
+    // navigation.navigate(Auth_ROUTES.OTPVERIFY)
+    // return
           
 //     let token = {
 //       token: "token"
@@ -95,5 +105,7 @@ export const useLoginViewModel = (navigation: any) => {
     handleLogin,
     handleBiometricAuth,
     isPending,
+    Open, 
+    setOpen
   };
 };

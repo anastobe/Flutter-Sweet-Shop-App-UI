@@ -4,12 +4,15 @@ import { CardBox  } from "./cardBox";
 import { InputDropDownStyle  } from "./inputDropDownStyle";
 import { Modal } from "./Modal/index";
 import { BottomSheet } from "./bottomSheet/index";
+import OTPInput from "./otpInput";
+
 
 export {
   MainContainer,
   Modal,
   BottomSheet,
   CardBox,
-  InputDropDownStyle
+  InputDropDownStyle,
+  OTPInput
 
 };
