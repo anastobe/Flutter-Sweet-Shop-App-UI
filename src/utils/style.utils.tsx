@@ -43,53 +43,10 @@ const wp = (px: number) => lwp(getWidthValue(px));
 const hp = (px: number) => lhp(getHeightValue(px));
 
 
-export const extractIds = (data: any) => {
-  return data.map((item: any) => item.id);
-};
-
-export function remainingReturn(id) {
-  
-  switch (id) {
-    case 1:
-      return 4
-    case 2:
-      return  3
-      case 3:
-        return 2
-    case 4:
-      return 1
-
-      
-    default:
-      return id
-  }
-}
-
-export function remainingReturnGalleryCase(id) {
-  
-  switch (id) {
-    case 0:
-      return 4
-    case 1:
-      return  3
-      case 2:
-        return 2
-    case 3:
-      return 1
-
-      
-    default:
-      return id
-  }
-}
-
 export default {
   wp,
   hp,
   customFontSize: normalizeFont,
   screenWidth,
   screenHeight,
-  remainingReturn,
-  remainingReturnGalleryCase,
-  extractIds
 };

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES } from '../../../utils/data';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
-import { Toast } from '../../../utils';
+import { CommonUtils, Toast } from '../../../utils';
 import { useSelector } from 'react-redux';
 import { AddnewBeneficiaryApi } from '../../../queries/moreQueries/moreQuery';
 import { HOME_ROUTES } from '../../../constants';
@@ -55,7 +55,7 @@ export const useAddNewBeneficiaryViewModel = () => {
   };
 
   function openConfirmationModal() {
-    
+
       if (!checked) {
         Toast.showToast("Please enter beneficiary name", '', 'error');
         return false;
@@ -72,6 +72,10 @@ export const useAddNewBeneficiaryViewModel = () => {
         Toast.showToast("Please enter account number", '', 'error');
         return false;
       }
+      else if (!CommonUtils.validateIBAN(accountNo)) {
+        Toast.showToast("Please enter correct account number", '', 'error');
+        return false;
+      } 
       else if (!bicNo.trim()) {
         Toast.showToast("Please enter BIC number", '', 'error');
         return false;

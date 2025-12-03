@@ -9,6 +9,8 @@ import { HOME_ROUTES } from "../constants";
 
 // const {AppTheme} = useTheme()
 
+const IBAN_BASIC_REGEX = /^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/i;
+
 const objectContainsKey = (
   object: Record<string | number, any>,
   key: number | string
@@ -30,51 +32,6 @@ const handleScrollToBottom = (
   }
 };
 
-/**
- * Will convert an array of objects into an object with
- * desired value as the key, can optianlly add or delete
- * values from original object as well while converting.
- */
-function getObjectByKeys(
-  arr: Array<Record<string, any>>,
-  key: string = "id",
-  deleteKey: string | null = null,
-  addKeys: Record<string, any> | null = null
-) {
-  const obj: any = {};
-  arr.forEach((val) => {
-    obj[val[key]] = val;
-    if (deleteKey) {
-      delete obj[val[key]][deleteKey];
-    }
-    if (addKeys) {
-      obj[val[key]] = {
-        ...obj[val[key]],
-        ...addKeys,
-      };
-    }
-  });
-  return obj;
-}
-
-/**
- * we can use Promise.allSettled as well but
- * due to less browser support added custom one.
- */
-const promiseAllSettled = (promises: any) =>
-  Promise.all(
-    promises.map((p: any) =>
-      p
-        .then((value: any) => ({
-          status: "fulfilled",
-          value,
-        }))
-        .catch((reason: any) => ({
-          status: "rejected",
-          reason,
-        }))
-    )
-  );
 
 function capitalizeFirstLetter(string: any) {
   if (!string) {
@@ -84,19 +41,6 @@ function capitalizeFirstLetter(string: any) {
 }
 
 const RegEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-const getSelectedIds = (array: any) => {
-  return array
-      .filter((tag: any) => tag.selected) // Filter objects where selected is true
-      .map((tag: any )=> tag.id); // Map to get the ids of the filtered objects
-};
-
-
-const getSelectedInvitedFriendsIds = (array: any) => {
-  return array
-      .filter((tag: any) => tag.selected) // Filter objects where selected is true
-      .map((tag: any )=> tag.friendId); // Map to get the ids of the filtered objects
-};
 
 
 const timeHumanize = (time: string): string => {
@@ -120,22 +64,6 @@ const timeHumanize = (time: string): string => {
   }
 };
 
-
-// const handleDynamicLinks = async (link: any) => {
-//   if (link) {
-//     console.log('Foreground link handling:', link.url);
-
-//     if (link.url.includes('PostPreview')) {
-//       const ID = link.url.split('/').pop();  // Extract ID from the URL
-//       let res = await apis.getPostDetail(ID)
-//       NavigationService.navigate(HOME_ROUTES.PostPreview,{ openSheet: false, postObjectData: res?.data, objectId: ID  })
-//     } 
-//     else {
-//       Alert.alert("will do")
-//       // NavigationService.navigate(HOME_ROUTES.AddReviews);
-//     }
-//   }
-// };
 
 
 function formatDateTime(inputTime: any) {
@@ -206,12 +134,6 @@ function updateThumbnailUrls(array) {
   return [...videos, ...unmatchedImages];
 }
 
-function removeTypeAndName(array) {
-  return array.map(item => {
-      const { type, name, ...rest } = item; // Destructure to remove type and name
-      return rest;
-  });
-}
 
 const getInitials = (text: String) => {
   if (!text.trim()) return "";
@@ -223,19 +145,57 @@ const getInitials = (text: String) => {
   return firstInitial + secondInitial;
 };
 
+
+function ibanClean(input: any) {
+  return (input || '').replace(/\s+/g, '').toUpperCase();
+}
+
+function ibanToNumericString(iban: any) {
+  // Move first 4 chars to end
+  const rearr = iban.slice(4) + iban.slice(0,4);
+  // Replace letters with numbers: A=10, B=11, ... Z=35
+  let result = '';
+  for (let ch of rearr) {
+    if (ch >= 'A' && ch <= 'Z') {
+      result += (ch.charCodeAt(0) - 55).toString(); // 'A'.charCodeAt(0)=65 -> 65-55=10
+    } else {
+      result += ch;
+    }
+  }
+  return result;
+}
+
+// compute mod97 on a very large number present as string
+function mod97(numberString: any) {
+  let remainder = 0;
+  for (let i = 0; i < numberString.length; i += 7) {
+    // take chunk of up to 7 digits to keep number small
+    const chunk = remainder.toString() + numberString.substring(i, i + 7);
+    remainder = parseInt(chunk, 10) % 97;
+  }
+  return remainder;
+}
+
+export function validateIBAN(input: any) {
+  const iban = ibanClean(input);
+  console.log("play==>",input);
+  
+  if (!IBAN_BASIC_REGEX.test(iban)) return false;
+  const numeric = ibanToNumericString(iban);
+  return mod97(numeric) === 1;
+}
+
+
+
 export default {
   objectContainsKey,
   handleScrollToBottom,
-  getObjectByKeys,
-  promiseAllSettled,
   RegEmail,
-  getSelectedIds,
-  getSelectedInvitedFriendsIds,
   timeHumanize,
   // handleDynamicLinks,
   formatDateTime,
   updateThumbnailUrls,
-  removeTypeAndName,
   capitalizeFirstLetter,
-  getInitials
+  getInitials,
+  validateIBAN
 };

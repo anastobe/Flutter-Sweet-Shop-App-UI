@@ -339,7 +339,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onefour,
     lineHeight: 16,
     fontFamily: FONTFAMILY.Regular,
- 
+    marginRight:20
   },
   boldText: { fontWeight: 'bold' },
   modal: {
