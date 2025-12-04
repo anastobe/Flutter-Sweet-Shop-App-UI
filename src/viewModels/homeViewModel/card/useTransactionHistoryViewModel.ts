@@ -11,14 +11,6 @@ export default function useTransactionHistoryViewModel() {
   const cardDetailRef = useRef(null);
   const [cardName, setCardName] = useState('');
 
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
-
   function pressBackArrow() {
     navigation.goBack();
   }

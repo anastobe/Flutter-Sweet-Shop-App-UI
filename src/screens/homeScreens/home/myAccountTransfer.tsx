@@ -9,6 +9,7 @@ import CustomButton from '../../../components/customButton';
 import { useMyAccountTransferViewModel } from '../../../viewModels/homeViewModel/home/useMyAccountTransferViewModel';
 import { Images } from '../../../config';
 import BalanceBox from '../../../components/balanceBox';
+import StatusBarManager from '../../../components/statusBarManager';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: any; label: string; value: string }) => (
@@ -50,6 +51,11 @@ const MyAccountTransfer = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Send Money to Your Account</Text>

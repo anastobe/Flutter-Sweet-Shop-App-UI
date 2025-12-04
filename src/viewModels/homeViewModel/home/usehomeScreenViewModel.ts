@@ -15,7 +15,6 @@ import apis from '../../../services';
 export const useHomeViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const FOCUS = useIsFocused();
 
   const [showbalance, setshowbalance] = useState(false);
   const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
@@ -28,12 +27,6 @@ export const useHomeViewModel = () => {
   const loader = useSelector((state: any) => state?.AuthReducer?.loader);
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
-  
-  useEffect(()=>{
-    if (FOCUS) { 
-      StatusBar.setBackgroundColor(THEME.gradientStatusBarColor)
-    }
-  },[FOCUS]) 
 
   const Sendoption = [ 
     { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency Account`, width: 15, height: 15 },

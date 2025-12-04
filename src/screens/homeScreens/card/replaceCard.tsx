@@ -14,6 +14,7 @@ import { REASON_OPTION } from '../../../utils/data';
 import FreezeCardModal from '../../../components/Modal/FreezeCardModal ';
 import { Images } from '../../../config';
 import BluryModal from '../../../components/Modal/bluryModal';
+import StatusBarManager from '../../../components/statusBarManager';
 
 function InfoRow({ label, value }) {
   return (
@@ -180,6 +181,11 @@ export default function ReplaceCard(props) {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Replace Card</Text>
         <Text style={styles.subtitle}>

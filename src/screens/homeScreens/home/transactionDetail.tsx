@@ -12,6 +12,7 @@ import { HOME_ROUTES } from '../../../constants';
 import { createCard } from '../../../queries/auth.query';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { StatusBar } from 'react-native';
+import StatusBarManager from '../../../components/statusBarManager';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -31,19 +32,11 @@ function InfoRow({ icon, label, value }) {
 function TransactionDetail(props) {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
-  const FOCUS = useIsFocused()
   const [comments, setcomments] = useState("");
   const [Profile, setProfile] = useState("");
   const [open, setOpen] = useState(false);
   const payload = props?.route?.params?.data;
-  
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
-
-  
+    
   const { mutate: createCardFunc, isPending } = createCard({
     callback: function (response) {
       if (response.success) {
@@ -154,6 +147,11 @@ function TransactionDetail(props) {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Transaction Details</Text>
         <Text style={styles.subtitle}>

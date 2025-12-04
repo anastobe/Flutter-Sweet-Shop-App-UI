@@ -9,6 +9,7 @@ import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import VerifyAddress from '../../../components/bottomSheet/verifyAddress';
 import { useCreatePhysicalCardViewModel } from '../../../viewModels/homeViewModel/card/useCreatePhysicalCardViewModel';
+import StatusBarManager from '../../../components/statusBarManager';
 
 const CreatePhysicalCard = () => {
   const {
@@ -46,6 +47,12 @@ const CreatePhysicalCard = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Request a Physical Card</Text>
 

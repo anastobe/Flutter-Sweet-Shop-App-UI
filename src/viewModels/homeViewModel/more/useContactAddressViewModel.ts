@@ -10,7 +10,6 @@ import { THEME } from '../../../styles';
 export default function useContactAddressViewModel() {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
-  const FOCUS = useIsFocused()
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [open, setOpen] = useState(false);
@@ -20,12 +19,6 @@ export default function useContactAddressViewModel() {
   const [postalCode, setPostalCode] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secure, setSecure] = useState(true);
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

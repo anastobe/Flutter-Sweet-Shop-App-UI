@@ -11,6 +11,7 @@ import { MainContainer } from '../../components';
 import InputField from '../../components/textInput';
 import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
+import StatusBarManager from '../../components/statusBarManager';
 
 
 type LoginSecurePasswordProps = {};
@@ -44,6 +45,11 @@ export const LoginSecurePassword: React.FC<LoginSecurePasswordProps> = ({...prop
 
   return (
     <MainContainer isFlatList={true} barStyle="dark-content" customeStyle={{ paddingHorizontal: 20 }} mainContainerStyle={styles.container}>
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <Image source={Images.logo} style={styles.logo} />
 
       <Text style={styles.title}>Create Your Secure Password</Text>

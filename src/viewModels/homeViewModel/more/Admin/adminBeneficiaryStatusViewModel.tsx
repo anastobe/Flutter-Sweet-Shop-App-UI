@@ -6,7 +6,6 @@ import { THEME } from '../../../../styles';
 
 export const useAdminBeneficiariesManagementViewModel = () => {
   const navigation = useNavigation();
-  const FOCUS = useIsFocused()
 
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -18,12 +17,6 @@ export const useAdminBeneficiariesManagementViewModel = () => {
   const [country, setCountry] = useState('');
   const [currency, setCurrency] = useState('');
   const [openDropdown, setOpenDropdown] = useState(null); 
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const handlePressType = (key: string) => setChecked(key);
   const pressBackArrow = () => navigation.goBack();

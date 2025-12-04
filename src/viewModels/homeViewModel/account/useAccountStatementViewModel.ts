@@ -9,14 +9,7 @@ import { THEME } from '../../../styles';
 export const useAccountStatementViewModel = () => {
   const navigation = useNavigation();
   const cardDetailRef = useRef<any>(null);
-  const FOCUS = useIsFocused()
   const [cardName, setCardName] = useState('');
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

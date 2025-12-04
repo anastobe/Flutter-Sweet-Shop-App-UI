@@ -16,13 +16,7 @@ export default function useReplaceCardViewModel(navigation, props) {
   const [reason, setReason] = useState("");
   const [firstName, setFirstName] = useState("");
   const [openDropdown, setOpenDropdown] = useState(null)
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
+ 
 
   const { mutate: useReplaceCardFunc, isPending } = useReplaceCard({
     callback: (response) => {

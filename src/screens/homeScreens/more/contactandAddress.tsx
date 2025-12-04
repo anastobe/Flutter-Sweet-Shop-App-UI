@@ -9,6 +9,7 @@ import ContactAdressSheet from '../../../components/bottomSheet/contactAdressShe
 import { scale } from 'react-native-size-matters';
 import useContactAddressViewModel from '../../../viewModels/homeViewModel/more/useContactAddressViewModel';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+import StatusBarManager from '../../../components/statusBarManager';
 
 const ContactAddress = () => {
   const vm = useContactAddressViewModel();
@@ -96,6 +97,11 @@ const ContactAddress = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Contact & Address</Text>
         {renderInputField()}

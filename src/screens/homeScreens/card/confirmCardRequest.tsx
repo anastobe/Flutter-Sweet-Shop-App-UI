@@ -12,6 +12,7 @@ import { HOME_ROUTES } from '../../../constants';
 import { createCard } from '../../../queries/auth.query';
 import { CommonUtils, Toast } from '../../../utils';
 import BluryModal from '../../../components/Modal/bluryModal';
+import StatusBarManager from '../../../components/statusBarManager';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -223,6 +224,11 @@ function ConfirmCardRequest(props: any) {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Confirm Card Request</Text>
         <Text style={styles.subtitle}>

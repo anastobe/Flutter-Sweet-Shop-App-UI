@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useOtpVerifyViewModel } from "../../viewModels/authViewModel/useOtpVerifyViewModel";
 import { Images } from "../../config";
 import CustomButton from "../../components/customButton";
+import StatusBarManager from "../../components/statusBarManager";
 
 const OtpVerify = () => {
   const {  pressBackArrow, handleNavigate } = useOtpVerifyViewModel();
@@ -32,6 +33,10 @@ const OtpVerify = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Verify it’s you</Text>
         <Text style={styles.subtitle}>

@@ -13,6 +13,7 @@ import { useConversionHistoryViewModel } from '../../../viewModels/homeViewModel
 import InputField from '../../../components/textInput';
 import { SectionList } from 'react-native';
 import { Images } from '../../../config';
+import StatusBarManager from '../../../components/statusBarManager';
 
 const ConversionHistory = () => {
   const {  
@@ -115,6 +116,11 @@ const HistoryList = () => {
       // refreshing={isFetchingBeneficiary}
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Conversion History</Text>
         <Text style={styles.subtitle}>

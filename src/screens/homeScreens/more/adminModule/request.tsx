@@ -10,6 +10,7 @@ import Metrics from '../../../../styles/metrics';
 import { scale } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../../constants';
+import StatusBarManager from '../../../../components/statusBarManager';
 
 export default function Request() {
   const {
@@ -99,6 +100,11 @@ export default function Request() {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Request</Text>
         {renderFilter()}

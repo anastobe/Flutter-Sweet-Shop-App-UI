@@ -14,6 +14,7 @@ import { Image } from 'react-native';
 import { Images } from '../../../../config';
 import BluryModal from '../../../../components/Modal/bluryModal';
 import BalanceBox from '../../../../components/balanceBox';
+import StatusBarManager from '../../../../components/statusBarManager';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: string }) => (
@@ -137,6 +138,11 @@ const AdminPaymentStatus = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>Send Money to Your Account</Text>

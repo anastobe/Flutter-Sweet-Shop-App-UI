@@ -16,13 +16,6 @@ export default function useUpdatePasswordViewModel() {
   const [secure, setSecure] = useState(true);
   const [secure2, setSecure2] = useState(true);
   const [secure3, setSecure3] = useState(true);
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const rules = {
     minLength: (text: string) => text.length >= 8,

@@ -10,6 +10,7 @@ import Metrics from '../../../../styles/metrics';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
 import BluryModal from '../../../../components/Modal/bluryModal';
 import { Images } from '../../../../config';
+import StatusBarManager from '../../../../components/statusBarManager';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -170,6 +171,11 @@ function AdminConfirmCardRequest(props: any) {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Confirm Card Request</Text>
         <Text style={styles.subtitle}>

@@ -5,6 +5,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useMakePaymentViewModel } from "../../../viewModels/homeViewModel/payment/useMakePaymentViewModel";
 import { Images } from "../../../config";
+import StatusBarManager from "../../../components/statusBarManager";
 
 const MakePayment = () => {
   const { PAYMENT_OPTION, pressBackArrow, handleNavigate } = useMakePaymentViewModel();
@@ -33,6 +34,11 @@ const MakePayment = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Make a Payment</Text>
         <Text style={styles.subtitle}>

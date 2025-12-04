@@ -19,6 +19,7 @@ import Metrics from '../../../../styles/metrics';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
 import BluryModal from '../../../../components/Modal/bluryModal';
 import { Images } from '../../../../config';
+import StatusBarManager from '../../../../components/statusBarManager';
 
 const AdminBeneficiaryStatus = () => {
   const vm = useAdminBeneficiariesManagementViewModel();
@@ -207,6 +208,11 @@ const AdminBeneficiaryStatus = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
         <View style={{ marginHorizontal: 20 }}>
           <Text style={styles.title}>Beneficiary</Text>

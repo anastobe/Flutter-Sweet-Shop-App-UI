@@ -11,13 +11,6 @@ export default function useCurrencyExchangeViewModel() {
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [sendFrom, setSendFrom] = useState('');
   const [receiveIn, setReceiveIn] = useState('');
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   // 🔙 Back button
   const pressBackArrow = () => {

@@ -8,6 +8,7 @@ import { Picker } from '@react-native-picker/picker';
 import InputField from '../../../../components/textInput';
 import CustomButton from '../../../../components/customButton';
 import useCurrencyExchangeViewModel from '../../../../viewModels/homeViewModel/more/useCurrencyExchangeViewModel';
+import StatusBarManager from '../../../../components/statusBarManager';
 
 const CurrencyExchange = () => {
   const {
@@ -88,6 +89,11 @@ const CurrencyExchange = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Quick Currency Exchange</Text>
         <Text style={styles.subtitle}>

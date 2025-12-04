@@ -16,6 +16,7 @@ import { Picker } from '@react-native-picker/picker';
 import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import useCreateVirtualCardViewModel from '../../../viewModels/homeViewModel/card/useCreateVirtualCardViewModel';
+import StatusBarManager from '../../../components/statusBarManager';
 
 export default function CreateVirtualCardView() {
   const {
@@ -172,6 +173,12 @@ export default function CreateVirtualCardView() {
       isFlatList
       barStyle="dark-content"
       mainContainerStyle={styles.container}>
+        
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Create Virtual Card</Text>
         <Text style={styles.subtitle}>Enter Details of your virtual card</Text>

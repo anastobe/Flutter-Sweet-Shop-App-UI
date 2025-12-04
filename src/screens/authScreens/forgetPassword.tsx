@@ -9,6 +9,7 @@ import { MainContainer, Modal } from '../../components';
 import InputField from '../../components/textInput';
 import { scale } from 'react-native-size-matters';
 import { useForgetPasswordViewModel } from '../../viewModels/authViewModel/useForgetPasswordViewModel';
+import StatusBarManager from '../../components/statusBarManager';
 
 export const ForgetPassword: React.FC = () => {
   const navigation = useNavigation();
@@ -59,6 +60,10 @@ export const ForgetPassword: React.FC = () => {
       customeStyle={{ paddingHorizontal: 20 }}
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager 
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
       <Image source={Images.logo} style={styles.logo} />
 
       <Text style={styles.title}>Forgot Your{`\n`}Password?</Text>

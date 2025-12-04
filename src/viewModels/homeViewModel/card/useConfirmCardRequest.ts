@@ -9,19 +9,11 @@ import { THEME } from '../../../styles';
 export const useConfirmCardRequestViewModel = (route: any) => {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
-  const FOCUS = useIsFocused()
 
   const [tick, settick] = useState(false);
   const [open, setOpen] = useState(false);
 
   const payload = route?.params?.data;
-
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const { mutate: createCardFunc, isPending } = createCard({
     callback: (response: any) => {

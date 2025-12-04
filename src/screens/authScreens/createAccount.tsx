@@ -270,6 +270,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { MainContainer } from '../../components';
 import InputField from '../../components/textInput';
 import { scale } from 'react-native-size-matters';
+import StatusBarManager from '../../components/statusBarManager';
 
 type CreateAccountProps = {};
 
@@ -289,6 +290,10 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
   return (
     <MainContainer isFlatList={true} barStyle="dark-content" customeStyle={{ paddingHorizontal: 20 }} mainContainerStyle={styles.container}>
       <Image source={Images.logo} style={styles.logo} />
+      <StatusBarManager 
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
 
       <Text style={styles.title}>Create Account</Text>
       

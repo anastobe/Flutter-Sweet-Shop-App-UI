@@ -37,12 +37,12 @@ export const MainContainer: React.FC<MainContainerProps> = ({
 
   return (
     <SafeAreaView style={[{ flex: 1 }, mainContainerStyle]}>
-      <StatusBar
+      {/* <StatusBar
         // translucent={true}
         // hidden={hidden}
         barStyle={"light-content"}
         // backgroundColor="transparent"
-      />
+      /> */}
 
       {/* 🔥 BACKGROUND IMAGE (REPLACES LINEAR GRADIENT) */}
       <ImageBackground

@@ -8,7 +8,6 @@ import { THEME } from '../../../styles';
 
 export const useMyAccountTransferViewModel = () => {
   const navigation = useNavigation();
-  const FOCUS = useIsFocused()
 
   const [amountSpend, setAmountSpend] = useState('');
   const [fromAcc] = useState({
@@ -21,13 +20,6 @@ export const useMyAccountTransferViewModel = () => {
     currency: 'EUR',
     flag: Images.account,
   });
-
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const pressBackArrow = () => navigation.goBack();
   const handlePress = () => {};

@@ -15,14 +15,6 @@ export const useAddNewCurrencyAccountViewModel = () => {
   const [modalAddCurrency, setModalAddCurrency] = useState(false);
   const [requestSubmitted, setRequestSubmitted] = useState(false);
 
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
-
   const pressBackArrow = () => {
     navigation.goBack();
   };

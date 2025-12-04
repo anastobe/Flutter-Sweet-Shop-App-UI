@@ -9,6 +9,7 @@ import { Picker } from '@react-native-picker/picker';
 import InputField from '../../../../components/textInput';
 import CustomButton from '../../../../components/customButton';
 import useConfirmCurrencyExchangeViewModel from '../../../../viewModels/homeViewModel/more/useConfirmCurrencyExchangeViewModel';
+import StatusBarManager from '../../../../components/statusBarManager';
 
 const InfoRow = ({ icon, label, value }) => (
   <View style={styles.infoRow}>
@@ -145,6 +146,11 @@ const ConfirmCurrencyExchange = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View style={{ marginHorizontal: 20 }}>
           <Text style={styles.title}>Confirm and Create Payment Order</Text>

@@ -16,6 +16,7 @@ import AccountCardzoom from '../../../components/accountCardzoom';
 import CardDetailOptions from '../../../components/cardDetailOptions';
 import AccountDetailsCard from '../../../components/bottomSheet/accountDetailsCard';
 import { useAccountDetailViewModel } from '../../../viewModels/homeViewModel/account/useAccountDetailViewModel';
+import StatusBarManager from '../../../components/statusBarManager';
 
 const AccountDetail = () => {
   const {
@@ -78,6 +79,11 @@ const AccountDetail = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager 
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <Text style={styles.title}>Account Details</Text>
       <View style={{ alignItems: 'flex-start' }}>
         <Text style={styles.subtitle}>Primary GBP Wallet</Text>

@@ -7,6 +7,7 @@ import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import { scale } from 'react-native-size-matters';
 import useUpdatePasswordViewModel from '../../../viewModels/homeViewModel/more/useUpdatePasswordViewModel';
+import StatusBarManager from '../../../components/statusBarManager';
 
 export default function UpdatePassword() {
   const {
@@ -49,6 +50,11 @@ export default function UpdatePassword() {
       customeStyle={{ paddingHorizontal: 20 }}
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <Text style={styles.title}>Change Password</Text>
 
       <InputField

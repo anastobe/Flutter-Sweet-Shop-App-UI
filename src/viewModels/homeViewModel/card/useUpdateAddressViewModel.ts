@@ -17,13 +17,6 @@ export default function useUpdateAddressViewModel() {
   const [city, setCity] = useState('');
   const [postalAddress, setPostalAddress] = useState('');
   const [country, setCountry] = useState('');
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

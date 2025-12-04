@@ -9,13 +9,6 @@ import { useIsFocused } from '@react-navigation/native';
 export const useForgetPasswordViewModel = (navigation: any) => {
   const [email, setEmail] = useState('');
   const [Open, setOpen] = useState(false);
-  const FOCUS = useIsFocused()
-  
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const handleSendResetLink = () => {
     // Placeholder for API integration if needed later

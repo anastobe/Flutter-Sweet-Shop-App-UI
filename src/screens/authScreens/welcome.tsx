@@ -20,6 +20,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { ImageBackground } from 'react-native';
 import { SHOW_CLIENT } from '../../APICall/constants';
 import { useWelcomeViewModel } from '../../viewModels/authViewModel/useWelcomeViewModel';
+import StatusBarManager from '../../components/statusBarManager';
 
 type WelcomeProps = {};
 
@@ -32,6 +33,11 @@ export const Welcome: React.FC = () => {
     <MainContainer 
     refreshing={false} isFlatList={true} barStyle="dark-content" customeStyle={{ paddingHorizontal: 30 }} mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <Image source={Images.logo} style={styles.logo} />
       <Text style={styles.btnTxt} >{`Your\nFinancial\nFrontier,\nAwaits...`}</Text>
       <Text style={styles.btnTxtdown} >{`Securely managing your global finances, simplified.`}</Text>

@@ -5,13 +5,6 @@ import { THEME } from "../../styles";
 
 export const useOtpVerifyViewModel = () => {
   const navigation = useNavigation();
-  const FOCUS = useIsFocused();
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const pressBackArrow = () => {
     navigation.goBack();

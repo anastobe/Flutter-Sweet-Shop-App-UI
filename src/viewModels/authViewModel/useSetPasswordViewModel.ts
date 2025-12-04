@@ -15,13 +15,6 @@ export const useSetPasswordViewModel = () => {
   const [newPassword, setNewPassword] = useState("");
   const [secure, setSecure] = useState(true);
   const [secure2, setSecure2] = useState(true);
-  const FOCUS = useIsFocused()
-  
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const toggleSecure = () => setSecure(!secure);
   const toggleSecure2 = () => setSecure2(!secure2);

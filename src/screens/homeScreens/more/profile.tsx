@@ -10,6 +10,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import { Images } from '../../../config';
 import useProfileViewModel from '../../../viewModels/homeViewModel/more/useProfileViewModel';
 import { CommonUtils } from '../../../utils';
+import StatusBarManager from '../../../components/statusBarManager';
 
 const Profile = () => {
   const navigation = useNavigation();
@@ -121,6 +122,11 @@ const Profile = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20, paddingBottom: 60 }}>
         <Text style={styles.title}>Profile</Text>
         {renderProfileFields()}

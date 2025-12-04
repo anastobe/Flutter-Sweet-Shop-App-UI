@@ -28,15 +28,7 @@ export const useLoginViewModel = (navigation: any) => {
   const dispatch = useDispatch()
   const biometryRef = useRef(null); 
   const rnBiometrics = new ReactNativeBiometrics();
-  const FOCUS = useIsFocused()
-
-  // console.log("countryList==?>",countryList); check redux data removed or not
-  
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
+ 
 
   useEffect(() => {
     rnBiometrics.isSensorAvailable().then(result => {

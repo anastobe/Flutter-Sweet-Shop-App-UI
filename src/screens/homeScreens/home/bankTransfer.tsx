@@ -9,6 +9,7 @@ import CustomButton from "../../../components/customButton";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
 import { useBankTransferViewModel } from "../../../viewModels/homeViewModel/home/useBankTransferViewModel";
 import BalanceBox from "../../../components/balanceBox";
+import StatusBarManager from "../../../components/statusBarManager";
 
 const BankTransfer = () => {
   const {
@@ -44,6 +45,11 @@ const BankTransfer = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
         <View style={{ marginHorizontal: 20 }}>
           <Text style={styles.title}>Bank Transfer</Text>

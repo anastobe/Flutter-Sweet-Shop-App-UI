@@ -14,13 +14,6 @@ export default function usePinSecurityViewModel({...props}) {
   const navigation = useNavigation();
   const [newPin, setNewPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const {mutate: setPinSecurityFunc, isPending: isPendingsetPinSecurity} = setPinSecurity({
     callback: (response: any) => {

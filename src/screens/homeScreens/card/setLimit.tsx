@@ -14,6 +14,7 @@ import { CommonUtils } from '../../../utils';
 import FreezeCardModal from '../../../components/Modal/FreezeCardModal ';
 import { Images } from '../../../config';
 import BluryModal from '../../../components/Modal/bluryModal';
+import StatusBarManager from '../../../components/statusBarManager';
 
 export default function SetLimits({...props}) {
   const navigation = useNavigation();
@@ -204,6 +205,12 @@ export default function SetLimits({...props}) {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Set Spending Limit</Text>
         <Text style={styles.subtitle}>

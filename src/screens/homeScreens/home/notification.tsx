@@ -4,6 +4,7 @@ import { MainContainer } from '../../../components';
 import { THEME } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNotificationViewModel } from '../../../viewModels/homeViewModel/home/useNotificationViewModel';
+import StatusBarManager from '../../../components/statusBarManager';
 
 const Notification = () => {
   const { notifications, pressBackArrow, getNotificationIconAndColor } = useNotificationViewModel();
@@ -29,6 +30,11 @@ const Notification = () => {
       isFlatList
       barStyle="dark-content"
       mainContainerStyle={styles.container}>
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View style={{ marginHorizontal: 20 }}>
           <FlatList

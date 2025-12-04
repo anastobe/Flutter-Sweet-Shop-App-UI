@@ -10,7 +10,6 @@ import { THEME } from '../../../styles';
 
 export default function useCreateVirtualCardViewModel() {
   const navigation = useNavigation();
-  const FOCUS = useIsFocused()
 
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
@@ -34,13 +33,6 @@ export default function useCreateVirtualCardViewModel() {
   });
   const [limitType, setLimitType] = useState('');
   const [spendingLimit, setSpendingLimit] = useState('');
-
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

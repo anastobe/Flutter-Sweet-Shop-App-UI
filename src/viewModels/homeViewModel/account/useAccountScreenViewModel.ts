@@ -23,7 +23,6 @@ export const useAccountScreenViewModel = () => {
   const editRef = useRef<any>(null);
   const editAccountRef = useRef<any>(null);
   const flatListRef = useRef<FlatList>(null);
-  const FOCUS = useIsFocused()
 
   const [currentAccDetail, setcurrentAccDetail] = useState({
         asset_type_id: "", 
@@ -39,12 +38,7 @@ export const useAccountScreenViewModel = () => {
   const [gbpWallet, setGbpWallet] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [showbalance, setshowbalance] = useState(false);
-  
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.gradientStatusBarColor)
-    }
-  },[FOCUS]) 
+
 
   const { data: getAccounts_Data, refetch: refetchgetAccounts, isPending } = getAccounts({
     enabled: false, 

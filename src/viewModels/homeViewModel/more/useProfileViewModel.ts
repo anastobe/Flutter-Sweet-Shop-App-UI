@@ -17,14 +17,6 @@ const useProfileViewModel = () => {
   const [username, setUsername] = useState((`${personal_customers?.first_name}`));
   const [email, setEmail] = useState(`${loginUserData?.email}`);
   const [phone, setPhone] = useState(`${loginUserData?.telephone}`);
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
-
 
   // ✅ Image Picker
   function openImagePicker() {

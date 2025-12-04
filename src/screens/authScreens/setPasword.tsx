@@ -10,6 +10,7 @@ import { FONTFAMILY, FONT_SIZES, METRICS, THEME } from "../../styles";
 import { scale } from "react-native-size-matters";
 import { useSetPasswordViewModel } from "../../viewModels/authViewModel/useSetPasswordViewModel";
 import Icon from 'react-native-vector-icons/Ionicons';
+import StatusBarManager from "../../components/statusBarManager";
 
 const SetPassword: React.FC = () => {
   const {
@@ -44,6 +45,11 @@ const SetPassword: React.FC = () => {
       customeStyle={{ paddingHorizontal: 20 }}
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <Image source={Images.logo} style={styles.logo} />
 
       <Text style={styles.title}>Create Your New Password</Text>

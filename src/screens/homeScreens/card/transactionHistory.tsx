@@ -9,6 +9,7 @@ import useTransactionHistoryViewModel from '../../../viewModels/homeViewModel/ca
 import Metrics from '../../../styles/metrics';
 import { scale } from 'react-native-size-matters';
 import { SHOW_CLIENT } from '../../../APICall/constants';
+import StatusBarManager from '../../../components/statusBarManager';
 
 export default function TransactionHistory() {
   const {
@@ -95,6 +96,12 @@ export default function TransactionHistory() {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Transactions History</Text>
         {renderFilter()}

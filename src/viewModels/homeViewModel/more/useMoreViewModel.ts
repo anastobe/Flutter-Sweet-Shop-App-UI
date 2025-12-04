@@ -10,14 +10,7 @@ import { logoutUser } from '../../../utils/logout.helper';
 export default function useMoreViewModel() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
-
+ 
   
   const [open, setopen] = useState(false);
 

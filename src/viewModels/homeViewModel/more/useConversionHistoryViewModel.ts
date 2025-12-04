@@ -13,13 +13,6 @@ export const useConversionHistoryViewModel = () => {
 
   const navigation = useNavigation();
   const[search, setSearch] = useState();
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

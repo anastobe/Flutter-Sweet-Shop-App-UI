@@ -12,6 +12,7 @@ import { LoaderOnly } from '../../../../components/activityIndicator';
 import BluryModal from '../../../../components/Modal/bluryModal';
 import { Images } from '../../../../config';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
+import StatusBarManager from '../../../../components/statusBarManager';
 
 const BeneficiariesManagement = () => {
   const { data, pressBackArrow, pressRightArrow, onBeneficiaryPress, open, setOpen,open2, setOpen2,onPressDelete,onPressDeleteBtn ,onPressView,
@@ -131,6 +132,10 @@ const BeneficiariesManagement = () => {
       // refreshing={isFetchingBeneficiary}
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Beneficiaries</Text>
         <Text style={styles.subtitle}>

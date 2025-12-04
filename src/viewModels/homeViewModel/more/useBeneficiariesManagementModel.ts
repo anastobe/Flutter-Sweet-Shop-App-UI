@@ -18,13 +18,6 @@ export const useBeneficiariesManagementViewModel = () => {
   const [clickableBeneficiaryObject, setclickableBeneficiaryObject] = useState({});
   const navigation = useNavigation();
   const queryClient = useQueryClient();
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   function pressBackArrow() {
     navigation.goBack();

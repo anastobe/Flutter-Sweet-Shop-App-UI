@@ -7,7 +7,6 @@ import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 
 export function useCreatePhysicalCardViewModel() {
-  const FOCUS = useIsFocused()
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
 
@@ -37,12 +36,6 @@ export function useCreatePhysicalCardViewModel() {
 
   const [limitType, setLimitType] = useState('Weekly');
   const [spendingLimit, setSpendingLimit] = useState('');
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const pressBackArrow = () => navigation.goBack();
 

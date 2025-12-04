@@ -24,6 +24,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native';
 import { cardsScroll } from '../../../utils/data';
 import { useIsFocused } from '@react-navigation/native';
+import StatusBarManager from '../../../components/statusBarManager';
 // import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
@@ -255,6 +256,11 @@ const ScrollableCards = () => {
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
       <SafeAreaView style={styles.container}>
        {renderHeaderStuffs()}
+
+      <StatusBarManager
+        backgroundColor={THEME.gradientStatusBarColor} 
+        barStyle="light-content" 
+      />
 
          <ScrollView contentContainerStyle={{ paddingBottom: 0, marginTop: 10 }}>
           <GradientLineGraph marginTop={20} />

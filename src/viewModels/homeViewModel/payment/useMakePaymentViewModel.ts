@@ -5,14 +5,7 @@ import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
 
 export const useMakePaymentViewModel = () => {
-  const navigation = useNavigation();
-  const FOCUS = useIsFocused();
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
+  const navigation = useNavigation(); 
 
   const pressBackArrow = () => {
     navigation.goBack();

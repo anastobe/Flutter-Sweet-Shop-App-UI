@@ -7,6 +7,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import usePinSecurityViewModel from '../../../viewModels/homeViewModel/card/usePinSecurityViewModel';
+import StatusBarManager from '../../../components/statusBarManager';
 
 export default function PinSecurityView({...props}) {
   const {
@@ -60,6 +61,12 @@ export default function PinSecurityView({...props}) {
       isFlatList
       barStyle="dark-content"
       mainContainerStyle={styles.container}>
+        
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>PIN & Security</Text>
         <Text style={styles.subtitle}>

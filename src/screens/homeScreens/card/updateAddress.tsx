@@ -7,6 +7,7 @@ import { Picker } from '@react-native-picker/picker';
 import { scale } from 'react-native-size-matters';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import useUpdateAddressViewModel from '../../../viewModels/homeViewModel/card/useUpdateAddressViewModel';
+import StatusBarManager from '../../../components/statusBarManager';
 
 export default function UpdateAddressView() {
   const {
@@ -108,6 +109,12 @@ export default function UpdateAddressView() {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Update Delivery Address</Text>
         {renderInputFields()}

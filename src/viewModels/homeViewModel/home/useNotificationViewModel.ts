@@ -5,13 +5,6 @@ import { THEME } from '../../../styles';
 
 export const useNotificationViewModel = () => {
   const navigation = useNavigation();
-  const FOCUS = useIsFocused()
-
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const [notifications] = useState([
     { id: '1', type: 'credit', message: 'You received £250.00 from John', time: '2 min ago' },

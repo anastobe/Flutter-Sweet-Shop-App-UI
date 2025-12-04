@@ -15,13 +15,6 @@ import { THEME } from "../../styles";
 export const useWelcomeViewModel = () => {
 
   const navigation = useNavigation();
-  const FOCUS = useIsFocused()
-  
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.darkSecondary)
-    }
-  },[FOCUS]) 
 
   const onPressLogin = () => { 
     navigation.navigate(Auth_ROUTES.LOGIN)

@@ -20,7 +20,6 @@ import { THEME } from '../../../styles';
 
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
-  const FOCUS = useIsFocused();
   const navigation = useNavigation()
 
   // UI toggles
@@ -43,11 +42,6 @@ export const useCardScreenViewModel = () => {
   const methodsRef = useRef<any>(null);
   const manageRef = useRef<any>(null);
 
-  useEffect(()=>{
-    if (FOCUS) {
-      StatusBar.setBackgroundColor(THEME.gradientStatusBarColor)
-    }
-  },[FOCUS]) 
 
   // queries / mutations (hooks you already used)
   const { mutate: freezUnFreezCardFunc, isPending: isPendingfreezUnFreezCard } =
@@ -105,7 +99,7 @@ export const useCardScreenViewModel = () => {
 
   useEffect(() => {
     refetchgetCardsData();
-  }, [FOCUS]);
+  }, []);
 
   // Viewability config and handler
   const onViewableItemsChanged = useRef(({ viewableItems }: any) => {

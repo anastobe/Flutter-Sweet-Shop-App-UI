@@ -10,6 +10,7 @@ import CustomButton from '../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import { useInternationalTransferViewModel } from "../../../viewModels/homeViewModel/home/useInternationalTransferViewModel";
 import BalanceBox from '../../../components/balanceBox';
+import StatusBarManager from '../../../components/statusBarManager';
 
 const InternationalTransfer = () => {
   const navigation = useNavigation();
@@ -47,6 +48,11 @@ const InternationalTransfer = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View style={styles.innerContainer}>
           <Text style={styles.title}>International Transfer</Text>

@@ -36,6 +36,7 @@ import { ActivityIndicator } from "react-native";
 import GradientLineGraph from "../../../components/gradientLineGraph";
 import { DATA } from "../../../utils/data";
 import Metrics from "../../../styles/metrics";
+import StatusBarManager from "../../../components/statusBarManager";
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -131,7 +132,12 @@ const AccountScreen = () => {
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
       <SafeAreaView style={styles.container}>
-      {/* <StatusBar translucent backgroundColor={"#7c4fc3"} /> */}
+
+      <StatusBarManager
+        backgroundColor={THEME.gradientStatusBarColor} 
+        barStyle="light-content" 
+      />
+
        {renderHeaderStuffs()}
 
 

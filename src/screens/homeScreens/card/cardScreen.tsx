@@ -34,6 +34,7 @@ import { StatusBar } from 'react-native';
 import { ImageBackground } from 'react-native';
 import Metrics from '../../../styles/metrics';
 import BluryModal from '../../../components/Modal/bluryModal';
+import StatusBarManager from '../../../components/statusBarManager';
 
 const CardScreen = () => {
   const navigation = useNavigation<any>();
@@ -223,7 +224,12 @@ const CardScreen = () => {
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
       <SafeAreaView style={styles.container}>
-      {/* <StatusBar translucent backgroundColor={"#7c4fc3"} /> */}
+
+      <StatusBarManager
+        backgroundColor={THEME.gradientStatusBarColor} 
+        barStyle="light-content" 
+      />
+
        {renderHeaderStuffs()}
        
        

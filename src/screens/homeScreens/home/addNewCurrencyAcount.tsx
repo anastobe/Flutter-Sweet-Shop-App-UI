@@ -9,6 +9,7 @@ import { scale } from "react-native-size-matters";
 import { useAddNewCurrencyAccountViewModel } from "../../../viewModels/homeViewModel/home/useAddNewCurrencyAccountViewModel";
 import FreezeCardModal from "../../../components/Modal/FreezeCardModal ";
 import BluryModal from "../../../components/Modal/bluryModal";
+import StatusBarManager from "../../../components/statusBarManager";
 
 const AddNewCurrencyAcount = () => {
   const {
@@ -31,6 +32,10 @@ const AddNewCurrencyAcount = () => {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
       <View style={{ marginHorizontal: 20 }}>
         <Text style={styles.title}>Add New Currency Account</Text>
         <Text style={styles.subtitle}>

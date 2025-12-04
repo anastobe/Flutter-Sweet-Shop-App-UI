@@ -12,6 +12,7 @@ import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Images } from '../../../config';
 import { ImageBackground } from 'react-native';
 import BluryModal from '../../../components/Modal/bluryModal';
+import StatusBarManager from '../../../components/statusBarManager';
 // import * as Keychain from 'react-native-keychain';
 
 const MoreScreen = () => {
@@ -234,6 +235,12 @@ const MoreScreen = () => {
       customeStyle={{ paddingHorizontal: 20, paddingBottom: 100 }}
       mainContainerStyle={styles.container}
     >
+
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <Text style={styles.title}>Settings</Text>
 
       {renderExchangeReq('Request')}
