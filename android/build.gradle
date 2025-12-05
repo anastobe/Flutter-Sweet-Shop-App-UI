@@ -19,3 +19,15 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+// ⚡ ADD THIS FIX BELOW (for SSL Pinning library)
+subprojects { subproject ->
+    if (subproject.name.contains("react-native-ssl-pinning")) {
+        subproject.afterEvaluate {
+            if (subproject.hasProperty("android")) {
+                subproject.android.compileSdkVersion = 35
+                subproject.android.buildToolsVersion = "35.0.0"
+            }
+        }
+    }
+}
