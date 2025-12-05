@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: 'center',
-  height: scale(50),
+  height: 50,
     width: Metrics.width/2-30,
     borderColor: THEME.white,
     borderWidth: 1.5
@@ -267,7 +267,7 @@ const styles = StyleSheet.create({
        borderRadius: 10,
        justifyContent: "center",
        alignItems: 'center',
-     height: scale(50),
+     height: 50,
        width: Metrics.width/2-30
       },
   forgetTxt: { marginTop: 30, marginBottom: 50 }, forgetTxtpop:{  width: '100%', marginTop: 20, marginBottom: 20 },
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
   totalAmount: {
     textAlign: 'center',
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     color: THEME.primary,
     marginBottom: 30,
   },

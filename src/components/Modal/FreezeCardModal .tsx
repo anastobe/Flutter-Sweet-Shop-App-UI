@@ -232,8 +232,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   ICONcONT: {
-    width: scale(36),
-    height: scale(36),
+    width: 36,
+    height: 36,
     // backgroundColor: THEME.lightGrey,
     justifyContent: 'center',
     alignItems: 'center',

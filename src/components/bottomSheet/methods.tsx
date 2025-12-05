@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
         lineHeight: 16
     },
     ICONcONT: {
-        width: scale(36),
-        height: scale(36),
+        width: 36,
+        height: 36,
         backgroundColor: THEME.primary,
         justifyContent: 'center',
         alignItems: 'center',

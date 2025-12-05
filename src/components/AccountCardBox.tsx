@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     // justifyContent: "center"
   },
   total: {
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     fontFamily: FONTFAMILY.Bold,
     color: THEME.white,
     textAlign: "center",

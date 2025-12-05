@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: 'center',
-    height: scale(50),
+    height: 50,
     width: Metrics.width/2-30,
     borderColor: THEME.white,
     borderWidth: 1.5
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
        borderRadius: 10,
        justifyContent: "center",
        alignItems: 'center',
-   height: scale(50),
+   height: 50,
        width: Metrics.width/2-30
       },
   boxShape: { width: 20, height: 20, borderWidth: 1.5, borderRadius: 50,justifyContent: "center", alignItems: 'center' },

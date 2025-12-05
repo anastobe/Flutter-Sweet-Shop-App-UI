@@ -149,7 +149,7 @@ export default AccountDetail;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     fontFamily: FONTFAMILY.Light,
     color: THEME.primary,
     marginTop: 10,

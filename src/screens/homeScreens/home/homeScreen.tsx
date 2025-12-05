@@ -495,7 +495,7 @@ dropdownItemText: {
     marginLeft: 10,
   },
     total: {
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     fontFamily: FONTFAMILY.Bold,
     color: THEME.white,
     textAlign: "center",
@@ -507,7 +507,7 @@ dropdownItemText: {
     color: THEME.white,
   },
    card: {
-    width: Metrics.width * 0.45,
+    width: Metrics.width * 0.44,
     padding: 16,
     marginRight: 14,
     borderRadius: 16,

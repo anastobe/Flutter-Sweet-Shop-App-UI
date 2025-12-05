@@ -239,7 +239,7 @@ export default Welcome;
 //   },
 //   titles: {
 //     fontFamily: FONTFAMILY.Light,
-//     fontSize: FONT_SIZES.threetwo,
+//     fontSize: FONT_SIZES.threezero,
 //     color: THEME.primary,
 //     textAlign: 'center',
 //   },

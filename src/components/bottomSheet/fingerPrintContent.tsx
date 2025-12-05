@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   title: {
     color: THEME.white,
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     textAlign: "center",
     lineHeight: 35,
     marginTop: 30

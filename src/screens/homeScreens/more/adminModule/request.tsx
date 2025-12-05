@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 iconCONT:{
-          width: scale(36),
-          height: scale(36),
+          width: 40,
+          height: 40,
           backgroundColor: THEME.primary,
           justifyContent: 'center',
           alignItems: 'center',

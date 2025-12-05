@@ -205,7 +205,7 @@ export default function ReplaceCard(props) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   // title: {
-  //   fontSize: FONT_SIZES.threetwo,
+  //   fontSize: FONT_SIZES.threezero,
   //   fontFamily: FONTFAMILY.Light,
   //   color: THEME.white,
   //   marginBottom: 10,
@@ -310,8 +310,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   ICONcONT: {
-    width: scale(36),
-    height: scale(36),
+    width: 36,
+    height: 36,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 12,

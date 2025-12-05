@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
 //   },
 //   balanceAmountTxt: {
 //     fontFamily: FONTFAMILY.Medium,
-//     fontSize: FONT_SIZES.threetwo,
+//     fontSize: FONT_SIZES.threezero,
 //     color: THEME.white,
 //   },
 
@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
   },
   balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     color: THEME.white,
-    lineHeight: 32,
+    lineHeight: 30,
     // backgroundColor :'red',
     // paddingBottom: 5,
     // marginTop: 5,

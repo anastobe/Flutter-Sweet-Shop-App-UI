@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
   },
   balanceAmount: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     color: THEME.white,
   },
   rightInputContainer: {
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: 'center',
-  height: scale(50),
+  height: 50,
     width: Metrics.width/2-30,
     borderColor: THEME.white,
     borderWidth: 1.5
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     alignItems: 'center',
-  height: scale(50),
+  height: 50,
     width: Metrics.width/2-30
    },
    

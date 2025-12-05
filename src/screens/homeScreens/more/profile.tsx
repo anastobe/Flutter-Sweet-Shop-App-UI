@@ -153,7 +153,7 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   profiletxt: {
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     // marginBottom: 10,

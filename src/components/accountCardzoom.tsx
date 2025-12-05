@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     },
     balanceTxt: {
         color: THEME.white,
-        fontSize: FONT_SIZES.threetwo,
+        fontSize: FONT_SIZES.threezero,
         fontFamily: FONTFAMILY.Medium
     },
     detailTxt: {

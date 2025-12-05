@@ -165,14 +165,14 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: 50,
-    width: scale(65),
-    height: scale(65),
+    width: 65,
+    height: 65,
     justifyContent: 'center',
     alignItems: 'center',
   },
   icon: {
-    width: scale(30),
-    height: scale(30),
+    width: 30,
+    height: 30,
     resizeMode: 'contain',
   },
   titles: {
@@ -214,8 +214,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   ICONcONT: {
-    width: scale(36),
-    height: scale(36),
+    width: 36,
+    height: 36,
     // backgroundColor: THEME.lightGrey,
     justifyContent: 'center',
     alignItems: 'center',

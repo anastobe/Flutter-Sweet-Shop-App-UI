@@ -598,7 +598,7 @@ const styles = StyleSheet.create({
   },
   balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     color: THEME.white,
     padding: 1,
   },
@@ -1293,7 +1293,7 @@ const styles = StyleSheet.create({
 //   { height: 174, justifyContent: "center", alignItems: "center", width: METRICS.width},
 //    screenTitle: {
 //     color: THEME.primary,
-//     fontSize: FONT_SIZES.threetwo,
+//     fontSize: FONT_SIZES.threezero,
 //     fontFamily: FONTFAMILY.Light
 //   },
 
@@ -1390,7 +1390,7 @@ const styles = StyleSheet.create({
 //   { fontSize: FONT_SIZES.onetwo, fontFamily: FONTFAMILY.Medium, color: THEME.white, backgroundColor: THEME.SlateBlue,paddingHorizontal: 9, paddingVertical: 3, borderRadius: 10 },
 
 //   ICONcONT:
-//   { width: scale(36), height: scale(36), backgroundColor: THEME.lightGrey, justifyContent: "center", alignItems: "center", borderRadius: 12 },
+//   { width: 36, height: 36, backgroundColor: THEME.lightGrey, justifyContent: "center", alignItems: "center", borderRadius: 12 },
 
 
   

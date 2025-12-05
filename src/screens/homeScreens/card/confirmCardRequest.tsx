@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
   totalAmount: {
     textAlign: 'center',
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     color: THEME.primary,
     marginBottom: 30,
   },
