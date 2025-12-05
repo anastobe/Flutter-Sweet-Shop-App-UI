@@ -65,7 +65,9 @@ const HomeStack = () => {
 
   return (
     <>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={{        animation: "slide_from_right", 
+        headerShown: false 
+      }}>
         <Stack.Screen
           name={HOME_ROUTES.HOME}
           component={HomeScreen}
@@ -145,7 +147,7 @@ const HomeStack = () => {
 
 const AccountStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{        animation: "slide_from_right", headerShown: false }}>
       <Stack.Screen
         name={HOME_ROUTES.ACCOUNT}
         component={AccountScreen}
@@ -213,7 +215,7 @@ const AccountStack = () => {
 
 const PaymentStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{        animation: "slide_from_right", headerShown: false }}>
       {/* <Stack.Screen
         name={HOME_ROUTES.PAYMENT}
         component={PaymentScreen}
@@ -250,7 +252,7 @@ const PaymentStack = () => {
 
 const CardStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{        animation: "slide_from_right", headerShown: false }}>
       
       <Stack.Screen
         name={HOME_ROUTES.CARD}
@@ -289,7 +291,7 @@ const CardStack = () => {
 
 const MoreStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{        animation: "slide_from_right", headerShown: false }}>
       <Stack.Screen
         name={HOME_ROUTES.MORE}
         component={MoreScreen}

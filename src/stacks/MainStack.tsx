@@ -52,6 +52,7 @@ export const MainStack = () => {
   return (
     <Stack.Navigator
     screenOptions={{
+      animation: "slide_from_bottom",
       headerShown: false
     }}>
       {

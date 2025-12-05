@@ -20,6 +20,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { ImageBackground } from 'react-native';
 import { SHOW_CLIENT } from '../../APICall/constants';
 import BluryModal from '../../components/Modal/bluryModal';
+import StatusBarManager from '../../components/statusBarManager';
 
 type LoginProps = {};
 
@@ -109,6 +110,11 @@ const config = {
     <MainContainer 
     refreshing={false} isFlatList={true} barStyle="dark-content" customeStyle={{ paddingHorizontal: 20 }} mainContainerStyle={styles.container}
     >
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary} 
+        barStyle="light-content" 
+      />
+
       <Image source={Images.logo} style={styles.logo} />
       <Text style={styles.title}>Let’s Sign you In.</Text>
 
