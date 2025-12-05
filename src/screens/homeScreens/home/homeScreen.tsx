@@ -68,7 +68,7 @@ const HomeScreen = () => {
 
   const renderHeader = () => (
     <View>
-      <View style={{ flexDirection: "row", justifyContent: 'space-between', marginHorizontal: 20 }} >
+      <View style={{ flexDirection: "row", justifyContent: 'space-between', marginHorizontal: 20, }} >
       <View style={{marginTop: 20, }} >
         <Text style={styles.title}>Great to See You,</Text>
         <Text 
@@ -344,16 +344,16 @@ const styles = StyleSheet.create({
   },
   titlesub: {
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.threetwo,
+    fontSize: FONT_SIZES.threezero,
     color: THEME.white,
-    width: screenWidth - 150,
+    width: screenWidth - 160
   },
   headerContainerParent:{
     height: 300,
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30
   },
-  headerRight: { flexDirection: 'row', marginTop: 15,  height: 50, alignItems: "center" },
+  headerRight: { flexDirection: 'row', marginTop: 15,  height: 60, alignItems: "center" },
 //   dropdownContainer: {
 //   backgroundColor: THEME.white,
 //   borderRadius: 10,
@@ -397,10 +397,10 @@ dropdownItemText: {
 // backgroundColor: "blue",
 
     borderRadius: 20,
-    height: scale(84),
+    height: 84,
     // paddingHorizontal: 15,
     marginHorizontal: 20,
-    marginTop: 30,
+    marginTop: 25,
     // flexDirection: 'row',
     alignItems:"center",
     justifyContent: "center",

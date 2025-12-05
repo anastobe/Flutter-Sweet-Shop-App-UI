@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   btnTxt:
   { color: THEME.white, fontFamily: FONTFAMILY.Regular, fontSize: FONT_SIZES.onesix, marginLeft: 10 },
   btnContStyle:
-  { backgroundColor: "transparent", borderColor: THEME.white, borderWidth: 1, flexDirection: "row", height: scale(54), borderRadius: 10, justifyContent: "center", alignItems: 'center' },
+  { backgroundColor: "transparent", borderColor: THEME.white, borderWidth: 1, flexDirection: "row", height: 56, borderRadius: 10, justifyContent: "center", alignItems: 'center' },
   logo: {
    width: METRICS.width,
     height: 56,

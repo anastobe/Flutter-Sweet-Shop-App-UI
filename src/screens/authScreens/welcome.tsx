@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
    forgetTxt:
   { marginTop: 20, marginBottom: 18 },
   btnContStyle:
-  { backgroundColor: "transparent", borderColor: THEME.white, borderWidth: 1, flexDirection: "row", height: scale(54), borderRadius: 10, justifyContent: "center", alignItems: 'center' },
+  { backgroundColor: "transparent", borderColor: THEME.white, borderWidth: 1, flexDirection: "row", height: 56, borderRadius: 10, justifyContent: "center", alignItems: 'center' },
   btnTxtBtn:
   { color: THEME.white, fontFamily: FONTFAMILY.Regular, fontSize: FONT_SIZES.onesix, marginLeft: 0 },
   creatAC:{

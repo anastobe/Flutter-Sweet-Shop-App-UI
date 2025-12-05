@@ -597,8 +597,8 @@ const styles = StyleSheet.create<any>({
   },
   imgTab:
   {
-    width: scale(25),
-    height: scale(25),
+    width: 25,
+    height: 25,
   },
   iconBack:
     { paddingVertical: 10,justifyContent: 'center', alignItems: "center", borderRadius: 8 },
