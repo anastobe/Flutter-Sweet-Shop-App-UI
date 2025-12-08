@@ -15,7 +15,7 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy,onPressEdit  })
 
   return (
     <View>
-        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 }} /> */}
+      <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
         <Text style={styles.accountdetail} >Account Details</Text>
             <View style={styles.container}>
                 {details.map((item: any, index: any) => (
@@ -29,7 +29,7 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy,onPressEdit  })
                     </View>
                 ))}
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: "center", marginTop: 20 }} >
+            <View style={{ flexDirection: 'row', justifyContent: "center", marginTop: 20, marginBottom: 20 }} >
               {renderOptons("arrow-redo-outline",THEME.textPrimary,THEME.primary,onPressShare)}
               {renderOptons("copy-outline",THEME.textPrimary,THEME.primary,onPressCopy)}
               {renderOptons("create-outline",THEME.textPrimary,THEME.primary,onPressEdit)}
@@ -37,7 +37,7 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy,onPressEdit  })
         <View>
 
         </View>
-
+      </ScrollView>
     </View>
   );
 };

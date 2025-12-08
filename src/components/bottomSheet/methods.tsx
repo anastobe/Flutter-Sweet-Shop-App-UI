@@ -9,6 +9,7 @@ import SwitchToggle from "react-native-switch-toggle";
 import { ImageBackground } from 'react-native';
 import Metrics from '../../styles/metrics';
 import { ActivityIndicator } from 'react-native';
+import { ScrollView } from 'react-native';
 
 const Methods = ({ 
         Data,
@@ -76,7 +77,7 @@ const Methods = ({
 
 return (
  <ImageBackground resizeMode="cover" source={backImg} style={style}>
-
+            <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
         <Text style={styles.title}>Payment Methods</Text>
       {loading ?
       <View style={{ marginTop: 20 }} >
@@ -90,6 +91,7 @@ return (
         {Listitem(Images.internationalTransaction, "International Transactions", "Control usage of your card via Apple Pay, Google Pay, and others", walletSwitch, () => setWalletSwitch(!walletSwitch))}
       </View>
       }
+    </ScrollView>
     </ImageBackground>
 );
 };

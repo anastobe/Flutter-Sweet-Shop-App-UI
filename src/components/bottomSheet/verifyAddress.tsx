@@ -53,11 +53,7 @@ const VerifyAddress = ({ style, onPress1, onPress2, backImg,loginUserData }: { s
 
     return (
          <ImageBackground resizeMode="cover" source={backImg} style={style}>
-
-
-        {/* <View style={[styles.container, style]}> */}
-            {/* <View style={styles.stepGrey} /> */}
-            <ScrollView showsVerticalScrollIndicator={false} >
+            <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
             <Text style={styles.title}>Verify Your Registered Address</Text>
             <Text style={styles.subtitle}>Your card is linked to the following address</Text>
             {renderCardDetails()}

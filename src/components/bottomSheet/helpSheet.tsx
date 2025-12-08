@@ -6,6 +6,7 @@ import { Images } from '../../config';
 import CustomButton from '../customButton';
 import InputField from '../textInput';
 import CardBox from '../cardBox';
+import { ScrollView } from 'react-native';
 
 const HelpSheet = ({ 
     title, 
@@ -23,6 +24,7 @@ const HelpSheet = ({
     return (
         <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={style}>
 
+          <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.titlesub}>{subtitle}</Text>
 
@@ -45,6 +47,9 @@ const HelpSheet = ({
             onPress={onPress2}
           />
 
+          <View style={{ height: 20 }} />
+
+          </ScrollView>
         </ImageBackground>
     );
 };

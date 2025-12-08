@@ -33,7 +33,7 @@ const EditAccountPreferences: React.FC<Props> = ({
       source={Images.addCardGradient}
       style={{ flex: 1}}
     >
-      <ScrollView style={{ paddingBottom: 500 }}>
+      <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
         <View style={styles.overlay}>
           {/* Header */}
           <View style={styles.headerRow}>

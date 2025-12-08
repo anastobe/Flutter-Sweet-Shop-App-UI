@@ -111,7 +111,8 @@ export default function Request() {
         {renderTransactions()}
 
         <BottomSheet
-          height={((Metrics.height / 2) + 100)}
+          height={500}              // minimum height
+          maxHeightPercent={0.6}   // optional, override for screen
           draggable={false}
           openTime={500} 
           closeDuration={500}

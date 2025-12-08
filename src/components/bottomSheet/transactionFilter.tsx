@@ -51,29 +51,6 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
     function renderFilterRange() {
         return (
             <View>
-                {/* <InputField
-                    customInpStyle={{ width: METRICS.width - 40 }}
-                    marginTp={20}
-                    autoCapital={'none'}
-                    blurOnSubmit={false}
-                    placeholder="From"
-                    value={from}
-                    onChangeText={setfrom}
-                    image={"calendar-outline"}
-                    imagetintColor={THEME.white}
-                /> */}
-
-                {/* <InputField
-                    customInpStyle={{ width: METRICS.width - 40 }}
-                    margTp={20}
-                    autoCapital={'none'}
-                    blurOnSubmit={false}
-                    placeholder="To"
-                    value={to}
-                    onChangeText={setto}
-                    image={"calendar-outline"}
-                    imagetintColor={THEME.white}
-                /> */}
 
                 <CustomCalendar 
                   placeholder="From"
@@ -144,8 +121,8 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
     return (
   <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={styles.container}>
  
+            <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
             <Text style={styles.title}>Filter Transactions</Text>
-            <ScrollView showsVerticalScrollIndicator={false} >
                 {renderFilterRange()}
                 {transactionTypeSelection()}
 

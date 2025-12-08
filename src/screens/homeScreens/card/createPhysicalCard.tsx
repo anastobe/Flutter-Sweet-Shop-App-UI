@@ -143,7 +143,8 @@ const CreatePhysicalCard = () => {
         />
 
         <BottomSheet
-          height={METRICS.height / 1.6}
+          height={280}
+          maxHeightPercent={0.55}   // optional, override for screen
           draggable={false}
           openTime={500}
           closeDuration={500}

@@ -5,6 +5,7 @@ import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles'; // adjust path as 
 import { Images } from '../../config';
 import CustomButton from '../customButton';
 import InputField from '../textInput';
+import { ScrollView } from 'react-native';
 
 const ContactAdressSheet = ({ 
     title, 
@@ -26,7 +27,9 @@ const ContactAdressSheet = ({
       setSecure: any,
     }) => {
     return (
-        <ImageBackground resizeMode="cover" source={Images.bottogSheetGradient} style={style}>
+        <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={style}>
+
+            <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
 
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.titlesub}>{subtitle}</Text>
@@ -50,8 +53,9 @@ const ContactAdressSheet = ({
                 title="Confirm & Continue"
                 onPress={onPress}
             />
+            <View style={{ height: 10 }} />
 
-
+            </ScrollView>
         </ImageBackground>
     );
 };

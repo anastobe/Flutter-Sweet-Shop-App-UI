@@ -294,8 +294,9 @@ const CardScreen = () => {
 
          {/* BottomSheets */}
          <BottomSheet
-          height={METRICS.halfScreen - 30}
-          draggable={false}
+          height={300}
+          maxHeightPercent={0.55}   // optional, override for screen
+          draggable={false} 
           openTime={500}
           closeDuration={500}
           bottomSheetRef={vm.AddCardRef}
@@ -310,7 +311,8 @@ const CardScreen = () => {
         />
 
         <BottomSheet
-          height={300}
+          height={320}              // minimum height
+          maxHeightPercent={0.55}   // optional, override for screen
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -329,7 +331,8 @@ const CardScreen = () => {
         />
 
         <BottomSheet
-          height={METRICS.height / 1.6}
+          height={500}
+          maxHeightPercent={0.58}   // optional, override for screen
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -360,7 +363,8 @@ const CardScreen = () => {
         />
 
         <BottomSheet
-          height={METRICS.halfScreen - 80}
+          height={280}
+          maxHeightPercent={0.55}   // optional, override for screen
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -368,7 +372,7 @@ const CardScreen = () => {
           children={
             <ManageOption
               style={{ flex: 1, paddingHorizontal: 20 }}
-              backImg={Images.bottogSheetGradient}
+              backImg={Images.addCardGradient}
               onPress1={() => vm.onPressOption('1')}
               onPress2={() => vm.onPressOption('2')}
             />

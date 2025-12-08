@@ -6,20 +6,15 @@ import { Images } from '../../config';
 import CustomButton from '../customButton';
 import { ImageBackground } from 'react-native';
 import { TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native';
 
 const FingerPrintContent = ({refrence, title, subtitle, style, onPress, img }:{refrence:any, title:any, subtitle:any, style:any, onPress: any, img: any }) => {
   return (
     <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={style}>
 
-
-        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} /> */}
+      <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
 
       <Text style={styles.title}>{title}</Text>
-      {/* <Text style={styles.titlesub}>{subtitle}</Text> */}
-
-      {/* <View style={{ alignItems: "center", marginTop: 35 }} >
-       <Image tintColor={THEME.white} source={img} style={{ width: scale(60), height: 56 }} resizeMode='contain' />
-      </View>  */}
 
       <TouchableOpacity onPress={onPress} >
        <Text style={styles.titlesubbelow}>Having trouble?</Text>
@@ -31,7 +26,7 @@ const FingerPrintContent = ({refrence, title, subtitle, style, onPress, img }:{r
         onPress={()=>{refrence?.current?.close() }}
       />
 
-
+      </ScrollView>
     </ImageBackground>
   );
 };

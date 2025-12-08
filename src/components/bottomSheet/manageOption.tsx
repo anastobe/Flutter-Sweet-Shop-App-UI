@@ -7,6 +7,7 @@ import { Images } from '../../config';
 import CustomButton from '../customButton';
 import { TouchableOpacity } from 'react-native';
 import { ImageBackground } from 'react-native';
+import { ScrollView } from 'react-native';
 
 const ManageOption = ({ style, onPress1,onPress2,backImg }:{  style:any, onPress1: any, onPress2: any,backImg: any }) => {
 
@@ -34,15 +35,11 @@ const ManageOption = ({ style, onPress1,onPress2,backImg }:{  style:any, onPress
 
   return (
  <ImageBackground resizeMode="cover" source={backImg} style={style}>
-   
-
-        {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 8 }} /> */}
-
+      <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
       <Text style={styles.title}>Manage Cards</Text>
       {Listitem('pin-outline', "Pin & Security",onPress1,'arrow-forward-outline',"Generate an instant-use card for safer online payments." )}
       {Listitem('card-outline', "Set Spending Limit",onPress2,'arrow-forward-outline',"Order a card to use in-store, online, and for ATM withdrawals." )}
-      
-
+    </ScrollView>
     </ImageBackground>
   );
 };

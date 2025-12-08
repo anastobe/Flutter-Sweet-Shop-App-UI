@@ -1,47 +1,59 @@
 import { useTheme } from '@react-navigation/native';
-import React, { useRef } from 'react';
-import { View, StyleSheet, Text, ViewStyle, Alert } from 'react-native';
+import React from 'react';
+import { Dimensions, ViewStyle, StyleSheet } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { THEME } from '../../styles';
-// import { useTheme } from '../../hooks';
+import { ScrollView } from 'react-native';
 
 interface BottomSheetProps {
   bottomSheetRef: React.RefObject<RBSheet>;
   children?: any;
-  height?: number;
+  height?: number;           // min height
+  maxHeightPercent?: number; // new prop
   openTime?: number;
   customContainerStyle?: ViewStyle;
   draggable?: any;
   closeDuration?: any;
-  onClose?: any
+  onClose?: any;
 }
 
+const screenHeight = Dimensions.get('window').height;
 
+export const BottomSheet: React.FC<BottomSheetProps> = ({
+  onClose,
+  bottomSheetRef,
+  closeDuration,
+  draggable,
+  children,
+  height = 300,
+  maxHeightPercent = 0.65,   // default: 65% of screen
+  openTime,
+  customContainerStyle,
+  ...rest
+}) => {
 
-export const BottomSheet: React.FC<BottomSheetProps> = ({onClose, bottomSheetRef,closeDuration,draggable, children, height, openTime, customContainerStyle, ...rest }) => {
-
-  const { colors } = useTheme()
-
+  const dynamicHeight = Math.min(height, screenHeight * maxHeightPercent);
+  
   return (
     <RBSheet
-      ref={bottomSheetRef}    
+      ref={bottomSheetRef}
       animationType="slide"
-      height={height}
+      height={dynamicHeight}
       closeDuration={closeDuration}
-      openDuration={openTime ? openTime : 300}
-      closeOnPressMask={true} 
+      openDuration={openTime ?? 300}
+      closeOnPressMask={true}
       closeOnPressBack={true}
       onClose={onClose}
-      draggable={draggable == false ? false : true}
-      customStyles={
-        customContainerStyle ? 
-        customContainerStyle
-        :
-        { container: [styles.container ] } 
-      }
+      draggable={draggable === false ? false : true}
+      customStyles={{
+        container: [
+         styles.container,
+          customContainerStyle,
+        ],
+      }}
       {...rest}
     >
-      {children}
+        {children}
     </RBSheet>
   );
 };
@@ -52,7 +64,4 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     backgroundColor: THEME.gray
   },
- 
-
-
 });

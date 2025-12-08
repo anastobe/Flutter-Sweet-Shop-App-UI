@@ -260,7 +260,8 @@ const MoreScreen = () => {
       {renderModalDelete()}
 
       <BottomSheet
-        height={METRICS.halfScreen - 40}
+        height={300}              // minimum height
+        maxHeightPercent={0.4}   // optional, override for screen
         draggable={false}
         openTime={500}
         closeDuration={500}

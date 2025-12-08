@@ -183,7 +183,8 @@ const AccountScreen = () => {
 
     {/* Bottom Sheets */}
         <BottomSheet
-          height={METRICS.height - 250}
+          height={500}              // minimum height
+          maxHeightPercent={0.62}   // optional, override for screen
           draggable={false}
           bottomSheetRef={vm.manageRef}
         >
@@ -192,7 +193,7 @@ const AccountScreen = () => {
             source={Images.addCardGradient}
             style={styles.container}
           >
-            <ScrollView contentContainerStyle={{ paddingBottom: 0 }} >
+          <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
             <AccountDetailsCard
               onPressShare={vm.onPressShare}
               onPressCopy={vm.onPressCopy}
@@ -211,7 +212,10 @@ const AccountScreen = () => {
           </ImageBackground>
         </BottomSheet>
 
-        <BottomSheet       draggable={false} height={300} bottomSheetRef={vm.editRef}>
+        <BottomSheet     
+            height={300}              // minimum height
+          maxHeightPercent={0.5}   // optional, override for screen
+        draggable={false} bottomSheetRef={vm.editRef}>
             <EditAccountPreferences
             accountName="Primary GBP Wallet"
             onPressEdit={() => vm.editAccountRef?.current?.open()}
@@ -223,14 +227,17 @@ const AccountScreen = () => {
           />
         </BottomSheet>
 
-        <BottomSheet       draggable={false} height={scale(240)} bottomSheetRef={vm.editAccountRef}>
+        {/* <BottomSheet      
+          height={240}              // minimum height
+          maxHeightPercent={0.5}   // optional, override for screen
+        draggable={false}  bottomSheetRef={vm.editAccountRef}>
           <EditAccountDetail
             gbpWallet={vm.gbpWallet}
             setgbpWallet={vm.setGbpWallet}
             title="Edit Account Name"
             onPressSave={vm.onPressEditSave}
           />
-        </BottomSheet>
+        </BottomSheet> */}
 
     </SafeAreaView>
     </ImageBackground>

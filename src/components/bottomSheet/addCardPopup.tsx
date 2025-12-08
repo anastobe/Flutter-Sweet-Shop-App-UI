@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { scale } from 'react-native-size-matters'; // if you're using scale
 import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../../styles'; // adjust path as needed
 import { Images } from '../../config';
@@ -10,12 +10,8 @@ import { ImageBackground } from 'react-native';
 const AddCardPopup = ({ style, onPress1,onPress2,backImg }:{ style:any, onPress1: any, onPress2: any,backImg: any }) => {
   return (
     <ImageBackground resizeMode="cover" source={backImg} style={style}>
-
-
-
+      <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
       <Text style={styles.title}>Select Card Type</Text>
-
-
         <TouchableOpacity onPress={onPress1} style={styles.cardItem}>
           <View style={{ flexDirection: "row" }}>
           <View style={styles.iconBox}>
@@ -51,7 +47,7 @@ const AddCardPopup = ({ style, onPress1,onPress2,backImg }:{ style:any, onPress1
             <Icon name="arrow-forward-outline" size={20} color={THEME.white} />
           </View>
         </TouchableOpacity>
-
+      </ScrollView>
     </ImageBackground>
   );
 };

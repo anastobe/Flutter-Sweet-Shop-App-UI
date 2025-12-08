@@ -109,7 +109,8 @@ const ContactAddress = () => {
         {renderBtn()}
 
         <BottomSheet
-          height={METRICS.halfScreen - 40}
+        height={320}              // minimum height
+        maxHeightPercent={0.5}   // optional, override for screen
           draggable={false}
           bottomSheetRef={vm.cardDetailRef}
           children={
