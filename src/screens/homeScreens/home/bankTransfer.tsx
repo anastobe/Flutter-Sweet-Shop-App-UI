@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { scale } from "react-native-size-matters";
 import Icon from "react-native-vector-icons/Ionicons";
 import { MainContainer, InputDropDownStyle } from "../../../components";
 import InputField from "../../../components/textInput";
@@ -10,6 +9,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
 import { useBankTransferViewModel } from "../../../viewModels/homeViewModel/home/useBankTransferViewModel";
 import BalanceBox from "../../../components/balanceBox";
 import StatusBarManager from "../../../components/statusBarManager";
+import { handleSize } from "../../../config/responsiveTheme";
 
 const BankTransfer = () => {
   const {
@@ -46,12 +46,13 @@ const BankTransfer = () => {
       mainContainerStyle={styles.container}
     >
       <StatusBarManager
-        backgroundColor={THEME.darkSecondary} 
-        barStyle="light-content" 
+        backgroundColor={THEME.darkSecondary}
+        barStyle="light-content"
       />
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 50 }}>
-        <View style={{ marginHorizontal: 20 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(50) }}>
+        <View style={{ marginHorizontal: handleSize.w(20) }}>
+          
           <Text style={styles.title}>Bank Transfer</Text>
           <Text style={styles.subtitle}>
             Make local or international bank transfers.
@@ -66,10 +67,10 @@ const BankTransfer = () => {
             onPress={handlePress}
           />
 
-          {/* {BalanceCard({ label: "Available Balance", amount: "£1,250.00" })} */}
-              <BalanceBox amount="£1,250.00" label="Available Balance" containerHeight={78} />
+          {/* Balance */}
+          <BalanceBox amount="£1,250.00" label="Available Balance" containerHeight={78} />
 
-          {/* Input Field */}
+          {/* Recipient Gets */}
           <InputField
             renderRightInput={renderRightInput}
             placeholder="0.00"
@@ -78,38 +79,38 @@ const BankTransfer = () => {
             onChangeText={setRecipientGets}
             keyboardType={"numeric"}
             maxlen={10}
-            margBtm={15}
+            margBtm={handleSize.h(15)}
           />
 
-        
+          {/* Bank Country Dropdown */}
           <InputField
-            disabled={false} 
+            disabled={false}
             placeholder="Beneficiary Bank Country"
-            value={beneficiaryBankCountry} 
+            value={beneficiaryBankCountry}
             enableDropdown={true}
             dropdownData={[
               { name: "Pak" },
               { name: "China" }
-            ]} 
-            margBtm={15}
-            isOpen={openDropdown === 'country'} 
-            onToggleDropdown={() => toggleDropdown('country')}
-            onDropdownSelect={(item:any )=> setBeneficiaryBankCountry(item.name)}
+            ]}
+            margBtm={handleSize.h(15)}
+            isOpen={openDropdown === "country"}
+            onToggleDropdown={() => toggleDropdown("country")}
+            onDropdownSelect={(item: any) => setBeneficiaryBankCountry(item.name)}
           />
 
+          {/* Recipient Type */}
           <InputField
-            disabled={false} 
+            disabled={false}
             placeholder="Recipient Type"
-            value={recipientType} 
+            value={recipientType}
             enableDropdown={true}
             dropdownData={[
-              // { name: "account" },
               { name: "Cash" }
-            ]} 
-            margBtm={15}
-            isOpen={openDropdown === 'recepitantType'} 
-            onToggleDropdown={() => toggleDropdown('recepitantType')}
-            onDropdownSelect={(item:any )=> setRecipientType(item.name)}
+            ]}
+            margBtm={handleSize.h(15)}
+            isOpen={openDropdown === "recepitantType"}
+            onToggleDropdown={() => toggleDropdown("recepitantType")}
+            onDropdownSelect={(item: any) => setRecipientType(item.name)}
           />
 
           {/* Button */}
@@ -119,6 +120,7 @@ const BankTransfer = () => {
             title="Transfer Payment"
             onPress={handleTransfer}
           />
+
         </View>
       </ScrollView>
     </MainContainer>
@@ -128,97 +130,103 @@ const BankTransfer = () => {
 export default BankTransfer;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: THEME.white },
+  container: { 
+    flex: 1, 
+    backgroundColor: THEME.white 
+  },
+
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
+
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 20,
-    lineHeight: 20
+    marginBottom: handleSize.h(20),
+    lineHeight: handleSize.h(20),
   },
+
   pickerWrapper: {
-    borderWidth: 1,
+    borderWidth: handleSize.w(1),
     borderColor: THEME.white,
-    borderRadius: 10,
-    marginBottom: 15,
+    borderRadius: handleSize.f(10),
+    marginBottom: handleSize.h(15),
   },
+
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     borderColor: THEME.gray,
-    borderWidth: 1,
-    borderRadius: 10,
+    borderWidth: handleSize.w(1),
+    borderRadius: handleSize.f(10),
     color: THEME.white,
-    height: 56,
-    marginLeft: 10,
+    height: handleSize.h(56),
+    marginLeft: handleSize.w(10),
   },
+
   containerAMOUNT: {
     backgroundColor: THEME.whitergba,
-    // padding: scale(8),
     width: "100%",
-    height: 80,
-    // alignSelf: "center",
-    marginVertical: 15,
-    borderRadius: scale(12),
+    height: handleSize.h(80),
+    marginVertical: handleSize.h(15),
+    borderRadius: handleSize.f(12),
     alignItems: "center",
     justifyContent: "center",
   },
-  amountBox: {
-    // paddingHorizontal: scale(10),
-    // paddingVertical: scale(4),
-    // borderRadius: scale(6),
-    // marginTop: 5,
-  },
+
   balanceTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
-    // marginTop: 5,
   },
+
   balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threezero,
+    fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.white,
-    // backgroundColor :'red',
-    // paddingBottom: 5,
-    // marginTop: 5,
-    // paddingBottom: 1,
   },
+
   renderRightInputContainer: {
-    height: 56,
+    height: handleSize.h(56),
     position: "absolute",
-    right: 20,
+    right: handleSize.w(20),
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
+
   inputNumber: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
-    inputNumberNum:{
-    fontSize: FONT_SIZES.twozero,
+
+  inputNumberNum: {
+    fontSize: handleSize.f(FONT_SIZES.twozero),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+
   inputNumbergbpcont: {
     backgroundColor: THEME.primary,
-    marginLeft: 6,
-    borderRadius: 6,
-    padding: 3,
+    marginLeft: handleSize.w(6),
+    borderRadius: handleSize.f(6),
+    padding: handleSize.f(3),
   },
+
   inputNumbergbp: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },
-  forgetTxt: { marginTop: 20, marginBottom: 20 },
+
+  forgetTxt: { 
+    marginTop: handleSize.h(20), 
+    marginBottom: handleSize.h(20) 
+  },
 });

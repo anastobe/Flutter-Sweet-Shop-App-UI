@@ -13,6 +13,7 @@ import BluryModal from '../../../../components/Modal/bluryModal';
 import { Images } from '../../../../config';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
 import StatusBarManager from '../../../../components/statusBarManager';
+import { handleSize } from '../../../../config/responsiveTheme';
 
 const BeneficiariesManagement = () => {
   const { data, pressBackArrow, pressRightArrow, onBeneficiaryPress, open, setOpen,open2, setOpen2,onPressDelete,onPressDeleteBtn ,onPressView,
@@ -59,7 +60,7 @@ const BeneficiariesManagement = () => {
             </TouchableOpacity>
           <View style={{ transform: [{ rotate: '-45deg' }], marginLeft: 0 }}>
             <TouchableOpacity style={styles.butnCont}  onPress={onPressView}>
-              <Icon name="arrow-forward-outline" size={20} color={THEME.primary} />
+              <Icon name="arrow-forward-outline" size={ handleSize.f(20)} color={THEME.primary} />
               </TouchableOpacity>
           </View>
           </View>
@@ -77,7 +78,7 @@ const BeneficiariesManagement = () => {
         </TouchableOpacity>
 
         <View style={styles.iconCircle}>
-          <Icon name={icon} size={25} color={THEME.textPrimary} />
+          <Icon name={icon} size={ handleSize.f(25)} color={THEME.textPrimary} />
         </View>
 
         <Text style={styles.titles}>{title}</Text>
@@ -102,7 +103,7 @@ const BeneficiariesManagement = () => {
           // renderPopup("warning","Are you sure you want to delete this beneficiary","Continue")
 
           <BluryModal
-            style={{ flex: 1, paddingHorizontal: 20 }}
+            style={{ flex: 1, paddingHorizontal:  handleSize.w(20) }}
             onClose={() => setOpen(false)}
             btnLoader={isPendingDeleteBeneficiary}
             marginTopTitle={20}
@@ -136,7 +137,7 @@ const BeneficiariesManagement = () => {
         backgroundColor={THEME.darkSecondary} 
         barStyle="light-content" 
       />
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Beneficiaries</Text>
         <Text style={styles.subtitle}>
           Manage your saved recipients for faster and easier payments.
@@ -173,99 +174,104 @@ const BeneficiariesManagement = () => {
 export default BeneficiariesManagement;
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.white,
-    marginBottom: 10,
-    marginTop: 10,
-  },
-  txtEmptyTxt: {
-    fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Regular,
-    color: THEME.white,
-    marginBottom: 10,
-    textAlign: "center"
-  },
-  subtitle: {
-    fontSize: FONT_SIZES.onesix,
-    fontFamily: FONTFAMILY.Regular,
-    color: THEME.white,
-    lineHeight: 18,
-    marginBottom: 30,
-  },
   container: { flex: 1, backgroundColor: THEME.white },
 
+  title: {
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
+  },
+  txtEmptyTxt: {
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    marginBottom: handleSize.h(10),
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    lineHeight: handleSize.h(20),
+    marginBottom: handleSize.h(30),
+  },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: THEME.textPrimary,
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 10,
+    borderRadius: handleSize.f(12),
+    padding: handleSize.h(12),
+    marginBottom: handleSize.h(10),
   },
   avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 14,
+    width: handleSize.w(40),
+    height: handleSize.h(40),
+    borderRadius: handleSize.f(14),
     backgroundColor: THEME.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
-    marginLeft: 5
+    marginRight: handleSize.w(12),
+    marginLeft: handleSize.w(5),
   },
   avatarText: {
     color: THEME.textPrimary,
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
   },
   name: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
   currency: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
   },
-  forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
-  butnCont:
-  { width: 35, height:40, justifyContent: "center", alignItems: "center" },
-
-  
-    modal: {
-      backgroundColor: 'rgba(64, 64, 65, 0.98)',
-      borderRadius: 16,
-      padding: 24,
-      alignItems: 'center',
-    },
-    closeBtn: { position: 'absolute', top: 10, right: 15 },
-    closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
-    iconCircle: {
-      backgroundColor: THEME.primary,
-      borderRadius: 100,
-      width: 56,
-      height: 56,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: 10,
-    },
-    titles: {
+  forgetTxtpop: {
+    backgroundColor: THEME.primary,
+    width: '100%',
+    marginTop: handleSize.h(20),
+    marginBottom: handleSize.h(20),
+  },
+  butnCont: {
+    width: handleSize.w(35),
+    height: handleSize.h(40),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modal: {
+    backgroundColor: 'rgba(64, 64, 65, 0.98)',
+    borderRadius: handleSize.f(16),
+    padding: handleSize.h(24),
+    alignItems: 'center',
+  },
+  closeBtn: { position: 'absolute', top: handleSize.h(10), right: handleSize.w(15) },
+  closeText: { fontSize: handleSize.f(FONT_SIZES.foureight), color: THEME.white },
+  iconCircle: {
+    backgroundColor: THEME.primary,
+    borderRadius: handleSize.f(100),
+    width: handleSize.w(56),
+    height: handleSize.h(56),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: handleSize.h(10),
+  },
+  titles: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.twotwo,
-      color: THEME.white,
-      textAlign: 'center',
-      lineHeight: 30,
-      marginTop: 20
-    },
-    description: {
-      marginTop: 10,
-      fontFamily: FONTFAMILY.Regular,
-      fontSize: FONT_SIZES.onefour,
-      color: THEME.white,
-      textAlign: 'center',
-    },
-
-
+    fontSize: handleSize.f(FONT_SIZES.twotwo),
+    color: THEME.white,
+    textAlign: 'center',
+    lineHeight: handleSize.h(30),
+    marginTop: handleSize.h(20),
+  },
+  description: {
+    marginTop: handleSize.h(10),
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+    textAlign: 'center',
+  },
 });

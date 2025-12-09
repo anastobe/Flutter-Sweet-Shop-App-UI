@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { scale } from 'react-native-size-matters'; // if you're using scale
-import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../../styles'; // adjust path as needed
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../../styles';
 import { Images } from '../../config';
 import CustomButton from '../customButton';
 import Icon from 'react-native-vector-icons/Ionicons';
-import InputField from '../textInput';
-import { ImageBackground } from 'react-native';
 import CustomCalendar from '../customCalander';
+import { handleSize } from '../../config/responsiveTheme';
 
-const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }) => {
+const TransactionFilter = ({ onPress, onPress2 }: { onPress: any, onPress2: any }) => {
 
     const [from, setfrom] = useState('');
     const [to, setto] = useState('');
@@ -19,12 +17,6 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
         credit: false,
         refund: false,
         atm: false,
-    });
-    const [checkedStatus, setCheckedStatus] = useState({
-        all: false,
-        completed: false,
-        pending: false,
-        failed: false
     });
 
     const handlePress = (key: any) => {
@@ -46,42 +38,39 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
         }
     };
 
-
-
     function renderFilterRange() {
         return (
             <View>
-
-                <CustomCalendar 
-                  placeholder="From"
-                  value={from}
-                  onDateChange={setfrom}
-                 />
+                <CustomCalendar
+                    placeholder="From"
+                    value={from}
+                    onDateChange={setfrom}
+                />
 
                 <CustomCalendar
-                  margTp={20}
-                  placeholder="To"
-                  value={to}
-                  onDateChange={setto}
+                    margTp={handleSize.h(20)}
+                    placeholder="To"
+                    value={to}
+                    onDateChange={setto}
                 />
             </View>
         )
     }
 
-    function renderButton(onPress: any,onPress2: any) {
+    function renderButton(onPress: any, onPress2: any) {
         return (
             <View>
                 <CustomButton
                     btnContSty={styles.forgetTxt1}
                     title="Apply"
                     onPress={onPress}
-                    />
+                />
 
                 <CustomButton
                     btnContSty={styles.forgetTxt2}
                     title="Reset"
                     onPress={onPress2}
-                    />
+                />
             </View>
         )
     }
@@ -89,7 +78,8 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
     function transactionTypeSelection() {
         return (
             <View>
-                <Text style={styles.checkmarkTitle} >Transaction Type</Text>
+                <Text style={styles.checkmarkTitle}>Transaction Type</Text>
+
                 {[
                     { key: 'all', label: 'All' },
                     { key: 'debit', label: 'Debit' },
@@ -98,14 +88,21 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
                     { key: 'atm', label: 'ATM Withdrawal' },
                 ].map((item) => {
                     let checkedValue = checked[item.key]
+
                     return (
                         <View key={item.key} style={styles.row}>
-                            <TouchableOpacity style={[styles.boxShape,{borderColor: checkedValue ? THEME.primary : THEME.white } ]} onPress={() => handlePress(item.key)} >{
-                                checkedValue ?
-                                    <Icon name="checkmark" size={17} color={checkedValue ? THEME.primary : THEME.white} />
-                                    : null
-                            }
+                            <TouchableOpacity
+                                style={[
+                                    styles.boxShape,
+                                    { borderColor: checkedValue ? THEME.primary : THEME.white }
+                                ]}
+                                onPress={() => handlePress(item.key)}
+                            >
+                                {checkedValue ?
+                                    <Icon name="checkmark" size={handleSize.f(17)} color={checkedValue ? THEME.primary : THEME.white} />
+                                    : null}
                             </TouchableOpacity>
+
                             <Text style={styles.label}>{item.label}</Text>
                         </View>
                     )
@@ -113,20 +110,15 @@ const TransactionFilter = ({  onPress,onPress2 }: { onPress: any,onPress2: any }
             </View>
         )
     }
-  
-    const handleDateSelect = (date: string) => {
-    console.log('Selected date:', date);
-  };
 
     return (
-  <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={styles.container}>
- 
-            <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
-            <Text style={styles.title}>Filter Transactions</Text>
+        <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={styles.container}>
+            <ScrollView style={{ marginTop: handleSize.h(10) }} showsVerticalScrollIndicator={false}>
+                <Text style={styles.title}>Filter Transactions</Text>
+
                 {renderFilterRange()}
                 {transactionTypeSelection()}
-
-                {renderButton(onPress,onPress2)}
+                {renderButton(onPress, onPress2)}
             </ScrollView>
         </ImageBackground>
     );
@@ -137,43 +129,66 @@ export default TransactionFilter;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 20
+        paddingHorizontal: handleSize.w(20)
     },
-    nodge:
-    { width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 },
+
+    nodge: {
+        width: handleSize.w(70),
+        height: handleSize.h(8),
+        backgroundColor: THEME.lightGrey,
+        alignSelf: "center",
+        borderRadius: handleSize.w(20),
+        marginTop: handleSize.h(20)
+    },
+
     title: {
-        fontSize: FONT_SIZES.twosix,
+        fontSize: handleSize.f(FONT_SIZES.twosix),
         fontFamily: FONTFAMILY.SemiBold,
         color: THEME.white,
         alignSelf: "center",
-        paddingBottom: 20,
-        marginTop: 10
+        paddingBottom: handleSize.h(20),
+        marginTop: handleSize.h(10)
     },
 
-    forgetTxt1:
-        { marginTop: 20, marginBottom: 0, backgroundColor: THEME.primary },
-        
-    forgetTxt2:
-        { marginTop: 10, marginBottom: 20,backgroundColor: THEME.white },
+    forgetTxt1: {
+        marginTop: handleSize.h(20),
+        marginBottom: handleSize.h(0),
+        backgroundColor: THEME.primary
+    },
+
+    forgetTxt2: {
+        marginTop: handleSize.h(10),
+        marginBottom: handleSize.h(20),
+        backgroundColor: THEME.white
+    },
+
     checkmarkTitle: {
-        fontSize: FONT_SIZES.onesix,
+        fontSize: handleSize.f(FONT_SIZES.onesix),
         fontFamily: FONTFAMILY.Medium,
         color: THEME.white,
-        marginTop: 15,
-        marginBottom: 10
+        marginTop: handleSize.h(15),
+        marginBottom: handleSize.h(10)
     },
-    boxShape:
-        { width: 20, height: 20, borderWidth: 1.5, borderRadius: 3 },
+
+    boxShape: {
+        width: handleSize.w(20),
+        height: handleSize.h(20),
+        borderWidth: handleSize.w(1.5),
+        borderRadius: handleSize.w(3),
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 4,
-    },
-    label: {
-        marginLeft: 8,
-        fontSize: FONT_SIZES.onefour,
-        fontFamily: FONTFAMILY.Light,
-        color: THEME.white,
+        marginVertical: handleSize.h(4)
     },
 
+    label: {
+        marginLeft: handleSize.w(8),
+        fontSize: handleSize.f(FONT_SIZES.onefour),
+        fontFamily: FONTFAMILY.Light,
+        color: THEME.white
+    },
 });

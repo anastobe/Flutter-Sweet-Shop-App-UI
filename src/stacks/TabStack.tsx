@@ -49,6 +49,7 @@ import AdminBeneficiaryStatus from '../screens/homeScreens/more/adminModule/admi
 import AdminConfirmCardRequest from '../screens/homeScreens/more/adminModule/admincardStatus';
 import { StatusBar } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { handleSize } from '../config/responsiveTheme';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -591,27 +592,23 @@ export const TabStack: React.FC = ({ }) => {
 };
 
 const styles = StyleSheet.create<any>({
-  tabTxt:
-  {
-    fontFamily: FONTFAMILY.Regular, fontSize: FONT_SIZES.nine, marginTop: 3
+  tabTxt: {
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.nine),
+    marginTop: handleSize.h(3),
   },
-  imgTab:
-  {
-    width: 25,
-    height: 25,
+  imgTab: {
+    width: handleSize.w(25),
+    height: handleSize.h(25),
   },
-  iconBack:
-    { paddingVertical: 10,justifyContent: 'center', alignItems: "center", borderRadius: 8 },
-  tabCont:
-  {
-    width: METRICS.width / 5-22,
-    // height: scale(50),
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor: THEME.medRed,
-    top: 10,
-
-  }
-
-
+  iconBack: {
+    paddingVertical: handleSize.h(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: handleSize.w(8),
+  },
+  tabCont: {
+    width: handleSize.w(METRICS.width / 5 - 22),
+    top: handleSize.h(10),
+  },
 });

@@ -1,8 +1,15 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, StyleProp, ViewStyle, Image } from 'react-native';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+  Image,
+} from 'react-native';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
-import { scale } from 'react-native-size-matters';
 import { ActivityIndicator } from 'react-native';
+import { handleSize } from '../config/responsiveTheme';
 
 const CustomButton = ({
   title,
@@ -12,27 +19,39 @@ const CustomButton = ({
   image,
   showmyStyleOnly,
   loading = false,
-  tintColor
+  tintColor,
 }: {
   title: string;
   onPress: any;
   btnContSty?: StyleProp<ViewStyle>;
   txtColor?: any;
   image?: any;
-  showmyStyleOnly?: any
+  showmyStyleOnly?: any;
   loading?: boolean;
-  tintColor?: any
+  tintColor?: any;
 }) => (
   <TouchableOpacity
     style={[showmyStyleOnly ? btnContSty : styles.button, btnContSty]}
     onPress={onPress}
-    disabled={loading} // Disable button while loading
+    disabled={loading}
   >
     {loading ? (
-      <ActivityIndicator size="small" color={THEME.textPrimary} />
+      <ActivityIndicator
+        size="small"
+        color={THEME.textPrimary}
+        style={{ padding: handleSize.f(4) }}
+      />
     ) : (
       <>
-        {image && <Image source={image} resizeMode='contain' tintColor={tintColor} style={{ width: 20, height: 20, marginRight: 6 }} />}
+        {image && (
+          <Image
+            source={image}
+            resizeMode="contain"
+            tintColor={tintColor}
+            style={styles.img}
+          />
+        )}
+
         <Text style={[showmyStyleOnly ? txtColor : styles.buttonText, txtColor]}>
           {title}
         </Text>
@@ -44,16 +63,23 @@ const CustomButton = ({
 const styles = StyleSheet.create({
   button: {
     backgroundColor: THEME.primary,
-    borderRadius: 10,
-    justifyContent: "center",
+    borderRadius: handleSize.f(10),
+    justifyContent: 'center',
     alignItems: 'center',
-    height: 56,
-
+    height: handleSize.h(56),
+    flexDirection: 'row',
   },
+
+  img: {
+    width: handleSize.w(20),
+    height: handleSize.h(20),
+    marginRight: handleSize.w(6),
+  },
+
   buttonText: {
     color: THEME.textPrimary,
     fontFamily: FONTFAMILY.Regular,
-    fontSize: FONT_SIZES.oneeight
+    fontSize: handleSize.f(FONT_SIZES.oneeight),
   },
 });
 

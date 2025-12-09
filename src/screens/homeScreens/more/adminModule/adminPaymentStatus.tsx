@@ -15,6 +15,7 @@ import { Images } from '../../../../config';
 import BluryModal from '../../../../components/Modal/bluryModal';
 import BalanceBox from '../../../../components/balanceBox';
 import StatusBarManager from '../../../../components/statusBarManager';
+import { handleSize } from '../../../../config/responsiveTheme';
 
 // ✅ Reusable Components
 const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: string }) => (
@@ -227,157 +228,155 @@ export default AdminPaymentStatus;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
-  scrollContainer: { paddingBottom: 100 },
-  innerContainer: { marginHorizontal: 20 },
+  scrollContainer: { paddingBottom: handleSize.h(100) },
+  innerContainer: { marginHorizontal: handleSize.w(20) },
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 30,
-    lineHeight: 20
+    marginBottom: handleSize.h(30),
+    lineHeight: handleSize.h(20),
   },
-    infoIcon: { marginRight: 8, width: 15, height: 15 },
+  infoIcon: { marginRight: handleSize.w(8), width: handleSize.w(15), height: handleSize.h(15) },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: handleSize.h(10),
   },
   infoLeft: { flexDirection: 'row', alignItems: 'center' },
   label: {
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
   value: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
-  summaryBox: { borderRadius: 10, padding: 10, marginBottom: 10 },
+  summaryBox: { borderRadius: handleSize.f(10), padding: handleSize.f(10), marginBottom: handleSize.h(10) },
   balanceContainer: {
     backgroundColor: THEME.whitergba,
-    padding: scale(10),
-    borderRadius: scale(12),
+    padding: handleSize.f(10),
+    borderRadius: handleSize.f(12),
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 15,
+    marginVertical: handleSize.h(15),
   },
   balanceLabel: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
   balanceAmount: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threezero,
+    fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.white,
   },
   rightInputContainer: {
-    height: 56,
+    height: handleSize.h(56),
     position: 'absolute',
-    right: 20,
+    right: handleSize.w(20),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   rightInputValue: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
   currencyBox: {
     backgroundColor: THEME.primary,
-    marginLeft: 6,
-    borderRadius: 6,
-    padding: 3,
+    marginLeft: handleSize.w(6),
+    borderRadius: handleSize.f(6),
+    padding: handleSize.f(3),
   },
   currencyText: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },
-  btnStyle:{
-    fontSize: FONT_SIZES.twozero,
-    lineHeight: 20,
+  btnStyle: {
+    fontSize: handleSize.f(FONT_SIZES.twozero),
+    lineHeight: handleSize.h(20),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
   },
-  btnStyle2:{
-    fontSize: FONT_SIZES.twozero,
-    lineHeight: 20,
+  btnStyle2: {
+    fontSize: handleSize.f(FONT_SIZES.twozero),
+    lineHeight: handleSize.h(20),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.textPrimary,
   },
   transferBtnReject: {
     backgroundColor: THEME.SlateBlue,
-    borderRadius: 10,
+    borderRadius: handleSize.f(10),
     justifyContent: "center",
     alignItems: 'center',
-  height: 50,
-    width: Metrics.width/2-30,
+    height: handleSize.h(50),
+    width: handleSize.w(Metrics.width/2 - 30),
     borderColor: THEME.white,
-    borderWidth: 1.5
-   },
-   transferBtnAccept: {
+    borderWidth: handleSize.f(1.5)
+  },
+  transferBtnAccept: {
     backgroundColor: THEME.primary,
-    borderRadius: 10,
+    borderRadius: handleSize.f(10),
     justifyContent: "center",
     alignItems: 'center',
-  height: 50,
-    width: Metrics.width/2-30
-   },
-   
+    height: handleSize.h(50),
+    width: handleSize.w(Metrics.width/2 - 30)
+  },
   modal: {
     backgroundColor: 'rgba(64, 64, 65, 0.92)',
-    borderRadius: 16,
-    padding: 24,
+    borderRadius: handleSize.f(16),
+    padding: handleSize.f(24),
     alignItems: 'center',
   },
-  closeBtn: { position: 'absolute', top: 10, right: 15 },
-  closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
+  closeBtn: { position: 'absolute', top: handleSize.h(10), right: handleSize.w(15) },
+  closeText: { fontSize: handleSize.f(FONT_SIZES.foureight), color: THEME.white },
   iconCircle: {
     backgroundColor: THEME.primary,
-    borderRadius: 100,
-    width: 56,
-    height: 56,
+    borderRadius: handleSize.f(100),
+    width: handleSize.w(56),
+    height: handleSize.h(56),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: handleSize.h(10),
   },
-  forgetTxtpop: { width: '100%', marginTop: 30, marginBottom: 20 },
+  forgetTxtpop: { width: '100%', marginTop: handleSize.h(30), marginBottom: handleSize.h(20) },
   titles: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.twotwo,
+    fontSize: handleSize.f(FONT_SIZES.twotwo),
     color: THEME.white,
     textAlign: 'center',
-    marginTop: 50,
+    marginTop: handleSize.h(50),
   },
   description: {
-    marginTop: 10,
+    marginTop: handleSize.h(10),
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
     textAlign: 'center',
   },
-      button: {
-    borderRadius: 10,
+  button: {
+    borderRadius: handleSize.f(10),
     justifyContent: "center",
     alignItems: 'center',
-    height: 56,
+    height: handleSize.h(56),
     width: '100%',
-    marginTop: 20
-
+    marginTop: handleSize.h(20),
   },
   buttonText: {
     fontFamily: FONTFAMILY.Regular,
-    fontSize: FONT_SIZES.oneeight
+   fontSize: handleSize.f(FONT_SIZES.oneeight),
   },
 });

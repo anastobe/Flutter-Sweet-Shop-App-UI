@@ -23,7 +23,6 @@ import OptionsHeader from "../../../components/topHeader";
 import AccountCardBox from "../../../components/accountCardBox";
 import AccountCardzoom from "../../../components/accountCardzoom";
 import CardFeatureButtons from "../../../components/cardFeatureButtons";
-import LineGraph from "../../../components/lineGraph";
 import StatCard from "../../../components/stateCard";
 import AccountDetailsCard from "../../../components/bottomSheet/accountDetailsCard";
 import EditAccountPreferences from "../../../components/editAccountPreferences";
@@ -37,6 +36,7 @@ import GradientLineGraph from "../../../components/gradientLineGraph";
 import { DATA } from "../../../utils/data";
 import Metrics from "../../../styles/metrics";
 import StatusBarManager from "../../../components/statusBarManager";
+import { handleSize } from "../../../config/responsiveTheme";
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -60,7 +60,7 @@ const AccountScreen = () => {
           <TouchableOpacity onPress={vm.handleNavigateTransaction} style={styles.item}>
             <View style={styles.sectionLeft}>
               <View style={styles.iconCONT}>
-                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"} size={16} color={THEME.textPrimary} />
+                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"} size={handleSize.f(16)} color={THEME.textPrimary} />
               </View>
               <View>
                 <Text style={styles.name}>{item.name}</Text>
@@ -72,7 +72,7 @@ const AccountScreen = () => {
             </View>
           </TouchableOpacity>
         )}
-        contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 50 }}
+        contentContainerStyle={{ marginHorizontal: handleSize.w(20), paddingBottom: handleSize.h(50) }}
       />
     </View>
   );
@@ -142,7 +142,7 @@ const AccountScreen = () => {
 
 
          {/* BODY */}
-         <ScrollView contentContainerStyle={{ paddingBottom: 0, marginTop: 10 }}>
+         <ScrollView contentContainerStyle={{ paddingBottom: 0, marginTop: handleSize.h(10) }}>
            <CardFeatureButtons
              features={vm.features}
              onPressbtn={(item: any) => item.onPress()}
@@ -155,7 +155,7 @@ const AccountScreen = () => {
               bgColor={THEME.secondary}
            /> */}
     
-           <GradientLineGraph marginTop={60} />
+           <GradientLineGraph marginTop={handleSize.h(60)} />
 
            <View style={styles.statecontainer}>
              <StatCard
@@ -193,7 +193,7 @@ const AccountScreen = () => {
             source={Images.addCardGradient}
             style={styles.container}
           >
-          <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
+          <ScrollView style={{ marginTop:  handleSize.h(10) }} showsVerticalScrollIndicator={false} >
             <AccountDetailsCard
               onPressShare={vm.onPressShare}
               onPressCopy={vm.onPressCopy}
@@ -248,117 +248,136 @@ export default AccountScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+
   headerContainer: {
-    height: 260,
-    width: Metrics.width,
-    // backgroundColor: "red",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    // position: 'absolute'
+    height: handleSize.h(260),
+    width: METRICS.width, // ya screen width
+    borderBottomLeftRadius: handleSize.h(30),
+    borderBottomRightRadius: handleSize.h(30),
   },
-  botmRadius:{
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+  botmRadius: {
+    borderBottomLeftRadius: handleSize.h(30),
+    borderBottomRightRadius: handleSize.h(30),
   },
-  
-  cardLoadingContainer:
-  { height: 174, justifyContent: "center", alignItems: "center", width: METRICS.width},
-  card: {
-    width: METRICS.width - 40,
-    height: 174,
-    borderRadius: 20,
-    marginTop: 10,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    borderColor: THEME.gray,
+
+  cardLoadingContainer: {
+    height: handleSize.h(174),
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center",
+    width: METRICS.width,
   },
-  content: { alignItems: "center", justifyContent: "center" },
-  text: {
-    marginTop: 4,
-    fontSize: FONT_SIZES.onefour,
-    color: THEME.prinkishBlue,
-    fontFamily: FONTFAMILY.Medium,
-  },
+
+  // card: {
+  //   width: handleSize.w(335),
+  //   height: handleSize.h(174),
+  //   borderRadius: handleSize.h(20),
+  //   marginTop: handleSize.h(10),
+  //   borderWidth: handleSize.h(1),
+  //   borderStyle: "dashed",
+  //   borderColor: THEME.gray,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   alignSelf: "center",
+  // },
+
+  // content: { alignItems: "center", justifyContent: "center" },
+
+  // text: {
+  //   marginTop: handleSize.h(4),
+  //   fontSize: handleSize.f(FONT_SIZES.onefour),
+  //   color: THEME.prinkishBlue,
+  //   fontFamily: FONTFAMILY.Medium,
+  // },
+
   pagination: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 12,
+    marginVertical: handleSize.h(12),
   },
+
   dot: {
-    height: 6,
-    width: 6,
-    borderRadius: 10,
+    height: handleSize.h(6),
+    width: handleSize.w(6),
+    borderRadius: handleSize.h(10),
     backgroundColor: THEME.SlateBlue,
-    marginHorizontal: 4,
+    marginHorizontal: handleSize.w(4),
   },
-  activeDot: { backgroundColor: THEME.white, width: 6, height: 6 },
+
+  activeDot: {
+    backgroundColor: THEME.white,
+    width: handleSize.w(6),
+    height: handleSize.h(6),
+  },
+
   statecontainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 16,
+    padding: handleSize.h(16),
   },
 
-  
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 20,
-    marginVertical: 10,
+    marginHorizontal: handleSize.w(20),
+    marginVertical: handleSize.h(10),
   },
+
   cardTransactionTXT: {
-    fontSize: FONT_SIZES.oneone,
+    fontSize: handleSize.f(FONT_SIZES.oneone),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+
   viewAllTxt: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     backgroundColor: THEME.SlateBlue,
-    paddingHorizontal: 9,
-    paddingVertical: 3,
-    borderRadius: 10,
+    paddingHorizontal: handleSize.w(9),
+    paddingVertical: handleSize.h(3),
+    borderRadius: handleSize.h(10),
   },
+
   item: {
     backgroundColor: THEME.SlateBlue,
-    borderRadius: 10,
-    height: 68,
+    borderRadius: handleSize.h(10),
+    height: handleSize.h(68),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    marginTop: 10,
+    paddingHorizontal: handleSize.w(10),
+    marginTop: handleSize.h(10),
   },
+
   sectionLeft: { flexDirection: 'row', alignItems: 'center' },
+
   iconCONT: {
-    width: 25,
-    height: 25,
+    width: handleSize.w(25),
+    height: handleSize.h(25),
     backgroundColor: THEME.primary,
-    borderRadius: 50,
+    borderRadius: handleSize.h(50),
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   name: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginLeft: 10,
+    marginLeft: handleSize.w(10),
   },
+
   subname: {
-    fontSize: FONT_SIZES.oneZero,
+    fontSize: handleSize.f(FONT_SIZES.oneZero),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginLeft: 10,
+    marginLeft: handleSize.w(10),
   },
+
   amount: {
-    fontSize: FONT_SIZES.oneeight,
+   fontSize: handleSize.f(FONT_SIZES.oneeight),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
-
-
 });

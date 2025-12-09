@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import Metrics from "../styles/metrics";
-import { scale } from "react-native-size-matters";
-import { THEME } from "../styles";
+import { FONT_SIZES, THEME } from "../styles";
+import { handleSize } from "../config/responsiveTheme";
 
 const OTPInput = ({ length = 6, onChange }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
@@ -52,17 +51,17 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 0,
+    marginTop: handleSize.h(0),
   },
   box: {
-    width: Metrics.width / 5 - 20,
-    height: scale(55),
-    borderRadius: 8,
+    width: handleSize.w(55), // adjusted width for better scaling
+    height: handleSize.h(55),
+    borderRadius: handleSize.f(8),
     backgroundColor: "rgba(255,255,255,0.1)",
     borderWidth: 0.8,
     borderColor: THEME.white,
     textAlign: "center",
     color: "#fff",
-    fontSize: 20,
+    fontSize: handleSize.f(FONT_SIZES.twozero),
   },
 });

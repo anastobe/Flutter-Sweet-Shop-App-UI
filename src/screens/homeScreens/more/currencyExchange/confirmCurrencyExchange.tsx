@@ -10,11 +10,12 @@ import InputField from '../../../../components/textInput';
 import CustomButton from '../../../../components/customButton';
 import useConfirmCurrencyExchangeViewModel from '../../../../viewModels/homeViewModel/more/useConfirmCurrencyExchangeViewModel';
 import StatusBarManager from '../../../../components/statusBarManager';
+import { handleSize } from '../../../../config/responsiveTheme';
 
 const InfoRow = ({ icon, label, value }) => (
   <View style={styles.infoRow}>
     <View style={{ flexDirection: 'row' }}>
-      <Icon name={icon} size={18} color={THEME.white} style={{ marginRight: 8 }} />
+      <Icon name={icon} size={18} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />
       <Text style={styles.label}>{label}</Text>
     </View>
     <View style={styles.valueBox}>
@@ -151,8 +152,8 @@ const ConfirmCurrencyExchange = () => {
         barStyle="light-content" 
       />
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-        <View style={{ marginHorizontal: 20 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(10) }}>
+        <View style={{ marginHorizontal: handleSize.w(20) }}>
           <Text style={styles.title}>Confirm and Create Payment Order</Text>
           <Text style={styles.subtitle}>
             Lock in your rate and enter payment details before proceeding.
@@ -168,91 +169,99 @@ const ConfirmCurrencyExchange = () => {
 export default ConfirmCurrencyExchange;
 
 const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: THEME.white },
+
   title: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    lineHeight: 20
+    lineHeight: handleSize.h(20),
+    marginBottom: handleSize.h(15),
   },
+
   summaryBox: {
-    borderRadius: 1,
-    marginTop: 10,
-    // padding: 10,
-    // marginBottom: 6,
+    borderRadius: handleSize.f(1),
+    marginTop: handleSize.h(10),
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // backgroundColor: 'red',
-    marginBottom: 9,
+    marginBottom: handleSize.h(9),
   },
   label: {
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
   valueBox: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 10,
+    paddingHorizontal: handleSize.w(10),
+    paddingVertical: handleSize.h(4),
+    borderRadius: handleSize.f(10),
   },
   value: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
-  container: { flex: 1, backgroundColor: THEME.white },
+
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 10,
-    marginBottom: 15,
+    borderRadius: handleSize.f(10),
+    marginBottom: handleSize.h(15),
   },
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     borderColor: THEME.gray,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: handleSize.f(10),
     color: THEME.white,
-    height: 56,
-    marginLeft: 10,
+    height: handleSize.h(56),
+    marginLeft: handleSize.w(10),
   },
-  forgetTxt: { marginTop: 20, marginBottom: 50 },
+
+  forgetTxt: {
+    marginTop: handleSize.h(20),
+    marginBottom: handleSize.h(50),
+  },
+
   renderRightInputContainer: {
-    height: 56,
+    height: handleSize.h(56),
     position: 'absolute',
-    right: 20,
+    right: handleSize.w(20),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   inputNumber: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
-  inputNumberNum:{
-    fontSize: FONT_SIZES.oneeight,
+  inputNumberNum: {
+   fontSize: handleSize.f(FONT_SIZES.oneeight),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+
   inputNumbergbpcont: {
     backgroundColor: THEME.primary,
-    marginLeft: 6,
-    borderRadius: 6,
-    padding: 3,
+    marginLeft: handleSize.w(6),
+    borderRadius: handleSize.f(6),
+    padding: handleSize.f(3),
   },
   inputNumbergbp: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },

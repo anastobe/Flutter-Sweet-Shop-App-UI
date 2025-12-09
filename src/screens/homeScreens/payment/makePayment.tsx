@@ -1,46 +1,62 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { MainContainer } from "../../../components";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
-import Icon from "react-native-vector-icons/Ionicons";
 import { useMakePaymentViewModel } from "../../../viewModels/homeViewModel/payment/useMakePaymentViewModel";
 import { Images } from "../../../config";
 import StatusBarManager from "../../../components/statusBarManager";
+import { handleSize } from "../../../config/responsiveTheme";
 
 const MakePayment = () => {
-  const { PAYMENT_OPTION, pressBackArrow, handleNavigate } = useMakePaymentViewModel();
+  const { PAYMENT_OPTION, pressBackArrow, handleNavigate } =
+    useMakePaymentViewModel();
 
   const renderItem = ({ item }: { item: any }) => (
-    <TouchableOpacity onPress={() => handleNavigate(item.route)} style={styles.item}>
+    <TouchableOpacity
+      onPress={() => handleNavigate(item.route)}
+      style={styles.item}
+      activeOpacity={0.8}
+    >
       <View style={styles.avatar}>
-        <Image source={item.icon} style={{ width: 36, height: 36 }} resizeMode="contain" />
-        {/* <Icon name={item.icon} size={36} color={THEME.primary} /> */}
+        <Image
+          source={item.icon}
+          style={styles.icon}
+          resizeMode="contain"
+        />
       </View>
+
       <View style={{ flex: 1 }}>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.currency}>{item.detailTxt}</Text>
       </View>
-      <View>
-          <Image style={{ width: 24, height: 24 }} source={Images.arrow} />
-      </View>
+
+      <Image style={styles.arrow} source={Images.arrow} />
     </TouchableOpacity>
   );
 
   return (
     <MainContainer
-      showBackArrow={true}
+      showBackArrow
       pressBackArrow={pressBackArrow}
-      isFlatList={true}
+      isFlatList
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
       <StatusBarManager
-        backgroundColor={THEME.darkSecondary} 
-        barStyle="light-content" 
+        backgroundColor={THEME.darkSecondary}
+        barStyle="light-content"
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Make a Payment</Text>
+
         <Text style={styles.subtitle}>
           Send money locally or internationally, or transfer between your own accounts.
         </Text>
@@ -49,6 +65,7 @@ const MakePayment = () => {
           data={PAYMENT_OPTION}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     </MainContainer>
@@ -58,47 +75,66 @@ const MakePayment = () => {
 export default MakePayment;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: THEME.white },
+  container: {
+    flex: 1,
+    backgroundColor: THEME.white,
+  },
+
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
+
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    lineHeight: 20,
-    marginBottom: 30,
+    lineHeight: handleSize.h(20),
+    marginBottom: handleSize.h(30),
   },
+
   item: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: THEME.whitergba,
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 10,
+    borderRadius: handleSize.f(12),
+    padding: handleSize.h(12),
+    marginBottom: handleSize.h(10),
   },
+
   avatar: {
-    width: 40,
-    height: 40,
-    borderRadius: 14,
+    width: handleSize.w(40),
+    height: handleSize.h(40),
+    borderRadius: handleSize.f(14),
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 12,
+    marginRight: handleSize.w(12),
   },
+
+  icon: {
+    width: handleSize.w(36),
+    height: handleSize.h(36),
+  },
+
   name: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+
   currency: {
-    marginTop: 2,
-    fontSize: FONT_SIZES.onetwo,
-    lineHeight: 15,
+    marginTop: handleSize.h(2),
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
+    lineHeight: handleSize.h(15),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
+  },
+
+  arrow: {
+    width: handleSize.w(24),
+    height: handleSize.h(24),
   },
 });

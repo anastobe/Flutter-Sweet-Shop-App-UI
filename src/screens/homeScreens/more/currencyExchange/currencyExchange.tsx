@@ -9,6 +9,7 @@ import InputField from '../../../../components/textInput';
 import CustomButton from '../../../../components/customButton';
 import useCurrencyExchangeViewModel from '../../../../viewModels/homeViewModel/more/useCurrencyExchangeViewModel';
 import StatusBarManager from '../../../../components/statusBarManager';
+import { handleSize } from '../../../../config/responsiveTheme';
 
 const CurrencyExchange = () => {
   const {
@@ -94,7 +95,7 @@ const CurrencyExchange = () => {
         barStyle="light-content" 
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Quick Currency Exchange</Text>
         <Text style={styles.subtitle}>
           Convert currency instantly and view real-time rates before confirming your payment.
@@ -109,65 +110,69 @@ const CurrencyExchange = () => {
 export default CurrencyExchange;
 
 const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: THEME.white },
+
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    lineHeight: 20
+    lineHeight: handleSize.h(20),
+    marginBottom: handleSize.h(20),
   },
   renderRightInputContainer: {
-    height: 56,
+    height: handleSize.h(56),
     position: 'absolute',
-    right: 20,
+    right: handleSize.w(20),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   inputNumber: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
-  
-  inputNumberNum:{
-    fontSize: FONT_SIZES.twozero,
+  inputNumberNum: {
+    fontSize: handleSize.f(FONT_SIZES.twozero),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
   inputNumbergbpcont: {
     backgroundColor: THEME.primary,
-    marginLeft: 6,
-    borderRadius: 6,
-    padding: 3,
+    marginLeft: handleSize.w(6),
+    borderRadius: handleSize.f(6),
+    padding: handleSize.h(3),
   },
   inputNumbergbp: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },
-  container: { flex: 1, backgroundColor: THEME.white },
   pickerWrapper: {
-    borderWidth: 1,
+    borderWidth: handleSize.f(1),
     borderColor: THEME.white,
-    borderRadius: 16,
-    marginBottom: 15,
+    borderRadius: handleSize.f(16),
+    marginBottom: handleSize.h(15),
   },
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     borderColor: THEME.gray,
-    borderWidth: 1,
-    borderRadius: 16,
+    borderWidth: handleSize.f(1),
+    borderRadius: handleSize.f(16),
     color: THEME.white,
-    height: 56,
-    marginLeft: 10,
+    height: handleSize.h(56),
+    marginLeft: handleSize.w(10),
   },
-  forgetTxt: { marginTop: 20, marginBottom: 50 },
+  forgetTxt: {
+    marginTop: handleSize.h(20),
+    marginBottom: handleSize.h(50),
+  },
 });

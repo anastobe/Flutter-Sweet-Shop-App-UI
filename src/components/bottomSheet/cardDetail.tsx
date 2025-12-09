@@ -1,48 +1,66 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { scale } from 'react-native-size-matters'; // if you're using scale
-import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../../styles'; // adjust path as needed
-import { Images } from '../../config';
-import CustomButton from '../customButton';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, ImageBackground, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { ImageBackground } from 'react-native';
-import { ScrollView } from 'react-native';
+import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles';
+import { Images } from '../../config';
+import { handleSize } from '../../config/responsiveTheme';
 
-const CardDetail = ({ saveCureentDisplayData,style, onPress1,onPress2,getSucureCardData,isPendinggetSucureCard }:{ saveCureentDisplayData: any,style:any, onPress1: any, onPress2: any,getSucureCardData: any,isPendinggetSucureCard: any }) => {
+const CardDetail = ({
+  saveCureentDisplayData,
+  style,
+  onPress1,
+  onPress2,
+  getSucureCardData,
+  isPendinggetSucureCard,
+}) => {
 
-    function cardDetailBox(loading:any, onPress:any, title: any, desc: any, icon: any,iconColor: any, show: any) {
-        return(
-        <View style={[styles.textBox,{    borderBottomWidth: show ? 0.5 : 0, }]}>
-            <TouchableOpacity onPress={onPress} >
-                <Icon name={icon} size={22} color={iconColor} />
-            </TouchableOpacity>
-            <View>
-                <Text style={styles.cardTitle}>{title}</Text>
-                {loading ?
-                <ActivityIndicator size="small" color={THEME.white}  />
-                :
-                <Text style={styles.cardDesc}>{desc}</Text>}
-            </View>
-        </View>
-        )
-    }
-
-    console.log("DATAAA=>",saveCureentDisplayData);
-    
-
+  function cardDetailBox(loading, onPress, title, desc, icon, iconColor, show) {
     return (
-    <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={[styles.container,style]}>
-    
-       {/* <View style={{ width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20 }} /> */}
-      <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
-        <Text style={styles.title}>{saveCureentDisplayData?.format} Card Details</Text>
-        <Text style={styles.subtitle}>Use this information to make online purchases</Text>
+      <View
+        style={[
+          styles.textBox,
+          { borderBottomWidth: show ? handleSize.h(0.5) : 0 }
+        ]}
+      >
+        <TouchableOpacity onPress={onPress}>
+          <Icon name={icon} size={handleSize.f(22)} color={iconColor} />
+        </TouchableOpacity>
 
-        {cardDetailBox(null, null ,"Card Number:", "DUMMY" , "copy-outline",THEME.primary, true )}
-        {cardDetailBox(isPendinggetSucureCard, onPress1, "Valid Thru",saveCureentDisplayData?.expiry_date , "eye-outline",THEME.primary, true )}
-        {cardDetailBox(isPendinggetSucureCard, onPress2,"CVV:", "DUMMY" , "eye-outline",THEME.primary, false )}
+        <View>
+          <Text style={styles.cardTitle}>{title}</Text>
+
+          {loading ? (
+            <ActivityIndicator size="small" color={THEME.white} />
+          ) : (
+            <Text style={styles.cardDesc}>{desc}</Text>
+          )}
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <ImageBackground
+      resizeMode="cover"
+      source={Images.addCardGradient}
+      style={[styles.container, style]}
+    >
+      <ScrollView
+        style={{ marginTop: handleSize.h(10) }}
+        showsVerticalScrollIndicator={false}
+      >
+        <Text style={styles.title}>
+          {saveCureentDisplayData?.format} Card Details
+        </Text>
+
+        <Text style={styles.subtitle}>
+          Use this information to make online purchases
+        </Text>
+
+        {cardDetailBox(null, null, "Card Number:", "DUMMY", "copy-outline", THEME.primary, true)}
+        {cardDetailBox(isPendinggetSucureCard, onPress1, "Valid Thru", saveCureentDisplayData?.expiry_date, "eye-outline", THEME.primary, true)}
+        {cardDetailBox(isPendinggetSucureCard, onPress2, "CVV:", "DUMMY", "eye-outline", THEME.primary, false)}
       </ScrollView>
-
     </ImageBackground>
   );
 };
@@ -50,52 +68,52 @@ const CardDetail = ({ saveCureentDisplayData,style, onPress1,onPress2,getSucureC
 export default CardDetail;
 
 const styles = StyleSheet.create({
+
   container: {
-    // backgroundColor: '#fff',
     flex: 1,
   },
+
   title: {
-    fontSize: FONT_SIZES.twosix,
+    fontSize: handleSize.f(FONT_SIZES.twosix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
     alignSelf: "center",
-    marginTop: 10,
-     textTransform: 'capitalize'
+    marginTop: handleSize.h(10),
+    textTransform: 'capitalize',
   },
+
   subtitle: {
-    color: THEME.white,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Light,
-    fontSize:  FONT_SIZES.onesix,
-    marginTop: 10,
-    borderBottomWidth: 0.5,
+    color: THEME.white,
+    marginTop: handleSize.h(10),
+    borderBottomWidth: handleSize.h(0.5),
     borderColor: THEME.lightGrey,
-    paddingBottom: 20,
+    paddingBottom: handleSize.h(20),
     textAlign: "center",
-    lineHeight: 20
+    lineHeight: handleSize.h(20),
   },
 
   textBox: {
-    marginTop: 3,
-
-    // backgroundColor: "red",
+    marginTop: handleSize.h(3),
     borderColor: THEME.lightGrey,
     flexDirection: "row",
-    // justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 10
-  },
-  cardTitle: {
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onetwo,
-    color: THEME.white,
-    marginLeft: 10
-  },
-  cardDesc: {
-    fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onetwo,
-    color: THEME.white,
-    marginLeft: 10
+    paddingVertical: handleSize.h(10),
   },
 
+  cardTitle: {
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
+    fontFamily: FONTFAMILY.Light,
+    color: THEME.white,
+    marginLeft: handleSize.w(10),
+  },
+
+  cardDesc: {
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
+    marginLeft: handleSize.w(10),
+  },
 
 });

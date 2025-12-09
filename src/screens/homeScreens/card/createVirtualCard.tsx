@@ -1,22 +1,14 @@
 // src/screens/Home/view/CreateVirtualCardView.js
-
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Pressable,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MainContainer } from '../../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
-import { scale } from 'react-native-size-matters';
-import { Picker } from '@react-native-picker/picker';
 import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import useCreateVirtualCardViewModel from '../../../viewModels/homeViewModel/card/useCreateVirtualCardViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 export default function CreateVirtualCardView() {
   const {
@@ -33,7 +25,6 @@ export default function CreateVirtualCardView() {
     pressBackArrow,
     onPressBtn,
     currencyList,
-    accountTypeList,
     openDropdown, 
     toggleDropdown,
     getCurrencyAccArray,
@@ -45,44 +36,43 @@ export default function CreateVirtualCardView() {
     return (
       <View>
         <InputField
-          marginTp={20}
+          marginTp={handleSize.h(20)}
           placeholder="Card Name"
           value={cardName}
           onChangeText={setCardName}
           keyboardType="email-address"
-          margBtm={20}
+          margBtm={handleSize.h(20)}
         />
         
-          <InputField
-            disabled={false} 
-            placeholder="Currency"
-            value={currency.iso_code} 
-            enableDropdown={true}
-            dropdownData={currencyList}
-            margBtm={20}
-            isOpen={openDropdown === 'currency'}
-            onToggleDropdown={() => toggleDropdown('currency')}
-            onDropdownSelect={(item) => setCurrency(item)}
-            />
+        <InputField
+          disabled={false} 
+          placeholder="Currency"
+          value={currency.iso_code} 
+          enableDropdown={true}
+          dropdownData={currencyList}
+          margBtm={handleSize.h(20)}
+          isOpen={openDropdown === 'currency'}
+          onToggleDropdown={() => toggleDropdown('currency')}
+          onDropdownSelect={(item) => setCurrency(item)}
+        />
         
-          <InputField
-            disabled={false} 
-            placeholder="Linked Account"
-            value={linkedAccount.name} 
-            enableDropdown={true}
-            dropdownData={getCurrencyAccArray}
-            margBtm={20}
-            isOpen={openDropdown === 'linked'}  
-            onToggleDropdown={() => toggleDropdown('linked')}
-            onDropdownSelect={(item: any) => setLinkedAccount({
-                id: JSON.stringify(item?.currency_id),
-                name: item?.currency?.name,
-                iso_code: item?.currency?.iso_code,
-                num_code:  item?.currency?.num_code,
-              })
-            }
-          />
-
+        <InputField
+          disabled={false} 
+          placeholder="Linked Account"
+          value={linkedAccount.name} 
+          enableDropdown={true}
+          dropdownData={getCurrencyAccArray}
+          margBtm={handleSize.h(20)}
+          isOpen={openDropdown === 'linked'}  
+          onToggleDropdown={() => toggleDropdown('linked')}
+          onDropdownSelect={(item) => setLinkedAccount({
+              id: JSON.stringify(item?.currency_id),
+              name: item?.currency?.name,
+              iso_code: item?.currency?.iso_code,
+              num_code: item?.currency?.num_code,
+            })
+          }
+        />
       </View>
     );
   }
@@ -99,7 +89,7 @@ export default function CreateVirtualCardView() {
               style={styles.radioOption}>
               <View style={[styles.radio,{ borderColor: limitType === type ? THEME.primary : THEME.white}]}>
                 {limitType === type && (
-                  <Icon name="checkmark-outline" size={18} color={THEME.primary} />
+                  <Icon name="checkmark-outline" size={handleSize.f(18)} color={THEME.primary} />
                 )}
               </View>
               <Text
@@ -123,7 +113,7 @@ export default function CreateVirtualCardView() {
     return (
       <View>
         <InputField
-          marginTp={20}
+          marginTp={handleSize.h(20)}
           placeholder="Spending Limit"
           value={spendingLimit}
           onChangeText={setSpendingLimit}
@@ -147,15 +137,14 @@ export default function CreateVirtualCardView() {
         </View>
 
         <InputField
-          marginTp={20}
-          margBtm={20}
+          marginTp={handleSize.h(20)}
+          margBtm={handleSize.h(20)}
           placeholder="PIN"
           value={pin}
           onChangeText={setPin}
           keyboardType="numeric"
           maxlen={10}
         />
-
 
         <CustomButton
           title="Create Virtual Card"
@@ -179,7 +168,7 @@ export default function CreateVirtualCardView() {
         barStyle="light-content" 
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Create Virtual Card</Text>
         <Text style={styles.subtitle}>Enter Details of your virtual card</Text>
         {renderInputField()}
@@ -193,88 +182,73 @@ export default function CreateVirtualCardView() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    lineHeight: 18,
-    marginBottom: 30,
+    lineHeight: handleSize.h(20),
+    marginBottom: handleSize.h(30),
   },
   label: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
   radioRow: {
     flexDirection: 'row',
-    marginVertical: 15,
+    marginVertical: handleSize.h(15),
     alignItems: 'center',
   },
   radioOption: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 20,
+    marginRight: handleSize.w(20),
   },
   radio: {
-    height: 24,
-    width: 24,
-    borderRadius: 100,
+    height: handleSize.w(24),
+    width: handleSize.w(24),
+    borderRadius: handleSize.w(12),
     borderWidth: 1,
-    marginRight: 6,
+    marginRight: handleSize.w(6),
     justifyContent: 'center',
     alignItems: 'center',
-
   },
   radioLabel: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
   limitInfo: {
-    padding: 15,
-    borderRadius: 10,
+    padding: handleSize.h(15),
+    borderRadius: handleSize.f(10),
     marginBottom: 0,
   },
   limitTitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
   limitDetail: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginTop: 3,
+    marginTop: handleSize.h(3),
   },
   boldText: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.textPrimary,
-    backgroundColor: THEME.white,
   },
   limitNote: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
-    marginTop: 5,
+    marginTop: handleSize.h(5),
   },
-  forgetTxt: { marginBottom: 50 },
-  pickerWrapper: {
-    borderWidth: 1,
-    borderColor: THEME.white,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  inputInnerPicker: {
-    fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
-    color: THEME.white,
-    height: 56,
-    marginLeft: 10,
-  },
+  forgetTxt: { marginBottom: handleSize.h(50) },
 });

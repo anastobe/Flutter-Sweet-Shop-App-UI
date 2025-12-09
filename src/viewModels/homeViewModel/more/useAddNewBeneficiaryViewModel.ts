@@ -65,10 +65,10 @@ export const useAddNewBeneficiaryViewModel = () => {
         Toast.showToast("Please enter account number", '', 'error');
         return false;
       }
-      else if (!CommonUtils.validateIBAN(accountNo)) {
-        Toast.showToast("Please enter correct account number", '', 'error');
-        return false;
-      } 
+      // else if (!CommonUtils.validateIBAN(accountNo)) {
+      //   Toast.showToast("Please enter correct account number", '', 'error');
+      //   return false;
+      // } 
       else if (!bicNo.trim()) {
         Toast.showToast("Please enter BIC number", '', 'error');
         return false;

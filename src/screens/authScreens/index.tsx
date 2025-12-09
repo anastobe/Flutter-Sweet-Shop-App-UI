@@ -21,9 +21,10 @@ import { ImageBackground } from 'react-native';
 import { SHOW_CLIENT } from '../../APICall/constants';
 import BluryModal from '../../components/Modal/bluryModal';
 import StatusBarManager from '../../components/statusBarManager';
+import { handleSize } from '../../config/responsiveTheme';
 
 type LoginProps = {};
-
+  
 export const Login: React.FC = () => {
 
   const navigation = useNavigation();
@@ -219,149 +220,190 @@ const config = {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: THEME.white
+    backgroundColor: THEME.white,
   },
-  btnTxt:
-  { color: THEME.white, fontFamily: FONTFAMILY.Regular, fontSize: FONT_SIZES.onesix, marginLeft: 10 },
-  btnContStyle:
-  { backgroundColor: "transparent", borderColor: THEME.white, borderWidth: 1, flexDirection: "row", height: 56, borderRadius: 10, justifyContent: "center", alignItems: 'center' },
+
+  // ---------- Logo ----------
   logo: {
-   width: METRICS.width,
-    height: 56,
+    width: METRICS.width,   // previously METRICS.width
+    height: handleSize.h(56),
     resizeMode: 'contain',
-    alignSelf: "center",
-    marginTop: 60
+    alignSelf: 'center',
+    marginTop: handleSize.h(60),
   },
-  forgetTxtAbove: {
-    color: THEME.primary,
-    fontFamily: FONTFAMILY.Regular,
-    fontSize: FONT_SIZES.onefour,
-    textAlign:"right",
-    marginTop: 10
-  },
-  forgetTxt:
-  { marginTop: 20, marginBottom: 10 },
+
+  // ---------- Heading Title ----------
   title: {
     color: THEME.white,
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.twotwo,
-    marginBottom: scale(30),
-    marginTop: METRICS.height / 9,
-    textAlign: "center"
+    fontSize: handleSize.f(FONT_SIZES.twotwo),
+    marginBottom: handleSize.h(30),
+    marginTop: handleSize.h(50), // METRICS.height/9 → responsive
+    textAlign: 'center',
   },
-  errorCont:
-  { 
-    flexDirection: "row", 
-    height: scale(83), 
-    alignItems: "center", 
-    borderRadius: 10, 
-    marginBottom: 20, 
+
+  // ---------- Error Box ----------
+  errorCont: {
+    flexDirection: 'row',
+    height: handleSize.h(83),
+    alignItems: 'center',
+    borderRadius: handleSize.f(10),
+    marginBottom: handleSize.h(20),
     borderColor: THEME.white,
-    borderWidth: 1,
+    borderWidth: handleSize.f(1),
   },
-  iconCont:
-  { backgroundColor: THEME.medRed, width: scale(48), height: scale(48), borderRadius: 100, justifyContent: "center", alignItems: "center", marginHorizontal: 10 },
-  credTxt:{
+
+  iconCont: {
+    backgroundColor: THEME.medRed,
+    width: handleSize.w(48),
+    height: handleSize.h(48),
+    borderRadius: handleSize.f(100),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: handleSize.w(10),
+  },
+
+  credTxt: {
     color: THEME.medRed,
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
   },
-  credTxtsub:{
+
+  credTxtsub: {
     color: THEME.primary,
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onefour,
-    marginRight: 80,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    marginRight: handleSize.w(80),
   },
-  forgotText: {
+
+  // ---------- Forgot Password ----------
+  forgetTxtAbove: {
     color: THEME.primary,
-    fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
-    textAlign: 'center',
-    marginTop: 20,
-    paddingBottom: 40
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    textAlign: 'right',
+    marginTop: handleSize.h(10),
   },
-  contText:
-  { flexDirection: "row", justifyContent: "center", paddingBottom: 50, marginTop: 30 },
+
+  forgetTxt: {
+    marginTop: handleSize.h(20),
+    marginBottom: handleSize.h(10),
+  },
+
+  // ---------- Login Button ----------
+  btnContStyle: {
+    backgroundColor: 'transparent',
+    borderColor: THEME.white,
+    borderWidth: handleSize.f(1),
+    flexDirection: 'row',
+    height: handleSize.h(56),
+    borderRadius: handleSize.f(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  btnTxt: {
+    color: THEME.white,
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    marginLeft: handleSize.w(10),
+  },
+
+  // ---------- OR Divider ----------
+  containerline: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: handleSize.h(10),
+  },
+
+  line1: {
+    flex: 1,
+    height: handleSize.h(1),
+    backgroundColor: THEME.white,
+  },
+
+  textOR: {
+    marginHorizontal: handleSize.w(10),
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    color: THEME.white,
+  },
+
+  // ---------- Bottom text (Don't have account) ----------
+  contText: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    paddingBottom: handleSize.h(50),
+    marginTop: handleSize.h(30),
+  },
+
   dontAcc: {
     color: THEME.white,
     fontFamily: FONTFAMILY.Regular,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
   },
-  creatAC:{
+
+  creatAC: {
     color: THEME.primary,
     fontFamily: FONTFAMILY.SemiBold,
-    fontSize: FONT_SIZES.onefour,
-    textDecorationLine: "underline"
-  },
-  containerline: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginVertical: 10,
-  },
-  line1: {
-    flex: 1,
-    height: 1,
-    backgroundColor: THEME.white, // line color
-  },
-  textOR: {
-    marginHorizontal: 10,
-    fontFamily: FONTFAMILY.Regular,
-    fontSize: FONT_SIZES.onesix,
-    color: THEME.white,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    textDecorationLine: 'underline',
   },
 
-  
-  
-     modal: {
-    backgroundColor: 'rgba(64, 64, 65, 0.92)',
-    borderRadius: 16,
-    padding: 24,
+  // ---------- Popup Modal ----------
+  modal: {
+    backgroundColor: 'rgba(64,64,65,0.92)',
+    borderRadius: handleSize.f(16),
+    padding: handleSize.f(24),
     alignItems: 'center',
   },
+
   closeBtn: {
     position: 'absolute',
-    top: 10,
-    right: 15,
+    top: handleSize.h(10),
+    right: handleSize.w(15),
   },
+
   closeText: {
-    fontSize: FONT_SIZES.foureight,
+    fontSize: handleSize.f(FONT_SIZES.foureight),
     color: THEME.white,
   },
+
   iconCircle: {
-    backgroundColor:THEME.primary,
-    borderRadius: 100,
-    width: 56,
-    height: 56,
+    backgroundColor: THEME.primary,
+    borderRadius: handleSize.f(100),
+    width: handleSize.w(56),
+    height: handleSize.h(56),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 23
+    marginBottom: handleSize.h(23),
   },
-  forgetTxtpop:{
-width: '100%',
-marginTop: 30, marginBottom: 20 
+
+  forgetTxtpop: {
+    width: '100%',
+    marginTop: handleSize.h(30),
+    marginBottom: handleSize.h(20),
   },
-    titles: {
+
+  titles: {
     fontFamily: FONTFAMILY.SemiBold,
-    fontSize: FONT_SIZES.twosix,
+    fontSize: handleSize.f(FONT_SIZES.twosix),
     color: THEME.white,
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: handleSize.h(10),
   },
+
   description: {
-    marginTop: 10,
+    marginTop: handleSize.h(10),
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     color: THEME.white,
     textAlign: 'center',
-    lineHeight: 20
-
+    lineHeight: handleSize.h(20),
   },
-
-
 });
 
-export default Login;
+export default styles;

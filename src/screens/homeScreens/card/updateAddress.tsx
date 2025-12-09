@@ -8,6 +8,7 @@ import { scale } from 'react-native-size-matters';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import useUpdateAddressViewModel from '../../../viewModels/homeViewModel/card/useUpdateAddressViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 export default function UpdateAddressView() {
   const {
@@ -15,6 +16,7 @@ export default function UpdateAddressView() {
     validateAndProceed,
     streetAddress,
     setStreetAddress,
+
     apartment,
     setApartment,
     city,
@@ -115,7 +117,7 @@ export default function UpdateAddressView() {
         barStyle="light-content" 
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal:  handleSize.w(20), }}>
         <Text style={styles.title}>Update Delivery Address</Text>
         {renderInputFields()}
       </View>
@@ -123,30 +125,37 @@ export default function UpdateAddressView() {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
+
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.primary,
-    marginBottom: 30,
-    marginTop: 10,
+    marginBottom: handleSize.h(30),
+    marginTop: handleSize.h(10),
   },
-  forgetTxt: { marginTop: 20, marginBottom: 50 },
+
+  forgetTxt: { 
+    marginTop: handleSize.h(20), 
+    marginBottom: handleSize.h(50),
+  },
+
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 16,
-    marginBottom: 15,
+    borderRadius: handleSize.w(16),
+    marginBottom: handleSize.h(15),
   },
+
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     borderColor: THEME.gray,
     borderWidth: 1,
-    borderRadius: 16,
+    borderRadius: handleSize.w(16),
     color: THEME.white,
-    height: 56,
-    marginLeft: 10,
+    height: handleSize.h(56),
+    marginLeft: handleSize.w(10),
   },
 });

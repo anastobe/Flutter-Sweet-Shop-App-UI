@@ -35,6 +35,7 @@ import { ImageBackground } from 'react-native';
 import Metrics from '../../../styles/metrics';
 import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 const CardScreen = () => {
   const navigation = useNavigation<any>();
@@ -80,7 +81,7 @@ const CardScreen = () => {
         isVisible={vm.open}
         isKeyboardAvoidingView={true}
         children={<BluryModal
-            style={{ flex: 1, paddingHorizontal: 20 }}
+            style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
             onClose={() => vm.setopen(false)}
             btnLoader={false}
             marginTopTitle={20}
@@ -129,7 +130,7 @@ const CardScreen = () => {
               index={index}
             />
           )}
-          contentContainerStyle={{ marginTop: 10 }}
+          contentContainerStyle={{ marginTop: handleSize.h(10) }}
         />
 
         <View style={styles.dotsContainer}>
@@ -151,7 +152,7 @@ const CardScreen = () => {
 
   const TransactionList = () => {
     return (
-      <View style={{ marginTop: 35 }}>
+      <View style={{ marginTop: handleSize.h(20) }}>
         <View style={styles.cardHeadr}>
           <Text style={styles.cardTransactinTXT}>
             
@@ -190,7 +191,7 @@ const CardScreen = () => {
               </View>
             </TouchableOpacity>
           )}
-          contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 40 }}
+          contentContainerStyle={{ marginHorizontal: handleSize.w(20), paddingBottom: handleSize.h(40) }}
         />
       </View>
     );
@@ -242,7 +243,7 @@ const CardScreen = () => {
              isKeyboardAvoidingView={true}
              children={
                <BluryModal
-                style={{ flex: 1, paddingHorizontal: 20 }}
+                style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
                  backImg={Images.addCardGradient}
                  visible={vm.modalVisible}
                  onClose={() => vm.setModalVisible(false)}
@@ -271,7 +272,7 @@ const CardScreen = () => {
              children={
                <BluryModal
                 showCancelBtn={false}
-                 style={{ flex: 1, paddingHorizontal: 20 }}
+                 style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
                  backImg={Images.addCardGradient}
                  visible={vm.modalVisibleUnfreez}
                  btnLoader={vm.isPendingfreezUnFreezCard}
@@ -332,7 +333,7 @@ const CardScreen = () => {
 
         <BottomSheet
           height={500}
-          maxHeightPercent={0.58}   // optional, override for screen
+          maxHeightPercent={0.65}   // optional, override for screen
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -357,13 +358,13 @@ const CardScreen = () => {
               walletSwitch={vm.walletSwitch}
               setWalletSwitch={vm.setWalletSwitch}
               backImg={Images.addCardGradient}
-              style={{ flex: 1, paddingHorizontal: 20 }}
+              style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
             />
           }
         />
 
         <BottomSheet
-          height={280}
+          height={300}
           maxHeightPercent={0.55}   // optional, override for screen
           draggable={false}
           openTime={500}
@@ -371,7 +372,7 @@ const CardScreen = () => {
           bottomSheetRef={vm.manageRef}
           children={
             <ManageOption
-              style={{ flex: 1, paddingHorizontal: 20 }}
+              style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
               backImg={Images.addCardGradient}
               onPress1={() => vm.onPressOption('1')}
               onPress2={() => vm.onPressOption('2')}
@@ -381,356 +382,183 @@ const CardScreen = () => {
 
        </SafeAreaView>
       </ImageBackground>
-
-    // <LinearGradient
-    //   colors={['#713d9f', '#2A1E60', '#0C1445']}
-    //   locations={[0.1, 0.3, 1]}
-    //   start={{ x: 0, y: 0 }}
-    //   end={{ x: 1, y: 1 }}
-    //   style={styles.container}
-    // >
-    //   <SafeAreaView style={styles.container}>
-    //     <LinearGradient
-    //       colors={['#6B3FA0', '#3A2670', '#0C1445']}
-    //       start={{ x: 0, y: 0 }}
-    //       end={{ x: 0, y: 1 }}
-    //       style={{
-    //         height: 340,
-    //         borderBottomLeftRadius: 30,
-    //         borderBottomRightRadius: 30,
-    //       }}
-    //     >
-    //       {Options()}
-    //       {SlidingCards()}
-    //     </LinearGradient>
-
-    //     <ScrollView>
-    //       {renderCardFeatureButtons()}
-    //       {TransactionList()}
-    //       {/* Modals */}
-    //       <Modal
-    //         isVisible={vm.modalVisible}
-    //         isKeyboardAvoidingView={true}
-    //         children={
-    //           <FreezeCardModal
-    //             style={{ flex: 1, paddingHorizontal: 20 }}
-    //             backImg={Images.addCardGradient}
-    //             visible={vm.modalVisible}
-    //             onClose={() => vm.setModalVisible(false)}
-    //             btnLoader={vm.isPendingfreezUnFreezCard}
-    //             onConfirm={() => vm.freezCardApi('freeze')}
-    //             showSubBody={true}
-    //             downConfirmText={'Cancel'}
-    //             title={'Freeze This Card?'}
-    //             body={
-    //               'Freezing will temporarily disable all transactions from this card.'
-    //             }
-    //             subBody={
-    //               'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
-    //             }
-    //             iconName={'snow-outline'}
-    //             confirmText={'Freeze Card'}
-    //           />
-    //         }
-    //         onClose={() => {}}
-    //       />
-
-    //       <Modal
-    //         isVisible={vm.modalVisibleUnfreez}
-    //         isKeyboardAvoidingView={true}
-    //         children={
-    //           <FreezeCardModal
-    //             style={{ flex: 1, paddingHorizontal: 20 }}
-    //             backImg={Images.addCardGradient}
-    //             visible={vm.modalVisibleUnfreez}
-    //             btnLoader={vm.isPendingfreezUnFreezCard}
-    //             onClose={() => vm.setmodalVisibleUnfreez(false)}
-    //             onConfirm={() => vm.freezCardApi('active')}
-    //             title={'Card is Frozen'}
-    //             body={
-    //               'Your card is currently frozen for security reasons. Tap below to unfreeze it instantly and resume spending.'
-    //             }
-    //             showSubBody={false}
-    //             confirmText={'Unfreeze Card'}
-    //             downConfirmText={'Cancel'}
-    //           />
-    //         }
-    //         onClose={() => {}}
-    //       />
-    //     </ScrollView>
-
-    //     {renderNearestAtm()}
-
-    //     {/* BottomSheets */}
-    //     <BottomSheet
-    //       height={METRICS.halfScreen - 30}
-    //       draggable={false}
-    //       openTime={500}
-    //       closeDuration={500}
-    //       bottomSheetRef={vm.AddCardRef}
-    //       children={
-    //         <AddCardPopup
-    //           backImg={Images.addCardGradient}
-    //           onPress1={() => vm.HandleOnPress('1', navigation)}
-    //           onPress2={() => vm.HandleOnPress('2', navigation)}
-    //           style={{ flex: 1, paddingHorizontal: 20 }}
-    //         />
-    //       }
-    //     />
-
-    //     <BottomSheet
-    //       height={METRICS.halfScreen}
-    //       draggable={false}
-    //       openTime={500}
-    //       closeDuration={500}
-    //       bottomSheetRef={vm.cardDetailRef}
-    //       children={
-    //         <CardDetail
-    //           isPendinggetSucureCard={vm.isPendinggetSucureCard}
-    //           getSucureCardData={vm.getSucureCardData}
-    //           saveCureentDisplayData={vm.saveCureentDisplayData}
-    //           onPress1={() => vm.HandleOnPressCardDetail('1')}
-    //           onPress2={() => vm.HandleOnPressCardDetail('2')}
-    //           style={{ paddingHorizontal: 20 }}
-    //           iconColor={THEME.white}
-    //         />
-    //       }
-    //     />
-
-    //     <BottomSheet
-    //       height={METRICS.height / 1.6}
-    //       draggable={false}
-    //       openTime={500}
-    //       closeDuration={500}
-    //       onClose={() => {
-    //         const payload = {
-    //           card_id: currentItem?.card_id,
-    //           usage: [{ name: 'allow_atm_withdrawal', enabled: vm.atmSwitch }],
-    //         };
-    //         vm.updateUsageRulesFunc(payload);
-    //       }}
-    //       bottomSheetRef={vm.methodsRef}
-    //       children={
-    //         <Methods
-    //           Data={vm.getCardsUsageRulesData}
-    //           loading={vm.isPendingGetCardsUsageRules}
-    //           atmSwitch={vm.atmSwitch}
-    //           setAtmSwitch={vm.setAtmSwitch}
-    //           onlineSwitch={vm.onlineSwitch}
-    //           setOnlineSwitch={vm.setOnlineSwitch}
-    //           chipSwitch={vm.chipSwitch}
-    //           setChipSwitch={vm.setChipSwitch}
-    //           walletSwitch={vm.walletSwitch}
-    //           setWalletSwitch={vm.setWalletSwitch}
-    //           backImg={Images.manageCardGradient}
-    //           style={{ flex: 1, paddingHorizontal: 20 }}
-    //         />
-    //       }
-    //     />
-
-    //     <BottomSheet
-    //       height={METRICS.halfScreen - 80}
-    //       draggable={false}
-    //       openTime={500}
-    //       closeDuration={500}
-    //       bottomSheetRef={vm.manageRef}
-    //       children={
-    //         <ManageOption
-    //           style={{ flex: 1, paddingHorizontal: 20 }}
-    //           backImg={Images.manageCardGradient}
-    //           onPress1={() => vm.onPressOption('1')}
-    //           onPress2={() => vm.onPressOption('2')}
-    //         />
-    //       }
-    //     />
-    //   </SafeAreaView>
-    // </LinearGradient>
   );
 };
 
 export default CardScreen;
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: { flex: 1 },
   headerContainer: {
-    height: 300,
+    height: handleSize.h(300),
     width: Metrics.width,
-    // backgroundColor: "red",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    // position: 'absolute'
+    borderBottomLeftRadius: handleSize.f(30),
+    borderBottomRightRadius: handleSize.f(30),
   },
-  botmRadius:{
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+  botmRadius: {
+    borderBottomLeftRadius: handleSize.f(30),
+    borderBottomRightRadius: handleSize.f(30),
   },
-  titleTop:{
+  titleTop: {
     fontFamily: FONTFAMILY.SemiBold,
-    fontSize: FONT_SIZES.oneeight,
+   fontSize: handleSize.f(FONT_SIZES.oneeight),
     color: THEME.white,
-    marginLeft: scale(25),
-    // backgroundColor: "red",
-    marginTop: 12,
-    marginBottom: 10
+    marginLeft: handleSize.w(25),
+    marginTop: handleSize.h(12),
+    marginBottom: handleSize.h(10),
   },
   cardLoadingContainer: {
-    height: 174,
+    height: handleSize.h(174),
     justifyContent: 'center',
     alignItems: 'center',
     width: METRICS.width,
   },
   balanceContainer: {
     backgroundColor: THEME.whitergba,
-    padding: scale(8),
+    padding: handleSize.h(8),
     width: '100%',
     alignSelf: 'center',
-    marginVertical: 15,
-    borderRadius: scale(12),
+    marginVertical: handleSize.h(15),
+    borderRadius: handleSize.f(12),
     alignItems: 'center',
     justifyContent: 'center',
   },
   amountBox: {
-    paddingHorizontal: scale(10),
-    paddingVertical: scale(4),
-    borderRadius: scale(6),
-    marginTop: 5,
+    paddingHorizontal: handleSize.w(10),
+    paddingVertical: handleSize.h(4),
+    borderRadius: handleSize.f(6),
+    marginTop: handleSize.h(5),
   },
   balanceTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
   balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threezero,
+    fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.white,
-    padding: 1,
+    padding: handleSize.h(1),
   },
   renderRightInputContainer: {
-    height: 56,
+    height: handleSize.h(56),
     position: 'absolute',
-    right: 20,
+    right: handleSize.w(20),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   inputNumber: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
   inputNumbergbpcont: {
     backgroundColor: THEME.primary,
-    marginLeft: 6,
-    borderRadius: 6,
-    padding: 3,
+    marginLeft: handleSize.w(6),
+    borderRadius: handleSize.f(6),
+    padding: handleSize.h(3),
   },
   inputNumbergbp: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },
   forgetTxtpop: {
     backgroundColor: THEME.primary,
     width: '100%',
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: handleSize.h(20),
+    marginBottom: handleSize.h(20),
   },
   modal: {
-    // backgroundColor: 'rgba(64, 64, 65, 0.98)',
-    // borderRadius: 16,
-    // padding: 24,
-    height: 270,
-    paddingHorizontal: 20,
+    height: handleSize.h(270),
+    paddingHorizontal: handleSize.w(20),
     justifyContent: "center",
     alignItems: 'center',
-
   },
-  closeBtn: { position: 'absolute', top: 10, right: 15 },
-  closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
+  closeBtn: { position: 'absolute', top: handleSize.h(10), right: handleSize.w(15) },
+  closeText: { fontSize: handleSize.f(FONT_SIZES.foureight), color: THEME.white },
   iconCircle: {
     backgroundColor: THEME.primary,
-    borderRadius: 100,
-    width: 56,
-    height: 56,
+    borderRadius: handleSize.f(100),
+    width: handleSize.w(56),
+    height: handleSize.w(56),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: handleSize.h(10),
   },
   titles: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     color: THEME.white,
     textAlign: 'center',
-    lineHeight: 30,
-    marginTop: 13,
+    lineHeight: handleSize.h(30),
+    marginTop: handleSize.h(13),
   },
   cardHeadr: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 20,
-    // marginVertical: 5,
+    marginHorizontal: handleSize.w(20),
   },
   cardTransactinTXT: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
   viewAllTxt: {
-    fontSize: FONT_SIZES.oneone,
+    fontSize: handleSize.f(FONT_SIZES.oneone),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     backgroundColor: THEME.SlateBlue,
-    paddingHorizontal: 9,
-    paddingVertical: 3,
-    borderRadius: 10,
+    paddingHorizontal: handleSize.w(9),
+    paddingVertical: handleSize.h(3),
+    borderRadius: handleSize.f(10),
   },
   item: {
     backgroundColor: THEME.secondary,
-    borderRadius: 10,
-    height: 68,
+    borderRadius: handleSize.f(10),
+    height: handleSize.h(68),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    marginTop: 10,
+    paddingHorizontal: handleSize.w(20),
+    marginTop: handleSize.h(10),
   },
   sectionLeft: { flexDirection: 'row', alignItems: 'center' },
   iconCONT: {
-    width: 25,
-    height: 25,
+    width: handleSize.w(25),
+    height: handleSize.w(25),
     backgroundColor: THEME.primary,
-    borderRadius: 100,
+    borderRadius: handleSize.f(100),
     justifyContent: 'center',
     alignItems: 'center',
   },
   name: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginLeft: 15,
+    marginLeft: handleSize.w(15),
   },
   subname: {
-    fontSize: FONT_SIZES.oneZero,
+    fontSize: handleSize.f(FONT_SIZES.oneZero),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginLeft: 15,
+    marginLeft: handleSize.w(15),
   },
   amount: {
-    fontSize: FONT_SIZES.oneeight,
+   fontSize: handleSize.f(FONT_SIZES.oneeight),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
   dotsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: 15,
+    marginTop: handleSize.h(15),
   },
-  dot: { width: 6, height: 6, borderRadius: 5, marginHorizontal: 2 },
+  dot: { width: handleSize.w(6), height: handleSize.w(6), borderRadius: handleSize.f(5), marginHorizontal: handleSize.w(2) },
   dotInactive: { backgroundColor: THEME.SlateBlue },
   dotActive: { backgroundColor: THEME.white },
 });
-
 
 
 

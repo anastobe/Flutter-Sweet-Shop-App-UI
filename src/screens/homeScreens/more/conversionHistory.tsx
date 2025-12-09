@@ -14,6 +14,7 @@ import InputField from '../../../components/textInput';
 import { SectionList } from 'react-native';
 import { Images } from '../../../config';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 const ConversionHistory = () => {
   const {  
@@ -139,93 +140,81 @@ const HistoryList = () => {
 export default ConversionHistory;
 
 const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: THEME.white },
+
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 30,
-    lineHeight: 20
+    marginBottom: handleSize.h(30),
+    lineHeight: handleSize.h(20),
   },
-  container: { flex: 1, backgroundColor: THEME.white },
-    innerinput: 
-    {   
-      height: 46,
-      fontFamily: FONTFAMILY.Regular,
-      fontSize: FONT_SIZES.onefour,
-      color: THEME.white,
-      paddingLeft: 20,   //calculated value  
-      justifyContent: "center"
-    },
-    imgViewLeft: {
-    width: 35,
-    height: 46,
+
+  innerinput: {   
+    height: handleSize.h(46),
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+    paddingLeft: handleSize.w(20),
+    justifyContent: "center",
+  },
+  imgViewLeft: {
+    width: handleSize.w(35),
+    height: handleSize.h(46),
     position: 'absolute',
-    left: 5,
+    left: handleSize.w(5),
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'red',
     zIndex: 9999,
   },
 
-
-
-
-
-
-
-
-
-
-
-    sectionTitle: {
-    fontSize: FONT_SIZES.onesix,
+  sectionTitle: {
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginBottom: 8,
-    marginTop: 10,
+    marginBottom: handleSize.h(8),
+    marginTop: handleSize.h(10),
   },
   card: {
     backgroundColor: THEME.whitergba,
-    padding: 16,
+    padding: handleSize.h(16),
     justifyContent: "space-between",
-    borderRadius: 12,
-    marginBottom: 12,
+    borderRadius: handleSize.f(12),
+    marginBottom: handleSize.h(12),
     flexDirection: "row",
     alignItems: "center",
-    // elevation: 1,
   },
   name: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
   },
   pair: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginTop: 3,
+    marginTop: handleSize.h(3),
   },
   statusRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 6,
+    marginTop: handleSize.h(6),
   },
   status: {
-    fontSize: 14,
-    marginLeft: 6,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    marginLeft: handleSize.w(6),
     fontWeight: "500",
   },
   amount: {
-    fontSize: FONT_SIZES.oneeight,
+    fontSize: handleSize.f(FONT_SIZES.oneeight),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
-
 });

@@ -15,6 +15,7 @@ import FreezeCardModal from '../../../components/Modal/FreezeCardModal ';
 import { Images } from '../../../config';
 import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 export default function SetLimits({...props}) {
   const navigation = useNavigation();
@@ -169,7 +170,7 @@ export default function SetLimits({...props}) {
         // />
 
          <BluryModal
-            style={{ flex: 1, paddingHorizontal: 20 }}
+            style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
             onClose={() => setModalVisible(false)}
             btnLoader={isPendingsetSpendLimit}
             marginTopTitle={50}
@@ -211,7 +212,7 @@ export default function SetLimits({...props}) {
         barStyle="light-content" 
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Set Spending Limit</Text>
         <Text style={styles.subtitle}>
           Control how much can be spent from this card per day.
@@ -249,94 +250,113 @@ export default function SetLimits({...props}) {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
+
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
+
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 21,
-    lineHeight: 20
+    marginBottom: handleSize.h(21),
+    lineHeight: handleSize.h(20),
   },
-  forgetTxt: { marginTop: 10, marginBottom: 20, backgroundColor: THEME.primary },
+
+  forgetTxt: { 
+    marginTop: handleSize.h(10), 
+    marginBottom: handleSize.h(20), 
+    backgroundColor: THEME.primary,
+  },
+
   label: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+
   radioRow: {
     flexDirection: 'row',
-    marginVertical: 15,
+    marginVertical: handleSize.h(15),
     alignItems: 'center',
   },
+
   radioOption: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 20,
+    marginRight: handleSize.w(20),
   },
+
   radio: {
-    height: 20,
-    width: 20,
-    borderRadius: 100,
+    height: handleSize.w(20),
+    width: handleSize.w(20),
+    borderRadius: handleSize.w(10),
     borderWidth: 1.5,
-    marginRight: 5,
+    marginRight: handleSize.w(5),
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   radioLabel: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
+
   limitInfo: {
     marginTop: 0,
-    paddingHorizontal: 12,
-    borderRadius: 10,
-    marginBottom: 20,
+    paddingHorizontal: handleSize.w(12),
+    borderRadius: handleSize.w(10),
+    marginBottom: handleSize.h(20),
   },
+
   limitTitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+
   limitDetail: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginTop: 3,
+    marginTop: handleSize.h(3),
   },
+
   boldText: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },
+
   limitNote: {
-    fontSize: FONT_SIZES.onetwo,
-    lineHeight: 18,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
+    lineHeight: handleSize.h(18),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginTop: 4,
+    marginTop: handleSize.h(4),
   },
+
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 16,
-    marginBottom: 15,
+    borderRadius: handleSize.w(16),
+    marginBottom: handleSize.h(15),
   },
+
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     borderColor: THEME.gray,
     borderWidth: 1,
-    borderRadius: 16,
+    borderRadius: handleSize.w(16),
     color: THEME.white,
-    height: 56,
-    marginLeft: 10,
+    height: handleSize.h(56),
+    marginLeft: handleSize.w(10),
   },
 });

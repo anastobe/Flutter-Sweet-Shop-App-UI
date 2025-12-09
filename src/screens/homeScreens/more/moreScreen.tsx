@@ -1,241 +1,172 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { BottomSheet, CardBox, MainContainer, Modal } from '../../../components';
-import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
+import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { scale } from 'react-native-size-matters';
 import LinearGradient from 'react-native-linear-gradient';
 import HelpSheet from '../../../components/bottomSheet/helpSheet';
 import useMoreViewModel from '../../../viewModels/homeViewModel/more/useMoreViewModel';
 import CustomButton from '../../../components/customButton';
 import { SHOW_CLIENT } from '../../../APICall/constants';
-import { Images } from '../../../config';
-import { ImageBackground } from 'react-native';
 import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
-// import * as Keychain from 'react-native-keychain';
+import { Images } from '../../../config';
+import { handleSize } from '../../../config/responsiveTheme';
 
 const MoreScreen = () => {
   const vm = useMoreViewModel();
 
-//   async function getToken() {
-//   try {
-//     const credentials = await Keychain.getGenericPassword();
-//     if (credentials) {
-//       console.log('Token retrieved:', credentials.password);
-//       return credentials.password; // this is your token
-//     } else {
-//       console.log('No token stored');
-//       return null;
-//     }
-//   } catch (error) {
-//     console.log('Error retrieving token:', error);
-//     return null;
-//   }
-// }
-
-// getToken()
-
-
-  function renderExchangeReq(heading) {
-    return (
-      <View>
-        <Text style={styles.headingTxt}>{heading}</Text>
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Request"
-          iconRight="arrow-forward-outline"
-          TL_radius={10}
-          TR_radius={10}
-          onPress={vm.onPressRequest}
-        />
-      </View>
-    );
-  }
-
-  function renderExchangeCurrency(heading) {
-    return (
-      <View>
-        <Text style={styles.headingTxt}>{heading}</Text>
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Currency Exchange"
-          iconRight="arrow-forward-outline"
-          TL_radius={10}
-          TR_radius={10}
-          onPress={vm.onPressCurrencyExchange}
-        />
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Conversion History"
-          iconRight="arrow-forward-outline"
-          BL_radius={10}
-          BR_radius={10}
-          onPress={vm.ConversionHistory}
-        />
-      </View>
-    );
-  }
-
-  function renderBeneficiaries(heading) {
-    return (
-      <View>
-        <Text style={styles.headingTxt}>{heading}</Text>
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Your Beneficiaries"
-          iconRight="arrow-forward-outline"
-          TL_radius={10}
-          TR_radius={10}
-          onPress={vm.onPressBeneficiary}
-        />
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Add Beneficiary"
-          iconRight="arrow-forward-outline"
-          BL_radius={10}
-          BR_radius={10}
-          onPress={vm.onPressAddnewBeneficiary}
-        />
-      </View>
-    );
-  }
-
-  function renderSettings(heading) {
-    return (
-      <View>
-        <Text style={styles.headingTxt}>{heading}</Text>
-       
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Profile"
-          iconRight="arrow-forward-outline"
-          TL_radius={10}
-          TR_radius={10}
-          onPress={vm.onPressProfile}
-        />
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Change Password"
-          iconRight="arrow-forward-outline"
-          onPress={vm.onPressChangePassword}
-        />
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Contact & Address"
-          iconRight="arrow-forward-outline"
-          onPress={vm.onPresscontact}
-        />
-        <CardBox
-          rotate="-45deg"
-          titleLeft="Security"
-          iconRight="arrow-forward-outline"
-          BL_radius={10}
-          BR_radius={10}
-          onPress={vm.onPressSecurity}
-        />
-      </View>
-    );
-  }
-
-  function faqSupport() {
-    return (
-      <LinearGradient
-        colors={['#433c71ff', '#2c2d5e', '#272d5a']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.boxContainerBigBox}
-      >
-        <Text style={styles.boxTitleTextHeading}>Legal & Policies</Text>
-        <TouchableOpacity onPress={vm.onPressPrivacyPolicy} style={styles.policyRow}>
-          <Image style={{ width: 24, height: 24, marginRight: 10 }} source={Images.arrow} resizeMode='contain' />
-          <Text style={styles.boxTitleText}>Privacy Policy</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={vm.onPressTermsofUse} style={styles.policyRow}>
-          <Image style={{ width: 24, height: 24, marginRight: 10 }} source={Images.arrow} resizeMode='contain' />
-          <Text style={styles.boxTitleText}>Terms of Use</Text>
-        </TouchableOpacity>
-      </LinearGradient>
-    );
-  }
-
-  function LogOutBtn() {
-    return (
+  const renderExchangeReq = (heading: string) => (
+    <View>
+      <Text style={styles.headingTxt}>{heading}</Text>
       <CardBox
-        rotate="0deg"
-        titleLeft="Log out"
-        iconRight="log-out-outline"
-        BL_radius={10}
-        BR_radius={10}
-        onPress={vm.onPressLogout}
+        rotate="-45deg"
+        titleLeft="Request"
+        iconRight="arrow-forward-outline"
+        TL_radius={handleSize.f(10)}
+        TR_radius={handleSize.f(10)}
+        onPress={vm.onPressRequest}
       />
-    );
-  }
+    </View>
+  );
 
-      function renderPopup(icon,title,btnTxt) {
-    return (
-        <ImageBackground
-          // imageStyle={{ borderRadius: 16 }}
-          source={Images.universalModalBack} 
-          resizeMode="contain"
-          style={styles.modal}
-        >
+  const renderExchangeCurrency = (heading: string) => (
+    <View>
+      <Text style={styles.headingTxt}>{heading}</Text>
+      <CardBox
+        rotate="-45deg"
+        titleLeft="Currency Exchange"
+        iconRight="arrow-forward-outline"
+        TL_radius={handleSize.f(10)}
+        TR_radius={handleSize.f(10)}
+        onPress={vm.onPressCurrencyExchange}
+      />
+      <CardBox
+        rotate="-45deg"
+        titleLeft="Conversion History"
+        iconRight="arrow-forward-outline"
+        BL_radius={handleSize.f(10)}
+        BR_radius={handleSize.f(10)}
+        onPress={vm.ConversionHistory}
+      />
+    </View>
+  );
 
-      {/* <View style={styles.modal}> */}
-        <TouchableOpacity style={styles.closeBtn} onPress={vm.onPressSecurity}>
-          <Text style={styles.closeText}>×</Text>
-        </TouchableOpacity>
+  const renderBeneficiaries = (heading: string) => (
+    <View>
+      <Text style={styles.headingTxt}>{heading}</Text>
+      <CardBox
+        rotate="-45deg"
+        titleLeft="Your Beneficiaries"
+        iconRight="arrow-forward-outline"
+        TL_radius={handleSize.f(10)}
+        TR_radius={handleSize.f(10)}
+        onPress={vm.onPressBeneficiary}
+      />
+      <CardBox
+        rotate="-45deg"
+        titleLeft="Add Beneficiary"
+        iconRight="arrow-forward-outline"
+        BL_radius={handleSize.f(10)}
+        BR_radius={handleSize.f(10)}
+        onPress={vm.onPressAddnewBeneficiary}
+      />
+    </View>
+  );
 
-        <View style={styles.iconCircle}>
-          <Icon name={icon} size={25} color={THEME.textPrimary} />
-        </View>
+  const renderSettings = (heading: string) => (
+    <View>
+      <Text style={styles.headingTxt}>{heading}</Text>
+      <CardBox
+        rotate="-45deg"
+        titleLeft="Profile"
+        iconRight="arrow-forward-outline"
+        TL_radius={handleSize.f(10)}
+        TR_radius={handleSize.f(10)}
+        onPress={vm.onPressProfile}
+      />
+      <CardBox
+        rotate="-45deg"
+        titleLeft="Change Password"
+        iconRight="arrow-forward-outline"
+        onPress={vm.onPressChangePassword}
+      />
+      <CardBox
+        rotate="-45deg"
+        titleLeft="Contact & Address"
+        iconRight="arrow-forward-outline"
+        onPress={vm.onPresscontact}
+      />
+      <CardBox
+        rotate="-45deg"
+        titleLeft="Security"
+        iconRight="arrow-forward-outline"
+        BL_radius={handleSize.f(10)}
+        BR_radius={handleSize.f(10)}
+        onPress={vm.onPressSecurity}
+      />
+    </View>
+  );
 
-        <Text style={styles.titles}>{title}</Text>
-        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
+  const faqSupport = () => (
+    <LinearGradient
+      colors={['#433c71ff', '#2c2d5e', '#272d5a']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.boxContainerBigBox}
+    >
+      <Text style={styles.boxTitleTextHeading}>Legal & Policies</Text>
+      <TouchableOpacity onPress={vm.onPressPrivacyPolicy} style={styles.policyRow}>
+        <Image style={{ width: handleSize.w(24), height: handleSize.h(24), marginRight: handleSize.w(10) }} source={Images.arrow} resizeMode='contain' />
+        <Text style={styles.boxTitleText}>Privacy Policy</Text>
+      </TouchableOpacity>
 
-        <CustomButton
-          btnContSty={styles.forgetTxtpop}
-          title={btnTxt}
-          onPress={vm.onPressSecurity}
+      <TouchableOpacity onPress={vm.onPressTermsofUse} style={styles.policyRow}>
+        <Image style={{ width: handleSize.w(24), height: handleSize.h(24), marginRight: handleSize.w(10) }} source={Images.arrow} resizeMode='contain' />
+        <Text style={styles.boxTitleText}>Terms of Use</Text>
+      </TouchableOpacity>
+    </LinearGradient>
+  );
+
+  const LogOutBtn = () => (
+    <CardBox
+      rotate="0deg"
+      titleLeft="Log out"
+      iconRight="log-out-outline"
+      BL_radius={handleSize.f(10)}
+      BR_radius={handleSize.f(10)}
+      onPress={vm.onPressLogout}
+    />
+  );
+
+  const renderModalDelete = () => (
+    <Modal
+      isVisible={vm.open}
+      isKeyboardAvoidingView={true}
+      children={
+        <BluryModal
+          style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+          onClose={vm.onPressSecurity}
+          btnLoader={false}
+          marginTopTitle={handleSize.h(20)}
+          onConfirm={vm.onPressSecurity}
+          iconNameBottom={-20}
+          body={"Kindly visit your nearest ATM"}
+          iconName={"alert-outline"}
+          confirmText={'Continue'}
         />
-      </ImageBackground>
-    );
-  }
-
-  function renderModalDelete() {
-    return (
-      <Modal
-        isVisible={vm.open}
-        isKeyboardAvoidingView={true}
-        children={
-          // renderPopup("alert","Kindly visit your nearest ATM","Ok")
-          <BluryModal
-            style={{ flex: 1, paddingHorizontal: 20 }}
-            onClose={vm.onPressSecurity}
-            btnLoader={false}
-            marginTopTitle={20}
-            onConfirm={vm.onPressSecurity}
-            iconNameBottom={-20}
-            body={"Kindly visit your nearest ATM"}
-            iconName={"alert-outline"}
-            confirmText={'Continue'}
-          />
-        } 
-        onClose={vm.onPressSecurity}
-      />
-    );
-  }
-
+      }
+      onClose={vm.onPressSecurity}
+    />
+  );
 
   return (
     <MainContainer
       isFlatList
       barStyle="dark-content"
-      customeStyle={{ paddingHorizontal: 20, paddingBottom: 100 }}
+      customeStyle={{ paddingHorizontal: handleSize.w(20), paddingBottom: handleSize.h(100) }}
       mainContainerStyle={styles.container}
     >
-
       <StatusBarManager
         backgroundColor={THEME.darkSecondary} 
         barStyle="light-content" 
@@ -256,12 +187,11 @@ const MoreScreen = () => {
 
       {faqSupport()}
       {LogOutBtn()}
-
       {renderModalDelete()}
 
       <BottomSheet
-        height={300}              // minimum height
-        maxHeightPercent={0.4}   // optional, override for screen
+        height={handleSize.h(300)}
+        maxHeightPercent={0.6}
         draggable={false}
         openTime={500}
         closeDuration={500}
@@ -270,7 +200,7 @@ const MoreScreen = () => {
         <HelpSheet
           onPress1={vm.onCloseHelpSheet}
           onPress2={vm.onCloseHelpSheet}
-          style={{ flex: 1, paddingHorizontal: 20 }}
+          style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
           title="Need Help?"
           subtitle={`You can reach us at anytime at: \n ${SHOW_CLIENT}`}
         />
@@ -284,93 +214,85 @@ export default MoreScreen;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginTop: 20,
-    marginBottom: 10
+    marginTop: handleSize.h(20),
+    marginBottom: handleSize.h(10)
   },
   boxTitleTextHeading:{
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.twozero,
+    fontSize: handleSize.f(FONT_SIZES.twozero),
     color: THEME.white,    
   },
   boxTitleText: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     color: THEME.primary,
   },
   boxContainerBigBox: {
     backgroundColor: THEME.textPrimary,
-    paddingVertical: 17,
+    paddingVertical: handleSize.h(17),
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginTop: 10,
-    marginBottom: 10,
-    borderRadius: 10,
+    paddingHorizontal: handleSize.w(20),
+    marginTop: handleSize.h(10),
+    marginBottom: handleSize.h(10),
+    borderRadius: handleSize.f(10),
   },
   headingTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     color: THEME.white,
-    paddingBottom: 5,
-    marginTop: 16,
+    paddingBottom: handleSize.h(5),
+    marginTop: handleSize.h(16),
   },
-    forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
+  forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: handleSize.h(20), marginBottom: handleSize.h(20) },
   headingTxtDiff: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefive,
+    fontSize: handleSize.f(FONT_SIZES.onefive),
     color: THEME.white,
-    paddingBottom: 5,
-    marginTop: 15,
+    paddingBottom: handleSize.h(5),
+    marginTop: handleSize.h(15),
   },
   rotateIcon: {
     transform: [{ rotate: '-45deg' }],
-    marginRight: 10,
+    marginRight: handleSize.w(10),
   },
   policyRow: {
     flexDirection: 'row',
-    marginTop: 15,
+    marginTop: handleSize.h(15),
     alignItems: 'center',
   },
-  
-    modal: {
-      // backgroundColor: 'rgba(64, 64, 65, 0.98)',
-      // borderRadius: 16,
-      // padding: 24,
-      height: 270,
-      paddingHorizontal: 20,
-      justifyContent: "center",
-      alignItems: 'center',
-
-    },
-    closeBtn: { position: 'absolute', top: 10, right: 15 },
-    closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
-    iconCircle: {
-      backgroundColor: THEME.primary,
-      borderRadius: 100,
-      width: 56,
-      height: 56,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: 10,
-    },
-    titles: {
+  modal: {
+    height: handleSize.h(270),
+    paddingHorizontal: handleSize.w(20),
+    justifyContent: "center",
+    alignItems: 'center',
+  },
+  closeBtn: { position: 'absolute', top: handleSize.h(10), right: handleSize.w(15) },
+  closeText: { fontSize: handleSize.f(FONT_SIZES.foureight), color: THEME.white },
+  iconCircle: {
+    backgroundColor: THEME.primary,
+    borderRadius: handleSize.f(28),
+    width: handleSize.w(56),
+    height: handleSize.h(56),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: handleSize.h(10),
+  },
+  titles: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
-      color: THEME.white,
-      textAlign: 'center',
-      lineHeight: 30,
-      marginTop: 13
-    },
-    description: {
-      marginTop: 10,
-      fontFamily: FONTFAMILY.Regular,
-      fontSize: FONT_SIZES.onefour,
-      color: THEME.white,
-      textAlign: 'center',
-    },
-
-
-
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    color: THEME.white,
+    textAlign: 'center',
+    lineHeight: handleSize.h(30),
+    marginTop: handleSize.h(13)
+  },
+  description: {
+    marginTop: handleSize.h(10),
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+    textAlign: 'center',
+  },
 });

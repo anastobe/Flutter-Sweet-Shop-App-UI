@@ -1,61 +1,46 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { scale } from 'react-native-size-matters'; // if you're using scale
-import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles'; // adjust path as needed
-import Icon from 'react-native-vector-icons/Ionicons';
-import { Images } from '../../config';
-import CustomButton from '../customButton';
-import SwitchToggle from "react-native-switch-toggle";
-import { ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, ActivityIndicator, ScrollView } from 'react-native';
+import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles';
 import Metrics from '../../styles/metrics';
-import { ActivityIndicator } from 'react-native';
-import { ScrollView } from 'react-native';
+import { Images } from '../../config';
+import SwitchToggle from "react-native-switch-toggle";
+import { handleSize } from '../../config/responsiveTheme';
 
-const Methods = ({ 
-        Data,
-        loading,
-        atmSwitch,
-        setAtmSwitch,
-        onlineSwitch,
-        setOnlineSwitch,
-        chipSwitch,
-        setChipSwitch,
-        walletSwitch,
-        setWalletSwitch,
-        style, 
-        backImg 
-      } 
-       : 
-      { 
-        Data: any;
-        loading: any;
-        atmSwitch: any,
-        setAtmSwitch: any,
-        onlineSwitch: any,
-        setOnlineSwitch: any,
-        chipSwitch: any,
-        setChipSwitch: any,
-        walletSwitch: any,
-        setWalletSwitch: any,
-        style: any,
-        backImg: any 
-      }) => {
+const Methods = ({
+  Data,
+  loading,
+  atmSwitch,
+  setAtmSwitch,
+  onlineSwitch,
+  setOnlineSwitch,
+  chipSwitch,
+  setChipSwitch,
+  walletSwitch,
+  setWalletSwitch,
+  style,
+  backImg
+}) => {
 
-        console.log("asdkjasasgasd=>",loading);
-        
 
-    
-  function Listitem(icon:any, title:any, subtitle:any, value:boolean, toggle:()=>void) {
+  function Listitem(icon: any, title: any, subtitle: any, value: boolean, toggle: () => void) {
     return (
       <View style={styles.containerAlert}>
-        <View style={{ flexDirection: 'row', alignItems :'center' }}>
-        <View style={styles.ICONcONT}>
-          <Image source={icon} style={{ width: 20, height: 20 }} resizeMode="contain" />
-        </View>
-        <View style={{ width: Metrics.width - 130 }}>
-          <Text style={styles.titleAbove}>{title}</Text>
-          <Text style={styles.descriptionbelow}>{subtitle}</Text>
-        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={styles.ICONcONT}>
+            <Image
+              source={icon}
+              style={{
+                width: handleSize.w(20),
+                height: handleSize.h(20)
+              }}
+              resizeMode="contain"
+            />
+          </View>
+
+          <View style={{ width: Metrics.width - handleSize.w(130) }}>
+            <Text style={styles.titleAbove}>{title}</Text>
+            <Text style={styles.descriptionbelow}>{subtitle}</Text>
+          </View>
         </View>
 
         <View style={{ justifyContent: "center" }}>
@@ -71,94 +56,115 @@ const Methods = ({
           />
         </View>
       </View>
-    )
+    );
   }
-    
 
-return (
- <ImageBackground resizeMode="cover" source={backImg} style={style}>
-            <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
+
+  return (
+    <ImageBackground resizeMode="cover" source={backImg} style={style}>
+      <ScrollView
+        style={{ marginTop: handleSize.h(10) }}
+        showsVerticalScrollIndicator={false}
+      >
         <Text style={styles.title}>Payment Methods</Text>
-      {loading ?
-      <View style={{ marginTop: 20 }} >
-        <ActivityIndicator size="small" color={THEME.primary} />
-      </View>
-      :
-      <View>
-        {Listitem(Images.atmWithdrawl, "ATM Withdrawals", "Control and monitor your cash withdrawals from ATMs", atmSwitch, () => setAtmSwitch(!atmSwitch))}
-        {Listitem(Images.onlinePayments, "Online Payments", "Enable or disable card usage for online purchases", onlineSwitch, () => setOnlineSwitch(!onlineSwitch))}
-        {Listitem(Images.chipandPinTransaction, "Chip & PIN Transactions", "Manage in-person card usage with secure PIN entry", chipSwitch, () => setChipSwitch(!chipSwitch))}
-        {Listitem(Images.internationalTransaction, "International Transactions", "Control usage of your card via Apple Pay, Google Pay, and others", walletSwitch, () => setWalletSwitch(!walletSwitch))}
-      </View>
-      }
-    </ScrollView>
+
+        {loading ? (
+          <View style={{ marginTop: handleSize.h(20) }}>
+            <ActivityIndicator size="small" color={THEME.primary} />
+          </View>
+        ) : (
+          <View>
+            {Listitem(
+              Images.atmWithdrawl,
+              "ATM Withdrawals",
+              "Control and monitor your cash withdrawals from ATMs",
+              atmSwitch,
+              () => setAtmSwitch(!atmSwitch)
+            )}
+
+            {Listitem(
+              Images.onlinePayments,
+              "Online Payments",
+              "Enable or disable card usage for online purchases",
+              onlineSwitch,
+              () => setOnlineSwitch(!onlineSwitch)
+            )}
+
+            {Listitem(
+              Images.chipandPinTransaction,
+              "Chip & PIN Transactions",
+              "Manage in-person card usage with secure PIN entry",
+              chipSwitch,
+              () => setChipSwitch(!chipSwitch)
+            )}
+
+            {Listitem(
+              Images.internationalTransaction,
+              "International Transactions",
+              "Control usage of your card via Apple Pay, Google Pay, and others",
+              walletSwitch,
+              () => setWalletSwitch(!walletSwitch)
+            )}
+          </View>
+        )}
+      </ScrollView>
     </ImageBackground>
-);
+  );
 };
 
 export default Methods;
 
 const styles = StyleSheet.create({
-    title: {
-        color: THEME.white,
-        fontFamily: FONTFAMILY.SemiBold,
-        fontSize: FONT_SIZES.twosix,
-        textAlign: "center",
-        marginTop: 25,
-        paddingBottom: 30,
-        // borderBottomWidth: 0.5,
-        // borderColor: THEME.lightGrey,
-
-    },
-    containerAlert: {
-        flexDirection: 'row',
-        // backgroundColor: "red",
-        marginBottom: 30,
-        // paddingVertical: 15,
-        // borderRadius: 10,
-        // paddingBottom: 15,
-        justifyContent: 'space-between',
-        // borderBottomWidth: 0.5,
-        // borderColor: THEME.lightGrey,
-    },
-    titleAbove: {
-        fontFamily: FONTFAMILY.Medium,
-        fontSize: FONT_SIZES.onefour,
-        color: THEME.white,
-        marginLeft: 8
-    },
-    descriptionbelow: {
-        fontFamily: FONTFAMILY.Regular,
-        fontSize: FONT_SIZES.onetwo,
-        color: THEME.white,
-        marginLeft: 8,
-        marginTop: 2,
-        lineHeight: 16
-    },
-    ICONcONT: {
-        width: 36,
-        height: 36,
-        backgroundColor: THEME.primary,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 12,
-    },
-
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#2C2F48", // dark background like your design
+  title: {
+    color: THEME.white,
+    fontFamily: FONTFAMILY.SemiBold,
+    fontSize: handleSize.f(FONT_SIZES.twosix),
+    textAlign: "center",
+    marginTop: handleSize.h(25),
+    paddingBottom: handleSize.h(30),
   },
+
+  containerAlert: {
+    flexDirection: 'row',
+    marginBottom: handleSize.h(30),
+    justifyContent: 'space-between',
+  },
+
+  titleAbove: {
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+    marginLeft: handleSize.w(8),
+  },
+
+  descriptionbelow: {
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
+    color: THEME.white,
+    marginLeft: handleSize.w(8),
+    marginTop: handleSize.h(2),
+    lineHeight: handleSize.h(16),
+  },
+
+  ICONcONT: {
+    width: handleSize.w(36),
+    height: handleSize.h(36),
+    backgroundColor: THEME.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: handleSize.f(12),
+  },
+
   toggleContainer: {
-    width: 40,      // switch width
-    height: 25,     // switch height
-    borderRadius: 30,
-    padding: 3,
+    width: handleSize.w(40),
+    height: handleSize.h(25),
+    borderRadius: handleSize.f(30),
+    padding: handleSize.f(3),
   },
+
   toggleCircle: {
-    width: 20,
-    height: 20,
-    borderRadius: 12,
+    width: handleSize.w(20),
+    height: handleSize.h(20),
+    borderRadius: handleSize.f(12),
   },
 });

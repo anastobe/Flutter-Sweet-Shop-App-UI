@@ -10,6 +10,7 @@ import CustomButton from '../../../components/customButton';
 import VerifyAddress from '../../../components/bottomSheet/verifyAddress';
 import { useCreatePhysicalCardViewModel } from '../../../viewModels/homeViewModel/card/useCreatePhysicalCardViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 const CreatePhysicalCard = () => {
   const {
@@ -53,7 +54,7 @@ const CreatePhysicalCard = () => {
         barStyle="light-content" 
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Request a Physical Card</Text>
 
         <InputField
@@ -143,15 +144,15 @@ const CreatePhysicalCard = () => {
         />
 
         <BottomSheet
-          height={280}
-          maxHeightPercent={0.55}   // optional, override for screen
+          height={500}
+          maxHeightPercent={0.7}   // optional, override for screen
           draggable={false}
           openTime={500}
           closeDuration={500}
           bottomSheetRef={cardDetailRef}
           children={
             <VerifyAddress
-              style={{ flex: 1, paddingHorizontal: 20 }}
+              style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
               backImg={Images.addCardGradient}
               loginUserData={loginUserData}
               // value={loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3}
@@ -167,30 +168,42 @@ const CreatePhysicalCard = () => {
 
 export default CreatePhysicalCard
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 30,
-    marginTop: 10,
+    marginBottom: handleSize.h(30),
+    marginTop: handleSize.h(10),
   },
-  forgetTxt: { marginTop: 20, marginBottom: 50 },
+  forgetTxt: { 
+    marginTop: handleSize.h(20), 
+    marginBottom: handleSize.h(50) 
+  },
   pickerWrapper: {
     borderWidth: 1,
     borderColor: THEME.white,
-    borderRadius: 10,
-    marginBottom: 15,
+    borderRadius: handleSize.f(10),
+    marginBottom: handleSize.h(15),
   },
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     borderColor: THEME.gray,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: handleSize.f(10),
     color: THEME.white,
-    height: 56,
-    marginLeft: 10,
+    height: handleSize.h(56),
+    marginLeft: handleSize.w(10),
+    paddingHorizontal: handleSize.w(10),
+    justifyContent: 'center',
+  },
+  inputFieldContainer: {
+    marginBottom: handleSize.h(20),
+  },
+  bottomSheetStyle: {
+    flex: 1,
+    paddingHorizontal: handleSize.w(20),
   },
 });

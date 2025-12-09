@@ -1,21 +1,22 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { scale } from 'react-native-size-matters';
 import { FONTFAMILY, FONT_SIZES, THEME } from '../styles';
+import { handleSize } from '../config/responsiveTheme';
+import Metrics from '../styles/metrics';
 
 interface BalanceBoxProps {
   amount: string | number;
   label: string;
-  containerHeight?: number; // optional if you want to override default
+  containerHeight?: number; // optional to override default
 }
 
 const BalanceBox: React.FC<BalanceBoxProps> = ({
   amount,
   label,
-  containerHeight = 80,
+  containerHeight,
 }) => {
   return (
-    <View style={[styles.containerAMOUNT, { height: containerHeight }]}>
+    <View style={[styles.containerAMOUNT, { height: containerHeight ? handleSize.h(containerHeight) : handleSize.h(80) }]}>
       <Text style={styles.balanceAmountTxt}>{amount}</Text>
       <Text style={styles.balanceTxt}>{label}</Text>
     </View>
@@ -25,61 +26,25 @@ const BalanceBox: React.FC<BalanceBoxProps> = ({
 export default BalanceBox;
 
 const styles = StyleSheet.create({
-//   containerAMOUNT: {
-//     backgroundColor: THEME.whitergba,
-//     width: '100%',
-//     marginVertical: scale(15),
-//     borderRadius: scale(12),
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   amountBox: {
-//     // Can add padding/margin if needed
-//   },
-//   balanceTxt: {
-//     fontFamily: FONTFAMILY.Medium,
-//     fontSize: FONT_SIZES.onefour,
-//     color: THEME.white,
-//     marginTop: scale(5),
-//   },
-//   balanceAmountTxt: {
-//     fontFamily: FONTFAMILY.Medium,
-//     fontSize: FONT_SIZES.threezero,
-//     color: THEME.white,
-//   },
-
   containerAMOUNT: {
     backgroundColor: THEME.whitergba,
-    // padding: scale(8),
     width: "100%",
-    // alignSelf: "center",
-    marginVertical: 15,
-    borderRadius: scale(12),
+    marginVertical: handleSize.h(15),
+    borderRadius: handleSize.f(12),
     alignItems: "center",
     justifyContent: "center",
   },
-  amountBox: {
-    // paddingHorizontal: scale(10),
-    // paddingVertical: scale(4),
-    // borderRadius: scale(6),
-    // marginTop: 5,
-  },
   balanceTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
-    // marginTop: 5,
+    // marginTop: handleSize.h(5),
   },
   balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threezero,
+    fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.white,
-    lineHeight: 30,
-    // backgroundColor :'red',
-    // paddingBottom: 5,
-    // marginTop: 5,
-    // paddingBottom: 1,
+    lineHeight: handleSize.h(30),
+    // marginBottom: handleSize.h(5),
   },
-
-
 });

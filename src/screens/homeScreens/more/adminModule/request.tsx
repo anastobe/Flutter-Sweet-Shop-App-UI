@@ -11,6 +11,7 @@ import { scale } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../../constants';
 import StatusBarManager from '../../../../components/statusBarManager';
+import { handleSize } from '../../../../config/responsiveTheme';
 
 export default function Request() {
   const {
@@ -79,14 +80,14 @@ export default function Request() {
                 <Text style={styles.midTxt}>{item.message}</Text>
               </View>
 
-              <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10 }}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(10) }}>
                 <Text style={styles.txt10}>{item.date}</Text>
                 <Text style={styles.txt10}>By: {item.by}</Text>
               </View>
             </View>
           </TouchableOpacity>
         )}
-        contentContainerStyle={{ paddingBottom: 140, marginTop: 10 }}
+        contentContainerStyle={{ paddingBottom: handleSize.h(140), marginTop: handleSize.h(10) }}
       />
     );
   }
@@ -105,20 +106,20 @@ export default function Request() {
         barStyle="light-content" 
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Request</Text>
         {renderFilter()}
         {renderTransactions()}
 
         <BottomSheet
-          height={500}              // minimum height
-          maxHeightPercent={0.6}   // optional, override for screen
+          height={550}              // minimum height
+          maxHeightPercent={0.8}   // optional, override for screen
           draggable={false}
           openTime={500} 
           closeDuration={500}
           bottomSheetRef={cardDetailRef}
         >
-          <TransactionFilter style={{ marginHorizontal: 20 }} onPress={closeFilterSheet} />
+          <TransactionFilter style={{ marginHorizontal: handleSize.w(20) }} onPress={closeFilterSheet} />
         </BottomSheet>
       </View>
     </MainContainer>
@@ -128,97 +129,92 @@ export default function Request() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(15),
+    marginTop: handleSize.h(10),
   },
   filtersearchContainer: {
-    // flexDirection: 'row',
-    // alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: handleSize.h(10),
   },
-  // innerinput: { paddingLeft: 50, height: 45 },
   item: {
     backgroundColor: "#252c57",
     flexDirection: 'row',
-    marginVertical: 4,
-    borderRadius: 10,
+    marginVertical: handleSize.h(4),
+    borderRadius: handleSize.f(10),
   },
   sectionLeft: { flexDirection: 'row', alignItems: 'center' },
   rightSide: {
     width: '80%',
-    padding: 10
+    padding: handleSize.f(10),
   },
   iconCONTContainer:{
     width: '20%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-iconCONT:{
-          width: 40,
-          height: 40,
-          backgroundColor: THEME.primary,
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderRadius: 12,
-  },name: {
-    fontSize: FONT_SIZES.onefour,
+  iconCONT:{
+    width: handleSize.w(40),
+    height: handleSize.h(40),
+    backgroundColor: THEME.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: handleSize.f(12),
+  },
+  name: {
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
   },
   txt13: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
   txt10: {
-    fontSize: FONT_SIZES.oneZero,
+    fontSize: handleSize.f(FONT_SIZES.oneZero),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
   },
   txt16:{
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
   midTxt:{
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginVertical: 5,
-    lineHeight: 16,
-    width: '80%'
+    marginVertical: handleSize.h(5),
+    lineHeight: handleSize.h(16),
+    width: '80%',
   },
   subname: {
-    fontSize: FONT_SIZES.oneZero,
+    fontSize: handleSize.f(FONT_SIZES.oneZero),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
   },
   amount: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
-    innerinput: 
-    {  
-      height: 56,
-      paddingLeft: 20,   //calculated value 
-      fontFamily: FONTFAMILY.Regular,
-      fontSize: FONT_SIZES.onefour, 
-      color: THEME.white,
-      justifyContent: "center"
-    },
-    imgViewLeft: {
-    width: 35,
-    height: 56,
+  innerinput: {  
+    height: handleSize.h(56),
+    paddingLeft: handleSize.w(20),
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour), 
+    color: THEME.white,
+    justifyContent: "center",
+  },
+  imgViewLeft: {
+    width: handleSize.w(35),
+    height: handleSize.h(56),
     position: 'absolute',
-    left: 5,
+    left: handleSize.w(5),
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'red',
     zIndex: 9999,
   },
-
 });

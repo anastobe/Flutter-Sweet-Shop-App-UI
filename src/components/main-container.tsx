@@ -4,7 +4,6 @@ import {
   Platform,
   RefreshControl,
   ScrollView,
-  StatusBar,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -13,12 +12,11 @@ import {
   Image,
 } from "react-native";
 import { MainContainerProps } from "./mainContainerTypes";
-import { useTheme } from "@react-navigation/native";
-import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
+import { THEME } from "../styles";
 import Icon from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Images } from "../config";
-import Metrics from "../styles/metrics";
+import { handleSize } from "../config/responsiveTheme";
 
 export const MainContainer: React.FC<MainContainerProps> = ({
   children,
@@ -34,47 +32,32 @@ export const MainContainer: React.FC<MainContainerProps> = ({
   refreshingeffect,
   pressRightArrow,
 }) => {
-
   return (
     <SafeAreaView style={[{ flex: 1 }, mainContainerStyle]}>
-      {/* <StatusBar
-        // translucent={true}
-        // hidden={hidden}
-        barStyle={"light-content"}
-        // backgroundColor="transparent"
-      /> */}
-
-      {/* 🔥 BACKGROUND IMAGE (REPLACES LINEAR GRADIENT) */}
       <ImageBackground
         source={Images.universalGradientBackground}
         style={StyleSheet.absoluteFillObject}
-        // source={Images.universalBackLine}
-        // style={{width: Metrics.width, height: Metrics.height}}
-        resizeMode="stretch" // contain / stretch / cover (you can choose)
+        resizeMode="stretch"
       />
 
-      {/* BACK ICONS */}
       {showBackArrow && (
-        <View 
-          style={{ flexDirection: "row", justifyContent: "space-between" }}
-        >
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <TouchableOpacity onPress={pressBackArrow} style={styles.arrowCont}>
-            <Image source={Images.backArrow} style={{ width: 30, height: 30 }} resizeMode="contain" />
-            {/* <Icon name="arrow-back-outline" size={34} color={THEME.white} /> */}
+            <Image
+              source={Images.backArrow}
+              style={{ width: handleSize.w(30), height: handleSize.h(30) }}
+              resizeMode="contain"
+            />
           </TouchableOpacity>
 
           {pressRightArrow && (
-            <TouchableOpacity
-              onPress={pressRightArrow}
-              style={styles.rightIconCont}
-            >
-              <Icon name="add" size={20} color={THEME.textPrimary} />
+            <TouchableOpacity onPress={pressRightArrow} style={styles.rightIconCont}>
+              <Icon name="add" size={handleSize.f(20)} color={THEME.textPrimary} />
             </TouchableOpacity>
           )}
         </View>
       )}
 
-      {/* CONTENT */}
       {!isFlatList ? (
         <TouchableWithoutFeedback>
           <View style={[styles.container, customeStyle]}>{children}</View>
@@ -99,21 +82,21 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   arrowCont: {
-    width: 40,
-    height: 40,
+    width: handleSize.w(40),
+    height: handleSize.h(40),
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
-    marginLeft: 10,
+    marginTop: handleSize.h(20),
+    marginLeft: handleSize.w(10),
   },
   rightIconCont: {
-    width: 28,
-    height: 28,
-    borderRadius: 50,
+    width: handleSize.w(28),
+    height: handleSize.h(28),
+    borderRadius: handleSize.f(50),
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
-    marginRight: 20,
+    marginTop: handleSize.h(20),
+    marginRight: handleSize.w(20),
     backgroundColor: THEME.white,
   },
 });

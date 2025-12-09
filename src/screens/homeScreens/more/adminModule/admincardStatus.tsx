@@ -1,23 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useRef, useState } from 'react';
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { MainContainer, Modal } from '../../../../components';
 import CustomButton from '../../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
-import Metrics from '../../../../styles/metrics';
-import { SHOW_CLIENT } from '../../../../APICall/constants';
 import BluryModal from '../../../../components/Modal/bluryModal';
 import { Images } from '../../../../config';
 import StatusBarManager from '../../../../components/statusBarManager';
+import { SHOW_CLIENT } from '../../../../APICall/constants';
+import { handleSize } from '../../../../config/responsiveTheme';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
   return (
     <View style={styles.infoRow}>
       <View style={{ flexDirection: 'row' }}>
-        <Icon name={icon} size={18} color={THEME.white} style={{ marginRight: 8 }} />
+        <Icon name={icon} size={handleSize.f(18)} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />
         <Text style={styles.label}>{label}</Text>
       </View>
       <View style={styles.valueBox}>
@@ -29,181 +28,121 @@ function InfoRow({ icon, label, value }) {
 
 function AdminConfirmCardRequest(props: any) {
   const navigation = useNavigation();
-  const cardDetailRef = useRef(null);
-  const [tick, setTick] = useState(false);
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
-  const payload = props?.route?.params?.data;
 
+  const pressBackArrow = () => navigation.goBack();
 
-  function pressBackArrow() {
-    navigation.goBack();
-  }
+  const renderCardDetails = () => (
+    <View style={styles.summaryBox}>
+      <InfoRow icon="card-outline" label="Card Type" value="Visa" />
+      <InfoRow icon="person-outline" label="Cardholder Name" value="John Doe" />
+      <InfoRow icon="home-outline" label="Delivery Address" value="221B Baker Street" />
+      <InfoRow icon="time-outline" label="Estimated Delivery" value="3–5 Business Days" />
+      <InfoRow icon="time-outline" label="Card Issuance Fee" value="£4.95 GBP" />
+      <InfoRow icon="flash-outline" label="Delivery Fee" value="Free" />
+    </View>
+  );
 
-  function renderCardDetails() {
-    return (
-      <View style={styles.summaryBox}>
-        <InfoRow icon="card-outline" label="Card Type" value="Visa" />
-        <InfoRow icon="person-outline" label="Cardholder Name" value="John Doe" />
-        <InfoRow icon="home-outline" label="Delivery Address" value="221B Baker Street" />
-        <InfoRow icon="time-outline" label="Estimated Delivery" value="3–5 Business Days" />
-        <InfoRow icon="time-outline" label="Card Issuance Fee" value="£4.95 GBP" />
-        <InfoRow icon="flash-outline" label="Delivery Fee" value="Free" />
-      </View>
-    );
-  }
-
-
-      function renderPopup(icon: any,title: any,btnTxt: any, whichModal: Boolean) {
-    return (
-      <View style={styles.modal}>
-        <TouchableOpacity style={styles.closeBtn} onPress={()=>{
-          if (!whichModal) {
-            setOpen(!open)
-          }else{
-            setOpen2(!open2)
-          }
-        }}>
-          <Text style={styles.closeText}>×</Text>
-        </TouchableOpacity>
-
-        {/* <View style={styles.iconCircle}>
-          <Icon name={icon} size={25} color={THEME.textPrimary} />
-        </View> */}
-
-        <Text style={styles.titles}>{title}</Text>
-        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
-
-        <CustomButton
-          btnContSty={[styles.button,{ backgroundColor: !whichModal ? THEME.medRed : THEME.primary }]}
-          title={btnTxt}
-          showmyStyleOnly={true}
-          txtColor={[styles.buttonText,{ color: !whichModal ?  THEME.white : THEME.textPrimary }]}
-           onPress={()=>{
-                Alert.alert("NEED",SHOW_CLIENT)
-          if (!whichModal) {
-            setOpen(!open)
-          }else{
-            setOpen2(!open2)
-          }
-        }}
-        />
-      </View>
-    );
-  }
-
-  
-  function renderAccept() {
-    return ( 
-      <Modal
-        isVisible={open}
-        isKeyboardAvoidingView={true}
-        // children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
-        children={
-          <BluryModal
-          style={{ flex: 1, paddingHorizontal: 20 }}
-            backImg={Images.addCardGradient}
-            visible={open}
-            onClose={() => setOpen(false)}
-            btnLoader={false}
-            marginTopTitle={40}
-            onConfirm={() =>{
-               Alert.alert("NEED",SHOW_CLIENT)
-              setOpen(!open)
-            }}
-            showSubBody={false} 
-            showCancelBtn={false}
-            downConfirmText={'Cancel'}
-            title={'Are you sure you want to reject'}
-            body={''}
-            subBody={
-              'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
-            }
-            iconName={"alert-outline"}
-            confirmText={'Yes'}
-          />
-        }
-        onClose={setOpen}
-      />
-    );
-  }
-  
-  function renderReject() {
-  return (
+  const renderAccept = () => (
     <Modal
-      isVisible={open2}
-      isKeyboardAvoidingView={true}
-      // children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
+      isVisible={open}
+      isKeyboardAvoidingView
       children={
         <BluryModal
-        style={{ flex: 1, paddingHorizontal: 20 }}
+          style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+          backImg={Images.addCardGradient}
+          visible={open}
+          onClose={() => setOpen(false)}
+          btnLoader={false}
+          marginTopTitle={handleSize.h(40)}
+          onConfirm={() => {
+            Alert.alert('NEED', SHOW_CLIENT);
+            setOpen(false);
+          }}
+          showSubBody={false}
+          showCancelBtn={false}
+          downConfirmText="Cancel"
+          title="Are you sure you want to reject"
+          body=""
+          subBody="The card can be unfrozen at any time. Existing subscriptions may still attempt charges."
+          iconName="alert-outline"
+          confirmText="Yes"
+        />
+      }
+      onClose={setOpen}
+    />
+  );
+
+  const renderReject = () => (
+    <Modal
+      isVisible={open2}
+      isKeyboardAvoidingView
+      children={
+        <BluryModal
+          style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
           backImg={Images.addCardGradient}
           visible={open2}
           onClose={() => setOpen2(false)}
           btnLoader={false}
-          marginTopTitle={40}
-          onConfirm={() =>{
-              Alert.alert("NEED",SHOW_CLIENT)
-            setOpen2(!open2)
+          marginTopTitle={handleSize.h(40)}
+          onConfirm={() => {
+            Alert.alert('NEED', SHOW_CLIENT);
+            setOpen2(false);
           }}
-          showSubBody={false} 
+          showSubBody={false}
           showCancelBtn={false}
-          downConfirmText={'Cancel'}
-          title={'Are you sure you want to accept'}
-          body={''}
-          subBody={
-            'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
-          }
-          iconName={"checkmark-outline"}
-          confirmText={'Yes'}
+          downConfirmText="Cancel"
+          title="Are you sure you want to accept"
+          body=""
+          subBody="The card can be unfrozen at any time. Existing subscriptions may still attempt charges."
+          iconName="checkmark-outline"
+          confirmText="Yes"
         />
       }
       onClose={setOpen2}
     />
   );
-}
 
   return (
     <MainContainer
-      showBackArrow={true}
+      showBackArrow
       pressBackArrow={pressBackArrow}
-      isFlatList={true}
+      isFlatList
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
-      <StatusBarManager
-        backgroundColor={THEME.darkSecondary} 
-        barStyle="light-content" 
-      />
+      <StatusBarManager backgroundColor={THEME.darkSecondary} barStyle="light-content" />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Confirm Card Request</Text>
         <Text style={styles.subtitle}>
           A small fee will be deducted from your account to issue and ship your card.
         </Text>
 
         {renderCardDetails()}
-        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 40 }} >
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: handleSize.h(40) }}>
           <CustomButton
             btnContSty={styles.transferBtnReject}
             loading={false}
             txtColor={styles.btnStyle}
-            showmyStyleOnly={true}
+            showmyStyleOnly
             title="Reject"
-            onPress={()=>{ setOpen(!open) }}
+            onPress={() => setOpen(true)}
           />
-
           <CustomButton
             btnContSty={styles.transferBtnAccept}
             loading={false}
             txtColor={styles.btnStyle2}
-            showmyStyleOnly={true}
+            showmyStyleOnly
             title="Accept"
-            onPress={()=>{ setOpen2(!open2) }}
+            onPress={() => setOpen2(true)}
           />
-            </View>
-            {renderAccept()}
-            {renderReject()}
+        </View>
+
+        {renderAccept()}
+        {renderReject()}
       </View>
     </MainContainer>
   );
@@ -214,174 +153,86 @@ export default AdminConfirmCardRequest;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 30,
-    lineHeight: 20
+    marginBottom: handleSize.h(30),
+    lineHeight: handleSize.h(20),
   },
-    button: {
-    borderRadius: 10,
-    justifyContent: "center",
+  button: {
+    borderRadius: handleSize.f(10),
+    justifyContent: 'center',
     alignItems: 'center',
-    height: 56,
+    height: handleSize.h(56),
     width: '100%',
-    marginTop: 20
-
+    marginTop: handleSize.h(20),
   },
   buttonText: {
     fontFamily: FONTFAMILY.Regular,
-    fontSize: FONT_SIZES.oneeight
+    fontSize: handleSize.f(FONT_SIZES.oneeight),
   },
-  btnStyle:{
-    fontSize: FONT_SIZES.twozero,
+  btnStyle: {
+    fontSize: handleSize.f(FONT_SIZES.twozero),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    lineHeight: 20,
+    lineHeight: handleSize.h(20),
   },
-  btnStyle2:{
-    fontSize: FONT_SIZES.twozero,
-    lineHeight: 20,
+  btnStyle2: {
+    fontSize: handleSize.f(FONT_SIZES.twozero),
+    lineHeight: handleSize.h(20),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.textPrimary,
   },
   transferBtnReject: {
     backgroundColor: THEME.SlateBlue,
-    borderRadius: 10,
-    justifyContent: "center",
+    borderRadius: handleSize.f(10),
+    justifyContent: 'center',
     alignItems: 'center',
-  height: 50,
-    width: Metrics.width/2-30,
+    height: handleSize.h(50),
+    width: handleSize.w(150), // Responsive half width
     borderColor: THEME.white,
-    borderWidth: 1.5
-   },
-      transferBtnAccept: {
-       backgroundColor: THEME.primary,
-       borderRadius: 10,
-       justifyContent: "center",
-       alignItems: 'center',
-     height: 50,
-       width: Metrics.width/2-30
-      },
-  forgetTxt: { marginTop: 30, marginBottom: 50 }, forgetTxtpop:{  width: '100%', marginTop: 20, marginBottom: 20 },
-  summaryBox: { borderRadius: 1, padding: 0, marginBottom: 0 },
+    borderWidth: handleSize.f(1.5),
+  },
+  transferBtnAccept: {
+    backgroundColor: THEME.primary,
+    borderRadius: handleSize.f(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: handleSize.h(50),
+    width: handleSize.w(150), // Responsive half width
+  },
+  summaryBox: { borderRadius: handleSize.f(1), padding: 0, marginBottom: 0 },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 7,
+    marginBottom: handleSize.h(7),
   },
   label: {
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
-  valueBox: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8 },
+  valueBox: { paddingHorizontal: handleSize.w(10), paddingVertical: handleSize.h(4), borderRadius: handleSize.f(8) },
   value: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
-  },
-  totalLabel: {
-    textAlign: 'center',
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onesix,
-    color: THEME.white,
-  },
-  totalAmount: {
-    textAlign: 'center',
-    fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threezero,
-    color: THEME.primary,
-    marginBottom: 30,
-  },
-  accountBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 0.5,
-    borderColor: THEME.white,
-    borderRadius: 16,
-    height: 60,
-    marginBottom: 10,
-  },
-  flag: {
-    width: 40,
-    height: 40,
-    marginRight: 10,
-    borderRadius: 16,
-    marginLeft: 10,
-  },
-  accountText: {
-    fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onetwo,
-    color: THEME.white,
-  },
-  accountTextbelow: {
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onesix,
-    color: THEME.primary,
-    marginLeft: 5,
-  },
-  badgeText: {
-    fontSize: FONT_SIZES.onetwo,
-    fontFamily: FONTFAMILY.Medium,
-    color: THEME.white,
-  },
-  checkboxContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 16,    marginBottom: 20 },
-  checkbox: {
-    width: 22,
-    height: 22,
-    borderWidth: 1,
-    borderColor: THEME.white,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 10,
-  },
-  confirmText: {
-    flex: 1,
-    color: THEME.primary,
-    fontSize: FONT_SIZES.onetwo,
-    fontFamily: FONTFAMILY.Medium,
- 
-  },
-  boldText: { fontWeight: 'bold' },
-  modal: {
-    backgroundColor: 'rgba(64, 64, 65, 0.95)',
-    borderRadius: 16,
-    padding: 24,
-    alignItems: 'center',
-  },
-  closeBtn: { position: 'absolute', top: 10, right: 15 },
-  closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
-  iconCircle: {
-    backgroundColor: THEME.primary,
-    borderRadius: 100,
-    width: 56,
-    height: 56,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
   },
   titles: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.twotwo,
+    fontSize: handleSize.f(FONT_SIZES.twotwo),
     color: THEME.primary,
     textAlign: 'center',
-        marginTop: 50,
+    marginTop: handleSize.h(50),
   },
-  description: {
-    marginTop: 10,
-    fontFamily: FONTFAMILY.Regular,
-    fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
-    textAlign: 'center',
-  },
+  closeBtn: { position: 'absolute', top: handleSize.h(10), right: handleSize.w(15) },
+  closeText: { fontSize: handleSize.f(FONT_SIZES.foureight), color: THEME.white },
 });

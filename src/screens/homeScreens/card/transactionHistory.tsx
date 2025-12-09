@@ -1,22 +1,21 @@
+// TransactionHistory.js
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { BottomSheet, MainContainer } from '../../../components';
 import TransactionFilter from '../../../components/bottomSheet/transactionFilter';
 import InputField from '../../../components/textInput';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import useTransactionHistoryViewModel from '../../../viewModels/homeViewModel/card/useTransactionHistoryViewModel';
-import Metrics from '../../../styles/metrics';
-import { scale } from 'react-native-size-matters';
-import { SHOW_CLIENT } from '../../../APICall/constants';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
+import Metrics from '../../../styles/metrics';
 
 export default function TransactionHistory() {
   const {
     DATA,
     cardName,
     setCardName,
-    onSearch,
     cardDetailRef,
     pressBackArrow,
     closeFilterSheet,
@@ -32,7 +31,6 @@ export default function TransactionHistory() {
           imgViewLeft={styles.imgViewLeft}
           imageLeft={'search-outline'}
           imagetintColorLeft={THEME.white}
-          // image={'search-outline'}
           autoCapital={'none'}
           blurOnSubmit={false}
           placeholder="Search"
@@ -42,23 +40,11 @@ export default function TransactionHistory() {
           customInpStyle={styles.innerinput}
         />
         <TouchableOpacity
-          onPress={() => {
-            cardDetailRef?.current?.open();
-          }}
-          style={{
-            width: 46,
-            height: 46,
-            backgroundColor: THEME.primary,
-            borderRadius: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+          onPress={() => cardDetailRef?.current?.open()}
+          style={styles.filterBtn}
         >
-          <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
+          <Icon name="filter-outline" size={handleSize.f(22)} color={THEME.textPrimary} />
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={() => { Alert.alert("NEED",SHOW_CLIENT) }}  style={{ width: 40, height: scale(42), backgroundColor: THEME.primary, borderRadius: 10, justifyContent: "center", alignItems: "center" }} >
-          <Icon name="download-outline" size={22} color={THEME.textPrimary} />
-        </TouchableOpacity> */}
       </View>
     );
   }
@@ -69,10 +55,17 @@ export default function TransactionHistory() {
         data={DATA}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={handleNavigateTransactionHistory} style={styles.item}>
+          <TouchableOpacity 
+            onPress={handleNavigateTransactionHistory} 
+            style={styles.item}
+          >
             <View style={styles.sectionLeft}>
               <View style={styles.iconCONT}>
-                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"}  size={16} color={THEME.textPrimary} />
+                <Icon 
+                  name={item.id == 2 ? "arrow-back-outline" : "arrow-forward-outline"}  
+                  size={handleSize.f(16)} 
+                  color={THEME.textPrimary} 
+                />
               </View>
               <View>
                 <Text style={styles.name}>{item.name}</Text>
@@ -82,7 +75,7 @@ export default function TransactionHistory() {
             <Text style={styles.amount}>{item.amount}</Text>
           </TouchableOpacity>
         )}
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{ paddingBottom: handleSize.h(100) }}
       />
     );
   }
@@ -96,26 +89,24 @@ export default function TransactionHistory() {
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
-      
       <StatusBarManager
         backgroundColor={THEME.darkSecondary} 
         barStyle="light-content" 
       />
-
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Transactions History</Text>
         {renderFilter()}
         {renderTransactions()}
 
         <BottomSheet
-          height={500}              // minimum height
-          maxHeightPercent={0.6}   // optional, override for screen
+          height={550}              // minimum height
+          maxHeightPercent={0.8}   // optional, override for screen
           draggable={false}
           openTime={500}
           closeDuration={500}
           bottomSheetRef={cardDetailRef}
         >
-          <TransactionFilter style={{ marginHorizontal: 20 }} onPress={closeFilterSheet} />
+          <TransactionFilter style={{ marginHorizontal: handleSize.w(20) }} onPress={closeFilterSheet} />
         </BottomSheet>
       </View>
     </MainContainer>
@@ -125,74 +116,78 @@ export default function TransactionHistory() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
   filtersearchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 7,
+    marginVertical: handleSize.h(7),
   },
-  // innerinput: { paddingLeft: 50, height: 45 },
+  innerinput: {  
+      height: handleSize.h(46),
+      width: Metrics.width- handleSize.w(95),
+      paddingLeft: 20,   //calculated value 
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+    justifyContent: "center",
+  },
+  imgViewLeft: {
+    width: handleSize.w(35),
+    height: handleSize.h(46),
+    position: 'absolute',
+    left: handleSize.w(5),
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 9999,
+  },
+  filterBtn: {
+    width: handleSize.w(46),
+    height: handleSize.h(46),
+    backgroundColor: THEME.primary,
+    borderRadius: handleSize.f(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   item: {
     backgroundColor: THEME.SlateBlue,
-    borderRadius: 10,
-    height: 68,
+    borderRadius: handleSize.f(10),
+    height: handleSize.h(68),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    marginTop: 10,
+    paddingHorizontal: handleSize.w(10),
+    marginTop: handleSize.h(10),
   },
   sectionLeft: { flexDirection: 'row', alignItems: 'center' },
   iconCONT: {
-    width: 36,
-    height: 36,
+    width: handleSize.w(36),
+    height: handleSize.h(36),
     backgroundColor: THEME.primary,
-    borderRadius: 10,
+    borderRadius: handleSize.f(10),
     justifyContent: 'center',
     alignItems: 'center',
   },
   name: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginLeft: 10,
+    marginLeft: handleSize.w(10),
   },
   subname: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginLeft: 10,
+    marginLeft: handleSize.w(10),
   },
   amount: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
-  // innerinput: {  height: scale(53), width: Metrics.width-95, paddingRight: 50 },
-    innerinput: 
-    {  
-      height: 46,
-      width: Metrics.width-95,
-      paddingLeft: 20,   //calculated value  
-      fontFamily: FONTFAMILY.Regular,
-      fontSize: FONT_SIZES.onefour,
-      color: THEME.white,
-      justifyContent: "center"
-    },
-        imgViewLeft: {
-        width: 35,
-        height: 46,
-        position: 'absolute',
-        left: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // backgroundColor: 'red',
-        zIndex: 9999,
-      },
 });

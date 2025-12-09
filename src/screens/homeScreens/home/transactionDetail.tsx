@@ -13,13 +13,14 @@ import { createCard } from '../../../queries/auth.query';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { StatusBar } from 'react-native';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
   return (
     <View style={styles.infoRow}>
       <View style={{ flexDirection: 'row' }}>
-        {icon && <Icon name={icon} size={18} color={THEME.white} style={{ marginRight: 8 }} />}
+        {icon && <Icon name={icon} size={handleSize.f(18)} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />}
         <Text style={styles.label}>{label}</Text>
       </View>
       <View style={styles.valueBox}>
@@ -83,7 +84,7 @@ function TransactionDetail(props) {
   function renderUpload() {
     return(
         <TouchableOpacity onPress={openImagePicker} style={styles.downloadCont} >
-          <Image source={Images.uploadPhoto} style={{ width: 20, height: 20 }} resizeMode="contain" />
+          <Image source={Images.uploadPhoto} style={{ width: handleSize.w(20), height: handleSize.h(20) }} resizeMode="contain" />
          {/* <Icon name={"download-outline"} size={25} color={THEME.primary} /> */}
          <Text style={styles.txtUpload}>Upload Photo or Receipt</Text>
         </TouchableOpacity>
@@ -152,7 +153,7 @@ function TransactionDetail(props) {
         barStyle="light-content" 
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Transaction Details</Text>
         <Text style={styles.subtitle}>
           Transport for london.
@@ -174,67 +175,110 @@ export default TransactionDetail;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
+
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 20,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
+
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 10,
-    lineHeight: 20
+    marginBottom: handleSize.h(10),
+    lineHeight: handleSize.h(20),
   },
+
   txtUpload: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.primary,
-    marginTop: 12
+    marginTop: handleSize.h(12),
   },
-  forgetTxt: { marginTop: 15, marginBottom: 50 }, forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
-  summaryBox: { borderRadius: 1, padding: 10, marginBottom: 10 },
+
+  forgetTxt: {
+    marginTop: handleSize.h(15),
+    marginBottom: handleSize.h(50),
+  },
+
+  forgetTxtpop: {
+    backgroundColor: THEME.primary,
+    width: '100%',
+    marginTop: handleSize.h(20),
+    marginBottom: handleSize.h(20),
+  },
+
+  summaryBox: {
+    borderRadius: handleSize.h(8),
+    padding: handleSize.h(10),
+    marginBottom: handleSize.h(10),
+    backgroundColor: THEME.darkSecondary,
+  },
+
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: handleSize.h(10),
   },
+
   label: {
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
-  valueBox: {  paddingVertical: 1, borderRadius: 8 },
+
+  valueBox: {
+    paddingVertical: handleSize.h(2),
+    borderRadius: handleSize.h(8),
+  },
+
   value: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
+
   totalLabel: {
     textAlign: 'center',
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     color: THEME.white,
+    marginBottom: handleSize.h(8),
   },
+
   totalAmount: {
     textAlign: 'center',
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.threezero,
+    fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.primary,
-    marginBottom: 30,
+    marginBottom: handleSize.h(30),
   },
-  downloadCont:
-  { height: 100, borderRadius: 10, borderColor: THEME.white, borderWidth: 1, borderStyle: "dashed", justifyContent: "center", alignItems: "center" },
-  inputBackground:
-  { height: 120,textAlignVertical: 'top',paddingHorizontal: 20, marginTop: 13,    fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+
+  downloadCont: {
+    height: handleSize.h(100),
+    borderRadius: handleSize.h(10),
     borderColor: THEME.white,
     borderWidth: 1,
-    borderRadius: 10,
-    color: THEME.white,
-   }
+    borderStyle: 'dashed',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: handleSize.h(15),
+  },
 
+  inputBackground: {
+    height: handleSize.h(120),
+    textAlignVertical: 'top',
+    paddingHorizontal: handleSize.h(20),
+    marginTop: handleSize.h(13),
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    borderColor: THEME.white,
+    borderWidth: 1,
+    borderRadius: handleSize.h(10),
+    color: THEME.white,
+  },
 });

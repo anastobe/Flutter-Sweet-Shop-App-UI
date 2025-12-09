@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { FONTFAMILY, FONT_SIZES, METRICS, THEME } from '../../../styles';
+import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import { MainContainer } from '../../../components';
 import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
-import { scale } from 'react-native-size-matters';
 import useUpdatePasswordViewModel from '../../../viewModels/homeViewModel/more/useUpdatePasswordViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 export default function UpdatePassword() {
   const {
@@ -30,10 +30,10 @@ export default function UpdatePassword() {
 
   function renderRule(iconCondition: boolean, txt: string) {
     return (
-      <View style={{ flexDirection: 'row', paddingVertical: 1, alignItems: "center" }}>
+      <View style={{ flexDirection: 'row', paddingVertical: handleSize.h(2), alignItems: "center" }}>
         <Icon
           name={iconCondition ? 'checkmark-circle-outline' : 'close-circle-outline'}
-          size={25}
+          size={handleSize.f(20)}
           color={iconCondition ? THEME.green : THEME.lightred}
         />
         <Text style={styles.ruleText}>{txt}</Text>
@@ -47,7 +47,7 @@ export default function UpdatePassword() {
       pressBackArrow={pressBackArrow}
       isFlatList
       barStyle="dark-content"
-      customeStyle={{ paddingHorizontal: 20 }}
+      customeStyle={{ paddingHorizontal: handleSize.w(20) }}
       mainContainerStyle={styles.container}
     >
       <StatusBarManager
@@ -58,8 +58,8 @@ export default function UpdatePassword() {
       <Text style={styles.title}>Change Password</Text>
 
       <InputField
-        margTp={15}
-        margBtm={20}
+        margTp={handleSize.h(15)}
+        margBtm={handleSize.h(20)}
         image={secure ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
         imagetintColor={THEME.white}
@@ -73,7 +73,7 @@ export default function UpdatePassword() {
       />
 
       <InputField
-        margBtm={20}
+        margBtm={handleSize.h(20)}
         image={secure2 ? 'eye-outline' : 'eye-outline'}
         autoCapital="none"
         imagetintColor={THEME.white}
@@ -92,8 +92,8 @@ export default function UpdatePassword() {
       {renderRule(rules.specialChar(newPassword), 'At least 1 special character (e.g., !@#$%^&*)')}
 
       <InputField
-        margTp={30}
-        margBtm={10}
+        margTp={handleSize.h(30)}
+        margBtm={handleSize.h(10)}
         image={secure3 ? 'eye-outline' : 'eye-outline'}
         autoCapital="none"
         secureEntry={secure3}
@@ -120,20 +120,20 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.white,
   },
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(15),
+    marginTop: handleSize.h(10),
   },
   ruleText: {
-    marginLeft: 5,
-    fontSize: FONT_SIZES.onefour,
+    marginLeft: handleSize.w(5),
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
     fontFamily: FONTFAMILY.Light,
   },
   forgetTxt: {
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: handleSize.h(10),
+    marginBottom: handleSize.h(20),
   },
 });

@@ -1,5 +1,7 @@
 import React from 'react';
 import { TextInput, View, StyleSheet, TextInputProps } from 'react-native';
+import { handleSize } from '../config/responsiveTheme';
+import { FONT_SIZES } from '../styles';
 
 const CustomTectField = (props: TextInputProps) => (
   <View style={styles.inputContainer}>
@@ -9,16 +11,16 @@ const CustomTectField = (props: TextInputProps) => (
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginBottom: 15,
+    marginBottom: handleSize.h(15),
   },
   input: {
-    height: 50,
-    borderWidth: 1,
+    height: handleSize.h(50),
+    borderWidth: handleSize.f(1),
     borderColor: '#ccc',
-    borderRadius: 10,
-    paddingHorizontal: 15,
+    borderRadius: handleSize.f(10),
+    paddingHorizontal: handleSize.w(15),
     backgroundColor: '#fff',
-    fontSize: 15,
+    fontSize: handleSize.f(FONT_SIZES.onefive),
   },
 });
 

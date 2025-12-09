@@ -1,22 +1,22 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
+import { FONTFAMILY, FONT_SIZES, THEME } from '../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import { Images } from '../config';
+import { handleSize } from '../config/responsiveTheme';
 
 interface Props {
-  rotate: any;
+  rotate?: any;
   titleLeft: string;
-  iconRight: string;
-  iconLeft: string;
+  iconRight?: string;
+  iconLeft?: string;
   TL_radius?: number;
   TR_radius?: number;
   BL_radius?: number;
   BR_radius?: number;
   onPress?: () => void;
 }
-
 
 export const CardBox: React.FC<Props> = ({
   rotate,
@@ -29,44 +29,49 @@ export const CardBox: React.FC<Props> = ({
   BR_radius = 10,
   onPress,
 }) => {
-  return (  
-      <TouchableOpacity onPress={onPress}   >    
-    <LinearGradient
-        // colors={["#433c71ff", "#2c2d5e", "#272d5a"]}
-        colors={[THEME.whitergba,THEME.whitergba,THEME.whitergba]}
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <LinearGradient
+        colors={[THEME.whitergba, THEME.whitergba, THEME.whitergba]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={[
-        styles.boxContainer,
-        {
-          // backgroundColor: THEME.secondary,
-          borderTopRightRadius: TR_radius,
-          borderTopLeftRadius: TL_radius,
-          borderBottomRightRadius: BR_radius,
-          borderBottomLeftRadius: BL_radius,
-        },
-      ]}
-    >
-      <View style={{ flexDirection: 'row', alignItems: "center" }} >
-      {iconLeft && 
-      <View style={{ width: 36, height: 36,backgroundColor: THEME.primary, justifyContent: 'center', alignItems: "center", borderRadius: 8, marginRight: 10 }}>
-        <Icon name={iconLeft} size={20} color={THEME.textPrimary} />
-      </View>
-      }
+          styles.boxContainer,
+          {
+            borderTopRightRadius: handleSize.f(TR_radius),
+            borderTopLeftRadius: handleSize.f(TL_radius),
+            borderBottomRightRadius: handleSize.f(BR_radius),
+            borderBottomLeftRadius: handleSize.f(BL_radius),
+          },
+        ]}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {iconLeft && (
+            <View
+              style={{
+                width: handleSize.w(36),
+                height: handleSize.h(36),
+                backgroundColor: THEME.primary,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: handleSize.f(8),
+                marginRight: handleSize.w(10),
+              }}
+            >
+              <Icon name={iconLeft} size={handleSize.f(20)} color={THEME.textPrimary} />
+            </View>
+          )}
 
-      <View>
-        <View>
-          <Text style={styles.boxTitleText}>{titleLeft}</Text>
+          <View>
+            <Text style={styles.boxTitleText}>{titleLeft}</Text>
+          </View>
         </View>
-      </View>
-      </View>
 
         <View>
-          <Image style={{ width: 22, height: 22 }} source={Images.arrow} />
-          {/* <Icon name={iconRight} size={24} color={THEME.primary} /> */}
+          <Image style={{ width: handleSize.w(22), height: handleSize.h(22) }} source={Images.arrow} />
+          {/* <Icon name={iconRight} size={handleSize.f(24)} color={THEME.primary} /> */}
         </View>
-
-    </LinearGradient>
+      </LinearGradient>
     </TouchableOpacity>
   );
 };
@@ -74,16 +79,16 @@ export const CardBox: React.FC<Props> = ({
 const styles = StyleSheet.create({
   boxContainer: {
     flexDirection: 'row',
-    height: 55,
+    height: handleSize.h(55),
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    marginTop: 8
+    paddingHorizontal: handleSize.w(10),
+    marginTop: handleSize.h(8),
   },
   boxTitleText: {
-   fontFamily: FONTFAMILY.Medium,
-   fontSize: FONT_SIZES.onefour,
-   color: THEME.white,
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
   },
 });
 

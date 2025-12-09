@@ -25,6 +25,7 @@ import { ScrollView } from 'react-native';
 import { cardsScroll } from '../../../utils/data';
 import { useIsFocused } from '@react-navigation/native';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 // import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
@@ -68,8 +69,8 @@ const HomeScreen = () => {
 
   const renderHeader = () => (
     <View>
-      <View style={{ flexDirection: "row", justifyContent: 'space-between', marginHorizontal: 20, }} >
-      <View style={{marginTop: 20, }} >
+      <View style={{ flexDirection: "row", justifyContent: 'space-between', marginHorizontal: handleSize.w(20), }} >
+      <View style={{marginTop: handleSize.h(20), }} >
         <Text style={styles.title}>Great to See You,</Text>
         <Text 
         numberOfLines={1} ellipsizeMode="tail"
@@ -104,14 +105,14 @@ const renderBalanceCard = () => (
         </View>
         :
       <>
-        <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: 50 }} >
+        <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: handleSize.h(50) }} >
         {showbalance ? 
         <Text style={styles.total}>{assetsList?.firstObject?.currency?.iso_code} {assetsList?.firstObject?.available_balance}</Text> 
         : 
         <Text style={styles.total}>**********</Text> 
         }
-          <TouchableOpacity style={{  alignItems: "center", justifyContent: "center",height: 50 }} onPress={()=>setshowbalance(!showbalance)} >
-        <Icon name={showbalance ? "eye-outline" : "eye-off" } style={{ top: 2 }} size={20} color={THEME.white} />
+          <TouchableOpacity style={{  alignItems: "center", justifyContent: "center",height: handleSize.h(50) }} onPress={()=>setshowbalance(!showbalance)} >
+        <Icon name={showbalance ? "eye-outline" : "eye-off" } style={{ top: handleSize.h(2) }} size={20} color={THEME.white} />
           </TouchableOpacity>
         </View>
 
@@ -174,7 +175,7 @@ const renderBalanceCard = () => (
   // );
 
   const renderCardFeature = () => (
-    <View style={{ zIndex: -9, marginBottom: 35 }} >
+    <View style={{ zIndex: -9, marginBottom: handleSize.h(35) }} >
     <HomeCardFeatureButtons  features={Sendoption} onPressbtn={(item: any) => handlePressCard(item)} />
     </View>
   );
@@ -207,7 +208,7 @@ const renderBalanceCard = () => (
             </View>
           </TouchableOpacity>
         )}
-        contentContainerStyle={{ marginHorizontal: 20, paddingBottom: 50 }}
+        contentContainerStyle={{ marginHorizontal: handleSize.w(20), paddingBottom: handleSize.h(50) }}
       />
     </View>
   );
@@ -237,7 +238,7 @@ const ScrollableCards = () => {
       keyExtractor={(item) => item.id}
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ paddingHorizontal: 16, marginTop: 10 }}
+      contentContainerStyle={{ paddingHorizontal: handleSize.w(16), marginTop: handleSize.h(10) }}
       renderItem={({ item }) => (
         <LinearGradient
           colors={['#0d1133', '#0a0f2b']}
@@ -262,8 +263,8 @@ const ScrollableCards = () => {
         barStyle="light-content" 
       />
 
-         <ScrollView contentContainerStyle={{ paddingBottom: 0, marginTop: 10 }}>
-          <GradientLineGraph marginTop={20} />
+         <ScrollView contentContainerStyle={{ marginTop: handleSize.h(10) }}>
+          <GradientLineGraph marginTop={handleSize.h(20)} />
           {ScrollableCards()}
           {renderCardFeature()}
           {renderTransactionList()}
@@ -277,261 +278,272 @@ const ScrollableCards = () => {
 export default HomeScreen;
 
 
-    /* <MainContainer isFlatList barStyle="dark-content" mainContainerStyle={styles.container}>
-        <LinearGradient
-          colors={["#6B3FA0", "#3A2670", "#0C1445"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 1 }}
-          style={styles.headerContainer}
-        >
-      <StatusBar translucent backgroundColor={THEME.secondary} />
-      <SafeAreaView style={{flex: 1}}>
-          {renderHeader()}
-          {renderBalanceCard()}
-      </SafeAreaView>
-        </LinearGradient>
-
-      <GradientLineGraph marginTop={20} />
-
-      {renderCardFeature()}
-      {renderTransactionList()}
-    </MainContainer> */
-
 const styles = StyleSheet.create({
-  container: { flex: 1},
+  container: { flex: 1 },
+
   headerContainer: {
-    height: 230,
+    height: handleSize.h(230),
     width: Metrics.width,
-    // backgroundColor: "red",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    // position: 'absolute',
-    zIndex: 999
+    borderBottomLeftRadius: handleSize.f(30),
+    borderBottomRightRadius: handleSize.f(30),
+    zIndex: 999,
   },
-  botmRadius:{
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+
+  botmRadius: {
+    borderBottomLeftRadius: handleSize.f(30),
+    borderBottomRightRadius: handleSize.f(30),
   },
+
   logo: {
-    width: METRICS.width,
-    height: scale(25),
+    width: Metrics.width,
+    height: handleSize.h(25),
     resizeMode: 'contain',
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: handleSize.h(20),
   },
+
   avatar: {
-    width: scale(48),
-    height: scale(48),
+    width: handleSize.h(48),
+    height: handleSize.h(48),
     resizeMode: 'contain',
-    borderRadius: 100,
+    borderRadius: handleSize.f(100),
   },
+
   titlePicBack: {
-    justifyContent: "center", alignItems: "center", width: scale(29),height: scale(29), backgroundColor: THEME.whitergba, borderRadius: 100
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: handleSize.w(29),
+    height: handleSize.h(29),
+    backgroundColor: THEME.whitergba,
+    borderRadius: handleSize.f(100),
   },
-  titlePicNotification:{
-    justifyContent: "center", backgroundColor: THEME.white, alignItems: "center", width: scale(28),height: scale(28), marginRight: 8, borderRadius: 100
+
+  titlePicNotification: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: handleSize.w(28),
+    height: handleSize.h(28),
+    marginRight: handleSize.w(8),
+    backgroundColor: THEME.white,
+    borderRadius: handleSize.f(100),
   },
+
   titlePic: {
     color: THEME.primary,
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onetwo,
-
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
   },
+
   title: {
     color: THEME.white,
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
   },
+
   titlesub: {
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.threezero,
+    fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.white,
-    width: screenWidth - 160
+    width: screenWidth - handleSize.w(160),
   },
-  headerContainerParent:{
-    height: 300,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30
+
+  headerContainerParent: {
+    height: handleSize.h(300),
+    borderBottomLeftRadius: handleSize.f(30),
+    borderBottomRightRadius: handleSize.f(30),
   },
-  headerRight: { flexDirection: 'row', marginTop: 15,  height: 60, alignItems: "center" },
-//   dropdownContainer: {
-//   backgroundColor: THEME.white,
-//   borderRadius: 10,
-//   marginTop: 8,
-  
-//   maxHeight: 180,
-//   overflow: "hidden",
-// },
+
+  headerRight: {
+    flexDirection: 'row',
+    marginTop: handleSize.h(15),
+    height: handleSize.h(60),
+    alignItems: 'center',
+  },
 
   dropdownContainer: {
-  position: "absolute",
-  zIndex: 9999,
-  backgroundColor: THEME.white,
-  borderRadius: 6,
-  marginTop: 0,
-  // height: 150,
-  right: 0,
-  top: 28,
-  width: 70,
-  // maxHeight: 150,
-  // overflow: "hidden",
-},
+    position: 'absolute',
+    zIndex: 9999,
+    backgroundColor: THEME.white,
+    borderRadius: handleSize.f(6),
+    marginTop: 0,
+    right: 0,
+    top: handleSize.h(28),
+    width: handleSize.w(70),
+  },
 
-dropdownItem: {
-  // paddingVertical: 10,
-  // paddingHorizontal: 12,
-  borderBottomWidth: 0.5,
-  justifyContent: "center",
-  paddingLeft:10,
-  // borderBottomColor: THEME.white,
-  height: 32
-},
+  dropdownItem: {
+    borderBottomWidth: 0.5,
+    justifyContent: 'center',
+    paddingLeft: handleSize.w(10),
+    height: handleSize.h(32),
+  },
 
-dropdownItemText: {
-  color: THEME.textPrimary,
-  fontSize: FONT_SIZES.onefour,
-  fontFamily: FONTFAMILY.Medium,
-},
+  dropdownItemText: {
+    color: THEME.textPrimary,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    fontFamily: FONTFAMILY.Medium,
+  },
 
   balanceCard: {
-// backgroundColor: "blue",
-
-    borderRadius: 20,
-    height: 84,
-    // paddingHorizontal: 15,
-    marginHorizontal: 20,
-    marginTop: 25,
-    // flexDirection: 'row',
-    alignItems:"center",
-    justifyContent: "center",
-    marginBottom: 10
+    borderRadius: handleSize.f(20),
+    height: handleSize.h(84),
+    marginHorizontal: handleSize.w(20),
+    marginTop: handleSize.h(25),
+    marginBottom: handleSize.h(10),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  balanceTop: { flexDirection: 'row', alignItems: 'center', marginTop: 8,  },
-  balanceLabel: { fontSize: FONT_SIZES.onefour, fontFamily: FONTFAMILY.Medium, color: THEME.white },
+
+  balanceTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: handleSize.h(8),
+  },
+
+  balanceLabel: {
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
+  },
+
   currencySelector: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: THEME.white,
-    borderRadius: 5,
+    borderRadius: handleSize.f(5),
     justifyContent: 'center',
-    marginLeft: 10,
-    width: 70,
-    height: 30
+    marginLeft: handleSize.w(10),
+    width: handleSize.w(70),
+    height: handleSize.h(30),
   },
+
   currencyText: {
-    // marginTop: -1,
-    marginRight: 4,
-    fontSize: FONT_SIZES.onefour,
-    lineHeight: 14,
+    marginRight: handleSize.w(4),
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    lineHeight: handleSize.h(14),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.textPrimary,
   },
-  indicatorLoaderBoc:{
-    position: "absolute",
-    // backgroundColor: "red",
-    justifyContent: "center",
-    alignItems: "center",
+
+  indicatorLoaderBoc: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 0,
     bottom: 0,
     left: 0,
     right: 0,
-    top: 0
   },
+
   availableBalance: {
-    fontSize: FONT_SIZES.threesix,
+    fontSize: handleSize.f(FONT_SIZES.threesix),
     fontFamily: FONTFAMILY.Light,
     marginTop: 0,
     color: THEME.primary,
-    textAlign: "center"
+    textAlign: 'center',
   },
+
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 20,
-    marginTop: 10,
+    marginHorizontal: handleSize.w(20),
+    marginTop: handleSize.h(10),
   },
+
   cardTransactionTXT: {
-    fontSize: FONT_SIZES.oneone,
+    fontSize: handleSize.f(FONT_SIZES.oneone),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+
   viewAllTxt: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     backgroundColor: THEME.SlateBlue,
-    paddingHorizontal: 9,
-    paddingVertical: 3,
-    borderRadius: 10,
+    paddingHorizontal: handleSize.w(9),
+    paddingVertical: handleSize.h(3),
+    borderRadius: handleSize.f(10),
   },
+
   item: {
     backgroundColor: THEME.SlateBlue,
-    borderRadius: 10,
-    height: 68,
+    borderRadius: handleSize.f(10),
+    height: handleSize.h(68),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    marginTop: 10,
+    paddingHorizontal: handleSize.w(10),
+    marginTop: handleSize.h(10),
   },
-  sectionLeft: { flexDirection: 'row', alignItems: 'center' },
+
+  sectionLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
   iconCONT: {
-    width: 25,
-    height: 25,
+    width: handleSize.w(25),
+    height: handleSize.h(25),
     backgroundColor: THEME.primary,
-    borderRadius: 50,
+    borderRadius: handleSize.f(50),
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   name: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginLeft: 10,
+    marginLeft: handleSize.w(10),
   },
+
   subname: {
-    fontSize: FONT_SIZES.oneZero,
+    fontSize: handleSize.f(FONT_SIZES.oneZero),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginLeft: 10,
+    marginLeft: handleSize.w(10),
   },
-    total: {
-    fontSize: FONT_SIZES.threezero,
+
+  total: {
+    fontSize: handleSize.f(FONT_SIZES.threezero),
     fontFamily: FONTFAMILY.Bold,
     color: THEME.white,
-    textAlign: "center",
-    marginRight: 10
+    textAlign: 'center',
+    marginRight: handleSize.w(10),
   },
+
   amount: {
-    fontSize: FONT_SIZES.oneeight,
+   fontSize: handleSize.f(FONT_SIZES.oneeight),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
-   card: {
+
+  card: {
     width: Metrics.width * 0.44,
-    padding: 16,
-    marginRight: 14,
-    borderRadius: 16,
+    padding: handleSize.w(16),
+    marginRight: handleSize.w(14),
+    borderRadius: handleSize.f(16),
     justifyContent: 'space-between',
   },
+
   lastDigits: {
     color: THEME.white,
-    fontSize: FONT_SIZES.twozero,
-    fontFamily: FONTFAMILY.Medium
+    fontSize: handleSize.f(FONT_SIZES.twozero),
+    fontFamily: FONTFAMILY.Medium,
   },
+
   amountt: {
     color: THEME.white,
-    fontSize: FONT_SIZES.oneeight,
+   fontSize: handleSize.f(FONT_SIZES.oneeight),
     fontFamily: FONTFAMILY.Medium,
-    marginTop: 6,
+    marginTop: handleSize.h(6),
   },
+
   balanceTxt: {
     color: THEME.white,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
-    marginTop: 4,
+    marginTop: handleSize.h(4),
   },
-
-
-
-  
 });

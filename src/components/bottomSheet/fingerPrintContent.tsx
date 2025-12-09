@@ -1,63 +1,68 @@
+// FingerPrintContent.tsx
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { scale } from 'react-native-size-matters'; // if you're using scale
-import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles'; // adjust path as needed
+import { View, Text, StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
+import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles';
 import { Images } from '../../config';
 import CustomButton from '../customButton';
-import { ImageBackground } from 'react-native';
-import { TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native';
+import { handleSize } from '../../config/responsiveTheme';
 
-const FingerPrintContent = ({refrence, title, subtitle, style, onPress, img }:{refrence:any, title:any, subtitle:any, style:any, onPress: any, img: any }) => {
+type Props = {
+  refrence: any;
+  title: string;
+  subtitle?: string;
+  style?: any;
+  onPress: () => void;
+  img?: any;
+};
+
+const FingerPrintContent: React.FC<Props> = ({ refrence, title, subtitle, style, onPress, img }) => {
   return (
     <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={style}>
+      <ScrollView style={{ marginTop: handleSize.h(10) }} showsVerticalScrollIndicator={false}>
+        <Text style={styles.title}>{title}</Text>
 
-      <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
+        <TouchableOpacity onPress={onPress}>
+          <Text style={styles.titlesubbelow}>Having trouble?</Text>
+        </TouchableOpacity>
 
-      <Text style={styles.title}>{title}</Text>
-
-      <TouchableOpacity onPress={onPress} >
-       <Text style={styles.titlesubbelow}>Having trouble?</Text>
-      </TouchableOpacity>
-
-       <CustomButton
-        btnContSty={styles.forgetTxt}
-        title="Use Password"
-        onPress={()=>{refrence?.current?.close() }}
-      />
-
+        <CustomButton
+          btnContSty={styles.forgetTxt}
+          title="Use Password"
+          onPress={() => { refrence?.current?.close(); }}
+        />
       </ScrollView>
     </ImageBackground>
   );
 };
 
-export default FingerPrintContent;
+export default FingerPrintContent; 
 
 const styles = StyleSheet.create({
   title: {
     color: THEME.white,
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.threezero,
+    fontSize: handleSize.f(FONT_SIZES.threezero),
     textAlign: "center",
-    lineHeight: 35,
-    marginTop: 30
+    lineHeight: handleSize.h(35),
+    marginTop: handleSize.h(30),
   },
   titlesub: {
     color: THEME.white,
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     textAlign: "center",
-    marginTop: 5
+    marginTop: handleSize.h(5),
   },
-  titlesubbelow:{
+  titlesubbelow: {
     color: THEME.white,
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     textAlign: "center",
-    marginTop: 20
+    marginTop: handleSize.h(20),
   },
-    forgetTxt:
-  { marginTop: 20, marginBottom: 20 },
-
-
+  forgetTxt: {
+    marginTop: handleSize.h(20),
+    marginBottom: handleSize.h(20),
+    width: '100%',
+  },
 });

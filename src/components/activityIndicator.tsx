@@ -5,6 +5,7 @@ import { useTheme } from '@react-navigation/native';
 import Metrics from '../styles/metrics';
 import { ActivityIndicator } from 'react-native';
 import { THEME } from '../styles';
+import { handleSize } from '../config/responsiveTheme';
 
 const  LoaderFullScreen = () => {
     const loader = useSelector((state: any) => state?.AuthReducer?.loader);
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 99999,
     width: Metrics.width,
-    height: Metrics.height+100,
+    height: Metrics.height+ handleSize.h(100),
     justifyContent: 'center',
     alignItems: "center",
     backgroundColor: 'rgba(0,0,0,0.35)'

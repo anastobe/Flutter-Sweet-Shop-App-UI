@@ -13,6 +13,7 @@ import { screenWidth } from '../../../utils/style.utils';
 import { Images } from '../../../config';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme'; 
 
 const AccountStatement = () => {
   const {
@@ -51,30 +52,30 @@ const AccountStatement = () => {
             cardDetailRef?.current?.open();
           }}
           style={{
-            width: 40,
-            height: 46,
+            width: handleSize.w(40),
+            height: handleSize.h(46),
             backgroundColor: THEME.primary,
-            borderRadius: 10,
+            borderRadius: handleSize.f(10),
             justifyContent: 'center',
             alignItems: 'center',
           }}
         >
-          <Icon name="filter-outline" size={22} color={THEME.textPrimary} />
+          <Icon name="filter-outline" size={handleSize.f(22)} color={THEME.textPrimary} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             Alert.alert('NEED', SHOW_CLIENT);
           }}
           style={{
-            width: 40,
-            height: 46,
+            width: handleSize.w(40),
+            height: handleSize.h(46),
             backgroundColor: THEME.primary,
-            borderRadius: 10,
+            borderRadius: handleSize.f(10),
             justifyContent: 'center',
             alignItems: 'center',
           }}
         >
-          <Icon name="download-outline" size={22} color={THEME.textPrimary} />
+          <Icon name="download-outline" size={handleSize.f(22)} color={THEME.textPrimary} />
         </TouchableOpacity>
       </View>
     );
@@ -88,9 +89,9 @@ const AccountStatement = () => {
         <TouchableOpacity onPress={handleNavigateTransactionHistory}  style={styles.item}>
           <View style={styles.sectionLeft}>
             <View style={styles.iconCONT}>
-              <Icon name={item.id == 2 ? 'swap-horizontal-outline' : 'arrow-forward-outline'} size={16} color={THEME.textPrimary} />
+              <Icon name={item.id == 2 ? 'swap-horizontal-outline' : 'arrow-forward-outline'} size={handleSize.f(16)} color={THEME.textPrimary} />
             </View>
-            <View style={{ width: screenWidth - 160 }} >
+            <View style={{ width: screenWidth - handleSize.w(160) }} >
               <Text style={styles.name}>{item.name}</Text>
               {/* <Text style={styles.subname}>19 July</Text> */}
             </View>
@@ -98,7 +99,7 @@ const AccountStatement = () => {
           <Text style={styles.amount}>{item.amount}</Text>
         </TouchableOpacity>
       )}
-      contentContainerStyle={{ paddingBottom: 100 }}
+      contentContainerStyle={{ paddingBottom: handleSize.h(100) }}
     />
   );
 
@@ -117,14 +118,14 @@ const AccountStatement = () => {
       />
 
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Account Statement</Text>
         {renderFilter()}
         {renderTransactions()}
 
         <BottomSheet
-          height={500}              // minimum height
-          maxHeightPercent={0.6}   // optional, override for screen
+          height={550}              // minimum height
+          maxHeightPercent={0.8}   // optional, override for screen
           draggable={false}
           openTime={500}
           closeDuration={500}
@@ -140,85 +141,91 @@ export default AccountStatement;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
+
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
 
   filtersearchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 7,
+    marginVertical: handleSize.h(7),
   },
+
   rightIconCont: {
     backgroundColor: THEME.primary,
-    width: 40,
-    height: 55,
+    width: handleSize.w(40),
+    height: handleSize.h(55),
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 10,
-    borderRadius: 10,
+    marginLeft: handleSize.w(10),
+    borderRadius: handleSize.h(10),
   },
-  // innerinput: {  height: scale(53), width: Metrics.width-130, paddingRight: 50 },
-    innerinput: 
-    {  
-      height: 46, 
-      width: Metrics.width-130,
-      paddingLeft: 20,   //calculated value  
-      fontFamily: FONTFAMILY.Regular,
-      fontSize: FONT_SIZES.onefour,
-      color: THEME.white,
-      justifyContent: "center"
-    },
-    imgViewLeft: {
-    width: 35,
-    height: 46,
+
+  innerinput: {
+    height: handleSize.h(46),
+    width:  Metrics.width - handleSize.w(130),
+    paddingLeft: handleSize.w(20),
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+    justifyContent: "center",
+  },
+
+  imgViewLeft: {
+    width: handleSize.w(35),
+    height: handleSize.h(46),
     position: 'absolute',
-    left: 5,
+    left: handleSize.w(5),
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: 'red',
     zIndex: 9999,
   },
+
   item: {
     backgroundColor: THEME.SlateBlue,
-    borderRadius: 10,
-    height: 56,
+    borderRadius: handleSize.h(10),
+    height: handleSize.h(56),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    marginTop: 10,
+    paddingHorizontal: handleSize.w(10),
+    marginTop: handleSize.h(10),
   },
+
   sectionLeft: { flexDirection: 'row', alignItems: 'center' },
+
   iconCONT: {
-    width: 36,
-    height: 36,
+    width: handleSize.w(36),
+    height: handleSize.h(36),
     backgroundColor: THEME.primary,
-    borderRadius: 10,
+    borderRadius: handleSize.h(10),
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   name: {
-    fontSize: FONT_SIZES.onetwo,
-    lineHeight: 20, 
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
+    lineHeight: handleSize.h(20),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
-    marginLeft: 10,
+    marginLeft: handleSize.w(10),
   },
+
   subname: {
-    fontSize: FONT_SIZES.oneZero,
-    // 
+    fontSize: handleSize.f(FONT_SIZES.oneZero),
     fontFamily: FONTFAMILY.Light,
     color: THEME.primary,
-    marginLeft: 10,
+    marginLeft: handleSize.w(10),
   },
+
   amount: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },

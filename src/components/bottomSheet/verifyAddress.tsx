@@ -1,15 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { scale } from 'react-native-size-matters'; // if you're using scale
-import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../../styles'; // adjust path as needed
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
+import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles';
 import { Images } from '../../config';
 import CustomButton from '../customButton';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { ImageBackground } from 'react-native';
+import { handleSize } from '../../config/responsiveTheme';
 
 const InfoRow = ({ icon, label, value }) => (
     <View style={styles.infoRow}>
-        <View style={{ flexDirection: "row" }} >
+        <View style={{ flexDirection: "row" }}>
             <Text style={styles.label}>{label}</Text>
         </View>
         <View style={styles.valueBox}>
@@ -18,21 +16,20 @@ const InfoRow = ({ icon, label, value }) => (
     </View>
 );
 
-const VerifyAddress = ({ style, onPress1, onPress2, backImg,loginUserData }: { style: any, onPress1: any,onPress2: any,backImg : any, loginUserData: any }) => {
+const VerifyAddress = ({ style, onPress1, onPress2, backImg, loginUserData }) => {
 
     function renderCardDetails() {
         return (
             <View style={styles.summaryBox}>
-           
-                <InfoRow icon="card-outline" label="Address" value={loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3} />
-                <InfoRow icon="person-outline" label="City" value={"DUMMY"}/>
-                <InfoRow icon="home-outline" label="Postal Code" value={loginUserData.postcode} />
-                <InfoRow icon="time-outline" label="Country" value={loginUserData.county} />
+                <InfoRow label="Address" value={loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3} />
+                <InfoRow label="City" value={"DUMMY"} />
+                <InfoRow label="Postal Code" value={loginUserData.postcode} />
+                <InfoRow label="Country" value={loginUserData.county} />
             </View>
-        )
+        );
     }
 
-    function renderBottomStuffs(onPress1:any,onPress2: any) {
+    function renderBottomStuffs(onPress1, onPress2) {
         return (
             <View>
                 <Text style={styles.subtitle1}>Is this your current address?</Text>
@@ -48,18 +45,17 @@ const VerifyAddress = ({ style, onPress1, onPress2, backImg,loginUserData }: { s
                     onPress={onPress2}
                 />
             </View>
-        )
+        );
     }
 
     return (
-         <ImageBackground resizeMode="cover" source={backImg} style={style}>
-            <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
-            <Text style={styles.title}>Verify Your Registered Address</Text>
-            <Text style={styles.subtitle}>Your card is linked to the following address</Text>
-            {renderCardDetails()}
-            {renderBottomStuffs(onPress1,onPress2)}
+        <ImageBackground resizeMode="cover" source={backImg} style={style}>
+            <ScrollView style={{ marginTop: handleSize.h(10) }} showsVerticalScrollIndicator={false}>
+                <Text style={styles.title}>Verify Your Registered Address</Text>
+                <Text style={styles.subtitle}>Your card is linked to the following address</Text>
+                {renderCardDetails()}
+                {renderBottomStuffs(onPress1, onPress2)}
             </ScrollView>
-        {/* </View> */}
         </ImageBackground>
     );
 };
@@ -67,82 +63,96 @@ const VerifyAddress = ({ style, onPress1, onPress2, backImg,loginUserData }: { s
 export default VerifyAddress;
 
 const styles = StyleSheet.create({
+
     container: {
         backgroundColor: '#fff',
         flex: 1,
     },
-    forgetTxt:
-        { marginTop: 20, marginBottom: 20, backgroundColor: THEME.primary },
-    forgetTxtDown:
-        { marginTop: 0, marginBottom: 20, backgroundColor: THEME.white },
+
+    forgetTxt: {
+        marginTop: handleSize.h(20),
+        marginBottom: handleSize.h(20),
+        backgroundColor: THEME.primary,
+    },
+
+    forgetTxtDown: {
+        marginTop: handleSize.h(0),
+        marginBottom: handleSize.h(20),
+        backgroundColor: THEME.white,
+    },
+
     title: {
-        fontSize: FONT_SIZES.twosix,
-        lineHeight: 32,
+        fontSize: handleSize.f(FONT_SIZES.twosix),
+        lineHeight: handleSize.h(32),
         fontFamily: FONTFAMILY.SemiBold,
         color: THEME.white,
         alignSelf: "center",
-        marginTop: 20,
-        textAlign: 'center'
+        marginTop: handleSize.h(20),
+        textAlign: "center",
     },
+
     subtitle: {
         color: THEME.white,
         fontFamily: FONTFAMILY.Regular,
-        fontSize: FONT_SIZES.onesix,
-        marginTop: 10,
-        lineHeight: 18,
-        // borderBottomWidth: 0.5,
-        // borderColor: THEME.lightGrey,
-        paddingBottom: 20,
-        textAlign: "center"
+        fontSize: handleSize.f(FONT_SIZES.onesix),
+        marginTop: handleSize.h(10),
+        lineHeight: handleSize.h(18),
+        paddingBottom: handleSize.h(20),
+        textAlign: "center",
     },
 
-    stepGrey:
-    { width: 70, height: 8, backgroundColor: THEME.lightGrey, alignSelf: "center", borderRadius: 20, marginTop: 20, marginBottom: 10 },
+    stepGrey: {
+        width: handleSize.w(70),
+        height: handleSize.h(8),
+        backgroundColor: THEME.lightGrey,
+        alignSelf: "center",
+        borderRadius: handleSize.f(20),
+        marginTop: handleSize.h(20),
+        marginBottom: handleSize.h(10),
+    },
 
     subtitle1: {
         color: THEME.white,
         fontFamily: FONTFAMILY.Light,
-        fontSize: FONT_SIZES.onesix,
-        textAlign: "center"
+        fontSize: handleSize.f(FONT_SIZES.onesix),
+        textAlign: "center",
     },
 
     subtitle2: {
         color: THEME.primary,
         fontFamily: FONTFAMILY.Medium,
-        fontSize: FONT_SIZES.onesix,
-        paddingBottom: 20,
-        textAlign: "center"
+        fontSize: handleSize.f(FONT_SIZES.onesix),
+        paddingBottom: handleSize.h(20),
+        textAlign: "center",
     },
-
 
     infoRow: {
-        flexDirection: 'row',
+        flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: 'center',
-        // marginBottom: 10,
+        alignItems: "center",
     },
+
     label: {
         fontFamily: FONTFAMILY.Light,
-        fontSize: FONT_SIZES.onefour,
+        fontSize: handleSize.f(FONT_SIZES.onefour),
         color: THEME.white,
     },
+
     valueBox: {
-        // backgroundColor: THEME.lightGrey,
-        paddingHorizontal: 10,
-        paddingVertical: 4,
-        borderRadius: 8,
+        paddingHorizontal: handleSize.w(10),
+        paddingVertical: handleSize.h(4),
+        borderRadius: handleSize.f(8),
     },
+
     value: {
         fontFamily: FONTFAMILY.Medium,
-        fontSize: FONT_SIZES.onefour,
+        fontSize: handleSize.f(FONT_SIZES.onefour),
         color: THEME.primary,
     },
+
     summaryBox: {
-        // backgroundColor: THEME.textPrimary,
-        borderRadius: 20,
-        padding: 10,
-        marginBottom: 10,
-
+        borderRadius: handleSize.f(20),
+        padding: handleSize.h(10),
+        marginBottom: handleSize.h(10),
     },
-
 });

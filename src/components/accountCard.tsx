@@ -1,111 +1,117 @@
 import React from 'react';
 import {
-    View,
-    Text,
-    FlatList,
-    StyleSheet,
-    Dimensions,
-    SafeAreaView,
-    ImageBackground,
-    Image,
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { Images } from '../config';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { TouchableOpacity } from 'react-native';
-import { scale } from 'react-native-size-matters';
+import { handleSize } from '../config/responsiveTheme';
 import { CommonUtils } from '../utils';
 
-const { width } = Dimensions.get('window');
+const AccountCard = ({
+  item,
+  index,
+  onPressCard,
+  containerStyle,
+}: {
+  item?: any;
+  index?: any;
+  onPressCard?: any;
+  containerStyle?: any;
+}) => {
 
-const AccountCard = ({ item, index, onPressCard,containerStyle }: { item?: any, index?: any, onPressCard?: any, containerStyle?: StyleSheet }) => {
+  return (
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={() => {
+        onPressCard(item);
+      }}
+      style={[
+        {
+          width: METRICS.width,
+          height: handleSize.h(174),
+          borderRadius: handleSize.f(15),
+        },
+        containerStyle,
+      ]}
+    >
+      <ImageBackground
+        resizeMode="stretch"
+        source={Images.cardBack}
+        imageStyle={{ borderRadius: handleSize.f(15) }}
+        style={{ flex: 1, marginHorizontal: handleSize.w(25) }}
+      >
+        <View style={{ flexDirection: 'row', paddingHorizontal: handleSize.w(10), marginTop: handleSize.h(10) }}>
+          <View>
+            <View style={{ width: handleSize.w(40) }} />
+            {/* Optional Logo */}
+            {/* <Image source={Images.frontPayLogo} style={{ width: handleSize.w(34), height: handleSize.h(37) }} resizeMode='contain' /> */}
+          </View>
+          <View>
+            <Text style={styles.cardTitle}>
+              {CommonUtils.capitalizeFirstLetter(item.format)} (*** **** **** {item?.pan})
+            </Text>
+          </View>
+        </View>
 
-    console.log("item=>",item.card_status);
-    
-
-    return (
-        <TouchableOpacity activeOpacity={1} onPress={()=>{onPressCard(item)}} style={[{ width: METRICS.width , height: 174, borderRadius: 15 },containerStyle]}  >
-        <ImageBackground resizeMode="stretch" source={Images.cardBack} imageStyle={{ borderRadius: 15 }} style={{flex: 1,marginHorizontal: scale(25) }} >
-
-            <View style={{ flexDirection: "row", paddingHorizontal: 10, marginTop: 10 }} >
-                <View>
-                    <View style={{ width: 40, }} />
-                    {/* <Image source={Images.frontPayLogo} style={{ width: 34, height: 37 }} resizeMode='contain' /> */}
-                </View>
-                <View>
-                    <Text style={styles.cardTitle}>{CommonUtils.capitalizeFirstLetter(item.format)} (*** **** **** {item?.pan})</Text>
-                </View>
-            </View>
-
-            <View style={{ flexDirection: 'row', width: '100%', position: "absolute", bottom: 18, alignItems: "flex-end", justifyContent: "space-between", paddingHorizontal: 12 }} >
-                <View>
-                    <Text style={styles.limitTxtUp}>({CommonUtils.capitalizeFirstLetter(item.card_status)})</Text>
-                    <Text style={styles.limitTxt}>{item?.spending_type} /Available Limit:</Text>
-                    <Text style={styles.balanceTxt}>£{item?.available_limit}</Text>
-                </View>
-
-                {/* <View>
-                    <Text style={styles.detailTxt}>Show Details</Text>
-                </View> */}
-            </View>
-
-
-        </ImageBackground>
-        </TouchableOpacity>
-    );
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '100%',
+            position: 'absolute',
+            bottom: handleSize.h(18),
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+            paddingHorizontal: handleSize.w(12),
+          }}
+        >
+          <View>
+            <Text style={styles.limitTxtUp}>({CommonUtils.capitalizeFirstLetter(item.card_status)})</Text>
+            <Text style={styles.limitTxt}>{item?.spending_type} /Available Limit:</Text>
+            <Text style={styles.balanceTxt}>£{item?.available_limit}</Text>
+          </View>
+          {/* Optional Show Details */}
+          {/* <View>
+            <Text style={styles.detailTxt}>Show Details</Text>
+          </View> */}
+        </View>
+      </ImageBackground>
+    </TouchableOpacity>
+  );
 };
 
 export default AccountCard;
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 20,
-    },
-    card: {
-        // width: METRICS.width,
-        // marginHorizontal: 20,
-        borderRadius: 20,
-        padding: 20,
-    },
-    cardTitle: {
-        color: THEME.textPrimary,
-        fontSize: FONT_SIZES.onetwo,
-        fontFamily: FONTFAMILY.Medium,
-        marginLeft: 10,
-        marginTop: 5
-    },
-    limitTxtUp:{
-        color: THEME.textPrimary,
-        fontSize: FONT_SIZES.oneZero,
-        fontFamily: FONTFAMILY.SemiBold,
-    },
-    limitTxt: {
-        color: THEME.textPrimary,
-        fontSize: FONT_SIZES.nine,
-        fontFamily: FONTFAMILY.SemiBold
-    },
-    balanceTxt: {
-        color: THEME.textPrimary,
-        fontSize: FONT_SIZES.twotwo,
-        fontFamily: FONTFAMILY.SemiBold
-    },
-    detailTxt: {
-        color: THEME.prinkishBlue,
-        fontSize: FONT_SIZES.onetwo,
-        fontFamily: FONTFAMILY.Bold,
-        marginBottom: 10
-    },
-    row: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    amountLabel: {
-        color: '#fff',
-        fontSize: 13,
-    },
-    amountSubLabel: {
-        color: '#ccc',
-        fontSize: 11,
-    },
+  cardTitle: {
+    color: THEME.textPrimary,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
+    fontFamily: FONTFAMILY.Medium,
+    marginLeft: handleSize.w(10),
+    marginTop: handleSize.h(5),
+  },
+  limitTxtUp: {
+    color: THEME.textPrimary,
+    fontSize: handleSize.f(FONT_SIZES.oneZero),
+    fontFamily: FONTFAMILY.SemiBold,
+  },
+  limitTxt: {
+    color: THEME.textPrimary,
+    fontSize: handleSize.f(FONT_SIZES.nine),
+    fontFamily: FONTFAMILY.SemiBold,
+  },
+  balanceTxt: {
+    color: THEME.textPrimary,
+    fontSize: handleSize.f(FONT_SIZES.twotwo),
+    fontFamily: FONTFAMILY.SemiBold,
+  },
+  detailTxt: {
+    color: THEME.prinkishBlue,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
+    fontFamily: FONTFAMILY.Bold,
+    marginBottom: handleSize.h(10),
+  },
 });

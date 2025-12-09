@@ -9,9 +9,8 @@ import {
   FlexStyle,
   GestureResponderEvent,
 } from "react-native";
-import { SD } from "../../utils";
-import { useTheme } from "@react-navigation/native";
 import { THEME } from "../../styles";
+import { handleSize } from "../../config/responsiveTheme";
 
 type ModalProps = {
   isVisible: boolean;
@@ -21,8 +20,6 @@ type ModalProps = {
   onClose?: (event: GestureResponderEvent) => void;
   contentStyles?: FlexStyle | Array<FlexStyle>;
 };
-
-
 
 export const Modal: React.FC<ModalProps> = (props) => {
   const {
@@ -34,46 +31,42 @@ export const Modal: React.FC<ModalProps> = (props) => {
     backOpacityColor,
   } = props;
 
-  const { colors } = useTheme();
+  const renderContent = () => (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={contentStyles}>{children}</View>
+    </TouchableWithoutFeedback>
+  );
 
-  const renderContent = () => {
-    return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View 
-        style={contentStyles}
-        >{children}</View>
-      </TouchableWithoutFeedback>
-    );
-  };
   return (
     <RNModal animationType="fade" transparent={true} visible={isVisible}>
-      <View style={[styles.centeredView,{  backgroundColor: backOpacityColor ? backOpacityColor : 'rgba(0,0,0,0.5)', }]}>
-        <View style={[styles.modalView(THEME.white) ]}>
-
+      <View
+        style={[
+          styles.centeredView,
+          { backgroundColor: backOpacityColor ? backOpacityColor : "rgba(0,0,0,0.5)" },
+        ]}
+      >
+        <View style={[styles.modalView(THEME.white)]}>
           {isKeyboardAvoidingView ? (
-            <KeyboardAvoidingView behavior="padding">
-              {renderContent()}
-            </KeyboardAvoidingView>
+            <KeyboardAvoidingView behavior="padding">{renderContent()}</KeyboardAvoidingView>
           ) : (
             renderContent()
           )}
         </View>
-
-
       </View>
     </RNModal>
   );
 };
+
 const styles = StyleSheet.create<any>({
   centeredView: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   modalView: (color: string) => ({
     width: "90%",
     zIndex: 2,
-    borderRadius: 12
+    borderRadius: handleSize.f(12),
   }),
   overlay: {
     height: "100%",

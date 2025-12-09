@@ -19,6 +19,7 @@ import Metrics from '../../../../styles/metrics';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
 import BluryModal from '../../../../components/Modal/bluryModal';
 import { Images } from '../../../../config';
+import { handleSize } from '../../../../config/responsiveTheme'; // import handleSize
 import StatusBarManager from '../../../../components/statusBarManager';
 
 const AdminBeneficiaryStatus = () => {
@@ -34,7 +35,7 @@ const AdminBeneficiaryStatus = () => {
             onPress={() => vm.handlePressType(item.key)}
           >
             {vm.checked === item.key && (
-              <Icon name="checkmark" size={13} color={THEME.white} />
+              <Icon name="checkmark" size={ handleSize.f(13)} color={THEME.white} />
             )}
           </TouchableOpacity>
           <Text style={styles.label}>{item.label}</Text>
@@ -137,7 +138,7 @@ const AdminBeneficiaryStatus = () => {
         // children={renderPopup("alert-outline","Are you sure you want to reject","Yes",false)} 
         children={
           <BluryModal
-          style={{ flex: 1, paddingHorizontal: 20 }}
+          style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
             backImg={Images.addCardGradient}
             visible={vm.open}
             onClose={() => vm.setOpen(false)}
@@ -172,7 +173,7 @@ const AdminBeneficiaryStatus = () => {
       // children={renderPopup("checkmark-outline","Are you sure you want to accept","Yes",true)} 
       children={
         <BluryModal
-        style={{ flex: 1, paddingHorizontal: 20 }}
+        style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
           backImg={Images.addCardGradient}
           visible={vm.open2}
           onClose={() => vm.setOpen2(false)}
@@ -213,7 +214,7 @@ const AdminBeneficiaryStatus = () => {
         barStyle="light-content" 
       />
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 80 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(80) }}>
         <View style={{ marginHorizontal: 20 }}>
           <Text style={styles.title}>Beneficiary</Text>
           <Text style={styles.subtitle}>
@@ -222,7 +223,7 @@ Please review and confirm the beneficiary details before proceeding
 
           {renderInputFields()}
 
-        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 50 }} >
+        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(50) }} >
          <CustomButton
             btnContSty={styles.transferBtnReject}
             loading={false}
@@ -254,126 +255,131 @@ export default AdminBeneficiaryStatus;
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 30,
-    lineHeight: 20
+    marginBottom: handleSize.h(30),
+    lineHeight: handleSize.h(20),
   },
   container: { flex: 1, backgroundColor: THEME.white },
   checkmarkTitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
-    marginVertical: 10,
+    marginVertical: handleSize.h(10),
   },
-  btnStyle:{
-    fontSize: FONT_SIZES.twozero,
+  btnStyle: {
+    fontSize: handleSize.f(FONT_SIZES.twozero),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    lineHeight: 20,
+    lineHeight: handleSize.h(20),
   },
-  btnStyle2:{
-    fontSize: FONT_SIZES.twozero,
+  btnStyle2: {
+    fontSize: handleSize.f(FONT_SIZES.twozero),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.textPrimary,
-    lineHeight: 20,
+    lineHeight: handleSize.h(20),
   },
   transferBtnReject: {
     backgroundColor: THEME.SlateBlue,
-    borderRadius: 10,
+    borderRadius: handleSize.f(10),
     justifyContent: "center",
     alignItems: 'center',
-    height: 50,
-    width: Metrics.width/2-30,
+    height: handleSize.h(50),
+    width: handleSize.w(Metrics.width / 2 - 30),
     borderColor: THEME.white,
-    borderWidth: 1.5
-   },
-      transferBtnAccept: {
-       backgroundColor: THEME.primary,
-       borderRadius: 10,
-       justifyContent: "center",
-       alignItems: 'center',
-   height: 50,
-       width: Metrics.width/2-30
-      },
-  boxShape: { width: 20, height: 20, borderWidth: 1.5, borderRadius: 50,justifyContent: "center", alignItems: 'center' },
-  row: { flexDirection: 'row', alignItems: 'center', marginVertical: 4 },
+    borderWidth: handleSize.f(1.5),
+  },
+  transferBtnAccept: {
+    backgroundColor: THEME.primary,
+    borderRadius: handleSize.f(10),
+    justifyContent: "center",
+    alignItems: 'center',
+    height: handleSize.h(50),
+    width: handleSize.w(Metrics.width / 2 - 30),
+  },
+  boxShape: { 
+    width: handleSize.w(20), 
+    height: handleSize.h(20), 
+    borderWidth: handleSize.f(1.5), 
+    borderRadius: 50,
+    justifyContent: "center", 
+    alignItems: 'center' 
+  },
+  row: { flexDirection: 'row', alignItems: 'center', marginVertical: handleSize.h(4) },
   label: {
-    marginLeft: 8,
-    fontSize: FONT_SIZES.onefour,
+    marginLeft: handleSize.w(8),
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Light,
     color: THEME.primary,
   },
   pickerWrapper: {
-    borderWidth: 1,
+    borderWidth: handleSize.f(1),
     borderColor: THEME.white,
-    borderRadius: 10,
-    height: 56,
-    marginBottom: 10 
+    borderRadius: handleSize.f(10),
+    height: handleSize.h(56),
+    marginBottom: handleSize.h(10),
   },
   inputInnerPicker: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     borderColor: THEME.gray,
-    borderWidth: 1,
-    borderRadius: 16,
+    borderWidth: handleSize.f(1),
+    borderRadius: handleSize.f(16),
     color: THEME.white,
-    height: 56,
-    marginLeft: 10,
+    height: handleSize.h(56),
+    marginLeft: handleSize.w(10),
   },
-  forgetTxt: { marginTop: 10, marginBottom: 10 },
+  forgetTxt: { marginTop: handleSize.h(10), marginBottom: handleSize.h(10) },
   modal: {
     backgroundColor: 'rgba(64, 64, 65, 0.92)',
-    borderRadius: 16,
-    padding: 24,
+    borderRadius: handleSize.f(16),
+    padding: handleSize.f(24),
     alignItems: 'center',
   },
-  closeBtn: { position: 'absolute', top: 10, right: 15 },
-  closeText: { fontSize: FONT_SIZES.foureight, color: THEME.white },
+  closeBtn: { position: 'absolute', top: handleSize.h(10), right: handleSize.w(15) },
+  closeText: { fontSize: handleSize.f(FONT_SIZES.foureight), color: THEME.white },
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: 100,
-    width: 56,
-    height: 56,
+    width: handleSize.w(56),
+    height: handleSize.h(56),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: handleSize.h(10),
   },
-  forgetTxtpop: { width: '100%', marginTop: 30, marginBottom: 20 },
+  forgetTxtpop: { width: '100%', marginTop: handleSize.h(30), marginBottom: handleSize.h(20) },
   titles: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.twotwo,
+    fontSize: handleSize.f(FONT_SIZES.twotwo),
     color: THEME.white,
     textAlign: 'center',
-    marginTop: 50,
+    marginTop: handleSize.h(50),
   },
   description: {
-    marginTop: 10,
+    marginTop: handleSize.h(10),
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
     textAlign: 'center',
   },
-      button: {
-    borderRadius: 10,
+  button: {
+    borderRadius: handleSize.f(10),
     justifyContent: "center",
     alignItems: 'center',
-    height: 56,
+    height: handleSize.h(56),
     width: '100%',
-    marginTop: 20
-
+    marginTop: handleSize.h(20),
   },
   buttonText: {
     fontFamily: FONTFAMILY.Regular,
-    fontSize: FONT_SIZES.oneeight
+   fontSize: handleSize.f(FONT_SIZES.oneeight),
   },
 });
-

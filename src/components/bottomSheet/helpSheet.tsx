@@ -1,12 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
-import { scale } from 'react-native-size-matters'; // if you're using scale
-import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles'; // adjust path as needed
+import { View, Text, StyleSheet, ImageBackground, ScrollView } from 'react-native';
+import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles';
 import { Images } from '../../config';
-import CustomButton from '../customButton';
-import InputField from '../textInput';
 import CardBox from '../cardBox';
-import { ScrollView } from 'react-native';
+import { handleSize } from '../../config/responsiveTheme';
 
 const HelpSheet = ({ 
     title, 
@@ -14,42 +11,42 @@ const HelpSheet = ({
     style, 
     onPress1,
     onPress2
-    } : { 
-      title: any, 
-      subtitle: any, 
-      style: any, 
-      onPress1: any,
-      onPress2: any,
-    }) => {
+}) => {
     return (
-        <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={style}>
+        <ImageBackground
+            resizeMode="cover"
+            source={Images.addCardGradient}
+            style={style}
+        >
+            <ScrollView
+                style={{ marginTop: handleSize.h(10) }}
+                showsVerticalScrollIndicator={false}
+            >
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.titlesub}>{subtitle}</Text>
 
-          <ScrollView style={{ marginTop: 10 }} showsVerticalScrollIndicator={false} >
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.titlesub}>{subtitle}</Text>
+                <CardBox
+                    rotate={'-45deg'}
+                    titleLeft="support@frountier-pay.com"
+                    iconRight="arrow-forward-outline"
+                    iconLeft="mail-outline"
+                    TL_radius={handleSize.w(10)}
+                    TR_radius={handleSize.w(10)}
+                    onPress={onPress1}
+                />
 
-          <CardBox
-            rotate={'-45deg'}
-            titleLeft="support@frountier-pay.com"
-            iconRight="arrow-forward-outline"
-            iconLeft="mail-outline"
-            TL_radius={10}
-            TR_radius={10}
-            onPress={onPress1}
-          />
-          <CardBox
-            rotate={'-45deg'}
-            titleLeft="+44 20 7946 0991"
-            iconRight="arrow-forward-outline"
-            iconLeft="call-outline"
-            TL_radius={10}
-            TR_radius={10}
-            onPress={onPress2}
-          />
+                <CardBox
+                    rotate={'-45deg'}
+                    titleLeft="+44 20 7946 0991"
+                    iconRight="arrow-forward-outline"
+                    iconLeft="call-outline"
+                    TL_radius={handleSize.w(10)}
+                    TR_radius={handleSize.w(10)}
+                    onPress={onPress2}
+                />
 
-          <View style={{ height: 20 }} />
-
-          </ScrollView>
+                <View style={{ height: handleSize.h(20) }} />
+            </ScrollView>
         </ImageBackground>
     );
 };
@@ -60,21 +57,20 @@ const styles = StyleSheet.create({
     title: {
         color: THEME.white,
         fontFamily: FONTFAMILY.SemiBold,
-        fontSize: FONT_SIZES.twosix,
+        fontSize: handleSize.f(FONT_SIZES.twosix),
         textAlign: "center",
-        lineHeight: 35,
-        marginTop: 30
+        lineHeight: handleSize.h(35),
+        marginTop: handleSize.h(30)
     },
     titlesub: {
         color: THEME.white,
         fontFamily: FONTFAMILY.Regular,
-        fontSize: FONT_SIZES.onesix,
+        fontSize: handleSize.f(FONT_SIZES.onesix),
         textAlign: "center",
-        marginTop: 5,
-        marginBottom: 20
+        marginTop: handleSize.h(5),
+        marginBottom: handleSize.h(20)
     },
-forgetTxt:{
-    marginTop: 20
-}
-
+    forgetTxt: {
+        marginTop: handleSize.h(20)
+    }
 });

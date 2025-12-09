@@ -8,6 +8,7 @@ import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import usePinSecurityViewModel from '../../../viewModels/homeViewModel/card/usePinSecurityViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 export default function PinSecurityView({...props}) {
   const {
@@ -67,7 +68,7 @@ export default function PinSecurityView({...props}) {
         barStyle="light-content" 
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20), }}>
         <Text style={styles.title}>PIN & Security</Text>
         <Text style={styles.subtitle}>
           Manage your card's PIN and extra security options.
@@ -79,22 +80,31 @@ export default function PinSecurityView({...props}) {
     </MainContainer>
   );
 }
-
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
+
   title: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 15,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
+
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    lineHeight: 20,
-    marginBottom: 20,
+    lineHeight: handleSize.h(20),
+    marginBottom: handleSize.h(20),
   },
-  forgetTxt: { marginTop: 20, marginBottom: 20 },
+
+  forgetTxt: { 
+    marginTop: handleSize.h(20), 
+    marginBottom: handleSize.h(20) 
+  },
+
+  inputContainer: {
+    marginBottom: handleSize.h(10),
+  },
 });

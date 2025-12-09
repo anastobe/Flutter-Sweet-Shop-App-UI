@@ -5,8 +5,8 @@ import { Calendar } from 'react-native-calendars';
 import InputField from '../components/textInput';
 import { THEME, FONTFAMILY, FONT_SIZES, METRICS } from '../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { scale } from 'react-native-size-matters';
 import { TouchableOpacity } from 'react-native';
+import { handleSize } from '../config/responsiveTheme';
 
 type CustomCalendarProps = {
   placeholder?: string;
@@ -28,27 +28,27 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
   const handleDayPress = (day: any) => {
     setSelectedDate(day.dateString);
     onDateChange?.(day.dateString);
-    setautoFocused(true)
+    setautoFocused(true);
     setShowCalendar(false);
   };
 
   return (
     <View>
-      <TouchableOpacity activeOpacity={0.8} onPress={() => setShowCalendar(true)}  >
-      <InputField
-        placeholder={placeholder}
-        value={selectedDate}
-        onPress={() => setShowCalendar(true)} // open calendar on press
-        image="calendar-outline"
-        margTp={margTp}
-        autoFocused={autoFocused}
-        imagetintColor={THEME.white}
-        disabled={false}
-        customInpStyle={{ width: METRICS.width - 40 }}
-      />
+      <TouchableOpacity activeOpacity={0.8} onPress={() => setShowCalendar(true)}>
+        <InputField
+          placeholder={placeholder}
+          value={selectedDate}
+          onPress={() => setShowCalendar(true)} // open calendar on press
+          image="calendar-outline"
+          margTp={margTp}
+          autoFocused={autoFocused}
+          imagetintColor={THEME.white}
+          disabled={false}
+          customInpStyle={{ width: METRICS.width - handleSize.w(40) }}
+        />
       </TouchableOpacity>
 
-      {/* 🔹 Calendar Modal */} 
+      {/* 🔹 Calendar Modal */}
       <Modal
         visible={showCalendar}
         transparent
@@ -60,7 +60,7 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
             <View style={styles.header}>
               <Text style={styles.headerText}>Select Date</Text>
               <Pressable onPress={() => setShowCalendar(false)}>
-                <Icon name="close" size={22} color={THEME.darkSecondary} />
+                <Icon name="close" size={handleSize.f(22)} color={THEME.darkSecondary} />
               </Pressable>
             </View>
 
@@ -76,11 +76,11 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
                 todayTextColor: THEME.darkSecondary,
                 arrowColor: THEME.darkSecondary,
                 textDayFontFamily: FONTFAMILY.Medium,
-                textDayFontSize: FONT_SIZES.oneone,
+                textDayFontSize: handleSize.f(FONT_SIZES.oneone),
                 textMonthFontFamily: FONTFAMILY.Bold,
-                textMonthFontSize: FONT_SIZES.oneone,
+                textMonthFontSize: handleSize.f(FONT_SIZES.oneone),
                 textDayHeaderFontFamily: FONTFAMILY.Medium,
-                textDayHeaderFontSize: FONT_SIZES.oneone,
+                textDayHeaderFontSize: handleSize.f(FONT_SIZES.oneone),
               }}
             />
           </View>
@@ -99,21 +99,21 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: THEME.white,
-    borderRadius: 12, 
-    width: METRICS.width - 30,
-    padding: 10,
+    borderRadius: handleSize.f(12),
+    width: METRICS.width - handleSize.w(30),
+    padding: handleSize.f(10),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingVertical: handleSize.h(5),
+    paddingHorizontal: handleSize.w(10),
   },
   headerText: {
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.darkSecondary,
-    fontSize: FONT_SIZES.onefive,
+    fontSize: handleSize.f(FONT_SIZES.onefive),
   },
 });
 

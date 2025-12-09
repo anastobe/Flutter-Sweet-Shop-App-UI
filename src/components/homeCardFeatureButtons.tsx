@@ -1,13 +1,9 @@
 import React from 'react';
-import { Image, StyleSheet, Text } from 'react-native';
-import { View, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
-import { scale } from 'react-native-size-matters';
-import Metrics from '../styles/metrics';
-import { Images } from '../config';
+import { handleSize } from '../config/responsiveTheme';
 
-const BUTTON_SIZE = 54
+const BUTTON_SIZE = handleSize.w(54);
 
 type CardFeatureButton = {
   icon: string;
@@ -18,25 +14,28 @@ type Props = {
   features: any;
   buttonColor?: string;
   iconColor?: string;
-  onPressbtn?: any
+  onPressbtn?: any;
 };
 
 const HomeCardFeatureButtons: React.FC<Props> = ({
   features,
   buttonColor = '#615d87',  // Default: purplish blue
-  iconColor = THEME.white,     // Default: white
+  iconColor = THEME.white,   // Default: white
   onPressbtn
 }) => {
   return (
-<View style={styles.container}>
+    <View style={styles.container}>
       {features.map((feature: any, index: any) => (
         <View key={index} style={styles.featureItem}>
           <TouchableOpacity
-            onPress={()=>onPressbtn(feature)}
-            style={[styles.button, { backgroundColor: index == 0 ? THEME.prinkishBlue : THEME.primary }]}
+            onPress={() => onPressbtn(feature)}
+            style={[styles.button, { backgroundColor: index === 0 ? THEME.prinkishBlue : THEME.primary }]}
           >
-            <Image style={{ width: feature.width, height: feature.height }}  source={feature.icon} resizeMode='contain' />
-            {/* <Icon name={feature.icon} size={scale(27)} color={iconColor} /> */}
+            <Image 
+              style={{ width: handleSize.w(feature.width), height: handleSize.h(feature.height) }}  
+              source={feature.icon} 
+              resizeMode='contain' 
+            />
           </TouchableOpacity>
           <Text style={styles.label}>
             {feature?.text}
@@ -50,36 +49,29 @@ const HomeCardFeatureButtons: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    // marginHorizontal: 20,
-    justifyContent: "space-evenly", 
+    justifyContent: "space-evenly",
     alignItems: "center",
-    marginTop:17,
-    // backgroundColor: "blue",
-    paddingVertical: 10
-    // width: '50%'
+    marginTop: handleSize.h(17),
+    paddingVertical: handleSize.h(10),
   },
   featureItem: {
     alignItems: 'center',
     height: BUTTON_SIZE,
-    width: METRICS.width/2,
-    // marginLeft:1,
-    // backgroundColor: "red"
+    width: handleSize.w(METRICS.width / 2),
   },
   button: {
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
-    borderRadius: 100,
-    // borderWidth:0.7,
-    // borderColor: THEME.white,
+    borderRadius: handleSize.f(100),
     justifyContent: 'center',
     alignItems: 'center',
   },
   label: {
-    fontSize: FONT_SIZES.oneone,
+    fontSize: handleSize.f(FONT_SIZES.oneone),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: 'center',
-    marginTop: 5,
+    marginTop: handleSize.h(5),
   },
 });
 

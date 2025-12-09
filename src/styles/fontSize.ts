@@ -1,21 +1,21 @@
 import { scale, moderateScale } from 'react-native-size-matters';
 
 const FONT_SIZES = Object.freeze({
-  nine: moderateScale(9),
-  oneZero: moderateScale(10),
-  oneone: moderateScale(11),
-  onetwo: moderateScale(12),
-  onefour: moderateScale(14),
-  onefive: moderateScale(15),
-  onesix: moderateScale(16),
-  oneeight: moderateScale(18),
-  twozero: moderateScale(20),
-  twotwo: moderateScale(22),
-  twosix: moderateScale(26),
-  threesix:  moderateScale(26),
-  threezero:  moderateScale(30),
-  threetwo:  moderateScale(32),
-  foureight:  moderateScale(48)
+  nine: 9,
+  oneZero: 10,
+  oneone: 11,
+  onetwo: 12,
+  onefour: 14,
+  onefive: 15,
+  onesix: 16,
+  oneeight: 18,
+  twozero: 20,
+  twotwo: 22,
+  twosix: 26,
+  threesix:  26,
+  threezero:  30,
+  threetwo:  32,
+  foureight:  48
 });
 
 export { FONT_SIZES };

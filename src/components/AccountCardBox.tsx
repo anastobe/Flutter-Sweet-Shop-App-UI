@@ -1,40 +1,45 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import Metrics from "../styles/metrics";
-import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
-import { TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
-import { TouchableWithoutFeedback } from "react-native";
+import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
+import { handleSize } from "../config/responsiveTheme";
+import Metrics from "../styles/metrics";
 
 type Props = {
   total: string;
   onHold: string;
   available: string;
-  onPress: any,
-  onPresseye: any,
-  showBalance: any
+  onPress: any;
+  onPresseye: any;
+  showBalance: boolean;
 };
 
-const AccountCardBox = ({ total, onHold, available,onPress,onPresseye,showBalance }: Props) => {
+const AccountCardBox = ({ total, onHold, available, onPress, onPresseye, showBalance }: Props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <TouchableWithoutFeedback>
-      <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: 50, }} >
-        {showBalance ? <Text style={styles.total}>{total}</Text> : <Text style={styles.total}>**********</Text> }
-          <TouchableOpacity onPress={onPresseye}  style={{  alignItems: "center", justifyContent: "center",height: 55 }}>
-        <Icon name={showBalance ? "eye-outline" : "eye-off" } style={{ top: 2 }} size={20} color={THEME.white} />
+        <View style={styles.balanceRow}>
+          <Text style={styles.total}>{showBalance ? total : "**********"}</Text>
+          <TouchableOpacity onPress={onPresseye} style={styles.eyeButton}>
+            <Icon
+              name={showBalance ? "eye-outline" : "eye-off-outline"}
+              size={handleSize.f(20)}
+              color={THEME.white}
+              style={{ top: handleSize.h(2) }}
+            />
           </TouchableOpacity>
-      </View>
+        </View>
       </TouchableWithoutFeedback>
+
       <Text style={styles.label}>Total Balance</Text>
 
       <View style={styles.row}>
         <View style={styles.column}>
-          <Text style={styles.sub}>{!showBalance? "****" : onHold}</Text>
+          <Text style={styles.sub}>{!showBalance ? "****" : onHold}</Text>
           <Text style={styles.subLabel}>On Hold or Pending</Text>
         </View>
         <View style={styles.column}>
-          <Text style={styles.sub}>{!showBalance? "****" : available}</Text>
+          <Text style={styles.sub}>{!showBalance ? "****" : available}</Text>
           <Text style={styles.subLabel}>Available to Use</Text>
         </View>
       </View>
@@ -44,47 +49,52 @@ const AccountCardBox = ({ total, onHold, available,onPress,onPresseye,showBalanc
 
 const styles = StyleSheet.create({
   card: {
-    // backgroundColor: "#6a1b9a", // purple gradient ki jagah solid color
-    // borderRadius: 16,
-    // padding: 20,
-    // margin: 10,
     width: Metrics.width,
-    marginTop: 10,
-    // height: 180,
-    // justifyContent: "center"
+    marginTop: handleSize.h(10),
+    padding: handleSize.f(15),
+    borderRadius: handleSize.f(16),
+    // backgroundColor: "#6a1b9a", // replace with gradient if needed
+  },
+  balanceRow: {
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    height: handleSize.h(50),
+  },
+  eyeButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: handleSize.h(55),
+    marginLeft: handleSize.w(10),
   },
   total: {
-    fontSize: FONT_SIZES.threezero,
+    fontSize: handleSize.f(FONT_SIZES.threezero),
     fontFamily: FONTFAMILY.Bold,
     color: THEME.white,
     textAlign: "center",
-    marginRight: 10
   },
   label: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: handleSize.h(20),
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: 23,
-    // backgroundColor: "red"
+    marginHorizontal: handleSize.w(23),
   },
   column: {
-    // alignItems: "center",
-    // backgroundColor: "red"
-    // flex: 1,
+    // optionally align items
   },
   sub: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
   subLabel: {
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },

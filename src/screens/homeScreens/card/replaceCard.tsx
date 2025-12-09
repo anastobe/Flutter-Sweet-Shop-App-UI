@@ -2,26 +2,21 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MainContainer, Modal } from '../../../components';
-import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 import { THEME, FONTFAMILY, FONT_SIZES } from '../../../styles';
-import Icon from 'react-native-vector-icons/Ionicons';
 import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
-import { scale } from 'react-native-size-matters';
 import useReplaceCardViewModel from '../../../viewModels/homeViewModel/card/useReplaceCardViewModel';
 import { REASON_OPTION } from '../../../utils/data';
-import FreezeCardModal from '../../../components/Modal/FreezeCardModal ';
-import { Images } from '../../../config';
 import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { handleSize } from '../../../config/responsiveTheme';
 
 function InfoRow({ label, value }) {
   return (
     <View style={styles.infoRow}>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={styles.label}>{label}</Text>
-      </View>
+      <Text style={styles.label}>{label}</Text>
       <View style={styles.valueBox}>
         <Text style={styles.value}>{value}</Text>
       </View>
@@ -51,29 +46,26 @@ export default function ReplaceCard(props) {
   function renderField() {
     return (
       <View>
-
-      <InputField
-        disabled={false} 
-        placeholder="Reason for Replacement" 
-        value={reason} 
-        enableDropdown={true}
-        dropdownData={REASON_OPTION}
-        margBtm={15}
-        isOpen={openDropdown === 'currency'} 
-        onToggleDropdown={() => toggleDropdown('currency')}
-        onDropdownSelect={(item:any )=> setReason(item.label)}
-      />
-      
-      
         <InputField
-          marginTp={20}
+          disabled={false} 
+          placeholder="Reason for Replacement" 
+          value={reason} 
+          enableDropdown={true}
+          dropdownData={REASON_OPTION}
+          margBtm={handleSize.h(15)}
+          isOpen={openDropdown === 'currency'} 
+          onToggleDropdown={() => toggleDropdown('currency')}
+          onDropdownSelect={(item:any )=> setReason(item.label)}
+        />
+        <InputField
+          marginTp={handleSize.h(20)}
           autoCapital={'none'}
           blurOnSubmit={false}
           placeholder="Full Name"
           value={firstName}
           onChangeText={setFirstName}
           keyboardType={'default'}
-          margBtm={20}
+          margBtm={handleSize.h(20)}
         />
       </View>
     );
@@ -83,10 +75,13 @@ export default function ReplaceCard(props) {
     return (
       <View style={styles.summaryBox}>
         <Text style={styles.labelHead}>Cards will be sent to your default address:</Text>
-        <InfoRow label="Address" value={loginUserData.address_line1  || "" + " " + loginUserData.address_line2 || "" + " " + loginUserData.address_line3 || "" }/>
+        <InfoRow 
+          label="Address" 
+          value={`${loginUserData.address_line1 || ""} ${loginUserData.address_line2 || ""} ${loginUserData.address_line3 || ""}`} 
+        />
         <InfoRow label="City" value="DUMMY" />
-        <InfoRow label="Postal Code" value={loginUserData.postcode} />
-        <InfoRow label="Country" value={loginUserData.county || ""}   />
+        <InfoRow label="Postal Code" value={loginUserData.postcode || ""} />
+        <InfoRow label="Country" value={loginUserData.county || ""} />
         <View style={styles.botmLine}></View>
         <Text style={styles.valueChangeTxt}>Change Address</Text>
       </View>
@@ -96,8 +91,8 @@ export default function ReplaceCard(props) {
   function renderWarning() {
     return (
       <View style={styles.containerAlert}>
-        <View style={styles.ICONcONT}>
-          <Icon name={'alert-circle-outline'} size={25} color={THEME.primary} />
+        <View style={styles.iconCont}>
+          <Icon name={'alert-circle-outline'} size={handleSize.f(25)} color={THEME.primary} />
         </View>
         <Text style={styles.descriptionbelow}>
           Your existing card will be disabled when the new one is activated.
@@ -118,80 +113,50 @@ export default function ReplaceCard(props) {
     );
   }
 
-    
-         
   function renderPOPUP() {
     return(
-        // <FreezeCardModal
-        //   style={{ flex: 1, paddingHorizontal: 20 }}
-        //   backImg={Images.addCardGradient}
-        //   visible={modalVisible}
-        //   btnLoader={isPending || isPendingFreezUnFreezCard}
-        //   onClose={() =>{ 
-        //     if (isPending || isPendingFreezUnFreezCard) {
-        //       console.log("not allow api call");
-        //     }
-        //     else{
-        //       setModalVisible(false)
-        //     }
-        //   }}
-        //   onConfirm={openConfirmationModal}
-        //   title="Replace Card"
-        //   body={`Sure, You want to replace this card?`}
-        //   showSubBody={false}
-        //   confirmText="Yes"
-        //   downConfirmText={"Cancel"}
-        // />
-
-        <BluryModal
-          style={{ flex: 1, paddingHorizontal: 20 }}
-          onClose={() => setModalVisible(false)}
-          btnLoader={isPending || isPendingFreezUnFreezCard}
-          marginTopTitle={50}
-          onConfirm={openConfirmationModal}
-          title={"Replace Card"}
-          body={`Sure, You want to replace this card?`}
-          iconName={""}
-          confirmText={'Yes'}
-        />
+      <BluryModal
+        style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+        onClose={() => setModalVisible(false)}
+        btnLoader={isPending || isPendingFreezUnFreezCard}
+        marginTopTitle={handleSize.h(50)}
+        onConfirm={openConfirmationModal}
+        title={"Replace Card"}
+        body={`Sure, You want to replace this card?`}
+        iconName={""}
+        confirmText={'Yes'}
+      />
     )
   }
-    
-
 
   function renderModal() {
-      return (
-        <Modal
-          isVisible={modalVisible}
-          isKeyboardAvoidingView={true}
-          children={renderPOPUP()}
-          onClose={() => {
-            console.log('close');
-          }}
-        />
-      );
-    }
-
+    return (
+      <Modal
+        isVisible={modalVisible}
+        isKeyboardAvoidingView={true}
+        children={renderPOPUP()}
+        onClose={() => {}}
+      />
+    );
+  }
 
   return (
     <MainContainer
-      showBackArrow={true}
+      showBackArrow
       pressBackArrow={pressBackArrow}
-      isFlatList={true}
+      isFlatList
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
-      
       <StatusBarManager
         backgroundColor={THEME.darkSecondary} 
         barStyle="light-content" 
       />
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Replace Card</Text>
         <Text style={styles.subtitle}>
           Request a new card to replace your current one. Your old card will be deactivated once the new card is activated.
         </Text>
-
         {renderField()}
         {renderCardDetails()}
         {renderWarning()}
@@ -204,116 +169,84 @@ export default function ReplaceCard(props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
-  // title: {
-  //   fontSize: FONT_SIZES.threezero,
-  //   fontFamily: FONTFAMILY.Light,
-  //   color: THEME.white,
-  //   marginBottom: 10,
-  //   marginTop: 10,
-  // },
-  // subtitle: {
-  //   fontSize: FONT_SIZES.onesix,
-  //   fontFamily: FONTFAMILY.Light,
-  //   color: THEME.white,
-  //   marginBottom: 20,
-  // },
-
-    title: {
-    fontSize: FONT_SIZES.onesix,
+  title: {
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
-    marginTop: 10,
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10),
   },
   subtitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: 30,
-    lineHeight: 18,
+    marginBottom: handleSize.h(30),
+    lineHeight: handleSize.h(20),
   },
-
-
-  forgetTxt: { marginTop: 20, marginBottom: 20 },
-  pickerWrapper: {
-    borderWidth: 1,
-    borderColor: THEME.white,
-    borderRadius: 16,
-    marginBottom: 15,  
-  },
-  inputInnerPicker: {
-    fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
-    borderColor: THEME.gray,
-    borderWidth: 1,
-    borderRadius: 16,
-    color: THEME.white,
-    height: 56,
-    marginLeft: 10,
-  },
+  forgetTxt: { marginTop: handleSize.h(20), marginBottom: handleSize.h(20) },
   infoRow: {
     flexDirection: 'row',
     justifyContent: "space-between",
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: handleSize.h(10),
   },
   labelHead: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
-    marginVertical: 5,
+    marginVertical: handleSize.h(5),
   },
-  botmLine: { height: 1, backgroundColor: THEME.lightGray },
+  botmLine: { height: handleSize.h(1), backgroundColor: THEME.lightGray },
   label: {
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
   valueBox: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 8,
+    paddingHorizontal: handleSize.w(10),
+    paddingVertical: handleSize.h(4),
+    borderRadius: handleSize.f(8),
   },
   value: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
   valueChangeTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: FONT_SIZES.onetwo,
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     color: THEME.primary,
     textAlign: "center",
-    marginTop: 15,
-    marginBottom: 5,
+    marginTop: handleSize.h(15),
+    marginBottom: handleSize.h(5),
   },
   summaryBox: {
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
+    borderRadius: handleSize.f(10),
+    padding: handleSize.h(10),
+    marginBottom: handleSize.h(10),
   },
   containerAlert: {
     flexDirection: 'row',
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    borderRadius: 10,
-    marginTop: 10,
+    paddingVertical: handleSize.h(15),
+    paddingHorizontal: handleSize.w(10),
+    borderRadius: handleSize.f(10),
+    marginTop: handleSize.h(10),
     borderWidth: 0.4,
     borderColor: THEME.white,
   },
   descriptionbelow: {
     fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
-    marginLeft: 5,
-    lineHeight: 18,
+    marginLeft: handleSize.w(5),
+    lineHeight: handleSize.h(18),
     flex: 1,
   },
-  ICONcONT: {
-    width: 36,
-    height: 36,
+  iconCont: {
+    width: handleSize.w(36),
+    height: handleSize.w(36),
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 12,
+    borderRadius: handleSize.f(12),
   },
 });

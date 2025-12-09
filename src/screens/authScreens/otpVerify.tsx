@@ -7,6 +7,7 @@ import { useOtpVerifyViewModel } from "../../viewModels/authViewModel/useOtpVeri
 import { Images } from "../../config";
 import CustomButton from "../../components/customButton";
 import StatusBarManager from "../../components/statusBarManager";
+import { handleSize } from "../../config/responsiveTheme";
 
 const OtpVerify = () => {
   const {  pressBackArrow, handleNavigate } = useOtpVerifyViewModel();
@@ -58,14 +59,14 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    marginBottom: 10,
-    marginTop: 10, 
+    marginBottom: handleSize.h(10),
+    marginTop: handleSize.h(10), 
   },
   subtitle: {
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    lineHeight: 20,
+    lineHeight: handleSize.h(20),
     marginBottom: 16,
   },
     forgetTxt: { marginTop: 30, marginBottom: 50 }, forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: 20, marginBottom: 20 },
