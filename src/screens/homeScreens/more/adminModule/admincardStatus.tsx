@@ -10,6 +10,7 @@ import { Images } from '../../../../config';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
 import { handleSize } from '../../../../config/responsiveTheme';
+import Metrics from '../../../../styles/metrics';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: handleSize.h(50),
-    width: handleSize.w(150), // Responsive half width
+    width: Metrics.width / 2 - handleSize.w(30),
     borderColor: THEME.white,
     borderWidth: handleSize.f(1.5),
   },
@@ -206,7 +207,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: handleSize.h(50),
-    width: handleSize.w(150), // Responsive half width
+    width: Metrics.width / 2 - handleSize.w(30),
   },
   summaryBox: { borderRadius: handleSize.f(1), padding: 0, marginBottom: 0 },
   infoRow: {

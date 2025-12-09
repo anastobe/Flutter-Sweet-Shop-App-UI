@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: 'center',
     height: handleSize.h(50),
-    width: handleSize.w(Metrics.width / 2 - 30),
+    width: Metrics.width / 2 - handleSize.w(30),
     borderColor: THEME.white,
     borderWidth: handleSize.f(1.5),
   },
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: 'center',
     height: handleSize.h(50),
-    width: handleSize.w(Metrics.width / 2 - 30),
+    width: Metrics.width / 2 - handleSize.w(30),
   },
   boxShape: { 
     width: handleSize.w(20), 

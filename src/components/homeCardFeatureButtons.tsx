@@ -2,6 +2,7 @@ import React from 'react';
 import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { handleSize } from '../config/responsiveTheme';
+import Metrics from '../styles/metrics';
 
 const BUTTON_SIZE = handleSize.w(54);
 
@@ -57,7 +58,8 @@ const styles = StyleSheet.create({
   featureItem: {
     alignItems: 'center',
     height: BUTTON_SIZE,
-    width: handleSize.w(METRICS.width / 2),
+    width: Metrics.width / 2 - handleSize.w(30),
+    // width: handleSize.w(METRICS.width / 2),
   },
   button: {
     width: BUTTON_SIZE,
