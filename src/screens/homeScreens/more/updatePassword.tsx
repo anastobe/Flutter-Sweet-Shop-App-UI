@@ -8,6 +8,7 @@ import CustomButton from '../../../components/customButton';
 import useUpdatePasswordViewModel from '../../../viewModels/homeViewModel/more/useUpdatePasswordViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
+import Metrics from '../../../styles/metrics';
 
 export default function UpdatePassword() {
   const {
@@ -60,6 +61,7 @@ export default function UpdatePassword() {
       <InputField
         margTp={handleSize.h(15)}
         margBtm={handleSize.h(20)}
+        textInputStyle={styles.innerinput}
         image={secure ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
         imagetintColor={THEME.white}
@@ -74,6 +76,7 @@ export default function UpdatePassword() {
 
       <InputField
         margBtm={handleSize.h(20)}
+        textInputStyle={styles.innerinput}
         image={secure2 ? 'eye-outline' : 'eye-outline'}
         autoCapital="none"
         imagetintColor={THEME.white}
@@ -94,6 +97,7 @@ export default function UpdatePassword() {
       <InputField
         margTp={handleSize.h(30)}
         margBtm={handleSize.h(10)}
+        textInputStyle={styles.innerinput}
         image={secure3 ? 'eye-outline' : 'eye-outline'}
         autoCapital="none"
         secureEntry={secure3}
@@ -136,4 +140,16 @@ const styles = StyleSheet.create({
     marginTop: handleSize.h(10),
     marginBottom: handleSize.h(20),
   },
+  
+      innerinput: {
+      height: handleSize.h(56),
+      width:  Metrics.width - handleSize.w(90),
+      paddingLeft: handleSize.w(20),
+      fontFamily: FONTFAMILY.Regular,
+      fontSize: handleSize.f(FONT_SIZES.onefour),
+      color: THEME.white,
+      justifyContent: "center",
+    },
+  
+
 });

@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   rightIconCont: {
     width: handleSize.w(28),
     height: handleSize.h(28),
-    borderRadius: handleSize.f(50),
+    borderRadius: handleSize.f(100),
     justifyContent: "center",
     alignItems: "center",
     marginTop: handleSize.h(20),

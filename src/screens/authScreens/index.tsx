@@ -22,6 +22,7 @@ import { SHOW_CLIENT } from '../../APICall/constants';
 import BluryModal from '../../components/Modal/bluryModal';
 import StatusBarManager from '../../components/statusBarManager';
 import { handleSize } from '../../config/responsiveTheme';
+import Metrics from '../../styles/metrics';
 
 type LoginProps = {};
   
@@ -141,6 +142,7 @@ const config = {
              placeholder="Password"
              imagetintColor={THEME.white}
              value={vm.password}
+             textInputStyle={styles.innerinput}
              onPress={()=>{ vm.setSecure(!vm.secure) }}
              onChangeText={vm.setPassword}
            />
@@ -244,6 +246,17 @@ const styles = StyleSheet.create({
     marginTop: handleSize.h(50), // METRICS.height/9 → responsive
     textAlign: 'center',
   },
+
+    innerinput: {
+    height: handleSize.h(56),
+    width:  Metrics.width - handleSize.w(90),
+    paddingLeft: handleSize.w(20),
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+    justifyContent: "center",
+  },
+
 
   // ---------- Error Box ----------
   errorCont: {

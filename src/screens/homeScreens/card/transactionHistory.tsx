@@ -37,7 +37,7 @@ export default function TransactionHistory() {
           value={cardName}
           onChangeText={setCardName}
           keyboardType={'default'}
-          customInpStyle={styles.innerinput}
+          // customInpStyle={styles.innerinput}
         />
         <TouchableOpacity
           onPress={() => cardDetailRef?.current?.open()}
@@ -129,9 +129,10 @@ const styles = StyleSheet.create({
     marginVertical: handleSize.h(7),
   },
   innerinput: {  
-      height: handleSize.h(46),
-      width: Metrics.width- handleSize.w(95),
-      paddingLeft: 20,   //calculated value 
+    height: handleSize.h(46),
+    width: Metrics.width - handleSize.w(95),
+    paddingLeft: handleSize.w(40),   //calculated value 
+    paddingRight: 10,
     fontFamily: FONTFAMILY.Regular,
     fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,

@@ -15,7 +15,7 @@ import { handleSize } from '../../../../config/responsiveTheme';
 const InfoRow = ({ icon, label, value }) => (
   <View style={styles.infoRow}>
     <View style={{ flexDirection: 'row' }}>
-      <Icon name={icon} size={handleSize.f(18)} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />
+      <Icon name={icon} size={handleSize.f(20)} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />
       <Text style={styles.label}>{label}</Text>
     </View>
     <View style={styles.valueBox}>

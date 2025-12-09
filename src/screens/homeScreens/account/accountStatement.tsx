@@ -45,7 +45,7 @@ const AccountStatement = () => {
           value={cardName}
           onChangeText={setCardName}
           keyboardType={'default'}
-          customInpStyle={styles.innerinput}
+          // customInpStyle={styles.innerinput}
         />
         <TouchableOpacity
           onPress={() => {
@@ -170,7 +170,8 @@ const styles = StyleSheet.create({
   innerinput: {
     height: handleSize.h(46),
     width:  Metrics.width - handleSize.w(130),
-    paddingLeft: handleSize.w(20),
+    paddingLeft: handleSize.w(40),
+    paddingRight: 10,
     fontFamily: FONTFAMILY.Regular,
     fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
