@@ -109,6 +109,42 @@ export default function CreateVirtualCardView() {
     );
   }
 
+  
+    function renderLimitInfo() {
+      return (
+        <View style={styles.limitInfo}>
+          <Text style={styles.limitTitle}>{limitType} Limit</Text>
+  
+          <View style={{ flexDirection: "row", flexWrap: "wrap", }}>
+            <Text style={styles.limitDetail}>
+              You’ve set a limit of {" "}
+            </Text>
+          
+            <View style={{
+              backgroundColor: THEME.primary,
+              borderRadius: 6,
+              paddingHorizontal: 6,
+              paddingVertical: 2,
+              alignSelf: "center"
+            }}>
+              <Text style={styles.boldText}>€{spendingLimit || '0'}/{limitType.toLowerCase()}</Text>
+            </View>
+          
+            <Text style={styles.limitDetail}>
+              {""}for this card.
+            </Text>
+          </View>
+  
+         
+          <Text style={styles.limitNote}>
+            This means your card won’t allow spending above this amount within a
+            calendar month.
+          </Text>
+        </View>
+      );
+    }
+
+
   function renderLimitInputAndButton() {
     return (
       <View>
@@ -121,7 +157,9 @@ export default function CreateVirtualCardView() {
           maxlen={10}
         />
 
-        <View style={styles.limitInfo}>
+        {renderLimitInfo()}
+
+        {/* <View style={styles.limitInfo}>
           <Text style={styles.limitTitle}>{limitType} Limit</Text>
           <Text style={styles.limitDetail}>
             You’ve set a limit of{' '}
@@ -134,7 +172,7 @@ export default function CreateVirtualCardView() {
             This means your card won’t allow spending above this amount within a
             calendar month.
           </Text>
-        </View>
+        </View> */}
 
         <InputField
           marginTp={handleSize.h(20)}
@@ -237,7 +275,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
-    marginTop: handleSize.h(3),
+    marginTop: handleSize.h(1),
   },
   boldText: {
     fontSize: handleSize.f(FONT_SIZES.onesix),

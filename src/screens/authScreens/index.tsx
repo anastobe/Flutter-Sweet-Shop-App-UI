@@ -34,7 +34,7 @@ export const Login: React.FC = () => {
     <View style={styles.errorCont} >
 
       <View style={styles.iconCont} >
-        <Icon name={'warning-outline'} size={25} color={THEME.white} />
+        <Icon name={'warning-outline'} size={handleSize.f(25)} color={THEME.white} />
       </View>
 
       <View>

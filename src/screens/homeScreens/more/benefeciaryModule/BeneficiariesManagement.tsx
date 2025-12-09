@@ -56,7 +56,7 @@ const BeneficiariesManagement = () => {
 
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity style={[styles.butnCont]} onPress={()=>onPressDelete(item)} >
-              <Icon name="trash-outline" size={20} color={THEME.white} />
+              <Icon name="trash-outline" size={handleSize.f(20)} color={THEME.white} />
             </TouchableOpacity>
           <View style={{ transform: [{ rotate: '-45deg' }], marginLeft: 0 }}>
             <TouchableOpacity style={styles.butnCont}  onPress={onPressView}>

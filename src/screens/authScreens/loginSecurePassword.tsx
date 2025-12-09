@@ -12,6 +12,7 @@ import InputField from '../../components/textInput';
 import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
 import StatusBarManager from '../../components/statusBarManager';
+import { handleSize } from '../../config/responsiveTheme';
 
 
 type LoginSecurePasswordProps = {};
@@ -37,7 +38,7 @@ export const LoginSecurePassword: React.FC<LoginSecurePasswordProps> = ({...prop
     function renderRule(iconCondition:any,txt:any) {
         return(
           <View style={{ flexDirection: "row", paddingVertical: 5 }} >
-            <Icon name={iconCondition ?  "checkmark-circle-outline" : "close-circle-outline"} size={25} color={iconCondition ? THEME.lightred :  THEME.green  } />
+            <Icon name={iconCondition ?  "checkmark-circle-outline" : "close-circle-outline"} size={handleSize.f(25)} color={iconCondition ? THEME.lightred :  THEME.green  } />
             <Text style={{ marginLeft: 5 }}>{txt}</Text>
           </View>
         )

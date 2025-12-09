@@ -17,6 +17,7 @@ import CardDetailOptions from '../../../components/cardDetailOptions';
 import AccountDetailsCard from '../../../components/bottomSheet/accountDetailsCard';
 import { useAccountDetailViewModel } from '../../../viewModels/homeViewModel/account/useAccountDetailViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 const AccountDetail = () => {
   const {
@@ -57,7 +58,7 @@ const AccountDetail = () => {
         <View style={styles.item}>
           <View style={styles.sectionLeft}>
             <View style={styles.iconCONT}>
-              <Icon name="repeat-outline" size={20} color={THEME.white} />
+              <Icon name="repeat-outline" size={handleSize.f(20)} color={THEME.white} />
             </View>
             <Text style={styles.name}>{item.name}</Text>
           </View>

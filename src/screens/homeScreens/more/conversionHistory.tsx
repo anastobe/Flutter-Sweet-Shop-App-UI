@@ -92,7 +92,7 @@ const HistoryList = () => {
             <Text style={styles.pair}>{item.pair}</Text>
 
             <View style={styles.statusRow}>
-              <Icon name={item.icon} size={18} color={item.statusColor} />
+              <Icon name={item.icon} size={handleSize.f(18)} color={item.statusColor} />
               <Text style={[styles.status, { color: item.statusColor }]}>
                 {item.status}
               </Text>

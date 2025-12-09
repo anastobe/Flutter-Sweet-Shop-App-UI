@@ -79,7 +79,7 @@ const HomeScreen = () => {
 
       <View style={styles.headerRight}>
         <TouchableOpacity  style={styles.titlePicNotification} onPress={handleNavigateNotification}>
-          <Icon name="notifications-outline" size={18} color={THEME.textPrimary} />
+          <Icon name="notifications-outline" size={handleSize.f(18)} color={THEME.textPrimary} />
         </TouchableOpacity>
           <TouchableOpacity style={styles.titlePicBack} onPress={handleNavigateProfile} >
           <Text style={styles.titlePic}>
@@ -112,7 +112,7 @@ const renderBalanceCard = () => (
         <Text style={styles.total}>**********</Text> 
         }
           <TouchableOpacity style={{  alignItems: "center", justifyContent: "center",height: handleSize.h(50) }} onPress={()=>setshowbalance(!showbalance)} >
-        <Icon name={showbalance ? "eye-outline" : "eye-off" } style={{ top: handleSize.h(2) }} size={20} color={THEME.white} />
+        <Icon name={showbalance ? "eye-outline" : "eye-off" } style={{ top: handleSize.h(2) }} size={handleSize.f(20)} color={THEME.white} />
           </TouchableOpacity>
         </View>
 
@@ -196,7 +196,7 @@ const renderBalanceCard = () => (
           <TouchableOpacity onPress={handleNavigateTransaction} style={styles.item}>
             <View style={styles.sectionLeft}>
               <View style={styles.iconCONT}>
-                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"} size={16} color={THEME.textPrimary} />
+                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"} size={handleSize.f(16)} color={THEME.textPrimary} />
               </View>
               <View>
                 <Text style={styles.name}>{item.name}</Text>

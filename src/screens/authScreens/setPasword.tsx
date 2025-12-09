@@ -11,6 +11,7 @@ import { scale } from "react-native-size-matters";
 import { useSetPasswordViewModel } from "../../viewModels/authViewModel/useSetPasswordViewModel";
 import Icon from 'react-native-vector-icons/Ionicons';
 import StatusBarManager from "../../components/statusBarManager";
+import { handleSize } from "../../config/responsiveTheme";
 
 const SetPassword: React.FC = () => {
   const {
@@ -31,7 +32,7 @@ const SetPassword: React.FC = () => {
       <View style={{ flexDirection: "row", paddingVertical: 5 }}>
         <Icon
           name={iconCondition ? "checkmark-circle-outline" : "close-circle-outline"}
-          size={25}
+          size={handleSize.f(25)}
           color={iconCondition ? THEME.green : THEME.lightred}
         />
         <Text style={{ marginLeft: 5, color: THEME.white }}>{text}</Text>

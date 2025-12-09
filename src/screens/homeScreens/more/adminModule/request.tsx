@@ -66,7 +66,7 @@ export default function Request() {
           <TouchableOpacity onPress={()=>{ handleonPress(item) }} style={styles.item}>
             <View style={styles.iconCONTContainer}>
               <View style={styles.iconCONT}>
-                <Icon name={item.icon} size={16} color={THEME.textPrimary} />
+                <Icon name={item.icon} size={handleSize.f(16)} color={THEME.textPrimary} />
               </View>
             </View>
 

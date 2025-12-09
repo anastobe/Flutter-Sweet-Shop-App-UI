@@ -5,6 +5,7 @@ import { THEME } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNotificationViewModel } from '../../../viewModels/homeViewModel/home/useNotificationViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
+import { handleSize } from '../../../config/responsiveTheme';
 
 const Notification = () => {
   const { notifications, pressBackArrow, getNotificationIconAndColor } = useNotificationViewModel();
@@ -14,7 +15,7 @@ const Notification = () => {
 
     return (
       <View style={styles.notificationBox}>
-        <Icon name={icon} size={24} color={color} style={{ marginRight: 10 }} />
+        <Icon name={icon} size={handleSize.f(24)} color={color} style={{ marginRight: 10 }} />
         <View style={{ flex: 1 }}>
           <Text style={styles.message}>{item.message}</Text>
           <Text style={styles.time}>{item.time}</Text>

@@ -224,10 +224,9 @@ const styles = StyleSheet.create({
   inputInner: {
     fontFamily: FONTFAMILY.Regular,
     fontSize: handleSize.f(FONT_SIZES.onefour),
-    width: METRICS.width - handleSize.w(40),
     color: THEME.white,
     height: handleSize.h(56),
-    paddingLeft: handleSize.w(20),
+    paddingHorizontal: handleSize.w(20)
   },
 
   inputContainer: {

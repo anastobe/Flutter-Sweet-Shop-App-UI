@@ -122,17 +122,7 @@ export default function SetLimits({...props}) {
   </Text>
 </View>
 
-        {/* <Text style={styles.limitDetail}>
-          You've set a limit of{' '}
-          <View style={{ backgroundColor: THEME.primary, borderRadius: 6, paddingHorizontal: 3 }} >
-            <Text style={styles.boldText}>
-              €{spendingLimit || '0'}/{limitType.toLowerCase()}
-            </Text>
-          </View>
-          
-          {' '}
-          for this card.
-        </Text> */}
+       
         <Text style={styles.limitNote}>
           This means your card won’t allow spending above this amount within a
           calendar month.
