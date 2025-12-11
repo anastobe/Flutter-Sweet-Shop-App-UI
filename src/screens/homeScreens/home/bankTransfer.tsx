@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/Ionicons";
-import { MainContainer, InputDropDownStyle } from "../../../components";
+import { MainContainer, InputDropDownStyle, Modal } from "../../../components";
 import InputField from "../../../components/textInput";
 import CustomButton from "../../../components/customButton";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
@@ -11,16 +11,18 @@ import BalanceBox from "../../../components/balanceBox";
 import StatusBarManager from "../../../components/statusBarManager";
 import { handleSize } from "../../../config/responsiveTheme";
 import { useSelector } from "react-redux";
+import BluryModal from "../../../components/Modal/bluryModal";
+import { HOME_ROUTES } from "../../../constants";
 
 const BankTransfer = () => {
   const {
+    navigation,
     note, 
     setnote,
     enterAmount,
     setenterAmount,
     beneficiary,
     setBeneficiary,
-    fromAcc,
     pressBackArrow,
     handlePress,
     handleTransfer,
@@ -33,22 +35,37 @@ const BankTransfer = () => {
     fromAccount, 
     setFromAccount,
     getCurrencyAccArray, 
-    beneficiaryArray
+    beneficiaryArray,
+    isPending,
+    open, 
+    setopen,
+    modalMsg,
+    onClose
 
   } = useBankTransferViewModel();
  
-  console.log("getCurrencyAccArray==>",getCurrencyAccArray); 
+  function renderSuccess() {
+    return (
+      <Modal
+        isVisible={open}
+        isKeyboardAvoidingView={true}
+        children={<BluryModal
+            style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+            onClose={onClose}
+            btnLoader={false}
+            marginTopTitle={20}
+            onConfirm={onClose}
+            iconNameBottom={10}
+            title={"Success"}
+            body={modalMsg}
+            iconName={"checkmark-outline"}
+            confirmText={'Continue'}
+          />}
+        onClose={onClose}
+      />
+    );
+  }
   
-  
-
-  const renderRightInput = () => (
-    <View style={styles.renderRightInputContainer}>
-      <Text style={styles.inputNumber}>(Recipient Gets)</Text>
-      <View style={styles.inputNumbergbpcont}>
-        <Text style={styles.inputNumbergbp}>GBP</Text>
-      </View>
-    </View>
-  );
 
   return (
     <MainContainer
@@ -70,16 +87,6 @@ const BankTransfer = () => {
           <Text style={styles.subtitle}>
             Make local or international bank transfers.
           </Text>
-
-          {/* Account Dropdown */}
-          {/* <InputDropDownStyle
-            title={"From Account"}
-            label={fromAcc.label}
-            currency={fromAcc.currency}
-            flag={fromAcc.flag}
-            onPress={handlePress}
-          /> */}
-
           
           <InputDropDownStyle
             title="From Account"
@@ -120,14 +127,14 @@ const BankTransfer = () => {
           {/* Recipient Type */}
           <InputField
             disabled={false}
-            placeholder="Select Beneficiary"
+            placeholder="To Account"
             removeTitle={true}
             value={beneficiary?.first_name}
             enableDropdown={true}
             dropdownData={beneficiaryArray}
             margBtm={handleSize.h(15)}
-            isOpen={openDropdown === "beneficiary"}
-            onToggleDropdown={() => toggleDropdown("beneficiary")}
+            isOpen={openDropdown === "toaccount"}
+            onToggleDropdown={() => toggleDropdown("toaccount")}
             onDropdownSelect={(item: any) => 
               setBeneficiary({
                 beneficiary_id: item.id,
@@ -143,7 +150,7 @@ const BankTransfer = () => {
             removeTitle={true}
             value={note}
             onChangeText={setnote}
-            keyboardType={"numeric"}
+            keyboardType={"default"}
             maxlen={10}
             margBtm={handleSize.h(15)}
           />
@@ -151,13 +158,14 @@ const BankTransfer = () => {
           {/* Button */}
           <CustomButton
             btnContSty={styles.forgetTxt}
-            loading={false}
+            loading={isPending}
             title="Transfer Payment"
             onPress={handleTransfer}
           />
 
         </View>
       </ScrollView>
+      {renderSuccess()}
     </MainContainer>
   );
 };

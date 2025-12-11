@@ -7,6 +7,9 @@ import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
 import { useSelector } from "react-redux";
 import { Toast } from "../../../utils";
+import { useLogin } from "../../../queries/auth.query";
+import { useBankTransfer } from "../../../queries/paymentQuery/paymentQuery";
+import { HOME_ROUTES } from "../../../constants";
 
 export const useBankTransferViewModel = () => {
   const navigation = useNavigation();
@@ -15,6 +18,7 @@ export const useBankTransferViewModel = () => {
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
+  const [open, setopen] = useState(false);
   const [fromAccount, setFromAccount] = useState({
     id: "",
     available_balance: "",
@@ -33,13 +37,21 @@ export const useBankTransferViewModel = () => {
     last_name: ""
   });
   const [recipientType, setRecipientType] = useState();
-  const [fromAcc, setFromAcc] = useState({
-    label: "Clearbank Account",
-    currency: "GBP",
-    flag: Images.account,
-  });
+  const [modalMsg, setmodalMsg] = useState("");
 
-  console.log("beneficiary==>",beneficiary);
+  const { mutate: useBankTransferFunc, isPending } = useBankTransfer({
+    callback: (res: any) => {
+
+      console.log("aaaaaaaaa",res);
+      
+
+      if (res?.success) {
+        setopen(true)
+        setmodalMsg(res?.message)
+      }
+    },
+  });
+  
   
 
   const pressBackArrow = () => navigation.goBack();
@@ -51,8 +63,8 @@ export const useBankTransferViewModel = () => {
   const handleTransfer = () => {
 
 
-    if (fromAccount == null) {
-      Toast.showToast('Please Select Your Acount', '', 'error');
+    if (fromAccount.name == "") {
+      Toast.showToast('Please Select Your Account', '', 'error');
     } else if (enterAmount == "") {
       Toast.showToast('Enter Your Amount', '', 'error');
     }
@@ -64,17 +76,17 @@ export const useBankTransferViewModel = () => {
     } 
     else {
       const payload ={
-      ok__amount: enterAmount,  //user enter -done
-      ok__asset_id:  fromAccount?.id,  //ok
-      ok__banking_partner_id: loginUserData?.banking_partner_id, 
-      beneficiary_id: beneficiary.beneficiary_id, //ok
-      ok__currency_id: fromAccount?.currency_id, //ok
-      ok__reference: note //ok
+      amount: enterAmount, 
+      asset_id:  fromAccount?.id,
+      banking_partner_id: loginUserData?.banking_partner_id, 
+      beneficiary_id: beneficiary.beneficiary_id,
+      currency_id: fromAccount?.currency_id,
+      reference: note
     }
-
-      console.log("ASdasd=>",payload);
-      // // return
-
+    console.log("===>payload==>",payload);
+    
+    useBankTransferFunc(payload)
+    return
       // navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
     }
 
@@ -82,17 +94,24 @@ export const useBankTransferViewModel = () => {
     // Alert.alert("NEED",SHOW_CLIENT)
   };
 
+  function onClose() {
+      setTimeout(() => {
+        setopen(false)
+      }, 1000); 
+      navigation.navigate(HOME_ROUTES.TABSTACK, { screen: "HomeStack" });
+    }
+
   const toggleDropdown = (key: any) => {
     setOpenDropdown(openDropdown === key ? null : key);
   };
   return {
+    navigation,
     enterAmount,
     setenterAmount,
     beneficiary,
     setBeneficiary,
     recipientType,
     setRecipientType,
-    fromAcc,
     pressBackArrow,
     handlePress,
     handleTransfer,
@@ -107,7 +126,12 @@ export const useBankTransferViewModel = () => {
     getCurrencyAccArray,
     note, 
     setnote,
-    beneficiaryArray
+    beneficiaryArray,
+    isPending,
+    open, 
+    setopen,
+    modalMsg,
+    onClose
   
   };
 };

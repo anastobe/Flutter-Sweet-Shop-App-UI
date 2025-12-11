@@ -18,6 +18,13 @@ import {
 } from './auth/auth.service';
 
 import {
+    useBankTransfer
+
+
+} from './payment/payment.service';
+
+
+import {
     freezUnFreezCardNoMessage,
     useReplaceCard,
     setSpendLimit,
@@ -48,6 +55,7 @@ import {
 
 const apis = {
   userLogin,
+  useBankTransfer,
   createCard,
   getCards,
   freezUnFreezCard,
