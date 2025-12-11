@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -10,23 +10,36 @@ import { useBankTransferViewModel } from "../../../viewModels/homeViewModel/home
 import BalanceBox from "../../../components/balanceBox";
 import StatusBarManager from "../../../components/statusBarManager";
 import { handleSize } from "../../../config/responsiveTheme";
+import { useSelector } from "react-redux";
 
 const BankTransfer = () => {
   const {
-    recipientGets,
-    setRecipientGets,
-    beneficiaryBankCountry,
-    setBeneficiaryBankCountry,
-    recipientType,
-    setRecipientType,
+    note, 
+    setnote,
+    enterAmount,
+    setenterAmount,
+    beneficiary,
+    setBeneficiary,
     fromAcc,
     pressBackArrow,
     handlePress,
     handleTransfer,
     openDropdown,
-    toggleDropdown
-  } = useBankTransferViewModel();
+    toggleDropdown,
+    setOpenDropdown,
 
+    openDropdownsty, 
+    setOpenDropdownSty,
+    fromAccount, 
+    setFromAccount,
+    getCurrencyAccArray, 
+    beneficiaryArray
+
+  } = useBankTransferViewModel();
+ 
+  console.log("getCurrencyAccArray==>",getCurrencyAccArray); 
+  
+  
 
   const renderRightInput = () => (
     <View style={styles.renderRightInputContainer}>
@@ -41,7 +54,7 @@ const BankTransfer = () => {
     <MainContainer
       showBackArrow
       pressBackArrow={pressBackArrow}
-      isFlatList
+      isFlatList={false}
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
@@ -59,58 +72,80 @@ const BankTransfer = () => {
           </Text>
 
           {/* Account Dropdown */}
-          <InputDropDownStyle
+          {/* <InputDropDownStyle
             title={"From Account"}
             label={fromAcc.label}
             currency={fromAcc.currency}
             flag={fromAcc.flag}
             onPress={handlePress}
+          /> */}
+
+          
+          <InputDropDownStyle
+            title="From Account"
+            value={fromAccount}  // null = show input box
+            // data={getCurrencyAccArray}
+            data={getCurrencyAccArray}
+            isOpen={openDropdownsty}
+            onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdown(null) }}
+            onSelect={(item) =>{ 
+              setFromAccount({     
+              id: item?.id,    
+              available_balance: item?.available_balance,       
+              currency_id: item?.currency_id,
+              name: item?.currency?.name,
+              iso_code: item?.currency?.iso_code
+              })
+            }}
           />
 
           {/* Balance */}
-          <BalanceBox amount="£1,250.00" label="Available Balance" containerHeight={78} />
+          {fromAccount?.name &&
+            <BalanceBox amount={fromAccount?.iso_code +" "+ fromAccount?.available_balance}  label="Available Balance"  containerHeight={78} />}
+
 
           {/* Recipient Gets */}
           <InputField
-            renderRightInput={renderRightInput}
-            placeholder="0.00"
+            // renderRightInput={renderRightInput}
+            placeholder="Enter Amount"
             removeTitle={true}
-            value={recipientGets}
-            onChangeText={setRecipientGets}
+            value={enterAmount}
+            onChangeText={setenterAmount}
             keyboardType={"numeric"}
             maxlen={10}
             margBtm={handleSize.h(15)}
           />
 
-          {/* Bank Country Dropdown */}
-          <InputField
-            disabled={false}
-            placeholder="Beneficiary Bank Country"
-            value={beneficiaryBankCountry}
-            enableDropdown={true}
-            dropdownData={[
-              { name: "Pak" },
-              { name: "China" }
-            ]}
-            margBtm={handleSize.h(15)}
-            isOpen={openDropdown === "country"}
-            onToggleDropdown={() => toggleDropdown("country")}
-            onDropdownSelect={(item: any) => setBeneficiaryBankCountry(item.name)}
-          />
 
           {/* Recipient Type */}
           <InputField
             disabled={false}
-            placeholder="Recipient Type"
-            value={recipientType}
+            placeholder="Select Beneficiary"
+            removeTitle={true}
+            value={beneficiary?.first_name}
             enableDropdown={true}
-            dropdownData={[
-              { name: "Cash" }
-            ]}
+            dropdownData={beneficiaryArray}
             margBtm={handleSize.h(15)}
-            isOpen={openDropdown === "recepitantType"}
-            onToggleDropdown={() => toggleDropdown("recepitantType")}
-            onDropdownSelect={(item: any) => setRecipientType(item.name)}
+            isOpen={openDropdown === "beneficiary"}
+            onToggleDropdown={() => toggleDropdown("beneficiary")}
+            onDropdownSelect={(item: any) => 
+              setBeneficiary({
+                beneficiary_id: item.id,
+                first_name: item.first_name,
+                last_name: item.last_name
+              })
+            }
+          />
+
+          <InputField
+            // renderRightInput={renderRightInput}
+            placeholder="Enter Note / Refrence"
+            removeTitle={true}
+            value={note}
+            onChangeText={setnote}
+            keyboardType={"numeric"}
+            maxlen={10}
+            margBtm={handleSize.h(15)}
           />
 
           {/* Button */}

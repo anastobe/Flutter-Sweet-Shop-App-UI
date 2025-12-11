@@ -16,8 +16,16 @@ export const useLoginViewModel = (navigation: any) => {
 
   // const countryList = useSelector((state: any) => state);
   
-  const [email, setEmail] = useState("hlahooti@frontier-pay.com");
-  const [password, setPassword] = useState("test-post-auth@Front1er");
+  //   "username": "uhf-personal",       //indi
+  // "password": "Pass@123",
+
+  //coperate
+  const [email, setEmail] = useState("new-user");
+  const [password, setPassword] = useState("Uhf@1234");
+
+  //user,individual
+  // const [email, setEmail] = useState("uhf-personal");
+  // const [password, setPassword] = useState("Pass@123");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
   const [Open, setOpen] = useState({

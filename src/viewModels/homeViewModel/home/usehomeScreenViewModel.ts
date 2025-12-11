@@ -63,8 +63,9 @@ const fetchAllInitialData = async () => {
   try {
     dispatch(handleLoader(true));
 
-    const [userDetailRes, countryRes, currencyRes, assetTypeRes, currencyAccountRes] =
+    const [beneficiaryList, userDetailRes, countryRes, currencyRes, assetTypeRes, currencyAccountRes] =
     await Promise.all([
+      apis.getBeneficiaryDetail(dispatch),
       apis.getUserDetail(dispatch),
       apis.getCoutry(dispatch),
       apis.getCurrency(dispatch),
@@ -118,7 +119,8 @@ const onSelectCurrency = (asset: any) => {
   setShowCurrencyDropdown(false);
 };
 
-   const personal_customers = loginUserData?.personal_customers?.length && loginUserData?.personal_customers[0]
+
+   const personal_customers = loginUserData?.customer_type == "personal" ? loginUserData?.personal_customers[0] : loginUserData
   
   return {
     Sendoption,

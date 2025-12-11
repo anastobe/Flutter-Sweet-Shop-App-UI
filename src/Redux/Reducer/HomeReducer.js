@@ -2,7 +2,8 @@ import ActionType from '../Action/ActionType/actionType';
 
 const initialState = {
   loginUserData: {},
-  getCurrencyAccArray: []
+  getCurrencyAccArray: [],
+  beneficiaryArray: []
 };
 
 export default (state = initialState, action) => {
@@ -19,12 +20,19 @@ export default (state = initialState, action) => {
         ...state,
         getCurrencyAccArray: action.payload,
       };
+      case ActionType.GET_BENEFICIARY:
+      return {
+        ...state,
+        beneficiaryArray: action.payload,
+      };
+      
 
       case ActionType.LOGOUT:
       return {
         ...state,
         loginUserData: {},
-        getCurrencyAccArray: []
+        getCurrencyAccArray: [],
+        beneficiaryArray: []
       };
 
     default:

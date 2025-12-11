@@ -6,6 +6,7 @@ export default class ActionType {
   static LOADER = 'LOADER'; 
   static GET_COUNTRY = 'GET_COUNTRY';
   static GET_CURRENCY = 'GET_CURRENCY';
+  static GET_BENEFICIARY = 'GET_BENEFICIARY';
   static GET_ACCOUNT_TYPE_DATA = 'GET_ACCOUNT_TYPE_DATA';
-    static GET_CURR_ACCOUNTS = 'GET_CURR_ACCOUNTS';
+  static GET_CURR_ACCOUNTS = 'GET_CURR_ACCOUNTS';
 }

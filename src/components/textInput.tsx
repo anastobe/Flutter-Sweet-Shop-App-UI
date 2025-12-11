@@ -201,7 +201,7 @@ return (
                   style={[styles.row,{ borderBottomWidth: filtered?.length - 1 == index  ? 0 : 0.2 }]}
                 >
               <Text style={styles.rowText}>
-                {item.label || item?.currency?.name || item.name || item.iso_code || `${item.format} (.... .... .... ${item.pan})`}
+                {item.label || `${item.first_name} ${item.last_name}` || item?.currency?.name || item.name || item.iso_code || `${item.format} (.... .... .... ${item.pan})`}
               </Text>
             </Pressable>
           )}

@@ -5,10 +5,16 @@ import { BeneficiaryResponse } from "../../models/more/beneficiaryResponse.model
 import { CountryApiResponse } from "../../models/more/countryApiResponse.model";
 import { CurrencyApiResponse } from "../../models/more/currencyApiResponse.model";
 import { AssetTypeApiResponse } from "../../models/more/assetTypeApiResponse.model";
+import { saveBeneficiaryData } from "../../Redux/Action/Home/HomeActions";
 
 // Get all beneficiaries
 export const getBeneficiaryDetail = async (dispatch: any): Promise<BeneficiaryResponse[]> => {
   const response = await axiosInstance('/beneficiary', 'GET', undefined,false);
+
+  if (response?.success) {
+    dispatch(saveBeneficiaryData(response?.results))  
+  }
+  
   return response;
 };
 

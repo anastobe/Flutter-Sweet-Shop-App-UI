@@ -13,3 +13,10 @@ export const storeLoginUserData = (res) => {
       dispatch({type: ActionType.GET_CURR_ACCOUNTS, payload: res });
   };
   };
+
+  export const saveBeneficiaryData = (res) => {
+  return dispatch => {
+      dispatch({type: ActionType.GET_BENEFICIARY, payload: res });
+  };
+  };
+  

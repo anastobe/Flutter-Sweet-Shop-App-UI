@@ -8,11 +8,9 @@ import { AssetsResponse } from "../../models/home/assetsResponse.model";
 export const getUserDetail = async (dispatch: any): Promise<CustomersResponse> => {
   const response = await axiosInstance('/user/detail', 'GET', undefined, false);
 
-  console.log("getUserDetail=>",response);
-  
 
-  if (response?.results?.length) {
-    dispatch(storeLoginUserData(response.results[0]));
+  if (response?.results) {
+    dispatch(storeLoginUserData(response.results));
   }
   return response;
 };
@@ -20,8 +18,8 @@ export const getUserDetail = async (dispatch: any): Promise<CustomersResponse> =
 // Get all currency accounts
 export const getCurrencyAccount = async (dispatch: any): Promise<AssetsResponse> => {
   const response = await axiosInstance('/assets/all', 'GET', undefined, false);
-  if (response?.results) {
+  if (response?.success) {
     dispatch(storeCurrArrayData(response.results));
-  }
+  } 
   return response;
 };
