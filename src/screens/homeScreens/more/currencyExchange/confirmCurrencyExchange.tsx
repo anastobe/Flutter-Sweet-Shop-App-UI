@@ -24,7 +24,7 @@ const InfoRow = ({ icon, label, value }) => (
   </View>
 );
 
-const ConfirmCurrencyExchange = () => {
+const ConfirmCurrencyExchange = ({...props}) => {
   const {
     sendFrom,
     setSendFrom,
@@ -38,7 +38,7 @@ const ConfirmCurrencyExchange = () => {
     onPressBtn,
     toggleDropdown,
     openDropdown
-  } = useConfirmCurrencyExchangeViewModel();
+  } = useConfirmCurrencyExchangeViewModel(props);
 
   const renderCardDetails = () => (
     <View style={styles.summaryBox}>

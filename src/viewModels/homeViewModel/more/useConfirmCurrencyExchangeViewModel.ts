@@ -5,8 +5,9 @@ import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import { HOME_ROUTES } from '../../../constants';
 
-export default function useConfirmCurrencyExchangeViewModel() {
+export default function useConfirmCurrencyExchangeViewModel({...props}) {
   const navigation = useNavigation();
 
   const [openDropdown, setOpenDropdown] = useState(null); 
@@ -20,9 +21,14 @@ export default function useConfirmCurrencyExchangeViewModel() {
   };
 
   const onPressBtn = () => {
-    console.log('Pressed Create Order');
-    Alert.alert("NEED",SHOW_CLIENT)
-    // You can place API logic here later if needed
+    if (props?.route?.params?.key == "international") {
+      navigation.navigate(HOME_ROUTES.INTERNATIONAL_TRANSFER,{ key: props?.route?.params?.key })
+    } else if (props?.route?.params?.key == "myaccount") {
+      navigation.navigate(HOME_ROUTES.MY_ACCOUNT_TRANSFER,{ key: props?.route?.params?.key })
+    }
+    else {
+      console.log('key do');
+    }
   };
 
   const toggleDropdown = (key: any) => {

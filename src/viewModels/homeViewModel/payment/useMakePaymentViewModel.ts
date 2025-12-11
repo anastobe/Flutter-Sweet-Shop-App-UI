@@ -3,6 +3,7 @@ import { PAYMENT_OPTION } from "../../../utils/data";
 import { useEffect } from "react";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
+import { HOME_ROUTES } from "../../../constants";
 
 export const useMakePaymentViewModel = () => {
   const navigation = useNavigation(); 
@@ -11,8 +12,9 @@ export const useMakePaymentViewModel = () => {
     navigation.goBack();
   };
 
-  const handleNavigate = (route: string) => {
-    navigation.navigate(route as never);
+  const handleNavigate = (route: string, key: any) => {
+    navigation.navigate(route,{key: key});
+    // navigation.navigate(HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE)
   }; 
 
   return {

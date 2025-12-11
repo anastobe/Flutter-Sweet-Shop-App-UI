@@ -10,7 +10,7 @@ import BalanceBox from '../../../components/balanceBox';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
 
-const InternationalTransfer = () => {
+const InternationalTransfer = ({...props}) => {
   const navigation = useNavigation();
 
   const {
@@ -24,6 +24,9 @@ const InternationalTransfer = () => {
     openDropdown,
     toggleDropdown
   } = useInternationalTransferViewModel();
+
+  console.log("ASdasdas",props?.route?.params);
+  
 
   function pressBackArrow() {
     navigation.goBack();

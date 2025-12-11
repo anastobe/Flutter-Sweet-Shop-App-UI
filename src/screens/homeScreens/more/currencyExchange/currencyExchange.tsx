@@ -11,7 +11,7 @@ import useCurrencyExchangeViewModel from '../../../../viewModels/homeViewModel/m
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
 
-const CurrencyExchange = () => {
+const CurrencyExchange = ({...props}) => {
   const {
     sendFrom,
     setSendFrom,
@@ -20,8 +20,9 @@ const CurrencyExchange = () => {
     pressBackArrow,
     onPressBtn,
     toggleDropdown,
-    openDropdown
-  } = useCurrencyExchangeViewModel();
+    openDropdown,
+  } = useCurrencyExchangeViewModel(props);
+  
 
   const renderRightInput = () => (
     <View style={styles.renderRightInputContainer}>
@@ -37,7 +38,7 @@ const CurrencyExchange = () => {
       <InputField
         // customInpStyle={{ paddingRight: 100, backgroundColor: "red" }}
         renderRightInput={renderRightInput}
-        margTp={30}
+        margTp={10}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="0.00"

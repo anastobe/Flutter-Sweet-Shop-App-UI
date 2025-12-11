@@ -5,7 +5,7 @@ import { HOME_ROUTES } from '../../../constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 
-export default function useCurrencyExchangeViewModel() {
+export default function useCurrencyExchangeViewModel({...props}) {
   const navigation = useNavigation();
 
   const [openDropdown, setOpenDropdown] = useState(null); 
@@ -19,7 +19,7 @@ export default function useCurrencyExchangeViewModel() {
 
   // 🔁 Button action
   const onPressBtn = () => {
-    navigation.navigate(HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE);
+    navigation.navigate(HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE,{ key: props?.route?.params?.key });
   };
 
   const toggleDropdown = (key: any) => {

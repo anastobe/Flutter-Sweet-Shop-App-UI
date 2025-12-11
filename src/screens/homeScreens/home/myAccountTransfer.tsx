@@ -23,7 +23,7 @@ const InfoRow = ({ icon, label, value }) => (
 );
 
 
-const MyAccountTransfer = () => {
+const MyAccountTransfer = ({...props}) => {
   const {
     amountSpend,
     setAmountSpend,
@@ -33,6 +33,8 @@ const MyAccountTransfer = () => {
     handlePress,
     onTransfer,
   } = useMyAccountTransferViewModel();
+
+  console.log("ASdasdas",props?.route?.params);
 
   const renderRightInput = () => (
     <View style={styles.rightInputContainer}>

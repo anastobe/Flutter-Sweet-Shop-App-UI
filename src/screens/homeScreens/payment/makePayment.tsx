@@ -20,7 +20,7 @@ const MakePayment = () => {
 
   const renderItem = ({ item }: { item: any }) => (
     <TouchableOpacity
-      onPress={() => handleNavigate(item.route)}
+      onPress={() => handleNavigate(item.route, item.key)}
       style={styles.item}
       activeOpacity={0.8}
     >

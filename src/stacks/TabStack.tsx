@@ -247,6 +247,16 @@ const PaymentStack = () => {
           component={AccountDetail}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+        name={HOME_ROUTES.CURRENCY_EXCHANGE}
+        component={CurrencyExchange}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name={HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE}
+        component={ConfirmCurrencyExchange}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
