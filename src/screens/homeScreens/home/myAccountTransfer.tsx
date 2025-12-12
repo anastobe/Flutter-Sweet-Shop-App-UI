@@ -31,7 +31,7 @@ const InfoRow = ({ icon, label, value }) => (
 );
 
 
-const BankTransfer = ({...props}) => {
+const MyAccountTransfer = ({...props}) => {
   const {
     navigation,
     note, 
@@ -228,7 +228,7 @@ const BankTransfer = ({...props}) => {
   );
 };
 
-export default BankTransfer;
+export default MyAccountTransfer;
 
 const styles = StyleSheet.create({
   container: { 
