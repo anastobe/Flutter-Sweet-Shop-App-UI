@@ -1,15 +1,22 @@
 import {useMutation, useQuery} from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
-import {  storeUserToken } from '../../Redux/Action/Auth/AuthActions';
+import {  handleLoader, storeUserToken } from '../../Redux/Action/Auth/AuthActions';
 import { Auth_ROUTES, HOME_ROUTES } from '../../constants';
 import QueryKey from '../queryKey';
 import { Toast } from '../../utils';
 import apis from '../../services';
 
-export const usePaymentTransfer = ({callback} : {callback: (res: any) => void}) => {
+export const usePaymentTransfer = (
+  {callback, onError} 
+  : 
+  {callback: (res: any) => void, onError: (res: any) => void}
+) => {
   const dispatch = useDispatch();
 
   return useMutation({
+  onMutate: () => {
+    dispatch(handleLoader(true));
+  },
     mutationFn: apis.usePaymentTransfer,
     onSuccess: async (response: any) => {
       if (response.success) {
@@ -17,14 +24,13 @@ export const usePaymentTransfer = ({callback} : {callback: (res: any) => void}) 
       }
   },
     onError: (error: any) => {
-      // this is usually a network/server-side error
-      console.log('usePaymentTransfer error:', error);
-      // onErrorCallback?.(error?.message || 'Something went wrong');
+      onError(error)
+    },
+    onSettled: () => {
+      dispatch(handleLoader(false));
     }
   });
 };
-
-
 
 export const useFXConversion = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
@@ -44,3 +50,32 @@ export const useFXConversion = ({callback} : {callback: (res: any) => void}) => 
   });
 };
 
+
+export const useMyAccount_InternationalTransfer = (
+  {callback, onError} 
+  : 
+  {callback: (res: any) => void, onError: (res: any) => void}
+) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+  onMutate: () => {
+    console.log("start");
+    
+    dispatch(handleLoader(true));
+  },
+    mutationFn: apis.useMyAccount_InternationalTransfer,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+      }
+  },
+    onError: (error: any) => {
+      onError(error)
+    },
+    onSettled: () => {
+          console.log("end");
+      dispatch(handleLoader(false));
+    }
+  });
+};

@@ -20,7 +20,7 @@ import {
 import {
     usePaymentTransfer,
     useFXConversion,
-
+    useMyAccount_InternationalTransfer
 
 } from './payment/payment.service';
 
@@ -58,6 +58,7 @@ const apis = {
   userLogin,
   usePaymentTransfer,
   useFXConversion,
+  useMyAccount_InternationalTransfer,
   createCard,
   getCards,
   freezUnFreezCard,

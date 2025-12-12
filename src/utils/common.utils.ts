@@ -42,6 +42,7 @@ function capitalizeFirstLetter(string: any) {
 
 const RegEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
+const RegixNumbersOnly = /^[0-9]+$/
 
 const timeHumanize = (time: string): string => {
   const now = moment();
@@ -191,6 +192,7 @@ export default {
   objectContainsKey,
   handleScrollToBottom,
   RegEmail,
+  RegixNumbersOnly,
   timeHumanize,
   // handleDynamicLinks,
   formatDateTime,

@@ -25,7 +25,7 @@ export const InputDropDownStyle = ({
   onToggle = () => {},
 }) => {
 
-  console.log("data==>",data);
+  // console.log("data==>",data);
   
   const anim = useRef(new Animated.Value(0)).current;
 

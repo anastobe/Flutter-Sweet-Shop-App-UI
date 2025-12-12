@@ -1,21 +1,21 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Images } from "../../../config";
 import { SHOW_CLIENT } from "../../../APICall/constants";
 import { Alert } from "react-native";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
 import { useSelector } from "react-redux";
-import { Toast } from "../../../utils";
+import { CommonUtils, Toast } from "../../../utils";
 import { useLogin } from "../../../queries/auth.query";
-import { usePaymentTransfer } from "../../../queries/paymentQuery/paymentQuery";
+import { useFXConversion, usePaymentTransfer,useMyAccount_InternationalTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
 
 export const useMyAccountTransferViewModel = ({...props}) => {
   const navigation = useNavigation();
 
-  console.log("useMyAccountTransferViewModel=>",props?.route?.params?.data);
-
+  // console.log("useMyAccountTransferViewModel=>",props?.route?.params?.data);
+  const paymentconfrm = useRef(null); 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
@@ -29,7 +29,13 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     name: "",
     iso_code: ""
   });
- 
+  const [convertrate, setconvertrate] = useState({
+    quoteId: "",
+    conversion_Fee: "0",
+    total_After_Fee: "0",
+    Exchange_Rate_Live: "0"
+  });
+  
   const [note, setnote] = useState(""); 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [enterAmount, setenterAmount] = useState("");
@@ -41,30 +47,108 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     name: "",
     iso_code: ""
   });
- 
+
   
   // const [beneficiary, setBeneficiary] = useState({
-  //   beneficiary_id: "",
+    //   beneficiary_id: "",
   //   first_name: "",
   //   last_name: ""
   // });
   const [recipientType, setRecipientType] = useState();
-  const [modalMsg, setmodalMsg] = useState("");
-
-  const { mutate: usePaymentTransferFunc, isPending } = usePaymentTransfer({
+  const [modalMsg, setmodalMsg] = useState({
+    msg: "",
+    status: false 
+  });
+   
+  const { mutate: useFXConversionFunc, isPending: isPendinguseFXConversion } = useFXConversion({
     callback: (res: any) => {
+      if (res?.success) {
+        const rateObj = res?.results?.[0];
+    
+        if (rateObj) {
+          setconvertrate({
+            quoteId: rateObj?.quoteId,
+            conversion_Fee: "£2.00", // you can update based on API
+            total_After_Fee: rateObj?.settlementAmount?.toString() ?? "",
+            Exchange_Rate_Live: `1 ${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`
+          });
+        }
+      }
+    },
+  });
 
-      console.log("aaaaaaaaa",res);
+  const { mutate: useMyAccount_InternationalTransferFunc, isPending } = useMyAccount_InternationalTransfer({
+    callback: (res: any) => {
       
-
+      console.log("succes useMyAccount_InternationalTransfer",res);
+      
       if (res?.success) {
         setopen(true)
-        setmodalMsg(res?.message)
+        setmodalMsg({
+          msg: res?.message,
+          status: res?.success 
+        })
       }
+    },
+    onError: (error: any) => {
+
+      console.log("error useMyAccount_InternationalTransfer==>",error);
+        setopen(true)
+        setmodalMsg({
+          msg: error?.message,
+          status: error?.success 
+        })
     },
   });
   
   
+    function debounce(func, delay) {
+      let timeout;
+      return (...args) => {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func(...args);
+        }, delay);
+      };
+    }
+  
+    const fetchFxRate = async () => {
+    try {
+      if (!fromAccount?.id || !toAccount?.id || !enterAmount) return;
+  
+      const payload ={
+        itemsToQuote: [
+          {
+             fromCurrency:  fromAccount?.iso_code,
+            toCurrency: toAccount?.iso_code,
+            amount: enterAmount
+          }
+        ]
+      }
+
+      console.log("payload==>",payload);
+      
+  
+      useFXConversionFunc(payload)
+  
+
+    } catch (e) {
+      console.log("FX API ERROR =>", e);
+    }
+  };
+
+  const debouncedFetchFxRate = debounce(fetchFxRate, 700); // 700ms delay after typing stops
+
+  useEffect(() => {
+  if (
+    fromAccount?.id &&
+    toAccount?.id &&
+    enterAmount &&
+    Number(enterAmount) > 0
+  ) {   
+    debouncedFetchFxRate();  // <-- THIS IS IMPORTANT    
+  }
+}, [fromAccount?.id, toAccount?.id, enterAmount]);
 
   const pressBackArrow = () => navigation.goBack();
 
@@ -72,15 +156,32 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     console.log("From Account pressed");
   };
 
+   
+  function ApiCall() {
+    const payload = {
+      purpose: note,
+      amount: enterAmount,
+      quote_id: convertrate.quoteId,  
+      from_currency_id: fromAccount.currency_id, 
+      to_currency_id: toAccount?.currency_id, //in international beneficiary ki currency id jayegi or in my account transfer to_asset ki currency id jayegi
+      from_asset: fromAccount?.id,
+      to_asset: toAccount?.id,  // my acccount transfer
+      is_internal: true
+    }
+    useMyAccount_InternationalTransferFunc(payload)
+  }
+  
   const handleTransfer = () => {
 
-
-    if (fromAccount.name == "") {
+    if (fromAccount.id == "") {
       Toast.showToast('Please Select Your Account', '', 'error');
     } else if (enterAmount == "") {
-      Toast.showToast('Enter Your Amount', '', 'error');
+      Toast.showToast('Enter Your Amount', '', 'error'); 
     }
-    else if (toAccount.name == "") {
+     else if (!CommonUtils.RegixNumbersOnly.test(enterAmount)) {
+      Toast.showToast('Enter Correct Amount', '', 'error'); 
+    }
+    else if (toAccount.id == "") {
       Toast.showToast('Select To Account', '', 'error');
     } 
     else if (note == "") {
@@ -89,29 +190,27 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     else if (toAccount?.id == fromAccount?.id) {
       Toast.showToast('Choose Another Account', '', 'error');
     } 
+    else if (enterAmount > fromAccount?.available_balance) {
+      Toast.showToast('Amount is greater than Available Balance', '', 'error');
+    } 
+    else if (convertrate.quoteId == "") {
+      Toast.showToast('Could not initiate payment', '', 'error');
+    }
     else {
-      const payload ={
-      amount: enterAmount, 
-      asset_id:  fromAccount?.id,
-      banking_partner_id: loginUserData?.banking_partner_id, 
-      beneficiary_id: toAccount?.id,
-      currency_id: fromAccount?.currency_id,
-      reference: note
+      fetchFxRate();  // <-- THIS IS IMPORTANT  
+      paymentconfrm?.current?.open()
     }
-    console.log("===>payload==>",payload);
-    
-    usePaymentTransferFunc(payload)
-    }
-
-    // fromAccount
-    // Alert.alert("NEED",SHOW_CLIENT)
   };
 
-  function onClose() {
-      setTimeout(() => {
+  function onClose(status: boolean) {
+      if (status) {
+        setTimeout(() => {
+          setopen(false)
+        }, 1000); 
+        navigation.navigate(HOME_ROUTES.TABSTACK, { screen: "HomeStack" });
+      } else {
         setopen(false)
-      }, 1000); 
-      navigation.navigate(HOME_ROUTES.TABSTACK, { screen: "HomeStack" });
+      }
     }
 
   const toggleDropdown = (key: any) => {
@@ -119,6 +218,7 @@ export const useMyAccountTransferViewModel = ({...props}) => {
   };
   return {
     navigation,
+    paymentconfrm,
     enterAmount,
     setenterAmount,
     // beneficiary,
@@ -143,12 +243,15 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     setnote,
     beneficiaryArray,
     isPending,
+    isPendinguseFXConversion,
     open, 
     setopen,
     modalMsg,
     onClose,
     openDropdownstyToAcc, 
-    setOpenDropdownStyToAcc
+    setOpenDropdownStyToAcc,
+    convertrate,
+    ApiCall
   
   };
 };

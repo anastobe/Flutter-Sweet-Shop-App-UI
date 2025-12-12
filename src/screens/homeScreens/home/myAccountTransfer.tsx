@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/Ionicons";
-import { MainContainer, InputDropDownStyle, Modal } from "../../../components";
+import { MainContainer, InputDropDownStyle, Modal, BottomSheet } from "../../../components";
 import InputField from "../../../components/textInput";
 import CustomButton from "../../../components/customButton";
-import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
+import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from "../../../styles";
 import BalanceBox from "../../../components/balanceBox";
 import StatusBarManager from "../../../components/statusBarManager";
 import { handleSize } from "../../../config/responsiveTheme";
@@ -14,6 +14,9 @@ import BluryModal from "../../../components/Modal/bluryModal";
 import { HOME_ROUTES } from "../../../constants";
 import { useMyAccountTransferViewModel } from "../../../viewModels/homeViewModel/home/useMyAccountTransferViewModel";
 import { Images } from "../../../config";
+import FingerPrintContent from "../../../components/bottomSheet/fingerPrintContent";
+import ConfrmPayment from "../../../components/bottomSheet/confrmPayment";
+import { LoaderFullScreenComponent } from "../../../components/activityIndicator";
 
 
 // ---------- Reusable ----------
@@ -53,12 +56,16 @@ const BankTransfer = ({...props}) => {
     getCurrencyAccArray, 
     beneficiaryArray,
     isPending,
+    isPendinguseFXConversion,
     open, 
     setopen,
     modalMsg,
     onClose,
     openDropdownstyToAcc, 
-    setOpenDropdownStyToAcc
+    setOpenDropdownStyToAcc,
+    convertrate,
+    paymentconfrm,
+    ApiCall
 
   } = useMyAccountTransferViewModel(props);
  
@@ -69,17 +76,17 @@ const BankTransfer = ({...props}) => {
         isKeyboardAvoidingView={true}
         children={<BluryModal
             style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-            onClose={onClose}
+            onClose={()=>onClose(modalMsg.status)}
             btnLoader={false}
             marginTopTitle={20}
-            onConfirm={onClose}
+            onConfirm={()=>onClose(modalMsg.status)}
             iconNameBottom={10}
-            title={"Success"}
-            body={modalMsg}
-            iconName={"checkmark-outline"}
-            confirmText={'Continue'}
+            title={modalMsg.status ? "Success" : "Error"}
+            body={modalMsg.msg}
+            iconName={modalMsg.status ? "checkmark-outline" : "close-outline"}
+            confirmText={'Ok'}
           />}
-        onClose={onClose}
+        onClose={()=>onClose(modalMsg.status)}
       />
     );
   }
@@ -115,7 +122,7 @@ const BankTransfer = ({...props}) => {
             data={getCurrencyAccArray}
             isOpen={openDropdownsty}
             onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
-            onSelect={(item) =>{ 
+            onSelect={(item) =>{               
               setFromAccount({     
               id: item?.id,    
               available_balance: item?.available_balance,       
@@ -175,26 +182,47 @@ const BankTransfer = ({...props}) => {
           />
 
           {/* Summary */}
-           <View style={styles.summaryBox}>
-             <InfoRow icon={Images.add} label="Conversion Fee" value="£2.00" />
-             <InfoRow icon={Images.add} label="Total After Fee" value="£1002.00" />
-             <InfoRow
-               icon={Images.exchangeRate}
-               label="Exchange Rate (Live)"
-               value="1 GBP = 1.1425 EUR"
-             />
+            <View style={styles.summaryBox}>
+            <InfoRow icon={Images.add} label="Conversion Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.conversion_Fee} />
+            <InfoRow icon={Images.add} label="Total After Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.total_After_Fee} />
+            <InfoRow icon={Images.exchangeRate} label="Exchange Rate (Live)" value={isPendinguseFXConversion ? "...loading" :convertrate.Exchange_Rate_Live} />
            </View>
 
           {/* Button */}
           <CustomButton
             btnContSty={styles.forgetTxt}
-            loading={isPending}
+            loading={false}
             title="Transfer Payment"
             onPress={handleTransfer}
           />
 
         </View>
       </ScrollView>
+
+
+       <BottomSheet
+         height={400}
+         maxHeightPercent={0.65}   // optional, override for screen
+         draggable={false}
+         openTime={500}
+         closeDuration={500}
+         bottomSheetRef={paymentconfrm}
+         children={<ConfrmPayment
+              fromAccount={fromAccount}
+              toAccount={toAccount}
+              Amount={enterAmount}
+              refrence={paymentconfrm} 
+              onPress={ApiCall}
+              style={{ flex: 1, paddingHorizontal: 20 }}
+              title="Confirm Payment"  
+              subtitle="Confirm Payment" 
+              convertrate={convertrate}
+              loading={isPendinguseFXConversion}
+              loadingBtn={isPending}
+            />}
+        />
+      
+
       {renderSuccess()}
     </MainContainer>
   );
@@ -299,7 +327,7 @@ const styles = StyleSheet.create({
   },
 
   forgetTxt: { 
-    marginTop: handleSize.h(20), 
+    marginTop: handleSize.h(10), 
     marginBottom: handleSize.h(20) 
   },
   

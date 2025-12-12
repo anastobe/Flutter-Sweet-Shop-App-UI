@@ -68,7 +68,7 @@ const axiosInstance = async (
     
 
     MessageHandler(errorResponse);
-    throw error;
+    throw errorResponse;
   }
 };
 
