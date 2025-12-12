@@ -4,6 +4,8 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import { useFXConversion } from '../../../queries/paymentQuery/paymentQuery';
+import { Toast } from '../../../utils';
 
 export default function useCurrencyExchangeViewModel({...props}) {
   const navigation = useNavigation();
@@ -12,6 +14,14 @@ export default function useCurrencyExchangeViewModel({...props}) {
   const [sendFrom, setSendFrom] = useState('');
   const [receiveIn, setReceiveIn] = useState('');
 
+  const { mutate: useFXConversionFunc, isPending } = useFXConversion({
+    callback: (res: any) => {
+      if (res?.success) {
+        navigation.navigate(HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE,{ key: props?.route?.params?.key, data: res?.results });
+      }
+    },
+  });
+
   // 🔙 Back button
   const pressBackArrow = () => {
     navigation.goBack();
@@ -19,7 +29,33 @@ export default function useCurrencyExchangeViewModel({...props}) {
 
   // 🔁 Button action
   const onPressBtn = () => {
-    navigation.navigate(HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE,{ key: props?.route?.params?.key });
+
+    //  if (fromAccount.name == "") {
+    //       Toast.showToast('Please Select Your Account', '', 'error');
+    //     } else if (enterAmount == "") {
+    //       Toast.showToast('Enter Your Amount', '', 'error');
+    //     }
+    //     else if (beneficiary.beneficiary_id == "") {
+    //       Toast.showToast('Select Beneficiary', '', 'error');
+    //     } 
+    //     else if (note == "") {
+    //       Toast.showToast('Enter Your Note/Refrence', '', 'error');
+    //     } 
+    //     else {
+          const payload ={
+            itemsToQuote: [
+              {
+                fromCurrency: "USD",
+                toCurrency: "EUR",
+                amount: 1000
+              }
+            ]
+          }
+        console.log("===>payload==>",payload);
+        
+        useFXConversionFunc(payload)
+        // }
+
   };
 
   const toggleDropdown = (key: any) => {
@@ -33,6 +69,7 @@ export default function useCurrencyExchangeViewModel({...props}) {
     pressBackArrow,
     onPressBtn,
     toggleDropdown,
-    openDropdown
+    openDropdown,
+    isPending
   };
 }

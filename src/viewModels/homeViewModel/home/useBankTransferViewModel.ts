@@ -8,7 +8,7 @@ import { THEME } from "../../../styles";
 import { useSelector } from "react-redux";
 import { Toast } from "../../../utils";
 import { useLogin } from "../../../queries/auth.query";
-import { useBankTransfer } from "../../../queries/paymentQuery/paymentQuery";
+import { usePaymentTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
 
 export const useBankTransferViewModel = () => {
@@ -39,7 +39,7 @@ export const useBankTransferViewModel = () => {
   const [recipientType, setRecipientType] = useState();
   const [modalMsg, setmodalMsg] = useState("");
 
-  const { mutate: useBankTransferFunc, isPending } = useBankTransfer({
+  const { mutate: usePaymentTransferFunc, isPending } = usePaymentTransfer({
     callback: (res: any) => {
 
       console.log("aaaaaaaaa",res);
@@ -85,7 +85,7 @@ export const useBankTransferViewModel = () => {
     }
     console.log("===>payload==>",payload);
     
-    useBankTransferFunc(payload)
+    usePaymentTransferFunc(payload)
     return
       // navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
     }

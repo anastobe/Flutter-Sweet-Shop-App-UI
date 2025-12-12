@@ -21,6 +21,7 @@ const CurrencyExchange = ({...props}) => {
     onPressBtn,
     toggleDropdown,
     openDropdown,
+    isPending
   } = useCurrencyExchangeViewModel(props);
   
 
@@ -78,7 +79,7 @@ const CurrencyExchange = ({...props}) => {
     <CustomButton
       btnContSty={styles.forgetTxt}
       title="Get Rate"
-      loading={false}
+      loading={isPending}
       onPress={onPressBtn}
     />
   );

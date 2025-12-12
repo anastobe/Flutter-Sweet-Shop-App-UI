@@ -1,15 +1,20 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import { MainContainer, InputDropDownStyle } from '../../../components';
-import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
-import Icon from 'react-native-vector-icons/Ionicons';
-import InputField from '../../../components/textInput';
-import CustomButton from '../../../components/customButton';
-import { useMyAccountTransferViewModel } from '../../../viewModels/homeViewModel/home/useMyAccountTransferViewModel';
-import { Images } from '../../../config';
-import BalanceBox from '../../../components/balanceBox';
-import StatusBarManager from '../../../components/statusBarManager';
-import { handleSize } from '../../../config/responsiveTheme';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import Icon from "react-native-vector-icons/Ionicons";
+import { MainContainer, InputDropDownStyle, Modal } from "../../../components";
+import InputField from "../../../components/textInput";
+import CustomButton from "../../../components/customButton";
+import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
+import BalanceBox from "../../../components/balanceBox";
+import StatusBarManager from "../../../components/statusBarManager";
+import { handleSize } from "../../../config/responsiveTheme";
+import { useSelector } from "react-redux";
+import BluryModal from "../../../components/Modal/bluryModal";
+import { HOME_ROUTES } from "../../../constants";
+import { useMyAccountTransferViewModel } from "../../../viewModels/homeViewModel/home/useMyAccountTransferViewModel";
+import { Images } from "../../../config";
+
 
 // ---------- Reusable ----------
 const InfoRow = ({ icon, label, value }) => (
@@ -23,118 +28,184 @@ const InfoRow = ({ icon, label, value }) => (
 );
 
 
-const MyAccountTransfer = ({...props}) => {
+const BankTransfer = ({...props}) => {
   const {
-    amountSpend,
-    setAmountSpend,
-    fromAcc,
-    toAcc,
+    navigation,
+    note, 
+    setnote,
+    enterAmount,
+    setenterAmount,
+    // beneficiary,
+    // setBeneficiary,
     pressBackArrow,
     handlePress,
-    onTransfer,
-  } = useMyAccountTransferViewModel();
+    handleTransfer,
+    openDropdown,
+    toggleDropdown,
+    setOpenDropdown,
 
-  console.log("ASdasdas",props?.route?.params);
+    openDropdownsty, 
+    setOpenDropdownSty,
+    fromAccount, 
+    setFromAccount,
+    toAccount, 
+    settoAccount,
+    getCurrencyAccArray, 
+    beneficiaryArray,
+    isPending,
+    open, 
+    setopen,
+    modalMsg,
+    onClose,
+    openDropdownstyToAcc, 
+    setOpenDropdownStyToAcc
 
-  const renderRightInput = () => (
-    <View style={styles.rightInputContainer}>
-      <Text style={styles.rightInputValue}>(Amount to Send)</Text>
-      <View style={styles.currencyBox}>
-        <Text style={styles.currencyText}>GBP</Text>
-      </View>
-    </View>
-  );
+  } = useMyAccountTransferViewModel(props);
+ 
+  function renderSuccess() {
+    return (
+      <Modal
+        isVisible={open}
+        isKeyboardAvoidingView={true}
+        children={<BluryModal
+            style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+            onClose={onClose}
+            btnLoader={false}
+            marginTopTitle={20}
+            onConfirm={onClose}
+            iconNameBottom={10}
+            title={"Success"}
+            body={modalMsg}
+            iconName={"checkmark-outline"}
+            confirmText={'Continue'}
+          />}
+        onClose={onClose}
+      />
+    );
+  }
+  
 
   return (
     <MainContainer
       showBackArrow
       pressBackArrow={pressBackArrow}
-      isFlatList
+      isFlatList={false}
       barStyle="dark-content"
       mainContainerStyle={styles.container}
     >
-      <StatusBarManager backgroundColor={THEME.darkSecondary} barStyle="light-content" />
+      <StatusBarManager
+        backgroundColor={THEME.darkSecondary}
+        barStyle="light-content"
+      />
 
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.innerContainer}>
+      <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(50) }}>
+        <View style={{ marginHorizontal: handleSize.w(20) }}>
+          
           
           <Text style={styles.title}>Send Money to Your Account</Text>
 
           <Text style={styles.subtitle}>
             Convert and transfer funds between your currency wallets instantly.
-          </Text>
+          </Text> 
 
-          {/* Input Section */}
           <InputDropDownStyle
             title="From Account"
-            label={fromAcc.label}
-            currency={fromAcc.currency}
-            flag="business-outline"
-            onPress={handlePress}
+            value={fromAccount}  // null = show input box
+            // data={getCurrencyAccArray}
+            data={getCurrencyAccArray}
+            isOpen={openDropdownsty}
+            onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
+            onSelect={(item) =>{ 
+              setFromAccount({     
+              id: item?.id,    
+              available_balance: item?.available_balance,       
+              currency_id: item?.currency_id,
+              name: item?.currency?.name,
+              iso_code: item?.currency?.iso_code
+              })
+            }}
           />
 
-          <BalanceBox amount="£1,250.00" label="Available Balance" containerHeight={78} />
+          {/* Balance */}
+          {fromAccount?.name &&
+            <BalanceBox amount={fromAccount?.iso_code +" "+ fromAccount?.available_balance}  label="Available Balance"  containerHeight={78} />}
 
+
+          {/* Recipient Gets */}
+          <InputField
+            // renderRightInput={renderRightInput}
+            placeholder="Enter Amount"
+            removeTitle={true}
+            value={enterAmount}
+            onChangeText={setenterAmount}
+            keyboardType={"numeric"}
+            maxlen={10}
+            margBtm={handleSize.h(15)}
+          />
+
+
+          {/* Recipient Type */}
           <InputDropDownStyle
-            title="To Account"
-            label={toAcc.label}
-            currency={toAcc.currency}
-            flag="business-outline"
-            onPress={handlePress}
+            title="To Account" 
+            value={toAccount}  // null = show input box
+            // data={getCurrencyAccArray}
+            data={getCurrencyAccArray}
+            isOpen={openDropdownstyToAcc}
+            onToggle={() =>{ setOpenDropdownStyToAcc(!openDropdownstyToAcc), setOpenDropdownSty(false), setOpenDropdown(null) }}
+            onSelect={(item) =>{ 
+              settoAccount({     
+              id: item?.id,    
+              available_balance: item?.available_balance,       
+              currency_id: item?.currency_id,
+              name: item?.currency?.name,
+              iso_code: item?.currency?.iso_code
+              })
+            }}
           />
 
           <InputField
-            margTp={20}
-            renderRightInput={renderRightInput}
-            autoCapital="none"
-            blurOnSubmit={false}
-            placeholder="0.00"
-            removeTitle
-            value={amountSpend}
-            onChangeText={setAmountSpend}
-            keyboardType="numeric"
+            // renderRightInput={renderRightInput}
+            placeholder="Enter Note / Refrence"
+            removeTitle={true}
+            value={note}
+            onChangeText={setnote}
+            keyboardType={"default"}
             maxlen={10}
-            margBtm={20}
+            margBtm={handleSize.h(25)}
           />
 
           {/* Summary */}
-          <View style={styles.summaryBox}>
-            <InfoRow icon={Images.add} label="Conversion Fee" value="£2.00" />
-            <InfoRow icon={Images.add} label="Total After Fee" value="£1002.00" />
-            <InfoRow
-              icon={Images.exchangeRate}
-              label="Exchange Rate (Live)"
-              value="1 GBP = 1.1425 EUR"
-            />
-          </View>
+           <View style={styles.summaryBox}>
+             <InfoRow icon={Images.add} label="Conversion Fee" value="£2.00" />
+             <InfoRow icon={Images.add} label="Total After Fee" value="£1002.00" />
+             <InfoRow
+               icon={Images.exchangeRate}
+               label="Exchange Rate (Live)"
+               value="1 GBP = 1.1425 EUR"
+             />
+           </View>
 
+          {/* Button */}
           <CustomButton
-            btnContSty={styles.transferBtn}
-            loading={false}
+            btnContSty={styles.forgetTxt}
+            loading={isPending}
             title="Transfer Payment"
-            onPress={onTransfer}
+            onPress={handleTransfer}
           />
+
         </View>
       </ScrollView>
+      {renderSuccess()}
     </MainContainer>
   );
 };
 
-export default MyAccountTransfer;
+export default BankTransfer;
 
-// ---------------- Styles ----------------
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: THEME.white,
-  },
-
-  scrollContainer: {
-    paddingBottom: handleSize.h(100),
-  },
-
-  innerContainer: {
-    marginHorizontal: handleSize.w(20),
+  container: { 
+    flex: 1, 
+    backgroundColor: THEME.white 
   },
 
   title: {
@@ -149,11 +220,91 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: handleSize.h(30),
+    marginBottom: handleSize.h(20),
     lineHeight: handleSize.h(20),
   },
 
-  // INFO ROW
+  pickerWrapper: {
+    borderWidth: handleSize.w(1),
+    borderColor: THEME.white,
+    borderRadius: handleSize.f(10),
+    marginBottom: handleSize.h(15),
+  },
+
+  inputInnerPicker: {
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    borderColor: THEME.gray,
+    borderWidth: handleSize.w(1),
+    borderRadius: handleSize.f(10),
+    color: THEME.white,
+    height: handleSize.h(56),
+    marginLeft: handleSize.w(10),
+  },
+
+  containerAMOUNT: {
+    backgroundColor: THEME.whitergba,
+    width: "100%",
+    height: handleSize.h(80),
+    marginVertical: handleSize.h(15),
+    borderRadius: handleSize.f(12),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  balanceTxt: {
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+  },
+
+  balanceAmountTxt: {
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: handleSize.f(FONT_SIZES.threezero),
+    color: THEME.white,
+  },
+
+  renderRightInputContainer: {
+    height: handleSize.h(56),
+    position: "absolute",
+    right: handleSize.w(20),
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  inputNumber: {
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
+  },
+
+  inputNumberNum: {
+    fontSize: handleSize.f(FONT_SIZES.twozero),
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
+  },
+
+  inputNumbergbpcont: {
+    backgroundColor: THEME.primary,
+    marginLeft: handleSize.w(6),
+    borderRadius: handleSize.f(6),
+    padding: handleSize.f(3),
+  },
+
+  inputNumbergbp: {
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.textPrimary,
+  },
+
+  forgetTxt: { 
+    marginTop: handleSize.h(20), 
+    marginBottom: handleSize.h(20) 
+  },
+  
+  
+//   // INFO ROW
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -184,41 +335,10 @@ const styles = StyleSheet.create({
     color: THEME.white,
   },
 
+  
   summaryBox: {
     borderRadius: handleSize.f(10),
     marginBottom: handleSize.h(10),
   },
 
-  // RIGHT INPUT
-  rightInputContainer: {
-    height: handleSize.h(56),
-    position: 'absolute',
-    right: handleSize.w(20),
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  rightInputValue: {
-    fontSize: handleSize.f(FONT_SIZES.onefour),
-    fontFamily: FONTFAMILY.Medium,
-    color: THEME.white,
-  },
-
-  currencyBox: {
-    backgroundColor: THEME.primary,
-    marginLeft: handleSize.w(6),
-    borderRadius: handleSize.f(6),
-    padding: handleSize.w(3),
-  },
-
-  currencyText: {
-    fontSize: handleSize.f(FONT_SIZES.onetwo),
-    fontFamily: FONTFAMILY.Medium,
-    color: THEME.textPrimary,
-  },
-
-  transferBtn: {
-    marginTop: handleSize.h(5),
-    marginBottom: handleSize.h(20),
-  },
 });

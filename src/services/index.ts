@@ -18,7 +18,8 @@ import {
 } from './auth/auth.service';
 
 import {
-    useBankTransfer
+    usePaymentTransfer,
+    useFXConversion,
 
 
 } from './payment/payment.service';
@@ -55,7 +56,8 @@ import {
 
 const apis = {
   userLogin,
-  useBankTransfer,
+  usePaymentTransfer,
+  useFXConversion,
   createCard,
   getCards,
   freezUnFreezCard,

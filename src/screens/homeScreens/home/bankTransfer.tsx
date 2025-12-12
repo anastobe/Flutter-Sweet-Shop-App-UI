@@ -6,13 +6,13 @@ import { MainContainer, InputDropDownStyle, Modal } from "../../../components";
 import InputField from "../../../components/textInput";
 import CustomButton from "../../../components/customButton";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
-import { useBankTransferViewModel } from "../../../viewModels/homeViewModel/home/useBankTransferViewModel";
 import BalanceBox from "../../../components/balanceBox";
 import StatusBarManager from "../../../components/statusBarManager";
 import { handleSize } from "../../../config/responsiveTheme";
 import { useSelector } from "react-redux";
 import BluryModal from "../../../components/Modal/bluryModal";
 import { HOME_ROUTES } from "../../../constants";
+import { useBankTransferViewModel } from "../../../viewModels/homeViewModel/home/useBankTransferViewModel";
 
 const BankTransfer = () => {
   const {

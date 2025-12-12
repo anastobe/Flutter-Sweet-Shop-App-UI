@@ -22,9 +22,9 @@ export default function useConfirmCurrencyExchangeViewModel({...props}) {
 
   const onPressBtn = () => {
     if (props?.route?.params?.key == "international") {
-      navigation.navigate(HOME_ROUTES.INTERNATIONAL_TRANSFER,{ key: props?.route?.params?.key })
+      navigation.navigate(HOME_ROUTES.INTERNATIONAL_TRANSFER,{ data: props?.route?.params })
     } else if (props?.route?.params?.key == "myaccount") {
-      navigation.navigate(HOME_ROUTES.MY_ACCOUNT_TRANSFER,{ key: props?.route?.params?.key })
+      navigation.navigate(HOME_ROUTES.MY_ACCOUNT_TRANSFER,{ data: props?.route?.params })
     }
     else {
       console.log('key do');

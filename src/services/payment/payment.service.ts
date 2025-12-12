@@ -8,7 +8,13 @@ import { AssetTypeApiResponse } from "../../models/more/assetTypeApiResponse.mod
 import { saveBeneficiaryData } from "../../Redux/Action/Home/HomeActions";
 
 // Get all beneficiaries
-export const useBankTransfer = async (body: any) => {
+export const usePaymentTransfer = async (body: any) => {
   const response = await axiosInstance('/payment/ibft', 'POST', body, true);
   return response;
 };
+
+export const useFXConversion = async (body: any) => {
+  const response = await axiosInstance('/fx/quote', 'POST', body, true);
+  return response;
+};
+  
