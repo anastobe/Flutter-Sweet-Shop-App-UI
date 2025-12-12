@@ -208,6 +208,7 @@ const MyAccountTransfer = ({...props}) => {
          closeDuration={500}
          bottomSheetRef={paymentconfrm}
          children={<ConfrmPayment
+              type={"myaccount"}
               fromAccount={fromAccount}
               toAccount={toAccount}
               Amount={enterAmount}

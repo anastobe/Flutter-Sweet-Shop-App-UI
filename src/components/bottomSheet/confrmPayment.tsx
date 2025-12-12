@@ -8,6 +8,7 @@ import { handleSize } from '../../config/responsiveTheme';
 import { Image } from 'react-native';
 
 type Props = {
+  type: string,
   fromAccount:Object,
   toAccount:Object,
   Amount:string,
@@ -35,6 +36,7 @@ const InfoRow = ({ icon, label, value }) => (
 
 
 const ConfrmPayment: React.FC<Props> = ({ 
+    type,
     fromAccount,
     toAccount,
     Amount,
@@ -56,7 +58,7 @@ const ConfrmPayment: React.FC<Props> = ({
 
         <View style={styles.summaryBox}>
             <InfoRow icon={Images.cardTab} label="From Account" value={fromAccount?.iso_code} />
-            <InfoRow icon={Images.cardTab} label="To Account" value={toAccount?.iso_code} />
+            <InfoRow icon={Images.cardTab} label="To Account" value={type == "international" ? toAccount?.first_name + toAccount?.last_name :  toAccount?.iso_code} />
             <InfoRow icon={Images.sendMoney} label="Amount" value={Amount} />
             <InfoRow icon={Images.add} label="Conversion Fee" value={loading? "...loading" :convertrate.conversion_Fee} />
             <InfoRow icon={Images.add} label="Total After Fee" value={loading? "...loading" :convertrate.total_After_Fee} />

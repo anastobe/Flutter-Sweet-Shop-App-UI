@@ -158,7 +158,7 @@ const BankTransfer = () => {
           {/* Button */}
           <CustomButton
             btnContSty={styles.forgetTxt}
-            loading={isPending}
+            loading={false}
             title="Transfer Payment"
             onPress={handleTransfer}
           />

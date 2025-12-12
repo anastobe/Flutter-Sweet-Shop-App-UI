@@ -198,7 +198,9 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     }
     else {
       fetchFxRate();  // <-- THIS IS IMPORTANT  
-      paymentconfrm?.current?.open()
+      if (!isPendinguseFXConversion) {
+        paymentconfrm?.current?.open()
+      }
     }
   };
 

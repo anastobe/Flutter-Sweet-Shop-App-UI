@@ -6,7 +6,7 @@ import { Alert } from "react-native";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
 import { useSelector } from "react-redux";
-import { Toast } from "../../../utils";
+import { CommonUtils, Toast } from "../../../utils";
 import { useLogin } from "../../../queries/auth.query";
 import { usePaymentTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
@@ -68,6 +68,9 @@ export const useBankTransferViewModel = () => {
     } else if (enterAmount == "") {
       Toast.showToast('Enter Your Amount', '', 'error');
     }
+    else if (!CommonUtils.RegixNumbersOnly.test(enterAmount)) {
+    Toast.showToast('Enter Correct Amount', '', 'error'); 
+  }
     else if (beneficiary.beneficiary_id == "") {
       Toast.showToast('Select Beneficiary', '', 'error');
     } 

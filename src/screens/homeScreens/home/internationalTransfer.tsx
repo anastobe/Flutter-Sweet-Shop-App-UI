@@ -186,22 +186,324 @@
 //   },
 // });
 
+//2
+// import React, { useState } from "react";
+// import { View, Text, StyleSheet, ScrollView } from "react-native";
+// import { Picker } from "@react-native-picker/picker";
+// import Icon from "react-native-vector-icons/Ionicons";
+// import { MainContainer, InputDropDownStyle, Modal } from "../../../components";
+// import InputField from "../../../components/textInput";
+// import CustomButton from "../../../components/customButton";
+// import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
+// import BalanceBox from "../../../components/balanceBox";
+// import StatusBarManager from "../../../components/statusBarManager";
+// import { handleSize } from "../../../config/responsiveTheme";
+// import { useSelector } from "react-redux";
+// import BluryModal from "../../../components/Modal/bluryModal";
+// import { HOME_ROUTES } from "../../../constants";
+// import { useInternationalTransferViewModel } from "../../../viewModels/homeViewModel/home/useInternationalTransferViewModel";
+
+// const InternationalTransfer = ({...props}) => {
+//   const {
+//     navigation,
+//     note, 
+//     setnote,
+//     enterAmount,
+//     setenterAmount,
+//     beneficiary,
+//     setBeneficiary,
+//     pressBackArrow,
+//     handlePress,
+//     handleTransfer,
+//     openDropdown,
+//     toggleDropdown,
+//     setOpenDropdown,
+
+//     openDropdownsty, 
+//     setOpenDropdownSty,
+//     fromAccount, 
+//     setFromAccount,
+//     getCurrencyAccArray, 
+//     beneficiaryArray,
+//     isPending,
+//     open, 
+//     setopen,
+//     modalMsg,
+//     onClose
+
+
+//   } = useInternationalTransferViewModel(props);
+ 
+//   function renderSuccess() {
+//     return (
+//       <Modal
+//         isVisible={open}
+//         isKeyboardAvoidingView={true}
+//         children={<BluryModal
+//             style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+//             onClose={onClose}
+//             btnLoader={false}
+//             marginTopTitle={20}
+//             onConfirm={onClose}
+//             iconNameBottom={10}
+//             title={"Success"}
+//             body={modalMsg}
+//             iconName={"checkmark-outline"}
+//             confirmText={'Continue'}
+//           />}
+//         onClose={onClose}
+//       />
+//     );
+//   }
+  
+
+//   return (
+//     <MainContainer
+//       showBackArrow
+//       pressBackArrow={pressBackArrow}
+//       isFlatList={false}
+//       barStyle="dark-content"
+//       mainContainerStyle={styles.container}
+//     >
+//       <StatusBarManager
+//         backgroundColor={THEME.darkSecondary}
+//         barStyle="light-content"
+//       />
+
+//       <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(50) }}>
+//         <View style={{ marginHorizontal: handleSize.w(20) }}>
+          
+//            <Text style={styles.title}>International Transfer</Text>
+
+//            <Text style={styles.subtitle}>
+//              Move funds between your own accounts instantly.
+//            </Text>
+          
+//           <InputDropDownStyle
+//             title="From Account"
+//             value={fromAccount}  // null = show input box
+//             // data={getCurrencyAccArray}
+//             data={getCurrencyAccArray}
+//             isOpen={openDropdownsty}
+//             onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdown(null) }}
+//             onSelect={(item) =>{ 
+//               setFromAccount({     
+//               id: item?.id,    
+//               available_balance: item?.available_balance,       
+//               currency_id: item?.currency_id,
+//               name: item?.currency?.name,
+//               iso_code: item?.currency?.iso_code
+//               })
+//             }}
+//           />
+
+//           {/* Balance */}
+//           {fromAccount?.name &&
+//             <BalanceBox amount={fromAccount?.iso_code +" "+ fromAccount?.available_balance}  label="Available Balance"  containerHeight={78} />}
+
+
+//           {/* Recipient Gets */}
+//           <InputField
+//             // renderRightInput={renderRightInput}
+//             placeholder="Enter Amount"
+//             removeTitle={true}
+//             value={enterAmount}
+//             onChangeText={setenterAmount}
+//             keyboardType={"numeric"}
+//             maxlen={10}
+//             margBtm={handleSize.h(15)}
+//           />
+
+
+//           {/* Recipient Type */}
+//           <InputField
+//             disabled={false}
+//             placeholder="To Account"
+//             removeTitle={true}
+//             value={beneficiary?.first_name}
+//             enableDropdown={true}
+//             dropdownData={beneficiaryArray}
+//             margBtm={handleSize.h(15)}
+//             isOpen={openDropdown === "toaccount"}
+//             onToggleDropdown={() => toggleDropdown("toaccount")}
+//             onDropdownSelect={(item: any) => 
+//               setBeneficiary({
+//                 beneficiary_id: item.id,
+//                 first_name: item.first_name,
+//                 last_name: item.last_name
+//               })
+//             }
+//           />
+
+//           <InputField
+//             // renderRightInput={renderRightInput}
+//             placeholder="Enter Note / Refrence"
+//             removeTitle={true}
+//             value={note}
+//             onChangeText={setnote}
+//             keyboardType={"default"}
+//             maxlen={10}
+//             margBtm={handleSize.h(15)}
+//           />
+
+//           {/* Button */}
+//           <CustomButton
+//             btnContSty={styles.forgetTxt}
+//             loading={isPending}
+//             title="Transfer Payment"
+//             onPress={handleTransfer}
+//           />
+
+//         </View>
+//       </ScrollView>
+//       {renderSuccess()}
+//     </MainContainer>
+//   );
+// };
+
+// export default InternationalTransfer;
+
+// const styles = StyleSheet.create({
+//   container: { 
+//     flex: 1, 
+//     backgroundColor: THEME.white 
+//   },
+
+//   title: {
+//     fontSize: handleSize.f(FONT_SIZES.onesix),
+//     fontFamily: FONTFAMILY.SemiBold,
+//     color: THEME.white,
+//     marginBottom: handleSize.h(10),
+//     marginTop: handleSize.h(10),
+//   },
+
+//   subtitle: {
+//     fontSize: handleSize.f(FONT_SIZES.onesix),
+//     fontFamily: FONTFAMILY.Regular,
+//     color: THEME.white,
+//     marginBottom: handleSize.h(20),
+//     lineHeight: handleSize.h(20),
+//   },
+
+//   pickerWrapper: {
+//     borderWidth: handleSize.w(1),
+//     borderColor: THEME.white,
+//     borderRadius: handleSize.f(10),
+//     marginBottom: handleSize.h(15),
+//   },
+
+//   inputInnerPicker: {
+//     fontFamily: FONTFAMILY.Medium,
+//     fontSize: handleSize.f(FONT_SIZES.onefour),
+//     borderColor: THEME.gray,
+//     borderWidth: handleSize.w(1),
+//     borderRadius: handleSize.f(10),
+//     color: THEME.white,
+//     height: handleSize.h(56),
+//     marginLeft: handleSize.w(10),
+//   },
+
+//   containerAMOUNT: {
+//     backgroundColor: THEME.whitergba,
+//     width: "100%",
+//     height: handleSize.h(80),
+//     marginVertical: handleSize.h(15),
+//     borderRadius: handleSize.f(12),
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+
+//   balanceTxt: {
+//     fontFamily: FONTFAMILY.Medium,
+//     fontSize: handleSize.f(FONT_SIZES.onefour),
+//     color: THEME.white,
+//   },
+
+//   balanceAmountTxt: {
+//     fontFamily: FONTFAMILY.Medium,
+//     fontSize: handleSize.f(FONT_SIZES.threezero),
+//     color: THEME.white,
+//   },
+
+//   renderRightInputContainer: {
+//     height: handleSize.h(56),
+//     position: "absolute",
+//     right: handleSize.w(20),
+//     flexDirection: "row",
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+
+//   inputNumber: {
+//     fontSize: handleSize.f(FONT_SIZES.onesix),
+//     fontFamily: FONTFAMILY.Medium,
+//     color: THEME.white,
+//   },
+
+//   inputNumberNum: {
+//     fontSize: handleSize.f(FONT_SIZES.twozero),
+//     fontFamily: FONTFAMILY.Medium,
+//     color: THEME.white,
+//   },
+
+//   inputNumbergbpcont: {
+//     backgroundColor: THEME.primary,
+//     marginLeft: handleSize.w(6),
+//     borderRadius: handleSize.f(6),
+//     padding: handleSize.f(3),
+//   },
+
+//   inputNumbergbp: {
+//     fontSize: handleSize.f(FONT_SIZES.onetwo),
+//     fontFamily: FONTFAMILY.Medium,
+//     color: THEME.textPrimary,
+//   },
+
+//   forgetTxt: { 
+//     marginTop: handleSize.h(20), 
+//     marginBottom: handleSize.h(20) 
+//   },
+// });
+
+
+
+
+
+
+
 
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/Ionicons";
-import { MainContainer, InputDropDownStyle, Modal } from "../../../components";
+import { MainContainer, InputDropDownStyle, Modal, BottomSheet } from "../../../components";
 import InputField from "../../../components/textInput";
 import CustomButton from "../../../components/customButton";
-import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
+import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from "../../../styles";
 import BalanceBox from "../../../components/balanceBox";
 import StatusBarManager from "../../../components/statusBarManager";
 import { handleSize } from "../../../config/responsiveTheme";
 import { useSelector } from "react-redux";
 import BluryModal from "../../../components/Modal/bluryModal";
 import { HOME_ROUTES } from "../../../constants";
+import { useMyAccountTransferViewModel } from "../../../viewModels/homeViewModel/home/useMyAccountTransferViewModel";
+import { Images } from "../../../config";
+import FingerPrintContent from "../../../components/bottomSheet/fingerPrintContent";
+import ConfrmPayment from "../../../components/bottomSheet/confrmPayment";
 import { useInternationalTransferViewModel } from "../../../viewModels/homeViewModel/home/useInternationalTransferViewModel";
+
+
+// ---------- Reusable ----------
+const InfoRow = ({ icon, label, value }) => (
+  <View style={styles.infoRow}>
+    <View style={styles.infoLeft}>
+      <Image source={icon} style={styles.infoIcon} resizeMode="contain" />
+      <Text style={styles.label}>{label}</Text>
+    </View>
+    <Text style={styles.value}>{value}</Text>
+  </View>
+);
+
 
 const InternationalTransfer = ({...props}) => {
   const {
@@ -223,14 +525,21 @@ const InternationalTransfer = ({...props}) => {
     setOpenDropdownSty,
     fromAccount, 
     setFromAccount,
+    // toAccount, 
+    // settoAccount,
     getCurrencyAccArray, 
     beneficiaryArray,
     isPending,
+    isPendinguseFXConversion,
     open, 
     setopen,
     modalMsg,
-    onClose
-
+    onClose,
+    openDropdownstyToAcc, 
+    setOpenDropdownStyToAcc,
+    convertrate,
+    paymentconfrm,
+    ApiCall
 
   } = useInternationalTransferViewModel(props);
  
@@ -241,17 +550,17 @@ const InternationalTransfer = ({...props}) => {
         isKeyboardAvoidingView={true}
         children={<BluryModal
             style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-            onClose={onClose}
+            onClose={()=>onClose(modalMsg.status)}
             btnLoader={false}
             marginTopTitle={20}
-            onConfirm={onClose}
+            onConfirm={()=>onClose(modalMsg.status)}
             iconNameBottom={10}
-            title={"Success"}
-            body={modalMsg}
-            iconName={"checkmark-outline"}
-            confirmText={'Continue'}
+            title={modalMsg.status ? "Success" : "Error"}
+            body={modalMsg.msg}
+            iconName={modalMsg.status ? "checkmark-outline" : "close-outline"}
+            confirmText={'Ok'}
           />}
-        onClose={onClose}
+        onClose={()=>onClose(modalMsg.status)}
       />
     );
   }
@@ -273,20 +582,22 @@ const InternationalTransfer = ({...props}) => {
       <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(50) }}>
         <View style={{ marginHorizontal: handleSize.w(20) }}>
           
-           <Text style={styles.title}>International Transfer</Text>
-
-           <Text style={styles.subtitle}>
-             Move funds between your own accounts instantly.
-           </Text>
           
+          <Text style={styles.title}>International Transfer</Text>
+
+          <Text style={styles.subtitle}>
+            Move funds between your own accounts instantly.
+          </Text>
+          
+
           <InputDropDownStyle
             title="From Account"
             value={fromAccount}  // null = show input box
             // data={getCurrencyAccArray}
             data={getCurrencyAccArray}
             isOpen={openDropdownsty}
-            onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdown(null) }}
-            onSelect={(item) =>{ 
+            onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
+            onSelect={(item) =>{               
               setFromAccount({     
               id: item?.id,    
               available_balance: item?.available_balance,       
@@ -318,7 +629,7 @@ const InternationalTransfer = ({...props}) => {
           {/* Recipient Type */}
           <InputField
             disabled={false}
-            placeholder="To Account"
+            placeholder="Select Beneficiary"
             removeTitle={true}
             value={beneficiary?.first_name}
             enableDropdown={true}
@@ -330,10 +641,15 @@ const InternationalTransfer = ({...props}) => {
               setBeneficiary({
                 beneficiary_id: item.id,
                 first_name: item.first_name,
+                currency_id: item?.currency?.id,
+                // currency_id: "20",
+                iso_code: item?.currency?.iso_code,
+                // iso_code: "GBP",
                 last_name: item.last_name
               })
             }
           />
+
 
           <InputField
             // renderRightInput={renderRightInput}
@@ -343,19 +659,52 @@ const InternationalTransfer = ({...props}) => {
             onChangeText={setnote}
             keyboardType={"default"}
             maxlen={10}
-            margBtm={handleSize.h(15)}
+            margBtm={handleSize.h(25)}
           />
+
+          {/* Summary */}
+            <View style={styles.summaryBox}>
+            <InfoRow icon={Images.add} label="Conversion Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.conversion_Fee} />
+            <InfoRow icon={Images.add} label="Total After Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.total_After_Fee} />
+            <InfoRow icon={Images.exchangeRate} label="Exchange Rate (Live)" value={isPendinguseFXConversion ? "...loading" :convertrate.Exchange_Rate_Live} />
+           </View>
 
           {/* Button */}
           <CustomButton
             btnContSty={styles.forgetTxt}
-            loading={isPending}
+            loading={false}
             title="Transfer Payment"
             onPress={handleTransfer}
           />
 
         </View>
       </ScrollView>
+
+
+       <BottomSheet
+         height={400}
+         maxHeightPercent={0.65}   // optional, override for screen
+         draggable={false}
+         openTime={500}
+         closeDuration={500}
+         bottomSheetRef={paymentconfrm}
+         children={<ConfrmPayment
+              type={"international"}
+              fromAccount={fromAccount}
+              toAccount={beneficiary}
+              Amount={enterAmount}
+              refrence={paymentconfrm} 
+              onPress={ApiCall}
+              style={{ flex: 1, paddingHorizontal: 20 }}
+              title="Confirm Payment"  
+              subtitle="Confirm Payment" 
+              convertrate={convertrate}
+              loading={isPendinguseFXConversion}
+              loadingBtn={isPending}
+            />}
+        />
+      
+
       {renderSuccess()}
     </MainContainer>
   );
@@ -460,7 +809,46 @@ const styles = StyleSheet.create({
   },
 
   forgetTxt: { 
-    marginTop: handleSize.h(20), 
+    marginTop: handleSize.h(10), 
     marginBottom: handleSize.h(20) 
   },
+  
+  
+//   // INFO ROW
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: handleSize.h(9),
+  },
+
+  infoLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  infoIcon: {
+    marginRight: handleSize.w(8),
+    width: handleSize.w(15),
+    height: handleSize.h(15),
+  },
+
+  label: {
+    fontFamily: FONTFAMILY.Light,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+  },
+
+  value: {
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: handleSize.f(FONT_SIZES.onefour),
+    color: THEME.white,
+  },
+
+  
+  summaryBox: {
+    borderRadius: handleSize.f(10),
+    marginBottom: handleSize.h(10),
+  },
+
 });

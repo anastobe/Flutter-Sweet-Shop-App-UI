@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
     height: handleSize.h(56),
-    paddingHorizontal: handleSize.w(20)
+    paddingHorizontal: handleSize.w(20),
+    // textTransform: "capitalize"
   },
 
   inputContainer: {
@@ -282,6 +283,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onefive),
     marginLeft: handleSize.w(10),
     color: THEME.white,
+    textTransform: "capitalize"
   },
 });
 
