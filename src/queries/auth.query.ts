@@ -13,9 +13,6 @@ export const useLogin = ({callback} : {callback: (res: any) => void}) => {
     mutationFn: apis.userLogin,
     onSuccess: async (response: any) => {
 
-      console.log("useMutation==>",response);
-      
-
       if (response.success) {
         dispatch(storeUserToken(response.results))  
         callback(response)

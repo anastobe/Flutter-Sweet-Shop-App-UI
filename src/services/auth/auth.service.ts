@@ -3,7 +3,6 @@ import axiosInstance from "../https.service"; // Ye tumhare global SSL pinning w
 export const userLogin = async (body: any) => {
   // POST axiosInstance using global wrapper
   const response = await axiosInstance('/login', 'POST', body, true);
-  console.log("=>sercices=>",response);
   return response;
 };
 
