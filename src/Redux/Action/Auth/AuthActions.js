@@ -14,6 +14,13 @@ export const storeUserToken = (res) => {
     };
   };
 
+export const userIsLoggedIn = (res) => {
+  return dispatch => {
+    dispatch({type: ActionType.USER_LOGGEDIN, payload: res });
+  };
+};
+
+
   export const handleLoader = (res) => {
     return dispatch => {
       dispatch({type: ActionType.LOADER, payload: res });

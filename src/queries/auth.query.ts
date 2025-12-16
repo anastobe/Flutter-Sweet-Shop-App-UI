@@ -1,6 +1,6 @@
 import {useMutation, useQuery} from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
-import {  handleLoader, storeUserToken } from '../Redux/Action/Auth/AuthActions';
+import {  handleLoader, storeUserToken, userIsLoggedIn } from '../Redux/Action/Auth/AuthActions';
 import { Auth_ROUTES, HOME_ROUTES } from '../constants';
 import QueryKey from './queryKey';
 import { Toast } from '../utils';
@@ -15,6 +15,7 @@ export const useLogin = ({callback} : {callback: (res: any) => void}) => {
 
       if (response.success) {
         dispatch(storeUserToken(response.results))  
+        dispatch(userIsLoggedIn(true))  
         callback(response)
     }
   

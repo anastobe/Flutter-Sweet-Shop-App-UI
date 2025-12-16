@@ -123,9 +123,9 @@ const App: React.FC = () => {
       {/* <TouchableWithoutFeedback onPress={resetActivity}> */}
 
   return (
-    <NotificationModalProvider>
-      <QueryClientProvider client={queryClient} contextSharing={true} >
+    <QueryClientProvider client={queryClient} contextSharing={true} >
       <Provider store={Store}>
+        <NotificationModalProvider>
           <NavigationContainer
             fallback={<ActivityIndicator
               color="blue" size="large" />}
@@ -137,9 +137,9 @@ const App: React.FC = () => {
             <PushNotificationHandler />
             <TransactionAlertModal />
           </NavigationContainer>
+    </NotificationModalProvider>
       </Provider>
       </QueryClientProvider>
-    </NotificationModalProvider>
   );
 };
 

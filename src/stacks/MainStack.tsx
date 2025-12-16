@@ -19,8 +19,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const MainStack = () => {
 
   const dispatch = useDispatch()
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
-
+  // const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+  const userlogdedIn = useSelector((state: any) => state?.AuthReducer?.userlogdedIn);
   // console.log("REDUX=>",userData);
   
 
@@ -56,7 +56,7 @@ export const MainStack = () => {
       headerShown: false
     }}>
       {
-       userData?.token ? 
+       userlogdedIn ? 
        HomeScreens 
        : 
        AuthScreens

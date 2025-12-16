@@ -64,7 +64,8 @@ const TransactionAlertModal = () => {
           }}
           btnLoader={isPendingcardUsedStatus }
           botmBtmLoader={isPendingcardUsedDeclinedFunc }
-          title='Transaction Alert'
+          // title='Transaction Alert'
+          body={`Your Frontier Pay card was just used in ${data?.card_acceptor_name}.Please confirm if this was you by selecting Approve or Reject.`}
           marginTopTitle={20}
           onConfirm={() =>{ 
             if (isPendingcardUsedDeclinedFunc || isPendingcardUsedStatus) {
@@ -75,9 +76,9 @@ const TransactionAlertModal = () => {
             }
           }}
           iconNameBottom={10}
-          showSubBody={true}
-          subBody={"Your Frontier Pay card was just used.Please confirm if this was you by selecting Approve or Reject."}
-          body={`Payable Amount: ${data?.transaction_amount}\nCurrency: ${data?.transaction_currency_code}\nCard Detail: XYZ`}
+          // showSubBody={true}
+          // subBody={"Your Frontier Pay card was just used.Please confirm if this was you by selecting Approve or Reject."}
+          title={`Amount: ${data?.transaction_amount} ${data?.transaction_currency_code}\n Account: **** ${data?.transaction_pan}`}
           iconName={"alert-outline"}
           confirmText={'APPROVE'}
           showCancelBtn={true}

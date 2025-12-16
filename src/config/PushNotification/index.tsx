@@ -4,14 +4,15 @@ import notifee, {
   EventType,
 } from '@notifee/react-native';
 import messaging, {FirebaseMessagingTypes} from '@react-native-firebase/messaging';
-import React, {useDebugValue, useEffect,  } from 'react';
+import React, {useDebugValue, useEffect, useRef,  } from 'react';
 import {AppState, Platform} from 'react-native';
 // import {Images, NavigationService} from '../../config';
 import {HOME_ROUTES} from '../../constants';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { HandleLoader } from '../../Redux/Action/Auth/AuthActions';
 import apis from '../../services';
 import { useNotificationModal } from '../../components/notificationModalContext';
+import dataHandlerService from '../../APICall/dataHandler.service';
 // import navigationService from '../navigationService';
 
 type PushNotificationProps = {};
@@ -19,13 +20,23 @@ type PushNotificationProps = {};
 export const PushNotificationHandler: React.FC<PushNotificationProps> = () => {
   
   const dispatch = useDispatch()
- const { openModal } = useNotificationModal();
+  const { openModal } = useNotificationModal();
+
+  const userlogdedIn = useSelector((state: any) => state?.AuthReducer?.userlogdedIn);
+
+  const userLoggedInRef = useRef(userlogdedIn);
+
+  // 👇 keep ref updated
+  useEffect(() => {
+    userLoggedInRef.current = userlogdedIn;
+  }, [userlogdedIn]);
+
 
   useEffect(() => {
     // Handle foreground notifications
     const unsubscribeOnMessage = messaging().onMessage(
       async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
-        console.log('Foreground message:', remoteMessage.data);
+        // console.log('Foreground message:', remoteMessage.data);
         showNotification(remoteMessage.notification,remoteMessage);
       },
     );
@@ -49,14 +60,14 @@ export const PushNotificationHandler: React.FC<PushNotificationProps> = () => {
       });
 
     // Handle background event clicks
-    const unsubscribeOnBackground = notifee.onBackgroundEvent(
-      async ({type, detail}) => {
-        if (type === EventType.ACTION_PRESS) {
-          console.log('Background notification click:', JSON.stringify(detail));
-          handleNotificationInteraction(detail.notification);
-        }
-      },
-    );
+    // const unsubscribeOnBackground = notifee.onBackgroundEvent(
+    //   async ({type, detail}) => {
+    //     if (type === EventType.ACTION_PRESS) {
+    //       console.log('Background notification click:', JSON.stringify(detail));
+    //       handleNotificationInteraction(detail.notification);
+    //     }
+    //   },
+    // );
 
     return () => {
       unsubscribeOnMessage();
@@ -108,15 +119,15 @@ export const PushNotificationHandler: React.FC<PushNotificationProps> = () => {
       },
     };
 
-    console.log("Check==>",all);
+    console.log(userLoggedInRef.current,"Check==>",data);
     
 
-    if (data?.is_modal === 'yes') {
+    if (data?.is_modal === 'yes' && userLoggedInRef.current) {
       openModal({
         transaction_amount: data?.transaction_amount,
-        transaction_currency_code:
-          data?.transaction_currency_code,
-        transaction_channel: data?.transaction_channel,
+        transaction_currency_code: data?.transaction_currency_code,
+        transaction_pan: data?.pan,
+        card_acceptor_name: data?.card_acceptor_name
       });
     }
 

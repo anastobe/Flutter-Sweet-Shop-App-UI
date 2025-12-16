@@ -2,7 +2,8 @@ import ActionType from '../Action/ActionType/actionType';
 
 const initialState = {
   userData: {},
-  loader: false
+  loader: false,
+  userlogdedIn: false
   
 };
 
@@ -19,12 +20,19 @@ export default (state = initialState, action) => {
         ...state,
         loader: action.payload,
       };
+  case ActionType.USER_LOGGEDIN:
+    return {
+      ...state,
+      userlogdedIn: action.payload,
+    };
+      
 
     case ActionType.LOGOUT:
       return {
         ...state,
         userData: {},
-        loader: false
+        loader: false,
+        userlogdedIn: false
       };
       // userToken
     default:
