@@ -36,6 +36,7 @@ import Metrics from '../../../styles/metrics';
 import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
+import { HOME_ROUTES } from '../../../constants';
 
 const CardScreen = () => {
   const navigation = useNavigation<any>();
@@ -202,7 +203,7 @@ const CardScreen = () => {
       <OptionsHeader
         leftTxt={"Manage Cards"}
         showBackIcon={false}
-        onPressNotification={() => Alert.alert('SHOW_CLIENT')}
+        onPressNotification={() => navigation.navigate(HOME_ROUTES.NOTIFICATION) }
         onPressAdd={() => vm.AddCardRef?.current?.open()}
       />
     );

@@ -98,6 +98,24 @@ export default function InputField(props: any) {
     onDropdownSelect(item);
     onToggleDropdown(false);
   };
+  
+const getDisplayName = (item: any) => {
+  if (item.label) return item.label;
+
+  if (item.first_name || item.last_name)
+    return `${item.first_name ?? ''} ${item.last_name ?? ''}`.trim();
+
+  if (item?.currency?.name) return item.currency.name;
+
+  if (item.name) return item.name;
+
+  if (item.iso_code) return item.iso_code;
+
+  if (item.format && item.pan)
+    return `${item.format} (.... .... .... ${item.pan})`;
+
+  return '';
+};
 
 return (
   <View style={{ marginTop: handleSize.h(margTp), marginBottom: handleSize.h(margBtm) }}>
@@ -145,7 +163,16 @@ return (
         keyboardType={keyboardType}
         onChangeText={onChangeText}
         secureTextEntry={secureEntry}
-        style={[textInputStyle ? textInputStyle : styles.inputInner, removeTitle ? null : { top: (isFocused || value?.length) ? handleSize.h(8) : 0 } ]}
+        style={[
+          textInputStyle ? 
+          textInputStyle 
+          : 
+          styles.inputInner, 
+          removeTitle ? null : 
+          { top: (isFocused || value?.length) ? handleSize.h(8) : 0 } 
+          , enableDropdown && { textTransform: "capitalize"} 
+        ]
+        }
         ref={inputRef} 
         maxLength={maxlen}
         onSubmitEditing={onSubmitEditing}
@@ -196,12 +223,19 @@ return (
           bounces={false}
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item, index }) => (
+
+
+  console.log("renderItem==>",item),
+
+            
+
                 <Pressable
                   onPress={() =>[ handleSelect(item),setIsFocused(true)]}
                   style={[styles.row,{ borderBottomWidth: filtered?.length - 1 == index  ? 0 : 0.2 }]}
                 >
               <Text style={styles.rowText}>
-                {item.label || `${item.first_name} ${item.last_name}` || item?.currency?.name || item.name || item.iso_code || `${item.format} (.... .... .... ${item.pan})`}
+                  {getDisplayName(item)}
+                {/* {item.label || `${item.first_name} ${item.last_name}` || item?.currency?.name || item.name || item.iso_code || `${item.format} (.... .... .... ${item.pan})`} */}
               </Text>
             </Pressable>
           )}

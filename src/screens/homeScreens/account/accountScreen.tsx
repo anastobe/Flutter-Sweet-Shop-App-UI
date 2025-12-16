@@ -37,6 +37,7 @@ import { DATA } from "../../../utils/data";
 import Metrics from "../../../styles/metrics";
 import StatusBarManager from "../../../components/statusBarManager";
 import { handleSize } from "../../../config/responsiveTheme";
+import commonUtils from "../../../utils/common.utils";
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -54,21 +55,21 @@ const AccountScreen = () => {
       </View>
 
       <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
+        data={vm.transactions}
+        keyExtractor={(item) => item?.id}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={vm.handleNavigateTransaction} style={styles.item}>
             <View style={styles.sectionLeft}>
               <View style={styles.iconCONT}>
-                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"} size={handleSize.f(16)} color={THEME.textPrimary} />
+                <Icon name={item?.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"} size={handleSize.f(16)} color={THEME.textPrimary} />
               </View>
               <View>
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.subname}>19 July</Text>
+                <Text style={styles.name} ellipsizeMode="tail" numberOfLines={1} >{item?.beneficiary?.first_name + " " + item?.beneficiary?.last_name}</Text>
+                <Text style={styles.subname}>{commonUtils.timeHumanize(item?.created_at)}</Text>
               </View>
             </View>
             <View>
-              <Text style={styles.amount}>{item.amount}</Text>
+              <Text style={styles.amount}>{item?.amount}</Text>
             </View>
           </TouchableOpacity>
         )}
@@ -86,8 +87,8 @@ const AccountScreen = () => {
        resizeMode="stretch"
        >
               <OptionsHeader
-            // onPressNotification={() => vm.navigation.navigate(HOME_ROUTES.NOTIFICATION)}
-            onPressNotification={() => Alert.alert("NEED",SHOW_CLIENT) }
+            onPressNotification={() => vm.navigation.navigate(HOME_ROUTES.NOTIFICATION)}
+            // onPressNotification={() => Alert.alert("NEED",SHOW_CLIENT) }
             onPressAdd={() => vm.navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY)}
           />
           <FlatList
@@ -366,6 +367,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
     marginLeft: handleSize.w(10),
+    width: Metrics.width - handleSize.w(220),
+    // backgroundColor: "red",
   },
 
   subname: {
@@ -376,8 +379,11 @@ const styles = StyleSheet.create({
   },
 
   amount: {
-   fontSize: handleSize.f(FONT_SIZES.oneeight),
+   fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
+    // width: handleSize.w(120),
+    // backgroundColor: "red",
+    textAlign:"right"
   },
 });

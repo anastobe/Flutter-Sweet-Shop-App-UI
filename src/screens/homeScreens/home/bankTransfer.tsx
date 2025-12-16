@@ -114,8 +114,8 @@ const BankTransfer = () => {
           {/* Recipient Gets */}
           <InputField
             // renderRightInput={renderRightInput}
-            placeholder="Enter Amount"
-            removeTitle={true}
+            placeholder="Amount"
+            removeTitle={false}
             value={enterAmount}
             onChangeText={setenterAmount}
             keyboardType={"numeric"}
@@ -128,7 +128,7 @@ const BankTransfer = () => {
           <InputField
             disabled={false}
             placeholder="To Account"
-            removeTitle={true}
+            removeTitle={false}
             value={beneficiary?.first_name}
             enableDropdown={true}
             dropdownData={beneficiaryArray}
@@ -147,11 +147,11 @@ const BankTransfer = () => {
           <InputField
             // renderRightInput={renderRightInput}
             placeholder="Enter Note / Refrence"
-            removeTitle={true}
+            removeTitle={false}
             value={note}
             onChangeText={setnote}
             keyboardType={"default"}
-            maxlen={10}
+            maxlen={50}
             margBtm={handleSize.h(15)}
           />
 

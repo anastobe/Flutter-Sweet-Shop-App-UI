@@ -11,6 +11,11 @@ export const createCard = async (body: any) => {
   return response;
 };
 
+export const cardUsedStatus = async (body: any) => {
+  const response = await axiosInstance('/oob/result', 'POST', body, true);
+  return response;
+};
+
 export const freezUnFreezCard = async (body: any) => {
   const response = await axiosInstance('/card/status', 'POST', body, true);
   return response;

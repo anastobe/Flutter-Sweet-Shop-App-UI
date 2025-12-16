@@ -6,13 +6,14 @@ import { HOME_ROUTES } from "../../../constants";
 import { ACTIVE_ACCOUNT } from "../../../utils/data";
 import { SHOW_CLIENT } from "../../../APICall/constants";
 import { getCards } from "../../../queries/auth.query";
-import { AccDelete, AccFreeze, getAccounts } from "../../../queries/accountQueries/accountQuery";
+import { AccDelete, AccFreeze, getAccounts, paymentHistry, transactionsHistry } from "../../../queries/accountQueries/accountQuery";
 import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import QueryKey from "../../../queries/queryKey";
 import { Images } from "../../../config";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
+import apis from "../../../services";
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
@@ -38,11 +39,24 @@ export const useAccountScreenViewModel = () => {
   const [gbpWallet, setGbpWallet] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [showbalance, setshowbalance] = useState(false);
+  const [transactions, setTransactions] = useState([]);
 
 
   const { data: getAccounts_Data, refetch: refetchgetAccounts, isPending } = getAccounts({
     enabled: false, 
     dispatch,
+  });
+
+  const {mutate: paymentHistryFunc, isPending: isPendingpaymentHistry} = paymentHistry({
+    callback: (response: any) => {
+      
+      console.log("paymentHistryFunc==>",response);
+
+      if (response.success) {
+        setTransactions(response?.results?.values)
+        
+      }
+    },
   });
 
   
@@ -161,7 +175,26 @@ export const useAccountScreenViewModel = () => {
 
   useEffect(() => {
     refetchgetAccounts();
+    getTransactions();
+    apis.getCurrencyAccount(dispatch)
   }, []);
+
+  function getTransactions() {
+    let payload = {
+    page: 1,
+    limit: 50,
+    sort: {
+        key: "created_at",
+        order: "desc"
+    },
+    search: "",
+    filters: {
+        // "status_id": 1
+    }
+    }
+
+      paymentHistryFunc(payload)
+  }
 
   return {
     navigation,
@@ -193,6 +226,7 @@ export const useAccountScreenViewModel = () => {
     isPendingAccFreeze,
     isPendingAccDelete,
     handleNavigateTransactionHistory,
-    handleNavigateTransaction
+    handleNavigateTransaction,
+    transactions
   };
 };

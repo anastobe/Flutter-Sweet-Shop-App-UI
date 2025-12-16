@@ -9,11 +9,15 @@ import { HOME_ROUTES } from "./src/constants";
 import apis from "./src/services";
 import { CommonUtils } from "./src/utils";
 import { MainStack } from "./src/stacks/MainStack";
+import { PushNotificationHandler } from "./src/config/PushNotification";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 import {LoaderFullScreen, } from "./src/components/activityIndicator";
 import { isRootDetected, isEmulator, isDebuggable } from 'react-native-root-detection';
 import SplashScreen from "react-native-splash-screen";
+import messaging from '@react-native-firebase/messaging';
+import { NotificationModalProvider } from "./src/components/notificationModalContext";
+import TransactionAlertModal from "./src/components/Modal/transactionAlertModal";
 // import { initIdleTimer, resetActivity } from "./src/security/IdleTimer";
 // import { TouchableWithoutFeedback } from "react-native";
 
@@ -27,22 +31,7 @@ const App: React.FC = () => {
     }, 1000);
   }, []);
 
-
-  //     const handleLogout = () => {
-  //   Alert.alert(
-  //     "Session Expired",
-  //     "You have been logged out due to 2 minutes of inactivity.",
-  //     [{ text: "OK", onPress: () => {
-  //       // TODO: logout logic
-  //       // clear tokens
-  //       // navigate to Login
-  //     }}]
-  //   );
-  // };
-
-  // React.useEffect(() => {
-  //   initIdleTimer(handleLogout);
-  // }, []);
+  
 
  React.useEffect(() => {
     const check = () => {
@@ -130,24 +119,27 @@ const App: React.FC = () => {
   }; 
     dataHandlerService.setStore(Store);
 
-
     {/* <PersistGate loading={null} persistor={Persistor}> remove due to security reason */} 
       {/* <TouchableWithoutFeedback onPress={resetActivity}> */}
 
   return (
-    <QueryClientProvider client={queryClient} contextSharing={true} >
-    <Provider store={Store}>
-        <NavigationContainer
-          fallback={<ActivityIndicator
-            color="blue" size="large" />}
-          // ref={(ref: any) => NavigationService.setTopLevelNavigator(ref)} 
-          >
-          <MainStack />
-          <LoaderFullScreen />
-          <Toast config={toastConfig} />
-        </NavigationContainer>
-    </Provider>
-    </QueryClientProvider>
+    <NotificationModalProvider>
+      <QueryClientProvider client={queryClient} contextSharing={true} >
+      <Provider store={Store}>
+          <NavigationContainer
+            fallback={<ActivityIndicator
+              color="blue" size="large" />}
+            // ref={(ref: any) => NavigationService.setTopLevelNavigator(ref)} 
+            >
+            <MainStack />
+            <LoaderFullScreen />
+            <Toast config={toastConfig} />
+            <PushNotificationHandler />
+            <TransactionAlertModal />
+          </NavigationContainer>
+      </Provider>
+      </QueryClientProvider>
+    </NotificationModalProvider>
   );
 };
 

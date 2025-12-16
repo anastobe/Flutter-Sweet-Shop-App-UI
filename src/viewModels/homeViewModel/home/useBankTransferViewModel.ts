@@ -71,6 +71,9 @@ export const useBankTransferViewModel = () => {
     else if (!CommonUtils.RegixNumbersOnly.test(enterAmount)) {
     Toast.showToast('Enter Correct Amount', '', 'error'); 
   }
+    else if (enterAmount > fromAccount?.available_balance) {
+      Toast.showToast('Amount is greater than Available Balance', '', 'error');
+    } 
     else if (beneficiary.beneficiary_id == "") {
       Toast.showToast('Select Beneficiary', '', 'error');
     } 

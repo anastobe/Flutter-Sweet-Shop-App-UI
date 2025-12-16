@@ -18,9 +18,11 @@ import { handleSize } from '../../config/responsiveTheme';
 type Props = {
   onClose?: () => void;
   btnLoader?: boolean;
+  botmBtmLoader?: boolean;
   iconNameBottom?: number;
   showCancelBtn?: boolean;
   onConfirm?: () => void;
+  onPressBottomBtn?: () => void;
   title: string;
   marginTopTitle?: number;
   showSubBody?: boolean;
@@ -36,8 +38,10 @@ type Props = {
 const BluryModal: React.FC<Props> = ({
   onClose,
   btnLoader,
+  botmBtmLoader,
   showCancelBtn,
   onConfirm,
+  onPressBottomBtn,
   title,
   marginTopTitle,
   showSubBody,
@@ -111,10 +115,10 @@ const BluryModal: React.FC<Props> = ({
         {/* CANCEL BUTTON */}
         {showCancelBtn && (
           <CustomButton
-            loading={false}
+            loading={botmBtmLoader}
             btnContSty={{ backgroundColor: THEME.white, width: '100%' }}
             title={downConfirmText}
-            onPress={onClose}
+            onPress={onPressBottomBtn}
           />)}
       </View>
     </View>
@@ -165,7 +169,7 @@ const styles = StyleSheet.create({
   },
   containerAlert: {
     flexDirection: 'row',
-    paddingVertical: handleSize.h(15),
+    paddingVertical: handleSize.h(5),
     paddingHorizontal: handleSize.w(10),
     marginHorizontal: handleSize.w(10),
     borderRadius: handleSize.f(10),

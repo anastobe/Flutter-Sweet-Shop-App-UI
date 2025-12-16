@@ -72,9 +72,12 @@ const HomeScreen = () => {
       <View style={{ flexDirection: "row", justifyContent: 'space-between', marginHorizontal: handleSize.w(20), }} >
       <View style={{marginTop: handleSize.h(20), }} >
         <Text style={styles.title}>Great to See You,</Text>
-        <Text 
+        {/* <Text 
         numberOfLines={1} ellipsizeMode="tail"
-        style={styles.titlesub}>{personal_customers?.first_name + " " + personal_customers?.last_name }</Text>
+        style={styles.titlesub}>{personal_customers?.first_name || "" + " " + personal_customers?.last_name || "" }</Text> */}
+                <Text 
+        numberOfLines={1} ellipsizeMode="tail"
+        style={styles.titlesub}>Alex!</Text>
       </View>
 
       <View style={styles.headerRight}>

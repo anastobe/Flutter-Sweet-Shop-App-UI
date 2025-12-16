@@ -11,6 +11,11 @@ export const getAccounts = async () => {
   return response?.results;
 };
 
+export const getNotifications = async () => {
+  const response = await axiosInstance('/notifications/expiration_based', 'GET', undefined, false );
+  console.log("=>services=> getNotifications", response);
+  return response?.results;
+};
 
 // 🔹 Freeze / Unfreeze Account
 export const AccFreeze = async (payload: any) => {
@@ -30,5 +35,11 @@ export const AccFreeze = async (payload: any) => {
 export const AccDelete = async (id: any) => {
   const response = await axiosInstance(`/account/${id}`, 'DELETE', undefined, false );
   console.log("=>services=> AccDelete", response);
+  return response;
+};
+
+export const paymentHistry = async (body: any) => {
+  const response = await axiosInstance(`/payment`, 'POST', body, false );
+  console.log("=>services=> paymentHistry", response);
   return response;
 };

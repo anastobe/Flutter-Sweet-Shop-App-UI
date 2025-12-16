@@ -42,7 +42,7 @@ export const useHomeViewModel = () => {
   };
 
   const handleNavigateNotification = () => {
-    Alert.alert(SHOW_CLIENT)
+    navigation.navigate(HOME_ROUTES.NOTIFICATION)
   };
 
   const handleNavigateTransactionHistory = () => {

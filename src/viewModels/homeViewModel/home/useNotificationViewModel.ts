@@ -2,9 +2,14 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import { getAccounts, getNotifications } from '../../../queries/accountQueries/accountQuery';
+import { useDispatch } from 'react-redux';
 
 export const useNotificationViewModel = () => {
+
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const FOCUS = useIsFocused();
 
   const [notifications] = useState([
     { id: '1', type: 'credit', message: 'You received £250.00 from John', time: '2 min ago' },
@@ -21,21 +26,47 @@ export const useNotificationViewModel = () => {
     { id: '12', type: 'credit', message: 'Salary credited £1,200.00', time: 'Yesterday' },
   ]);
 
+  
+  const { data: getNotifications_Data, refetch: refetchgetNotifications, isPending: isFetchedNotification } = getNotifications({
+    enabled: false, 
+    dispatch
+  });
+
+  useEffect(()=>{
+    if (FOCUS) {
+      refetchgetNotifications()
+    }
+  },[FOCUS])
+  
+
   const pressBackArrow = () => {
     navigation.goBack();
   };
 
   // Logic for icon & color mapping
-  const getNotificationIconAndColor = (type: string) => {
+  // const getNotificationIconAndColor = (type: string) => {
+  //   switch (type) {
+  //     case 'sent':
+  //       return { icon: 'card-outline', color: 'green' };
+  //     case 'sent':
+  //       return { icon: 'card-outline',  color: 'red' };
+  //     case 'sent':
+  //       return { icon: 'card-outline',  color: 'orange' };
+  //     default:
+  //       return { icon: 'card-outline',  color: '#888' };
+  //   }
+  // };
+
+    const getNotificationIconAndColor = (type: string) => {
     switch (type) {
-      case 'credit':
-        return { icon: 'arrow-down-circle-outline', color: 'green' };
-      case 'debit':
-        return { icon: 'arrow-up-circle-outline', color: 'red' };
-      case 'failed':
-        return { icon: 'close-circle-outline', color: 'orange' };
+      case 'sent':
+        return { icon: 'card-outline', color: THEME.white };
+      case 'sent':
+        return { icon: 'card-outline',  color: THEME.white };
+      case 'sent':
+        return { icon: 'card-outline',  color: THEME.white };
       default:
-        return { icon: 'alert-circle-outline', color: '#888' };
+        return { icon: 'card-outline',  color: THEME.white };
     }
   };
 
@@ -43,5 +74,8 @@ export const useNotificationViewModel = () => {
     notifications,
     pressBackArrow,
     getNotificationIconAndColor,
+    getNotifications_Data,
+    isFetchedNotification
+    
   };
 };

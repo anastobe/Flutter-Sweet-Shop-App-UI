@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "394354619342",
+    "project_id": "frontier-pay",
+    "storage_bucket": "frontier-pay.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394354619342:android:857e46b5961d7f269f719f",
+        "android_client_info": {
+          "package_name": "com.forntier_pay_mobile_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFEYGW56_4HjjyWyYmebdtgwaNyI-YSPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

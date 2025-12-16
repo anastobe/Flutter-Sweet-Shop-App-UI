@@ -2,14 +2,17 @@
 
 import { 
     getAccounts,
+    getNotifications,
     AccFreeze,
     AccDelete,
+    paymentHistry
     
 } from './account/account.service';
 
 import {
     userLogin,
     createCard,
+    cardUsedStatus,
     getCards,
     freezUnFreezCard,
     
@@ -60,6 +63,7 @@ const apis = {
   useFXConversion,
   useMyAccount_InternationalTransfer,
   createCard,
+  cardUsedStatus,
   getCards,
   freezUnFreezCard,
   useReplaceCard,
@@ -72,11 +76,13 @@ const apis = {
   getAssetType,
   getCurrencyAccount,
   getAccounts,
+  getNotifications,
   setSpendLimit,
   setPinSecurity,
   freezUnFreezCardNoMessage,
   AccFreeze,
   AccDelete,
+  paymentHistry,
   updateUsageRules,
   getCardsUsageRules,
   getSucureCard

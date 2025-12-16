@@ -142,7 +142,7 @@ const MyAccountTransfer = ({...props}) => {
           <InputField
             // renderRightInput={renderRightInput}
             placeholder="Enter Amount"
-            removeTitle={true}
+            removeTitle={false}
             value={enterAmount}
             onChangeText={setenterAmount}
             keyboardType={"numeric"}
@@ -173,11 +173,11 @@ const MyAccountTransfer = ({...props}) => {
           <InputField
             // renderRightInput={renderRightInput}
             placeholder="Enter Note / Refrence"
-            removeTitle={true}
+            removeTitle={false}
             value={note}
             onChangeText={setnote}
             keyboardType={"default"}
-            maxlen={10}
+            maxlen={50}
             margBtm={handleSize.h(25)}
           />
 

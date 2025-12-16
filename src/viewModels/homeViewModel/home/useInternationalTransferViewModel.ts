@@ -257,7 +257,7 @@ export const useInternationalTransferViewModel = ({...props}) => {
             quoteId: rateObj?.quoteId,
             conversion_Fee: "£2.00", // you can update based on API
             total_After_Fee: rateObj?.settlementAmount?.toString() ?? "",
-            Exchange_Rate_Live: `1 ${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`
+            Exchange_Rate_Live: `${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`
           });
         }
       }

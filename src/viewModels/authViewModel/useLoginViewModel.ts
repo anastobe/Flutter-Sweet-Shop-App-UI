@@ -1,8 +1,8 @@
 // viewModels/useLoginViewModel.ts
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactNativeBiometrics from "react-native-biometrics";
 import { useLogin } from "../../queries/auth.query";
-import { Alert } from "react-native";
+import { Alert, PermissionsAndroid, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
 import { SHOW_CLIENT } from "../../APICall/constants";
@@ -11,6 +11,7 @@ import { StatusBar } from "react-native";
 import { THEME } from "../../styles"; 
 import { useIsFocused } from "@react-navigation/native";
 import { Auth_ROUTES } from "../../constants";
+import messaging from '@react-native-firebase/messaging';
 
 export const useLoginViewModel = (navigation: any) => {
 
@@ -26,6 +27,7 @@ export const useLoginViewModel = (navigation: any) => {
   //user,individual
   // const [email, setEmail] = useState("uhf-personal");
   // const [password, setPassword] = useState("Pass@123");
+  const [token, setToken] = useState("");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
   const [Open, setOpen] = useState({
@@ -46,6 +48,29 @@ export const useLoginViewModel = (navigation: any) => {
     });
   }, []);
 
+  
+  React.useEffect(() => {
+    requestPermission();
+  }, []);
+
+  const requestPermission = async () => {
+    if (Platform.OS === 'android' && Platform.Version >= 33) {
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+      );
+    }
+
+    const authStatus = await messaging().requestPermission();
+    if (
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL
+    ) {
+      const token = await messaging().getToken();
+      console.log('FCM TOKEN:', token);
+      setToken(token)
+    }
+  };
+  
   const { mutate: loginFunc, isPending } = useLogin({
     callback: (res: any) => {
       console.log("Login response:", res);
@@ -69,9 +94,9 @@ export const useLoginViewModel = (navigation: any) => {
       Toast.showToast("Please Enter Email Address", '', 'error');
     } else if (password == ""){
       Toast.showToast("Please Enter Password", '', 'error');
-    }
+    }    
     else{
-      loginFunc({ username: email, password: password });
+      loginFunc({ username: email, password: password, device_token: token, device_type: Platform.OS });
     }
   };
 

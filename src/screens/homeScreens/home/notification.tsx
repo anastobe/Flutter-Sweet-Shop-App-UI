@@ -6,21 +6,35 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useNotificationViewModel } from '../../../viewModels/homeViewModel/home/useNotificationViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
+import { CommonUtils } from '../../../utils';
+import { TouchableOpacity } from 'react-native';
+import { LoaderOnly } from '../../../components/activityIndicator';
+import { useNotificationModal } from '../../../components/notificationModalContext';
 
 const Notification = () => {
-  const { notifications, pressBackArrow, getNotificationIconAndColor } = useNotificationViewModel();
+  const {openModal} = useNotificationModal();
+  const { notifications, pressBackArrow, getNotificationIconAndColor, getNotifications_Data,isFetchedNotification } = useNotificationViewModel();
+
+  function onPressItem(item: any) {
+      openModal({
+        transaction_amount: "1234",
+        transaction_currency_code: "1234",
+        transaction_channel: "1234",
+      });
+  }
 
   const renderItem = ({ item }: { item: any }) => {
-    const { icon, color } = getNotificationIconAndColor(item.type);
+    const { icon, color } = getNotificationIconAndColor(item?.type);
+
 
     return (
-      <View style={styles.notificationBox}>
+      <TouchableOpacity onPress={()=>{ onPressItem(item) }} style={styles.notificationBox}>
         <Icon name={icon} size={handleSize.f(24)} color={color} style={{ marginRight: 10 }} />
         <View style={{ flex: 1 }}>
-          <Text style={styles.message}>{item.message}</Text>
-          <Text style={styles.time}>{item.time}</Text>
+          <Text style={styles.message}>{item?.title}</Text>
+          <Text style={styles.time}>{CommonUtils.timeHumanize(item?.created_at)}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -38,12 +52,16 @@ const Notification = () => {
 
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View style={{ marginHorizontal: 20 }}>
+          {/* {isFetchedNotification ? (
+            <LoaderOnly />
+          ) : ( */}
           <FlatList
-            data={notifications}
-            keyExtractor={(item) => item.id}
+            data={getNotifications_Data}
+            keyExtractor={(item) => item?.id}
             renderItem={renderItem}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
           />
+          {/* )} */}
         </View>
       </ScrollView>
     </MainContainer>

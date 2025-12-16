@@ -51,7 +51,7 @@ const BeneficiariesManagement = () => {
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.name}>{item?.first_name +" "+ item?.last_name}</Text>
-            <Text style={styles.currency}>{item.currency || "GBP(DUMMY)"}</Text>
+            <Text style={styles.currency}>{item?.currency?.iso_code || "GBP(DUMMY)"}</Text>
           </View>
 
           <View style={{ flexDirection: "row" }}>
@@ -147,7 +147,7 @@ const BeneficiariesManagement = () => {
             <LoaderOnly />
           ) : (
           <FlatList
-              data={getBeneficiaryDetail_Data.results}
+              data={getBeneficiaryDetail_Data?.results}
               renderItem={renderItem}
               // scrollEnabled
               // nestedScrollEnabled
@@ -155,7 +155,7 @@ const BeneficiariesManagement = () => {
               onEndReached={() => {
                 console.log("User reached the bottom!");
               }}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item?.id}
               ListEmptyComponent={()=>{
               return(
                 <Text  style={styles.txtEmptyTxt} >No Beneficiary Found</Text>

@@ -1,6 +1,6 @@
 import {useMutation, useQuery} from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
-import {  storeUserToken } from '../Redux/Action/Auth/AuthActions';
+import {  handleLoader, storeUserToken } from '../Redux/Action/Auth/AuthActions';
 import { Auth_ROUTES, HOME_ROUTES } from '../constants';
 import QueryKey from './queryKey';
 import { Toast } from '../utils';
@@ -45,6 +45,26 @@ export const createCard = ({callback} : {callback: (res: any) => void}) => {
     }
   });
 };
+
+export const cardUsedStatus = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.cardUsedStatus,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+    }  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('cardUsedStatus error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    },
+
+  });
+};
+
 
 export const freezUnFreezCard = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
