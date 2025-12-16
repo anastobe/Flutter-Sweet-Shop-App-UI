@@ -1,231 +1,86 @@
-import notifee, {
-  AndroidColor,
-  AndroidImportance,
-  EventType,
-} from '@notifee/react-native';
-import messaging, {FirebaseMessagingTypes} from '@react-native-firebase/messaging';
-import React, {useDebugValue, useEffect, useRef,  } from 'react';
-import {AppState, Platform} from 'react-native';
-// import {Images, NavigationService} from '../../config';
-import {HOME_ROUTES} from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-// import { HandleLoader } from '../../Redux/Action/Auth/AuthActions';
-import apis from '../../services';
+import {
+  setPendingTransaction,
+  markTransactionHandled,
+} from '../../Redux/Action/Notification/notificationActions';
+import { useEffect, useRef } from 'react';
 import { useNotificationModal } from '../../components/notificationModalContext';
-import dataHandlerService from '../../APICall/dataHandler.service';
-// import navigationService from '../navigationService';
+import messaging from '@react-native-firebase/messaging';
 
-type PushNotificationProps = {};
+// const EXPIRY_MS = 30 * 60 * 1000;s
+const EXPIRY_MS = 30 * 60 * 1000;
 
-export const PushNotificationHandler: React.FC<PushNotificationProps> = () => {
-  
-  const dispatch = useDispatch()
+export const PushNotificationHandler = () => {
+
+  const dispatch = useDispatch();
   const { openModal } = useNotificationModal();
 
-  const userlogdedIn = useSelector((state: any) => state?.AuthReducer?.userlogdedIn);
+  const userlogdedIn = useSelector(
+    (state: any) => state?.AuthReducer?.userlogdedIn
+  );
+
+  const pendingTx = useSelector(
+    (state: any) => state?.pendingTransaction
+  );
 
   const userLoggedInRef = useRef(userlogdedIn);
 
-  // 👇 keep ref updated
   useEffect(() => {
     userLoggedInRef.current = userlogdedIn;
   }, [userlogdedIn]);
 
-
+  // 🔔 receive notification
   useEffect(() => {
-    // Handle foreground notifications
-    const unsubscribeOnMessage = messaging().onMessage(
-      async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
-        // console.log('Foreground message:', remoteMessage.data);
-        showNotification(remoteMessage.notification,remoteMessage);
-      },
-    );
+    const handleMessage = (remoteMessage: any) => {
+      const data = remoteMessage?.data;
 
-    // Handle background/quit state notifications
-    const unsubscribeOnNotificationOpenedApp = messaging().onNotificationOpenedApp(
-      (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
-        console.log('App opened from background/quit state:', JSON.stringify(remoteMessage));
-        handleNotificationInteraction(remoteMessage);
-      },
-    );
+      console.log("ASdsadas=>",data);
+      
 
-    // Check if the app was opened by a notification from a quit state
-    messaging()
-      .getInitialNotification()
-      .then(remoteMessage => {
-        if (remoteMessage) {
-          console.log('App opened from quit state:', JSON.stringify(remoteMessage));
-          handleNotificationInteraction(remoteMessage);
-        }
-      });
+      if (data?.is_modal === 'yes') {
+        dispatch(setPendingTransaction(data));
+      }
+    };
 
-    // Handle background event clicks
-    // const unsubscribeOnBackground = notifee.onBackgroundEvent(
-    //   async ({type, detail}) => {
-    //     if (type === EventType.ACTION_PRESS) {
-    //       console.log('Background notification click:', JSON.stringify(detail));
-    //       handleNotificationInteraction(detail.notification);
-    //     }
-    //   },
-    // );
+    const unsub1 = messaging().onMessage(handleMessage);
+    const unsub2 = messaging().onNotificationOpenedApp(handleMessage);
+
+    messaging().getInitialNotification().then(msg => {
+      if (msg) handleMessage(msg);
+    });
 
     return () => {
-      unsubscribeOnMessage();
-      unsubscribeOnNotificationOpenedApp();
-      // unsubscribeOnBackground();
+      unsub1();
+      unsub2();
     };
   }, []);
 
-  //Function to display notification
-  const showNotification = async (notification: any, all: any) => {
-    const channelId = await notifee.createChannel({
-      id: 'frontier-pay',
-      name: 'FrontierPay',
-      description: 'A channel to categorize your notifications',
-      sound: 'default',
-      importance: AndroidImportance.HIGH,
-      vibration: true,
-      vibrationPattern: [300, 500],
-      lights: true,
-      lightColor: AndroidColor.NAVY,
-    });
+  // 🎯 decide when to show modal
+  useEffect(() => {
+    if (!pendingTx?.data || pendingTx.handled) return;
 
+    const now = Date.now();
 
-    const {data} = all;
-
-    const myNotification = {
-      title: notification?.title || 'Alert',
-      body: notification?.body || 'Notification',
-      data: data,
-      sound: 'default',
-      android: {
-        channelId,
-        importance: AndroidImportance.HIGH,
-        sound: 'default',
-        pressAction: {
-          id: 'default',
-        }
-        // color: '#000',
-      },
-      ios: {
-        sound: 'default',
-        badge: true,
-        foregroundPresentationOptions: {
-          badge: true,
-          sound: true,
-          banner: true,
-          list: true,
-        },
-      },
-    };
-
-    console.log(userLoggedInRef.current,"Check==>",data);
-    
-
-    if (data?.is_modal === 'yes' && userLoggedInRef.current) {
-      openModal({
-        transaction_amount: data?.transaction_amount,
-        transaction_currency_code: data?.transaction_currency_code,
-        transaction_pan: data?.pan,
-        card_acceptor_name: data?.card_acceptor_name
-      });
+    if (now - pendingTx.receivedAt > EXPIRY_MS) {
+      dispatch(markTransactionHandled());
+      return;
     }
 
-    await notifee.displayNotification(myNotification);
-  };
+    if (userLoggedInRef.current) {
+      openModal({
+        transaction_amount: pendingTx.data.transaction_amount,
+        transaction_currency_code: pendingTx.data.transaction_currency_code,
+        transaction_pan: pendingTx.data.pan,
+        card_acceptor_name: pendingTx.data.card_acceptor_name,
+        sp_transaction_id: pendingTx.data.sp_transaction_id,
+      });
 
-  // Function to handle notification interaction
-  const handleNotificationInteraction = (notification: any) => {
+      dispatch(markTransactionHandled());
+    }
+  }, [pendingTx, userlogdedIn]);
 
-    console.log("after touch notification",notification);
-    
-
-    // onNotificationPress(notification)
-  };
-
-//   async function onNotificationPress(data: any) {
-
-//   try {
-//     dispatch(HandleLoader(true))  
-//     let formatedData = data?.data
-  
-//     if (formatedData?.reason === "like_post") {
-//       let res = await apis.getPostDetail(formatedData?.postId)
-//       if (res?.status) {
-//         NavigationService.navigate(HOME_ROUTES.PostPreview,{ openSheet: false, postObjectData: res?.data, objectId: formatedData?.postId  })
-//         dispatch(HandleLoader(false))
-//       }      
-//     } 
-//     else if (formatedData?.reason === "comment_post") {
-//       let res = await apis.getPostDetail(formatedData?.postId)  
-//       if (res?.status) {    
-//         NavigationService.navigate(HOME_ROUTES.PostPreview,{ openSheet: true, postObjectData: res?.data, objectId: formatedData?.postId  })
-//         dispatch(HandleLoader(false))
-//       }
-//     }
-//     else if (formatedData?.reason === "shared_post") {
-//       let res = await apis.getPostDetail(formatedData?.postId)
-//       if (res?.status) {    
-//         NavigationService.navigate(HOME_ROUTES.PostPreview,{ openSheet: false, postObjectData: res?.data, objectId: formatedData?.postId  })
-//         dispatch(HandleLoader(false))
-//       }
-//     }
-//     else if (formatedData?.reason === "post_create") {
-//       let res = await apis.getPostDetail(formatedData?.postId)
-//       if (res?.status) { 
-//         NavigationService.navigate(HOME_ROUTES.PostPreview,{ openSheet: false, postObjectData: res?.data, objectId: formatedData?.postId  })
-//         dispatch(HandleLoader(false))
-//       }
-//     } 
-//     else if (formatedData?.reason === "event_invite") {
-//       navigationService.navigate(HOME_ROUTES.EventsDetail,{ eventId: formatedData?.eventId, categoryName: 'no'})
-//       dispatch(HandleLoader(false))
-//     } 
-//     else if (formatedData?.reason === "event_create") { //check
-//       navigationService.navigate(HOME_ROUTES.EventsDetail,{ eventId: formatedData?.eventId, categoryName: 'no'})
-//       dispatch(HandleLoader(false))
-//     } 
-//     else if (formatedData?.reason === "event_reminder") { //check
-//       navigationService.navigate(HOME_ROUTES.EventsDetail,{ eventId: formatedData?.eventId, categoryName: 'no'})
-//       dispatch(HandleLoader(false))
-//     } 
-//     else if (formatedData?.reason === "event_edit") { //check
-//       navigationService.navigate(HOME_ROUTES.EventsDetail,{ eventId: formatedData?.eventId, categoryName: 'no'})
-//       dispatch(HandleLoader(false))
-//     } 
-//     else if (formatedData?.reason === "friend_request" || formatedData?.reason == "accept_friend_request") {
-//       NavigationService.navigate(HOME_ROUTES.OtherProfile, {
-//         userDetail: {
-//           image: Images.UserImg,
-//           name: "",
-//           id: formatedData?.recieverId,
-//         },
-//       }); 
-//       setTimeout(() => {
-//         dispatch(HandleLoader(false))
-//       }, 500);
-//     }
-//     else if (formatedData?.reason === "new_individual_chat_message") { //check
-//       navigationService.navigate(HOME_ROUTES.Message)
-//       dispatch(HandleLoader(false))
-//     } 
-//     else if (formatedData?.reason === "new_group_chat_message") { //check
-//       navigationService.navigate(HOME_ROUTES.Message)
-//       dispatch(HandleLoader(false))
-//     } 
-//     else{
-//       dispatch(HandleLoader(false))
-//     } 
-//   } catch (error) {
-//     dispatch(HandleLoader(false))
-//   } finally {
-//     dispatch(HandleLoader(false))
-//   }
-
-//   }
-
-}
-
+  return null;
+};
 
 
  

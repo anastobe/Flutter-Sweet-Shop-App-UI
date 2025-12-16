@@ -2,9 +2,11 @@ import React, {createContext, useContext, useState} from 'react';
 import { cardUsedStatus, createCard } from '../queries/auth.query';
 
 type TransactionData = {
-  transaction_amount: string;
-  transaction_currency_code: string;
-  transaction_channel: string;
+    transaction_amount: string,
+    transaction_currency_code: string,
+    transaction_pan: string,
+    card_acceptor_name: string,
+    sp_transaction_id: string,
 };
 
 type ContextType = {
