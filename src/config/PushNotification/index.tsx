@@ -84,11 +84,16 @@ export const PushNotificationHandler = () => {
 
     useEffect(() => {
     notifee.getInitialNotification().then((initialNotification) => {
-              
-      if (initialNotification) {
-        handleMessage(initialNotification.notification)
-        console.log('App opened from QUIT state:', initialNotification.notification);
-      }
+      
+    if (initialNotification?.notification?.data?.is_modal === 'yes') {
+      dispatch(setPendingTransaction(initialNotification?.notification?.data));
+    }
+
+      // if (initialNotification) {
+      //   handleMessage(initialNotification.notification)
+      //   console.log('App opened from QUIT state:', initialNotification.notification);
+      // }
+      
     });
   }, []);
 
@@ -101,8 +106,13 @@ export const PushNotificationHandler = () => {
       console.log('Notifee background event=:??', type, detail);
   
       if (type === EventType.PRESS) {
-        console.log('User pressed notification while app was in foreground/background', detail.notification);
-            handleMessage(detail.notification)
+        console.log('User pressed notification while app was in foreground/background', detail.notification?.data);
+            // handleMessage(detail.notification)
+            
+    if (detail.notification?.data?.is_modal === 'yes') {
+      dispatch(setPendingTransaction(detail.notification?.data));
+    }
+    
       }
 
     });
