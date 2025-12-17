@@ -6,7 +6,7 @@ import {
 import { useEffect, useRef } from 'react';
 import { useNotificationModal } from '../../components/notificationModalContext';
 import messaging from '@react-native-firebase/messaging';
-import notifee, { AndroidImportance } from '@notifee/react-native';
+import notifee, { AndroidImportance,EventType } from '@notifee/react-native';
 
 // const EXPIRY_MS = 30 * 60 * 1000;s
 const EXPIRY_MS = 30 * 60 * 1000;
@@ -90,6 +90,23 @@ export const PushNotificationHandler = () => {
         console.log('App opened from QUIT state:', initialNotification.notification);
       }
     });
+  }, []);
+
+  
+  // 2. HANDLE FOREGROUND & MINIMIZED STATE
+  useEffect(() => {
+    // This listener handles taps when the app is OPEN or MINIMIZED
+
+    notifee.onBackgroundEvent(async ({ type, detail }) => {
+      console.log('Notifee background event=:??', type, detail);
+  
+      if (type === EventType.PRESS) {
+        console.log('User pressed notification while app was in foreground/background', detail.notification);
+            handleMessage(detail.notification)
+      }
+
+    });
+
   }, []);
 
   // 🎯 decide when to show modal
