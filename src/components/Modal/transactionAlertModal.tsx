@@ -5,6 +5,8 @@ import {useNotificationModal} from '../notificationModalContext';
 import { Modal } from '../../components';
 import BluryModal from './bluryModal';
 import { cardUsedStatus } from '../../queries/auth.query';
+import commonUtils from '../../utils/common.utils';
+import { Toast } from '../../utils';
 
 const TransactionAlertModal = () => {
   const {visible, closeModal, data } = useNotificationModal();
@@ -33,18 +35,30 @@ const TransactionAlertModal = () => {
   });
 
   function CallApi(status: string) {
-    let payload = {
-      "sp_transaction_id": 12, 
-      "user_response": status
-      }
+    
+    let backendTime =  data?.challenge_expiry_datetime
+    const isValid = commonUtils.isTimeRemaining(backendTime);
 
-      console.log("SAdsaad==>",payload);
+    console.log("===>",data,"---",isValid);
+    
+    
+    if (isValid) {
+      let payload = {
+        sp_transaction_id:  data?.sp_transaction_id, 
+        user_response: status
+        }
       
-      if (status==approved) {
-        cardUsedAcceptFunc(payload)//call accept function
-      }else if(status==declined){
-        cardUsedDeclinedFunc(payload)//call declined function
-      }
+        if (status==approved) {
+          cardUsedAcceptFunc(payload)//call accept function
+        }else if(status==declined){
+          cardUsedDeclinedFunc(payload)//call declined function
+        }      
+    }
+    else{
+      Toast.showToast("Request Time out", '', 'error');
+    }
+    
+    
   }
 
 

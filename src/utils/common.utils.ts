@@ -65,7 +65,47 @@ const timeHumanize = (time: string): string => {
   }
 };
 
+// export const isTimeRemaining = (
+//   challenge_expiry_datetime?: string
+// ): boolean => {
+//   if (!challenge_expiry_datetime) return false;
 
+//   const now = Date.now();
+//   const expiryTime = new Date(challenge_expiry_datetime).getTime();
+
+//   if (isNaN(expiryTime)) return false;
+
+//   return now <= expiryTime;
+// };
+
+export const isTimeRemaining = (
+  challenge_expiry_datetime?: string,
+  debug = true
+): boolean => {
+  if (!challenge_expiry_datetime) {
+    debug && console.log('EXPIRY CHECK ❌ no expiry provided');
+    return false;
+  }
+
+  const now = Date.now();
+  const expiryTime = new Date(challenge_expiry_datetime).getTime();
+
+  if (isNaN(expiryTime)) {
+    debug && console.log('EXPIRY CHECK ❌ invalid date');
+    return false;
+  }
+
+  const isValid = now <= expiryTime;
+
+  debug &&
+    console.log('EXPIRY CHECK ✅', {
+      now: new Date(now).toLocaleString(),
+      expiry: new Date(expiryTime).toLocaleString(),
+      valid: isValid,
+    });
+
+  return isValid;
+};
 
 function formatDateTime(inputTime: any) {
   const date = new Date(inputTime);
@@ -199,5 +239,6 @@ export default {
   updateThumbnailUrls,
   capitalizeFirstLetter,
   getInitials,
-  validateIBAN
+  validateIBAN,
+  isTimeRemaining
 };

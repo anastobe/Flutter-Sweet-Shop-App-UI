@@ -6,23 +6,21 @@ import {
 import { useEffect, useRef } from 'react';
 import { useNotificationModal } from '../../components/notificationModalContext';
 import messaging from '@react-native-firebase/messaging';
-import notifee, { AndroidImportance,EventType } from '@notifee/react-native';
+import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
+import { CommonUtils } from '../../utils';
 
 // const EXPIRY_MS = 30 * 60 * 1000;s
 const EXPIRY_MS = 30 * 60 * 1000;
 
 export const PushNotificationHandler = () => {
-
   const dispatch = useDispatch();
   const { openModal } = useNotificationModal();
 
   const userlogdedIn = useSelector(
-    (state: any) => state?.AuthReducer?.userlogdedIn
+    (state: any) => state?.AuthReducer?.userlogdedIn,
   );
 
-  const pendingTx = useSelector(
-    (state: any) => state?.pendingTransaction
-  );
+  const pendingTx = useSelector((state: any) => state?.pendingTransaction);
 
   const userLoggedInRef = useRef(userlogdedIn);
 
@@ -33,12 +31,12 @@ export const PushNotificationHandler = () => {
   const handleMessage = async (remoteMessage: any) => {
     const data = remoteMessage?.data;
 
-    console.log("handler console=>",remoteMessage);
+    console.log('handler console=>', remoteMessage);
 
     const parsed = JSON.parse(data?.notification);
     let Parsetitle = parsed.title;
     let Parsebody = parsed.body;
-    
+
     await notifee.createChannel({
       id: 'default_high',
       name: 'General High',
@@ -46,11 +44,11 @@ export const PushNotificationHandler = () => {
       sound: 'default',
       vibration: true,
     });
-    
+
     await notifee.displayNotification({
       title: Parsetitle,
       body: Parsebody,
-      data: data,   // 👈 attach FCM data here
+      data: data, // 👈 attach FCM data here
       android: {
         channelId: 'default_high',
         importance: AndroidImportance.HIGH,
@@ -59,7 +57,6 @@ export const PushNotificationHandler = () => {
         pressAction: { id: 'default' },
       },
     });
-    
 
     if (data?.is_modal === 'yes') {
       dispatch(setPendingTransaction(data));
@@ -68,7 +65,6 @@ export const PushNotificationHandler = () => {
 
   // 🔔 receive notification
   useEffect(() => {
-
     const unsub1 = messaging().onMessage(handleMessage);
     // const unsub2 = messaging().onNotificationOpenedApp(handleMessage);
 
@@ -82,54 +78,55 @@ export const PushNotificationHandler = () => {
     };
   }, []);
 
-    useEffect(() => {
-    notifee.getInitialNotification().then((initialNotification) => {
-      
-    if (initialNotification?.notification?.data?.is_modal === 'yes') {
-      dispatch(setPendingTransaction(initialNotification?.notification?.data));
-    }
+  useEffect(() => {
+    notifee.getInitialNotification().then(initialNotification => {
+      if (initialNotification?.notification?.data?.is_modal === 'yes') {
+        dispatch(
+          setPendingTransaction(initialNotification?.notification?.data),
+        );
+      }
 
       // if (initialNotification) {
       //   handleMessage(initialNotification.notification)
       //   console.log('App opened from QUIT state:', initialNotification.notification);
       // }
-      
     });
   }, []);
 
-  
   // 2. HANDLE FOREGROUND & MINIMIZED STATE
   useEffect(() => {
     // This listener handles taps when the app is OPEN or MINIMIZED
 
     notifee.onBackgroundEvent(async ({ type, detail }) => {
       console.log('Notifee background event=:??', type, detail);
-  
+
       if (type === EventType.PRESS) {
-        console.log('User pressed notification while app was in foreground/background', detail.notification?.data);
-            // handleMessage(detail.notification)
-            
-    if (detail.notification?.data?.is_modal === 'yes') {
-      dispatch(setPendingTransaction(detail.notification?.data));
-    }
-    
+        console.log(
+          'User pressed notification while app was in foreground/background',
+          detail.notification?.data,
+        );
+        // handleMessage(detail.notification)
+
+        if (detail.notification?.data?.is_modal === 'yes') {
+          dispatch(setPendingTransaction(detail.notification?.data));
+        }
       }
-
     });
-
   }, []);
 
-  // 🎯 decide when to show modal
   useEffect(() => {
     if (!pendingTx?.data || pendingTx.handled) return;
 
-    const now = Date.now();
+    let backendTime =  pendingTx?.data?.challenge_expiry_datetime
+    const isValid = CommonUtils.isTimeRemaining(backendTime);
 
-    if (now - pendingTx.receivedAt > EXPIRY_MS) {
+    // ❌ expiry cross ho chuki
+    if (!isValid) {
       dispatch(markTransactionHandled());
       return;
     }
 
+    // ✅ still valid
     if (userLoggedInRef.current) {
       openModal({
         transaction_amount: pendingTx.data.transaction_amount,
@@ -137,6 +134,7 @@ export const PushNotificationHandler = () => {
         transaction_pan: pendingTx.data.pan,
         card_acceptor_name: pendingTx.data.card_acceptor_name,
         sp_transaction_id: pendingTx.data.sp_transaction_id,
+        challenge_expiry_datetime: pendingTx?.data?.challenge_expiry_datetime
       });
 
       dispatch(markTransactionHandled());
@@ -146,8 +144,6 @@ export const PushNotificationHandler = () => {
   return null;
 };
 
-
- 
 //gpt new notifee way
 // import notifee, { AndroidColor, AndroidImportance } from '@notifee/react-native';
 // import messaging from '@react-native-firebase/messaging';
@@ -204,10 +200,7 @@ export const PushNotificationHandler = () => {
 //   return null;
 // };
 
-
-
-
-//new using push notifiaction library 
+//new using push notifiaction library
 // import PushNotification from 'react-native-push-notification';
 // import messaging from '@react-native-firebase/messaging';
 // import { useEffect } from 'react';

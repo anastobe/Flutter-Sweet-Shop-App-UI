@@ -7,6 +7,7 @@ type TransactionData = {
     transaction_pan: string,
     card_acceptor_name: string,
     sp_transaction_id: string,
+    challenge_expiry_datetime: string
 };
 
 type ContextType = {

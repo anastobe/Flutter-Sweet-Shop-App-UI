@@ -71,6 +71,8 @@ requestFCMPermission()
   if (!enabled) return;
 
   const token = await getToken(messagingInstance);
+  console.log("devicde token is:=>",token);
+  
     setToken(token)
 };
   
