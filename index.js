@@ -16,9 +16,9 @@ import {name as appName} from './app.json';
 import messaging from '@react-native-firebase/messaging';
 import notifee, { AndroidImportance } from '@notifee/react-native';
 
-notifee.onBackgroundEvent(async ({ type, detail }) => {
+// notifee.onBackgroundEvent(async ({ type, detail }) => {
 //   console.log('Notifee background event:', type, detail);
-});
+// });
 
 // 🔥 BACKGROUND & QUIT STATE HANDLER
 messaging().setBackgroundMessageHandler(async remoteMessage => {
@@ -39,6 +39,7 @@ await notifee.createChannel({
 await notifee.displayNotification({
   title: Parsetitle,
   body: Parsebody,
+  data: remoteMessage?.data,   // 👈 attach FCM data here
   android: {
     channelId: 'default_high',
     importance: AndroidImportance.HIGH,

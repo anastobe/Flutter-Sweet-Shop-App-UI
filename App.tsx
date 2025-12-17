@@ -18,6 +18,7 @@ import SplashScreen from "react-native-splash-screen";
 import messaging from '@react-native-firebase/messaging';
 import { NotificationModalProvider } from "./src/components/notificationModalContext";
 import TransactionAlertModal from "./src/components/Modal/transactionAlertModal";
+import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
 // import { initIdleTimer, resetActivity } from "./src/security/IdleTimer";
 // import { TouchableWithoutFeedback } from "react-native";
 
@@ -118,6 +119,54 @@ const App: React.FC = () => {
     ),
   }; 
     dataHandlerService.setStore(Store);
+
+  // notifee.onForegroundEvent(({ type, detail }) => {
+  //   console.log("play");
+    
+  //   if (type === EventType.PRESS) {
+  //     console.log('User pressed notification while app was in foreground/background', detail.notification);
+  //     // Navigate to a specific screen here
+  //   }
+
+  // });
+
+  // 1. HANDLE QUIT STATE (Already working for you)
+  // React.useEffect(() => {
+  //   notifee.getInitialNotification().then((initialNotification) => {
+              
+  //     setTimeout(() => {
+        
+  //       console.log("play=>getInitialNotification",initialNotification);
+  //     }, 5000);
+
+  //     if (initialNotification) {
+  //       console.log('App opened from QUIT state:', initialNotification.notification);
+  //       // Handle navigation logic here
+  //     }
+  //   });
+  // }, []);
+
+  // 2. HANDLE FOREGROUND & MINIMIZED STATE
+  // React.useEffect(() => {
+  //   // This listener handles taps when the app is OPEN or MINIMIZED
+
+  //   notifee.onBackgroundEvent(async ({ type, detail }) => {
+  //     console.log('Notifee background event=:', type, detail);
+  //   });
+
+  // }, []);
+
+  // React.useEffect(() => {
+  //   // Check if the app was opened via a notification press
+  //   notifee.getInitialNotification().then((initialNotification) => {
+
+  //     if (initialNotification) {
+  //       console.log('App opened from quit state via notification:', initialNotification.notification);
+  //       // Handle logic, e.g., navigate to a specific post or chat
+  //     }
+  //   });
+  // }, []);
+
 
     {/* <PersistGate loading={null} persistor={Persistor}> remove due to security reason */} 
       {/* <TouchableWithoutFeedback onPress={resetActivity}> */}

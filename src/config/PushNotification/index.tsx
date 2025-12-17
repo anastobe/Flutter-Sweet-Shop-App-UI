@@ -30,54 +30,66 @@ export const PushNotificationHandler = () => {
     userLoggedInRef.current = userlogdedIn;
   }, [userlogdedIn]);
 
+  const handleMessage = async (remoteMessage: any) => {
+    const data = remoteMessage?.data;
+
+    console.log("handler console=>",remoteMessage);
+
+    const parsed = JSON.parse(data?.notification);
+    let Parsetitle = parsed.title;
+    let Parsebody = parsed.body;
+    
+    await notifee.createChannel({
+      id: 'default_high',
+      name: 'General High',
+      importance: AndroidImportance.HIGH,
+      sound: 'default',
+      vibration: true,
+    });
+    
+    await notifee.displayNotification({
+      title: Parsetitle,
+      body: Parsebody,
+      data: data,   // 👈 attach FCM data here
+      android: {
+        channelId: 'default_high',
+        importance: AndroidImportance.HIGH,
+        priority: AndroidImportance.HIGH,
+        sound: 'default',
+        pressAction: { id: 'default' },
+      },
+    });
+    
+
+    if (data?.is_modal === 'yes') {
+      dispatch(setPendingTransaction(data));
+    }
+  };
+
   // 🔔 receive notification
   useEffect(() => {
-    const handleMessage = async (remoteMessage: any) => {
-      const data = remoteMessage?.data;
-
-      console.log("handler console=>",remoteMessage);
-
-      const parsed = JSON.parse(data?.notification);
-      let Parsetitle = parsed.title;
-      let Parsebody = parsed.body;
-      
-      await notifee.createChannel({
-        id: 'default_high',
-        name: 'General High',
-        importance: AndroidImportance.HIGH,
-        sound: 'default',
-        vibration: true,
-      });
-      
-      await notifee.displayNotification({
-        title: Parsetitle,
-        body: Parsebody,
-        android: {
-          channelId: 'default_high',
-          importance: AndroidImportance.HIGH,
-          priority: AndroidImportance.HIGH,
-          sound: 'default',
-          pressAction: { id: 'default' },
-        },
-      });
-      
-
-      if (data?.is_modal === 'yes') {
-        dispatch(setPendingTransaction(data));
-      }
-    };
 
     const unsub1 = messaging().onMessage(handleMessage);
-    const unsub2 = messaging().onNotificationOpenedApp(handleMessage);
+    // const unsub2 = messaging().onNotificationOpenedApp(handleMessage);
 
-    messaging().getInitialNotification().then(msg => {
-      if (msg) handleMessage(msg);
-    });
+    // messaging().getInitialNotification().then(msg => {
+    //   if (msg) handleMessage(msg);
+    // });
 
     return () => {
       unsub1();
-      unsub2();
+      // unsub2();
     };
+  }, []);
+
+    useEffect(() => {
+    notifee.getInitialNotification().then((initialNotification) => {
+              
+      if (initialNotification) {
+        handleMessage(initialNotification.notification)
+        console.log('App opened from QUIT state:', initialNotification.notification);
+      }
+    });
   }, []);
 
   // 🎯 decide when to show modal
