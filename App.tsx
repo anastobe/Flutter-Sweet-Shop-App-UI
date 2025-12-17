@@ -15,7 +15,6 @@ import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 import {LoaderFullScreen, } from "./src/components/activityIndicator";
 import { isRootDetected, isEmulator, isDebuggable } from 'react-native-root-detection';
 import SplashScreen from "react-native-splash-screen";
-import messaging from '@react-native-firebase/messaging';
 import { NotificationModalProvider } from "./src/components/notificationModalContext";
 import TransactionAlertModal from "./src/components/Modal/transactionAlertModal";
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native';

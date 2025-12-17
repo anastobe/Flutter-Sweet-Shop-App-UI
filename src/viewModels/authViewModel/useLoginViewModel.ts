@@ -12,6 +12,14 @@ import { THEME } from "../../styles";
 import { useIsFocused } from "@react-navigation/native";
 import { Auth_ROUTES } from "../../constants";
 import messaging from '@react-native-firebase/messaging';
+import {
+  getMessaging,
+  requestPermission,
+  getToken,
+  AuthorizationStatus,
+} from '@react-native-firebase/messaging';
+
+const messagingInstance = getMessaging();
 
 export const useLoginViewModel = (navigation: any) => {
 
@@ -50,27 +58,43 @@ export const useLoginViewModel = (navigation: any) => {
 
   
   React.useEffect(() => {
-    requestPermission();
+requestFCMPermission()
   }, []);
 
-  const requestPermission = async () => {
-    if (Platform.OS === 'android' && Platform.Version >= 33) {
-      await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
-      );
-    }
+  const requestFCMPermission = async () => {
+  const authStatus = await requestPermission(messagingInstance);
 
-    const authStatus = await messaging().requestPermission();
-    if (
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL
-    ) {
-      const token = await messaging().getToken();
-      console.log('FCM TOKEN:', token);
-      setToken(token)
-    }
-  };
+  const enabled =
+    authStatus === AuthorizationStatus.AUTHORIZED ||
+    authStatus === AuthorizationStatus.PROVISIONAL;
+
+  if (!enabled) return;
+
+  const token = await getToken(messagingInstance);
+    setToken(token)
+};
   
+
+
+
+  // const requestPermission = async () => {
+  //   if (Platform.OS === 'android' && Platform.Version >= 33) {
+  //     await PermissionsAndroid.request(
+  //       PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+  //     );
+  //   }
+
+  //   const authStatus = await messaging().requestPermission();
+  //   if (
+  //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+  //     authStatus === messaging.AuthorizationStatus.PROVISIONAL
+  //   ) {
+  //     const token = await messaging().getToken();
+  //     console.log('FCM TOKEN:', token);
+  //     setToken(token)
+  //   }
+  // };
+
   const { mutate: loginFunc, isPending } = useLogin({
     callback: (res: any) => {
       console.log("Login response:", res);
