@@ -6,6 +6,7 @@ import {
 import { useEffect, useRef } from 'react';
 import { useNotificationModal } from '../../components/notificationModalContext';
 import messaging from '@react-native-firebase/messaging';
+import notifee, { AndroidImportance } from '@notifee/react-native';
 
 // const EXPIRY_MS = 30 * 60 * 1000;s
 const EXPIRY_MS = 30 * 60 * 1000;
@@ -31,10 +32,34 @@ export const PushNotificationHandler = () => {
 
   // 🔔 receive notification
   useEffect(() => {
-    const handleMessage = (remoteMessage: any) => {
+    const handleMessage = async (remoteMessage: any) => {
       const data = remoteMessage?.data;
 
-      console.log("ASdsadas=>",data);
+      console.log("handler console=>",remoteMessage);
+
+      const parsed = JSON.parse(data?.notification);
+      let Parsetitle = parsed.title;
+      let Parsebody = parsed.body;
+      
+      await notifee.createChannel({
+        id: 'default_high',
+        name: 'General High',
+        importance: AndroidImportance.HIGH,
+        sound: 'default',
+        vibration: true,
+      });
+      
+      await notifee.displayNotification({
+        title: Parsetitle,
+        body: Parsebody,
+        android: {
+          channelId: 'default_high',
+          importance: AndroidImportance.HIGH,
+          priority: AndroidImportance.HIGH,
+          sound: 'default',
+          pressAction: { id: 'default' },
+        },
+      });
       
 
       if (data?.is_modal === 'yes') {
