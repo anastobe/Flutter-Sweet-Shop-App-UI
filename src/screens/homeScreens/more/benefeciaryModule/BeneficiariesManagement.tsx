@@ -1,96 +1,74 @@
-import React from 'react';
-import { Alert, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useRef } from 'react';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { MainContainer, Modal } from '../../../../components';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { useBeneficiariesManagementViewModel } from '../../../../viewModels/homeViewModel/more/useBeneficiariesManagementModel';
-import { scale } from 'react-native-size-matters';
 import CustomButton from '../../../../components/customButton';
-import { ActivityIndicator } from 'react-native';
 import { LoaderOnly } from '../../../../components/activityIndicator';
 import BluryModal from '../../../../components/Modal/bluryModal';
-import { Images } from '../../../../config';
-import { SHOW_CLIENT } from '../../../../APICall/constants';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
 
 const BeneficiariesManagement = () => {
-  const { data, pressBackArrow, pressRightArrow, onBeneficiaryPress, open, setOpen,open2, setOpen2,onPressDelete,onPressDeleteBtn ,onPressView,
-    getBeneficiaryDetail_Data,
-    isFetchingBeneficiary,
+  const {
+    pressBackArrow,
+    pressRightArrow,
+    open,
+    setOpen,
+    onPressDelete,
+    onPressDeleteBtn,
+    beneficiaries,
+    onLoadMore,
+    isPending,
     isPendingDeleteBeneficiary,
     onRefresh,
     refreshing,
-    setrefreshing
-   } =
-    useBeneficiariesManagementViewModel();
+  } = useBeneficiariesManagementViewModel();
 
-    console.log("ASDasdas==>",isFetchingBeneficiary);
-    
+  /** 🔒 prevent multiple onEndReached calls */
+  const onEndReachedCalledDuringMomentum = useRef(false);
 
   function renderItem({ item }: any) {
-    const initials = `${item?.first_name + " " + item?.last_name}`
+    const initials = `${item?.first_name} ${item?.last_name}`
       .split(' ')
       .map((n: any) => n[0])
       .join('');
 
-      console.log("ASdass==>",`${item?.first_name + " " + item?.last_name}`);
-      
-
     return (
-      <View>
-        <LinearGradient
-          colors={['#433c71ff', '#2c2d5e', '#272d5a']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.item}
-        >
-          <View style={styles.avatar}>
-            <Text style={styles.avatarText}>{initials}</Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.name}>{item?.first_name +" "+ item?.last_name}</Text>
-            <Text style={styles.currency}>{item?.currency?.iso_code || "GBP(DUMMY)"}</Text>
-          </View>
-
-          <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity style={[styles.butnCont]} onPress={()=>onPressDelete(item)} >
-              <Icon name="trash-outline" size={handleSize.f(20)} color={THEME.white} />
-            </TouchableOpacity>
-          <View style={{ transform: [{ rotate: '-45deg' }], marginLeft: 0 }}>
-            <TouchableOpacity style={styles.butnCont}  onPress={onPressView}>
-              <Icon name="arrow-forward-outline" size={ handleSize.f(20)} color={THEME.primary} />
-              </TouchableOpacity>
-          </View>
-          </View>
-        
-        </LinearGradient>
-      </View>
-    );
-  }
-
-    function renderPopup(icon,title,btnTxt) {
-    return (
-      <View style={styles.modal}>
-        <TouchableOpacity style={styles.closeBtn} onPress={() => setOpen(false)}>
-          <Text style={styles.closeText}>×</Text>
-        </TouchableOpacity>
-
-        <View style={styles.iconCircle}>
-          <Icon name={icon} size={ handleSize.f(25)} color={THEME.textPrimary} />
+      <LinearGradient
+        colors={['#433c71ff', '#2c2d5e', '#272d5a']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.item}
+      >
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>{initials}</Text>
         </View>
 
-        <Text style={styles.titles}>{title}</Text>
-        {/* <Text style={styles.description}>Virtual card created and ready to use.</Text> */}
+        <View style={{ flex: 1 }}>
+          <Text style={styles.name}>
+            {item?.first_name} {item?.last_name}
+          </Text>
+          <Text style={styles.currency}>
+            {item?.currency?.iso_code || 'GBP'}
+          </Text>
+        </View>
 
-        <CustomButton
-          btnContSty={styles.forgetTxtpop}
-          title={btnTxt}
-          loading={isPendingDeleteBeneficiary}
-          onPress={onPressDeleteBtn}
-        />
-      </View>
+        <TouchableOpacity
+          style={styles.butnCont}
+          onPress={() => onPressDelete(item)}
+        >
+          <Icon name="trash-outline" size={20} color={THEME.white} />
+        </TouchableOpacity>
+      </LinearGradient>
     );
   }
 
@@ -98,75 +76,80 @@ const BeneficiariesManagement = () => {
     return (
       <Modal
         isVisible={open}
-        isKeyboardAvoidingView={true}
-        children={
-          // renderPopup("warning","Are you sure you want to delete this beneficiary","Continue")
-
-          <BluryModal
-            style={{ flex: 1, paddingHorizontal:  handleSize.w(20) }}
-            onClose={() => setOpen(false)}
-            btnLoader={isPendingDeleteBeneficiary}
-            marginTopTitle={20}
-            iconNameBottom={-20}
-            onConfirm={onPressDeleteBtn}
-            body={"Are you sure you want to delete this beneficiary"}
-            iconName={"warning-outline"}
-            confirmText={'Delete'}
-          />
-        } 
-        onClose={function () {
-          setOpen(false);
-        }}
-      />
+        isKeyboardAvoidingView
+        onClose={() => setOpen(false)}
+      >
+        <BluryModal
+          style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+          onClose={() => setOpen(false)}
+          btnLoader={isPendingDeleteBeneficiary}
+          onConfirm={onPressDeleteBtn}
+          body="Are you sure you want to delete this beneficiary?"
+          iconName="warning-outline"
+          confirmText="Delete"
+        />
+      </Modal>
     );
   }
+
+  console.log("isPending==>", isPending ,"&&", beneficiaries.length );
   
+
   return (
     <MainContainer
       pressRightArrow={pressRightArrow}
-      showBackArrow={true}
+      showBackArrow
+      isFlatList={false}
       pressBackArrow={pressBackArrow}
-      isFlatList={true}
-      barStyle="dark-content"
-      // refreshingeffect={true}
-      // onRefresh={onRefresh}
-      // refreshing={isFetchingBeneficiary}
       mainContainerStyle={styles.container}
     >
       <StatusBarManager
-        backgroundColor={THEME.darkSecondary} 
-        barStyle="light-content" 
+        backgroundColor={THEME.darkSecondary}
+        barStyle="light-content"
       />
-      <View style={{ marginHorizontal: handleSize.w(20) }}>
+
+      <View style={{ paddingHorizontal: handleSize.w(20), flex: 1 }}>
         <Text style={styles.title}>Beneficiaries</Text>
         <Text style={styles.subtitle}>
-          Manage your saved recipients for faster and easier payments.
+          Manage your saved recipients for faster payments.
         </Text>
 
-          {isFetchingBeneficiary && !getBeneficiaryDetail_Data?.results?.length ? (
-            <LoaderOnly />
-          ) : (
-          <FlatList
-              data={getBeneficiaryDetail_Data?.results}
-              renderItem={renderItem}
-              // scrollEnabled
-              // nestedScrollEnabled
-              onEndReachedThreshold={0.1}
-              onEndReached={() => {
-                console.log("User reached the bottom!");
-              }}
-              keyExtractor={(item) => item?.id}
-              ListEmptyComponent={()=>{
-              return(
-                <Text  style={styles.txtEmptyTxt} >No Beneficiary Found</Text>
-              )
-            }}
-            />
-        )}
+      <FlatList
+        data={beneficiaries}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        refreshing={refreshing}
+        // onRefresh={onRefresh}
+        nestedScrollEnabled
+        onEndReachedThreshold={0.3}
+        onMomentumScrollBegin={() => {
+          onEndReachedCalledDuringMomentum.current = false;
+        }}
+        onEndReached={() => {
+          if (!onEndReachedCalledDuringMomentum.current) {
+            onLoadMore();
+            onEndReachedCalledDuringMomentum.current = true;
+          }
+        }}
+        ListFooterComponent={() => {
+          // Show loader at the bottom only if list has items
+          if (isPending && beneficiaries.length > 0) {
+            return <LoaderOnly />;
+          }
+          return null;
+        }}
+        ListEmptyComponent={() => {
+          // Show loader in the middle if list is empty and loading
+          if (isPending) return <LoaderOnly />;
+
+          // Show empty text if not loading and list is empty
+          return <Text style={styles.txtEmptyTxt}>No Beneficiary Found</Text>;
+        }}
+      />
+
       </View>
 
       {renderModalDelete()}
-      {/* {renderModalView()} */}
     </MainContainer>
   );
 };
@@ -203,6 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.textPrimary,
     borderRadius: handleSize.f(12),
     padding: handleSize.h(12),
+    // height: 100,
     marginBottom: handleSize.h(10),
   },
   avatar: {
@@ -248,8 +232,15 @@ const styles = StyleSheet.create({
     padding: handleSize.h(24),
     alignItems: 'center',
   },
-  closeBtn: { position: 'absolute', top: handleSize.h(10), right: handleSize.w(15) },
-  closeText: { fontSize: handleSize.f(FONT_SIZES.foureight), color: THEME.white },
+  closeBtn: {
+    position: 'absolute',
+    top: handleSize.h(10),
+    right: handleSize.w(15),
+  },
+  closeText: {
+    fontSize: handleSize.f(FONT_SIZES.foureight),
+    color: THEME.white,
+  },
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: handleSize.f(100),

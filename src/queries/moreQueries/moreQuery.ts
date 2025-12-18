@@ -3,24 +3,24 @@ import { useDispatch } from 'react-redux';
 import apis from '../../services';
 import QueryKey from '../queryKey';
 
-export const getBeneficiaryDetail  = (    {
-  enabled,
-  dispatch
+
+export const getBeneficiaryDetail = ({
+  callback,
 }: {
-  enabled?: boolean;
-  dispatch?: any
-}
-) =>
-  useQuery({
-    queryKey: [QueryKey.GET_BENEFICIARY],
-    initialData: [],
-    queryFn: ()=> apis.getBeneficiaryDetail(dispatch),
-    enabled: enabled,
-
-    staleTime: 0, // Data will never be considered stale
-    retry: false // Disable retry on failure
+  callback: (res: any) => void;
+}) => {
+  return useMutation({
+    mutationFn: apis.getBeneficiaryDetail,
+    onSuccess: (response: any) => {
+      if (response?.success) {
+        callback(response);
+      }
+    },
+    onError: (error: any) => {
+      console.log('getBeneficiaryDetail error:', error);
+    },
   });
-
+};
 
   
 export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) => {

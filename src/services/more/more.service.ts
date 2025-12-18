@@ -8,15 +8,16 @@ import { AssetTypeApiResponse } from "../../models/more/assetTypeApiResponse.mod
 import { saveBeneficiaryData } from "../../Redux/Action/Home/HomeActions";
 
 // Get all beneficiaries
-export const getBeneficiaryDetail = async (dispatch: any): Promise<BeneficiaryResponse[]> => {
-  const response = await axiosInstance('/beneficiary', 'GET', undefined,false);
 
-  if (response?.success) {
-    dispatch(saveBeneficiaryData(response?.results))  
-  }
+
+export const getBeneficiaryDetail = async (body: any) => {
+
+  // console.log("getBeneficiaryDetail==>",body);
   
+  const response = await axiosInstance('/beneficiary/search', 'POST', body, false);
   return response;
 };
+
 
 // Delete a beneficiary
 export const DeleteBeneficiary = async (id: string | number) => {

@@ -59,9 +59,9 @@ export const MainContainer: React.FC<MainContainerProps> = ({
       )}
 
       {!isFlatList ? (
-        <TouchableWithoutFeedback>
+        // <TouchableWithoutFeedback>
           <View style={[styles.container, customeStyle]}>{children}</View>
-        </TouchableWithoutFeedback>
+        // </TouchableWithoutFeedback>
       ) : (
         <ScrollView
           refreshControl={
