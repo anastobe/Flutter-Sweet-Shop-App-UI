@@ -118,7 +118,7 @@ const BeneficiariesManagement = () => {
         data={beneficiaries}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        refreshing={refreshing}
+        // refreshing={refreshing}
         // onRefresh={onRefresh}
         nestedScrollEnabled
         onEndReachedThreshold={0.3}
