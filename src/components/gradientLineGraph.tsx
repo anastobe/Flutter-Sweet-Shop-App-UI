@@ -4,16 +4,24 @@ import { LineChart } from 'react-native-gifted-charts';
 import { handleSize } from '../config/responsiveTheme';
 import { FONT_SIZES, THEME } from '../styles';
 
-const GradientLineGraph = ({ marginTop }: { marginTop?: number }) => {
-  const data = [
-    { value: 10, label: 'Mon' },
-    { value: 40, label: 'Tue' },
-    { value: 20, label: 'Wed' },
-    { value: 90, label: 'Thu' },
-    { value: 75, label: 'Fri' },
-    { value: 60, label: 'Sat' },
-    { value: 100, label: 'Sun' },
-  ];
+const GradientLineGraph = ({
+  marginTop,
+  loading,
+  data,
+}: {
+  marginTop?: number;
+  loading?: Boolean;
+  data?: [];
+}) => {
+  // const data = [
+  //   { value: 10, label: 'Mon' },
+  //   { value: 40, label: 'Tue' },
+  //   { value: 20, label: 'Wed' },
+  //   { value: 90, label: 'Thu' },
+  //   { value: 75, label: 'Fri' },
+  //   { value: 60, label: 'Sat' },
+  //   { value: 100, label: 'Sun' },
+  // ];
 
   return (
     <View
@@ -40,8 +48,14 @@ const GradientLineGraph = ({ marginTop }: { marginTop?: number }) => {
         color2="#FF00FF"
         dataPointsColor="#fff"
         dataPointsRadius={handleSize.f(7)} // responsive radius
-        xAxisLabelTextStyle={{ color: THEME.white, fontSize: handleSize.f(FONT_SIZES.onetwo) }}
-        yAxisTextStyle={{ color: THEME.white, fontSize: handleSize.f(FONT_SIZES.onetwo) }}
+        xAxisLabelTextStyle={{
+          color: THEME.white,
+          fontSize: handleSize.f(FONT_SIZES.onetwo),
+        }}
+        yAxisTextStyle={{
+          color: THEME.white,
+          fontSize: handleSize.f(FONT_SIZES.onetwo),
+        }}
         hideYAxisText
         hideRules
         showVerticalLines

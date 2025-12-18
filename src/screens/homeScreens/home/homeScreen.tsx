@@ -267,7 +267,15 @@ const ScrollableCards = () => {
       />
 
          <ScrollView contentContainerStyle={{ marginTop: handleSize.h(10) }}>
-          <GradientLineGraph marginTop={handleSize.h(20)} />
+          <GradientLineGraph data={[
+            { value: 10, label: 'Mon' },
+            { value: 40, label: 'Tue' },
+            { value: 20, label: 'Wed' },
+            { value: 90, label: 'Thu' },
+            { value: 75, label: 'Fri' },
+            { value: 60, label: 'Sat' },
+            { value: 100, label: 'Sun' }
+          ]} loading={false} marginTop={handleSize.h(20)} />
           {ScrollableCards()}
           {renderCardFeature()}
           {renderTransactionList()}

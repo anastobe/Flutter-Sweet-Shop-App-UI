@@ -156,10 +156,11 @@ const AccountScreen = () => {
               bgColor={THEME.secondary}
            /> */}
     
-           <GradientLineGraph marginTop={handleSize.h(60)} />
+           <GradientLineGraph data={vm?.getDashboardData_Data?.graph} loading={vm?.getDashboardDataPending} marginTop={handleSize.h(60)} />
 
            <View style={styles.statecontainer}>
              <StatCard
+               value={vm?.getDashboardData_Data?.average_spent}
                title="Avg monthly spend (DUMMY)"
                amount="£820.0"
                percentage={11.9}
@@ -169,6 +170,7 @@ const AccountScreen = () => {
               isPositive
             />
             <StatCard
+              value={vm?.getDashboardData_Data?.monthly_spend}
               title="Spent this month (DUMMY)"
               amount="£440.24"
               percentage={11.9}

@@ -5,12 +5,12 @@ import Metrics from "../styles/metrics";
 import { Images } from "../config";
 import { handleSize } from "../config/responsiveTheme";
 
-const StatCard = ({ title, amount, percentage, isPositive, onPress }) => {
+const StatCard = ({ value, title, amount, percentage, isPositive, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.row}>
-        <Text style={styles.amount}>{amount}</Text>
+        <Text style={styles.amount}>{value}</Text>
         <View style={styles.percentRow}>
           <Image
             tintColor={isPositive ? THEME.primary : THEME.medRed}

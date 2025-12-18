@@ -21,6 +21,26 @@ export const getAccounts  = (    {
     retry: false // Disable retry on failure
   });
 
+  
+  export const getDashboardData  = (    {
+  enabled,
+  dispatch
+}: {
+  enabled?: boolean;
+  dispatch?: any
+}
+) =>
+  useQuery({
+    queryKey: [QueryKey.GET_DASHBOARD_DATA],
+    initialData: [],
+    queryFn: ()=> apis.getDashboardData(dispatch),
+    enabled: enabled,
+
+    staleTime: 0, // Data will never be considered stale
+    retry: false // Disable retry on failure
+  });
+
+
   export const getNotifications  = (    {
   enabled,
   dispatch

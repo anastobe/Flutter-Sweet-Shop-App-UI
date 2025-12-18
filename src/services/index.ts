@@ -5,7 +5,8 @@ import {
     getNotifications,
     AccFreeze,
     AccDelete,
-    paymentHistry
+    paymentHistry,
+    getDashboardData
     
 } from './account/account.service';
 
@@ -77,6 +78,7 @@ const apis = {
   getCurrencyAccount,
   getAccounts,
   getNotifications,
+  getDashboardData,
   setSpendLimit,
   setPinSecurity,
   freezUnFreezCardNoMessage,

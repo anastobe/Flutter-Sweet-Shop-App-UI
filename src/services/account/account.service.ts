@@ -43,3 +43,8 @@ export const paymentHistry = async (body: any) => {
   console.log("=>services=> paymentHistry", response);
   return response;
 };
+
+export const getDashboardData = async (id: any) => {
+  const response = await axiosInstance('/dashboard/asset_id', 'GET', undefined, false );
+  return response?.results;
+};

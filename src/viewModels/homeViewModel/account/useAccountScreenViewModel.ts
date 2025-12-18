@@ -6,7 +6,7 @@ import { HOME_ROUTES } from "../../../constants";
 import { ACTIVE_ACCOUNT } from "../../../utils/data";
 import { SHOW_CLIENT } from "../../../APICall/constants";
 import { getCards } from "../../../queries/auth.query";
-import { AccDelete, AccFreeze, getAccounts, paymentHistry, transactionsHistry } from "../../../queries/accountQueries/accountQuery";
+import { AccDelete, AccFreeze, getAccounts, getDashboardData, paymentHistry, transactionsHistry } from "../../../queries/accountQueries/accountQuery";
 import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import QueryKey from "../../../queries/queryKey";
@@ -46,6 +46,15 @@ export const useAccountScreenViewModel = () => {
     enabled: false, 
     dispatch,
   });
+
+  //dashboard
+  const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isPending: getDashboardDataPending } = getDashboardData({
+    enabled: false, 
+    dispatch,
+  });
+ 
+  console.log("getDashboardData_Data=>",getDashboardData_Data);
+  
 
   const {mutate: paymentHistryFunc, isPending: isPendingpaymentHistry} = paymentHistry({
     callback: (response: any) => {
@@ -176,7 +185,8 @@ export const useAccountScreenViewModel = () => {
   useEffect(() => {
     refetchgetAccounts();
     getTransactions();
-    apis.getCurrencyAccount(dispatch)
+    apis.getCurrencyAccount(dispatch);
+    refetchgetDashboardData()
   }, []);
 
   function getTransactions() {
@@ -227,6 +237,8 @@ export const useAccountScreenViewModel = () => {
     isPendingAccDelete,
     handleNavigateTransactionHistory,
     handleNavigateTransaction,
-    transactions
+    transactions,
+    getDashboardData_Data,
+    getDashboardDataPending
   };
 };
