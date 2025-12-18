@@ -38,9 +38,21 @@ export const AccDelete = async (id: any) => {
   return response;
 };
 
-export const paymentHistry = async (body: any) => {
-  const response = await axiosInstance(`/transactions/asset/a6995d90-0243-4ca0-af3c-2a37dd35e30d`, 'POST', body, false );
-  // console.log("=>services=> paymentHistry", response);
+
+export const paymentHistry = async (
+  assetTypeId: string,
+  body: any
+) => {
+
+  console.log("=paymentHistry=",assetTypeId,"--",body);
+  
+
+  const response = await axiosInstance(
+    `/transactions/asset/${assetTypeId}`,
+    'POST',
+    body,
+    false
+  );
   return response;
 };
 

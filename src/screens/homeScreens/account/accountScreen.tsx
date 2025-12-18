@@ -52,6 +52,32 @@ const AccountScreen = () => {
       <FlatList
         data={vm.transactions}
         keyExtractor={item => item?.id}
+        
+    /** 🔹 Initial Loader */
+    ListEmptyComponent={
+      vm.isPendingpaymentHistry ? (
+        <View style={{ marginTop: handleSize.h(40) }}>
+          <ActivityIndicator size="large" color={THEME.primary} />
+        </View>
+      ) : (
+        <Text style={{ textAlign: 'center', color: THEME.white }}>
+          No Transactions Found
+        </Text>
+      )
+    }
+
+    /** 🔹 Footer Loader (Pagination) */
+    ListFooterComponent={
+      vm.isLoadingMore ? (
+        <View style={{ paddingVertical: 20 }}>
+          <ActivityIndicator size="small" color={THEME.primary} />
+        </View>
+      ) : null
+    }
+
+    onEndReachedThreshold={0.1} 
+    onEndReached={vm.loadMoreTransactions}
+
         ListHeaderComponent={() => {
           return (
             <View>
@@ -99,13 +125,6 @@ const AccountScreen = () => {
           );
         }}
         nestedScrollEnabled
-        onEndReachedThreshold={0.1}
-        onMomentumScrollBegin={() => {
-          console.log('onMomentumScrollBegin');
-        }}
-        onEndReached={() => {
-          console.log('onEndReached');
-        }}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={vm.handleNavigateTransaction}

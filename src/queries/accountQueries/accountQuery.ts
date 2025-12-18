@@ -96,6 +96,7 @@ export const paymentHistry = ({callback} : {callback: (res: any) => void}) => {
   });
 };
 
+
 export const AccDelete = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
 

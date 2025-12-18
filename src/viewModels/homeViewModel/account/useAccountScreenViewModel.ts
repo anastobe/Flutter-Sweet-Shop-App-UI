@@ -25,6 +25,15 @@ export const useAccountScreenViewModel = () => {
   const editAccountRef = useRef<any>(null);
   const flatListRef = useRef<FlatList>(null);
 
+  
+const [transactions, setTransactions] = useState<any[]>([]);
+const [page, setPage] = useState(1);
+const [hasMore, setHasMore] = useState(true);
+const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+
+  const LIMIT = 10;
+
   const [currentAccDetail, setcurrentAccDetail] = useState({
         asset_type_id: "", 
         name: "", 
@@ -39,8 +48,8 @@ export const useAccountScreenViewModel = () => {
   const [gbpWallet, setGbpWallet] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [showbalance, setshowbalance] = useState(false);
-  const [transactions, setTransactions] = useState([]);
 
+  const currentAssetId = currentAccDetail.id;
 
   const { data: getAccounts_Data, refetch: refetchgetAccounts, isPending } = getAccounts({
     enabled: false, 
@@ -56,18 +65,25 @@ export const useAccountScreenViewModel = () => {
   console.log("getDashboardData_Data=>",getDashboardData_Data);
   
 
-  const {mutate: paymentHistryFunc, isPending: isPendingpaymentHistry} = paymentHistry({
-    callback: (response: any) => {
-      
-      console.log("paymentHistryFunc==>",response);
 
-      if (response.success) {
-        setTransactions(response?.results?.values)
-        
+const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
+  paymentHistry({
+    callback: (response: any) => {
+      if (response?.success) {
+        const newData = response?.results?.values || [];
+
+        setTransactions(prev =>
+          page === 1 ? newData : [...prev, ...newData]
+        );
+
+        if (newData.length < LIMIT) {
+          setHasMore(false);
+        }
+
+        setIsLoadingMore(false);
       }
     },
   });
-
   
   const {mutate: AccFreezeFunc, isPending: isPendingAccFreeze} = AccFreeze({
       callback: (response: any) => {
@@ -184,27 +200,55 @@ export const useAccountScreenViewModel = () => {
 
   useEffect(() => {
     refetchgetAccounts();
-    getTransactions();
     apis.getCurrencyAccount(dispatch);
     refetchgetDashboardData()
   }, []);
 
-  function getTransactions() {
-    let payload = {
-    page: 1,
-    limit: 50,
-    sort: {
-        key: "created_at",
-        order: "desc"
-    },
-    search: "",
-    filters: {
-        // "status_id": 1
-    }
-    }
+  
 
-      paymentHistryFunc(payload)
+  useEffect(() => {
+  if (currentAccDetail.id) {
+    fetchTransactions(1); // 🔥 reset + reload
   }
+  }, [currentAccDetail?.id]);
+
+
+/** 🔹 Fetch Transactions */
+const fetchTransactions = (pageNumber: number) => {
+  if (!currentAssetId) return;
+
+  if (pageNumber !== 1 && (!hasMore || isLoadingMore)) return;
+
+  if (pageNumber === 1) {
+    setHasMore(true);
+    setTransactions([]); // 🔥 reset on new asset
+  } else {
+    setIsLoadingMore(true);
+  }
+
+  setPage(pageNumber);
+
+  const payload = {
+    page: pageNumber,
+    limit: LIMIT,
+    sort: {
+      key: 'created_at',
+      order: 'desc',
+    },
+    search: '',
+    filters: {},
+  };
+
+  paymentHistryFunc(currentAssetId,payload);
+};
+ 
+/** 🔹 Load More */
+const loadMoreTransactions = () => {
+  console.log("loadMoreTransactions");
+  
+  if (!hasMore || isLoadingMore || isPendingpaymentHistry) return;
+  fetchTransactions(page + 1);
+};
 
   return {
     navigation,
@@ -239,6 +283,10 @@ export const useAccountScreenViewModel = () => {
     handleNavigateTransaction,
     transactions,
     getDashboardData_Data,
-    getDashboardDataPending
+    getDashboardDataPending,
+
+    isPendingpaymentHistry,
+    isLoadingMore,
+    loadMoreTransactions
   };
 };
