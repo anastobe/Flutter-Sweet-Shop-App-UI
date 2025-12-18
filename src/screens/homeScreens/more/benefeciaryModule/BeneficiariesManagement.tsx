@@ -11,11 +11,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { MainContainer, Modal } from '../../../../components';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { useBeneficiariesManagementViewModel } from '../../../../viewModels/homeViewModel/more/useBeneficiariesManagementModel';
-import CustomButton from '../../../../components/customButton';
 import { LoaderOnly } from '../../../../components/activityIndicator';
 import BluryModal from '../../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
+import InputField from '../../../../components/textInput';
 
 const BeneficiariesManagement = () => {
   const {
@@ -28,12 +28,12 @@ const BeneficiariesManagement = () => {
     beneficiaries,
     onLoadMore,
     isPending,
+    isSearching,
     isPendingDeleteBeneficiary,
-    onRefresh,
-    refreshing,
+    onSearch,
+    search,
   } = useBeneficiariesManagementViewModel();
 
-  /** 🔒 prevent multiple onEndReached calls */
   const onEndReachedCalledDuringMomentum = useRef(false);
 
   function renderItem({ item }: any) {
@@ -45,8 +45,6 @@ const BeneficiariesManagement = () => {
     return (
       <LinearGradient
         colors={['#433c71ff', '#2c2d5e', '#272d5a']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
         style={styles.item}
       >
         <View style={styles.avatar}>
@@ -72,34 +70,32 @@ const BeneficiariesManagement = () => {
     );
   }
 
-  function renderModalDelete() {
+  function renderFilter() {
     return (
-      <Modal
-        isVisible={open}
-        isKeyboardAvoidingView
-        onClose={() => setOpen(false)}
-      >
-        <BluryModal
-          style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-          onClose={() => setOpen(false)}
-          btnLoader={isPendingDeleteBeneficiary}
-          onConfirm={onPressDeleteBtn}
-          body="Are you sure you want to delete this beneficiary?"
-          iconName="warning-outline"
-          confirmText="Delete"
+        <InputField
+          removeTitle={true}
+          margBtm={15}
+          textInputStyle={styles.innerinput}
+          imgViewLeft={styles.imgViewLeft}
+          imageLeft={'search-outline'}
+          imagetintColorLeft={THEME.white}
+          // image={'search-outline'}
+          autoCapital={'none'}
+          blurOnSubmit={false}
+          placeholder="Search"
+          value={search}
+          onChangeText={onSearch}
+          keyboardType={'default'}
+          imagetintColor={THEME.white}
+          customInpStyle={styles.innerinput}
         />
-      </Modal>
     );
   }
-
-  console.log("isPending==>", isPending ,"&&", beneficiaries.length );
-  
 
   return (
     <MainContainer
       pressRightArrow={pressRightArrow}
       showBackArrow
-      isFlatList={false}
       pressBackArrow={pressBackArrow}
       mainContainerStyle={styles.container}
     >
@@ -114,47 +110,55 @@ const BeneficiariesManagement = () => {
           Manage your saved recipients for faster payments.
         </Text>
 
-      <FlatList
-        data={beneficiaries}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        // refreshing={refreshing}
-        // onRefresh={onRefresh}
-        nestedScrollEnabled
-        onEndReachedThreshold={0.3}
-        onMomentumScrollBegin={() => {
-          onEndReachedCalledDuringMomentum.current = false;
-        }}
-        onEndReached={() => {
-          if (!onEndReachedCalledDuringMomentum.current) {
-            onLoadMore();
-            onEndReachedCalledDuringMomentum.current = true;
-          }
-        }}
-        ListFooterComponent={() => {
-          // Show loader at the bottom only if list has items
-          if (isPending && beneficiaries.length > 0) {
-            return <LoaderOnly />;
-          }
-          return null;
-        }}
-        ListEmptyComponent={() => {
-          // Show loader in the middle if list is empty and loading
-          if (isPending) return <LoaderOnly />;
+        {renderFilter()}
 
-          // Show empty text if not loading and list is empty
-          return <Text style={styles.txtEmptyTxt}>No Beneficiary Found</Text>;
-        }}
-      />
+        <FlatList
+          data={beneficiaries}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          onEndReachedThreshold={0.3}
+          onMomentumScrollBegin={() => {
+            onEndReachedCalledDuringMomentum.current = false;
+          }}
+          onEndReached={() => {
+            if (!onEndReachedCalledDuringMomentum.current) {
+              onLoadMore();
+              onEndReachedCalledDuringMomentum.current = true;
+            }
+          }}
+          ListFooterComponent={() =>
+            isPending && beneficiaries.length > 0 ? <LoaderOnly /> : null
+          }
+          ListEmptyComponent={() => {
+            if (isSearching || isPending) {
+              return <LoaderOnly />;
+            }
 
+            return (
+              <Text style={styles.txtEmptyTxt}>
+                No Beneficiary Found
+              </Text>
+            );
+          }}
+        />
       </View>
 
-      {renderModalDelete()}
+      <Modal isVisible={open} onClose={() => setOpen(false)}>
+        <BluryModal
+          onClose={() => setOpen(false)}
+          btnLoader={isPendingDeleteBeneficiary}
+          onConfirm={onPressDeleteBtn}
+          body="Are you sure you want to delete this beneficiary?"
+          iconName="warning-outline"
+          confirmText="Delete"
+        />
+      </Modal>
     </MainContainer>
   );
 };
 
 export default BeneficiariesManagement;
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
@@ -178,7 +182,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
     lineHeight: handleSize.h(20),
-    marginBottom: handleSize.h(30),
+    marginBottom: handleSize.h(10),
+    // marginBottom: handleSize.h(30),
   },
   item: {
     flexDirection: 'row',
@@ -265,4 +270,24 @@ const styles = StyleSheet.create({
     color: THEME.white,
     textAlign: 'center',
   },
+  
+  innerinput: {  
+    height: handleSize.h(56),
+    paddingLeft: handleSize.w(20),
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour), 
+    color: THEME.white,
+    justifyContent: "center",
+  },
+
+  imgViewLeft: {
+    width: handleSize.w(35),
+    height: handleSize.h(56),
+    position: 'absolute',
+    left: handleSize.w(5),
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 9999,
+  },
+
 });
