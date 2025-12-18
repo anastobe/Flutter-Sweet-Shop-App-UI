@@ -56,7 +56,7 @@ const BeneficiariesManagement = () => {
             {item?.first_name} {item?.last_name}
           </Text>
           <Text style={styles.currency}>
-            {item?.currency?.iso_code || 'GBP'}
+            {item?.currency?.iso_code || 'XXX'}
           </Text>
         </View>
 
@@ -146,7 +146,14 @@ const BeneficiariesManagement = () => {
 
       <Modal isVisible={open} onClose={() => setOpen(false)}>
         <BluryModal
-          onClose={() => setOpen(false)}
+          onClose={() =>{
+            if (isPendingDeleteBeneficiary) {
+              return              
+            }
+            else{
+            setOpen(false)
+            }
+          }}
           btnLoader={isPendingDeleteBeneficiary}
           onConfirm={onPressDeleteBtn}
           body="Are you sure you want to delete this beneficiary?"
@@ -209,6 +216,7 @@ const styles = StyleSheet.create({
     color: THEME.textPrimary,
     fontFamily: FONTFAMILY.Medium,
     fontSize: handleSize.f(FONT_SIZES.onesix),
+    textTransform: "capitalize" 
   },
   name: {
     fontSize: handleSize.f(FONT_SIZES.onesix),

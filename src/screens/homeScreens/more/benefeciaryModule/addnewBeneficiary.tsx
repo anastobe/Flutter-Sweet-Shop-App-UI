@@ -119,10 +119,7 @@ const AddNewBeneficiary = () => {
       />
       
 
-      {vm.selectBeneficiary  == "" ? 
-      null 
-      : 
-      vm.selectBeneficiary == BENEFICIARY_KEY_FOR.bank ?
+      {vm.selectBeneficiary == BENEFICIARY_KEY_FOR.bank ?
         <InputField
         margBtm={23}
         placeholder="IBAN / Account No."
@@ -131,12 +128,14 @@ const AddNewBeneficiary = () => {
         onChangeText={vm.setAccountNo}
       />
       :
+      vm.selectBeneficiary === BENEFICIARY_KEY_FOR.international ?
       <InputField
         margBtm={23}
         placeholder="SWIFT/BIC (optional)"
         value={vm.bicNo}
         onChangeText={vm.setBicNo}
-      />}
+      /> 
+      : null}
 
       {/* <InputField
         disabled={false} 
@@ -190,7 +189,12 @@ const AddNewBeneficiary = () => {
 
      <BluryModal
         style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-          onClose={vm.onClosePopup}
+          onClose={()=>{
+            vm.onClosePopup()
+            setTimeout(() => {
+              vm.navigation.goBack()
+            }, 500);
+          }}
           btnLoader={false}
           marginTopTitle={40}
           onConfirm={vm.pressTransferMoney}
@@ -227,7 +231,14 @@ const AddNewBeneficiary = () => {
         
         <BluryModal
           style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-            onClose={() => vm.setModalVisible(false)}
+            onClose={() =>{
+                if (vm.isPending_AddnewBeneficiaryApi) {
+                  return
+                }
+                else{
+                  vm.setModalVisible(false)}
+                }
+              }
             btnLoader={vm.isPending_AddnewBeneficiaryApi}
             marginTopTitle={40}
             onConfirm={vm.onPressBtn}
@@ -287,7 +298,7 @@ const AddNewBeneficiary = () => {
             Save recipient details for quicker payments in the future.
           </Text>
 
-          {renderTransactionType()}
+          {/* {renderTransactionType()} */}
           {renderInputFields()}
         </View>
         {renderModal()}
@@ -360,7 +371,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     marginBottom: handleSize.h(14),
-    marginTop: handleSize.h(20),
+    marginTop: handleSize.h(0),
   },
 
   boxShape: {

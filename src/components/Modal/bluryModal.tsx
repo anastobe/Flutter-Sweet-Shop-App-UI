@@ -91,7 +91,7 @@ const BluryModal: React.FC<Props> = ({
         </View>
 
         {/* TITLE */}
-        <Text style={styles.titles}>{title}</Text>
+        {title && <Text style={styles.titles}>{title}</Text>}
 
         {/* BODY */}
         {body && <Text style={styles.description}>{body}</Text>}

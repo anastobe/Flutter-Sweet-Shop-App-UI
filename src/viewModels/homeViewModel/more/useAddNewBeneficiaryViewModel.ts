@@ -1,6 +1,6 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES, BENEFICIARY_ADD_FOR } from '../../../utils/data';
+import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES, BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR } from '../../../utils/data';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { CommonUtils, Toast } from '../../../utils';
@@ -54,63 +54,73 @@ export const useAddNewBeneficiaryViewModel = () => {
     setOpenDropdown(openDropdown === key ? null : key);
   };
 
-  function openConfirmationModal() {
-      if (!checked) {
-        Toast.showToast("Please enter beneficiary name", '', 'error');
-        return false;
-      }
-      else if (!firstName.trim()) { 
-        Toast.showToast("Please enter first name", '', 'error');
-        return false;
-      }
-      else if (!lastName.trim()) { 
-        Toast.showToast("Please enter last name", '', 'error');
-        return false;
-      }
-      else if (!email.trim()) { 
-        Toast.showToast("Please enter email", '', 'error');
-        return false;
-      }
-      else if (!commonUtils.RegEmail.test(email)) { 
-        Toast.showToast("Please enter valid email", '', 'error');
-        return false;
-      }
-      else if (!selectBeneficiary.trim()) {
-        Toast.showToast("Please select beneficiary type", '', 'error');
-        return false;
-      }
-      // else if (!accountType.trim()) {
-      //   Toast.showToast("Please select account type", '', 'error');
-      //   return false;
-      // }
-      else if (!accountNo.trim()) {
-        Toast.showToast("Please enter account number", '', 'error');
-        return false;
-      }
-      else if (!CommonUtils.validateIBAN(accountNo)) {
-        Toast.showToast("Please enter correct account number", '', 'error');
-        return false;
-      } 
-      else if (!bicNo.trim()) {
-        Toast.showToast("Please enter BIC number", '', 'error');
-        return false;
-      }
-      else if (!CommonUtils.validateBIC(bicNo))  {
-        Toast.showToast("Please enter correct BIC number", '', 'error');
-        return false;
-      }
-      // else if (!country.trim()) {
-      //   Toast.showToast("Please select country", '', 'error');
-      //   return false;
-      // }
-      else if (!currency?.id) {
-        Toast.showToast("Please select currency", '', 'error');
-        return false;
-      }
-      else{
-        setModalVisible(true)
-      }
+function openConfirmationModal() {
+
+  if (!checked) {
+    Toast.showToast("Please enter beneficiary name", '', 'error');
+    return false;
   }
+
+  if (!firstName.trim()) {
+    Toast.showToast("Please enter first name", '', 'error');
+    return false;
+  }
+
+  if (!lastName.trim()) {
+    Toast.showToast("Please enter last name", '', 'error');
+    return false;
+  }
+
+  if (!email.trim()) {
+    Toast.showToast("Please enter email", '', 'error');
+    return false;
+  }
+
+  if (!commonUtils.RegEmail.test(email)) {
+    Toast.showToast("Please enter valid email", '', 'error');
+    return false;
+  }
+
+  if (!selectBeneficiary.trim()) {
+    Toast.showToast("Please select beneficiary type", '', 'error');
+    return false;
+  }
+
+  // 🔹 BANK validation
+  if (selectBeneficiary === BENEFICIARY_KEY_FOR.bank) {
+    if (!accountNo?.trim()) {
+      Toast.showToast("Please enter account number", '', 'error');
+      return false;
+    }
+
+    if (!CommonUtils.validateIBAN(accountNo)) {
+      Toast.showToast("Please enter correct account number", '', 'error');
+      return false;
+    }
+  }
+
+  // 🔹 INTERNATIONAL validation
+  if (selectBeneficiary === BENEFICIARY_KEY_FOR.international) {
+    if (!bicNo?.trim()) {
+      Toast.showToast("Please enter BIC number", '', 'error');
+      return false;
+    }
+
+    if (!CommonUtils.validateBIC(bicNo)) {
+      Toast.showToast("Please enter correct BIC number", '', 'error');
+      return false;
+    }
+  }
+
+  // 🔹 CURRENCY (independent check)
+  if (!currency?.id) {
+    Toast.showToast("Please select currency", '', 'error');
+    return false;
+  }
+
+  // ✅ ALL OK
+  setModalVisible(true);
+}
 
   const onPressBtn = () => {
 
@@ -118,6 +128,7 @@ export const useAddNewBeneficiaryViewModel = () => {
           first_name: firstName,
           last_name: lastName,
           email: email,
+          account_name: "XYZ INPUT Bank",
           currency_id: currency?.id,
           ...(accountNo
             ? { iban: accountNo }
@@ -127,16 +138,16 @@ export const useAddNewBeneficiaryViewModel = () => {
         };
 
         console.log("PAYLOAD==>",payload);
-        
-        
 
-        // AddnewBeneficiaryApiFunc(payload)
+        AddnewBeneficiaryApiFunc(payload)
   };
 
   const onClosePopup = () =>{
     // Alert.alert("NEED",SHOW_CLIENT)
-    setOpen(false) 
-    // navigation.goBack() W
+    setOpen(false)
+    setTimeout(() => {
+      navigation.goBack();
+    }, 500); 
     };
 
   const pressTransferMoney = () =>{
@@ -190,6 +201,7 @@ export const useAddNewBeneficiaryViewModel = () => {
     lastName, 
     setlastName,
     email, 
-    setemail
+    navigation,
+    setemail,
   };
 };
