@@ -144,6 +144,51 @@ const DATA = [
     name: 'Bill Payment', 
     amount: '+£51.00' 
   },
+  {
+    id: '4', 
+    name: 'Bill Payment', 
+    amount: '+£51.00' 
+  },
+  {
+    id: '5', 
+    name: 'Bill Payment', 
+    amount: '-£51.00' 
+  },
+  {
+    id: '6', 
+    name: 'Bill Payment', 
+    amount: '+£51.00' 
+  },
+  {
+    id: '7', 
+    name: 'Bill Payment', 
+    amount: '+£51.00' 
+  },
+  {
+    id: '8', 
+    name: 'Bill Payment', 
+    amount: '-£51.00' 
+  },
+  {
+    id: '9', 
+    name: 'Bill Payment', 
+    amount: '+£51.00' 
+  },
+  {
+    id: '01', 
+    name: 'Bill Payment', 
+    amount: '+£51.00' 
+  },
+  {
+    id: '11', 
+    name: 'Bill Payment', 
+    amount: '-£51.00' 
+  },
+  {
+    id: '12', 
+    name: 'Bill Payment', 
+    amount: '+£51.00' 
+  },
 ];
 
 

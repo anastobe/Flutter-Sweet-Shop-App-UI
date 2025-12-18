@@ -38,6 +38,7 @@ const GradientLineGraph = ({
         areaChart
         curved
         data={data}
+        scrollAnimation={false} 
         hideDataPoints={false}
         startFillColor="transparent"
         endFillColor="#0072FF"

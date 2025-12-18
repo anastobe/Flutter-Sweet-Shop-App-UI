@@ -7,7 +7,7 @@ import { storeAccTypeData, storeCountryData, storeCurrenryData } from "../../Red
 // 🔹 Get accounts
 export const getAccounts = async () => {
   const response = await axiosInstance('/assets', 'GET', undefined, false );
-  console.log("=>services=> getAccounts", response);
+  // console.log("=>services=> getAccounts", response);
   return response?.results;
 };
 
@@ -39,8 +39,8 @@ export const AccDelete = async (id: any) => {
 };
 
 export const paymentHistry = async (body: any) => {
-  const response = await axiosInstance(`/payment`, 'POST', body, false );
-  console.log("=>services=> paymentHistry", response);
+  const response = await axiosInstance(`/transactions/asset/a6995d90-0243-4ca0-af3c-2a37dd35e30d`, 'POST', body, false );
+  // console.log("=>services=> paymentHistry", response);
   return response;
 };
 
