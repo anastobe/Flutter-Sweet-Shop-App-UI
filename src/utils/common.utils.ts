@@ -10,6 +10,8 @@ import { HOME_ROUTES } from "../constants";
 // const {AppTheme} = useTheme()
 
 const IBAN_BASIC_REGEX = /^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/i;
+const SWIFT_REGEX = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
+
 
 const objectContainsKey = (
   object: Record<string | number, any>,
@@ -220,6 +222,13 @@ export function validateIBAN(input: any) {
   return mod97(numeric) === 1;
 }
 
+export function validateBIC(input: string) {
+  if (!input) return false;
+
+  const bic = input.trim().toUpperCase();
+  return SWIFT_REGEX.test(bic);
+}
+
 
 
 export default {
@@ -235,5 +244,6 @@ export default {
   getInitials,
   validateIBAN,
   isTimeRemaining,
-  getRemainingMs
+  getRemainingMs,
+  validateBIC
 };

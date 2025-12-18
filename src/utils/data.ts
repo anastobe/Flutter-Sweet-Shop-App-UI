@@ -8,9 +8,14 @@ export interface BeneficiaryType {
   label: string;
 }
 
+const BENEFICIARY_KEY_TYPES = {
+   frontier: "frontier",
+   bank: "bank"
+}
+
 const BENEFICIARY_TYPES: BeneficiaryType[] = [
-  { key: 'frontier', label: 'Frontier Pay User (by @username, email, or phone)' },
-  { key: 'bank', label: 'Bank Account' },
+  { key: BENEFICIARY_KEY_TYPES.frontier, label: 'Frontier Pay User (by @username, email, or phone)' },
+  { key: BENEFICIARY_KEY_TYPES.bank, label: 'Bank Account' },
 ];
 
 const ACCOUNT_TYPES = [
@@ -32,6 +37,15 @@ const CURRENCIES = [
   { label: 'GBP', value: 'gbp' },
 ];
 
+const BENEFICIARY_KEY_FOR = {
+   international: "international",
+   bank: "bank"
+}
+
+const BENEFICIARY_ADD_FOR = [
+  { label: 'Bank', value: BENEFICIARY_KEY_FOR.bank },
+  { label: 'International', value: BENEFICIARY_KEY_FOR.international }
+];
 
 // Sample card data
 const Accounts = [
@@ -322,12 +336,15 @@ export {
     CARD_DETAIL,
     CURRENT_ACCOUNT,
     PAYMENT_OPTION,
+    BENEFICIARY_KEY_TYPES,
     BENEFICIARY_TYPES,
     ACCOUNT_TYPES,
     COUNTRIES,
     CURRENCIES,
     REASON_OPTION,
-    TIME_LIMIT
+    TIME_LIMIT,
+    BENEFICIARY_ADD_FOR,
+    BENEFICIARY_KEY_FOR
 
 
 

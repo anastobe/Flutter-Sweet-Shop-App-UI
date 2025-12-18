@@ -115,6 +115,7 @@ const BeneficiariesManagement = () => {
         <FlatList
           data={beneficiaries}
           renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
           keyExtractor={item => item.id}
           onEndReachedThreshold={0.3}
           onMomentumScrollBegin={() => {

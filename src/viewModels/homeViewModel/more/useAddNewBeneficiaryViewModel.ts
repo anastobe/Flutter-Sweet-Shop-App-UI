@@ -1,6 +1,6 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES } from '../../../utils/data';
+import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES, BENEFICIARY_ADD_FOR } from '../../../utils/data';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { CommonUtils, Toast } from '../../../utils';
@@ -9,6 +9,7 @@ import { AddnewBeneficiaryApi } from '../../../queries/moreQueries/moreQuery';
 import { HOME_ROUTES } from '../../../constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import commonUtils from '../../../utils/common.utils';
 
 export const useAddNewBeneficiaryViewModel = () => {
 
@@ -23,12 +24,18 @@ export const useAddNewBeneficiaryViewModel = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [checked, setChecked] = useState('frontier');
-  const [beneficiaryName, setBeneficiaryName] = useState('');
+  const [firstName, setfirstName] = useState('');
+  const [lastName, setlastName] = useState('');
+  const [email, setemail] = useState('');
   const [accountType, setAccountType] = useState('');
+  const [selectBeneficiary, setselectBeneficiary] = useState('');
   const [accountNo, setAccountNo] = useState('');
   const [bicNo, setBicNo] = useState('');
   const [country, setCountry] = useState('');
-  const [currency, setCurrency] = useState('');
+  const [currency, setCurrency] = useState({
+    id: "",
+    name: ""
+  });
   const [open, setOpen] = useState(false);
 
   const handlePressType = (key: string) => setChecked(key);
@@ -48,19 +55,34 @@ export const useAddNewBeneficiaryViewModel = () => {
   };
 
   function openConfirmationModal() {
-
       if (!checked) {
         Toast.showToast("Please enter beneficiary name", '', 'error');
         return false;
       }
-      else if (!beneficiaryName.trim()) { 
-        Toast.showToast("Please enter beneficiary name", '', 'error');
+      else if (!firstName.trim()) { 
+        Toast.showToast("Please enter first name", '', 'error');
         return false;
       }
-      else if (!accountType.trim()) {
-        Toast.showToast("Please select account type", '', 'error');
+      else if (!lastName.trim()) { 
+        Toast.showToast("Please enter last name", '', 'error');
         return false;
       }
+      else if (!email.trim()) { 
+        Toast.showToast("Please enter email", '', 'error');
+        return false;
+      }
+      else if (!commonUtils.RegEmail.test(email)) { 
+        Toast.showToast("Please enter valid email", '', 'error');
+        return false;
+      }
+      else if (!selectBeneficiary.trim()) {
+        Toast.showToast("Please select beneficiary type", '', 'error');
+        return false;
+      }
+      // else if (!accountType.trim()) {
+      //   Toast.showToast("Please select account type", '', 'error');
+      //   return false;
+      // }
       else if (!accountNo.trim()) {
         Toast.showToast("Please enter account number", '', 'error');
         return false;
@@ -73,11 +95,15 @@ export const useAddNewBeneficiaryViewModel = () => {
         Toast.showToast("Please enter BIC number", '', 'error');
         return false;
       }
-      else if (!country.trim()) {
-        Toast.showToast("Please select country", '', 'error');
+      else if (!CommonUtils.validateBIC(bicNo))  {
+        Toast.showToast("Please enter correct BIC number", '', 'error');
         return false;
       }
-      else if (!currency.trim()) {
+      // else if (!country.trim()) {
+      //   Toast.showToast("Please select country", '', 'error');
+      //   return false;
+      // }
+      else if (!currency?.id) {
         Toast.showToast("Please select currency", '', 'error');
         return false;
       }
@@ -87,20 +113,24 @@ export const useAddNewBeneficiaryViewModel = () => {
   }
 
   const onPressBtn = () => {
-      let payload = {
-          first_name: beneficiaryName,
-          last_name: "",
-          // email: "john.doe@example.com",
-        //   account_number: "1234567890123",
-          account_name: accountNo,
-          iban: accountNo,
-          bic: bicNo,
-          // country_id: country, 
-        //   mobile_number: "+923001234567",
-        //   bank_branch_name: "Main Branch Karachi",
-        //   branch_code: "BR123"
-        }
-        AddnewBeneficiaryApiFunc(payload)
+
+   const payload = {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          currency_id: currency?.id,
+          ...(accountNo
+            ? { iban: accountNo }
+            : bicNo
+            ? { bic: bicNo }
+            : {})
+        };
+
+        console.log("PAYLOAD==>",payload);
+        
+        
+
+        // AddnewBeneficiaryApiFunc(payload)
   };
 
   const onClosePopup = () =>{
@@ -119,7 +149,7 @@ export const useAddNewBeneficiaryViewModel = () => {
 
   return {
     checked,
-    beneficiaryName,
+    firstName,
     accountType,
     accountNo,
     bicNo,
@@ -130,7 +160,7 @@ export const useAddNewBeneficiaryViewModel = () => {
     ACCOUNT_TYPES,
     COUNTRIES,
     CURRENCIES,
-    setBeneficiaryName,
+    setfirstName,
     setAccountType,
     setAccountNo,
     setBicNo,
@@ -144,6 +174,7 @@ export const useAddNewBeneficiaryViewModel = () => {
     countryList,
     currencyList,
     accountTypeList,
+    BENEFICIARY_ADD_FOR,
     isPending_AddnewBeneficiaryApi,
     toggleDropdown,
     openDropdown,
@@ -153,6 +184,12 @@ export const useAddNewBeneficiaryViewModel = () => {
     adjustScrollHeight,
     setadjustScrollHeight,
     adjustScrollHeightCountry, 
-    setadjustScrollHeightCountry
+    setadjustScrollHeightCountry,
+    selectBeneficiary, 
+    setselectBeneficiary,
+    lastName, 
+    setlastName,
+    email, 
+    setemail
   };
 };

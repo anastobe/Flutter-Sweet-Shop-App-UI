@@ -22,6 +22,7 @@ import BluryModal from '../../../../components/Modal/bluryModal';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
+import { BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR } from '../../../../utils/data';
 
 const AddNewBeneficiary = () => {
   const vm = useAddNewBeneficiaryViewModel();
@@ -56,12 +57,31 @@ const AddNewBeneficiary = () => {
         margBtm={23}
         autoCapital={'none'}
         blurOnSubmit={false}
-        placeholder="Beneficiary Name"
-        value={vm.beneficiaryName}
-        onChangeText={vm.setBeneficiaryName}
+        placeholder="First Name"
+        value={vm.firstName}
+        onChangeText={vm.setfirstName}
+      />
+      
+      <InputField
+        margBtm={23}
+        autoCapital={'none'}
+        blurOnSubmit={false}
+        placeholder="Last Name"
+        value={vm.lastName}
+        onChangeText={vm.setlastName}
       />
 
       <InputField
+        margBtm={23}
+        autoCapital={'none'}
+        keyboardType={'email-address'}
+        blurOnSubmit={false}
+        placeholder="Email"
+        value={vm.email}
+        onChangeText={vm.setemail}
+      />
+
+      {/* <InputField
         disabled={false} 
         placeholder='Account Type'
         value={vm.accountType} 
@@ -71,24 +91,54 @@ const AddNewBeneficiary = () => {
         isOpen={vm.openDropdown === 'acc_type'} 
         onToggleDropdown={() => vm.toggleDropdown('acc_type')}
         onDropdownSelect={(item:any )=> vm.setAccountType(item.name)}
-      />
+      />     */}
 
       <InputField
+        disabled={false} 
+        placeholder='Select Beneficiary For'
+        value={vm.selectBeneficiary}
+        enableDropdown={true}
+        dropdownData={vm.BENEFICIARY_ADD_FOR} 
+        margBtm={23}
+        isOpen={vm.openDropdown === 'beneficiary_for'} 
+        onToggleDropdown={() => vm.toggleDropdown('beneficiary_for')}
+        onDropdownSelect={(item:any )=>{
+          vm.setselectBeneficiary(item.value)
+
+          // console.log("ASDasdad=>",item.value, "--",BENEFICIARY_KEY_FOR.bank);
+          // return
+
+          if (item.value == BENEFICIARY_KEY_FOR.bank) {
+            vm.setBicNo("")
+          }
+          else{
+            vm.setAccountNo("")
+          }
+           }
+          }
+      />
+      
+
+      {vm.selectBeneficiary  == "" ? 
+      null 
+      : 
+      vm.selectBeneficiary == BENEFICIARY_KEY_FOR.bank ?
+        <InputField
         margBtm={23}
         placeholder="IBAN / Account No."
         value={vm.accountNo}
                 // customInpStyle={styles.forgetTxt}
         onChangeText={vm.setAccountNo}
       />
-
+      :
       <InputField
         margBtm={23}
         placeholder="SWIFT/BIC (optional)"
         value={vm.bicNo}
         onChangeText={vm.setBicNo}
-      />
+      />}
 
-      <InputField
+      {/* <InputField
         disabled={false} 
         placeholder="Select Country"
         value={vm.country} 
@@ -98,12 +148,12 @@ const AddNewBeneficiary = () => {
         isOpen={vm.openDropdown === 'country'} 
         onToggleDropdown={() =>{ vm.toggleDropdown('country') }}
         onDropdownSelect={(item:any )=> vm.setCountry(item.name)}
-      />
+      /> */}
 
        <InputField
         disabled={false} 
         placeholder='Select Currency'
-        value={vm.currency} 
+        value={vm.currency.name} 
         enableDropdown={true}
         dropdownData={vm.currencyList} 
         margBtm={23}
@@ -111,7 +161,12 @@ const AddNewBeneficiary = () => {
         onToggleDropdown={() =>{ vm.toggleDropdown('currency') 
           // vm.setadjustScrollHeight(!vm.adjustScrollHeight)
         }}
-        onDropdownSelect={(item:any )=> vm.setCurrency(item.iso_code)}
+        onDropdownSelect={(item:any )=> {
+          vm.setCurrency({
+            id: item?.id,
+            name: item?.iso_code
+          })
+        }}
       />
 
     </View>
