@@ -7,12 +7,17 @@ import BluryModal from './bluryModal';
 import { cardUsedStatus } from '../../queries/auth.query';
 import commonUtils from '../../utils/common.utils';
 import { Toast } from '../../utils';
+import { useCountdown } from '../../utils/useCountdown';
 
 const TransactionAlertModal = () => {
   const {visible, closeModal, data } = useNotificationModal();
 
   let approved = "approved"
   let declined = "declined" 
+
+  const { minutes, seconds, isExpired } = useCountdown(
+    data?.challenge_expiry_datetime || ''
+  );
   
   //for accept
   const { mutate: cardUsedAcceptFunc, isPending: isPendingcardUsedStatus } = cardUsedStatus({
@@ -61,6 +66,10 @@ const TransactionAlertModal = () => {
     
   }
 
+  const formatTime = (value: number) => {
+    return String(value).padStart(2, '0');
+  };
+
 
   return (
     <Modal
@@ -79,6 +88,11 @@ const TransactionAlertModal = () => {
           btnLoader={isPendingcardUsedStatus }
           botmBtmLoader={isPendingcardUsedDeclinedFunc }
           // title='Transaction Alert'
+          // body={`
+          //   Your Frontier Pay card was just used in ${data?.card_acceptor_name}.Please confirm if this was you by selecting Approve or Reject.
+          //   \n ${`Session expire in ${formatTime(minutes)} min ${formatTime(seconds)} sec`}
+          //   `}
+
           body={`Your Frontier Pay card was just used in ${data?.card_acceptor_name}.Please confirm if this was you by selecting Approve or Reject.`}
           marginTopTitle={20}
           onConfirm={() =>{ 
@@ -89,9 +103,10 @@ const TransactionAlertModal = () => {
             CallApi(approved) 
             }
           }}
-          iconNameBottom={10}
+          iconNameBottom={1}
           // showSubBody={true}
-          // subBody={"Your Frontier Pay card was just used.Please confirm if this was you by selecting Approve or Reject."}
+          // showSubBodyIcon={false}
+          // subBody={`Session expire in ${formatTime(minutes)} min ${formatTime(seconds)} sec`}
           title={`Amount: ${data?.transaction_amount} ${data?.transaction_currency_code}\n Account: **** ${data?.transaction_pan}`}
           iconName={"alert-outline"}
           confirmText={'APPROVE'}

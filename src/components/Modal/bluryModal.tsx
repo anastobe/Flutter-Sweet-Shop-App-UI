@@ -26,6 +26,7 @@ type Props = {
   title: string;
   marginTopTitle?: number;
   showSubBody?: boolean;
+  showSubBodyIcon?: boolean
   body?: string;
   subBody?: string;
   iconName?: string;
@@ -45,6 +46,7 @@ const BluryModal: React.FC<Props> = ({
   title,
   marginTopTitle,
   showSubBody,
+  showSubBodyIcon,
   body,
   subBody = '',
   iconName = 'snow-outline',
@@ -97,9 +99,9 @@ const BluryModal: React.FC<Props> = ({
         {/* SUB BODY */}
         {showSubBody && (
           <View style={styles.containerAlert}>
-            <View style={styles.ICONcONT}>
+            {showSubBodyIcon ? <View style={styles.ICONcONT}>
               <Icon name="alert-circle-outline" size={handleSize.f(22)} color={THEME.primary} />
-            </View>
+            </View> : null}
             <Text style={styles.descriptionbelow}>{subBody}</Text>
           </View>
         )}

@@ -65,18 +65,12 @@ const timeHumanize = (time: string): string => {
   }
 };
 
-// export const isTimeRemaining = (
-//   challenge_expiry_datetime?: string
-// ): boolean => {
-//   if (!challenge_expiry_datetime) return false;
+export const getRemainingMs = (expiryISO: string) => {
+  const now = Date.now();
+  const expiry = new Date(expiryISO).getTime();
+  return Math.max(expiry - now, 0);
+};
 
-//   const now = Date.now();
-//   const expiryTime = new Date(challenge_expiry_datetime).getTime();
-
-//   if (isNaN(expiryTime)) return false;
-
-//   return now <= expiryTime;
-// };
 
 export const isTimeRemaining = (
   challenge_expiry_datetime?: string,
@@ -240,5 +234,6 @@ export default {
   capitalizeFirstLetter,
   getInitials,
   validateIBAN,
-  isTimeRemaining
+  isTimeRemaining,
+  getRemainingMs
 };
