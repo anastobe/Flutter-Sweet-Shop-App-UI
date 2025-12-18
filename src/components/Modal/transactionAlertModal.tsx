@@ -15,9 +15,9 @@ const TransactionAlertModal = () => {
   let approved = "approved"
   let declined = "declined" 
 
-  const { minutes, seconds, isExpired } = useCountdown(
-    data?.challenge_expiry_datetime || ''
-  );
+  // const { minutes, seconds, isExpired } = useCountdown(
+  //   data?.challenge_expiry_datetime || ''
+  // );
   
   //for accept
   const { mutate: cardUsedAcceptFunc, isPending: isPendingcardUsedStatus } = cardUsedStatus({
