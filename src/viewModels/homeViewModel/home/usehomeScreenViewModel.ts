@@ -11,11 +11,13 @@ import { Images } from '../../../config';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import apis from '../../../services';
+import { getDashboardData, paymentHistry } from '../../../queries/accountQueries/accountQuery';
 
 export const useHomeViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const [transactions, setTransactions] = useState<any[]>([]);
   const [showbalance, setshowbalance] = useState(false);
   const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
   // const [selectedCurrency, setSelectedCurrency] = useState<any>();
@@ -27,6 +29,31 @@ export const useHomeViewModel = () => {
   const loader = useSelector((state: any) => state?.AuthReducer?.loader);
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
+
+  
+  //dashboard
+  const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isPending: getDashboardDataPending } = getDashboardData({
+    enabled: false, 
+    dispatch,
+  });
+  
+  
+  const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
+    paymentHistry({
+      callback: (response: any) => {
+        if (response?.success) {
+          const newData = response?.results?.values || [];
+  
+          setTransactions(newData);
+  
+          // if (newData.length < LIMIT) {
+          //   setHasMore(false);
+          // }
+  
+          // setIsLoadingMore(false);
+        }
+      },
+    });
 
   const Sendoption = [ 
     { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency Account`, width: 15, height: 15 },
@@ -91,9 +118,56 @@ const fetchAllInitialData = async () => {
   }
 };
 
-useEffect(()=>{
-fetchAllInitialData()
-},[])
+  useEffect(()=>{
+    fetchAllInitialData()
+    refetchgetDashboardData()
+  },[])
+
+  useEffect(() => {
+  if (assetsList?.firstObject?.id) {
+    fetchTransactions(1); // 🔥 reset + reload
+  }
+  }, [assetsList?.firstObject?.id]);
+
+
+
+/** 🔹 Fetch Transactions */
+const fetchTransactions = (pageNumber: number) => {
+  if (!assetsList?.firstObject?.id) return;
+
+  // if (pageNumber !== 1 && (!hasMore || isLoadingMore)) return;
+
+  // if (pageNumber === 1) {
+  //   setHasMore(true);
+  //   setTransactions([]); // 🔥 reset on new asset
+  // } else {
+  //   setIsLoadingMore(true);
+  // }
+
+  // setPage(pageNumber);
+
+    const payloadWithParams = {
+      assetId: assetsList?.firstObject?.id,
+      payload: {
+        page: 1,
+        limit: 10,
+        // search,
+        sort: {
+          key: 'created_at',
+          order: 'desc',
+        }
+        // ,
+        // filters: {
+        //   ...(filters.from_date && { from_date: filters.from_date }),
+        //   ...(filters.to_date && { to_date: filters.to_date }),
+        //   ...(filters.types.length > 0 && { types: filters.types }),
+        // },
+      }
+    };
+
+  paymentHistryFunc(payloadWithParams);
+};
+
 
 // console.log("getCurrencyAccount_DATA=>",getCurrencyAccount_DATA,"Ssaas",getCurrencyAccArray);
  
@@ -143,7 +217,12 @@ const onSelectCurrency = (asset: any) => {
     onSelectCurrency,
      loader,
     showbalance, 
-    setshowbalance
+    setshowbalance,
+    transactions,
+    isPendingpaymentHistry,
+    navigation,
+    getDashboardData_Data,
+    getDashboardDataPending
     // currencyOptions
 
   };

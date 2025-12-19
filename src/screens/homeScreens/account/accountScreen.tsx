@@ -51,7 +51,8 @@ const AccountScreen = () => {
   const renderTransactionList = () => (
     <View style={{ zIndex: -9 }}>
       <FlatList
-        data={vm.transactions}
+        // data={vm.transactions}
+        data={vm?.isPendingpaymentHistry ? [] : vm?.transactions}
         keyExtractor={item => item?.id}
         /** 🔹 Initial Loader */
         ListEmptyComponent={

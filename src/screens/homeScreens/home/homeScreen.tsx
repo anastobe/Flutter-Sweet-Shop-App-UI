@@ -26,6 +26,10 @@ import { cardsScroll } from '../../../utils/data';
 import { useIsFocused } from '@react-navigation/native';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
+import commonUtils from '../../../utils/common.utils';
+import SmallBtn from '../../../components/smallBtn';
+import TransactionList from '../../../components/transactionList';
+import { HOME_ROUTES } from '../../../constants';
 // import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
@@ -50,7 +54,13 @@ const HomeScreen = () => {
     onSelectCurrency,
     loader,
     showbalance, 
-    setshowbalance
+    setshowbalance,
+    transactions,
+    isPendingpaymentHistry,
+    navigation,
+    getDashboardData_Data,
+    getDashboardDataPending
+
   } = useHomeViewModel();
 
 //   async function setToken() {
@@ -183,6 +193,19 @@ const renderBalanceCard = () => (
     </View>
   );
 
+  
+  /** 🔹 Transaction Item */
+  const renderItem = ({ item }) => (
+    <TransactionList
+      item={item}
+      onPress={()=>{
+        navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
+      }}
+    />
+  );
+
+  console.log(isPendingpaymentHistry,"transactions==>",transactions);
+
   const renderTransactionList = () => (
     <View style={{ zIndex: -9 }} >
       <View style={styles.cardHeader}>
@@ -193,28 +216,55 @@ const renderBalanceCard = () => (
       </View>
 
       <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={handleNavigateTransaction} style={styles.item}>
-            <View style={styles.sectionLeft}>
-              <View style={styles.iconCONT}>
-                <Icon name={item.id == 2 ?"arrow-back-outline" : "arrow-forward-outline"} size={handleSize.f(16)} color={THEME.textPrimary} />
-              </View>
-              <View>
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.subname}>19 July</Text>
-              </View>
+        data={isPendingpaymentHistry ? [] : transactions}
+        keyExtractor={item => item?.id}
+        /** 🔹 Initial Loader */
+        ListEmptyComponent={
+           isPendingpaymentHistry ? (
+            <View style={{ marginTop: handleSize.h(40) }}>
+              <ActivityIndicator size="large" color={THEME.primary} />
             </View>
-            <View>
-              <Text style={styles.amount}>{item.amount}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-        contentContainerStyle={{ marginHorizontal: handleSize.w(20), paddingBottom: handleSize.h(50) }}
+          ) : (
+            <Text style={{ textAlign: 'center', color: THEME.white }}>
+              No Transactions Found
+            </Text>
+          )
+        }
+        /** 🔹 Footer Loader (Pagination) */
+        ListFooterComponent={
+          transactions?.length < commonUtils.MAX_LENGTH_10 ? null : (
+            <SmallBtn
+              title="Show More"
+              onPress={handleNavigateTransactionHistory}
+            />
+          )
+        }
+        // onEndReachedThreshold={0.1}
+        // onEndReached={loadMoreTransactions}
+
+        ListHeaderComponent={renderSubHeaderStuffs}
+        nestedScrollEnabled
+        renderItem={renderItem}
+        contentContainerStyle={{  paddingBottom: handleSize.h(50) }}
       />
     </View>
   );
+
+  
+  function renderSubHeaderStuffs() {
+    return(
+      <View>
+          <GradientLineGraph 
+                data={getDashboardData_Data?.graph}
+                loading={getDashboardDataPending}
+                marginTop={handleSize.h(60)} 
+          />
+          {ScrollableCards()}
+          {renderCardFeature()}
+      </View>
+    )
+  }
+
 
   function renderHeaderStuffs() {
     return(
@@ -267,17 +317,6 @@ const ScrollableCards = () => {
       />
 
          <ScrollView contentContainerStyle={{ marginTop: handleSize.h(10) }}>
-          <GradientLineGraph data={[
-            { value: 10, label: 'Mon' },
-            { value: 40, label: 'Tue' },
-            { value: 20, label: 'Wed' },
-            { value: 90, label: 'Thu' },
-            { value: 75, label: 'Fri' },
-            { value: 60, label: 'Sat' },
-            { value: 100, label: 'Sun' }
-          ]} loading={false} marginTop={handleSize.h(20)} />
-          {ScrollableCards()}
-          {renderCardFeature()}
           {renderTransactionList()}
          </ScrollView>
        
