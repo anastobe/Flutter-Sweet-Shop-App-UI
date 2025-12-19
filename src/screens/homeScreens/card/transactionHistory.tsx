@@ -38,33 +38,43 @@ export default function TransactionHistory(props) {
   } = useTransactionHistoryViewModel(props);
 
   /** 🔹 Search + Filter Row */
-  const renderFilter = () => {
-    return (
-      <View style={styles.filtersearchContainer}>
-        <InputField
-          removeTitle
-          textInputStyle={styles.innerinput}
-          imgViewLeft={styles.imgViewLeft}
-          imageLeft="search-outline"
-          imagetintColorLeft={THEME.white}
-          placeholder="Search"
-          value={search}
-          onChangeText={setSearch}
-        />
+  // const renderFilter = () => {
+  //   return (
+  //     <View style={styles.filtersearchContainer}>
+  //       <InputField
+  //         removeTitle
+  //         textInputStyle={styles.innerinput}
+  //         imgViewLeft={styles.imgViewLeft}
+  //         imageLeft="search-outline"
+  //         imagetintColorLeft={THEME.white}
+  //         placeholder="Search"
+  //         value={search}
+  //         onChangeText={setSearch}
+  //       />
 
-        <TouchableOpacity
-          onPress={() => cardDetailRef?.current?.open()}
-          style={styles.filterBtn}
-        >
-          <Icon
-            name="filter-outline"
-            size={handleSize.f(22)}
-            color={THEME.textPrimary}
-          />
-        </TouchableOpacity>
-      </View>
-    );
-  };
+  //       <TouchableOpacity
+  //         onPress={() => cardDetailRef?.current?.open()}
+  //         style={styles.filterBtn}
+  //       >
+  //         <Icon
+  //           name="filter-outline"
+  //           size={handleSize.f(22)}
+  //           color={THEME.textPrimary}
+  //         />
+  //       </TouchableOpacity>
+  //     </View>
+  //   );
+  // };
+
+  const renderEmpty = () => {
+  if (isPending) return null; // loader ke sath clash na ho
+
+  return (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyTitle}>No Transactions Found</Text>
+    </View>
+  );
+};
 
   /** 🔹 Transaction Item */
 const renderItem = ({ item }) => (
@@ -132,11 +142,14 @@ const renderItem = ({ item }) => (
             onEndReached={loadMoreTransactions}
             onEndReachedThreshold={0.6}
             ListFooterComponent={renderFooter}
+            ListEmptyComponent={renderEmpty} // 🔥 THIS LINE
             contentContainerStyle={{
+              flexGrow: 1,
               paddingBottom: handleSize.h(120),
             }}
             showsVerticalScrollIndicator={false}
           />
+
         )}
 
         {/* 🔹 FILTER BOTTOM SHEET */}
@@ -240,4 +253,25 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+
+  emptyContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: handleSize.h(40),
+},
+emptyTitle: {
+  fontSize: handleSize.f(FONT_SIZES.onesix),
+  fontFamily: FONTFAMILY.Regular,
+  color: THEME.white,
+  marginTop: handleSize.h(10),
+},
+emptySubTitle: {
+  fontSize: handleSize.f(FONT_SIZES.onesix),
+  fontFamily: FONTFAMILY.Regular,
+  color: THEME.white,
+  marginTop: handleSize.h(5),
+  textAlign: 'center',
+},
+
 });
