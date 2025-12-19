@@ -23,7 +23,7 @@ export default function useTransactionHistoryViewModel(props: any) {
   const [filters, setFilters] = useState({
     from_date: '',
     to_date: '',
-    types: [] as string[], // ['debit', 'credit']
+    direction: [] as string[], // ['debit', 'credit']
   });
 
   /** 🔹 API */
@@ -87,7 +87,7 @@ export default function useTransactionHistoryViewModel(props: any) {
         filters: {
           ...(activeFilters.from_date && { from_date: activeFilters.from_date }),
           ...(activeFilters.to_date && { to_date: activeFilters.to_date }),
-          ...(activeFilters.types.length > 0 && { types: activeFilters.types }),
+          ...(activeFilters.direction.length > 0 && { direction: activeFilters.direction }),
         },
       },
     };
@@ -102,24 +102,39 @@ export default function useTransactionHistoryViewModel(props: any) {
   };
 
   /** 🔹 Apply Filters */
-  const applyFilters = (newFilters: any) => {
-    const formattedFilters = {
-      from_date: newFilters?.from || '',
-      to_date: newFilters?.to || '',
-      types: newFilters?.types || [],
-    };
+const applyFilters = (newFilters: any) => {
+  let direction: string | undefined = undefined;
 
-    setFilters(formattedFilters);          // UI state
-    fetchTransactions(1, formattedFilters); // 🔥 API with NEW filters
-    cardDetailRef.current?.close?.();
+  const isCredit = newFilters?.checked?.credit;
+  const isDebit = newFilters?.checked?.debit;
+
+  if (isCredit && !isDebit) {
+    direction = 'credit';
+  } else if (!isCredit && isDebit) {
+    direction = 'debit';
+  }
+  // else → both true OR both false → direction undefined
+
+  const formattedFilters = {
+    from_date: newFilters?.from || '',
+    to_date: newFilters?.to || '',
+    ...(direction && { direction }), // 🔥 only include if valid
   };
+
+  setFilters(formattedFilters);
+
+  console.log('formattedFilters==>', formattedFilters);
+
+  fetchTransactions(1, formattedFilters);
+  cardDetailRef.current?.close?.();
+};
 
   /** 🔹 Reset Filters */
   const resetFilters = () => {
     const clearedFilters = {
       from_date: '',
       to_date: '',
-      types: [],
+      direction: [],
     };
 
     setFilters(clearedFilters);
