@@ -85,9 +85,9 @@ export default function useTransactionHistoryViewModel(props: any) {
           order: 'desc',
         },
         filters: {
-          ...(activeFilters.from_date && { from_date: activeFilters.from_date }),
-          ...(activeFilters.to_date && { to_date: activeFilters.to_date }),
-          ...(activeFilters.direction.length > 0 && { direction: activeFilters.direction }),
+          ...(activeFilters?.from_date && { from_date: activeFilters?.from_date }),
+          ...(activeFilters?.to_date && { to_date: activeFilters?.to_date }),
+          ...(activeFilters?.direction?.length > 0 && { direction: activeFilters?.direction }),
         },
       },
     };
