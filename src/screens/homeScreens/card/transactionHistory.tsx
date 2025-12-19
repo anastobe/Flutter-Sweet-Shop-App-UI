@@ -98,9 +98,22 @@ const renderItem = ({ item }) => (
       />
 
       <View style={{ marginHorizontal: handleSize.w(20), flex: 1 }}>
-        <Text style={styles.title}>Transactions History</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }} >
+          <Text style={styles.title}>Transactions History</Text>
 
-        {renderFilter()}
+        <TouchableOpacity
+          onPress={() => cardDetailRef?.current?.open()}
+          style={styles.filterBtn}
+        >
+          <Icon
+            name="filter-outline"
+            size={handleSize.f(22)}
+            color={THEME.textPrimary}
+          />
+        </TouchableOpacity>
+        </View>
+
+        {/* {renderFilter()} */}
 
         {/* 🔹 LIST */}
         {isPending && transactions.length === 0 ? (

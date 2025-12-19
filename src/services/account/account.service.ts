@@ -46,7 +46,7 @@ export const paymentHistry = async (payloadWithParams: any) => {
   const response = await axiosInstance(
     `/transactions/asset/${payloadWithParams?.assetId}`,
     'POST',
-    payloadWithParams?.payload || {},
+    payloadWithParams?.body || {},
     false
   );
   return response;

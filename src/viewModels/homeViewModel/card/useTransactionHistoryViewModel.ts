@@ -32,7 +32,6 @@ export default function useTransactionHistoryViewModel(props: any) {
       if (!response?.success) return;
 
       console.log("new data aya==>",response?.results?.values);
-      
 
       const newData = response?.results?.values || [];
 
@@ -56,7 +55,10 @@ export default function useTransactionHistoryViewModel(props: any) {
   }, [assetId]);
 
   /** 🔹 Fetch Transactions */
-  const fetchTransactions = (pageNumber: number) => {
+  const fetchTransactions = (
+    pageNumber: number,
+    overrideFilters?: typeof filters
+  ) => {
     if (!assetId) return;
 
     if (pageNumber !== 1 && (!hasMore || isLoadingMore)) return;
@@ -70,9 +72,12 @@ export default function useTransactionHistoryViewModel(props: any) {
 
     setPage(pageNumber);
 
-      const payloadWithParams = {
-      assetId: assetId,
-      payload: {
+    const activeFilters = overrideFilters ?? filters;
+
+    const payloadWithParams = {
+      assetId: assetId, 
+      body: {
+        page: pageNumber,
         limit: LIMIT,
         search,
         sort: {
@@ -80,15 +85,12 @@ export default function useTransactionHistoryViewModel(props: any) {
           order: 'desc',
         },
         filters: {
-          ...(filters.from_date && { from_date: filters.from_date }),
-          ...(filters.to_date && { to_date: filters.to_date }),
-          ...(filters.types.length > 0 && { types: filters.types }),
+          ...(activeFilters.from_date && { from_date: activeFilters.from_date }),
+          ...(activeFilters.to_date && { to_date: activeFilters.to_date }),
+          ...(activeFilters.types.length > 0 && { types: activeFilters.types }),
         },
-      }
+      },
     };
-
-    console.log("going payload==>",payloadWithParams);
-    
 
     paymentHistryFunc(payloadWithParams);
   };
@@ -101,29 +103,28 @@ export default function useTransactionHistoryViewModel(props: any) {
 
   /** 🔹 Apply Filters */
   const applyFilters = (newFilters: any) => {
+    const formattedFilters = {
+      from_date: newFilters?.from || '',
+      to_date: newFilters?.to || '',
+      types: newFilters?.types || [],
+    };
 
-    console.log("===>",newFilters);
-    
-    setFilters({
-      from_date: newFilters?.from,
-      to_date: newFilters?.to,
-      types: [] as string[], // ['debit', 'credit']
-    })
-
-    // setFilters(newFilters);
-    // cardDetailRef.current?.close?.();
-    fetchTransactions(1); // 🔥 reset & refetch
+    setFilters(formattedFilters);          // UI state
+    fetchTransactions(1, formattedFilters); // 🔥 API with NEW filters
+    cardDetailRef.current?.close?.();
   };
 
   /** 🔹 Reset Filters */
-  const resetFilters = (newFilters: any) => {
-    setFilters({
+  const resetFilters = () => {
+    const clearedFilters = {
       from_date: '',
       to_date: '',
       types: [],
-    });
+    };
+
+    setFilters(clearedFilters);
+    fetchTransactions(1, clearedFilters);
     cardDetailRef.current?.close?.();
-    fetchTransactions(1);
   };
 
   /** 🔹 Navigation */
