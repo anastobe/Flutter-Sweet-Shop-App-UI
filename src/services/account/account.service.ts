@@ -38,19 +38,15 @@ export const AccDelete = async (id: any) => {
   return response;
 };
 
+export const paymentHistry = async (payloadWithParams: any) => {
 
-export const paymentHistry = async (
-  assetTypeId: string,
-  body: any
-) => {
-
-  // console.log("=paymentHistry=",assetTypeId,"--",body);
+  console.log("=paymentHistry main function=",payloadWithParams);
   
 
   const response = await axiosInstance(
-    `/transactions/asset/${assetTypeId}`,
+    `/transactions/asset/${payloadWithParams?.assetId}`,
     'POST',
-    body,
+    payloadWithParams?.payload || {},
     false
   );
   return response;

@@ -108,7 +108,7 @@ const renderItem = ({ item }) => (
             size="large"
             color={THEME.primary}
             style={{ marginTop: 40 }}
-          />
+          /> 
         ) : (
           <FlatList
             data={transactions}

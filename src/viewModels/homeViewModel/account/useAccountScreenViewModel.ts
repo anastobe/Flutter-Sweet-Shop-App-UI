@@ -62,7 +62,7 @@ const [isLoadingMore, setIsLoadingMore] = useState(false);
     dispatch,
   });
  
-   console.log("getDashboardData_Data=>",getDashboardData_Data);
+  //  console.log("getDashboardData_Data=>",getDashboardData_Data);
   
 
 
@@ -229,18 +229,26 @@ const fetchTransactions = (pageNumber: number) => {
 
   setPage(pageNumber);
 
-  const payload = {
-    page: pageNumber,
-    limit: LIMIT,
-    sort: {
-      key: 'created_at',
-      order: 'desc',
-    },
-    search: '',
-    filters: {},
-  };
+    const payloadWithParams = {
+      assetId: currentAssetId,
+      payload: {
+        page: pageNumber,
+        limit: LIMIT,
+        // search,
+        sort: {
+          key: 'created_at',
+          order: 'desc',
+        }
+        // ,
+        // filters: {
+        //   ...(filters.from_date && { from_date: filters.from_date }),
+        //   ...(filters.to_date && { to_date: filters.to_date }),
+        //   ...(filters.types.length > 0 && { types: filters.types }),
+        // },
+      }
+    };
 
-  paymentHistryFunc(currentAssetId,payload);
+  paymentHistryFunc(payloadWithParams);
 };
  
 /** 🔹 Load More */

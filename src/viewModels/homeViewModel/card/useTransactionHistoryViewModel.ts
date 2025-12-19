@@ -70,25 +70,27 @@ export default function useTransactionHistoryViewModel(props: any) {
 
     setPage(pageNumber);
 
-    const payload = {
-      page: pageNumber,
-      limit: LIMIT,
-      search,
-      sort: {
-        key: 'created_at',
-        order: 'desc',
-      },
-      filters: {
-        ...(filters.from_date && { from_date: filters.from_date }),
-        ...(filters.to_date && { to_date: filters.to_date }),
-        ...(filters.types.length > 0 && { types: filters.types }),
-      },
+      const payloadWithParams = {
+      assetId: assetId,
+      payload: {
+        limit: LIMIT,
+        search,
+        sort: {
+          key: 'created_at',
+          order: 'desc',
+        },
+        filters: {
+          ...(filters.from_date && { from_date: filters.from_date }),
+          ...(filters.to_date && { to_date: filters.to_date }),
+          ...(filters.types.length > 0 && { types: filters.types }),
+        },
+      }
     };
 
-    console.log("going payload==>",payload);
+    console.log("going payload==>",payloadWithParams);
     
 
-    paymentHistryFunc(assetId, payload);
+    paymentHistryFunc(payloadWithParams);
   };
 
   /** 🔹 Load More */
