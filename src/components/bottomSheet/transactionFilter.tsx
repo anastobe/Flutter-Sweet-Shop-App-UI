@@ -58,18 +58,23 @@ const TransactionFilter = ({ onPress, onPress2 }: { onPress: any, onPress2: any 
     }
 
     function renderButton(onPress: any, onPress2: any) {
+        let Filter_data = {
+            from: from,
+            to: to,
+            checked: checked
+        }
         return (
             <View>
                 <CustomButton
                     btnContSty={styles.forgetTxt1}
                     title="Apply"
-                    onPress={onPress}
+                    onPress={()=>{ onPress(Filter_data) }}
                 />
 
                 <CustomButton
                     btnContSty={styles.forgetTxt2}
                     title="Reset"
-                    onPress={onPress2}
+                    onPress={()=>{ onPress2(Filter_data) }}
                 />
             </View>
         )

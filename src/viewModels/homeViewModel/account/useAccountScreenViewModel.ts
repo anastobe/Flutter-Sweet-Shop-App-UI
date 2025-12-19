@@ -22,12 +22,12 @@ export const useAccountScreenViewModel = () => {
   const queryClient = useQueryClient();
   const manageRef = useRef<any>(null);
   const editRef = useRef<any>(null);
-  const editAccountRef = useRef<any>(null);
+  const editAccountRef = useRef<any>(null); 
   const flatListRef = useRef<FlatList>(null);
 
   
 const [transactions, setTransactions] = useState<any[]>([]);
-const [page, setPage] = useState(1);
+const [page, setPage] = useState(1); 
 const [hasMore, setHasMore] = useState(true);
 const [isLoadingMore, setIsLoadingMore] = useState(false);
 
@@ -62,7 +62,7 @@ const [isLoadingMore, setIsLoadingMore] = useState(false);
     dispatch,
   });
  
-  console.log("getDashboardData_Data=>",getDashboardData_Data);
+   console.log("getDashboardData_Data=>",getDashboardData_Data);
   
 
 
@@ -124,8 +124,9 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
   const onPressCard = () => navigation.navigate(HOME_ROUTES.ACCOUNT_DETAIL);
 
   const handleNavigateTransactionHistory = () => {
-    // navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY);
-    navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)
+    if (currentAccDetail?.id != "") {
+      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentAccDetail?.id})
+    }
   };
 
   const handleNavigateTransaction = () => {

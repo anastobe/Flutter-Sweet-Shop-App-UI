@@ -1,50 +1,147 @@
 import { useState, useRef, useEffect } from 'react';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { DATA, REQUEST_DATA } from '../../../utils/data';
-import Metrics from '../../../styles/metrics';
+import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
-import { StatusBar } from 'react-native';
-import { THEME } from '../../../styles';
+import { paymentHistry } from '../../../queries/accountQueries/accountQuery';
 
-export default function useTransactionHistoryViewModel() {
+const LIMIT = 10;
+
+export default function useTransactionHistoryViewModel(props: any) {
+  const assetId = props?.route?.params?.assetId;
   const navigation = useNavigation();
-  const cardDetailRef = useRef(null);
-  const [cardName, setCardName] = useState('');
 
-  function pressBackArrow() {
-    navigation.goBack();
-  }
+  const cardDetailRef = useRef<any>(null);
 
-  function onSearch(text) {
-    setCardName(text);
-  }
+  /** 🔹 States */
+  const [transactions, setTransactions] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  function openFilterSheet() {
-    cardDetailRef.current?.open?.();
-  }
+  const [search, setSearch] = useState('');
 
-  function closeFilterSheet() {
+  /** 🔹 Filters */
+  const [filters, setFilters] = useState({
+    from_date: '',
+    to_date: '',
+    types: [] as string[], // ['debit', 'credit']
+  });
+
+  /** 🔹 API */
+  const { mutate: paymentHistryFunc, isPending } = paymentHistry({
+    callback: (response: any) => {
+      if (!response?.success) return;
+
+      console.log("new data aya==>",response?.results?.values);
+      
+
+      const newData = response?.results?.values || [];
+
+      setTransactions(prev =>
+        page === 1 ? newData : [...prev, ...newData]
+      );
+
+      if (newData.length < LIMIT) {
+        setHasMore(false);
+      }
+
+      setIsLoadingMore(false);
+    },
+  });
+
+  /** 🔹 Initial Load */
+  useEffect(() => {
+    if (assetId) {
+      fetchTransactions(1);
+    }
+  }, [assetId]);
+
+  /** 🔹 Fetch Transactions */
+  const fetchTransactions = (pageNumber: number) => {
+    if (!assetId) return;
+
+    if (pageNumber !== 1 && (!hasMore || isLoadingMore)) return;
+
+    if (pageNumber === 1) {
+      setHasMore(true);
+      setTransactions([]);
+    } else {
+      setIsLoadingMore(true);
+    }
+
+    setPage(pageNumber);
+
+    const payload = {
+      page: pageNumber,
+      limit: LIMIT,
+      search,
+      sort: {
+        key: 'created_at',
+        order: 'desc',
+      },
+      filters: {
+        ...(filters.from_date && { from_date: filters.from_date }),
+        ...(filters.to_date && { to_date: filters.to_date }),
+        ...(filters.types.length > 0 && { types: filters.types }),
+      },
+    };
+
+    console.log("going payload==>",payload);
+    
+
+    paymentHistryFunc(assetId, payload);
+  };
+
+  /** 🔹 Load More */
+  const loadMoreTransactions = () => {
+    if (!hasMore || isLoadingMore || isPending) return;
+    fetchTransactions(page + 1);
+  };
+
+  /** 🔹 Apply Filters */
+  const applyFilters = (newFilters: any) => {
+
+    console.log("===>",newFilters);
+    
+    setFilters({
+      from_date: newFilters?.from,
+      to_date: newFilters?.to,
+      types: [] as string[], // ['debit', 'credit']
+    })
+
+    // setFilters(newFilters);
+    // cardDetailRef.current?.close?.();
+    fetchTransactions(1); // 🔥 reset & refetch
+  };
+
+  /** 🔹 Reset Filters */
+  const resetFilters = (newFilters: any) => {
+    setFilters({
+      from_date: '',
+      to_date: '',
+      types: [],
+    });
     cardDetailRef.current?.close?.();
-  }
+    fetchTransactions(1);
+  };
 
+  /** 🔹 Navigation */
+  const pressBackArrow = () => navigation.goBack();
 
   const handleNavigateTransactionHistory = () => {
     navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
   };
 
-  
-
   return {
-    DATA,
-    REQUEST_DATA,
-    cardName,
-    setCardName,
+    transactions,
+    search,
+    setSearch,
     cardDetailRef,
     pressBackArrow,
-    onSearch,
-    openFilterSheet,
-    closeFilterSheet,
+    loadMoreTransactions,
+    applyFilters,
+    resetFilters,
     handleNavigateTransactionHistory,
-    Metrics
+    isLoadingMore,
+    isPending,
   };
 }

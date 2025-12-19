@@ -44,7 +44,7 @@ export const paymentHistry = async (
   body: any
 ) => {
 
-  console.log("=paymentHistry=",assetTypeId,"--",body);
+  // console.log("=paymentHistry=",assetTypeId,"--",body);
   
 
   const response = await axiosInstance(
