@@ -181,11 +181,11 @@ const App: React.FC = () => {
             >
             <MainStack />
             <LoaderFullScreen />
-            <Toast config={toastConfig} />
             <PushNotificationHandler />
             <TransactionAlertModal />
           </NavigationContainer>
-    </NotificationModalProvider>
+        </NotificationModalProvider>
+            <Toast config={toastConfig} />
       </Provider>
       </QueryClientProvider>
   );
