@@ -11,7 +11,7 @@ interface Props {
 }
 
 const TransactionItem = ({ item, onPress }: Props) => {
-  const isDebit = item?.type === 'debit';
+  const isDebit = item?.direction === 'debit';
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.item}>
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.SlateBlue,
     borderRadius: handleSize.f(10),
     height: handleSize.h(68),
+    marginHorizontal: handleSize.w(20),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

@@ -27,12 +27,12 @@ export const useAccountScreenViewModel = () => {
 
   
 const [transactions, setTransactions] = useState<any[]>([]);
-const [page, setPage] = useState(1); 
-const [hasMore, setHasMore] = useState(true);
-const [isLoadingMore, setIsLoadingMore] = useState(false);
+// const [page, setPage] = useState(1); 
+// const [hasMore, setHasMore] = useState(true);
+// const [isLoadingMore, setIsLoadingMore] = useState(false);
 
 
-  const LIMIT = 10;
+  // const LIMIT = 10;
 
   const [currentAccDetail, setcurrentAccDetail] = useState({
         asset_type_id: "", 
@@ -72,15 +72,13 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
       if (response?.success) {
         const newData = response?.results?.values || [];
 
-        setTransactions(prev =>
-          page === 1 ? newData : [...prev, ...newData]
-        );
+        setTransactions(newData);
 
-        if (newData.length < LIMIT) {
-          setHasMore(false);
-        }
+        // if (newData.length < LIMIT) {
+        //   setHasMore(false);
+        // }
 
-        setIsLoadingMore(false);
+        // setIsLoadingMore(false);
       }
     },
   });
@@ -218,22 +216,22 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
 const fetchTransactions = (pageNumber: number) => {
   if (!currentAssetId) return;
 
-  if (pageNumber !== 1 && (!hasMore || isLoadingMore)) return;
+  // if (pageNumber !== 1 && (!hasMore || isLoadingMore)) return;
 
-  if (pageNumber === 1) {
-    setHasMore(true);
-    setTransactions([]); // 🔥 reset on new asset
-  } else {
-    setIsLoadingMore(true);
-  }
+  // if (pageNumber === 1) {
+  //   setHasMore(true);
+  //   setTransactions([]); // 🔥 reset on new asset
+  // } else {
+  //   setIsLoadingMore(true);
+  // }
 
-  setPage(pageNumber);
+  // setPage(pageNumber);
 
     const payloadWithParams = {
       assetId: currentAssetId,
       payload: {
-        page: pageNumber,
-        limit: LIMIT,
+        page: 1,
+        limit: 10,
         // search,
         sort: {
           key: 'created_at',
@@ -252,12 +250,12 @@ const fetchTransactions = (pageNumber: number) => {
 };
  
 /** 🔹 Load More */
-const loadMoreTransactions = () => {
-  console.log("loadMoreTransactions");
+// const loadMoreTransactions = () => {
+//   console.log("loadMoreTransactions");
   
-  if (!hasMore || isLoadingMore || isPendingpaymentHistry) return;
-  fetchTransactions(page + 1);
-};
+//   if (!hasMore || isLoadingMore || isPendingpaymentHistry) return;
+//   fetchTransactions(page + 1);
+// };
 
   return {
     navigation,
@@ -295,7 +293,9 @@ const loadMoreTransactions = () => {
     getDashboardDataPending,
 
     isPendingpaymentHistry,
-    isLoadingMore,
-    loadMoreTransactions
+    // isLoadingMore,
+    // loadMoreTransactions,
+    // hasMore, 
+    // setHasMore
   };
 };

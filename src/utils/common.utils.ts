@@ -12,6 +12,7 @@ import { HOME_ROUTES } from "../constants";
 const IBAN_BASIC_REGEX = /^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/i;
 const SWIFT_REGEX = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
 
+const MAX_LENGTH_10 = 10;
 
 const objectContainsKey = (
   object: Record<string | number, any>,
@@ -245,5 +246,6 @@ export default {
   validateIBAN,
   isTimeRemaining,
   getRemainingMs,
-  validateBIC
+  validateBIC,
+  MAX_LENGTH_10
 };

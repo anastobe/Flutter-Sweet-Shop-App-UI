@@ -107,8 +107,8 @@ const renderItem = ({ item }) => (
         barStyle="light-content"
       />
 
-      <View style={{ marginHorizontal: handleSize.w(20), flex: 1 }}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }} >
+      <View style={{ flex: 1 }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between",marginHorizontal: handleSize.w(20) }} >
           <Text style={styles.title}>Transactions History</Text>
 
         <TouchableOpacity
@@ -212,7 +212,8 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.primary,
     borderRadius: handleSize.f(10),
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
+    // marginHorizontal: handleSize.w(20)
   },
   item: {
     backgroundColor: THEME.SlateBlue,

@@ -38,6 +38,8 @@ import Metrics from '../../../styles/metrics';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
 import commonUtils from '../../../utils/common.utils';
+import TransactionList from '../../../components/transactionList';
+import SmallBtn from '../../../components/smallBtn';
 
 const header_flatlist_BottomSizeAdjust = 260;
 
@@ -45,42 +47,60 @@ const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
   const navigation = useNavigation();
 
-  // console.log("asdsa=>",vm.currentAccDetail);
-
+  
   const renderTransactionList = () => (
     <View style={{ zIndex: -9 }}>
       <FlatList
         data={vm.transactions}
         keyExtractor={item => item?.id}
-        
-    /** 🔹 Initial Loader */
-    ListEmptyComponent={
-      vm.isPendingpaymentHistry ? (
-        <View style={{ marginTop: handleSize.h(40) }}>
-          <ActivityIndicator size="large" color={THEME.primary} />
-        </View>
-      ) : (
-        <Text style={{ textAlign: 'center', color: THEME.white }}>
-          No Transactions Found
-        </Text>
-      )
-    }
+        /** 🔹 Initial Loader */
+        ListEmptyComponent={
+          vm.isPendingpaymentHistry ? (
+            <View style={{ marginTop: handleSize.h(40) }}>
+              <ActivityIndicator size="large" color={THEME.primary} />
+            </View>
+          ) : (
+            <Text style={{ textAlign: 'center', color: THEME.white }}>
+              No Transactions Found
+            </Text>
+          )
+        }
+        /** 🔹 Footer Loader (Pagination) */
+        ListFooterComponent={
+          vm?.transactions?.length < commonUtils.MAX_LENGTH_10 ? null : (
+            <SmallBtn
+              title="Show More"
+              onPress={vm.handleNavigateTransactionHistory}
+            />
+          )
+        }
+        // onEndReachedThreshold={0.1}
+        // onEndReached={vm.loadMoreTransactions}
 
-    /** 🔹 Footer Loader (Pagination) */
-    ListFooterComponent={
-      vm.isLoadingMore ? (
-        <View style={{ paddingVertical: 20 }}>
-          <ActivityIndicator size="small" color={THEME.primary} />
-        </View>
-      ) : null
-    }
+        ListHeaderComponent={renderSubHeaderStuffs}
+        nestedScrollEnabled
+        renderItem={renderItem}
+        contentContainerStyle={{
+          paddingBottom: handleSize.h(header_flatlist_BottomSizeAdjust + 20)        }}
+      />
+    </View>
+  );
+  
+    /** 🔹 Transaction Item */
+  const renderItem = ({ item }) => (
+    <TransactionList
+      item={item}
+      onPress={()=>{
+        navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
+      }}
+    />
+  );
 
-    onEndReachedThreshold={0.1} 
-    onEndReached={vm.loadMoreTransactions}
+  
 
-        ListHeaderComponent={() => {
-          return (
-            <View>
+  function renderSubHeaderStuffs() {
+    return(
+                  <View>
               <CardFeatureButtons
                 features={vm.features}
                 onPressbtn={(item: any) => item.onPress()}
@@ -122,51 +142,9 @@ const AccountScreen = () => {
                 </TouchableOpacity>
               </View>
             </View>
-          );
-        }}
-        nestedScrollEnabled
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={vm.handleNavigateTransaction}
-            style={styles.item}
-          >
-            <View style={styles.sectionLeft}>
-              <View style={styles.iconCONT}>
-                <Icon
-                  name={
-                    item?.id == 2
-                      ? 'arrow-back-outline'
-                      : 'arrow-forward-outline'
-                  }
-                  size={handleSize.f(16)}
-                  color={THEME.textPrimary}
-                />
-              </View>
-              <View>
-                <Text
-                  style={styles.name}
-                  ellipsizeMode="tail"
-                  numberOfLines={1}
-                >
-                  {item?.frontier_customer?.business_customer?.company_name}
-                </Text>
-                <Text style={styles.subname}>
-                  {commonUtils.timeHumanize(item?.created_at)}
-                </Text>
-              </View>
-            </View>
-            <View>
-              <Text style={styles.amount}>{item?.amount}</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-        contentContainerStyle={{
-          paddingBottom: handleSize.h(header_flatlist_BottomSizeAdjust + 20),
-        }}
-      />
-    </View>
-  );
-
+    )
+  }
+  
   function renderHeaderStuffs() {
     return (
       <ImageBackground
