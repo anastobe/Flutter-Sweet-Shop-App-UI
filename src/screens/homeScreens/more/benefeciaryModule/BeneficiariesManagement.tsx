@@ -40,7 +40,6 @@ const BeneficiariesManagement = () => {
     const initials = `${item?.first_name} ${item?.last_name}`
       .split(' ')
       .map((n: any) => n[0])
-      .join('');
 
     return (
       <LinearGradient
