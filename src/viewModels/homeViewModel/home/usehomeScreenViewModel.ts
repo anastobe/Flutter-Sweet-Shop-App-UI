@@ -35,6 +35,7 @@ export const useHomeViewModel = () => {
   const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isPending: getDashboardDataPending } = getDashboardData({
     enabled: false, 
     dispatch,
+    ID: assetsList?.firstObject?.id,
   });
   
   
@@ -120,12 +121,12 @@ const fetchAllInitialData = async () => {
 
   useEffect(()=>{
     fetchAllInitialData()
-    refetchgetDashboardData()
   },[])
 
   useEffect(() => {
   if (assetsList?.firstObject?.id) {
     fetchTransactions(1); // 🔥 reset + reload
+    refetchgetDashboardData()
   }
   }, [assetsList?.firstObject?.id]);
 

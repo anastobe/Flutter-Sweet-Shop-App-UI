@@ -24,16 +24,18 @@ export const getAccounts  = (    {
   
   export const getDashboardData  = (    {
   enabled,
-  dispatch
+  dispatch,
+  ID
 }: {
   enabled?: boolean;
-  dispatch?: any
+  dispatch?: any;
+  ID?: any
 }
 ) =>
   useQuery({
     queryKey: [QueryKey.GET_DASHBOARD_DATA],
     initialData: [],
-    queryFn: ()=> apis.getDashboardData(dispatch),
+    queryFn: ()=> apis.getDashboardData(ID),
     enabled: enabled,
 
     staleTime: 0, // Data will never be considered stale

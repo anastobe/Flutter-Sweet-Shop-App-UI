@@ -60,6 +60,7 @@ const [transactions, setTransactions] = useState<any[]>([]);
   const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isPending: getDashboardDataPending } = getDashboardData({
     enabled: false, 
     dispatch,
+    ID: currentAccDetail.id,
   });
  
   //  console.log("getDashboardData_Data=>",getDashboardData_Data);
@@ -200,13 +201,13 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
   useEffect(() => {
     refetchgetAccounts();
     apis.getCurrencyAccount(dispatch);
-    refetchgetDashboardData()
   }, []);
 
   
 
   useEffect(() => {
   if (currentAccDetail.id) {
+    refetchgetDashboardData(currentAccDetail?.id)
     fetchTransactions(1); // 🔥 reset + reload
   }
   }, [currentAccDetail?.id]);

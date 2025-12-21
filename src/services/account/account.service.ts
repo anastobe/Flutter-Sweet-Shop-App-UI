@@ -53,6 +53,9 @@ export const paymentHistry = async (payloadWithParams: any) => {
 };
 
 export const getDashboardData = async (id: any) => {
+
+  console.log("=getDashboardData ID=>",id);
+  
   const response = await axiosInstance('/dashboard/asset_id', 'GET', undefined, false );
   return response?.results;
 };
