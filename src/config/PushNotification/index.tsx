@@ -26,7 +26,7 @@ export const PushNotificationHandler = () => {
 
   const userLoggedInRef = useRef(userlogdedIn);
 
-  console.log('handler console=>', pendingTx);
+  // console.log('handler console=>', pendingTx?.queue[0]?.data);
 
   useEffect(() => {
     userLoggedInRef.current = userlogdedIn;
@@ -103,7 +103,9 @@ export const PushNotificationHandler = () => {
     // This listener handles taps when the app is OPEN or MINIMIZED
 
     notifee.onBackgroundEvent(async ({ type, detail }) => {
-      console.log('Notifee background event=:??', type, detail);
+      console.log('Notifee background event=:??',detail.pressAction?.id);
+
+      
 
       if (type === EventType.PRESS) {
         console.log(

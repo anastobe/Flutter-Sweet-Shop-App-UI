@@ -204,7 +204,7 @@ const renderBalanceCard = () => (
     />
   );
 
-  console.log(isPendingpaymentHistry,"transactions==>",transactions);
+  // console.log(isPendingpaymentHistry,"transactions==>",transactions);
 
   const renderTransactionList = () => (
     <View style={{ zIndex: -9 }} >
