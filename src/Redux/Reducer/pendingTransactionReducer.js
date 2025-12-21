@@ -11,7 +11,8 @@ export default (state = initialState, action) => {
     case ActionType.ENQUEUE_TRANSACTION:
       return {
         ...state,
-        queue: [...state.queue, action.payload],
+        queue:  [action.payload, ...state.queue],
+        // queue: [...state.queue, action.payload],
       };
 
     case ActionType.DEQUEUE_TRANSACTION:

@@ -122,11 +122,6 @@ export const PushNotificationHandler = () => {
 
   useEffect(() => {
     if (pendingTx?.queue?.length){
-      HandleNotificationOpen(pendingTx, userLoggedInRef)
-    }
-  }, [pendingTx?.queue, userlogdedIn]);
-
-  function HandleNotificationOpen(pendingTx: any, userLoggedInRef: any) {
       let current = pendingTx?.queue[0]
       
       console.log("pendingTx?.queue??.data==>",current);
@@ -153,8 +148,8 @@ export const PushNotificationHandler = () => {
 
         // dispatch(markTransactionHandled());
       }
-
-  }
+    }
+  }, [pendingTx?.queue, userlogdedIn]);
 
   return null;
 };
