@@ -1,128 +1,109 @@
-
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {useNotificationModal} from '../notificationModalContext';
+import { StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { useNotificationModal } from '../notificationModalContext';
 import { Modal } from '../../components';
 import BluryModal from './bluryModal';
 import { cardUsedStatus } from '../../queries/auth.query';
 import commonUtils from '../../utils/common.utils';
 import { Toast } from '../../utils';
-import { useCountdown } from '../../utils/useCountdown';
+import { dequeueTransaction } from '../../Redux/Action/Notification/notificationActions';
 
 const TransactionAlertModal = () => {
-  const {visible, closeModal, data } = useNotificationModal();
+  const dispatch = useDispatch();
+  const { visible, closeModal, data } = useNotificationModal();
 
-  let approved = "approved"
-  let declined = "declined" 
+  const approved = 'approved';
+  const declined = 'declined';
 
-  // const { minutes, seconds, isExpired } = useCountdown(
-  //   data?.challenge_expiry_datetime || ''
-  // );
-  
-  //for accept
-  const { mutate: cardUsedAcceptFunc, isPending: isPendingcardUsedStatus } = cardUsedStatus({
-    callback: function (response) {
-      console.log("cardUsedAcceptFunc==>",response);
-      if (response.success) {
-        closeModal()
-      }
-    },
-  });
-  
-  //for Reject
-  const { mutate: cardUsedDeclinedFunc, isPending: isPendingcardUsedDeclinedFunc } = cardUsedStatus({
-    callback: function (response) {
-      console.log("cardUsedDeclinedFunc==>",response);
-      if (response.success) {
-        closeModal()
-      }
-    },
-  });
-
-  function CallApi(status: string) {
-    
-    let backendTime =  data?.challenge_expiry_datetime
-    const isValid = commonUtils.isTimeRemaining(backendTime);
-
-    console.log("===>",data,"---",isValid);
-    
-    
-    if (isValid) {
-      let payload = {
-        sp_transaction_id:  data?.sp_transaction_id, 
-        user_response: status
-        }
-      
-        if (status==approved) {
-          cardUsedAcceptFunc(payload)//call accept function
-        }else if(status==declined){
-          cardUsedDeclinedFunc(payload)//call declined function
-        }      
-    }
-    else{
-      Toast.showToast("Request Time out", '', 'error');
-    }
-    
-    
-  }
-
-  const formatTime = (value: number) => {
-    return String(value).padStart(2, '0');
+  // 🔑 ONE SINGLE CLOSE HANDLER
+  const closeAndNext = () => {
+    closeModal();                 // close current modal
+    dispatch(dequeueTransaction()); // show next from queue
   };
 
+  // accept
+const { mutate: cardUsedAcceptFunc, isPending: isPendingAccept } =
+  cardUsedStatus({
+    onSuccessCallback: () => {
+      closeAndNext(); // ✅ success → next
+    },
+    onErrorCallback: (err) => {
+      Toast.showToast(
+        err?.message || 'Something went wrong',
+        '',
+        'error'
+      );
+      // closeAndNext(); // ❗ error ke baad bhi next
+    },
+  });
+
+  // reject
+  const { mutate: cardUsedDeclinedFunc, isPending: isPendingDecline } =
+  cardUsedStatus({
+    onSuccessCallback: () => {
+      closeAndNext(); // ✅ success → next
+    },
+    onErrorCallback: (err) => {
+      Toast.showToast(
+        err?.message || 'Something went wrong',
+        '',
+        'error'
+      );
+      // closeAndNext(); // ❗ error ke baad bhi next
+    },
+    });
+
+  const CallApi = status => {
+    const backendTime = data?.challenge_expiry_datetime;
+    const isValid = commonUtils.isTimeRemaining(backendTime);
+
+    if (!isValid) {
+      Toast.showToast('Request Time out', '', 'error');
+      closeAndNext();
+      return;
+    }
+
+    const payload = {
+      sp_transaction_id: data?.sp_transaction_id,
+      user_response: status,
+    };
+
+    if (status === approved) {
+      cardUsedAcceptFunc(payload);
+    } else {
+      cardUsedDeclinedFunc(payload);
+    }
+  };
 
   return (
-    <Modal
-      isVisible={visible}
-      isKeyboardAvoidingView={true}
-      children={<BluryModal
-          style={{ flex: 1, paddingHorizontal: 20 }}
-          onClose={() =>{ 
-            if (isPendingcardUsedDeclinedFunc || isPendingcardUsedStatus) {
-              return
-            }
-            else{
-              closeModal() 
-            }
-          }}
-          btnLoader={isPendingcardUsedStatus }
-          botmBtmLoader={isPendingcardUsedDeclinedFunc }
-          // title='Transaction Alert'
-          // body={`
-          //   Your Frontier Pay card was just used in ${data?.card_acceptor_name}.Please confirm if this was you by selecting Approve or Reject.
-          //   \n ${`Session expire in ${formatTime(minutes)} min ${formatTime(seconds)} sec`}
-          //   `}
-
-          body={`Your Frontier Pay card was just used in ${data?.card_acceptor_name}.Please confirm if this was you by selecting Approve or Reject.`}
-          marginTopTitle={20}
-          onConfirm={() =>{ 
-            if (isPendingcardUsedDeclinedFunc || isPendingcardUsedStatus) {
-              return
-            }
-            else{
-            CallApi(approved) 
-            }
-          }}
-          iconNameBottom={1}
-          // showSubBody={true}
-          // showSubBodyIcon={false}
-          // subBody={`Session expire in ${formatTime(minutes)} min ${formatTime(seconds)} sec`}
-          title={`Amount: ${data?.transaction_amount} ${data?.transaction_currency_code}\n Account: **** ${data?.transaction_pan}`}
-          iconName={"alert-outline"}
-          confirmText={'APPROVE'}
-          showCancelBtn={true}
-          downConfirmText={"REJECT"}
-          onPressBottomBtn={()=>{
-            if (isPendingcardUsedDeclinedFunc || isPendingcardUsedStatus) {
-              return
-            }
-            else{
-            CallApi(declined) 
-            }
-          }}
-        />}
-        onClose={() => closeModal() }
-    />
+    <Modal isVisible={visible} isKeyboardAvoidingView>
+      <BluryModal
+        style={{ flex: 1, paddingHorizontal: 20 }}
+        onClose={() => {
+          if (isPendingAccept || isPendingDecline) return;
+          closeAndNext();
+        }}
+        btnLoader={isPendingAccept}
+        botmBtmLoader={isPendingDecline}
+        body={`Your Frontier Pay card was just used in ${data?.card_acceptor_name}. Please confirm if this was you.`}
+        marginTopTitle={20}
+        onConfirm={() => {
+          if (isPendingAccept || isPendingDecline) return;
+          CallApi(approved);
+        }}
+        iconNameBottom={1}
+        title={`Amount: ${data?.transaction_amount} ${data?.transaction_currency_code}\nAccount: **** ${data?.transaction_pan}`}
+        iconName={'alert-outline'}
+        confirmText={'APPROVE'}
+        showCancelBtn
+        downConfirmText={'REJECT'}
+        onPressBottomBtn={() => {
+          if (isPendingAccept || isPendingDecline) return;
+          CallApi(declined);
+        }}
+      />
+    </Modal>
   );
 };
 

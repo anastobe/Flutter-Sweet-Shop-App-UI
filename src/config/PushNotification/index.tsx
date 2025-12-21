@@ -1,7 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setPendingTransaction,
-  markTransactionHandled,
+  // setPendingTransaction,
+  // markTransactionHandled,
+  enqueueTransaction,
+  dequeueTransaction,
 } from '../../Redux/Action/Notification/notificationActions';
 import { useEffect, useRef } from 'react';
 import { useNotificationModal } from '../../components/notificationModalContext';
@@ -24,6 +26,8 @@ export const PushNotificationHandler = () => {
 
   const userLoggedInRef = useRef(userlogdedIn);
 
+  console.log('handler console=>', pendingTx);
+
   useEffect(() => {
     userLoggedInRef.current = userlogdedIn;
   }, [userlogdedIn]);
@@ -31,7 +35,6 @@ export const PushNotificationHandler = () => {
   const handleMessage = async (remoteMessage: any) => {
     const data = remoteMessage?.data;
 
-    console.log('handler console=>', remoteMessage);
 
     const parsed = JSON.parse(data?.notification);
     let Parsetitle = parsed.title;
@@ -59,7 +62,8 @@ export const PushNotificationHandler = () => {
     });
 
     if (data?.is_modal === 'yes') {
-      dispatch(setPendingTransaction(data));
+        dispatch(enqueueTransaction(data));
+      // dispatch(setPendingTransaction(data));
     }
   };
 
@@ -82,7 +86,8 @@ export const PushNotificationHandler = () => {
     notifee.getInitialNotification().then(initialNotification => {
       if (initialNotification?.notification?.data?.is_modal === 'yes') {
         dispatch(
-          setPendingTransaction(initialNotification?.notification?.data),
+  dispatch(enqueueTransaction(initialNotification?.notification?.data))
+          // setPendingTransaction(initialNotification?.notification?.data),
         );
       }
 
@@ -108,38 +113,48 @@ export const PushNotificationHandler = () => {
         // handleMessage(detail.notification)
 
         if (detail.notification?.data?.is_modal === 'yes') {
-          dispatch(setPendingTransaction(detail.notification?.data));
+          dispatch(enqueueTransaction(detail.notification?.data))
+          // dispatch(setPendingTransaction(detail.notification?.data));
         }
       }
     });
   }, []);
 
   useEffect(() => {
-    if (!pendingTx?.data || pendingTx.handled) return;
-
-    let backendTime =  pendingTx?.data?.challenge_expiry_datetime
-    const isValid = CommonUtils.isTimeRemaining(backendTime);
-
-    // ❌ expiry cross ho chuki
-    if (!isValid) {
-      dispatch(markTransactionHandled());
-      return;
+    if (pendingTx?.queue?.length){
+      HandleNotificationOpen(pendingTx, userLoggedInRef)
     }
+  }, [pendingTx?.queue, userlogdedIn]);
+
+  function HandleNotificationOpen(pendingTx: any, userLoggedInRef: any) {
+      let current = pendingTx?.queue[0]
+      
+      console.log("pendingTx?.queue??.data==>",current);
+
+      let backendTime = current?.data?.challenge_expiry_datetime
+      const isValid = CommonUtils.isTimeRemaining(backendTime);
+
+      // ❌ expiry cross ho chuki
+      if (!isValid) {
+        dispatch(dequeueTransaction());
+        return;
+      }
 
     // ✅ still valid
-    if (userLoggedInRef.current) {
-      openModal({
-        transaction_amount: pendingTx.data.transaction_amount,
-        transaction_currency_code: pendingTx.data.transaction_currency_code,
-        transaction_pan: pendingTx.data.pan,
-        card_acceptor_name: pendingTx.data.card_acceptor_name,
-        sp_transaction_id: pendingTx.data.sp_transaction_id,
-        challenge_expiry_datetime: pendingTx?.data?.challenge_expiry_datetime
-      });
+      if (userLoggedInRef.current) {
+        openModal({
+        transaction_amount: current?.data?.transaction_amount,
+        transaction_currency_code: current?.data?.transaction_currency_code,
+        transaction_pan: current?.data?.pan,
+        card_acceptor_name: current?.data?.card_acceptor_name,
+        sp_transaction_id: current?.data?.sp_transaction_id,
+        challenge_expiry_datetime: current?.data?.challenge_expiry_datetime,
+        });
 
-      dispatch(markTransactionHandled());
-    }
-  }, [pendingTx, userlogdedIn]);
+        // dispatch(markTransactionHandled());
+      }
+
+  }
 
   return null;
 };

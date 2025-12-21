@@ -1,29 +1,26 @@
+// notificationReducer.js
 import ActionType from '../Action/ActionType/actionType';
 
 const initialState = {
-  data: null,
-  receivedAt: null,
-  handled: false,
+  queue: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
 
-    case ActionType.SET_PENDING_TRANSACTION:
+    case ActionType.ENQUEUE_TRANSACTION:
       return {
         ...state,
-        data: action.payload.data,
-        receivedAt: action.payload.receivedAt,
-        handled: false,
+        queue: [...state.queue, action.payload],
       };
 
-    case ActionType.MARK_TRANSACTION_HANDLED:
+    case ActionType.DEQUEUE_TRANSACTION:
       return {
         ...state,
-        handled: true,
+        queue: state.queue.slice(1),
       };
 
-    case ActionType.CLEAR_PENDING_TRANSACTION:
+    case ActionType.LOGOUT:
       return initialState;
 
     default:

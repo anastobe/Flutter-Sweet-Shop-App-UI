@@ -1,29 +1,18 @@
+// notificationActions.js
 import ActionType from '../ActionType/actionType';
 
-export const setPendingTransaction = (data) => {
-  return dispatch => {
-    dispatch({
-      type: ActionType.SET_PENDING_TRANSACTION,
-      payload: {
-        data,
-        receivedAt: Date.now(),
-      },
-    });
-  };
-};
+export const enqueueTransaction = (data) => ({
+  type: ActionType.ENQUEUE_TRANSACTION,
+  payload: {
+    data,
+    receivedAt: Date.now(),
+  },
+});
 
-export const markTransactionHandled = () => {
-  return dispatch => {
-    dispatch({
-      type: ActionType.MARK_TRANSACTION_HANDLED,
-    });
-  };
-};
+export const dequeueTransaction = () => ({
+  type: ActionType.DEQUEUE_TRANSACTION,
+});
 
-export const clearPendingTransaction = () => {
-  return dispatch => {
-    dispatch({
-      type: ActionType.CLEAR_PENDING_TRANSACTION,
-    });
-  };
-};
+export const clearQueue = () => ({
+  type: ActionType.LOGOUT,
+});

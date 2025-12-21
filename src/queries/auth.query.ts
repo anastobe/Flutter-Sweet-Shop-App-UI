@@ -47,22 +47,31 @@ export const createCard = ({callback} : {callback: (res: any) => void}) => {
   });
 };
 
-export const cardUsedStatus = ({callback} : {callback: (res: any) => void}) => {
+export const cardUsedStatus = ({
+  onSuccessCallback,
+  onErrorCallback,
+}: {
+  onSuccessCallback?: (res: any) => void;
+  onErrorCallback?: (err: any) => void;
+}) => {
   const dispatch = useDispatch();
 
   return useMutation({
     mutationFn: apis.cardUsedStatus,
+
     onSuccess: async (response: any) => {
-      if (response.success) {
-        callback(response)
-    }  
-  },
-    onError: (error: any) => {
-      // this is usually a network/server-side error
-      console.log('cardUsedStatus error:', error);
-      // onErrorCallback?.(error?.message || 'Something went wrong');
+      if (response?.success) {
+        onSuccessCallback?.(response);
+      } else {
+        // backend responded but success = false
+        onErrorCallback?.(response);
+      }
     },
 
+    onError: (error: any) => {
+      console.log('cardUsedStatus error:', error);
+      onErrorCallback?.(error);
+    },
   });
 };
 
