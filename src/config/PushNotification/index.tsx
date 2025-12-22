@@ -122,6 +122,24 @@ export const PushNotificationHandler = () => {
     });
   }, []);
 
+  //ACTIVE STATE MA UPER SE NOTIFICATION BAR KO SLIDE KR K NOTIFICATION MA CLIKCK KRA THE THIS WILL PLAY
+//   useEffect(() => {
+//   const unsubscribe = notifee.onForegroundEvent(({ type, detail }) => {
+//     if (type === EventType.PRESS) {
+//       const data = detail.notification?.data;
+
+//       console.log('🔔 Foreground notification tapped', data);
+
+//       if (data?.is_modal === 'yes') {
+//         dispatch(enqueueTransaction(data));
+//       }
+//     }
+//   });
+
+//   return unsubscribe;
+// }, []);
+
+
   useEffect(() => {
     if (pendingTx?.queue?.length){
       let current = pendingTx?.queue[0]
