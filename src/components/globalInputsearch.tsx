@@ -23,7 +23,7 @@ import {
   getBeneficiaryDetail,
 } from '../queries/moreQueries/moreQuery';
 
-const GlobalInputsearch = ({placeholder, onSelectBeneficiary }: any) => {
+const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary }: any) => {
   const navigation = useNavigation();
 
   const [ListArray, setListArray] = useState<any[]>([]);
@@ -191,7 +191,7 @@ const GlobalInputsearch = ({placeholder, onSelectBeneficiary }: any) => {
 
         <View style={{ flexDirection :'row', justifyContent: "space-between", marginTop: handleSize.h(20),  marginBottom: handleSize.h(10) }} >
             <Text style={styles.headingLeftTxt} >{placeholder}</Text>
-            <TouchableOpacity onPress={pressRightArrow} style={styles.rightIconCont}>
+            <TouchableOpacity onPress={pressClose} style={styles.rightIconCont}>
                 <Icon name="close" size={handleSize.f(20)} color={THEME.textPrimary} />
             </TouchableOpacity>
         </View>

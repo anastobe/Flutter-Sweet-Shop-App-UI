@@ -57,15 +57,15 @@ export const useBankTransferViewModel = () => {
   });
   
   
-  const { mutate: getBeneficiaryDetailFunc, isPending : isPendinggetBeneficiaryDetail } = getBeneficiaryDetail({
-    callback: (res: any) => {
-      const newData = res?.results?.values || [];
+  // const { mutate: getBeneficiaryDetailFunc, isPending : isPendinggetBeneficiaryDetail } = getBeneficiaryDetail({
+  //   callback: (res: any) => {
+  //     const newData = res?.results?.values || [];
 
-      console.log("getBeneficiaryDetailFunc==>",newData);
+  //     console.log("getBeneficiaryDetailFunc==>",newData);
       
 
-    },
-  });
+  //   },
+  // });
 
   console.log('FINAL BENEFICIARY IN VIEWMODEL ===>', beneficiary);
 
@@ -139,7 +139,7 @@ export const useBankTransferViewModel = () => {
     openDropdown,
     toggleDropdown,
     setOpenDropdown,
-    getBeneficiaryDetailFunc,
+    // getBeneficiaryDetailFunc,
 
     openDropdownsty, 
     setOpenDropdownSty,

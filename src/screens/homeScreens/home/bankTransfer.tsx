@@ -45,7 +45,7 @@ const BankTransfer = () => {
     setopen,
     modalMsg,
     onClose,
-    getBeneficiaryDetailFunc,
+    // getBeneficiaryDetailFunc,
     autoFocused, 
     setautoFocused
 
@@ -161,17 +161,16 @@ const BankTransfer = () => {
             // isOpen={openDropdown === "toaccount"}
             onToggleDropdown={() =>{
               // toggleDropdown("toaccount"),
-              getBeneficiaryDetail(),
-              setautoFocused(true),
+              // getBeneficiaryDetail(),
               beneficiaryRef?.current?.open()
             }}
-            onDropdownSelect={(item: any) => 
-              setBeneficiary({
-                beneficiary_id: item.id,
-                first_name: item.first_name,
-                last_name: item.last_name
-              })
-            }
+            // onDropdownSelect={(item: any) => 
+            //   setBeneficiary({
+            //     beneficiary_id: item.id,
+            //     first_name: item.first_name,
+            //     last_name: item.last_name
+            //   })
+            // }
           />
 
           <InputField
@@ -204,6 +203,7 @@ const BankTransfer = () => {
           bottomSheetRef={beneficiaryRef}
         >
       <GlobalInputsearch
+        pressClose={()=>{ beneficiaryRef?.current?.close() }}
         placeholder={"Select Beneficiary"}
         onSelectBeneficiary={(item: any) => {
           console.log('SELECTED FROM BOTTOM SHEET ===>', item);
@@ -213,7 +213,7 @@ const BankTransfer = () => {
             first_name: item.first_name,
             last_name: item.last_name,
           });
-
+              setautoFocused(true);
           beneficiaryRef?.current?.close();
         }}
         />

@@ -200,12 +200,15 @@ export const useInternationalTransferViewModel = ({...props}) => {
 
   // console.log("useInternationalTransferViewModel=>",props?.route?.params?.data);
   const paymentconfrm = useRef(null); 
+  const beneficiaryRef = useRef();
+
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
   const [openDropdownstyToAcc, setOpenDropdownStyToAcc] = useState(false);
   const [open, setopen] = useState(false);
+  const [autoFocused, setautoFocused] = useState(false);
   const [fromAccount, setFromAccount] = useState({
     id: "",
     available_balance: "",
@@ -339,6 +342,8 @@ export const useInternationalTransferViewModel = ({...props}) => {
 
   const pressBackArrow = () => navigation.goBack();
 
+  console.log('FINAL BENEFICIARY IN VIEWMODEL ===>', beneficiary);
+
   const handlePress = () => {
     console.log("From Account pressed");
   };
@@ -357,7 +362,7 @@ export const useInternationalTransferViewModel = ({...props}) => {
     }
 
     console.log("going main payload=>",payload);
-    
+    return
     useMyAccount_InternationalTransferFunc(payload)
   }
   
@@ -440,7 +445,10 @@ export const useInternationalTransferViewModel = ({...props}) => {
     openDropdownstyToAcc, 
     setOpenDropdownStyToAcc,
     convertrate,
-    ApiCall
+    ApiCall,
+    autoFocused, 
+    setautoFocused,
+    beneficiaryRef
   
   };
 };

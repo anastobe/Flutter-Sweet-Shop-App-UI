@@ -491,6 +491,8 @@ import { Images } from "../../../config";
 import FingerPrintContent from "../../../components/bottomSheet/fingerPrintContent";
 import ConfrmPayment from "../../../components/bottomSheet/confrmPayment";
 import { useInternationalTransferViewModel } from "../../../viewModels/homeViewModel/home/useInternationalTransferViewModel";
+import GlobalInputsearch from "../../../components/globalInputsearch";
+import Metrics from "../../../styles/metrics";
 
 
 // ---------- Reusable ----------
@@ -539,7 +541,10 @@ const InternationalTransfer = ({...props}) => {
     setOpenDropdownStyToAcc,
     convertrate,
     paymentconfrm,
-    ApiCall
+    ApiCall,
+    autoFocused,
+    setautoFocused,
+    beneficiaryRef,
 
   } = useInternationalTransferViewModel(props);
  
@@ -628,27 +633,28 @@ const InternationalTransfer = ({...props}) => {
 
           {/* Recipient Type */}
           <InputField
-            disabled={false}
-            placeholder="Select Beneficiary"
-            removeTitle={false}
-            value={`${beneficiary?.first_name} ${beneficiary?.last_name}`}
-            enableDropdown={true}
-            dropdownData={beneficiaryArray}
-            margBtm={handleSize.h(15)}
-            isOpen={openDropdown === "toaccount"}
-            onToggleDropdown={() => toggleDropdown("toaccount")}
-            onDropdownSelect={(item: any) => 
-              setBeneficiary({
-                beneficiary_id: item.id,
-                first_name: item.first_name,
-                currency_id: item?.currency?.id,
-                // currency_id: "20",
-                iso_code: item?.currency?.iso_code,
-                // iso_code: "GBP",
-                last_name: item.last_name
-              })
-            }
-          />
+              disabled={false}
+              autoFocused={autoFocused}
+              placeholder="Select Beneficiary"
+              removeTitle={false}
+              value={ beneficiary?.beneficiary_id ? beneficiary?.first_name + " " + beneficiary.last_name : ""}
+              enableDropdown={true}
+              dropdownData={beneficiaryArray}
+              margBtm={handleSize.h(15)}
+              // isOpen={openDropdown === "toaccount"}
+              onToggleDropdown={() =>{
+                // toggleDropdown("toaccount"),
+                // setautoFocused(true),
+                beneficiaryRef?.current?.open()
+              }}
+              // onDropdownSelect={(item: any) => 
+              //   setBeneficiary({
+              //     beneficiary_id: item.id,
+              //     first_name: item.first_name,
+              //     last_name: item.last_name
+              //   })
+              // }
+            />
 
 
           <InputField
@@ -706,6 +712,33 @@ const InternationalTransfer = ({...props}) => {
       
 
       {renderSuccess()}
+
+          <BottomSheet 
+          height={Metrics.height } // minimum height
+          maxHeightPercent={0.9} // optional, override for screen
+          draggable={false}
+          bottomSheetRef={beneficiaryRef}
+        >
+      <GlobalInputsearch
+        pressClose={()=>{ beneficiaryRef?.current?.close() }}
+        placeholder={"Select Beneficiary"}
+        onSelectBeneficiary={(item: any) => {
+          console.log('SELECTED FROM BOTTOM SHEET ===>', item);
+
+              setBeneficiary({
+                beneficiary_id: item.id,
+                currency_id: item?.currency?.id,
+                first_name: item.first_name,
+                last_name: item.last_name,
+                iso_code: item?.currency?.iso_code,
+              })
+              setautoFocused(true),
+          beneficiaryRef?.current?.close();
+        }}
+        />
+        </BottomSheet>
+
+
     </MainContainer>
   );
 };
