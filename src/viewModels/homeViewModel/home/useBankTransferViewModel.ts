@@ -1,5 +1,5 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Images } from "../../../config";
 import { SHOW_CLIENT } from "../../../APICall/constants";
 import { Alert } from "react-native";
@@ -10,15 +10,19 @@ import { CommonUtils, Toast } from "../../../utils";
 import { useLogin } from "../../../queries/auth.query";
 import { usePaymentTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
+import { getBeneficiaryDetail } from "../../../queries/moreQueries/moreQuery";
 
 export const useBankTransferViewModel = () => {
   const navigation = useNavigation();
+  const beneficiaryRef = useRef();
 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
   const [open, setopen] = useState(false);
+  const [autoFocused, setautoFocused] = useState(false);
+  
   const [fromAccount, setFromAccount] = useState({
     id: "",
     available_balance: "",
@@ -53,6 +57,17 @@ export const useBankTransferViewModel = () => {
   });
   
   
+  const { mutate: getBeneficiaryDetailFunc, isPending : isPendinggetBeneficiaryDetail } = getBeneficiaryDetail({
+    callback: (res: any) => {
+      const newData = res?.results?.values || [];
+
+      console.log("getBeneficiaryDetailFunc==>",newData);
+      
+
+    },
+  });
+
+  console.log('FINAL BENEFICIARY IN VIEWMODEL ===>', beneficiary);
 
   const pressBackArrow = () => navigation.goBack();
 
@@ -89,9 +104,9 @@ export const useBankTransferViewModel = () => {
       currency_id: fromAccount?.currency_id,
       reference: note
     }
-    console.log("===>payload==>",payload);
+    // console.log("===>payload==>",payload);
     
-    // usePaymentTransferFunc(payload)
+    usePaymentTransferFunc(payload)
     return
       // navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
     }
@@ -124,6 +139,7 @@ export const useBankTransferViewModel = () => {
     openDropdown,
     toggleDropdown,
     setOpenDropdown,
+    getBeneficiaryDetailFunc,
 
     openDropdownsty, 
     setOpenDropdownSty,
@@ -137,7 +153,10 @@ export const useBankTransferViewModel = () => {
     open, 
     setopen,
     modalMsg,
-    onClose
+    onClose,
+    beneficiaryRef,
+    autoFocused, 
+    setautoFocused
   
   };
 };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/Ionicons";
-import { MainContainer, InputDropDownStyle, Modal } from "../../../components";
+import { MainContainer, InputDropDownStyle, Modal, BottomSheet } from "../../../components";
 import InputField from "../../../components/textInput";
 import CustomButton from "../../../components/customButton";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
@@ -13,10 +13,14 @@ import { useSelector } from "react-redux";
 import BluryModal from "../../../components/Modal/bluryModal";
 import { HOME_ROUTES } from "../../../constants";
 import { useBankTransferViewModel } from "../../../viewModels/homeViewModel/home/useBankTransferViewModel";
+import Metrics from "../../../styles/metrics";
+import BeneficiariesManagement from "../more/benefeciaryModule/BeneficiariesManagement";
+import GlobalInputsearch from "../../../components/globalInputsearch";
 
 const BankTransfer = () => {
   const {
     navigation,
+    beneficiaryRef,
     note, 
     setnote,
     enterAmount,
@@ -40,7 +44,10 @@ const BankTransfer = () => {
     open, 
     setopen,
     modalMsg,
-    onClose
+    onClose,
+    getBeneficiaryDetailFunc,
+    autoFocused, 
+    setautoFocused
 
   } = useBankTransferViewModel();
  
@@ -66,6 +73,23 @@ const BankTransfer = () => {
     );
   }
   
+  function getBeneficiaryDetail() {
+
+    const payload = {
+      page: 1,
+      limit: 10,
+      sort: {
+        key: 'created_at',
+        order: 'desc',
+      },
+      search: "",
+      filters: {
+        is_deleted: false,
+      },
+    };
+
+    getBeneficiaryDetailFunc(payload)
+  }
 
   return (
     <MainContainer
@@ -127,14 +151,20 @@ const BankTransfer = () => {
           {/* Recipient Type */}
           <InputField
             disabled={false}
-            placeholder="To Account"
+            autoFocused={autoFocused}
+            placeholder="Select Beneficiary"
             removeTitle={false}
-            value={beneficiary?.first_name}
+            value={ beneficiary?.beneficiary_id ? beneficiary?.first_name + " " + beneficiary.last_name : ""}
             enableDropdown={true}
             dropdownData={beneficiaryArray}
             margBtm={handleSize.h(15)}
-            isOpen={openDropdown === "toaccount"}
-            onToggleDropdown={() => toggleDropdown("toaccount")}
+            // isOpen={openDropdown === "toaccount"}
+            onToggleDropdown={() =>{
+              // toggleDropdown("toaccount"),
+              getBeneficiaryDetail(),
+              setautoFocused(true),
+              beneficiaryRef?.current?.open()
+            }}
             onDropdownSelect={(item: any) => 
               setBeneficiary({
                 beneficiary_id: item.id,
@@ -166,6 +196,29 @@ const BankTransfer = () => {
         </View>
       </ScrollView>
       {renderSuccess()}
+      
+        <BottomSheet 
+          height={Metrics.height } // minimum height
+          maxHeightPercent={0.9} // optional, override for screen
+          draggable={false}
+          bottomSheetRef={beneficiaryRef}
+        >
+      <GlobalInputsearch
+        placeholder={"Select Beneficiary"}
+        onSelectBeneficiary={(item: any) => {
+          console.log('SELECTED FROM BOTTOM SHEET ===>', item);
+
+          setBeneficiary({
+            beneficiary_id: item.id,
+            first_name: item.first_name,
+            last_name: item.last_name,
+          });
+
+          beneficiaryRef?.current?.close();
+        }}
+        />
+        </BottomSheet>
+
     </MainContainer>
   );
 };
