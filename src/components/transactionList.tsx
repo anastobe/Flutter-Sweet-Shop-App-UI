@@ -33,7 +33,8 @@ const TransactionItem = ({ item, onPress }: Props) => {
             {item?.frontier_customer?.business_customer?.company_name || '-'}
           </Text>
           <Text style={styles.subname}>
-            {commonUtils.timeHumanize(item?.created_at)}
+            {/* {commonUtils.timeHumanize(item?.created_at)} */}
+            {CommonUtils.formatDate(item?.created_at)}
           </Text>
         </View>
       </View>

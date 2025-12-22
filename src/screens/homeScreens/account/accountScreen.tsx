@@ -40,6 +40,7 @@ import { handleSize } from '../../../config/responsiveTheme';
 import commonUtils from '../../../utils/common.utils';
 import TransactionList from '../../../components/transactionList';
 import SmallBtn from '../../../components/smallBtn';
+import { CommonUtils } from '../../../utils';
 
 const header_flatlist_BottomSizeAdjust = 260;
 
@@ -173,9 +174,9 @@ const AccountScreen = () => {
           renderItem={({ item }) => (
             <AccountCardBox
               showBalance={vm.showbalance}
-              total={`${item?.currency?.iso_code} ${item?.available_balance}`}
-              onHold={`${item?.currency?.iso_code} ${item?.pending_balance}`}
-              available={`${item?.currency?.iso_code} ${item?.available_balance}`}
+              total={`${CommonUtils.getCurrencySymbol(item?.currency?.iso_code)} ${item?.available_balance}`}
+              onHold={`${CommonUtils.getCurrencySymbol(item?.currency?.iso_code)} ${item?.pending_balance}`}
+              available={`${CommonUtils.getCurrencySymbol(item?.currency?.iso_code)} ${item?.available_balance}`}
               onPress={() => vm.editRef?.current?.open()}
               onPresseye={() => vm.setshowbalance(!vm.showbalance)}
             />
