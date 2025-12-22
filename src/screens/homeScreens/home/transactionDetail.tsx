@@ -14,6 +14,7 @@ import { launchImageLibrary } from 'react-native-image-picker';
 import { StatusBar } from 'react-native';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
+import { CommonUtils } from '../../../utils';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -36,7 +37,10 @@ function TransactionDetail(props) {
   const [comments, setcomments] = useState("");
   const [Profile, setProfile] = useState("");
   const [open, setOpen] = useState(false);
-  const payload = props?.route?.params?.data;
+  const DETAIL = props?.route?.params?.DETAIL;
+
+  console.log("DETAIL==>",DETAIL);
+  
     
   const { mutate: createCardFunc, isPending } = createCard({
     callback: function (response) {
@@ -53,9 +57,9 @@ function TransactionDetail(props) {
   function renderCardDetails() {
     return (
       <View style={styles.summaryBox}>
-        <InfoRow icon="card-outline" label="Card" value="•••• 7208" />
+        <InfoRow icon="card-outline" label="Card" value={DETAIL?.amount} />
         <InfoRow icon="person-outline" label="Merchant" value="Transport for London" />
-        <InfoRow icon="home-outline" label="Currency" value="£14.90 (No FX conversion)" />
+        <InfoRow icon="home-outline" label="Currency" value={DETAIL?.currency} />
       </View>
     );
   }
@@ -63,8 +67,8 @@ function TransactionDetail(props) {
   function renderTotalAmount() {
     return (
       <>
-        <Text style={styles.totalLabel}>Total Amount</Text>
-        <Text style={styles.totalAmount}>£4.95 GBP</Text>
+        <Text style={styles.totalLabel}>Amount</Text>
+        <Text style={styles.totalAmount}>{DETAIL?.direction == "debit" ? "-" : "+"} {DETAIL?.amount} {DETAIL?.currency}</Text>
       </>
     );
   }
@@ -72,11 +76,20 @@ function TransactionDetail(props) {
   function rendermoredetail() {
     return (
       <View style={styles.summaryBox}>
-        <InfoRow label="Transaction Date" value="24 July 2025" />
+        {/* <InfoRow label="Transaction Date" value="24 July 2025" />
         <InfoRow label="Time" value="13:42 BST" />
         <InfoRow label="Location" value="London, UK" />
         <InfoRow label="Reference Number" value="TFL-205-LDN-00976" />
-        <InfoRow label="Transaction ID" value="TXN-94830-TPFL" />
+        <InfoRow label="Transaction ID" value="TXN-94830-TPFL" /> */}
+
+        <InfoRow label="Transaction Date" value={CommonUtils.formatDate(DETAIL?.created_at)} />
+        <InfoRow label="Time" value={CommonUtils.formatTime(DETAIL?.created_at)} />
+        <InfoRow label="Location" value={"PROVIDE BY CORE"} />
+        <InfoRow label="Reference Number" value={""} />
+        <Text style={styles.value}>{DETAIL?.reference}</Text>
+        <InfoRow label="Transaction ID" value={""} />
+        <Text style={styles.value}>{DETAIL?.id}</Text>
+
       </View>
     );
   }
@@ -155,11 +168,11 @@ function TransactionDetail(props) {
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Transaction Details</Text>
-        <Text style={styles.subtitle}>
+        {/* <Text style={styles.subtitle}>
           Transport for london.
-        </Text>
+        </Text> */}
 
-        {renderCardDetails()}
+        {DETAIL?.product_type == "Bank" ? null : renderCardDetails()} 
         {renderTotalAmount()}
         {rendermoredetail()}
         {renderUpload()}
@@ -222,12 +235,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: handleSize.h(10),
+    marginVertical: handleSize.h(5),
   },
 
   label: {
     fontFamily: FONTFAMILY.Light,
-    fontSize: handleSize.f(FONT_SIZES.onefour),
+    fontSize: handleSize.f(FONT_SIZES.onethree),
     color: THEME.white,
   },
 
@@ -238,7 +251,7 @@ const styles = StyleSheet.create({
 
   value: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: handleSize.f(FONT_SIZES.onefour),
+    fontSize: handleSize.f(FONT_SIZES.onethree),
     color: THEME.white,
   },
 
@@ -248,6 +261,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     color: THEME.white,
     marginBottom: handleSize.h(8),
+    marginTop: handleSize.h(15)
   },
 
   totalAmount: {

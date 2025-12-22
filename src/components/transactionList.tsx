@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
 import commonUtils from '../utils/common.utils';
 import { handleSize } from '../config/responsiveTheme';
+import { CommonUtils } from '../utils';
 
 interface Props {
   item: any;
@@ -13,8 +14,11 @@ interface Props {
 const TransactionItem = ({ item, onPress }: Props) => {
   const isDebit = item?.direction === 'debit';
 
+  console.log("TransactionItem==>",item?.currency);
+  
+
   return (
-    <TouchableOpacity onPress={onPress} style={styles.item}>
+    <TouchableOpacity onPress={()=>onPress(item)} style={styles.item}>
       <View style={styles.sectionLeft}>
         <View style={styles.iconCONT}>
           <Icon
@@ -34,7 +38,7 @@ const TransactionItem = ({ item, onPress }: Props) => {
         </View>
       </View>
 
-      <Text style={styles.amount}>{item?.amount}</Text>
+      <Text style={styles.amount}>{isDebit ? "-" : "+"} {CommonUtils?.getCurrencySymbol(item?.currency)} {item?.amount}</Text>
     </TouchableOpacity>
   );
 };

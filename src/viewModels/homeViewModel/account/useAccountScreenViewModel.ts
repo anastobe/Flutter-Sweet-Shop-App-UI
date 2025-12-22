@@ -128,8 +128,11 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
     }
   };
 
-  const handleNavigateTransaction = () => {
-    navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
+
+  const handleNavigateTransaction = (item: any) => {
+    if (item) {
+      navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item });
+    }
   };
   
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {

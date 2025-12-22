@@ -91,13 +91,9 @@ const AccountScreen = () => {
   const renderItem = ({ item }) => (
     <TransactionList
       item={item}
-      onPress={()=>{
-        navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
-      }}
+      onPress={vm?.handleNavigateTransaction}
     />
   );
-
-  
 
   function renderSubHeaderStuffs() {
     return(
@@ -118,7 +114,7 @@ const AccountScreen = () => {
                   value={vm?.getDashboardData_Data?.average_spent}
                   title="Avg monthly spend (DUMMY)"
                   amount="£820.0"
-                  percentage={11.9}
+                  percentage={vm?.getDashboardData_Data?.avg_spent_percentage ? vm?.getDashboardData_Data?.avg_spent_percentage : 0}
                   //           // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
                   onPress={() => console.log('Avg monthly ')}
                   isPositive
@@ -127,7 +123,7 @@ const AccountScreen = () => {
                   value={vm?.getDashboardData_Data?.monthly_spend}
                   title="Spent this month (DUMMY)"
                   amount="£440.24"
-                  percentage={11.9}
+                  percentage={vm?.getDashboardData_Data?.avg_monthly_spend ? vm?.getDashboardData_Data?.avg_monthly_spend : 0}
                   // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
                   onPress={() => console.log('Avg monthly ')}
                   isPositive={false}

@@ -145,8 +145,10 @@ const applyFilters = (newFilters: any) => {
   /** 🔹 Navigation */
   const pressBackArrow = () => navigation.goBack();
 
-  const handleNavigateTransactionHistory = () => {
-    navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
+  const handleNavigateTransactionHistory = (item: any) => {
+    if (item) {
+      navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item });
+    }
   };
 
   return {

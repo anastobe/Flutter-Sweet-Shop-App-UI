@@ -35,6 +35,51 @@ const handleScrollToBottom = (
   }
 };
 
+function formatDate(date: any) {
+  if (!date) return '';
+
+  const d = new Date(date); // 👈 STRING → DATE
+
+  const formattedDate = d.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  return formattedDate;
+}
+
+function formatTime(date: any) {
+  if (!date) return '';
+
+  const d = new Date(date);
+
+  const timePart = d.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+  });
+
+  return timePart
+}
+
+export const getCurrencySymbol = (
+  currencyCode: string,
+  locale: string = 'en-US',
+) => {
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: currencyCode,
+    })
+      .formatToParts(1)
+      .find(part => part.type === 'currency')?.value ?? currencyCode;
+  } catch (e) {
+    // fallback if invalid code / locale
+    return currencyCode;
+  }
+};
+
 
 function capitalizeFirstLetter(string: any) {
   if (!string) {
@@ -247,5 +292,8 @@ export default {
   isTimeRemaining,
   getRemainingMs,
   validateBIC,
-  MAX_LENGTH_10
+  MAX_LENGTH_10,
+  formatDate,
+  formatTime,
+  getCurrencySymbol
 };

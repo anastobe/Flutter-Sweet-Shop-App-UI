@@ -91,7 +91,7 @@ export const useBankTransferViewModel = () => {
     }
     console.log("===>payload==>",payload);
     
-    usePaymentTransferFunc(payload)
+    // usePaymentTransferFunc(payload)
     return
       // navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
     }

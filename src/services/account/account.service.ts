@@ -40,7 +40,7 @@ export const AccDelete = async (id: any) => {
 
 export const paymentHistry = async (payloadWithParams: any) => {
 
-  console.log("=paymentHistry main function=",payloadWithParams);
+  // console.log("=paymentHistry main function=",payloadWithParams);
   
 
   const response = await axiosInstance(
@@ -54,7 +54,7 @@ export const paymentHistry = async (payloadWithParams: any) => {
 
 export const getDashboardData = async (id: any) => {
 
-  console.log("=getDashboardData ID=>",id);
+  // console.log("=getDashboardData ID=>",id);
   
   const response = await axiosInstance('/dashboard/asset_id', 'GET', undefined, false );
   return response?.results;

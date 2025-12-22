@@ -5,6 +5,7 @@ const FONT_SIZES = Object.freeze({
   oneZero: 10,
   oneone: 11,
   onetwo: 12,
+  onethree: 13,
   onefour: 14,
   onefive: 15,
   onesix: 16,
