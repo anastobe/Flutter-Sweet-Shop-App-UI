@@ -124,6 +124,7 @@ const AddNewBeneficiary = () => {
         margBtm={23}
         placeholder="IBAN / Account No."
         value={vm.accountNo}
+        returnKeyType="done"
                 // customInpStyle={styles.forgetTxt}
         onChangeText={vm.setAccountNo}
       />

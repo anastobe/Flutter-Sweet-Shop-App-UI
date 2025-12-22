@@ -25,6 +25,7 @@ const BeneficiariesManagement = () => {
     setOpen,
     onPressDelete,
     onPressDeleteBtn,
+    onPressPayment,
     beneficiaries,
     onLoadMore,
     isPending,
@@ -65,6 +66,14 @@ const BeneficiariesManagement = () => {
         >
           <Icon name="trash-outline" size={20} color={THEME.white} />
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.butnCont2}
+          onPress={() => onPressPayment(item)}
+        >
+          <Icon name="arrow-forward-outline" size={20} color={THEME.white} />
+        </TouchableOpacity>
+
       </LinearGradient>
     );
   }
@@ -221,6 +230,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
+    textTransform: "capitalize" 
   },
   currency: {
     fontSize: handleSize.f(FONT_SIZES.onefour),
@@ -238,6 +248,15 @@ const styles = StyleSheet.create({
     height: handleSize.h(40),
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight:handleSize.w(5),
+  },
+  butnCont2:{
+    width: handleSize.w(35),
+    height: handleSize.h(40),
+    justifyContent: 'center',
+    alignItems: 'center',
+    transform: [{ rotate: '-45deg' }],
+    // backgroundColor: "red"
   },
   modal: {
     backgroundColor: 'rgba(64, 64, 65, 0.98)',

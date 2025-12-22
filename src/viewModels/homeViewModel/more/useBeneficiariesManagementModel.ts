@@ -52,6 +52,10 @@ export const useBeneficiariesManagementViewModel = () => {
     setOpen(true);
   }
 
+  function onPressPayment(item: any) {
+    navigation.navigate(HOME_ROUTES.MAKE_PAYMENT);
+  }
+
   function onPressDeleteBtn() {
     DeleteBeneficiaryFunc(clickableBeneficiaryObject.current?.id);
   }
@@ -124,6 +128,7 @@ export const useBeneficiariesManagementViewModel = () => {
     open,
     setOpen,
     onPressDelete,
+    onPressPayment,
     onPressDeleteBtn,
 
     beneficiaries,

@@ -47,7 +47,8 @@ export default function InputField(props: any) {
     onDropdownSelect = () => {},
     isOpen,
     onToggleDropdown,
-    multiline
+    multiline,
+    returnKeyType
   } = props || {};
 
   const [isFocused, setIsFocused] = useState(false);
@@ -158,7 +159,7 @@ return (
       <TextInput
         placeholderTextColor={THEME.white}
         placeholder={removeTitle ? placeholder : (isFocused ? "" : placeholder)}
-        returnKeyType={'next'}
+        returnKeyType={returnKeyType ? returnKeyType : 'next'}
         value={value}
         keyboardType={keyboardType}
         onChangeText={onChangeText}
