@@ -14,7 +14,8 @@ import { HOME_ROUTES } from "../../../constants";
 export const useMyAccountTransferViewModel = ({...props}) => {
   const navigation = useNavigation();
 
-  // console.log("useMyAccountTransferViewModel=>",props?.route?.params?.data);
+  console.log("useMyAccountTransferViewModel=>",props?.route?.params);
+
   const paymentconfrm = useRef(null); 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);

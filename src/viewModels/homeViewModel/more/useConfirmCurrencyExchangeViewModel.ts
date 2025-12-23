@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Toast } from '../../../utils';
 import { useNavigation } from '@react-navigation/native';
 import { useFXConversion } from '../../../queries/paymentQuery/paymentQuery';
+import { HOME_ROUTES } from '../../../constants';
 
 export default function useConfirmCurrencyExchangeViewModel({ ...props }) {
   const navigation = useNavigation();
@@ -191,16 +192,18 @@ export default function useConfirmCurrencyExchangeViewModel({ ...props }) {
     if (!purpose)
       return Toast.showToast('Select purpose', '', 'error');
 
-    const payload = {
-      fromAccount,
-      toAccount,
-      amount,
-      youWillReceive,
-      purpose,
-      fxInfo,
-    };
+    // const chkStatedata = {
+    //   fromAccount,
+    //   toAccount,
+    //   amount,
+    //   youWillReceive,
+    //   purpose,
+    //   fxInfo,
+    // };
 
-    console.log('✅ CREATE ORDER PAYLOAD:', payload);
+    // console.log('✅ CREATE ORDER chkStatedata:', chkStatedata);
+    // navigation.navigate(HOME_ROUTES.MY_ACCOUNT_TRANSFER,{ data: props?.route?.params })
+    navigation.navigate(HOME_ROUTES.MY_ACCOUNT_TRANSFER,{  stateData: {fromAccount: fromAccount, toAccount: toAccount, amount: amount, purpose: purpose, fxInfo: fxInfo } });    
   };
 
   const toggleDropdown = (key: any) => {

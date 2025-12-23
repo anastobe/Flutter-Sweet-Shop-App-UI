@@ -82,7 +82,7 @@ const ConfirmCurrencyExchange = ({...props}) => {
   const renderInput = () => (
     <View>
       
-        <InputDropDownStyle 
+        <InputDropDownStyle
          title="Send from"
          value={fromAccount} // null = show input box
          // data={getCurrencyAccArray}
