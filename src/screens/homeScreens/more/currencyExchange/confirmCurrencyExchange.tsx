@@ -48,15 +48,28 @@ const ConfirmCurrencyExchange = ({...props}) => {
     setOpenDropdownStyToAcc,
     amount,
     setamount,
-    autoFocused
+    autoFocused,
+    fxInfo
 
   } = useConfirmCurrencyExchangeViewModel(props);
 
   const renderCardDetails = () => (
     <View style={styles.summaryBox}>
-      <InfoRow icon="card-outline" label="Exchange Rate" value="1 GBP = 1.14 PKR" />
-      <InfoRow icon="add-outline" label="Fee" value="£2.00" />
-      <InfoRow icon="time-outline" label="Rate Valid For" value="2:00 min countdown" />
+<InfoRow
+      icon="card-outline"
+      label="Exchange Rate"
+      value={fxInfo.rateText}
+    />
+    <InfoRow
+      icon="add-outline"
+      label="Fee"
+      value={fxInfo.fee}
+    />
+    <InfoRow
+      icon="time-outline"
+      label="Rate Valid For"
+      value={fxInfo.validFor}
+    />
     </View>
   );
 
@@ -71,7 +84,7 @@ const ConfirmCurrencyExchange = ({...props}) => {
 
   const renderRightInputTextOnly = () => (
     <View style={styles.renderRightInputContainer}>
-      <Text style={styles.inputNumberNum}>696,906.41</Text>
+      <Text style={styles.inputNumberNum}>{youWillReceive}</Text>
     </View>
   );
 
@@ -137,7 +150,7 @@ const ConfirmCurrencyExchange = ({...props}) => {
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="You will Receive"
-        value={youWillReceive}
+        // value={youWillReceive}
         onChangeText={setYouWillReceive}
         keyboardType={'numeric'}
         margBtm={10}
