@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import apis from '../../services';
 import QueryKey from '../queryKey';
 
-export const getAccounts  = (    {
+export const getAccountsAndAssets  = (    {
   enabled,
   dispatch
 }: {
@@ -12,9 +12,9 @@ export const getAccounts  = (    {
 }
 ) =>
   useQuery({
-    queryKey: [QueryKey.GET_ACCOUNTS],
+    queryKey: [QueryKey.GET_ACCOUNTS_AND_ASSETS],
     initialData: [],
-    queryFn: ()=> apis.getAccounts(dispatch),
+    queryFn: ()=> apis.getAccountsAndAssets(dispatch),
     enabled: enabled,
 
     staleTime: 0, // Data will never be considered stale
@@ -115,7 +115,3 @@ export const AccDelete = ({callback} : {callback: (res: any) => void}) => {
     }
   });
 };
-
-  
-
-  

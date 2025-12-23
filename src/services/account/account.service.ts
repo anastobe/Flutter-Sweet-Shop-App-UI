@@ -5,8 +5,8 @@ import { storeAccTypeData, storeCountryData, storeCurrenryData } from "../../Red
 
 
 // 🔹 Get accounts
-export const getAccounts = async () => {
-  const response = await axiosInstance('/assets', 'GET', undefined, false );
+export const getAccountsAndAssets = async () => {
+  const response = await axiosInstance('/wallet', 'GET', undefined, false );
   // console.log("=>services=> getAccounts", response);
   return response?.results;
 };

@@ -3,17 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { Alert, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
-import { ACTIVE_ACCOUNT } from "../../../utils/data";
 import { SHOW_CLIENT } from "../../../APICall/constants";
-import { getCards } from "../../../queries/auth.query";
-import { AccDelete, AccFreeze, getAccounts, getDashboardData, paymentHistry, transactionsHistry } from "../../../queries/accountQueries/accountQuery";
+import { AccDelete, AccFreeze, getAccountsAndAssets, getDashboardData, paymentHistry,  } from "../../../queries/accountQueries/accountQuery";
 import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
-import QueryKey from "../../../queries/queryKey";
 import { Images } from "../../../config";
-import { StatusBar } from "react-native";
-import { THEME } from "../../../styles";
-import apis from "../../../services";
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
@@ -21,6 +15,7 @@ export const useAccountScreenViewModel = () => {
 
   const queryClient = useQueryClient();
   const manageRef = useRef<any>(null);
+  const selectAccountRef = useRef<any>(null);
   const editRef = useRef<any>(null);
   const editAccountRef = useRef<any>(null); 
   const flatListRef = useRef<FlatList>(null);
@@ -33,25 +28,28 @@ const [transactions, setTransactions] = useState<any[]>([]);
 
 
   // const LIMIT = 10;
+  const [allAccounts_withAsset, setallAccounts_withAsset] = useState([])
+  // const [currentAccount, setcurrentAccount] = useState([])
+  const [currentAccount, setcurrentAccount] = useState<any | null>(null);
 
   const [currentAccDetail, setcurrentAccDetail] = useState({
-        asset_type_id: "", 
-        name: "", 
-        iban: "", 
-        currency_id: "", 
-        created_at: "",
-        iso_code: "",
-        linkedAccount: "",
-        id: ""
-      });
+    asset_type_id: "", 
+    name: "", 
+    accountName: "",
+    iban: "", 
+    currency_id: "", 
+    created_at: "",
+    iso_code: "",
+    linkedAccount: "",
+    id: ""
+  });
 
   const [gbpWallet, setGbpWallet] = useState("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [showbalance, setshowbalance] = useState(false);
 
-  const currentAssetId = currentAccDetail.id;
 
-  const { data: getAccounts_Data, refetch: refetchgetAccounts, isPending } = getAccounts({
+  const { data: getAccountsAndAssets_Data, refetch: refetchgetAccountsAndAssets, isPending } = getAccountsAndAssets({
     enabled: false, 
     dispatch,
   });
@@ -60,7 +58,7 @@ const [transactions, setTransactions] = useState<any[]>([]);
   const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isPending: getDashboardDataPending } = getDashboardData({
     enabled: false, 
     dispatch,
-    ID: currentAccDetail.id,
+    ID: currentAccDetail?.id,
   });
  
   //  console.log("getDashboardData_Data=>",getDashboardData_Data);
@@ -87,7 +85,7 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
   const {mutate: AccFreezeFunc, isPending: isPendingAccFreeze} = AccFreeze({
       callback: (response: any) => {
         if (response.success) {
-          refetchgetAccounts()
+          refetchgetAccountsAndAssets()
           setTimeout(() => {
             editRef?.current?.close() 
           }, 500);
@@ -99,7 +97,7 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
   const {mutate: AccDeleteFunc, isPending: isPendingAccDelete} = AccDelete({
       callback: (response: any) => {
         if (response.success) {
-          refetchgetAccounts()
+          refetchgetAccountsAndAssets()
           setTimeout(() => {
             editRef?.current?.close() 
           }, 500);
@@ -135,30 +133,33 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
     }
   };
   
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const offsetX = event.nativeEvent.contentOffset.x;
-    const index = Math.round(offsetX / Metrics.width);
-    setActiveIndex(index);
+const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+  const offsetX = event.nativeEvent.contentOffset.x;
+  const index = Math.round(offsetX / Metrics.width);
 
-    if (!getAccounts_Data) return; //if no data found so return from their
+  if (index === activeIndex) return; // 🔥 extra rerender avoid
 
-    if (getAccounts_Data?.length) {
-    const currentItem = getAccounts_Data[index];
-     
-    if (currentItem) {
-      setcurrentAccDetail({ 
-        asset_type_id: currentItem.asset_type_id,
-        name: currentItem.account?.name,
-        iban: currentItem.account?.iban,
-        currency_id: currentItem.currency_id,
-        created_at: currentItem.created_at,
-        iso_code: currentItem.currency?.iso_code,
-        linkedAccount:  currentItem.currency?.name,
-        id: currentItem.id
-      });
-  }
-  };
-}
+  setActiveIndex(index);
+
+  if (!currentAccount?.assets?.length) return;
+
+  const currentAsset = currentAccount.assets[index];
+
+  if (!currentAsset) return;
+
+  setcurrentAccDetail({
+    asset_type_id: currentAsset.asset_type_id,
+    name: currentAsset.account?.name,
+    accountName: currentAsset.account?.name,
+    iban: currentAsset.account?.iban,
+    currency_id: currentAsset.currency_id,
+    created_at: currentAsset.created_at,
+    iso_code: currentAsset.currency?.iso_code,
+    linkedAccount: currentAsset.currency?.name,
+    id: currentAsset.id,
+  });
+};
+
 
   const onPressShare = () => Alert.alert("share", "share");
   const onPressCopy = () => Alert.alert("copy", "copy");
@@ -180,45 +181,53 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
 
   const onPressEditSave = () => Alert.alert("NEED",SHOW_CLIENT);
 
-
+//this below useeffect save first asset and all accounts and assets
   useEffect(() => {
-    if (getAccounts_Data?.length) {
-    const firstItem = getAccounts_Data[0];
-     
-    if (firstItem) {
-      setcurrentAccDetail({ 
-        asset_type_id: firstItem.asset_type_id,
-        name: firstItem.account?.name,
-        iban: firstItem.account?.iban,
-        currency_id: firstItem.currency_id,
-        created_at: firstItem.created_at,
-        iso_code: firstItem.currency?.iso_code,
-        linkedAccount: firstItem.currency?.name,
-        id: firstItem?.id
-      });
-  }
+    if (getAccountsAndAssets_Data?.length) {
+    const firstAccount = getAccountsAndAssets_Data[0]?.accounts[0]    
+     setcurrentAccount(firstAccount)
+     setallAccounts_withAsset(getAccountsAndAssets_Data[0]?.accounts)
+
+
+  //   if (firstAsset) {
+  //     setcurrentAccDetail({ 
+  //       asset_type_id: firstAsset.asset_type_id,
+  //       name: firstAsset.name, //change
+  //       accountName: firstAccount?.name, //change
+  //       iban: firstAsset.account?.iban,
+  //       currency_id: firstAsset.currency_id,
+  //       created_at: firstAsset.created_at,
+  //       iso_code: firstAsset.currency?.iso_code,
+  //       linkedAccount: firstAsset.currency?.name,
+  //       id: firstAsset?.id
+  //     });
+  // }
 }
 
-  }, [getAccounts_Data?.length]);
+  }, [getAccountsAndAssets_Data]);
 
   useEffect(() => {
-    refetchgetAccounts();
-    apis.getCurrencyAccount(dispatch);
+    refetchgetAccountsAndAssets();
+    // apis.getCurrencyAccount(dispatch);
   }, []);
 
   
 
   useEffect(() => {
   if (currentAccDetail.id) {
-    refetchgetDashboardData(currentAccDetail?.id)
-    fetchTransactions(1); // 🔥 reset + reload
+
+    // console.log("currentAccDetail==>",currentAccDetail);
+    
+    setTransactions([]); // 🔥 reset
+    refetchgetDashboardData()
+    fetchTransactions(currentAccDetail?.id); // 🔥 reset + reload
   }
   }, [currentAccDetail?.id]);
 
 
 /** 🔹 Fetch Transactions */
-const fetchTransactions = (pageNumber: number) => {
-  if (!currentAssetId) return;
+const fetchTransactions = (ID: any) => {
+  if (!ID) return;
 
   // if (pageNumber !== 1 && (!hasMore || isLoadingMore)) return;
 
@@ -232,7 +241,7 @@ const fetchTransactions = (pageNumber: number) => {
   // setPage(pageNumber);
 
     const payloadWithParams = {
-      assetId: currentAssetId,
+      assetId: ID,
       payload: {
         page: 1,
         limit: 10,
@@ -261,9 +270,44 @@ const fetchTransactions = (pageNumber: number) => {
 //   fetchTransactions(page + 1);
 // };
 
+function selectAccount(account: any) {
+  setcurrentAccount(account);
+
+  // 🔥 reset index
+  setActiveIndex(0);
+
+  // 🔥 scroll assets back to first card
+  requestAnimationFrame(() => {
+    flatListRef.current?.scrollToIndex({
+      index: 0,
+      animated: false,
+    });
+  });
+
+  // 🔥 first asset auto select
+  const firstAsset = account?.assets?.[0];
+  if (firstAsset) {
+    setcurrentAccDetail({
+      asset_type_id: firstAsset.asset_type_id,
+      name: firstAsset.account?.name,
+      accountName: firstAsset.account?.name,
+      iban: firstAsset.account?.iban,
+      currency_id: firstAsset.currency_id,
+      created_at: firstAsset.created_at,
+      iso_code: firstAsset.currency?.iso_code,
+      linkedAccount: firstAsset.currency?.name,
+      id: firstAsset.id,
+    });
+  }
+
+  selectAccountRef.current?.close();
+}
+
   return {
     navigation,
     manageRef,
+    selectAccountRef,
+    selectAccount,
     editRef,
     editAccountRef,
     flatListRef,
@@ -284,8 +328,8 @@ const fetchTransactions = (pageNumber: number) => {
     onPressFreeze,
     onPressDelete,
     onPressEditSave,
-    getAccounts_Data,
-    refetchgetAccounts,
+    getAccountsAndAssets_Data,
+    refetchgetAccountsAndAssets,
     isPending,
     currentAccDetail,
     isPendingAccFreeze,
@@ -297,6 +341,8 @@ const fetchTransactions = (pageNumber: number) => {
     getDashboardDataPending,
 
     isPendingpaymentHistry,
+    allAccounts_withAsset,
+    currentAccount,
     // isLoadingMore,
     // loadMoreTransactions,
     // hasMore, 

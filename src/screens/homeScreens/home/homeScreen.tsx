@@ -208,13 +208,6 @@ const renderBalanceCard = () => (
 
   const renderTransactionList = () => (
     <View style={{ zIndex: -9 }} >
-      <View style={styles.cardHeader}>
-        <Text style={styles.cardTransactionTXT}>Activity  ({"DUMMY DATA-" + SHOW_CLIENT})</Text>
-        <TouchableOpacity onPress={handleNavigateTransactionHistory}>
-          <Text style={styles.viewAllTxt}>View All</Text>
-        </TouchableOpacity>
-      </View>
-
       <FlatList
         data={isPendingpaymentHistry ? [] : transactions}
         keyExtractor={item => item?.id}
@@ -257,10 +250,16 @@ const renderBalanceCard = () => (
           <GradientLineGraph 
                 data={getDashboardData_Data?.graph}
                 loading={getDashboardDataPending}
-                marginTop={handleSize.h(60)} 
+                marginTop={handleSize.h(25)} 
           />
           {ScrollableCards()}
           {renderCardFeature()}
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardTransactionTXT}>Activity</Text>
+            <TouchableOpacity onPress={handleNavigateTransactionHistory}>
+              <Text style={styles.viewAllTxt}>View All</Text>
+            </TouchableOpacity>
+          </View>
       </View>
     )
   }

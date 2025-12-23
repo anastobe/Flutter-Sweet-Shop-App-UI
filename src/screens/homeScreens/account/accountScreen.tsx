@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Text,
@@ -7,9 +7,6 @@ import {
   ScrollView,
   TouchableOpacity,
   ImageBackground,
-  Alert,
-  StatusBar,
-  Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -41,6 +38,7 @@ import commonUtils from '../../../utils/common.utils';
 import TransactionList from '../../../components/transactionList';
 import SmallBtn from '../../../components/smallBtn';
 import { CommonUtils } from '../../../utils';
+import AccountList from '../../../components/accountList';
 
 const header_flatlist_BottomSizeAdjust = 260;
 
@@ -89,14 +87,15 @@ const AccountScreen = () => {
   );
   
     /** 🔹 Transaction Item */
-  const renderItem = ({ item }) => (
-    <TransactionList
-      item={item}
-      onPress={vm?.handleNavigateTransaction}
-    />
-  );
+const renderItem = useCallback(({ item }) => (
+  <TransactionList
+    item={item}
+    onPress={vm.handleNavigateTransaction}
+  />
+), []);
 
-  function renderSubHeaderStuffs() {
+
+const renderSubHeaderStuffs = useCallback(() => {
     return(
                   <View>
               <CardFeatureButtons
@@ -141,7 +140,10 @@ const AccountScreen = () => {
               </View>
             </View>
     )
-  }
+  }, [vm.features, vm.getDashboardData_Data]);
+
+  // console.log("currentAccount==>????",vm.currentAccount); 
+   
   
   function renderHeaderStuffs() {
     return (
@@ -152,6 +154,15 @@ const AccountScreen = () => {
         resizeMode="stretch"
       >
         <OptionsHeader
+          currentAccount={vm?.currentAccount}
+          onPressSelectAccounts={() =>
+            vm.selectAccountRef?.current?.open()
+            // selectAccountRef
+          }
+          onPressThreeDots={() =>
+            vm.editRef?.current?.open()
+            // selectAccountRef
+          }
           onPressNotification={() =>
             vm.navigation.navigate(HOME_ROUTES.NOTIFICATION)
           }
@@ -161,34 +172,30 @@ const AccountScreen = () => {
         />
         <FlatList
           ref={vm.flatListRef}
-          data={vm.getAccounts_Data}
-          // contentContainerStyle={{ backgroundColor: "red" }}
-          ListEmptyComponent={() => {
-            return (
-              <View style={styles.cardLoadingContainer}>
-                <ActivityIndicator size="small" color={THEME.primary} />
-              </View>
-            );
-          }}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <AccountCardBox
-              showBalance={vm.showbalance}
-              total={`${CommonUtils.getCurrencySymbol(item?.currency?.iso_code)} ${item?.available_balance}`}
-              onHold={`${CommonUtils.getCurrencySymbol(item?.currency?.iso_code)} ${item?.pending_balance}`}
-              available={`${CommonUtils.getCurrencySymbol(item?.currency?.iso_code)} ${item?.available_balance}`}
-              onPress={() => vm.editRef?.current?.open()}
-              onPresseye={() => vm.setshowbalance(!vm.showbalance)}
-            />
-          )}
+          data={vm?.currentAccount?.assets || []}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           onScroll={vm.handleScroll}
           scrollEventThrottle={16}
+          keyExtractor={(item, index) => String(item?.id ?? index)}
+          getItemLayout={(_, index) => ({
+            length: Metrics.width,
+            offset: Metrics.width * index,
+            index,
+          })}
+          renderItem={({ item }) => (
+            <AccountCardBox
+              showBalance={vm.showbalance}
+              total={`${CommonUtils.getCurrencySymbol(item.currency.iso_code)} ${item.available_balance}`}
+              onHold={`${CommonUtils.getCurrencySymbol(item.currency.iso_code)} ${item.pending_balance}`}
+              available={`${CommonUtils.getCurrencySymbol(item.currency.iso_code)} ${item.available_balance}`}
+              onPresseye={() => vm.setshowbalance(!vm.showbalance)}
+            />
+          )}
         />
         <View style={styles.pagination}>
-          {vm.getAccounts_Data.map((_, index) => (
+          {vm?.currentAccount?.assets?.map((_, index) => (
             <View
               key={index}
               style={[styles.dot, vm.activeIndex === index && styles.activeDot]}
@@ -198,6 +205,10 @@ const AccountScreen = () => {
       </ImageBackground>
     );
   }
+
+  // console.log("vm?.getAccountsAndAssets_Data=> ?",vm?.getAccountsAndAssets_Data[0]?.accounts);
+  
+
   return (
     <ImageBackground
       source={Images.universalGradientBackground}
@@ -234,23 +245,23 @@ const AccountScreen = () => {
                 details={[
                   {
                     label: 'Account Name',
-                    value: vm.currentAccDetail.name,
+                    value: vm?.currentAccount?.name,
                     bold: true,
                   },
-                  { label: 'IBAN', value: vm.currentAccDetail.iban },
+                  { label: 'IBAN', value: vm?.currentAccount?.iban },
                   { label: 'SWIFT Code', value: 'DUMMY' },
                   {
                     label: 'Currency',
-                    value: vm.currentAccDetail.linkedAccount,
+                    value: "DUMMY",
                   },
                   { label: 'Account Type', value: 'DUMMY' },
                   {
                     label: 'Created On',
-                    value: vm.currentAccDetail.created_at,
+                    value: vm?.currentAccount?.created_at ?  CommonUtils.formatDate("2025-04-13T19:15:08.556537+00:00") : "DUMMY",
                   },
                   {
                     label: 'Linked Cards',
-                    value: vm.currentAccDetail.iso_code,
+                    value: "DUMMY",
                   },
                 ]}
               />
@@ -274,6 +285,37 @@ const AccountScreen = () => {
             onPressDelete={vm.onPressDelete}
           />
         </BottomSheet>
+
+        <BottomSheet
+          height={350} // minimum height
+          maxHeightPercent={0.5} // optional, override for screen
+          draggable={false}
+          bottomSheetRef={vm.selectAccountRef}
+        >
+        <View style={styles.sheetContainer}>
+          <Text style={styles.sheetTitle}>Select Account</Text>
+
+          <FlatList
+            data={vm?.allAccounts_withAsset}
+            keyExtractor={(item) => item?.id}
+            showsVerticalScrollIndicator={false}
+            ItemSeparatorComponent={() => <View style={styles.separator} />}
+            renderItem={({ item }) => (
+              // console.log(" FLAT LISTgetAccountsAndAssets_Data==>",item),
+               
+              <AccountList
+                account={item}
+                onPress={() => {
+                  vm.selectAccount(item);
+
+                }}
+              />
+            )}
+          />
+        </View>
+        </BottomSheet>
+
+        
       </SafeAreaView>
     </ImageBackground>
   );
@@ -421,4 +463,22 @@ const styles = StyleSheet.create({
     // backgroundColor: "red",
     textAlign: 'right',
   },
+
+  //accout list detail
+    sheetContainer: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
+  },
+
+  sheetTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12,
+    color: '#111',
+  },
+    separator: {
+    height: 10,
+  },
+
 });

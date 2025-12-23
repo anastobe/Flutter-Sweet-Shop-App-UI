@@ -14,7 +14,7 @@ interface Props {
 const TransactionItem = ({ item, onPress }: Props) => {
   const isDebit = item?.direction === 'debit';
 
-  console.log("TransactionItem==>",item?.currency);
+  // console.log("TransactionItem==>",item?.currency);
   
 
   return (

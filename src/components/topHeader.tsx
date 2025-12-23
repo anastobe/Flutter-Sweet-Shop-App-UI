@@ -6,20 +6,51 @@ import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
 import { Images } from "../config";
 import { handleSize } from "../config/responsiveTheme";
 
-const OptionsHeader = ({ leftTxt, onPressNotification, onPressAdd }) => {
+const OptionsHeader = ({currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd }) => {
   const navigation = useNavigation();
+
+  // console.log("currentAccount==>",currentAccount); 
+  
 
   return (
     <View style={styles.headerContainer}>
       {/* Left Back Arrow */}
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+     
+      <View style={{ flexDirection: "row",  }}>
+        <TouchableOpacity
+          onPress={onPressSelectAccounts}
+          style={[  { flexDirection: "row", marginRight: handleSize.w(5), backgroundColor: THEME.white, justifyContent: "center", alignItems: "center", borderRadius: 15, height: handleSize.h(28), paddingHorizontal: handleSize.w(10) }]}
+        >
+          <Text style={{ color: THEME.textPrimary, fontFamily: FONTFAMILY.SemiBold, fontSize: handleSize.f(FONT_SIZES.onetwo) }} >{currentAccount?.name}</Text>
+          <View style={{ marginLeft: handleSize.w(3), marginTop: handleSize.h(2) }} >
+           <Icon
+            name="chevron-down-outline"
+            size={handleSize.f(17)}
+            color={THEME.textPrimary}
+            />
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={onPressThreeDots}
+          style={[styles.leftIconCont, { marginLeft: handleSize.w(5) }]}
+        >
+          <Icon
+            name="ellipsis-vertical-outline"
+            size={handleSize.f(17)}
+            color={THEME.textPrimary}
+          />
+        </TouchableOpacity>
+     
+      </View> 
+      {/* <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.arrowCont}
         >
           <Text style={styles.titleTop}>{leftTxt}</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       {/* Right Icons */}
       <View style={{ flexDirection: "row" }}>
@@ -53,6 +84,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginVertical: handleSize.h(10),
     marginHorizontal: handleSize.w(24),
+    marginTop: handleSize.h(20),
+    // backgroundColor:"red"
   },
   titleTop: {
     fontFamily: FONTFAMILY.SemiBold,
@@ -60,13 +93,22 @@ const styles = StyleSheet.create({
     color: THEME.white,
     marginLeft: handleSize.w(5),
   },
+  leftIconCont: {
+    width: handleSize.w(28),
+    height: handleSize.h(28),
+    borderRadius: handleSize.f(100),
+    justifyContent: "center",
+    alignItems: "center",
+    // marginTop: handleSize.h(20),
+    backgroundColor: THEME.white,
+  },
   rightIconCont: {
     width: handleSize.w(28),
     height: handleSize.h(28),
     borderRadius: handleSize.f(100),
     justifyContent: "center",
     alignItems: "center",
-    marginTop: handleSize.h(20),
+    // marginTop: handleSize.h(20),
     backgroundColor: THEME.white,
   },
   arrowCont: {
