@@ -16,6 +16,7 @@ export default function useConfirmCurrencyExchangeViewModel({...props}) {
   const [youWillReceive, setYouWillReceive] = useState('');
   const [purpose, setPurpose] = useState('');
 
+  
   const pressBackArrow = () => {
     navigation.goBack();
   };

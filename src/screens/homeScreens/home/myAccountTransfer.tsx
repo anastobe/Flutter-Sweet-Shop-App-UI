@@ -122,7 +122,7 @@ const MyAccountTransfer = ({...props}) => {
             data={getCurrencyAccArray}
             isOpen={openDropdownsty}
             onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
-            onSelect={(item) =>{               
+            onSelect={(item) =>{   
               setFromAccount({     
               id: item?.id,    
               available_balance: item?.available_balance,       

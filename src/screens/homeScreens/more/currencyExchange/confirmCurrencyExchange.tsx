@@ -154,7 +154,7 @@ const ConfirmCurrencyExchange = ({...props}) => {
 
       <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(10) }}>
         <View style={{ marginHorizontal: handleSize.w(20) }}>
-          <Text style={styles.title}>Confirm and Create Payment Order</Text>
+          <Text style={styles.title}>Confirm and create payment order</Text>
           <Text style={styles.subtitle}>
             Lock in your rate and enter payment details before proceeding.
           </Text>

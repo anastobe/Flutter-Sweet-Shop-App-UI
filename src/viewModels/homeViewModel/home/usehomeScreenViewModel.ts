@@ -99,7 +99,7 @@ const fetchAllInitialData = async () => {
       apis.getCoutry(dispatch),
       apis.getCurrency(dispatch),
       apis.getAssetType(dispatch),
-      apis.getCurrencyAccount(dispatch), // ✅ This returns your array
+      apis.getCurrencyAccount(dispatch), // ✅ This returns your all accounts array
     ]);    
 
     if (currencyAccountRes?.results) {

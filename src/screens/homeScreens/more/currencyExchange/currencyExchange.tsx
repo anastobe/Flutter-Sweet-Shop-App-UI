@@ -1,7 +1,7 @@
 // CurrencyExchangeView.js
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MainContainer } from '../../../../components';
+import { InputDropDownStyle, MainContainer } from '../../../../components';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { scale } from 'react-native-size-matters';
 import { Picker } from '@react-native-picker/picker';
@@ -11,65 +11,75 @@ import useCurrencyExchangeViewModel from '../../../../viewModels/homeViewModel/m
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
 
-const CurrencyExchange = ({...props}) => {
+const CurrencyExchange = ({ ...props }) => {
   const {
-    sendFrom,
-    setSendFrom,
-    receiveIn,
-    setReceiveIn,
+    isPending,
     pressBackArrow,
-    onPressBtn,
-    toggleDropdown,
-    openDropdown,
-    isPending
-  } = useCurrencyExchangeViewModel(props);
-  
+    setOpenDropdown,
 
-  const renderRightInput = () => (
-    <View style={styles.renderRightInputContainer}>
-      <Text style={styles.inputNumber}>(Send From)</Text>
-      <View style={styles.inputNumbergbpcont}>
-        <Text style={styles.inputNumbergbp}>GBP</Text>
-      </View>
-    </View>
-  );
+    openDropdownsty, 
+    setOpenDropdownSty,
+    fromAccount, 
+    setFromAccount,
+    toAccount, 
+    settoAccount,
+    getCurrencyAccArray, 
+    openDropdownstyToAcc, 
+    setOpenDropdownStyToAcc,
+    onPressBtn,
+    amount,
+    setamount
+
+  } = useCurrencyExchangeViewModel(props);
 
   const renderInput = () => (
     <View>
-      <InputField
-        // customInpStyle={{ paddingRight: 100, backgroundColor: "red" }}
-        renderRightInput={renderRightInput}
-        margTp={10}
-        autoCapital={'none'}
-        blurOnSubmit={false}
-        placeholder="0.00"
-        removeTitle={true}
-        value={sendFrom}
-        onChangeText={setSendFrom}
-        keyboardType={"numeric"}
-        margBtm={20}
-        maxlen={10}
+      <InputDropDownStyle
+        title="Send from"
+        value={fromAccount} // null = show input box
+        // data={getCurrencyAccArray}
+        data={getCurrencyAccArray}
+        isOpen={openDropdownsty}
+        onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
+        onSelect={item => {
+          setFromAccount({
+            id: item?.id,
+            available_balance: item?.available_balance,
+            currency_id: item?.currency_id,
+            name: item?.account?.name,
+            iso_code: item?.currency?.iso_code,
+          });
+        }}
       />
 
-      <InputField
-      disabled={false} 
-      placeholder="Receive In"
-      value={receiveIn} 
-      enableDropdown={true}
-      dropdownData={[
-        { name: "USD" },
-        { name: "PKR" },
-        { name: "GBP" },
-        { name: "USD" },
-        { name: "PKR" },
-        { name: "GBP" },
-        { name: "USD" },
-        { name: "PKR" },
-        { name: "GBP" },
-      ]}
-      isOpen={openDropdown === 'currency'} 
-      onToggleDropdown={() => toggleDropdown('currency')}
-      onDropdownSelect={(item:any )=> setReceiveIn(item.name)}
+      {/* Recipient Type */}
+      <InputDropDownStyle
+        title="Receive in" 
+        value={toAccount}  // null = show input box
+        // data={getCurrencyAccArray}
+        data={getCurrencyAccArray}
+        isOpen={openDropdownstyToAcc}
+        onToggle={() =>{ setOpenDropdownStyToAcc(!openDropdownstyToAcc), setOpenDropdownSty(false), setOpenDropdown(null) }}
+        onSelect={(item) =>{ 
+          settoAccount({     
+          id: item?.id,    
+          available_balance: item?.available_balance,       
+          currency_id: item?.currency_id,
+          name: item?.account?.name,
+          iso_code: item?.currency?.iso_code
+          })
+        }}
+      />
+
+    <InputField
+      // renderRightInput={renderRightInput}
+      placeholder="Enter Amount"
+      removeTitle={false}
+      value={amount}
+      onChangeText={setamount}
+      keyboardType={"numeric"}
+      maxlen={10}
+      margBtm={handleSize.h(15)}
     />
 
     </View>
@@ -93,14 +103,15 @@ const CurrencyExchange = ({...props}) => {
       mainContainerStyle={styles.container}
     >
       <StatusBarManager
-        backgroundColor={THEME.darkSecondary} 
-        barStyle="light-content" 
+        backgroundColor={THEME.darkSecondary}
+        barStyle="light-content"
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Quick Currency Exchange</Text>
+        <Text style={styles.title}>Quick currency exchange</Text>
         <Text style={styles.subtitle}>
-          Convert currency instantly and view real-time rates before confirming your payment.
+          Convert currency instantly and view real-time rates before confirming
+          your payment.
         </Text>
         {renderInput()}
         {renderBtn()}

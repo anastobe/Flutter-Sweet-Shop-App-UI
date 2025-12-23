@@ -114,7 +114,7 @@ export const InputDropDownStyle = ({
               ]}
             >
               <Text style={styles.rowText}>
-                {item?.currency.name} ({item?.currency.iso_code})
+                {item?.account.name} ({item?.currency.iso_code})
               </Text>
             </Pressable>
           )}
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
 
   row: {
     height: handleSize.h(45),
+    borderBottomColor: THEME.white,
     justifyContent: "center",
     paddingHorizontal: handleSize.w(16),
   },

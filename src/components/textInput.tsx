@@ -226,7 +226,7 @@ return (
           renderItem={({ item, index }) => (
 
 
-  console.log("renderItem==>",item),
+  // console.log("renderItem==>",item),
 
             
 
