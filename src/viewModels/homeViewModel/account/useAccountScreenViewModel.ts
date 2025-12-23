@@ -35,14 +35,9 @@ const [transactions, setTransactions] = useState<any[]>([]);
   const [currentAccount, setcurrentAccount] = useState<any | null>(null);
 
   const [currentAccDetail, setcurrentAccDetail] = useState({
-    asset_type_id: "", 
     name: "", 
-    accountName: "",
     iban: "", 
-    currency_id: "", 
     created_at: "",
-    iso_code: "",
-    linkedAccount: "",
     id: ""
   });
 
@@ -150,14 +145,9 @@ const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
   if (!currentAsset) return;
 
   setcurrentAccDetail({
-    asset_type_id: currentAsset.asset_type_id,
     name: currentAsset.account?.name,
-    accountName: currentAsset.account?.name,
     iban: currentAsset.account?.iban,
-    currency_id: currentAsset.currency_id,
     created_at: currentAsset.created_at,
-    iso_code: currentAsset.currency?.iso_code,
-    linkedAccount: currentAsset.currency?.name,
     id: currentAsset.id,
   });
 };
@@ -239,14 +229,9 @@ const onPressCopy = () => {
 
   //   if (firstAsset) {
   //     setcurrentAccDetail({ 
-  //       asset_type_id: firstAsset.asset_type_id,
   //       name: firstAsset.name, //change
-  //       accountName: firstAccount?.name, //change
   //       iban: firstAsset.account?.iban,
-  //       currency_id: firstAsset.currency_id,
   //       created_at: firstAsset.created_at,
-  //       iso_code: firstAsset.currency?.iso_code,
-  //       linkedAccount: firstAsset.currency?.name,
   //       id: firstAsset?.id
   //     });
   // }
@@ -336,14 +321,9 @@ function selectAccount(account: any) {
   const firstAsset = account?.assets?.[0];
   if (firstAsset) {
     setcurrentAccDetail({
-      asset_type_id: firstAsset.asset_type_id,
       name: firstAsset.account?.name,
-      accountName: firstAsset.account?.name,
       iban: firstAsset.account?.iban,
-      currency_id: firstAsset.currency_id,
       created_at: firstAsset.created_at,
-      iso_code: firstAsset.currency?.iso_code,
-      linkedAccount: firstAsset.currency?.name,
       id: firstAsset.id,
     });
   }
