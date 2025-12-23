@@ -1,19 +1,14 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
-import { Images } from "../../../config";
-import { SHOW_CLIENT } from "../../../APICall/constants";
-import { Alert } from "react-native";
-import { StatusBar } from "react-native";
-import { THEME } from "../../../styles";
 import { useSelector } from "react-redux";
 import { CommonUtils, Toast } from "../../../utils";
-import { useLogin } from "../../../queries/auth.query";
 import { useFXConversion, usePaymentTransfer,useMyAccount_InternationalTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
 
 export const useMyAccountTransferViewModel = ({...props}) => {
+ 
   const navigation = useNavigation();
-
+  const params = props?.route?.params?.stateData;
   console.log("useMyAccountTransferViewModel=>",props?.route?.params);
 
   const paymentconfrm = useRef(null); 
@@ -38,6 +33,8 @@ export const useMyAccountTransferViewModel = ({...props}) => {
   });
   
   const [note, setnote] = useState(""); 
+  const [autofocusAmount, setautofocusAmount] = useState(false); 
+  const [autofocusnote, setautofocusnote] = useState(false); 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [enterAmount, setenterAmount] = useState("");
 
@@ -60,6 +57,22 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     msg: "",
     status: false 
   });
+
+  
+  /* ----------------------------------
+     INIT DATA FROM CONFIRM SCREEN
+  ---------------------------------- */
+  useEffect(() => {
+    if (!params) return;
+
+    setFromAccount(params.fromAccount);
+    settoAccount(params.toAccount);
+    setenterAmount(params.amount);
+    setnote(params.purpose);
+    setautofocusAmount(true); 
+    setautofocusnote(true) 
+  }, [params]);
+
    
   const { mutate: useFXConversionFunc, isPending: isPendinguseFXConversion } = useFXConversion({
     callback: (res: any) => {
@@ -254,7 +267,11 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     openDropdownstyToAcc, 
     setOpenDropdownStyToAcc,
     convertrate,
-    ApiCall
+    ApiCall,
+    autofocusAmount, 
+    setautofocusAmount,
+    autofocusnote, 
+    setautofocusnote
   
   };
 };

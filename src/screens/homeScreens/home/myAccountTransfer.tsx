@@ -65,7 +65,11 @@ const MyAccountTransfer = ({...props}) => {
     setOpenDropdownStyToAcc,
     convertrate,
     paymentconfrm,
-    ApiCall
+    ApiCall,
+    autofocusAmount, 
+    setautofocusAmount,
+    autofocusnote, 
+    setautofocusnote
 
   } = useMyAccountTransferViewModel(props);
  
@@ -140,6 +144,7 @@ const MyAccountTransfer = ({...props}) => {
 
           {/* Recipient Gets */}
           <InputField
+            autoFocused={autofocusAmount}
             // renderRightInput={renderRightInput}
             placeholder="Enter Amount"
             removeTitle={false}
@@ -172,6 +177,7 @@ const MyAccountTransfer = ({...props}) => {
 
           <InputField
             // renderRightInput={renderRightInput}
+            autoFocused={autofocusnote}
             placeholder="Enter Note / Refrence"
             removeTitle={false}
             value={note}
