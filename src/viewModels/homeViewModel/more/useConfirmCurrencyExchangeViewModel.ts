@@ -1,21 +1,17 @@
-// ConfirmCurrencyExchangeViewModel.js
-import { useEffect, useState } from 'react';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { Alert } from 'react-native';
-import { SHOW_CLIENT } from '../../../APICall/constants';
-import { StatusBar } from 'react-native';
-import { THEME } from '../../../styles';
-import { HOME_ROUTES } from '../../../constants';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Toast } from '../../../utils';
+import { useNavigation } from '@react-navigation/native';
+import { useFXConversion } from '../../../queries/paymentQuery/paymentQuery';
 
 export default function useConfirmCurrencyExchangeViewModel({ ...props }) {
   const navigation = useNavigation();
-
   const params = props?.route?.params;
+
   const getCurrencyAccArray = useSelector(
     (state: any) => state?.HomeReducer?.getCurrencyAccArray,
   );
+
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
   const [openDropdownstyToAcc, setOpenDropdownStyToAcc] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -40,6 +36,9 @@ export default function useConfirmCurrencyExchangeViewModel({ ...props }) {
 
   const [amount, setamount] = useState('');
   const [youWillReceive, setYouWillReceive] = useState('');
+  const [purpose, setPurpose] = useState('');
+  // const [isFxLoading, setIsFxLoading] = useState(false);
+
   const [fxInfo, setFxInfo] = useState({
     rateText: '',
     fee: '',
@@ -47,13 +46,89 @@ export default function useConfirmCurrencyExchangeViewModel({ ...props }) {
     settlementAmount: '',
   });
 
-  const [purpose, setPurpose] = useState('');
+  /* ----------------------------------
+     DEBOUNCE (stable ref)
+  ---------------------------------- */
+  const debounceRef = useRef(null);
 
-  // 🔥 MAIN EFFECT
+  const debounce = (func, delay) => {
+    return (...args) => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+      debounceRef.current = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
+
+  /* ----------------------------------
+     FX API HOOK
+  ---------------------------------- */
+  const { mutate: useFXConversionFunc, isPending: isPendinguseFXConversion } = useFXConversion({
+    callback: (res: any) => {
+      // setIsFxLoading(false);
+
+      if (res?.success && res?.results?.length > 0) {
+        const fx = res.results[0];
+
+        setFxInfo({
+          rateText: `1 ${fx.tradeCurrency} = ${fx.rate} ${fx.settlementCurrency}`,
+          fee: fx.fxFeeAmount?.toString(),
+          validFor: `${fx.validFor} sec`,
+          settlementAmount: fx.settlementAmount?.toString(),
+        });
+
+        setYouWillReceive(fx.settlementAmount?.toString());
+      } else {
+        setFxInfo({
+          rateText: '',
+          fee: '',
+          validFor: '',
+          settlementAmount: '',
+        });
+        setYouWillReceive('');
+      }
+    },
+  });
+
+  /* ----------------------------------
+     FX API CALL
+  ---------------------------------- */
+  const fetchFxRate = () => {
+    if (
+      !fromAccount?.iso_code ||
+      !toAccount?.iso_code ||
+      !amount ||
+      Number(amount) <= 0
+    ) {
+      return;
+    }
+
+    // setIsFxLoading(true);
+
+    const payload = {
+      itemsToQuote: [
+        {
+          fromCurrency: fromAccount.iso_code,
+          toCurrency: toAccount.iso_code,
+          amount: amount,
+        },
+      ],
+    };
+
+    console.log('💱 FX PAYLOAD:', payload);
+    useFXConversionFunc(payload);
+  };
+
+  const debouncedFetchFxRate = debounce(fetchFxRate, 700);
+
+  /* ----------------------------------
+     INITIAL PARAMS SET
+  ---------------------------------- */
   useEffect(() => {
     if (!params) return;
 
-    // 1️⃣ stateData se accounts & amount
     if (params?.stateData) {
       setFromAccount(params.stateData.fromAccount);
       settoAccount(params.stateData.toAccount);
@@ -61,7 +136,6 @@ export default function useConfirmCurrencyExchangeViewModel({ ...props }) {
       setautoFocused(true);
     }
 
-    // 2️⃣ calculated FX response se "you will receive"
     if (params?.data?.length > 0) {
       const fx = params.data[0];
 
@@ -72,69 +146,61 @@ export default function useConfirmCurrencyExchangeViewModel({ ...props }) {
         settlementAmount: fx.settlementAmount?.toString(),
       });
 
-      setYouWillReceive(fx?.settlementAmount?.toString() || '');
+      setYouWillReceive(fx.settlementAmount?.toString() || '');
     }
   }, [params]);
 
-  console.log(
-    'useConfirmCurrencyExchangeViewModel==>',
-    youWillReceive,
-    '----',
-    fromAccount,
-    '--',
-    toAccount,
-    '--',
-    amount,
-  );
+  /* ----------------------------------
+     AUTO FX RECALCULATION
+  ---------------------------------- */
+  useEffect(() => {
+    if (
+      fromAccount?.id &&
+      toAccount?.id &&
+      amount &&
+      Number(amount) > 0
+    ) {
+      debouncedFetchFxRate();
+    }
+  }, [fromAccount?.id, toAccount?.id, amount]);
 
-  const pressBackArrow = () => {
-    navigation.goBack();
-  };
+  /* ----------------------------------
+     ACTIONS
+  ---------------------------------- */
+  const pressBackArrow = () => navigation.goBack();
 
   const onPressBtn = () => {
-    if (fromAccount.id == '') {
+    if (!fromAccount.id)
       return Toast.showToast('Select send account', '', 'error');
-    } 
-    else if (toAccount.id == '') {
+
+    if (!toAccount.id)
       return Toast.showToast('Select to account', '', 'error');
-    } 
-    else if (amount == '') {
-      return Toast.showToast('Enter Your amount', '', 'error');
-    } 
-    else if (fromAccount.id == toAccount.id) {
-      return Toast.showToast('Select another account', '', 'error');
-    } 
-    else if (fxInfo?.settlementAmount == '') {
-      //add loading condition also
-      return Toast.showToast('Wait for converion', '', 'error');
-    } 
-    else if (purpose == '') {
+
+    if (!amount)
+      return Toast.showToast('Enter amount', '', 'error');
+
+    if (fromAccount.id === toAccount.id)
+      return Toast.showToast('Select different account', '', 'error');
+
+    if (isPendinguseFXConversion)
+      return Toast.showToast('Calculating exchange rate...', '', 'error');
+
+    if (!fxInfo?.settlementAmount)
+      return Toast.showToast('Wait for conversion', '', 'error');
+
+    if (!purpose)
       return Toast.showToast('Select purpose', '', 'error');
-    } else {
-      const payload = {
-        fromAccount,
-        toAccount,
-        amount,
-        youWillReceive,
-        purpose,
-        fxInfo,
-      };
 
-      console.log('✅ CREATE ORDER PAYLOAD:', payload);
-      return;
-      // navigation.navigate(HOME_ROUTES.MY_ACCOUNT_TRANSFER, {
-      //   data: props?.route?.params,
-      // });
-    }
+    const payload = {
+      fromAccount,
+      toAccount,
+      amount,
+      youWillReceive,
+      purpose,
+      fxInfo,
+    };
 
-    // if (props?.route?.params?.key == "international") {
-    //   navigation.navigate(HOME_ROUTES.INTERNATIONAL_TRANSFER,{ data: props?.route?.params })
-    // } else if (props?.route?.params?.key == "myaccount") {
-    //   navigation.navigate(HOME_ROUTES.MY_ACCOUNT_TRANSFER,{ data: props?.route?.params })
-    // }
-    // else {
-    //   console.log('key do');
-    // }
+    console.log('✅ CREATE ORDER PAYLOAD:', payload);
   };
 
   const toggleDropdown = (key: any) => {
@@ -167,5 +233,7 @@ export default function useConfirmCurrencyExchangeViewModel({ ...props }) {
     openDropdown,
     setOpenDropdown,
     fxInfo,
+    // isFxLoading,
+    isPendinguseFXConversion
   };
 }

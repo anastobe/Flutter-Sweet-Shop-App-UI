@@ -49,27 +49,18 @@ const ConfirmCurrencyExchange = ({...props}) => {
     amount,
     setamount,
     autoFocused,
-    fxInfo
+    fxInfo,
+    isPendinguseFXConversion
 
   } = useConfirmCurrencyExchangeViewModel(props);
 
   const renderCardDetails = () => (
     <View style={styles.summaryBox}>
-<InfoRow
-      icon="card-outline"
-      label="Exchange Rate"
-      value={fxInfo.rateText}
-    />
-    <InfoRow
-      icon="add-outline"
-      label="Fee"
-      value={fxInfo.fee}
-    />
-    <InfoRow
-      icon="time-outline"
-      label="Rate Valid For"
-      value={fxInfo.validFor}
-    />
+
+    <InfoRow icon="card-outline" label="Exchange Rate" value={isPendinguseFXConversion ? "...loading" : fxInfo.rateText} />
+    <InfoRow icon="add-outline" label="Fee" value={isPendinguseFXConversion ? "...loading" : fxInfo.fee} />
+    <InfoRow icon="time-outline" label="Rate Valid For" value={isPendinguseFXConversion ? "...loading" :fxInfo.validFor} />
+
     </View>
   );
 
@@ -84,14 +75,14 @@ const ConfirmCurrencyExchange = ({...props}) => {
 
   const renderRightInputTextOnly = () => (
     <View style={styles.renderRightInputContainer}>
-      <Text style={styles.inputNumberNum}>{youWillReceive}</Text>
+      <Text style={styles.inputNumberNum}>{isPendinguseFXConversion ? "...loading" : youWillReceive}</Text>
     </View>
   );
 
   const renderInput = () => (
     <View>
       
-        <InputDropDownStyle
+        <InputDropDownStyle 
          title="Send from"
          value={fromAccount} // null = show input box
          // data={getCurrencyAccArray}
