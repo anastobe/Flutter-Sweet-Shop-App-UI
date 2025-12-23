@@ -615,7 +615,7 @@ const InternationalTransfer = ({...props}) => {
 
           {/* Balance */}
           {fromAccount?.name &&
-            <BalanceBox amount={fromAccount?.iso_code +" "+ fromAccount?.available_balance}  label="Available Balance"  containerHeight={78} />}
+            <BalanceBox amount={fromAccount?.iso_code +" "+ enterAmount && fromAccount?.available_balance - enterAmount }  label="Available Balance"  containerHeight={78} />}
 
 
           {/* Recipient Gets */}
