@@ -1,7 +1,7 @@
 // ConfirmCurrencyExchangeView.js
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { MainContainer } from '../../../../components';
+import { InputDropDownStyle, MainContainer } from '../../../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import { scale } from 'react-native-size-matters';
@@ -26,10 +26,6 @@ const InfoRow = ({ icon, label, value }) => (
 
 const ConfirmCurrencyExchange = ({...props}) => {
   const {
-    sendFrom,
-    setSendFrom,
-    toCurrency,
-    setToCurrency,
     youWillReceive,
     setYouWillReceive,
     purpose,
@@ -37,7 +33,23 @@ const ConfirmCurrencyExchange = ({...props}) => {
     pressBackArrow,
     onPressBtn,
     toggleDropdown,
-    openDropdown
+
+    setOpenDropdown,
+    openDropdown,
+
+    openDropdownsty, 
+    setOpenDropdownSty,
+    fromAccount, 
+    setFromAccount,
+    toAccount, 
+    settoAccount,
+    getCurrencyAccArray, 
+    openDropdownstyToAcc, 
+    setOpenDropdownStyToAcc,
+    amount,
+    setamount,
+    autoFocused
+
   } = useConfirmCurrencyExchangeViewModel(props);
 
   const renderCardDetails = () => (
@@ -65,43 +77,62 @@ const ConfirmCurrencyExchange = ({...props}) => {
 
   const renderInput = () => (
     <View>
-      <InputField
-        renderRightInput={renderRightInput}
-        margTp={30}
-        autoCapital={'none'}
-        blurOnSubmit={false}
-        placeholder="0.00"
-        removeTitle={true}
-        value={sendFrom}
-        onChangeText={setSendFrom}
-            keyboardType="numeric"
-                    maxlen={10}
-        margBtm={10}
-      />
-
-       <InputField
-        disabled={false} 
-        placeholder="To Currency"
-        value={toCurrency} 
-        enableDropdown={true}
-        dropdownData={[
-            { name: "USD" },
-            { name: "PKR" },
-            { name: "EUR" },
-            { name: "CNY" },
-            { name: "JPY" },
-            { name: "GBP" },
-          ]} 
-        margBtm={10}
-        isOpen={openDropdown === 'currency'} 
-        onToggleDropdown={() => toggleDropdown('currency')}
-        onDropdownSelect={(item:any )=> setToCurrency(item.name)}
-      />
+      
+        <InputDropDownStyle
+         title="Send from"
+         value={fromAccount} // null = show input box
+         // data={getCurrencyAccArray}
+         data={getCurrencyAccArray}
+         isOpen={openDropdownsty}
+         onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
+         onSelect={item => {
+           setFromAccount({
+             id: item?.id,
+             available_balance: item?.available_balance,
+             currency_id: item?.currency_id,
+             name: item?.account?.name,
+             iso_code: item?.currency?.iso_code,
+           });
+         }}
+       />
+ 
+       {/* Recipient Type */}
+       <InputDropDownStyle
+         title="Receive in" 
+         value={toAccount}  // null = show input box
+         // data={getCurrencyAccArray}
+         data={getCurrencyAccArray}
+         isOpen={openDropdownstyToAcc}
+         onToggle={() =>{ setOpenDropdownStyToAcc(!openDropdownstyToAcc), setOpenDropdownSty(false), setOpenDropdown(null) }}
+         onSelect={(item) =>{ 
+           settoAccount({     
+           id: item?.id,    
+           available_balance: item?.available_balance,       
+           currency_id: item?.currency_id,
+           name: item?.account?.name,
+           iso_code: item?.currency?.iso_code
+           })
+         }}
+       />
+ 
+     <InputField
+       // renderRightInput={renderRightInput}
+       placeholder="Enter Amount"
+       autoFocused={autoFocused}
+       removeTitle={false}
+       value={amount}
+       onChangeText={setamount}
+       keyboardType={"numeric"}
+       maxlen={10}
+       margBtm={handleSize.h(15)}
+     />
 
       {renderCardDetails()}
 
       <InputField
         marginTp={20}
+        editable={false}
+        disabled={false}
         renderRightInput={renderRightInputTextOnly}
         autoCapital={'none'}
         blurOnSubmit={false}

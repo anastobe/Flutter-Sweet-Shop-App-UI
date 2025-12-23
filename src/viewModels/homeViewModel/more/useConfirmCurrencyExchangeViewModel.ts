@@ -6,16 +6,64 @@ import { SHOW_CLIENT } from '../../../APICall/constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import { HOME_ROUTES } from '../../../constants';
+import { useSelector } from 'react-redux';
 
 export default function useConfirmCurrencyExchangeViewModel({...props}) {
   const navigation = useNavigation();
 
+  const params = props?.route?.params;
+  const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
+  const [openDropdownsty, setOpenDropdownSty] = useState(false);
+  const [openDropdownstyToAcc, setOpenDropdownStyToAcc] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
-  const [sendFrom, setSendFrom] = useState('');
-  const [toCurrency, setToCurrency] = useState('');
+  const [open, setopen] = useState(false);
+  const [autoFocused, setautoFocused] = useState(false);
+  
+  const [fromAccount, setFromAccount] = useState({
+    id: "",
+    available_balance: "",
+    currency_id: "",
+    name: "",
+    iso_code: ""
+  });
+
+  const [toAccount, settoAccount] = useState({
+    id: "",
+    available_balance: "",
+    currency_id: "",
+    name: "",
+    iso_code: ""
+  });
+ 
+  const [amount, setamount] = useState(""); 
   const [youWillReceive, setYouWillReceive] = useState('');
   const [purpose, setPurpose] = useState('');
 
+    // 🔥 MAIN EFFECT
+  useEffect(() => {
+    if (!params) return;
+
+    // 1️⃣ stateData se accounts & amount
+    if (params?.stateData) {
+      setFromAccount(params.stateData.fromAccount);
+      settoAccount(params.stateData.toAccount);
+      setamount(params.stateData.amount);
+      setautoFocused(true)
+    }
+
+    // 2️⃣ calculated FX response se "you will receive"
+    if (params?.data?.length > 0) {
+      const fxData = params.data[0];
+
+      setYouWillReceive(
+        fxData?.settlementAmount?.toString() || ''
+      );
+    }
+
+  }, [params]);
+
+
+  console.log("useConfirmCurrencyExchangeViewModel==>",fromAccount, "--",toAccount,"--",amount);
   
   const pressBackArrow = () => {
     navigation.goBack();
@@ -37,10 +85,6 @@ export default function useConfirmCurrencyExchangeViewModel({...props}) {
   };
 
   return {
-    sendFrom,
-    setSendFrom,
-    toCurrency,
-    setToCurrency,
     youWillReceive,
     setYouWillReceive,
     purpose,
@@ -48,6 +92,22 @@ export default function useConfirmCurrencyExchangeViewModel({...props}) {
     pressBackArrow,
     onPressBtn,
     toggleDropdown,
-    openDropdown
+      getCurrencyAccArray,
+          amount,
+    setamount,
+  openDropdownsty, 
+  setOpenDropdownSty,
+  openDropdownstyToAcc, 
+  setOpenDropdownStyToAcc,
+  open, 
+  setopen,
+  autoFocused, 
+  setautoFocused,
+  fromAccount, 
+  setFromAccount,
+  toAccount, 
+  settoAccount,
+  openDropdown, 
+  setOpenDropdown
   };
 }

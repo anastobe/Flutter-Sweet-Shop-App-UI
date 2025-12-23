@@ -40,7 +40,7 @@ export default function useCurrencyExchangeViewModel({...props}) {
   const { mutate: useFXConversionFunc, isPending } = useFXConversion({
     callback: (res: any) => {
       if (res?.success) {
-        navigation.navigate(HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE,{ key: "calculated", data: res?.results });    
+        navigation.navigate(HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE,{ key: "calculated", data: res?.results, stateData: {fromAccount: fromAccount, toAccount: toAccount, amount: amount} });    
       }
     }
   });
