@@ -154,6 +154,7 @@ const renderSubHeaderStuffs = useCallback(() => {
         resizeMode="stretch"
       >
         <OptionsHeader
+          show={"accountname"}
           currentAccount={vm?.currentAccount}
           onPressSelectAccounts={() =>
             vm.selectAccountRef?.current?.open()
@@ -292,7 +293,12 @@ const renderSubHeaderStuffs = useCallback(() => {
           draggable={false}
           bottomSheetRef={vm.selectAccountRef}
         >
-        <View style={styles.sheetContainer}>
+           <ImageBackground
+            resizeMode="cover"
+            source={Images.addCardGradient}
+            style={[styles.container,{ paddingHorizontal: handleSize.w(16)}]}
+          >
+
           <Text style={styles.sheetTitle}>Select Account</Text>
 
           <FlatList
@@ -300,10 +306,12 @@ const renderSubHeaderStuffs = useCallback(() => {
             keyExtractor={(item) => item?.id}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               // console.log(" FLAT LISTgetAccountsAndAssets_Data==>",item),
                
               <AccountList
+                length={vm?.allAccounts_withAsset}
+                index={index}
                 account={item}
                 onPress={() => {
                   vm.selectAccount(item);
@@ -312,7 +320,8 @@ const renderSubHeaderStuffs = useCallback(() => {
               />
             )}
           />
-        </View>
+
+        </ImageBackground>
         </BottomSheet>
 
         
@@ -466,16 +475,16 @@ const styles = StyleSheet.create({
 
   //accout list detail
     sheetContainer: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
+    // flex: 1,
+    // padding: 16,
+    // backgroundColor: '#fff',
   },
 
   sheetTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 12,
-    color: '#111',
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Medium,
+    marginTop: handleSize.h(16),
+    color: THEME.white
   },
     separator: {
     height: 10,

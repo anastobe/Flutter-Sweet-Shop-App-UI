@@ -735,6 +735,7 @@ const InternationalTransfer = ({...props}) => {
               setautoFocused(true),
           beneficiaryRef?.current?.close();
         }}
+        filterKey={"bic"}
         />
         </BottomSheet>
 

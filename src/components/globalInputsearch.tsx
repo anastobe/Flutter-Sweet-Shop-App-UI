@@ -23,7 +23,7 @@ import {
   getBeneficiaryDetail,
 } from '../queries/moreQueries/moreQuery';
 
-const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary }: any) => {
+const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary, filterKey }: any) => {
   const navigation = useNavigation();
 
   const [ListArray, setListArray] = useState<any[]>([]);
@@ -96,6 +96,8 @@ const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary }: any)
       filters: {
         is_deleted: false,
       },
+      //   "null": [],
+       not_null: [filterKey]
     };
 
     getBeneficiaryDetailFunc(payload);

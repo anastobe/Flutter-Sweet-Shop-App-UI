@@ -92,10 +92,9 @@ const fetchAllInitialData = async () => {
     dispatch(handleLoader(true));
 
     const [
-      // beneficiaryList, 
-      userDetailRes, countryRes, currencyRes, assetTypeRes, currencyAccountRes] =
+      userDetailRes,
+      countryRes, currencyRes, assetTypeRes, currencyAccountRes] =
     await Promise.all([
-      // apis.getBeneficiaryDetail(dispatch),
       apis.getUserDetail(dispatch),
       apis.getCoutry(dispatch),
       apis.getCurrency(dispatch),

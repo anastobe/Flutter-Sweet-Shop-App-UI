@@ -391,7 +391,7 @@ export default CardScreen;
 export const styles = StyleSheet.create({
   container: { flex: 1 },
   headerContainer: {
-    height: handleSize.h(300),
+    height: handleSize.h(290),
     width: Metrics.width,
     borderBottomLeftRadius: handleSize.f(30),
     borderBottomRightRadius: handleSize.f(30),

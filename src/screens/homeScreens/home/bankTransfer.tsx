@@ -216,6 +216,7 @@ const BankTransfer = () => {
               setautoFocused(true);
           beneficiaryRef?.current?.close();
         }}
+        filterKey={"iban"}
         />
         </BottomSheet>
 
