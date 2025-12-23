@@ -1,6 +1,6 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
-import { Alert, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
+import { Alert, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, Share } from "react-native";
 import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
 import { SHOW_CLIENT } from "../../../APICall/constants";
@@ -8,6 +8,8 @@ import { AccDelete, AccFreeze, getAccountsAndAssets, getDashboardData, paymentHi
 import { useDispatch } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { Images } from "../../../config";
+import { CommonUtils } from "../../../utils";
+import Clipboard from '@react-native-clipboard/clipboard';
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
@@ -161,12 +163,58 @@ const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
 };
 
 
-  const onPressShare = () => Alert.alert("share", "share");
-  const onPressCopy = () => Alert.alert("copy", "copy");
+
+const onPressShare = async () => {
+  try {
+    const text = getAccountDetailsText();
+
+    await Share.share({
+      message: text,
+    });
+
+  } catch (error) {
+    console.log('Share error:', error);
+  }
+};
+
+const onPressCopy = () => {
+  const text = getAccountDetailsText();
+  Clipboard.setString(text);
+  Alert.alert('Copied', 'Account details copied to clipboard');
+};
+
+
+  // const onPressShare = () =>{
+  //   //  Alert.alert("share", "share")
+  //   getAccountDetailsText()
+  //   };
+
+  // const onPressCopy = () => Alert.alert("copy", "copy");
   const onPressEdit = () => editRef?.current?.open();
 
   const onPressSave = () =>{ Alert.alert("NEED",SHOW_CLIENT) };
   
+  const getAccountDetailsText = () => {
+  const details = [
+    { label: 'Account Name', value: currentAccount?.name ?? 'DUMMY' },
+    { label: 'IBAN', value: currentAccount?.iban ?? 'DUMMY' },
+    { label: 'SWIFT Code', value: 'DUMMY' },
+    { label: 'Currency', value: 'DUMMY' },
+    { label: 'Account Type', value: 'DUMMY' },
+    {
+      label: 'Created On',
+      value: currentAccount?.created_at
+        ? CommonUtils.formatDate(currentAccount.created_at)
+        : 'DUMMY',
+    },
+    { label: 'Linked Cards', value: 'DUMMY' },
+  ];
+
+  return details
+    .map(item => `${item.label}: ${item.value}`)
+    .join('\n');
+};
+
   const onPressFreeze = () =>{ 
     let payload ={
       status: "frozen",
@@ -343,6 +391,7 @@ function selectAccount(account: any) {
     isPendingpaymentHistry,
     allAccounts_withAsset,
     currentAccount,
+    getAccountDetailsText,
     // isLoadingMore,
     // loadMoreTransactions,
     // hasMore, 
