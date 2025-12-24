@@ -74,7 +74,10 @@ export const useHomeViewModel = () => {
   };
 
   const handleNavigateTransactionHistory = () => {
-    navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY);
+    if (assetsList?.firstObject?.id != "") {
+      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: assetsList?.firstObject?.id})
+    }
+    // navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY);
   };
 
   const handleNavigateTransaction = () => {
