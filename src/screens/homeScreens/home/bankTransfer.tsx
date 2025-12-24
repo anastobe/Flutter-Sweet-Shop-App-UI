@@ -26,6 +26,7 @@ const BankTransfer = () => {
     enterAmount,
     setenterAmount,
     beneficiary,
+    loginUserData,
     setBeneficiary,
     pressBackArrow,
     handlePress,
@@ -47,7 +48,11 @@ const BankTransfer = () => {
     onClose,
     // getBeneficiaryDetailFunc,
     autoFocused, 
-    setautoFocused
+    setautoFocused,
+    payment_method_id, 
+    setpayment_method_id,
+    autoFocusedpaymentTypes, 
+    setautoFocusedpaymentTypes
 
   } = useBankTransferViewModel();
  
@@ -73,24 +78,6 @@ const BankTransfer = () => {
     );
   }
   
-  function getBeneficiaryDetail() {
-
-    const payload = {
-      page: 1,
-      limit: 10,
-      sort: {
-        key: 'created_at',
-        order: 'desc',
-      },
-      search: "",
-      filters: {
-        is_deleted: false,
-      },
-    };
-
-    getBeneficiaryDetailFunc(payload)
-  }
-
   return (
     <MainContainer
       showBackArrow
@@ -124,7 +111,7 @@ const BankTransfer = () => {
               id: item?.id,    
               available_balance: item?.available_balance,       
               currency_id: item?.currency_id,
-              name: item?.currency?.name,
+              name: item?.account?.name,
               iso_code: item?.currency?.iso_code
               })
             }}
@@ -172,6 +159,30 @@ const BankTransfer = () => {
             //   })
             // }
           />
+
+          <InputField
+            disabled={false}
+            autoFocused={autoFocusedpaymentTypes}
+            placeholder="Select Payment Method"
+            removeTitle={false}
+            value={ payment_method_id?.method ? payment_method_id?.method  : ""}
+            enableDropdown={true}
+            dropdownData={loginUserData?.banking_partner?.valid_payment_types}
+            margBtm={handleSize.h(15)}
+            isOpen={openDropdown === "paymentTypes"}
+            onToggleDropdown={() =>{
+              toggleDropdown("paymentTypes")
+            }}
+            onDropdownSelect={(item: any) => {
+              setautoFocusedpaymentTypes(true)
+                setpayment_method_id({
+                  method: item?.method,
+                  id: item?.id,
+                })
+            }}
+          />
+
+          
 
           <InputField
             // renderRightInput={renderRightInput}

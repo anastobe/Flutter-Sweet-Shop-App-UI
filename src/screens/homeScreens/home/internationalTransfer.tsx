@@ -545,6 +545,11 @@ const InternationalTransfer = ({...props}) => {
     autoFocused,
     setautoFocused,
     beneficiaryRef,
+    loginUserData,
+    payment_method_id, 
+    setpayment_method_id,
+    autoFocusedpaymentTypes, 
+    setautoFocusedpaymentTypes,
 
   } = useInternationalTransferViewModel(props);
  
@@ -607,7 +612,7 @@ const InternationalTransfer = ({...props}) => {
               id: item?.id,    
               available_balance: item?.available_balance,       
               currency_id: item?.currency_id,
-              name: item?.currency?.name,
+              name: item?.account?.name,
               iso_code: item?.currency?.iso_code
               })
             }}
@@ -656,6 +661,28 @@ const InternationalTransfer = ({...props}) => {
               // }
             />
 
+
+          <InputField
+            disabled={false}
+            autoFocused={autoFocusedpaymentTypes}
+            placeholder="Select Payment Method"
+            removeTitle={false}
+            value={ payment_method_id?.method ? payment_method_id?.method  : ""}
+            enableDropdown={true}
+            dropdownData={loginUserData?.banking_partner?.valid_payment_types}
+            margBtm={handleSize.h(15)}
+            isOpen={openDropdown === "paymentTypes"}
+            onToggleDropdown={() =>{
+              toggleDropdown("paymentTypes")
+            }}
+            onDropdownSelect={(item: any) => {
+              setautoFocusedpaymentTypes(true)
+                setpayment_method_id({
+                  method: item?.method,
+                  id: item?.id,
+                })
+            }}
+          />
 
           <InputField
             // renderRightInput={renderRightInput}

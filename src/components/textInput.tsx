@@ -112,6 +112,8 @@ const getDisplayName = (item: any) => {
 
   if (item.iso_code) return item.iso_code;
 
+  if (item.method) return item.method;
+
   if (item.format && item.pan)
     return `${item.format} (.... .... .... ${item.pan})`;
 

@@ -22,6 +22,7 @@ export const useBankTransferViewModel = () => {
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
   const [open, setopen] = useState(false);
   const [autoFocused, setautoFocused] = useState(false);
+  const [autoFocusedpaymentTypes, setautoFocusedpaymentTypes] = useState(false);
   
   const [fromAccount, setFromAccount] = useState({
     id: "",
@@ -34,6 +35,10 @@ export const useBankTransferViewModel = () => {
   const [note, setnote] = useState(""); 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [enterAmount, setenterAmount] = useState("");
+  const [payment_method_id, setpayment_method_id] = useState({
+    method: "",
+    id: ""
+  });
   
   const [beneficiary, setBeneficiary] = useState({
     beneficiary_id: "",
@@ -54,6 +59,11 @@ export const useBankTransferViewModel = () => {
         setmodalMsg(res?.message)
       }
     },
+    onError: (error: any) => {
+
+      console.log("error usePaymentTransfer==>",error);
+    },
+
   });
   
   
@@ -79,18 +89,21 @@ export const useBankTransferViewModel = () => {
 
 
     if (fromAccount.name == "") {
-      Toast.showToast('Please Select Your Account', '', 'error');
+      Toast.showToast('Please select your account', '', 'error');
     } else if (enterAmount == "") {
-      Toast.showToast('Enter Your Amount', '', 'error');
+      Toast.showToast('Enter your amount', '', 'error');
     }
     else if (!CommonUtils.RegixNumbersOnly.test(enterAmount)) {
-    Toast.showToast('Enter Correct Amount', '', 'error'); 
+    Toast.showToast('Enter correct amount', '', 'error'); 
   }
     else if (enterAmount > fromAccount?.available_balance) {
-      Toast.showToast('Amount is greater than Available Balance', '', 'error');
+      Toast.showToast('Amount is greater than available balance', '', 'error');
     } 
     else if (beneficiary.beneficiary_id == "") {
-      Toast.showToast('Select Beneficiary', '', 'error');
+      Toast.showToast('Select beneficiary', '', 'error');
+    } 
+    else if (payment_method_id?.id == "") {
+      Toast.showToast('Select payment method', '', 'error');
     } 
     else if (note == "") {
       Toast.showToast('Enter Your Note/Refrence', '', 'error');
@@ -102,12 +115,13 @@ export const useBankTransferViewModel = () => {
       banking_partner_id: loginUserData?.banking_partner_id, 
       beneficiary_id: beneficiary.beneficiary_id,
       currency_id: fromAccount?.currency_id,
+      payment_method_id: payment_method_id?.id,
       reference: note
     }
-    // console.log("===>payload==>",payload);
+    console.log("===>payload==>",payload);
     
+    // return
     usePaymentTransferFunc(payload)
-    return
       // navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
     }
 
@@ -161,7 +175,12 @@ export const useBankTransferViewModel = () => {
     onClose,
     beneficiaryRef,
     autoFocused, 
-    setautoFocused
+    setautoFocused,
+    loginUserData,
+    payment_method_id, 
+    setpayment_method_id,
+    autoFocusedpaymentTypes, 
+    setautoFocusedpaymentTypes
   
   };
 };

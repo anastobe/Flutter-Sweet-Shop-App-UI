@@ -69,7 +69,13 @@ const MyAccountTransfer = ({...props}) => {
     autofocusAmount, 
     setautofocusAmount,
     autofocusnote, 
-    setautofocusnote
+    setautofocusnote,
+
+    loginUserData,
+    payment_method_id, 
+    setpayment_method_id,
+    autoFocusedpaymentTypes, 
+    setautoFocusedpaymentTypes
 
   } = useMyAccountTransferViewModel(props);
  
@@ -174,6 +180,29 @@ const MyAccountTransfer = ({...props}) => {
                             // name: item?.currency?.name,
               iso_code: item?.currency?.iso_code
               })
+            }}
+          />
+
+
+          <InputField
+            disabled={false}
+            autoFocused={autoFocusedpaymentTypes}
+            placeholder="Select Payment Method"
+            removeTitle={false}
+            value={ payment_method_id?.method ? payment_method_id?.method  : ""}
+            enableDropdown={true}
+            dropdownData={loginUserData?.banking_partner?.valid_payment_types}
+            margBtm={handleSize.h(15)}
+            isOpen={openDropdown === "paymentTypes"}
+            onToggleDropdown={() =>{
+              toggleDropdown("paymentTypes")
+            }}
+            onDropdownSelect={(item: any) => {
+              setautoFocusedpaymentTypes(true)
+                setpayment_method_id({
+                  method: item?.method,
+                  id: item?.id,
+                })
             }}
           />
 

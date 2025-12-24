@@ -226,6 +226,12 @@ export const useInternationalTransferViewModel = ({...props}) => {
   const [note, setnote] = useState(""); 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [enterAmount, setenterAmount] = useState("");
+  const [autoFocusedpaymentTypes, setautoFocusedpaymentTypes] = useState(false);
+  const [payment_method_id, setpayment_method_id] = useState({
+    method: "",
+    id: ""
+  });
+ 
 
   // const [toAccount, settoAccount] = useState({
   //   id: "",
@@ -357,6 +363,7 @@ export const useInternationalTransferViewModel = ({...props}) => {
       from_currency_id: fromAccount.currency_id, 
       to_currency_id: beneficiary.currency_id, //in international beneficiary ki currency id jayegi or in my account transfer to_asset ki currency id jayegi
       from_asset: fromAccount?.id,
+      payment_method_id: payment_method_id?.id,
       beneficiary_id: beneficiary?.beneficiary_id,
       is_internal: false
     }
@@ -379,6 +386,9 @@ export const useInternationalTransferViewModel = ({...props}) => {
     else if (beneficiary.beneficiary_id == "") {
       Toast.showToast('Select Beneficiary', '', 'error');
     } 
+    else if (payment_method_id?.id == "") {
+      Toast.showToast('Select payment method', '', 'error');
+    }
     else if (note == "") {
       Toast.showToast('Enter Your Note/Refrence', '', 'error');
     } 
@@ -448,7 +458,12 @@ export const useInternationalTransferViewModel = ({...props}) => {
     ApiCall,
     autoFocused, 
     setautoFocused,
-    beneficiaryRef
+    beneficiaryRef,
+    loginUserData,
+    payment_method_id, 
+    setpayment_method_id,
+    autoFocusedpaymentTypes, 
+    setautoFocusedpaymentTypes
   
   };
 };
