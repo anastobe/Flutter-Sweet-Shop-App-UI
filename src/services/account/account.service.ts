@@ -11,10 +11,9 @@ export const getAccountsAndAssets = async () => {
   return response?.results;
 };
 
-export const getNotifications = async () => {
-  const response = await axiosInstance('/notifications/expiration_based', 'GET', undefined, false );
-  console.log("=>services=> getNotifications", response);
-  return response?.results;
+export const getNotifications = async (body: any) => {
+  const response = await axiosInstance('/notifications', 'POST', body, false);
+  return response;
 };
 
 // 🔹 Freeze / Unfreeze Account

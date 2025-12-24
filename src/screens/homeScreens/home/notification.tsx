@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
 import { MainContainer } from '../../../components';
-import { THEME } from '../../../styles';
+import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNotificationViewModel } from '../../../viewModels/homeViewModel/home/useNotificationViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
@@ -11,13 +11,25 @@ import { TouchableOpacity } from 'react-native';
 import { LoaderOnly } from '../../../components/activityIndicator';
 import { useNotificationModal } from '../../../components/notificationModalContext';
 import { useDispatch } from 'react-redux';
-import { setPendingTransaction } from '../../../Redux/Action/Notification/notificationActions';
+// import { setPendingTransaction } from '../../../Redux/Action/Notification/notificationActions';
 import commonUtils from '../../../utils/common.utils';
 
 const Notification = () => {
-  const {openModal} = useNotificationModal();
+  
   const dispatch = useDispatch()
-  const { notifications, pressBackArrow, getNotificationIconAndColor, getNotifications_Data,isFetchedNotification } = useNotificationViewModel();
+  const { openModal } = useNotificationModal();
+  const {  
+    pressBackArrow, 
+    getNotificationIconAndColor,    
+    notification,
+    isPending,
+    hasMore,
+    onLoadMore,
+
+ } = useNotificationViewModel();
+
+ console.log("useNotificationViewModel==>",notification);
+ 
 
   function onPressItem(item: any) {
     if (item?.data?.is_modal === 'yes') {
@@ -26,7 +38,7 @@ const Notification = () => {
     const isValid = commonUtils.isTimeRemaining(backendTime);
 
       if (isValid) {
-        dispatch(setPendingTransaction(item?.data));
+        // dispatch(setPendingTransaction(item?.data));
         // openModal({
         //   transaction_amount: item.data.transaction_amount,
         //   transaction_currency_code: item.data.transaction_currency_code,
@@ -57,6 +69,9 @@ const Notification = () => {
       </TouchableOpacity>
     );
   };
+  
+  console.log("!isPending && !notification?.length==>",isPending , !notification?.length );
+  
 
   return (
     <MainContainer
@@ -69,22 +84,32 @@ const Notification = () => {
         backgroundColor={THEME.darkSecondary} 
         barStyle="light-content" 
       />
-
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
         <View style={{ marginHorizontal: 20 }}>
-          {/* {isFetchedNotification ? (
-            <LoaderOnly />
-          ) : ( */}
-          <FlatList
-            // data={getNotifications_Data}
-            data={getNotifications_Data?.slice(0,15)}
-            keyExtractor={(item) => item?.id}
-            renderItem={renderItem}
-            ItemSeparatorComponent={() => <View style={styles.separator} />}
-          />
-          {/* )} */}
+            <FlatList
+              data={notification}
+              // keyExtractor={(item) => item?.id?.toString()}
+              keyExtractor={(_, index) => index.toString()}
+              renderItem={renderItem}
+              ItemSeparatorComponent={() => <View style={styles.separator} />}
+
+              onEndReached={onLoadMore}              // ✅ pagination trigger
+              onEndReachedThreshold={0.1}            // ✅ scroll threshold
+              ListEmptyComponent={() =>{
+                if (!isPending && !notification?.length) {
+                  return(
+                    <Text style={styles.messageEmpty}>No Notifications</Text>
+                  )
+                }
+              }}
+              ListFooterComponent={() =>
+                isPending && hasMore ? (
+                  <View>
+                    <LoaderOnly />
+                  </View>
+                ) : null
+              }
+              />
         </View>
-      </ScrollView>
     </MainContainer>
   );
 };
@@ -101,9 +126,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   message: {
-    fontSize: 14,
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
-    fontWeight: '500',
+  },
+  messageEmpty:{
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
+    textAlign: "center",
+    marginTop: handleSize.h(20)
   },
   time: {
     fontSize: 12,

@@ -42,25 +42,6 @@ export const getAccountsAndAssets  = (    {
     retry: false // Disable retry on failure
   });
 
-
-  export const getNotifications  = (    {
-  enabled,
-  dispatch
-}: {
-  enabled?: boolean;
-  dispatch?: any
-}
-) =>
-  useQuery({
-    queryKey: [QueryKey.GET_NOTIFICATIONS],
-    initialData: [],
-    queryFn: ()=> apis.getNotifications(dispatch),
-    enabled: enabled,
-
-    staleTime: 0, // Data will never be considered stale
-    retry: false // Disable retry on failure
-  });
-
   
 export const AccFreeze = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
