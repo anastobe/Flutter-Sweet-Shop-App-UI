@@ -145,7 +145,7 @@ const renderBalanceCard = () => (
               color={THEME.textPrimary} 
             />
           </Pressable>
-
+          
       {showCurrencyDropdown && (
         <View style={styles.dropdownContainer}>
           <FlatList
@@ -418,6 +418,10 @@ const styles = StyleSheet.create({
     right: 0,
     top: handleSize.h(28),
     width: handleSize.w(70),
+    
+    maxHeight: handleSize.h(200), // ✅ IMPORTANT
+    overflow: 'hidden',           // ✅ IMPORTANT (Android ke liye)
+
   },
 
   dropdownItem: {
