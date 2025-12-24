@@ -289,7 +289,7 @@ const renderBalanceCard = () => (
 const ScrollableCards = () => {
   return (
     <FlatList
-      data={cards}
+      data={isPendingfetchLinkedAccCards ? [] : cards}
       // data={[]}
       ListEmptyComponent={()=>{
         if (isPendingfetchLinkedAccCards) {
