@@ -79,6 +79,24 @@ export const paymentHistry = ({callback} : {callback: (res: any) => void}) => {
   });
 };
 
+export const fetchLinkedAccCards = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.fetchLinkedAccCards,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+    }  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('AccDelete error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    }
+  });
+};
+
 export const AccDelete = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
 

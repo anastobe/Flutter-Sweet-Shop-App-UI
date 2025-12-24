@@ -11,13 +11,14 @@ import { Images } from '../../../config';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import apis from '../../../services';
-import { getDashboardData, paymentHistry } from '../../../queries/accountQueries/accountQuery';
+import { fetchLinkedAccCards, getDashboardData, paymentHistry } from '../../../queries/accountQueries/accountQuery';
 
 export const useHomeViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const [transactions, setTransactions] = useState<any[]>([]);
+  const [cards, setcards] = useState<any[]>([]);
   const [showbalance, setshowbalance] = useState(false);
   const [showCurrencyDropdown, setShowCurrencyDropdown] = useState(false);
   // const [selectedCurrency, setSelectedCurrency] = useState<any>();
@@ -46,6 +47,23 @@ export const useHomeViewModel = () => {
           const newData = response?.results?.values || [];
   
           setTransactions(newData);
+  
+          // if (newData.length < LIMIT) {
+          //   setHasMore(false);
+          // }
+  
+          // setIsLoadingMore(false);
+        }
+      },
+    });
+
+    const { mutate: fetchLinkedAccCardsFunc, isPending: isPendingfetchLinkedAccCards } =
+    fetchLinkedAccCards({
+      callback: (response: any) => {
+        if (response?.success) {
+          const newData = response?.results?.values || [];
+  
+          setcards(newData);
   
           // if (newData.length < LIMIT) {
           //   setHasMore(false);
@@ -127,7 +145,8 @@ const fetchAllInitialData = async () => {
 
   useEffect(() => {
   if (assetsList?.firstObject?.id) {
-    fetchTransactions(1); // 🔥 reset + reload
+    fetchTransactions(); // 🔥 reset + reload
+    fetchCard()
     refetchgetDashboardData()
   }
   }, [assetsList?.firstObject?.id]);
@@ -135,7 +154,7 @@ const fetchAllInitialData = async () => {
 
 
 /** 🔹 Fetch Transactions */
-const fetchTransactions = (pageNumber: number) => {
+const fetchTransactions = () => {
   if (!assetsList?.firstObject?.id) return;
 
   // if (pageNumber !== 1 && (!hasMore || isLoadingMore)) return;
@@ -169,6 +188,16 @@ const fetchTransactions = (pageNumber: number) => {
     };
 
   paymentHistryFunc(payloadWithParams);
+};
+
+const fetchCard = () => {
+  if (!assetsList?.firstObject?.id) return;
+
+  const payload = {
+    account_id: assetsList?.firstObject?.account?.id
+  }
+
+  fetchLinkedAccCardsFunc(payload);
 };
 
 
@@ -225,7 +254,9 @@ const onSelectCurrency = (asset: any) => {
     isPendingpaymentHistry,
     navigation,
     getDashboardData_Data,
-    getDashboardDataPending
+    getDashboardDataPending,
+    cards,
+    isPendingfetchLinkedAccCards,
     // currencyOptions
 
   };

@@ -53,6 +53,17 @@ export const paymentHistry = async (payloadWithParams: any) => {
   return response;
 };
 
+export const fetchLinkedAccCards = async (payload: any) => {
+  const response = await axiosInstance(
+    `/card`,
+    'POST',
+    payload,
+    false
+  );
+  return response;
+};
+
+
 export const getDashboardData = async (id: any) => {
 
   // console.log("=getDashboardData ID=>",id);

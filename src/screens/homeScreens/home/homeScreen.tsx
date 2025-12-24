@@ -7,7 +7,6 @@ import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Images } from '../../../config';
 import CardFeatureButtons from '../../../components/cardFeatureButtons';
-import LineGraph from '../../../components/lineGraph';
 import AccountCard from '../../../components/accountCard';
 import {useHomeViewModel} from '../../../viewModels/homeViewModel/home/usehomeScreenViewModel';
 import { screenWidth } from '../../../utils/style.utils';
@@ -30,6 +29,7 @@ import commonUtils from '../../../utils/common.utils';
 import SmallBtn from '../../../components/smallBtn';
 import TransactionList from '../../../components/transactionList';
 import { HOME_ROUTES } from '../../../constants';
+import { LoaderOnly } from '../../../components/activityIndicator';
 // import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
@@ -59,7 +59,9 @@ const HomeScreen = () => {
     isPendingpaymentHistry,
     navigation,
     getDashboardData_Data,
-    getDashboardDataPending
+    getDashboardDataPending,
+    cards,
+    isPendingfetchLinkedAccCards,
 
   } = useHomeViewModel();
 
@@ -280,14 +282,32 @@ const renderBalanceCard = () => (
   }
 
   
+  console.log("card_name======>",cards);
   
-
+ 
 
 const ScrollableCards = () => {
   return (
     <FlatList
-      data={cardsScroll}
-      keyExtractor={(item) => item.id}
+      data={cards}
+      // data={[]}
+      ListEmptyComponent={()=>{
+        if (isPendingfetchLinkedAccCards) {
+          return(
+             <View style={{ width: Metrics.width, alignItems: "center" }} >
+              <LoaderOnly />
+             </View>
+          )
+        }
+        else{
+          return(
+            <View style={{ width: Metrics.width, alignItems: "center" }} >
+            <Text style={styles.noCards} >No Cards Found</Text>
+            </View>
+          )
+      }}
+    }
+      keyExtractor={(item) => item?.id}
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ paddingHorizontal: handleSize.w(16), marginTop: handleSize.h(10) }}
@@ -296,8 +316,8 @@ const ScrollableCards = () => {
           colors={['#0d1133', '#0a0f2b']}
           style={styles.card}
         >
-          <Text style={styles.lastDigits}>..... {item.lastDigits}</Text>
-          <Text style={styles.amountt}>{item.amount}</Text>
+          <Text style={styles.lastDigits}>..... {item?.pan}</Text>
+          <Text style={styles.amountt}>{item?.available_limit}</Text>
           <Text style={styles.balanceTxt}>Balance</Text>
         </LinearGradient>
       )}
@@ -584,6 +604,13 @@ const styles = StyleSheet.create({
     color: THEME.white,
     fontSize: handleSize.f(FONT_SIZES.twozero),
     fontFamily: FONTFAMILY.Medium,
+  },
+
+  noCards: {
+    color: THEME.white,
+    fontSize: handleSize.f(FONT_SIZES.twozero),
+    fontFamily: FONTFAMILY.Medium,
+    textAlign: "center"
   },
 
   amountt: {

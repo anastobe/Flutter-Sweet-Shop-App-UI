@@ -3,6 +3,7 @@ import {
     AccFreeze,
     AccDelete,
     paymentHistry,
+    fetchLinkedAccCards,
     getDashboardData,
     getAccountsAndAssets
     
@@ -85,6 +86,7 @@ const apis = {
   AccFreeze,
   AccDelete,
   paymentHistry,
+  fetchLinkedAccCards,
   updateUsageRules,
   getCardsUsageRules,
   getSucureCard
