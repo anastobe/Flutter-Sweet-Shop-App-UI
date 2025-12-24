@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { MainContainer, Modal } from "../../../components";
+import { InputDropDownStyle, MainContainer, Modal } from "../../../components";
 import InputField from "../../../components/textInput";
 import CustomButton from "../../../components/customButton";
 import { FONT_SIZES, FONTFAMILY, THEME } from "../../../styles";
@@ -13,13 +13,28 @@ const AddNewCurrencyAcount = () => {
   const {
     accountName,
     setAccountName,
+    assetType, 
+    setassetType,
     currency,
     setCurrency,
     pressBackArrow,
     handleAddCurrency,
     freezeModalProps,
     toggleDropdown,
-    openDropdown
+    openDropdown,
+    currencyList,
+    accountTypeList,
+    
+    setOpenDropdown,
+    openDropdownsty, 
+    setOpenDropdownSty,
+    fromAccount, 
+    setFromAccount,
+    openDropdownstyToAcc, 
+    getCurrencyAccArray,
+    setOpenDropdownStyToAcc,
+    isPending
+
   } = useAddNewCurrencyAccountViewModel();
 
   return (
@@ -36,41 +51,69 @@ const AddNewCurrencyAcount = () => {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Add New Currency Account</Text>
+        <Text style={styles.title}>Add new currency account</Text>
         <Text style={styles.subtitle}>
-          Select a Currency to create a new account in your wallet
+          Select a currency to create a new account in your wallet
         </Text>
 
-        <InputField
-          marginTp={handleSize.h(20)}
-          autoCapital={"none"}
-          blurOnSubmit={false}
-          placeholder="Account Name"
-          value={accountName}
-          onChangeText={setAccountName}
-          keyboardType={"default"}
-          margBtm={handleSize.h(15)}
+      <InputDropDownStyle
+          title="Send from"
+          value={fromAccount} // null = show input box
+          // data={getCurrencyAccArray}
+          data={getCurrencyAccArray}
+          isOpen={openDropdownsty}
+          onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
+          onSelect={(item: any) => {
+            setFromAccount({
+              id: item?.account?.id,
+              available_balance: item?.available_balance,  //anas comment useless work 
+              currency_id: item?.currency_id,  //anas comment useless work
+              name: item?.account?.name,  //anas comment useless work
+              iso_code: item?.currency?.iso_code,
+            });
+          }}
         />
 
-        <InputField
-          disabled={false}
-          placeholder="Select Currency"
-          value={currency}
-          enableDropdown={true}
-          dropdownData={[
-            { name: "USD" },
-            { name: "PKR" },
-            { name: "EUR" },
-            { name: "CNY" },
-            { name: "JPY" },
-            { name: "GBP" },
-          ]}
-          margBtm={handleSize.h(15)}
-          isOpen={openDropdown === "currency"}
-          onToggleDropdown={() => toggleDropdown("currency")}
-          onDropdownSelect={(item: any) => setCurrency(item.name)}
-        />
+       <InputField
+        disabled={false} 
+        placeholder='Select currency'
+        value={currency.name} 
+        enableDropdown={true}
+        dropdownData={currencyList} 
+        margBtm={23}
+        isOpen={openDropdown === 'currency'} 
+        onToggleDropdown={() =>{ toggleDropdown('currency') 
+          // setadjustScrollHeight(!adjustScrollHeight)
+        }}
+        onDropdownSelect={(item:any )=> {
+          setCurrency({
+            id: item?.id,
+            name: item?.iso_code
+          })
+        }}
+      />
+      
+       <InputField
+        disabled={false} 
+        placeholder='Select asset type'
+        value={assetType.name} 
+        enableDropdown={true}
+        dropdownData={accountTypeList} 
+        margBtm={23}
+        isOpen={openDropdown === 'assetType'} 
+        onToggleDropdown={() =>{ toggleDropdown('assetType') 
+          // setadjustScrollHeight(!adjustScrollHeight)
+        }}
+        onDropdownSelect={(item:any )=> {
+          setassetType({
+            id: item?.id,
+            name: item?.name
+          })
+        }}
+      />
 
+
+{/* accountTypeList */}
         <CustomButton
           btnContSty={styles.forgetTxt}
           title="Add Currency"
@@ -81,7 +124,7 @@ const AddNewCurrencyAcount = () => {
           isVisible={freezeModalProps.addCurrency.visible}
           isKeyboardAvoidingView={true}
           children={<BluryModal {...freezeModalProps.addCurrency} />}
-          onClose={freezeModalProps.addCurrency.onClose}
+          onClose={isPending ? console.log("no action") : freezeModalProps.addCurrency.onClose}
         />
 
         <Modal

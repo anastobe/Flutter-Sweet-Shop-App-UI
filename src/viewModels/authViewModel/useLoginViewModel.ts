@@ -30,7 +30,7 @@ export const useLoginViewModel = (navigation: any) => {
 
   //coperate
   const [email, setEmail] = useState("new-user");
-  const [password, setPassword] = useState("Uhf@12345");
+  const [password, setPassword] = useState("Uhf@1234");
 
   //user,individual
   // const [email, setEmail] = useState("uhf-personal");

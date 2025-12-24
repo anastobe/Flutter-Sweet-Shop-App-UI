@@ -41,7 +41,8 @@ import {
 
 import { 
     getUserDetail,
-    getCurrencyAccount
+    getCurrencyAccount,
+    useaddAsset
 
 } from './home/home.service';
 
@@ -75,6 +76,7 @@ const apis = {
   getAssetType,
   getCurrencyAccount,
   getNotifications,
+  useaddAsset,
   getDashboardData,
   getAccountsAndAssets,
   setSpendLimit,

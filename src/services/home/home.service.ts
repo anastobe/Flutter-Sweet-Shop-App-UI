@@ -23,3 +23,9 @@ export const getCurrencyAccount = async (dispatch: any): Promise<AssetsResponse>
   } 
   return response;
 };
+
+export const useaddAsset = async (body: any) => {
+  const response = await axiosInstance("/assets/create", 'POST', body, false);
+  return response;
+};
+

@@ -5,31 +5,81 @@ import { Alert } from "react-native";
 import { SHOW_CLIENT } from "../../../APICall/constants";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
+import { useSelector } from "react-redux";
+import { Toast } from "../../../utils";
+import { useFXConversion } from "../../../queries/paymentQuery/paymentQuery";
+import { useaddAsset } from "../../../queries/homeQueries/homeQuery";
+import { HOME_ROUTES } from "../../../constants";
 
 export const useAddNewCurrencyAccountViewModel = () => {
   const navigation = useNavigation();
 
+  const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
+  const [openDropdownsty, setOpenDropdownSty] = useState(false);
+  const [openDropdownstyToAcc, setOpenDropdownStyToAcc] = useState(false);
+  const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
+  const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
+
+  const [fromAccount, setFromAccount] = useState({
+    id: "",
+    available_balance: "",
+    currency_id: "",
+    name: "",
+    iso_code: ""
+  });
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [accountName, setAccountName] = useState("");
-  const [currency, setCurrency] = useState("");
   const [modalAddCurrency, setModalAddCurrency] = useState(false);
   const [requestSubmitted, setRequestSubmitted] = useState(false);
+  const [currency, setCurrency] = useState({
+    id: "",
+    name: ""
+  });
+  const [assetType, setassetType] = useState({
+    id: "",
+    name: ""
+  });
+  
+  
+  const { mutate: useaddAssetFunc, isPending } = useaddAsset({
+    callback: (res: any) => {
+      if (res?.success) {
+        setModalAddCurrency(false);
+        setTimeout(()=>{
+          setRequestSubmitted(true);
+        },1000)
+      }
+    }
+  });
 
   const pressBackArrow = () => {
     navigation.goBack();
   };
 
   const handleAddCurrency = () => {
-    setModalAddCurrency(true);
+    if (fromAccount.id == '') {
+      return Toast.showToast('Select your account', '', 'error');
+    } 
+    else if (currency.id == '') {
+      return Toast.showToast('Select currency', '', 'error');
+    } 
+    else if (assetType?.id == '') {
+      return Toast.showToast('Select asset type', '', 'error');
+    } 
+    else {
+      setModalAddCurrency(true);
+    }
   };
 
   const handleConfirmAddCurrency = () => {
-    setModalAddCurrency(false);
-    setTimeout(()=>{
-      setRequestSubmitted(true);
-    },1000)
-   
-    //  Alert.alert("NEED",SHOW_CLIENT)
+      const payload = {
+        currency_id: currency.id,
+        asset_type_id: assetType?.id,
+        account_id: fromAccount.id
+      };
+      console.log("PAYLOAD==>",payload);
+      
+      useaddAssetFunc(payload)
   };
 
   const handleCloseAddCurrency = () => {
@@ -37,18 +87,23 @@ export const useAddNewCurrencyAccountViewModel = () => {
   };
 
   const handleCloseRequestSubmitted = () => {
-    setRequestSubmitted(false);
+    // setRequestSubmitted(false);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: HOME_ROUTES.HOME }],
+    });
   };
 
   const freezeModalProps = {
     addCurrency: {
       visible: modalAddCurrency,
-      onClose: handleCloseAddCurrency,
-      onConfirm: handleConfirmAddCurrency,
+      onClose: isPending ? null : handleCloseAddCurrency,
+      onConfirm:  handleConfirmAddCurrency,
       title: "Sure, You want to add new currency?",
       marginTopTitle: 30,
       body: "",
       confirmText: "Yes",
+      btnLoader: isPending,
       downConfirmText: "No",
       backImg: Images.addCardGradient,
       iconName: "",
@@ -83,6 +138,20 @@ export const useAddNewCurrencyAccountViewModel = () => {
     handleAddCurrency,
     freezeModalProps,
     toggleDropdown,
-    openDropdown
+    openDropdown,
+    currencyList,
+    accountTypeList,
+    setOpenDropdown,
+    openDropdownsty, 
+    setOpenDropdownSty,
+    fromAccount, 
+    setFromAccount,
+    openDropdownstyToAcc, 
+    setOpenDropdownStyToAcc,
+    getCurrencyAccArray,
+    assetType, 
+    setassetType,
+    isPending
+
   };
 };
