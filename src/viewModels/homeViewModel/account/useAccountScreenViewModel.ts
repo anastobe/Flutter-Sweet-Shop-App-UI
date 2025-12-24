@@ -209,8 +209,8 @@ const onPressCopy = () => {
   const onPressFreeze = () =>{ 
     let payload ={
       status: "frozen",
-      name: currentAccDetail.name,
-      id: currentAccDetail?.id
+      name: currentAccount.name,
+      id: currentAccount?.id
     }
       AccFreezeFunc(payload)
   }

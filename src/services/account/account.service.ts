@@ -20,18 +20,20 @@ export const getNotifications = async (body: any) => {
 export const AccFreeze = async (payload: any) => {
 
   const body = {
-    status: payload.status,
-    name: payload.name
+    status: payload.status
+    // ,
+    // name: payload.name
   };
 
+  console.log("=>services=> AccFreeze", payload);
   const response = await axiosInstance(`/account/${payload.id}`, 'PUT', body, true);
-  console.log("=>services=> AccFreeze", response);
   return response;
 };
 
 
 // 🔹 Delete Account
 export const AccDelete = async (id: any) => {
+  console.log("=>services=> AccDelete", id);
   const response = await axiosInstance(`/account/${id}`, 'DELETE', undefined, false );
   console.log("=>services=> AccDelete", response);
   return response;

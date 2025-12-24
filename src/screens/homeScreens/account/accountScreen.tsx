@@ -278,7 +278,7 @@ const renderSubHeaderStuffs = useCallback(() => {
           bottomSheetRef={vm.editRef}
         >
           <EditAccountPreferences
-            accountName="Primary GBP Wallet"
+            currentAccount={vm?.currentAccount}
             onPressEdit={() => vm.editAccountRef?.current?.open()}
             onPressSave={vm.onPressSave}
             isPendingAccFreeze={vm.isPendingAccFreeze}

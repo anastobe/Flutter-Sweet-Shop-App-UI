@@ -6,7 +6,7 @@ import Images from '../config/images';
 import { handleSize } from '../config/responsiveTheme';
 
 type Props = {
-  accountName?: string;
+  currentAccount?: Object;
   onPressSave?: () => void;
   onPressFreeze?: () => void;
   onPressDelete?: () => void;
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const EditAccountPreferences: React.FC<Props> = ({
-  accountName = "Primary GBP Wallet",
+  currentAccount,
   onPressSave,
   onPressFreeze,
   onPressDelete,
@@ -43,7 +43,7 @@ const EditAccountPreferences: React.FC<Props> = ({
           <View style={styles.accountRow}>
             <Text style={styles.accountLabel}>Account Name</Text>
             <View style={styles.accountRight}>
-              <Text style={styles.accountValue}>{accountName}</Text>
+              <Text style={styles.accountValue}>{currentAccount?.name}</Text>
             </View>
           </View>
 
