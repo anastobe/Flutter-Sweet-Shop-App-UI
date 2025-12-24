@@ -40,6 +40,14 @@ const LoaderOnly = () => {
       )
 };
 
+const LoaderCompleteScreenOnly = () => {
+        return(
+        <View style={styles.container}>
+            <ActivityIndicator size="large" color={THEME.white} />
+        </View>
+      )
+};
+
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
@@ -52,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {LoaderFullScreen,LoaderOnly };
+export {LoaderFullScreen,LoaderOnly,LoaderCompleteScreenOnly };

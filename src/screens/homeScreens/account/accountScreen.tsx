@@ -39,6 +39,7 @@ import TransactionList from '../../../components/transactionList';
 import SmallBtn from '../../../components/smallBtn';
 import { CommonUtils } from '../../../utils';
 import AccountList from '../../../components/accountList';
+import { LoaderCompleteScreenOnly, LoaderOnly } from '../../../components/activityIndicator';
 
 const header_flatlist_BottomSizeAdjust = 260;
 
@@ -326,6 +327,7 @@ const renderSubHeaderStuffs = useCallback(() => {
 
         
       </SafeAreaView>
+      {vm.isFetching && <LoaderCompleteScreenOnly />}
     </ImageBackground>
   );
 };
@@ -489,5 +491,16 @@ const styles = StyleSheet.create({
     separator: {
     height: 10,
   },
+
+  indicatorLoaderBoc: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+
 
 });

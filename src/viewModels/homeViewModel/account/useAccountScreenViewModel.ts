@@ -46,10 +46,11 @@ const [transactions, setTransactions] = useState<any[]>([]);
   const [showbalance, setshowbalance] = useState(false);
 
 
-  const { data: getAccountsAndAssets_Data, refetch: refetchgetAccountsAndAssets, isPending } = getAccountsAndAssets({
+  const { data: getAccountsAndAssets_Data, refetch: refetchgetAccountsAndAssets, isFetching } = getAccountsAndAssets({
     enabled: false, 
     dispatch,
   });
+
 
   //dashboard
   const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isPending: getDashboardDataPending } = getDashboardData({
@@ -358,7 +359,7 @@ function selectAccount(account: any) {
     onPressEditSave,
     getAccountsAndAssets_Data,
     refetchgetAccountsAndAssets,
-    isPending,
+    isFetching,
     currentAccDetail,
     isPendingAccFreeze,
     isPendingAccDelete,
