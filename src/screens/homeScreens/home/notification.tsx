@@ -13,6 +13,7 @@ import { useNotificationModal } from '../../../components/notificationModalConte
 import { useDispatch } from 'react-redux';
 // import { setPendingTransaction } from '../../../Redux/Action/Notification/notificationActions';
 import commonUtils from '../../../utils/common.utils';
+import { enqueueTransaction } from '../../../Redux/Action/Notification/notificationActions';
 
 const Notification = () => {
   
@@ -38,7 +39,7 @@ const Notification = () => {
     const isValid = commonUtils.isTimeRemaining(backendTime);
 
       if (isValid) {
-        // dispatch(setPendingTransaction(item?.data));
+        dispatch(enqueueTransaction(item?.data))
         // openModal({
         //   transaction_amount: item.data.transaction_amount,
         //   transaction_currency_code: item.data.transaction_currency_code,
@@ -61,9 +62,12 @@ const Notification = () => {
 
     return (
       <TouchableOpacity onPress={()=>{ onPressItem(item) }} style={styles.notificationBox}>
-        <Icon name={icon} size={handleSize.f(24)} color={color} style={{ marginRight: 10 }} />
+        <View style={{ width: handleSize.w(38), height: handleSize.h(38), backgroundColor: THEME.primary, justifyContent: "center", alignItems: "center", borderRadius: handleSize.w(8), marginRight: handleSize.w(14) }} >
+          <Icon name={icon} size={handleSize.f(24)} color={color} />
+        </View>
         <View style={{ flex: 1 }}>
           <Text style={styles.message}>{item?.title}</Text>
+          <Text style={styles.message2}>{item?.body}</Text>
           <Text style={styles.time}>{CommonUtils.timeHumanize(item?.created_at)}</Text>
         </View>
       </TouchableOpacity>
@@ -77,7 +81,7 @@ const Notification = () => {
     <MainContainer
       showBackArrow
       pressBackArrow={pressBackArrow}
-      isFlatList
+      // isFlatList
       barStyle="dark-content"
       mainContainerStyle={styles.container}>
       <StatusBarManager
@@ -103,7 +107,7 @@ const Notification = () => {
               }}
               ListFooterComponent={() =>
                 isPending && hasMore ? (
-                  <View>
+                  <View style={{ marginVertical: handleSize.h(10) }} >
                     <LoaderOnly />
                   </View>
                 ) : null
@@ -127,7 +131,12 @@ const styles = StyleSheet.create({
   },
   message: {
     fontSize: FONT_SIZES.onefour,
-    fontFamily: FONTFAMILY.Medium,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+  },
+  message2:{
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Light,
     color: THEME.white,
   },
   messageEmpty:{
@@ -138,9 +147,9 @@ const styles = StyleSheet.create({
     marginTop: handleSize.h(20)
   },
   time: {
-    fontSize: 12,
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
-    marginTop: 4,
   },
   separator: { height: 10 },
 });

@@ -15,7 +15,7 @@ export const useNotificationViewModel = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  //   const [notifications] = useState([
+  //   const [notification] = useState([
   //   { id: '1', type: 'credit', message: 'You received £250.00 from John', time: '2 min ago' },
   //   { id: '2', type: 'debit', message: 'You sent £100.00 to Sarah', time: '10 min ago' },
   //   { id: '3', type: 'failed', message: 'Transaction of £50.00 failed', time: '1 hr ago' },
@@ -71,6 +71,8 @@ export const useNotificationViewModel = () => {
   /* ---------------- LOAD MORE ---------------- */
 
 function onLoadMore() {
+  // console.log("play");
+  // return
   if (isPending || !hasMore) return;
 
   setPage(prevPage => {
@@ -84,30 +86,16 @@ function onLoadMore() {
     navigation.goBack();
   };
 
-  // Logic for icon & color mapping
-  // const getNotificationIconAndColor = (type: string) => {
-  //   switch (type) {
-  //     case 'sent':
-  //       return { icon: 'card-outline', color: 'green' };
-  //     case 'sent':
-  //       return { icon: 'card-outline',  color: 'red' };
-  //     case 'sent':
-  //       return { icon: 'card-outline',  color: 'orange' };
-  //     default:
-  //       return { icon: 'card-outline',  color: '#888' };
-  //   }
-  // };
-
     const getNotificationIconAndColor = (type: string) => {
     switch (type) {
       case 'sent':
-        return { icon: 'card-outline', color: THEME.white };
+        return { icon: 'card-outline', color: THEME.textPrimary };
       case 'sent':
-        return { icon: 'card-outline',  color: THEME.white };
+        return { icon: 'card-outline',  color: THEME.textPrimary };
       case 'sent':
-        return { icon: 'card-outline',  color: THEME.white };
+        return { icon: 'card-outline',  color: THEME.textPrimary };
       default:
-        return { icon: 'card-outline',  color: THEME.white };
+        return { icon: 'card-outline',  color: THEME.textPrimary };
     }
   };
 
