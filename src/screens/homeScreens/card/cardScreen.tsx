@@ -361,8 +361,8 @@ const CardScreen = () => {
         />
 
         <BottomSheet
-          height={300}
-          maxHeightPercent={0.55}   // optional, override for screen
+          height={200}
+          maxHeightPercent={0.33}   // optional, override for screen
           draggable={false}
           openTime={500}
           closeDuration={500}

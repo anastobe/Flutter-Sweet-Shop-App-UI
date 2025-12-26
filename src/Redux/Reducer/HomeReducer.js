@@ -3,7 +3,8 @@ import ActionType from '../Action/ActionType/actionType';
 const initialState = {
   loginUserData: {},
   getCurrencyAccArray: [],
-  beneficiaryArray: []
+  beneficiaryArray: [],
+  refreshCall: Math.random()
 };
 
 export default (state = initialState, action) => {
@@ -25,6 +26,11 @@ export default (state = initialState, action) => {
         ...state,
         beneficiaryArray: action.payload,
       };
+      case ActionType.CARD_SCREEN_REFRESH:
+      return {
+        ...state,
+        refreshCall: action.payload,
+      };
       
 
       case ActionType.LOGOUT:
@@ -32,7 +38,8 @@ export default (state = initialState, action) => {
         ...state,
         loginUserData: {},
         getCurrencyAccArray: [],
-        beneficiaryArray: []
+        beneficiaryArray: [],
+        refreshCall: ""
       };
 
     default:

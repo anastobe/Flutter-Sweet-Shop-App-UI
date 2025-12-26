@@ -1,6 +1,6 @@
 // src/viewModels/homeViewModel/card/useCardScreenViewModel.ts
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
 import {
@@ -22,6 +22,8 @@ import { Toast } from '../../../utils';
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
+
+  const refreshCall = useSelector((state: any) => state?.HomeReducer?.refreshCall)
 
   // UI toggles
   const [getCardsData, setgetCardsData] = useState([]);
@@ -122,9 +124,10 @@ export const useCardScreenViewModel = () => {
 
   useEffect(() => {
     refetchgetCardsData();
-  }, []);
+  }, [refreshCall]);
 
   function refetchgetCardsData() {
+    console.log("play");    
     getCardsFunc({})    
   }
 

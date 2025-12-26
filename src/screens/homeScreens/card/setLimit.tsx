@@ -161,7 +161,7 @@ export default function SetLimits({...props}) {
 
          <BluryModal
             style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-            onClose={() => setModalVisible(false)}
+            onClose={() => isPendingsetSpendLimit ? console.log("api is cal in process") : setModalVisible(false)}
             btnLoader={isPendingsetSpendLimit}
             marginTopTitle={50}
             onConfirm={SaveLimit}
@@ -218,7 +218,7 @@ export default function SetLimits({...props}) {
         // { name: "Business Visa (•••• 1234)--DUMMY" },
         // { name: "Visa Card (•••• 4232)--DUMMY" },
         // ]}
-        dropdownData={getCardsData?.results?.values} 
+        dropdownData={getCardsData} 
         margBtm={15}
         isOpen={openDropdown === 'select_card'}
         onToggleDropdown={() => toggleDropdown('select_card')}

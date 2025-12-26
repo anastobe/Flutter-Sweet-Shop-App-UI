@@ -41,13 +41,13 @@ const ManageOption = ({ style, onPress1, onPress2, backImg }) => {
       >
         <Text style={styles.title}>Manage Cards</Text>
 
-        {Listitem(
+        {/* {Listitem(
           'pin-outline',
           'Pin & Security',
           onPress1,
           'arrow-forward-outline',
           'Generate an instant-use card for safer online payments.'
-        )}
+        )} */}
 
         {Listitem(
           'card-outline',

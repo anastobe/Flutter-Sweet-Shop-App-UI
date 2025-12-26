@@ -20,3 +20,9 @@ export const storeLoginUserData = (res) => {
   };
   };
   
+  export const card_Screen_Refresh = (res) => {
+  return dispatch => {
+      dispatch({type: ActionType.CARD_SCREEN_REFRESH, payload: res });
+  };
+  };
+  

@@ -5,10 +5,13 @@ import { CommonUtils, Toast } from '../../../utils';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { card_Screen_Refresh } from '../../../Redux/Action/Home/HomeActions';
 
 export default function useSetLimitsViewModel({...props}) {
 
   const navigation = useNavigation()
+  const dispatch = useDispatch()
   const [modalVisible, setModalVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [limitType, setLimitType] = useState('Weekly');
@@ -23,7 +26,7 @@ export default function useSetLimitsViewModel({...props}) {
 
   const {mutate: setSpendLimitFunc, isPending: isPendingsetSpendLimit} = setSpendLimit({
     callback: (response: any) => {
-      console.log("setSpendLimit==>",setSpendLimit);
+      dispatch(card_Screen_Refresh(Math.random()))
       props?.navigation.goBack();
     },
   });

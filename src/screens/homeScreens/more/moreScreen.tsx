@@ -97,14 +97,14 @@ const MoreScreen = () => {
         iconRight="arrow-forward-outline"
         onPress={vm.onPresscontact}
       />
-      <CardBox
+      {/* <CardBox
         rotate="-45deg"
         titleLeft="Security"
         iconRight="arrow-forward-outline"
         BL_radius={handleSize.f(10)}
         BR_radius={handleSize.f(10)}
         onPress={vm.onPressSecurity}
-      />
+      /> */}
     </View>
   );
 
