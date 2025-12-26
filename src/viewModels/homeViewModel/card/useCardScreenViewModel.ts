@@ -17,6 +17,7 @@ import { Images } from '../../../config';
 import { HOME_ROUTES } from '../../../constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import { Toast } from '../../../utils';
 
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
@@ -78,7 +79,7 @@ export const useCardScreenViewModel = () => {
   //   dispatch,
   // });
 
-  console.log("res===>",getCardsData);
+  // console.log("res===>",getCardsData);
 
   // current item derived
   const currentItem = getCardsData[currentIndex];
@@ -109,10 +110,13 @@ export const useCardScreenViewModel = () => {
       const rule2 = findRule(getCardsUsageRulesData?.results?.usages, 'allow_ecomm');
       const rule3 = findRule(getCardsUsageRulesData?.results?.usages, 'allow_offline_pin');
       const rule4 = findRule(getCardsUsageRulesData?.results?.usages, 'allow_international_transactions');
-      setAtmSwitch(Boolean(rule?.enabled));
-      setWalletSwitch(rule2?.enabled);
-      setOnlineSwitch(rule3?.enabled);
-      setChipSwitch(rule4?.enabled);
+
+      // console.log("rule=>1234",rule?.enabled,rule2?.enabled,rule3?.enabled,rule4?.enabled);
+      
+      setAtmSwitch((rule?.enabled));
+      setOnlineSwitch(rule2?.enabled);
+      setChipSwitch(rule3?.enabled);
+      setWalletSwitch(rule4?.enabled);
     }
   }, [getCardsUsageRulesData]);
 
@@ -121,8 +125,7 @@ export const useCardScreenViewModel = () => {
   }, []);
 
   function refetchgetCardsData() {
-    getCardsFunc({})
-    
+    getCardsFunc({})    
   }
 
   // Viewability config and handler
@@ -172,8 +175,13 @@ export const useCardScreenViewModel = () => {
     } else if (item.text == 'Replace Card') {
       navigation.navigate('REPLACE_CARD' as any, { cardDetail: currentItem });
     } else if (item.text == 'Methods') {
-      methodsRef?.current?.open();
-      refetchgetCardsUsageRules();
+      if (isPendingupdateUsageRules) {
+        Toast.showToast("Payments methods is loading", '', 'error')
+      }
+      else{
+        methodsRef?.current?.open();
+        refetchgetCardsUsageRules();
+      }
     } else if (item.text == 'Manage') {
       manageRef?.current?.open();
     }
@@ -224,6 +232,32 @@ export const useCardScreenViewModel = () => {
         navigation.navigate(HOME_ROUTES.SET_LIMIT, { cardDetail: currentItem, getCardsData: getCardsData })    
       }
     }, 1000);
+  }
+
+  function updateCardStatuses() {
+    const payload = {
+      card_id: currentItem?.card_id,
+      usage: [
+      { 
+        name: 'allow_atm_withdrawal', 
+        enabled: atmSwitch 
+      },
+      {
+        name: "allow_ecomm",
+        enabled: onlineSwitch
+      },
+      {
+        name: "allow_offline_pin",
+        enabled: chipSwitch
+      },
+      {
+        name: "allow_international_transactions",
+        enabled: walletSwitch
+      }
+        ],
+    };
+    console.log("payload==>",payload);    
+    updateUsageRulesFunc(payload);
   }
 
   return {
@@ -278,6 +312,7 @@ export const useCardScreenViewModel = () => {
     onPressOption,
     updateUsageRulesFunc,
     currentItem,
+    updateCardStatuses,
     // refetchgetCardsData,
   };
 };
