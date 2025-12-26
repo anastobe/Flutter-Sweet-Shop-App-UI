@@ -282,7 +282,7 @@ const renderBalanceCard = () => (
   }
 
   
-  console.log("card_name======>",cards);
+  // console.log("card_name======>",cards);
   
  
 

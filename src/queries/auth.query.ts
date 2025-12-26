@@ -94,20 +94,38 @@ export const freezUnFreezCard = ({callback} : {callback: (res: any) => void}) =>
   });
 };
 
-export const getCards  = (    {
-  enabled,
-  dispatch
-}: {
-  enabled?: boolean;
-  dispatch?: any
-}
-) =>
-  useQuery({ 
-    queryKey: [QueryKey.GET_CARD_DATA],
-    initialData: [],
-    queryFn: ()=> apis.getCards(dispatch),
-    enabled: enabled,
+// export const getCards  = (    {
+//   enabled,
+//   dispatch
+// }: {
+//   enabled?: boolean;
+//   dispatch?: any
+// }
+// ) =>
+//   useQuery({ 
+//     queryKey: [QueryKey.GET_CARD_DATA],
+//     initialData: [],
+//     queryFn: ()=> apis.getCards(dispatch),
+//     enabled: enabled,
 
-    staleTime: 0, // Data will never be considered stale
-    retry: false // Disable retry on failure
+//     staleTime: 0, // Data will never be considered stale
+//     retry: false // Disable retry on failure
+//   });
+
+export const getCards = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.getCards,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+    }  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('getCards error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    }
   });
+};

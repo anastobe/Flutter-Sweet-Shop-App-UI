@@ -21,7 +21,7 @@ export const freezUnFreezCard = async (body: any) => {
   return response;
 };
 
-export const getCards = async () => {
-  const response = await axiosInstance('/card', 'GET', undefined, false); // showSuccessMessage = false
+export const getCards = async (body: any) => {
+  const response = await axiosInstance('/card', 'POST', body, false); // showSuccessMessage = false
   return response;
 };
