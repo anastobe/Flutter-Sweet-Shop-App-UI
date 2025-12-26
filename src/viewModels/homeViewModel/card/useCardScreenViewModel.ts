@@ -106,7 +106,13 @@ export const useCardScreenViewModel = () => {
   useEffect(() => {
     if (getCardsUsageRulesData?.success) {
       const rule = findRule(getCardsUsageRulesData?.results?.usages, 'allow_atm_withdrawal');
+      const rule2 = findRule(getCardsUsageRulesData?.results?.usages, 'allow_ecomm');
+      const rule3 = findRule(getCardsUsageRulesData?.results?.usages, 'allow_offline_pin');
+      const rule4 = findRule(getCardsUsageRulesData?.results?.usages, 'allow_international_transactions');
       setAtmSwitch(Boolean(rule?.enabled));
+      setWalletSwitch(rule2?.enabled);
+      setOnlineSwitch(rule3?.enabled);
+      setChipSwitch(rule4?.enabled);
     }
   }, [getCardsUsageRulesData]);
 

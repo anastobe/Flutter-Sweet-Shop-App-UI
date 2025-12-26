@@ -25,16 +25,16 @@ export default function useReplaceCardViewModel(navigation, props) {
     },
   });
 
-  const { mutate: freezUnFreezCardFunc, isPending: isPendingFreezUnFreezCard } = freezUnFreezCardNoMessage({
-    callback: (response) => {
-      let payload = {
-        card_id: props?.route?.params?.cardDetail?.card_id,
-        emboss_name: firstName,
-        format: "virtual",
-      };
-      useReplaceCardFunc(payload);
-    },
-  });
+  // const { mutate: freezUnFreezCardFunc, isPending: isPendingFreezUnFreezCard } = freezUnFreezCardNoMessage({
+  //   callback: (response) => {
+  //     let payload = {
+  //       card_id: props?.route?.params?.cardDetail?.card_id,
+  //       emboss_name: firstName,
+  //       format: "virtual", 
+  //     };
+  //     useReplaceCardFunc(payload);
+  //   },
+  // });
 
   function pressBackArrow() {
     navigation.goBack();
@@ -45,12 +45,12 @@ export default function useReplaceCardViewModel(navigation, props) {
   };
 
   function openConfirmationModal() {
-    let payload = {
-      card_id: props?.route?.params?.cardDetail?.card_id,
-      status: "lost", //always
-      note: reason,
-    };
-    freezUnFreezCardFunc(payload);
+      let payload = {
+        card_id: props?.route?.params?.cardDetail?.card_id,
+        emboss_name: firstName,
+        format: props?.route?.params?.cardDetail?.format,
+      };
+      useReplaceCardFunc(payload);
   }
 
   function reqReplacement() {
@@ -58,7 +58,14 @@ export default function useReplaceCardViewModel(navigation, props) {
       Toast.showToast("Please Select Reason for Replacement", "", "error");
     } else if (firstName === "") {
       Toast.showToast("Please enter your name", "", "error");
-    } else {
+    }
+    else if ( props?.route?.params?.cardDetail?.card_status == "inactive") {
+      Toast.showToast("Please active your card", "", "error");
+    } 
+    else if ( props?.route?.params?.cardDetail?.card_status == "freeze") {
+      Toast.showToast("Please Unfreeze your card", "", "error");
+    } 
+    else if ( props?.route?.params?.cardDetail?.card_status == "active") {
       setModalVisible(true)
     }
   }
@@ -69,7 +76,7 @@ export default function useReplaceCardViewModel(navigation, props) {
     firstName,
     setFirstName,
     isPending,
-    isPendingFreezUnFreezCard,
+    // isPendingFreezUnFreezCard,
     pressBackArrow,
     reqReplacement,
     toggleDropdown,
@@ -77,6 +84,6 @@ export default function useReplaceCardViewModel(navigation, props) {
     loginUserData,
     modalVisible, 
     setModalVisible,
-    openConfirmationModal,
+    openConfirmationModal
   };
 }

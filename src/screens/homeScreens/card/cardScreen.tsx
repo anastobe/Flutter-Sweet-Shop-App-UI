@@ -341,7 +341,24 @@ const CardScreen = () => {
           onClose={() => {
             const payload = {
               card_id: vm?.currentItem?.card_id,
-              usage: [{ name: 'allow_atm_withdrawal', enabled: vm.atmSwitch }],
+              usage: [
+              { 
+                name: 'allow_atm_withdrawal', 
+                enabled: vm.atmSwitch 
+              },
+              {
+                name: "allow_ecomm",
+                enabled: vm.onlineSwitch
+              },
+              {
+                name: "allow_offline_pin",
+                enabled: vm.chipSwitch
+              },
+              {
+                name: "allow_international_transactions",
+                enabled: vm.walletSwitch
+              }
+               ],
             };
             vm.updateUsageRulesFunc(payload);
           }}
