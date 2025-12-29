@@ -3,14 +3,25 @@ import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
 import { storeAccounts, storeCurrArrayData, storeLoginUserData } from "../../Redux/Action/Home/HomeActions";
 import { storeAccTypeData, storeCountryData, storeCurrenryData } from "../../Redux/Action/More/MoreActions";
 
-
-// 🔹 Get accounts
 export const getAccountsAndAssets = async (dispatch: any) => {
-  const response = await axiosInstance('/wallet', 'GET', undefined, false );
-  if (response?.success && response.results) {
-    dispatch(storeAccounts(response.results[0]?.accounts));
-  } 
-  return response?.results;
+  try {
+    const response = await axiosInstance(
+      '/wallet',
+      'GET',
+      undefined,
+      false
+    );
+
+    if (response?.success && Array.isArray(response?.results)) {
+      const accounts = response.results[0]?.accounts ?? [];
+      dispatch(storeAccounts(accounts));
+    }
+
+    return response?.results ?? [];
+  } catch (error) {
+    console.log('getAccountsAndAssets error:', error);
+    return [];
+  }
 };
 
 export const getNotifications = async (body: any) => {
