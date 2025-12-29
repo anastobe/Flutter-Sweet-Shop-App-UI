@@ -15,7 +15,7 @@ export const useLogin = ({callback} : {callback: (res: any) => void}) => {
 
       if (response.success) {
         dispatch(storeUserToken(response.results))  
-        dispatch(userIsLoggedIn(true))  
+        dispatch(userIsLoggedIn(true))  &&
         callback(response)
     }
   

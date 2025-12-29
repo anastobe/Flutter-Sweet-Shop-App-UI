@@ -4,7 +4,8 @@ const initialState = {
   loginUserData: {},
   getCurrencyAccArray: [],
   beneficiaryArray: [],
-  refreshCall: Math.random()
+  refreshCall: Math.random(),
+  allAccounts: []
 };
 
 export default (state = initialState, action) => {
@@ -31,7 +32,12 @@ export default (state = initialState, action) => {
         ...state,
         refreshCall: action.payload,
       };
-      
+      case ActionType.GET_ACCOUNTS:
+      return {
+        ...state,
+        allAccounts: action.payload,
+      };
+
 
       case ActionType.LOGOUT:
       return {

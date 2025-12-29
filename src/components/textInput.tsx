@@ -106,7 +106,7 @@ const getDisplayName = (item: any) => {
   if (item.first_name || item.last_name)
     return `${item.first_name ?? ''} ${item.last_name ?? ''}`.trim();
 
-  if (item?.currency?.name) return item.currency.name;
+  if (item?.account?.name) return item.account.name;
 
   if (item.name) return item.name;
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { LineChart } from 'react-native-gifted-charts';
 import { handleSize } from '../config/responsiveTheme';
-import { FONT_SIZES, THEME } from '../styles';
+import { FONT_SIZES, FONTFAMILY, THEME } from '../styles';
+import Metrics from '../styles/metrics';
 
 const GradientLineGraph = ({
   marginTop,
@@ -33,7 +34,8 @@ const GradientLineGraph = ({
         maxWidth: handleSize.w(400), // responsive max width
         alignSelf: 'center',
       }}
-    >
+      >
+      {data?.length &&
       <LineChart
         areaChart
         curved
@@ -64,8 +66,20 @@ const GradientLineGraph = ({
         animationDuration={1200}
         hideAxesAndRules
       />
+      }
     </View>
   );
 };
+
+
+const styles = StyleSheet.create({
+  noCards: {
+    color: THEME.white,
+    fontSize: handleSize.f(FONT_SIZES.twozero),
+    fontFamily: FONTFAMILY.Medium,
+    textAlign: "center"
+  }
+
+});
 
 export default GradientLineGraph;

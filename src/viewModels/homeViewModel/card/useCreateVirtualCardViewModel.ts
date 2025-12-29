@@ -15,6 +15,7 @@ export default function useCreateVirtualCardViewModel() {
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
+  const allAccounts = useSelector((state: any) => state?.HomeReducer?.allAccounts)
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [cardName, setCardName] = useState('');
@@ -62,14 +63,14 @@ export default function useCreateVirtualCardViewModel() {
       Toast.showToast('Security Pin Must be 4 Digit', '', 'error');
     } else {
       const payload = {
-        format: 'virtual',
-        card_name: cardName,
-        spending_limits: spendingLimit,
-        limit_type: limitType,
+        format: 'virtual',//
+        card_name: cardName,//
+        spending_limits: spendingLimit,//
+        limit_type: limitType,//
         currency_type: currency.iso_code,
         linked_account: linkedAccount.name,
-        card_desgin: 'steel',
-        pin: pin
+        card_desgin: 'steel',//
+        pin: pin//
       };
 
       console.log("ASdasd=>",payload);
@@ -100,6 +101,7 @@ export default function useCreateVirtualCardViewModel() {
     toggleDropdown,
     getCurrencyAccArray,
     pin, 
-    setPin
+    setPin,
+    allAccounts
   };
 }

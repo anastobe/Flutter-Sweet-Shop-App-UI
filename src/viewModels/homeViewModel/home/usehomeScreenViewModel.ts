@@ -121,6 +121,8 @@ const fetchAllInitialData = async () => {
       apis.getCurrency(dispatch),
       apis.getAssetType(dispatch),
       apis.getCurrencyAccount(dispatch), // ✅ This returns your all accounts array
+      apis.getAccountsAndAssets(dispatch)
+
     ]);    
 
     if (currencyAccountRes?.results) {

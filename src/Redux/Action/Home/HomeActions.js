@@ -26,3 +26,9 @@ export const storeLoginUserData = (res) => {
   };
   };
   
+  
+  export const storeAccounts = (res) => {
+  return dispatch => {
+      dispatch({type: ActionType.GET_ACCOUNTS, payload: res });
+  };
+  };

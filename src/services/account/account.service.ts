@@ -1,13 +1,15 @@
 import axiosInstance from "../https.service"; 
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
-import { storeLoginUserData } from "../../Redux/Action/Home/HomeActions";
+import { storeAccounts, storeCurrArrayData, storeLoginUserData } from "../../Redux/Action/Home/HomeActions";
 import { storeAccTypeData, storeCountryData, storeCurrenryData } from "../../Redux/Action/More/MoreActions";
 
 
 // 🔹 Get accounts
-export const getAccountsAndAssets = async () => {
+export const getAccountsAndAssets = async (dispatch: any) => {
   const response = await axiosInstance('/wallet', 'GET', undefined, false );
-  // console.log("=>services=> getAccounts", response);
+  if (response?.success && response.results) {
+    dispatch(storeAccounts(response.results[0]?.accounts));
+  } 
   return response?.results;
 };
 
