@@ -77,6 +77,8 @@ const AccountScreen = () => {
         }
         // onEndReachedThreshold={0.1}
         // onEndReached={vm.loadMoreTransactions}
+        refreshing={vm.refreshing}
+        onRefresh={vm.onRefresh}
 
         ListHeaderComponent={renderSubHeaderStuffs}
         nestedScrollEnabled

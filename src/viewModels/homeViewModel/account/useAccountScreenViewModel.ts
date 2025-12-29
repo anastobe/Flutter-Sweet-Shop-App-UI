@@ -22,7 +22,7 @@ export const useAccountScreenViewModel = () => {
   const editAccountRef = useRef<any>(null); 
   const flatListRef = useRef<FlatList>(null);
 
-  
+const [refreshing, setRefreshing] = useState(false);
 const [transactions, setTransactions] = useState<any[]>([]);
 // const [page, setPage] = useState(1); 
 // const [hasMore, setHasMore] = useState(true);
@@ -115,6 +115,34 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
     { icon: Images.detail, text: "View Details", onPress: () => manageRef?.current?.open(), width: 22, height: 22 },
     { icon: Images.convert, text: "Convert", onPress: () => navigation.navigate(HOME_ROUTES.CURRENCY_EXCHANGE), width: 22, height: 22 },
   ];
+
+  const onRefresh = async () => {
+  try {
+    setRefreshing(true);
+
+     console.log("🔄 Pull to refresh triggered");
+
+    // 1️⃣ Accounts & Assets refresh
+    await refetchgetAccountsAndAssets();
+
+    // 2️⃣ Agar account already selected hai
+    if (currentAccDetail?.id) {
+      setTransactions([]); // 🔥 reset list
+
+      // 3️⃣ Dashboard refresh
+      await refetchgetDashboardData();
+
+      // 4️⃣ Transactions refresh
+      fetchTransactions(currentAccDetail.id);
+    }
+    
+
+  } catch (e) {
+    console.log('Refresh error', e);
+  } finally {
+    setRefreshing(false);
+  }
+};
 
   const onPressCard = () => navigation.navigate(HOME_ROUTES.ACCOUNT_DETAIL);
 
@@ -220,12 +248,24 @@ const onPressCopy = () => {
 
   const onPressEditSave = () => Alert.alert("NEED",SHOW_CLIENT);
 
+  const saveDatainState = (data: any[] = []) => {
+  const accounts = data?.[0]?.accounts ?? [];
+
+  if (!accounts.length) return;
+
+  setcurrentAccount((prev: any) =>
+    prev?.id === accounts[0]?.id ? prev : accounts[0]
+  );
+
+  setallAccounts_withAsset(accounts);
+};
+
 //this below useeffect save first asset and all accounts and assets
   useEffect(() => {
+    
     if (getAccountsAndAssets_Data?.length) {
-    const firstAccount = getAccountsAndAssets_Data[0]?.accounts[0]    
-     setcurrentAccount(firstAccount)
-     setallAccounts_withAsset(getAccountsAndAssets_Data[0]?.accounts)
+
+      saveDatainState(getAccountsAndAssets_Data)
 
 
   //   if (firstAsset) {
@@ -373,6 +413,9 @@ function selectAccount(account: any) {
     allAccounts_withAsset,
     currentAccount,
     getAccountDetailsText,
+    onRefresh,
+    refreshing,
+    setRefreshing
     // isLoadingMore,
     // loadMoreTransactions,
     // hasMore, 
