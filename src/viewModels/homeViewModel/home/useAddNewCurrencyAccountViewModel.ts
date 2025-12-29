@@ -14,6 +14,7 @@ import { HOME_ROUTES } from "../../../constants";
 export const useAddNewCurrencyAccountViewModel = () => {
   const navigation = useNavigation();
 
+  const allAccounts = useSelector((state: any) => state?.HomeReducer?.allAccounts)
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
   const [openDropdownstyToAcc, setOpenDropdownStyToAcc] = useState(false);
@@ -22,10 +23,7 @@ export const useAddNewCurrencyAccountViewModel = () => {
 
   const [fromAccount, setFromAccount] = useState({
     id: "",
-    available_balance: "",
-    currency_id: "",
-    name: "",
-    iso_code: ""
+    name: ""
   });
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [accountName, setAccountName] = useState("");
@@ -149,6 +147,7 @@ export const useAddNewCurrencyAccountViewModel = () => {
     openDropdownstyToAcc, 
     setOpenDropdownStyToAcc,
     getCurrencyAccArray,
+    allAccounts,
     assetType, 
     setassetType,
     isPending

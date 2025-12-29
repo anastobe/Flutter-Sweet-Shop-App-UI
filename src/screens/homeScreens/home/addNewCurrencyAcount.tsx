@@ -32,6 +32,7 @@ const AddNewCurrencyAcount = () => {
     setFromAccount,
     openDropdownstyToAcc, 
     getCurrencyAccArray,
+    allAccounts,
     setOpenDropdownStyToAcc,
     isPending
 
@@ -56,22 +57,53 @@ const AddNewCurrencyAcount = () => {
           Select a currency to create a new account in your wallet
         </Text>
 
-      <InputDropDownStyle
-          title="Send from"
+      {/* <InputDropDownStyle
+          title="Select Account"
           value={fromAccount} // null = show input box
           // data={getCurrencyAccArray}
-          data={getCurrencyAccArray}
+          data={allAccounts}
           isOpen={openDropdownsty}
           onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
           onSelect={(item: any) => {
-            setFromAccount({
-              id: item?.account?.id,
-              available_balance: item?.available_balance,  //anas comment useless work 
-              currency_id: item?.currency_id,  //anas comment useless work
-              name: item?.account?.name,  //anas comment useless work
-              iso_code: item?.currency?.iso_code,
-            });
+
+            console.log("anas==>",item)
+            return
+
+
+            //             setLinkedAccount({
+            //   id: item?.id,
+            //   name: item?.name,
+            //   iso_code: item?.currency?.iso_code,
+            //   num_code: "",
+            // })
+
+
+            // setLinkedAccount({
+            //   id: item?.id,
+            //   available_balance: item?.available_balance,  //anas comment useless work 
+            //   currency_id: item?.currency_id,  //anas comment useless work
+            //   name: item?.account?.name,  //anas comment useless work
+            //   iso_code: item?.currency?.iso_code,
+            // });
           }}
+        /> */}
+
+
+        <InputField
+          disabled={false} 
+          placeholder="Select Account"
+          value={fromAccount?.name} // null = show input box
+          enableDropdown={true}
+          dropdownData={allAccounts}
+          margBtm={handleSize.h(20)}
+          isOpen={openDropdown === 'linked'}  
+          onToggleDropdown={() => toggleDropdown('linked')}
+          onDropdownSelect={(item: any) =>(
+            setFromAccount({
+              id: item?.id,
+              name: item?.name
+            })
+          )}
         />
 
        <InputField
