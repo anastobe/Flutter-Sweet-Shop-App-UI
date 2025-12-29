@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HOME_ROUTES } from '../../../constants';
 import { CURRENT_ACCOUNT, DATA } from '../../../utils/data';
 import { Alert } from 'react-native';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Images } from '../../../config';
@@ -16,6 +16,7 @@ import { fetchLinkedAccCards, getDashboardData, paymentHistry } from '../../../q
 export const useHomeViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const selectAccountRef = useRef<any>(null);
 
   const [refreshing, setRefreshing] = useState(false);
   const [transactions, setTransactions] = useState<any[]>([]);
@@ -253,6 +254,7 @@ const onSelectCurrency = (asset: any) => {
     firstObject: asset  // only update this one
   }));
   setShowCurrencyDropdown(false);
+  selectAccountRef?.current?.close()
 };
 
 
@@ -287,7 +289,8 @@ const onSelectCurrency = (asset: any) => {
     isPendingfetchLinkedAccCards,
     onRefresh,
     refreshing,
-    setRefreshing
+    setRefreshing,
+    selectAccountRef
     // currencyOptions
 
   };

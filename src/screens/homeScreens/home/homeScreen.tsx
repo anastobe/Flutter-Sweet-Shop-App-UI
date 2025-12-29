@@ -1,7 +1,7 @@
 // src/screens/Home/HomeScreen.tsx
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Pressable, RefreshControl } from 'react-native';
-import { MainContainer } from '../../../components';
+import { BottomSheet, MainContainer } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
 import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -30,6 +30,7 @@ import SmallBtn from '../../../components/smallBtn';
 import TransactionList from '../../../components/transactionList';
 import { HOME_ROUTES } from '../../../constants';
 import { LoaderOnly } from '../../../components/activityIndicator';
+import AccountList from '../../../components/accountList';
 // import * as Keychain from 'react-native-keychain';
 
 const HomeScreen = () => {
@@ -64,7 +65,8 @@ const HomeScreen = () => {
     isPendingfetchLinkedAccCards,
     onRefresh,
     refreshing,
-    setRefreshing
+    setRefreshing,
+    selectAccountRef
 
   } = useHomeViewModel();
 
@@ -135,11 +137,15 @@ const renderBalanceCard = () => (
         </View>
 
         <View style={styles.balanceTop}>
-          <Text style={styles.balanceLabel}>Total Balance</Text>
+          <Text style={styles.balanceLabel}>Choose Account</Text>
 
           <Pressable
             style={styles.currencySelector}
-            onPress={() => setShowCurrencyDropdown(!showCurrencyDropdown)}
+            onPress={() =>
+              selectAccountRef?.current?.open()
+              
+              // setShowCurrencyDropdown(!showCurrencyDropdown)
+              }
           >
             <Text style={styles.currencyText}>
               {assetsList?.firstObject?.currency?.iso_code || "---"}
@@ -151,7 +157,7 @@ const renderBalanceCard = () => (
             />
           </Pressable>
           
-      {showCurrencyDropdown && (
+      {/* {showCurrencyDropdown && (
         <View style={styles.dropdownContainer}>
           <FlatList
             nestedScrollEnabled
@@ -165,13 +171,13 @@ const renderBalanceCard = () => (
               >
                 <Text style={styles.dropdownItemText}>
                   {item.currency.iso_code} 
-                  {/* — {item.available_balance} */}
                 </Text>
               </Pressable>
             )}
           />
         </View>
-      )}
+      )
+      } */}
 
         </View>
       </>
@@ -350,6 +356,45 @@ const ScrollableCards = () => {
          </ScrollView>
        
       </SafeAreaView>
+
+      
+        <BottomSheet
+          height={350} // minimum height
+          maxHeightPercent={0.5} // optional, override for screen
+          draggable={false}
+          bottomSheetRef={selectAccountRef}
+        >
+           <ImageBackground
+            resizeMode="cover"
+            source={Images.addCardGradient}
+            style={[styles.container,{ paddingHorizontal: handleSize.w(16)}]}
+          >
+
+          <Text style={styles.sheetTitle}>Select Account</Text>
+
+          <FlatList
+            bounces={false}
+            data={assetsList?.array}
+            keyExtractor={(item) => item?.id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: handleSize.h(20) }}
+            ItemSeparatorComponent={() => <View style={styles.separator} />}
+            renderItem={({ item, index }) => (              
+              <Pressable 
+                style={styles.dropdownItem}
+                onPress={() => onSelectCurrency(item)}
+              >
+                <Text style={styles.accountName}>
+                  {item.currency.iso_code} {"->"} ( {item.account.name} )
+                </Text>
+              </Pressable>)}
+          />
+
+        </ImageBackground>
+        </BottomSheet>
+
+
+
     </ImageBackground>
   );
 };
@@ -455,10 +500,11 @@ const styles = StyleSheet.create({
   },
 
   dropdownItem: {
-    borderBottomWidth: 0.5,
+    // borderBottomWidth: 0.5,
     justifyContent: 'center',
     paddingLeft: handleSize.w(10),
-    height: handleSize.h(32),
+    height: handleSize.h(40),
+    // backgroundColor: "red"
   },
 
   dropdownItemText: {
@@ -636,4 +682,27 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     marginTop: handleSize.h(4),
   },
+  
+
+  sheetTitle: {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Medium,
+    marginTop: handleSize.h(16),
+    color: THEME.white
+  },
+    separator: {
+    height: 0.6,
+    color: THEME.white,
+    backgroundColor: THEME.white
+    
+  },
+
+  accountName: {
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+    width: Metrics.width-handleSize.w(110),
+
+  },
+  
 });
