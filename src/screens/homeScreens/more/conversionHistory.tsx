@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -18,103 +18,158 @@ import { handleSize } from '../../../config/responsiveTheme';
 
 const ConversionHistory = () => {
   const {  
-    pressBackArrow, 
+    pressBackArrow,
     search,
-    setSearch
+    setSearch,
+
+    fxList,
+    isPending,
+    onLoadMore,
+
+    onSearch,
+    isSearching, // 👈 expose to screen
+
    } = useConversionHistoryViewModel();
 
-   
+  const onEndReachedCalledDuringMomentum = useRef(false);
      function renderFilter() {
        return (
            <InputField
              removeTitle={true}
+             margBtm={15}
              textInputStyle={styles.innerinput}
              imgViewLeft={styles.imgViewLeft}
              imageLeft={'search-outline'}
              imagetintColorLeft={THEME.white}
-            //  image={'search-outline'}
-            //  removeTitle
+             // image={'search-outline'}
              autoCapital={'none'}
              blurOnSubmit={false}
              placeholder="Search"
              value={search}
-             onChangeText={setSearch}
+             onChangeText={onSearch}
              keyboardType={'default'}
              imagetintColor={THEME.white}
              customInpStyle={styles.innerinput}
            />
        );
      }
-
-     const DATA = [
-  {
-    title: "May 21",
-    data: [
-      {
-        id: "1",
-        name: "Freelance Payment",
-        pair: "EUR → USD",
-        amount: "1,000.00",
-        status: "Completed",
-        statusColor: THEME.white,
-        icon: "checkmark-circle-outline",
-      },
-    ],
-  },
-  {
-    title: "May 19",
-    data: [
-      {
-        id: "2",
-        name: "Personal travel conversion",
-        pair: "GBP → EUR",
-        amount: "500.00",
-        status: "Pending",
-        statusColor: THEME.white,
-        icon: "hourglass-outline",
-      },
-    ],
-  },
-];
+     
+    //  const DATA = [
+    //   {
+    //     id: "1",
+    //     name: "Freelance Payment",
+    //     pair: "EUR → USD",
+    //     amount: "1,000.00",
+    //     status: "Completed",
+    //     statusColor: THEME.white,
+    //     icon: "checkmark-circle-outline",
+    //   },
+    //   {
+    //     id: "2",
+    //     name: "Personal travel conversion",
+    //     pair: "GBP → EUR",
+    //     amount: "500.00",
+    //     status: "Pending",
+    //     statusColor: THEME.white,
+    //     icon: "hourglass-outline",
+    //   },
+    //   {
+    //     id: "3",
+    //     name: "Freelance Payment",
+    //     pair: "EUR → USD",
+    //     amount: "1,000.00",
+    //     status: "Completed",
+    //     statusColor: THEME.white,
+    //     icon: "checkmark-circle-outline",
+    //   },
+    //   {
+    //     id: "4",
+    //     name: "Personal travel conversion",
+    //     pair: "GBP → EUR",
+    //     amount: "500.00",
+    //     status: "Pending",
+    //     statusColor: THEME.white,
+    //     icon: "hourglass-outline",
+    //   },
+    //   {
+    //     id: "5",
+    //     name: "Freelance Payment",
+    //     pair: "EUR → USD",
+    //     amount: "1,000.00",
+    //     status: "Completed",
+    //     statusColor: THEME.white,
+    //     icon: "checkmark-circle-outline",
+    //   },
+    //   {
+    //     id: "6",
+    //     name: "Personal travel conversion",
+    //     pair: "GBP → EUR",
+    //     amount: "500.00",
+    //     status: "Pending",
+    //     statusColor: THEME.white,
+    //     icon: "hourglass-outline",
+    //   }
+    // ]
 
 const HistoryList = () => {
   return (
-    <SectionList
-      sections={DATA}
-      keyExtractor={(item) => item.id}
-      renderSectionHeader={({ section: { title } }) => (
-        <Text style={styles.sectionTitle}>{title}</Text>
-      )}
+    <FlatList
+      data={fxList}
+      // data={DATA}
       renderItem={({ item }) => (
         <View style={styles.card}>
           <View>
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.pair}>{item.pair}</Text>
+            <Text style={styles.name}>{item?.purpose}</Text>
+            <Text style={styles.pair}>{item?.from_currency?.iso_code} {"->"} {item?.to_currency?.iso_code}</Text>
 
             <View style={styles.statusRow}>
-              <Icon name={item.icon} size={handleSize.f(18)} color={item.statusColor} />
-              <Text style={[styles.status, { color: item.statusColor }]}>
-                {item.status}
+              {/* <Icon name={item?.icon} size={handleSize.f(18)} color={item?.statusColor} /> */}
+              <Text style={styles.status}>
+                {item?.status}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.amount}>{item.amount}</Text>
+          <Text style={styles.amount}>{item?.amount}</Text>
         </View>
       )}
-    />
-  );
+      showsVerticalScrollIndicator={false}
+      keyExtractor={item => item.id}
+      onEndReachedThreshold={0.3}
+      onMomentumScrollBegin={() => {
+        onEndReachedCalledDuringMomentum.current = false;
+      }}
+      onEndReached={() => {
+
+        console.log("play");
+        
+
+        if (!onEndReachedCalledDuringMomentum.current) {
+          onLoadMore();
+          onEndReachedCalledDuringMomentum.current = true;
+        }
+      }}
+      ListFooterComponent={() =>
+        isPending && fxList.length > 0 ? <LoaderOnly /> : null
+      }
+      ListEmptyComponent={() => {
+        if (isSearching || isPending) {
+          return <LoaderOnly />;
+        }
+
+        return (
+          <Text style={styles.txtEmptyTxt}>
+            No List Found
+          </Text>
+        );
+      }}
+    />);
 };
 
   return (
     <MainContainer
-      showBackArrow={true}
+      showBackArrow
       pressBackArrow={pressBackArrow}
-      isFlatList={true}
-      barStyle="dark-content"
-      // refreshingeffect={true}
-      // onRefresh={onRefresh}
-      // refreshing={isFetchingBeneficiary}
       mainContainerStyle={styles.container}
     >
       <StatusBarManager
@@ -122,7 +177,7 @@ const HistoryList = () => {
         barStyle="light-content" 
       />
 
-      <View style={{ marginHorizontal: 20 }}>
+      <View style={{ paddingHorizontal: handleSize.w(20), flex: 1 }}>
         <Text style={styles.title}>Conversion History</Text>
         <Text style={styles.subtitle}>
           Track all your quick exchange and transfer orders here.
@@ -142,6 +197,7 @@ export default ConversionHistory;
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
 
+
   title: {
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,
@@ -153,28 +209,30 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: handleSize.h(30),
     lineHeight: handleSize.h(20),
+    marginBottom: handleSize.h(10),
+    // marginBottom: handleSize.h(30),
   },
 
-  innerinput: {   
-    height: handleSize.h(46),
-    fontFamily: FONTFAMILY.Regular,
-    fontSize: handleSize.f(FONT_SIZES.onefour),
-    color: THEME.white,
+
+  innerinput: {  
+    height: handleSize.h(56),
     paddingLeft: handleSize.w(20),
+    fontFamily: FONTFAMILY.Regular,
+    fontSize: handleSize.f(FONT_SIZES.onefour), 
+    color: THEME.white,
     justifyContent: "center",
   },
+
   imgViewLeft: {
     width: handleSize.w(35),
-    height: handleSize.h(46),
+    height: handleSize.h(56),
     position: 'absolute',
     left: handleSize.w(5),
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 9999,
   },
-
   sectionTitle: {
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Light,
@@ -209,12 +267,21 @@ const styles = StyleSheet.create({
   },
   status: {
     fontSize: handleSize.f(FONT_SIZES.onefour),
-    marginLeft: handleSize.w(6),
-    fontWeight: "500",
+    // marginLeft: handleSize.w(6),
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
   },
   amount: {
     fontSize: handleSize.f(FONT_SIZES.oneeight),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
   },
+    txtEmptyTxt: {
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    marginBottom: handleSize.h(10),
+    textAlign: 'center',
+  },
+
 });

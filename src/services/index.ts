@@ -49,6 +49,7 @@ import {
 
 import { 
     getBeneficiaryDetail,
+    getFxQuote,
     DeleteBeneficiary,
     AddnewBeneficiaryApi,
     getCoutry,
@@ -70,6 +71,7 @@ const apis = {
   useReplaceCard,
   getUserDetail,
   getBeneficiaryDetail,
+  getFxQuote,
   DeleteBeneficiary,
   AddnewBeneficiaryApi,
   getCoutry,

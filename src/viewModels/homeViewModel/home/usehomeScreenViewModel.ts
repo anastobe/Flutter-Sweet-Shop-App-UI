@@ -17,6 +17,7 @@ export const useHomeViewModel = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const [refreshing, setRefreshing] = useState(false);
   const [transactions, setTransactions] = useState<any[]>([]);
   const [cards, setcards] = useState<any[]>([]);
   const [showbalance, setshowbalance] = useState(false);
@@ -74,6 +75,23 @@ export const useHomeViewModel = () => {
       },
     });
 
+    
+  const onRefresh = async () => {
+  try {
+    setRefreshing(true);
+      await Promise.all([
+        apis.getCurrencyAccount(dispatch),
+        apis.getAccountsAndAssets(dispatch),
+      ]);
+      refreshAccountBasedData()
+  } catch (e) {
+    console.log('Refresh error', e);
+  } finally {
+    setRefreshing(false);
+  }
+};
+
+
   const Sendoption = [ 
     { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency Account`, width: 15, height: 15 },
     { icon: Images.sendMoney, onPress: HOME_ROUTES.MAKE_PAYMENT, text: 'Send Money', width: 20, height: 20 },
@@ -114,7 +132,7 @@ const fetchAllInitialData = async () => {
 
     const [
       userDetailRes,
-      countryRes, currencyRes, assetTypeRes, currencyAccountRes] =
+      countryRes, currencyRes, assetTypeRes, currencyAccountRes, AllAsset_n_AccountsRes] =
     await Promise.all([
       apis.getUserDetail(dispatch),
       apis.getCoutry(dispatch),
@@ -141,17 +159,25 @@ const fetchAllInitialData = async () => {
   }
 };
 
+const refreshAccountBasedData = async () => {
+
+  if (!assetsList?.firstObject?.id) return;
+  fetchTransactions();
+  fetchCard();
+  refetchgetDashboardData();
+};
+
   useEffect(()=>{
     fetchAllInitialData()
+    refreshAccountBasedData();
   },[])
+
 
   useEffect(() => {
   if (assetsList?.firstObject?.id) {
-    fetchTransactions(); // 🔥 reset + reload
-    fetchCard()
-    refetchgetDashboardData()
+    refreshAccountBasedData();
   }
-  }, [assetsList?.firstObject?.id]);
+}, [assetsList?.firstObject?.id]);
 
 
 
@@ -259,6 +285,9 @@ const onSelectCurrency = (asset: any) => {
     getDashboardDataPending,
     cards,
     isPendingfetchLinkedAccCards,
+    onRefresh,
+    refreshing,
+    setRefreshing
     // currencyOptions
 
   };

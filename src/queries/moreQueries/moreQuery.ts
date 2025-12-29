@@ -22,6 +22,26 @@ export const getBeneficiaryDetail = ({
   });
 };
 
+
+
+export const getFxQuote = ({
+  callback,
+}: {
+  callback: (res: any) => void;
+}) => {
+  return useMutation({
+    mutationFn: apis.getFxQuote,
+    onSuccess: (response: any) => {
+      if (response?.success) {
+        callback(response);
+      }
+    },
+    onError: (error: any) => {
+      console.log('getFxQuote error:', error);
+    },
+  });
+};
+
   
 export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();

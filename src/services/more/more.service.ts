@@ -18,6 +18,10 @@ export const getBeneficiaryDetail = async (body: any) => {
   return response;
 };
 
+export const getFxQuote = async (body: any) => {
+  const response = await axiosInstance('/fx', 'POST', body, false);
+  return response;
+};
 
 // Delete a beneficiary
 export const DeleteBeneficiary = async (id: string | number) => {

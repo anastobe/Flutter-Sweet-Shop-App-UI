@@ -1,6 +1,6 @@
 // src/screens/Home/HomeScreen.tsx
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Pressable } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Pressable, RefreshControl } from 'react-native';
 import { MainContainer } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
 import { scale } from 'react-native-size-matters';
@@ -62,6 +62,9 @@ const HomeScreen = () => {
     getDashboardDataPending,
     cards,
     isPendingfetchLinkedAccCards,
+    onRefresh,
+    refreshing,
+    setRefreshing
 
   } = useHomeViewModel();
 
@@ -237,6 +240,9 @@ const renderBalanceCard = () => (
         // onEndReachedThreshold={0.1}
         // onEndReached={loadMoreTransactions}
 
+        // refreshing={refreshing}
+        // onRefresh={onRefresh}
+
         ListHeaderComponent={renderSubHeaderStuffs}
         nestedScrollEnabled
         renderItem={renderItem}
@@ -335,7 +341,11 @@ const ScrollableCards = () => {
         barStyle="light-content" 
       />
 
-         <ScrollView contentContainerStyle={{ marginTop: handleSize.h(10) }}>
+         <ScrollView 
+          refreshControl={(
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            )}
+         contentContainerStyle={{ marginTop: handleSize.h(10) }}>
           {renderTransactionList()}
          </ScrollView>
        
