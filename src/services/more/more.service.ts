@@ -55,3 +55,8 @@ export const AddnewBeneficiaryApi = async (body: any) => {
   const response = await axiosInstance('/beneficiary/create', 'POST', body, false);
   return response;
 };
+
+export const changePassword = async (body: any) => {
+  const response = await axiosInstance('/change-password', 'POST', body, true);
+  return response;
+};

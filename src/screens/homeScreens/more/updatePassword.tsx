@@ -27,6 +27,7 @@ export default function UpdatePassword() {
     rules,
     pressBackArrow,
     onUpdatePress,
+    isPending_changePassword
   } = useUpdatePasswordViewModel();
 
   function renderRule(iconCondition: boolean, txt: string) {
@@ -77,7 +78,7 @@ export default function UpdatePassword() {
       <InputField
         margBtm={handleSize.h(20)}
         textInputStyle={styles.innerinput}
-        image={secure2 ? 'eye-outline' : 'eye-outline'}
+        image={secure2 ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
         imagetintColor={THEME.white}
         secureEntry={secure2}
@@ -98,7 +99,7 @@ export default function UpdatePassword() {
         margTp={handleSize.h(30)}
         margBtm={handleSize.h(10)}
         textInputStyle={styles.innerinput}
-        image={secure3 ? 'eye-outline' : 'eye-outline'}
+        image={secure3 ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
         secureEntry={secure3}
         blurOnSubmit={false}
@@ -110,6 +111,7 @@ export default function UpdatePassword() {
       />
 
       <CustomButton
+        loading={isPending_changePassword}
         btnContSty={styles.forgetTxt}
         title="Update Password"
         onPress={onUpdatePress}

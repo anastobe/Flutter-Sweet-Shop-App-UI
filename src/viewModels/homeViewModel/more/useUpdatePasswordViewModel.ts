@@ -6,6 +6,7 @@ import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Toast } from '../../../utils';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import { AddnewBeneficiaryApi, changePassword } from '../../../queries/moreQueries/moreQuery';
 
 export default function useUpdatePasswordViewModel() {
   const navigation = useNavigation();
@@ -16,6 +17,15 @@ export default function useUpdatePasswordViewModel() {
   const [secure, setSecure] = useState(true);
   const [secure2, setSecure2] = useState(true);
   const [secure3, setSecure3] = useState(true);
+
+  
+    const { mutate: changePasswordFunc, isPending: isPending_changePassword } = changePassword({
+      callback: (response: any) => {
+          if (response?.success) {
+            navigation.goBack()
+          }
+      },
+    });
 
   const rules = {
     minLength: (text: string) => text.length >= 8,
@@ -40,7 +50,11 @@ export default function useUpdatePasswordViewModel() {
       Toast.showToast('Password not match', '', 'error');
     } 
     else { 
-      Alert.alert("NEED",SHOW_CLIENT)
+      let payload ={
+        previousPassword: password,
+        proposedPassword: confirmNewPassword
+      }
+      changePasswordFunc(payload)
     }
   } 
 
@@ -60,5 +74,7 @@ export default function useUpdatePasswordViewModel() {
     rules,
     pressBackArrow,
     onUpdatePress,
+    changePasswordFunc,
+    isPending_changePassword
   };
 }
