@@ -380,6 +380,9 @@ export const useInternationalTransferViewModel = ({...props}) => {
     } else if (enterAmount == "") {
       Toast.showToast('Enter Your Amount', '', 'error'); 
     }
+    else if (parseInt(enterAmount) <= 0) {
+      Toast.showToast('Enter Correct Amount', '', 'error'); 
+    }
      else if (!CommonUtils.RegixNumbersOnly.test(enterAmount)) {
       Toast.showToast('Enter Correct Amount', '', 'error'); 
     }

@@ -93,9 +93,9 @@ export const useBankTransferViewModel = () => {
     } else if (enterAmount == "") {
       Toast.showToast('Enter your amount', '', 'error');
     }
-    // else if (parseInt(enterAmount) <= 0) {
-    //   Toast.showToast('Enter correct amount', '', 'error'); 
-    // }
+    else if (parseInt(enterAmount) <= 0) {
+      Toast.showToast('Enter Correct Amount', '', 'error'); 
+    }
     else if (!CommonUtils.RegixNumbersOnly.test(enterAmount)) {
     Toast.showToast('Enter correct amount', '', 'error'); 
   }
