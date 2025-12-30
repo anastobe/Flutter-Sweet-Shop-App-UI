@@ -408,10 +408,18 @@ export const useInternationalTransferViewModel = ({...props}) => {
 
   function onClose(status: boolean) {
       if (status) {
+        setopen(false)
+        paymentconfrm?.current?.close()
         setTimeout(() => {
-          setopen(false)
-        }, 1000); 
-        navigation.navigate(HOME_ROUTES.TABSTACK, { screen: "HomeStack" });
+
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
+        // });
+
+        navigation.navigate(HOME_ROUTES.MAKE_PAYMENT)
+
+        }, 500); 
       } else {
         setopen(false)
       }

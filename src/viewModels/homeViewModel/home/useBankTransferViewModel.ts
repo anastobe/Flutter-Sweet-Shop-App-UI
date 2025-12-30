@@ -93,6 +93,9 @@ export const useBankTransferViewModel = () => {
     } else if (enterAmount == "") {
       Toast.showToast('Enter your amount', '', 'error');
     }
+    // else if (parseInt(enterAmount) <= 0) {
+    //   Toast.showToast('Enter correct amount', '', 'error'); 
+    // }
     else if (!CommonUtils.RegixNumbersOnly.test(enterAmount)) {
     Toast.showToast('Enter correct amount', '', 'error'); 
   }
@@ -129,16 +132,34 @@ export const useBankTransferViewModel = () => {
     // Alert.alert("NEED",SHOW_CLIENT)
   };
 
-  function onClose() {
-      setTimeout(() => {
-        setopen(false)
-      }, 1000); 
-      navigation.reset({
-        index: 0,
-        routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
-      });
+  // function onClose() {
+  //     setTimeout(() => {
+  //       setopen(false)
+  //     }, 1000); 
+  //     navigation.reset({
+  //       index: 0,
+  //       routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
+  //     });
 
-      // navigation.navigate(HOME_ROUTES.TABSTACK, { screen: "HomeStack" });
+  //     // navigation.navigate(HOME_ROUTES.TABSTACK, { screen: "HomeStack" });
+  //   }
+    
+    function onClose(status: boolean) {
+      if (status) {
+        setopen(false)
+        setTimeout(() => {
+
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
+        // });
+
+        navigation.navigate(HOME_ROUTES.MAKE_PAYMENT)
+
+        }, 500); 
+      } else {
+        setopen(false)
+      }
     }
 
   const toggleDropdown = (key: any) => {
