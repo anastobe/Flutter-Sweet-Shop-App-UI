@@ -31,6 +31,7 @@ export const useHomeViewModel = () => {
 
   const loader = useSelector((state: any) => state?.AuthReducer?.loader);
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
 
   
@@ -290,7 +291,8 @@ const onSelectCurrency = (asset: any) => {
     onRefresh,
     refreshing,
     setRefreshing,
-    selectAccountRef
+    selectAccountRef,
+    userData
     // currencyOptions
 
   };

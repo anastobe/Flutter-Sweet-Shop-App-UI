@@ -14,7 +14,7 @@ import { handleSize } from '../../../config/responsiveTheme';
 const Profile = () => {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+
 
   const {
     profile,
@@ -33,6 +33,7 @@ const Profile = () => {
   function pressBackArrow() {
     navigation.goBack();
   }
+
 
   function renderProfileFields() {
     return (

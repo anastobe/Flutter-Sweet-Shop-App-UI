@@ -35,6 +35,7 @@ import AccountList from '../../../components/accountList';
 
 const HomeScreen = () => {
   const {
+    userData,
     Sendoption,
     DATA,
     CURRENT_ACCOUNT,
@@ -92,9 +93,15 @@ const HomeScreen = () => {
         {/* <Text 
         numberOfLines={1} ellipsizeMode="tail"
         style={styles.titlesub}>{personal_customers?.first_name || "" + " " + personal_customers?.last_name || "" }</Text> */}
-                <Text 
+
+        <Text 
         numberOfLines={1} ellipsizeMode="tail"
-        style={styles.titlesub}>Alex!</Text>
+        style={styles.titlesub}>{`${userData?.first_name + " " + userData?.last_name }`}</Text>
+
+
+                {/* <Text 
+        numberOfLines={1} ellipsizeMode="tail"
+        style={styles.titlesub}>Alex!</Text> */}
       </View>
 
       <View style={styles.headerRight}>
@@ -103,7 +110,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
           <TouchableOpacity style={styles.titlePicBack} onPress={handleNavigateProfile} >
           <Text style={styles.titlePic}>
-           {CommonUtils.getInitials(personal_customers?.first_name + " " + personal_customers?.last_name)}
+           {CommonUtils.getInitials(`${userData?.first_name + " " + userData?.last_name }`)}
           </Text>
           </TouchableOpacity>
       </View>

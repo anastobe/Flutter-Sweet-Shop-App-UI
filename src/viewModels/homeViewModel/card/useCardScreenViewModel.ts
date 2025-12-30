@@ -190,9 +190,34 @@ export const useCardScreenViewModel = () => {
     }
   }
 
+  // function renderCardFeature() {
+  //   return [
+  //     { icon: Images.freeze, text: currentItem?.card_status == 'freeze' || currentItem?.card_status == 'inactive' ? 'Unfreeze Card' : 'Freeze Card', width: 22, height: 22 },
+  //     { icon: Images.replace, text: 'Replace Card', width: 22, height: 22 },
+  //     { icon: Images.methods, text: 'Methods', width: 22, height: 22 },
+  //     { icon: Images.manage, text: 'Manage', width: 22, height: 22 },
+  //   ];
+  // }
+
+  const getCardActionText = (cardStatus?: string) => {
+  switch (cardStatus) {
+    case 'inactive':
+      return 'Active Card';
+
+    case 'active':
+      return 'Freeze Card';
+
+    case 'freeze':
+      return 'Unfreeze Card';
+
+    default:
+      return '';
+  }
+};
+
   function renderCardFeature() {
     return [
-      { icon: Images.freeze, text: currentItem?.card_status == 'freeze' || currentItem?.card_status == 'inactive' ? 'Unfreeze Card' : 'Freeze Card', width: 22, height: 22 },
+      { icon: Images.freeze, text: getCardActionText(currentItem?.card_status), width: 22, height: 22 },
       { icon: Images.replace, text: 'Replace Card', width: 22, height: 22 },
       { icon: Images.methods, text: 'Methods', width: 22, height: 22 },
       { icon: Images.manage, text: 'Manage', width: 22, height: 22 },

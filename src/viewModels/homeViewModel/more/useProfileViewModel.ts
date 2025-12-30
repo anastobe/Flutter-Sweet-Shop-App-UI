@@ -9,14 +9,15 @@ import { THEME } from '../../../styles';
 const useProfileViewModel = () => {
 
   const dispatch = useDispatch();
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData)
-   const personal_customers = loginUserData?.personal_customers[0]
+  //  const personal_customers = loginUserData?.personal_customers[0]
 
   const [profile, setProfile] = useState<string | null>(null);
-  const [name, setName] = useState(`${personal_customers?.first_name + " " + personal_customers?.last_name }`);
-  const [username, setUsername] = useState((`${personal_customers?.first_name}`));
-  const [email, setEmail] = useState(`${loginUserData?.email}`);
-  const [phone, setPhone] = useState(`${loginUserData?.telephone}`);
+  const [name, setName] = useState(`${userData?.first_name + " " + userData?.last_name }`);
+  const [username, setUsername] = useState((`${userData?.first_name}`));
+  const [email, setEmail] = useState(`${userData?.email}`);
+  const [phone, setPhone] = useState(loginUserData?.telephone);
 
   // ✅ Image Picker
   function openImagePicker() {
