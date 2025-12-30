@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useFXConversion } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
-import { Toast } from "../../../utils";
+import { CommonUtils, Toast } from "../../../utils";
 
 export default function useCurrencyExchangeViewModel({...props}) {
   const navigation = useNavigation();
@@ -85,6 +85,9 @@ export default function useCurrencyExchangeViewModel({...props}) {
       else if (amount == "" ) {
         return Toast.showToast('Enter amount', '', 'error');
       } 
+      else if (!CommonUtils.RegixNumbersOnly.test(amount)) {
+          Toast.showToast('Enter correct amount', '', 'error'); 
+        }
       else if (parseInt(amount) <= 0 ) {
         return Toast.showToast('Enter Correct amount', '', 'error');
       } 
