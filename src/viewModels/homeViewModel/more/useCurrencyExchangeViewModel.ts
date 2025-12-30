@@ -15,6 +15,8 @@ export default function useCurrencyExchangeViewModel({...props}) {
   // const [openDropdownstyToAcc, setOpenDropdownStyToAcc] = useState(false);
   const [open, setopen] = useState(false);
   const [autoFocused, setautoFocused] = useState(false);
+  const [countdown, setCountdown] = useState<number>(0);
+  const countdownRef = useRef<NodeJS.Timeout | null>(null);
 
   const [youWillReceive, setYouWillReceive] = useState('');
   const [fxInfo, setFxInfo] = useState({
@@ -22,6 +24,7 @@ export default function useCurrencyExchangeViewModel({...props}) {
     fee: '',
     validFor: '',
     settlementAmount: '',
+    quoteId: ''
   });
 
   const [fromCurrency, setfromCurrency] = useState({
@@ -53,9 +56,14 @@ export default function useCurrencyExchangeViewModel({...props}) {
           fee: fx.fxFeeAmount?.toString(),
           validFor: `${fx.validFor} sec`,
           settlementAmount: fx.settlementAmount?.toString(),
+          quoteId: fx.quoteId
         });
 
         setYouWillReceive(fx.settlementAmount?.toString());
+        
+        // 🔥 START COUNTDOWN
+        startCountdown(Number(fx.validFor));
+
       } 
 
       // if (res?.success) {
@@ -108,6 +116,51 @@ export default function useCurrencyExchangeViewModel({...props}) {
 
   };
 
+  useEffect(() => {
+    return () => {
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+      }
+    };
+  }, []);
+
+  const reFetchFXRate = () => {
+  const payload = {
+    itemsToQuote: [
+      {
+        fromCurrency: fromCurrency.iso_code,
+        toCurrency: toCurrency.iso_code,
+        amount: amount
+      }
+    ]
+  };
+
+  useFXConversionFunc(payload);
+};
+
+const startCountdown = (seconds: number) => {
+  // clear old timer
+  if (countdownRef.current) {
+    clearInterval(countdownRef.current);
+  }
+
+  setCountdown(seconds);
+
+  countdownRef.current = setInterval(() => {
+    setCountdown(prev => {
+      if (prev <= 1) {
+        clearInterval(countdownRef.current!);
+        countdownRef.current = null;
+
+        // 🔁 HIT API AGAIN WHEN TIMER ENDS
+        reFetchFXRate();
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+};
+
 
 
   const pressBackArrow = () => navigation.goBack();
@@ -138,7 +191,8 @@ export default function useCurrencyExchangeViewModel({...props}) {
     youWillReceive, 
     setYouWillReceive,
     fxInfo, 
-    setFxInfo
+    setFxInfo,
+    countdown
 
   };
 };

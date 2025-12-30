@@ -52,7 +52,8 @@ const CurrencyExchange = ({ ...props }) => {
     youWillReceive, 
     setYouWillReceive,
     fxInfo, 
-    setFxInfo
+    setFxInfo,
+    countdown
 
   } = useCurrencyExchangeViewModel(props);
 
@@ -62,7 +63,14 @@ const CurrencyExchange = ({ ...props }) => {
 
     <InfoRow icon="card-outline" label="Exchange Rate" value={isPendinguseFXConversion ? "...loading" : fxInfo.rateText || 0} />
     <InfoRow icon="add-outline" label="Fee" value={isPendinguseFXConversion ? "...loading" : fxInfo.fee || 0} />
-    <InfoRow icon="time-outline" label="Rate Valid For" value={isPendinguseFXConversion ? "...loading" :fxInfo.validFor || 0} />
+    {/* <InfoRow icon="time-outline" label="Rate Valid For" value={isPendinguseFXConversion ? "...loading" :fxInfo.validFor || 0} /> */}
+
+<InfoRow
+  icon="time-outline"
+  label="Rate Valid For"
+  value={isPendinguseFXConversion ? "...loading" : `${countdown} sec` || 0}
+  // value={countdown > 0 ? `${countdown} sec` : 'Refreshing...'}
+/>
 
     </View>
   );
@@ -161,27 +169,6 @@ const CurrencyExchange = ({ ...props }) => {
       margBtm={handleSize.h(15)}
     />
 
-    {renderCardDetails()}
-
-    <InputField
-      margTp={20}
-      editable={false}
-      disabled={false}
-      renderRightInput={renderRightInputTextOnly}
-      autoCapital={'none'}
-      blurOnSubmit={false}
-      placeholder="You will Receive"
-      // value={youWillReceive}
-      onChangeText={setYouWillReceive}
-      keyboardType={'numeric'}
-      margBtm={10}
-    />
-
-    </View>
-  );
-
-  const renderBtn = () => (
-    <>
     <CustomButton
       btnContSty={styles.forgetTxt}
       title="Get Rate"
@@ -189,14 +176,48 @@ const CurrencyExchange = ({ ...props }) => {
       onPress={onPressBtn}
       />
     
+    {fxInfo.quoteId ?
+    <View>
+      {renderCardDetails()}
+      <InputField
+        margTp={20}
+        editable={false}
+        disabled={false}
+        renderRightInput={renderRightInputTextOnly}
+        autoCapital={'none'}
+        blurOnSubmit={false}
+        placeholder="You will Receive"
+        // value={youWillReceive}
+        onChangeText={setYouWillReceive}
+        keyboardType={'numeric'}
+        margBtm={10}
+      />
+
+      
     <CustomButton
       btnContSty={styles.forgetTxt2}
       title="Create Payment"
       loading={false}
       onPress={onPressBtn2}
       />
-    </>
+
+    </View>
+    : null}
+
+    </View>
   );
+
+  // const renderBtn = () => (
+  //   <>
+    
+  //   <CustomButton
+  //     btnContSty={styles.forgetTxt2}
+  //     title="Create Payment"
+  //     loading={false}
+  //     onPress={onPressBtn2}
+  //     />
+  //   </>
+  // );
 
   return (
     <MainContainer
@@ -218,7 +239,7 @@ const CurrencyExchange = ({ ...props }) => {
           your payment.
         </Text>
         {renderInput()}
-        {renderBtn()}
+        {/* {renderBtn()} */}
       </View>
     </MainContainer>
   );

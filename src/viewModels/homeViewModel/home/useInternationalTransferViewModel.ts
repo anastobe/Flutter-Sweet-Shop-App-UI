@@ -205,6 +205,9 @@ export const useInternationalTransferViewModel = ({...props}) => {
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
+
+  const [countdown, setCountdown] = useState<number>(0);
+  const countdownRef = useRef<NodeJS.Timeout | null>(null);
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
   const [openDropdownstyToAcc, setOpenDropdownStyToAcc] = useState(false);
   const [open, setopen] = useState(false);
@@ -268,6 +271,9 @@ export const useInternationalTransferViewModel = ({...props}) => {
             total_After_Fee: rateObj?.settlementAmount?.toString() ?? "",
             Exchange_Rate_Live: `${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`
           });
+
+          // 🔥 START COUNTDOWN
+          startCountdown(Number(rateObj.validFor));
         }
       }
     },
@@ -345,6 +351,54 @@ export const useInternationalTransferViewModel = ({...props}) => {
     debouncedFetchFxRate();  // <-- THIS IS IMPORTANT    
   }
 }, [fromAccount?.id, beneficiary.beneficiary_id, enterAmount]);
+
+
+
+  useEffect(() => {
+    return () => {
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+      }
+    };
+  }, []);
+
+  const reFetchFXRate = () => {
+  const payload = {
+    itemsToQuote: [
+      {
+        fromCurrency: fromAccount.iso_code,
+        toCurrency: beneficiary.iso_code,
+        amount: enterAmount
+      }
+    ]
+  };
+
+  useFXConversionFunc(payload);
+};
+
+const startCountdown = (seconds: number) => {
+  // clear old timer
+  if (countdownRef.current) {
+    clearInterval(countdownRef.current);
+  }
+
+  setCountdown(seconds);
+
+  countdownRef.current = setInterval(() => {
+    setCountdown(prev => {
+      if (prev <= 1) {
+        clearInterval(countdownRef.current!);
+        countdownRef.current = null;
+
+        // 🔁 HIT API AGAIN WHEN TIMER ENDS
+        reFetchFXRate();
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+};
+
 
   const pressBackArrow = () => navigation.goBack();
 
@@ -474,7 +528,8 @@ export const useInternationalTransferViewModel = ({...props}) => {
     payment_method_id, 
     setpayment_method_id,
     autoFocusedpaymentTypes, 
-    setautoFocusedpaymentTypes
+    setautoFocusedpaymentTypes,
+    countdown
   
   };
 };

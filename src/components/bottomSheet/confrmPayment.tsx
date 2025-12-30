@@ -6,8 +6,10 @@ import { Images } from '../../config';
 import CustomButton from '../customButton';
 import { handleSize } from '../../config/responsiveTheme';
 import { Image } from 'react-native';
+import Icon from "react-native-vector-icons/Ionicons";
 
 type Props = {
+  countdown: number;
   type: string,
   fromAccount:Object,
   toAccount:Object,
@@ -27,7 +29,11 @@ type Props = {
 const InfoRow = ({ icon, label, value }) => (
   <View style={styles.infoRow}>
     <View style={styles.infoLeft}>
-      <Image tintColor={THEME.primary} source={icon} style={styles.infoIcon} resizeMode="contain" />
+      {icon == "time-outline" ?
+        <Icon name={icon} size={handleSize.f(20)} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />
+      :
+        <Image source={icon} style={styles.infoIcon} resizeMode="contain" />
+      }
       <Text style={styles.label}>{label}</Text>
     </View>
     <Text style={styles.value}>{value}</Text>
@@ -36,6 +42,7 @@ const InfoRow = ({ icon, label, value }) => (
 
 
 const ConfrmPayment: React.FC<Props> = ({ 
+  countdown,
     type,
     fromAccount,
     toAccount,
@@ -63,6 +70,13 @@ const ConfrmPayment: React.FC<Props> = ({
             <InfoRow icon={Images.add} label="Conversion Fee" value={loading? "...loading" :convertrate.conversion_Fee} />
             <InfoRow icon={Images.add} label="Total After Fee" value={loading? "...loading" :convertrate.total_After_Fee} />
             <InfoRow icon={Images.exchangeRate} label="Exchange Rate (Live)" value={loading? "...loading" :convertrate.Exchange_Rate_Live} />
+            <InfoRow
+              icon="time-outline"
+              label="Rate Valid For"
+              value={loading ? "...loading" : `${countdown} sec` || 0}
+              // value={countdown > 0 ? `${countdown} sec` : 'Refreshing...'}
+            />
+
         </View>
 
         {loading ? null : <CustomButton

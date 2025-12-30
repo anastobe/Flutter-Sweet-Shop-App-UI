@@ -499,7 +499,11 @@ import Metrics from "../../../styles/metrics";
 const InfoRow = ({ icon, label, value }) => (
   <View style={styles.infoRow}>
     <View style={styles.infoLeft}>
-      <Image source={icon} style={styles.infoIcon} resizeMode="contain" />
+     {icon == "time-outline" ?
+        <Icon name={icon} size={handleSize.f(20)} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />
+      :
+        <Image source={icon} style={styles.infoIcon} resizeMode="contain" />
+      }
       <Text style={styles.label}>{label}</Text>
     </View>
     <Text style={styles.value}>{value}</Text>
@@ -550,6 +554,7 @@ const InternationalTransfer = ({...props}) => {
     setpayment_method_id,
     autoFocusedpaymentTypes, 
     setautoFocusedpaymentTypes,
+    countdown
 
   } = useInternationalTransferViewModel(props);
  
@@ -700,6 +705,14 @@ const InternationalTransfer = ({...props}) => {
             <InfoRow icon={Images.add} label="Conversion Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.conversion_Fee} />
             <InfoRow icon={Images.add} label="Total After Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.total_After_Fee} />
             <InfoRow icon={Images.exchangeRate} label="Exchange Rate (Live)" value={isPendinguseFXConversion ? "...loading" :convertrate.Exchange_Rate_Live} />
+           
+           {convertrate?.quoteId && <InfoRow
+              icon="time-outline"
+              label="Rate Valid For"
+              value={isPendinguseFXConversion ? "...loading" : `${countdown} sec` || 0}
+              // value={countdown > 0 ? `${countdown} sec` : 'Refreshing...'}
+            />}
+           
            </View>
 
           {/* Button */}
@@ -722,6 +735,7 @@ const InternationalTransfer = ({...props}) => {
          closeDuration={500}
          bottomSheetRef={paymentconfrm}
          children={<ConfrmPayment
+              countdown={countdown}
               type={"international"}
               fromAccount={fromAccount}
               toAccount={beneficiary}

@@ -32,6 +32,8 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     Exchange_Rate_Live: "0"
   });
   
+  const [countdown, setCountdown] = useState<number>(0);
+  const countdownRef = useRef<NodeJS.Timeout | null>(null);
   const [note, setnote] = useState(""); 
   const [autofocusAmount, setautofocusAmount] = useState(false); 
   const [autofocusnote, setautofocusnote] = useState(false); 
@@ -81,10 +83,14 @@ export const useMyAccountTransferViewModel = ({...props}) => {
         if (rateObj) {
           setconvertrate({
             quoteId: rateObj?.quoteId,
-            conversion_Fee: "£2.00", // you can update based on API
+            conversion_Fee: rateObj?.fxFeeAmount, // you can update based on API
             total_After_Fee: rateObj?.settlementAmount?.toString() ?? "",
             Exchange_Rate_Live: `${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`
           });
+
+          // 🔥 START COUNTDOWN
+          startCountdown(Number(rateObj.validFor));
+
         }
       }
     },
@@ -143,7 +149,7 @@ export const useMyAccountTransferViewModel = ({...props}) => {
       
   
       useFXConversionFunc(payload)
-  
+      
 
     } catch (e) {
       console.log("FX API ERROR =>", e);
@@ -162,6 +168,53 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     debouncedFetchFxRate();  // <-- THIS IS IMPORTANT    
   }
 }, [fromAccount?.id, toAccount?.id, enterAmount]);
+
+
+  useEffect(() => {
+    return () => {
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+      }
+    };
+  }, []);
+
+  const reFetchFXRate = () => {
+  const payload = {
+    itemsToQuote: [
+      {
+        fromCurrency: fromAccount.iso_code,
+        toCurrency: toAccount.iso_code,
+        amount: enterAmount
+      }
+    ]
+  };
+
+  useFXConversionFunc(payload);
+};
+
+const startCountdown = (seconds: number) => {
+  // clear old timer
+  if (countdownRef.current) {
+    clearInterval(countdownRef.current);
+  }
+
+  setCountdown(seconds);
+
+  countdownRef.current = setInterval(() => {
+    setCountdown(prev => {
+      if (prev <= 1) {
+        clearInterval(countdownRef.current!);
+        countdownRef.current = null;
+
+        // 🔁 HIT API AGAIN WHEN TIMER ENDS
+        reFetchFXRate();
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+};
+
 
   const pressBackArrow = () => navigation.goBack();
 
@@ -294,7 +347,8 @@ export const useMyAccountTransferViewModel = ({...props}) => {
     payment_method_id, 
     setpayment_method_id,
     autoFocusedpaymentTypes, 
-    setautoFocusedpaymentTypes
+    setautoFocusedpaymentTypes,
+    countdown
   
   };
 };
