@@ -137,7 +137,7 @@ const renderBalanceCard = () => (
         </View>
 
         <View style={styles.balanceTop}>
-          <Text style={styles.balanceLabel}>Choose Account</Text>
+          <Text style={styles.balanceLabel}>Choose Assets</Text>
 
           <Pressable
             style={styles.currencySelector}
@@ -370,7 +370,7 @@ const ScrollableCards = () => {
             style={[styles.container,{ paddingHorizontal: handleSize.w(16)}]}
           >
 
-          <Text style={styles.sheetTitle}>Select Account</Text>
+          <Text style={styles.sheetTitle}>Select Assets</Text>
 
           <FlatList
             bounces={false}
