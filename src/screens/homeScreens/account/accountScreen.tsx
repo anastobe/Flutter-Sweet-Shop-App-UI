@@ -307,6 +307,7 @@ const renderSubHeaderStuffs = useCallback(() => {
           <FlatList
             data={vm?.allAccounts_withAsset}
             keyExtractor={(item) => item?.id}
+            scrollEnabled
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
             renderItem={({ item, index }) => (
