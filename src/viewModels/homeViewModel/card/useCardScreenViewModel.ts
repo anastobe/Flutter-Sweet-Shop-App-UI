@@ -18,6 +18,7 @@ import { HOME_ROUTES } from '../../../constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import { Toast } from '../../../utils';
+import { CARD_STATUS } from '../../../utils/data';
 
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,8 @@ export const useCardScreenViewModel = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [modalVisibleUnfreez, setmodalVisibleUnfreez] = useState(false);
+  const [modalVisibleActive, setmodalVisibleActive] = useState(false);
+
 
   // refs for bottom sheets (exposed so View can attach)
   const AddCardRef = useRef<any>(null);
@@ -54,6 +57,7 @@ export const useCardScreenViewModel = () => {
         refetchgetCardsData();
         setModalVisible(false);
         setmodalVisibleUnfreez(false);
+        setmodalVisibleActive(false)
       },
     });
 
@@ -63,6 +67,7 @@ export const useCardScreenViewModel = () => {
         refetchgetCardsData();
         setModalVisible(false);
         setmodalVisibleUnfreez(false);
+        setmodalVisibleActive(false)
       },
     });
 
@@ -153,6 +158,10 @@ export const useCardScreenViewModel = () => {
     }, 1200);
   };
 
+                // modalVisible = active
+              // modalVisibleUnfreez = freeze
+              // modalVisibleActive = inactive
+
   function openFreezCard() {
     if (currentItem?.card_status == 'active')  {
       setModalVisible(true);
@@ -160,8 +169,8 @@ export const useCardScreenViewModel = () => {
     else if (currentItem?.card_status == 'freeze')  {
       setmodalVisibleUnfreez(true);
     }
-    else {
-      setmodalVisibleUnfreez(true);
+    else if (currentItem?.card_status == 'inactive')  {
+      setmodalVisibleActive(true);
     }
   }
 
@@ -172,8 +181,7 @@ export const useCardScreenViewModel = () => {
 
   function onPressfeature(item: any, navigation: any) {
     if (!currentItem) return;
-
-    if (item.text == 'Freeze Card' || item.text == 'Unfreeze Card') {
+    if (item.text == CARD_STATUS.Freeze_Card || item.text == CARD_STATUS.Unfreeze_Card || item.text ==  CARD_STATUS.Active_Card) {
       openFreezCard();
     } else if (item.text == 'Replace Card') {
       navigation.navigate('REPLACE_CARD' as any, { cardDetail: currentItem });
@@ -202,13 +210,13 @@ export const useCardScreenViewModel = () => {
   const getCardActionText = (cardStatus?: string) => {
   switch (cardStatus) {
     case 'inactive':
-      return 'Active Card';
+      return CARD_STATUS.Active_Card;
 
     case 'active':
-      return 'Freeze Card';
+      return CARD_STATUS.Freeze_Card;
 
     case 'freeze':
-      return 'Unfreeze Card';
+      return CARD_STATUS.Unfreeze_Card;
 
     default:
       return '';
@@ -341,6 +349,8 @@ export const useCardScreenViewModel = () => {
     updateUsageRulesFunc,
     currentItem,
     updateCardStatuses,
+    modalVisibleActive, 
+    setmodalVisibleActive
     // refetchgetCardsData,
   };
 };

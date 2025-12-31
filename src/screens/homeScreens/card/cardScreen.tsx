@@ -239,6 +239,7 @@ const CardScreen = () => {
            {renderCardFeatureButtons()}
            {TransactionList()}
            {/* Modals */}
+
            <Modal
              isVisible={vm.modalVisible}
              isKeyboardAvoidingView={true}
@@ -290,6 +291,31 @@ const CardScreen = () => {
              }
              onClose={() => {}}
            />
+
+           <Modal
+             isVisible={vm.modalVisibleActive}
+             isKeyboardAvoidingView={true}
+             children={
+               <BluryModal
+                showCancelBtn={false}
+                 style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+                 backImg={Images.addCardGradient}
+                 visible={vm.modalVisibleActive}
+                 btnLoader={vm.isPendingfreezUnFreezCard}
+                 onClose={() => vm.setmodalVisibleActive(false)}
+                 onConfirm={() => vm.freezCardApi('active')}
+                 title={'Card is Inactive'}
+                 body={
+                   'Your card is currently Inactive for security reasons. Tap below to unfreeze it instantly and resume spending.'
+                 }
+                 showSubBody={false}
+                 confirmText={'Active Card'}
+                 downConfirmText={'Cancel'}
+               />
+             }
+             onClose={() => {}}
+           />
+
          </ScrollView>
     
          {renderNearestAtm()}

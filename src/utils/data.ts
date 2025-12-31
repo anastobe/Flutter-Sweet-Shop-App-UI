@@ -369,6 +369,13 @@ const cardsScroll = [
   { id: '3', lastDigits: '1122', amount: '£1,200.00' },
 ];
 
+const CARD_STATUS = {
+  Active_Card: 'Active Card',
+  Freeze_Card: 'Freeze Card',
+  Unfreeze_Card: 'Unfreeze Card'
+}
+
+
 export { 
   cardsScroll,
     Accounts,
@@ -389,7 +396,8 @@ export {
     REASON_OPTION,
     TIME_LIMIT,
     BENEFICIARY_ADD_FOR,
-    BENEFICIARY_KEY_FOR
+    BENEFICIARY_KEY_FOR,
+    CARD_STATUS
 
 
 
