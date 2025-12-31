@@ -1,5 +1,6 @@
 import { Auth_ROUTES, HOME_ROUTES } from "../constants";
 import CreateAccount from "../screens/authScreens/createAccount";
+import ForgetPassReset from "../screens/authScreens/forgetPassReset";
 import ForgetPassword from "../screens/authScreens/forgetPassword";
 import { Login } from "../screens/authScreens/index";
 import LoginSecurePassword from "../screens/authScreens/loginSecurePassword";
@@ -44,8 +45,11 @@ export const AuthStack: AuthScreenStacksTypes = [
     name: Auth_ROUTES.CREATEACCOUNT,
     component: CreateAccount,
   },
-
-    {
+  {
+    name: Auth_ROUTES.FORGET_PASS_RESET,
+    component: ForgetPassReset,
+  },
+  {
     name: Auth_ROUTES.LOGIN_SECURE_PASS,
     component: LoginSecurePassword,
   },

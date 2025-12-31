@@ -184,12 +184,12 @@ const config = {
         onPress={() => vm.biometryRef?.current?.open()}
       />
 
-      <View style={styles.contText}>
+      {/* <View style={styles.contText}>
         <Text style={styles.dontAcc}>Don’t have an account? </Text>
         <Pressable onPress={() => navigation.navigate(Auth_ROUTES.CREATEACCOUNT) }>
           <Text style={styles.creatAC}>Create Account</Text>
         </Pressable>
-      </View>
+      </View> */}
 
       
 

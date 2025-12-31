@@ -17,10 +17,10 @@ export const useForgetPasswordViewModel = (navigation: any) => {
 
   const handleOkayPress = () => {
     setOpen(false);
-    Alert.alert("NEED",SHOW_CLIENT)
-    // setTimeout(() => {
-    //   navigation.navigate(Auth_ROUTES.SETPASSWORD);
-    // }, 1000);
+    // Alert.alert("NEED",SHOW_CLIENT)
+    setTimeout(() => {
+      navigation.navigate(Auth_ROUTES.FORGET_PASS_RESET);
+    }, 1000);
   };
 
   const closePopup = () => setOpen(false);

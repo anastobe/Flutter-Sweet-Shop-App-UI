@@ -10,6 +10,8 @@ import InputField from '../../components/textInput';
 import { scale } from 'react-native-size-matters';
 import { useForgetPasswordViewModel } from '../../viewModels/authViewModel/useForgetPasswordViewModel';
 import StatusBarManager from '../../components/statusBarManager';
+import { handleSize } from '../../config/responsiveTheme';
+import BluryModal from '../../components/Modal/bluryModal';
 
 export const ForgetPassword: React.FC = () => {
   const navigation = useNavigation();
@@ -17,28 +19,50 @@ export const ForgetPassword: React.FC = () => {
 
   function renderPOPUP() {
     return (
-      <ImageBackground
-        imageStyle={{ borderRadius: 16 }}
-        source={Images.addCardGradient}
-        style={styles.modal}
-      >
-        <TouchableOpacity style={styles.closeBtn} onPress={vm.closePopup}>
-          <Text style={styles.closeText}>×</Text>
-        </TouchableOpacity>
+      // <ImageBackground
+      //   imageStyle={{ borderRadius: 16 }}
+      //   source={Images.addCardGradient}
+      //   style={styles.modal}
+      // >
+      //   <TouchableOpacity style={styles.closeBtn} onPress={vm.closePopup}>
+      //     <Text style={styles.closeText}>×</Text>
+      //   </TouchableOpacity>
 
-        <View style={styles.iconCircle}>
-          <Image source={Images.mail} style={styles.icon} />
-        </View>
+      //   <View style={styles.iconCircle}>
+      //     <Image source={Images.mail} style={styles.icon} />
+      //   </View>
 
-        <Text style={styles.titles}>Check Your Email</Text>
-        <Text style={styles.description}>
-          If an account exists for <Text style={{ fontWeight: '600' }}>{vm.email}</Text>, an email
-          with password reset instructions has been sent. The link will be valid for{' '}
-          <Text style={{ fontWeight: '600' }}>60 minutes</Text>.
-        </Text>
+      //   <Text style={styles.titles}>Check Your Email</Text>
+      //   <Text style={styles.description}>
+      //     If an account exists for <Text style={{ fontWeight: '600' }}>{vm.email}</Text>, an email
+      //     with password reset instructions has been sent. The link will be valid for{' '}
+      //     <Text style={{ fontWeight: '600' }}>60 minutes</Text>.
+      //   </Text>
 
-        <CustomButton btnContSty={styles.forgetTxt} title="Okay" onPress={vm.handleOkayPress} />
-      </ImageBackground>
+      //   <CustomButton btnContSty={styles.forgetTxt} title="Okay" onPress={vm.handleOkayPress} />
+      // </ImageBackground>
+    
+      <BluryModal
+        style={{ flex: 1, paddingHorizontal: 20 }}
+        onClose={vm.closePopup}
+        btnLoader={false}
+        botmBtmLoader={false}
+        body={`If an account exists for ${vm.email}, an email with password reset instructions has been sent. The link will be valid for 60 minutes.`}
+        marginTopTitle={20}
+        onConfirm={() => {
+          vm.closePopup()
+          setTimeout(() => {
+            navigation.navigate(Auth_ROUTES.FORGET_PASS_RESET)
+          }, 500);
+        }}
+        iconNameBottom={1}
+        title={"Check Your Email"}
+        iconName={'mail-outline'}
+        confirmText={'Reset Password'}
+        showCancelBtn={false}
+        downConfirmText={'REJECT'}
+      />
+
     );
   }
 
@@ -104,27 +128,27 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.white,
   },
   logo: {
-    width: METRICS.width,
-    height: 56,
+    width: handleSize.w(METRICS.width),
+    height: handleSize.h(56),
     resizeMode: 'contain',
     alignSelf: 'center',
-    marginTop: 45,
+    marginTop: handleSize.h(45),
   },
-  forgetTxt: { marginTop: 20, marginBottom: 20, width: '100%' },
+  forgetTxt: { marginTop: handleSize.h(20), marginBottom: handleSize.h(20), width: '100%' },
   title: {
     color: THEME.primary,
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.threesix,
     marginBottom: scale(10),
-    marginTop: METRICS.height / 5,
+    marginTop:  handleSize.h(90),
     textAlign: 'center',
-    lineHeight: 35,
+    lineHeight: handleSize.h(35),
   },
   titlesub: {
     color: THEME.primary,
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onesix,
-    marginBottom: scale(40),
+    marginBottom: handleSize.h(40),
     textAlign: 'center',
   },
   forgotText: {
@@ -132,8 +156,8 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onesix,
     textAlign: 'center',
-    marginTop: 10,
-    paddingBottom: 40,
+    marginTop: handleSize.h(10),
+    paddingBottom: handleSize.h(40),
   },
   modal: {
     borderRadius: 16,
