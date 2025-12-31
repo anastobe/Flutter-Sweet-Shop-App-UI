@@ -118,9 +118,9 @@ export const useHomeViewModel = () => {
     // navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY);
   };
 
-  const handleNavigateTransaction = () => {
-    navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
-  };
+  // const handleNavigateTransaction = () => {
+  //   navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
+  // };
   
 
   const handleNavigateProfile = () => {
@@ -269,7 +269,7 @@ const onSelectCurrency = (asset: any) => {
     handlePressCard,
     handleNavigateNotification,
     handleNavigateTransactionHistory,
-    handleNavigateTransaction,
+    // handleNavigateTransaction,
     handleNavigateProfile,
     loginUserData,
     personal_customers,

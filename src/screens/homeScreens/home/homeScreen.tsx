@@ -43,7 +43,7 @@ const HomeScreen = () => {
     handleNavigateNotification,
     handleNavigateProfile,
     handleNavigateTransactionHistory, 
-    handleNavigateTransaction,
+    // handleNavigateTransaction,
     loginUserData,
     personal_customers,
     // getCurrencyAccount_DATA,
@@ -217,7 +217,7 @@ const renderBalanceCard = () => (
     <TransactionList
       item={item}
       onPress={()=>{
-        navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL);
+        navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item });
       }}
     />
   );

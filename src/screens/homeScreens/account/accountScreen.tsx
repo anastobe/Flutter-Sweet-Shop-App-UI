@@ -135,7 +135,7 @@ const renderSubHeaderStuffs = useCallback(() => {
 
               <View style={styles.cardHeader}>
                 <Text style={styles.cardTransactionTXT}>
-                  Activity ({'DUMMY DATA-' + SHOW_CLIENT})
+                  Activity
                 </Text>
                 <TouchableOpacity onPress={vm.handleNavigateTransactionHistory}>
                   <Text style={styles.viewAllTxt}>View All</Text>
