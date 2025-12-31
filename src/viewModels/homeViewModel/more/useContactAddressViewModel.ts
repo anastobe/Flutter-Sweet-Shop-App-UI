@@ -6,10 +6,14 @@ import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Alert } from 'react-native';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import { useSelector } from 'react-redux';
+import { AddnewBeneficiaryApi, UpdateContactAddress } from '../../../queries/moreQueries/moreQuery';
 
 export default function useContactAddressViewModel() {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
+
+  const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [open, setOpen] = useState(false);
@@ -19,6 +23,15 @@ export default function useContactAddressViewModel() {
   const [postalCode, setPostalCode] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secure, setSecure] = useState(true);
+
+  
+  const { mutate: UpdateContactAddressFunc, isPending: isPending_UpdateContactAddress } = UpdateContactAddress({
+    callback: (res: any) => {
+      if (res.success) {
+        navigation.goBack() 
+      }
+    }
+  });
 
   function pressBackArrow() {
     navigation.goBack();
@@ -39,6 +52,21 @@ export default function useContactAddressViewModel() {
     setTimeout(() => {
       navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: {} });
     }, 1000);
+  }
+
+  function ApiCall() {
+
+    let payloadWithParams = {
+      ID: "1",
+      payload: {
+        address_line1: address,
+    // "address_line2": "hello1",
+    // "address_line3": "hello1"
+        }
+    }
+    UpdateContactAddressFunc(payloadWithParams)
+    console.log(payloadWithParams,"data==>",country,city,address,postalCode,confirmPassword);
+    
   }
 
   const toggleDropdown = (key: any) => {
@@ -67,5 +95,10 @@ export default function useContactAddressViewModel() {
     toggleDropdown,
     openDropdown, 
     setOpenDropdown,
+    countryList,
+    ApiCall,
+    isPending_UpdateContactAddress
+
+
   };
 }

@@ -7,6 +7,7 @@ import InputField from '../textInput';
 import { handleSize } from '../../config/responsiveTheme';
 
 const ContactAdressSheet = ({
+  loading,
   title,
   subtitle,
   style,
@@ -45,6 +46,7 @@ const ContactAdressSheet = ({
 
         <CustomButton
           btnContSty={styles.forgetTxt}
+          loading={loading}
           title="Confirm & Continue"
           onPress={onPress}
         />

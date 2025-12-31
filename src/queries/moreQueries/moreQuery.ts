@@ -85,6 +85,31 @@ export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) =
   });
 };
 
+  export const UpdateContactAddress = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.UpdateContactAddress,
+    onSuccess: async (response: any) => {
+
+      console.log("useMutation==>",response);
+      
+
+      if (response.success) {
+        callback(response)
+    }
+  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('Login error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    }
+  });
+};
+
+
+
 
   export const changePassword = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();

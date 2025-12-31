@@ -91,6 +91,7 @@ const Notification = () => {
         <View style={{ marginHorizontal: 20 }}>
             <FlatList
               data={notification}
+              showsVerticalScrollIndicator={false}
               // keyExtractor={(item) => item?.id?.toString()}
               keyExtractor={(_, index) => index.toString()}
               renderItem={renderItem}

@@ -56,6 +56,14 @@ export const AddnewBeneficiaryApi = async (body: any) => {
   return response;
 };
 
+export const UpdateContactAddress = async (payloadWithParams: any) => {
+
+  console.log("=====>",payloadWithParams);
+  
+  const response = await axiosInstance(`/member/${payloadWithParams?.ID}`, 'POST', payloadWithParams.payload, false);
+  return response;
+};
+
 export const changePassword = async (body: any) => {
   const response = await axiosInstance('/change-password', 'POST', body, true);
   return response;

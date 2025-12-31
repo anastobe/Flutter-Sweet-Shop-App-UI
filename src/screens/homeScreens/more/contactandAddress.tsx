@@ -12,10 +12,10 @@ import { handleSize } from '../../../config/responsiveTheme'; // responsive help
 
 const ContactAddress = () => {
   const vm = useContactAddressViewModel();
-
+// currencyList
   const renderInputField = () => (
     <View>
-      <InputField
+      {/* <InputField
         disabled={false}
         placeholder="Select Country"
         value={vm.country}
@@ -31,6 +31,18 @@ const ContactAddress = () => {
         isOpen={vm.openDropdown === 'country'}
         onToggleDropdown={() => vm.toggleDropdown('country')}
         onDropdownSelect={(item: any) => vm.setCountry(item.name)}
+      /> */}
+      
+      <InputField
+        disabled={false} 
+        placeholder="Select Country"
+        value={vm.country} 
+        enableDropdown={true}
+        dropdownData={vm.countryList} 
+        margBtm={23}
+        isOpen={vm.openDropdown === 'country'} 
+        onToggleDropdown={() =>{ vm.toggleDropdown('country') }}
+        onDropdownSelect={(item:any )=> vm.setCountry(item.name)}
       />
 
       <InputField
@@ -104,9 +116,10 @@ const ContactAddress = () => {
           bottomSheetRef={vm.cardDetailRef}
           children={
             <ContactAdressSheet
-              onPress={() => Alert.alert("NEED", SHOW_CLIENT)}
+              onPress={() => vm.ApiCall()}
               style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
               confirmPassword={vm.confirmPassword}
+              loading={vm.isPending_UpdateContactAddress}
               setconfirmPassword={vm.setConfirmPassword}
               secure={vm.secure}
               setSecure={vm.setSecure}
