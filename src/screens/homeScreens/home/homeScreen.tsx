@@ -384,6 +384,11 @@ const ScrollableCards = () => {
             data={assetsList?.array}
             keyExtractor={(item) => item?.id}
             showsVerticalScrollIndicator={false}
+            ListEmptyComponent={(
+              <View style={styles.noAccCont} >
+                <Text style={styles.noAccountTxt}>No Asset Found</Text>
+              </View>
+              )}
             contentContainerStyle={{ paddingBottom: handleSize.h(20) }}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
             renderItem={({ item, index }) => (              
@@ -712,4 +717,11 @@ const styles = StyleSheet.create({
 
   },
   
+  noAccCont:{
+   width: Metrics.width, justifyContent: 'center'
+  },
+  noAccountTxt:
+{  color: THEME.white, alignSelf: "center", fontSize: FONT_SIZES.onesix, fontFamily: FONTFAMILY.Regular, marginTop: handleSize.h(50) }
+
+
 });

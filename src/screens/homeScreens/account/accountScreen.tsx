@@ -180,6 +180,11 @@ const renderSubHeaderStuffs = useCallback(() => {
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
+          ListEmptyComponent={(
+            <View style={styles.noAccCont} >
+              <Text style={styles.noAccountTxt}>No Transactions Found</Text>
+            </View>
+            )}
           onScroll={vm.handleScroll}
           scrollEventThrottle={16}
           keyExtractor={(item, index) => String(item?.id ?? index)}
@@ -504,6 +509,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-
+  noAccCont:{
+   width: Metrics.width, justifyContent: 'center'
+  },
+  noAccountTxt:
+{  color: THEME.white, alignSelf: "center", fontSize: FONT_SIZES.onesix, fontFamily: FONTFAMILY.Medium }
 
 });
