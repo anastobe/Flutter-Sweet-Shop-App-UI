@@ -95,8 +95,8 @@ export const useHomeViewModel = () => {
 
 
   const Sendoption = [ 
-    { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New Currency Account`, width: 15, height: 15 },
-    { icon: Images.sendMoney, onPress: HOME_ROUTES.MAKE_PAYMENT, text: 'Send Money', width: 20, height: 20 },
+    { icon: Images.add, onPress: HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT, text: `New currency account`, width: 15, height: 15 },
+    { icon: Images.sendMoney, onPress: HOME_ROUTES.MAKE_PAYMENT, text: 'Send money', width: 20, height: 20 },
   ];
 
   const handleLogout = () => {

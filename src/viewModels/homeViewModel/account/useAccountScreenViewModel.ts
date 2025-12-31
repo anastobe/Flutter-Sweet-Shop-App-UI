@@ -110,10 +110,10 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
   ];
 
   const features = [
-    { icon: Images.add, text: `Add Beneficiary`, onPress: () => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY), width: 18, height: 18 },
+    { icon: Images.add, text: `Add beneficiary`, onPress: () => navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY), width: 18, height: 18 },
     { icon: Images.transfer, text: "Transfer", onPress: () => navigation.navigate(HOME_ROUTES.MAKE_PAYMENT), width: 22, height: 22 },
-    { icon: Images.detail, text: "View Details", onPress: () => manageRef?.current?.open(), width: 22, height: 22 },
-    { icon: Images.convert, text: "Convert", onPress: () => navigation.navigate(HOME_ROUTES.CURRENCY_EXCHANGE), width: 22, height: 22 },
+    { icon: Images.detail, text: "View details", onPress: () => manageRef?.current?.open(), width: 22, height: 22 },
+    { icon: Images.convert, text: "convert", onPress: () => navigation.navigate(HOME_ROUTES.CURRENCY_EXCHANGE), width: 22, height: 22 },
   ];
 
   const onRefresh = async () => {
@@ -215,18 +215,18 @@ const onPressCopy = () => {
   
   const getAccountDetailsText = () => {
   const details = [
-    { label: 'Account Name', value: currentAccount?.name ?? 'DUMMY' },
+    { label: 'Account name', value: currentAccount?.name ?? 'DUMMY' },
     { label: 'IBAN', value: currentAccount?.iban ?? 'DUMMY' },
-    { label: 'SWIFT Code', value: 'DUMMY' },
+    { label: 'SWIFT code', value: 'DUMMY' },
     { label: 'Currency', value: 'DUMMY' },
-    { label: 'Account Type', value: 'DUMMY' },
+    { label: 'Account type', value: 'DUMMY' },
     {
-      label: 'Created On',
+      label: 'Created cards',
       value: currentAccount?.created_at
         ? CommonUtils.formatDate(currentAccount.created_at)
         : 'DUMMY',
     },
-    { label: 'Linked Cards', value: 'DUMMY' },
+    { label: 'Linked cards', value: 'DUMMY' },
   ];
 
   return details

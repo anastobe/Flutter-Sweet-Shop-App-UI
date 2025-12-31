@@ -110,7 +110,7 @@ export const useAddNewCurrencyAccountViewModel = () => {
       visible: requestSubmitted,
       onClose: handleCloseRequestSubmitted,
       onConfirm: handleCloseRequestSubmitted,
-      title: "Account Request Submitted",
+      title: "Account request submitted",
       marginTopTitle: 30,
       body: "Your request to open a new currency account has been submitted successfully. We’ll notify you once it’s approved and ready to use.",
       confirmText: "OK",

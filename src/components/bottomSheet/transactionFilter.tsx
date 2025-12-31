@@ -83,14 +83,14 @@ const TransactionFilter = ({ onPress, onPress2 }: { onPress: any, onPress2: any 
     function transactionTypeSelection() {
         return (
             <View>
-                <Text style={styles.checkmarkTitle}>Transaction Type</Text>
+                <Text style={styles.checkmarkTitle}>Transaction type</Text>
 
                 {[
                     { key: 'all', label: 'All' },
                     { key: 'debit', label: 'Debit' },
                     { key: 'credit', label: 'Credit' },
                     { key: 'refund', label: 'Refund' },
-                    { key: 'atm', label: 'ATM Withdrawal' },
+                    { key: 'atm', label: 'ATM withdrawal' },
                 ].map((item) => {
                     let checkedValue = checked[item.key]
 
@@ -119,7 +119,7 @@ const TransactionFilter = ({ onPress, onPress2 }: { onPress: any, onPress2: any 
     return (
         <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={styles.container}>
             <ScrollView style={{ marginTop: handleSize.h(10) }} showsVerticalScrollIndicator={false}>
-                <Text style={styles.title}>Filter Transactions</Text>
+                <Text style={styles.title}>Filter transactions</Text>
 
                 {renderFilterRange()}
                 {transactionTypeSelection()}

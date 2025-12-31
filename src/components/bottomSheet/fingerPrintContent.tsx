@@ -27,7 +27,7 @@ const FingerPrintContent: React.FC<Props> = ({ refrence, title, subtitle, style,
 
         <CustomButton
           btnContSty={styles.forgetTxt}
-          title="Use Password"
+          title="Use password"
           onPress={() => { refrence?.current?.close(); }}
         />
       </ScrollView>

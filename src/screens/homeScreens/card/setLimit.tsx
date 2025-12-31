@@ -86,7 +86,7 @@ export default function SetLimits({...props}) {
         margTp={10}
         autoCapital={'none'}
         blurOnSubmit={false}
-        placeholder="Spending Limit"
+        placeholder="Spending limit"
         value={spendingLimit}
         onChangeText={setSpendingLimit}
         keyboardType={'numeric'}
@@ -136,7 +136,7 @@ export default function SetLimits({...props}) {
       <CustomButton
         loading={false}
         btnContSty={styles.forgetTxt}
-        title="Save Limit"
+        title="Save limit"
         onPress={handleSaveLimit}
       />
     );
@@ -211,7 +211,7 @@ export default function SetLimits({...props}) {
       <InputField
         autoFocused={true}
         disabled={false} 
-        placeholder="Select Card (DUMMY)"
+        placeholder="Select card (DUMMY)"
         value={selectedCards?.card_name} 
         enableDropdown={true}
         // dropdownData={[

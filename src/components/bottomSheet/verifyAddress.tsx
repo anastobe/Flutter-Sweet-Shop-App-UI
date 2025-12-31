@@ -36,12 +36,12 @@ const VerifyAddress = ({ style, onPress1, onPress2, backImg, loginUserData }) =>
 
                 <CustomButton
                     btnContSty={styles.forgetTxt}
-                    title="Yes, Continue"
+                    title="Yes, continue"
                     onPress={onPress1}
                 />
                 <CustomButton
                     btnContSty={styles.forgetTxtDown}
-                    title="No, Update Address"
+                    title="No, update address"
                     onPress={onPress2}
                 />
             </View>

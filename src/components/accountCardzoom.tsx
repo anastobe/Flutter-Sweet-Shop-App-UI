@@ -46,11 +46,11 @@ const AccountCardzoom = ({ item, index, onPressCard, containerStyle }: { item?: 
                 }}>
                     <View>
                         <Text style={styles.cardTitle}>€22.50</Text>
-                        <Text style={styles.cardTitlebelowstatus}>On Hold or Pending</Text>
+                        <Text style={styles.cardTitlebelowstatus}>On hold or pending</Text>
                     </View>
                     <View>
                         <Text style={styles.cardTitle}>€53,534.00</Text>
-                        <Text style={styles.cardTitlebelowstatus}>Available to Use</Text>
+                        <Text style={styles.cardTitlebelowstatus}>Available</Text>
                     </View>
                 </View>
 

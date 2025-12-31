@@ -52,7 +52,7 @@ export default function ForgetPassReset({...props}) {
         imagetintColor={THEME.white}
         secureEntry={secure2}
         blurOnSubmit={false}
-        placeholder="New Password"
+        placeholder="New password"
         value={newPassword}
         onPress={() => setSecure2(!secure2)}
         onChangeText={setNewPassword}
@@ -68,7 +68,7 @@ export default function ForgetPassReset({...props}) {
         // secureEntry={secure3}
         blurOnSubmit={false}
         keyboardType={"numeric"}
-        placeholder="Enter Confirmation Code"
+        placeholder="Enter confirmation code"
         value={confirmNewPassword}
         onPress={() => setSecure3(!secure3)}
         onChangeText={setConfirmNewPassword}
@@ -78,7 +78,7 @@ export default function ForgetPassReset({...props}) {
       <CustomButton
         loading={isPending_resetPassword}
         btnContSty={styles.forgetTxt}
-        title="Reset Password"
+        title="Reset password"
         onPress={onUpdatePress}
       />
     </MainContainer>

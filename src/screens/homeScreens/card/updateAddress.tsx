@@ -36,7 +36,7 @@ export default function UpdateAddressView() {
           marginTp={20}
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Street Address"
+          placeholder="Street address"
           value={streetAddress}
           onChangeText={setStreetAddress}
           margBtm={20}
@@ -46,7 +46,7 @@ export default function UpdateAddressView() {
           marginTp={20}
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Apartment/Suite (Optional)"
+          placeholder="Apartment/suite (optional)"
           value={apartment}
           onChangeText={setApartment}
           margBtm={20}
@@ -54,7 +54,7 @@ export default function UpdateAddressView() {
 
       <InputField
         disabled={false} 
-        placeholder="Select City"
+        placeholder="Select city"
         value={city} 
         enableDropdown={true}
         dropdownData={[
@@ -72,7 +72,7 @@ export default function UpdateAddressView() {
           marginTp={20}
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Postal Code"
+          placeholder="Postal code"
           value={postalAddress}
           onChangeText={setPostalAddress}
           keyboardType={'numeric'}
@@ -81,7 +81,7 @@ export default function UpdateAddressView() {
 
       <InputField
         disabled={false} 
-        placeholder="Select Country"
+        placeholder="Select country"
         value={country} 
         enableDropdown={true}
         dropdownData={[

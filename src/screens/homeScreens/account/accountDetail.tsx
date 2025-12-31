@@ -85,7 +85,7 @@ const AccountDetail = () => {
         barStyle="light-content" 
       />
 
-      <Text style={styles.title}>Account Details</Text>
+      <Text style={styles.title}>Account details</Text>
       <View style={{ alignItems: 'flex-start' }}>
         <Text style={styles.subtitle}>Primary GBP Wallet</Text>
       </View>
@@ -112,7 +112,7 @@ const AccountDetail = () => {
             onPressCopy={onPressCopy}
             details={[
               {
-                label: 'Account Name',
+                label: 'Account name',
                 value: 'Primary GBP Wallet',
                 bold: true,
                 copy: true,
@@ -124,16 +124,16 @@ const AccountDetail = () => {
                 copy: true,
                 onCopy: () => console.log('IBAN copied!'),
               },
-              { label: 'SWIFT Code', value: 'NWBKGB2L' },
+              { label: 'SWIFT code', value: 'NWBKGB2L' },
               { label: 'Currency', value: 'GBP' },
               {
-                label: 'Account Type',
+                label: 'Account type',
                 value: 'Personal – Multi-Currency',
                 bold: true,
               },
-              { label: 'Created On', value: '18 February 2024', bold: true },
+              { label: 'Created cards', value: '18 February 2024', bold: true },
               {
-                label: 'Linked Cards',
+                label: 'Linked cards',
                 value: 'Business Visa (**** 1234)',
                 bold: true,
               },

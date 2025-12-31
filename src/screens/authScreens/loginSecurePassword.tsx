@@ -85,7 +85,7 @@ export const LoginSecurePassword: React.FC<LoginSecurePasswordProps> = ({...prop
             autoCapital={'none'}
             secureEntry={secure2}
             blurOnSubmit={false}
-            placeholder="Confirm New Password"
+            placeholder="Confirm new password"
             value={newpassword}
             onPress={()=>{ setSecure2(!secure2) }}
             onChangeText={setnewpassword}
@@ -95,7 +95,7 @@ export const LoginSecurePassword: React.FC<LoginSecurePasswordProps> = ({...prop
 
       <CustomButton
         btnContSty={styles.forgetTxt}
-        title="Set New Password"
+        title="Set new password"
         onPress={() => {
           console.log("Login pressed");
         }}

@@ -35,7 +35,7 @@ const ContactAddress = () => {
       
       <InputField
         disabled={false} 
-        placeholder="Select Country"
+        placeholder="Select country"
         value={vm.country} 
         enableDropdown={true}
         dropdownData={vm.countryList} 
@@ -74,7 +74,7 @@ const ContactAddress = () => {
       />
       <InputField
         marginTp={handleSize.h(20)}
-        placeholder="Postal Code"
+        placeholder="Postal code"
         value={vm.postalCode}
         onChangeText={vm.setPostalCode}
         keyboardType="numeric"
@@ -86,7 +86,7 @@ const ContactAddress = () => {
   const renderBtn = () => (
     <CustomButton
       btnContSty={styles.forgetTxt}
-      title="Update Contact"
+      title="Update contact"
       onPress={vm.onPressBtn}
     />
   );
@@ -123,7 +123,7 @@ const ContactAddress = () => {
               setconfirmPassword={vm.setConfirmPassword}
               secure={vm.secure}
               setSecure={vm.setSecure}
-              title="Confirm Your Password"
+              title="Confirm your password"
               subtitle="For your security, please enter your login password to proceed with updating your address."
             />
           }

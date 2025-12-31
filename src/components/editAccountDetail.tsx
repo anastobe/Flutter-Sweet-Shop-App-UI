@@ -37,7 +37,7 @@ const EditAccountDetail: React.FC<Props> = ({
           marginTp={20}
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Primary GBP Wallet"
+          placeholder="Primary GBP wallet"
           value={gbpWallet}
           onChangeText={setgbpWallet}
           keyboardType={'default'}
@@ -47,7 +47,7 @@ const EditAccountDetail: React.FC<Props> = ({
         {/* Buttons */}
         <CustomButton
           btnContSty={styles.forgetTxt1}
-          title="Save Changes"
+          title="Save changes"
           onPress={onPressSave}
         />
       </View>

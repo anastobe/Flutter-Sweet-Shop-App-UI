@@ -41,7 +41,7 @@ export default function CreateVirtualCardView() {
       <View>
         <InputField
           marginTp={handleSize.h(20)}
-          placeholder="Card Name"
+          placeholder="Card name"
           value={cardName}
           onChangeText={setCardName}
           keyboardType="email-address"
@@ -62,7 +62,7 @@ export default function CreateVirtualCardView() {
         
         <InputField
           disabled={false} 
-          placeholder="Linked Account"
+          placeholder="Linked account"
           value={linkedAccount.name} 
           enableDropdown={true}
           dropdownData={allAccounts}
@@ -155,7 +155,7 @@ export default function CreateVirtualCardView() {
       <View>
         <InputField
           marginTp={handleSize.h(20)}
-          placeholder="Spending Limit"
+          placeholder="Spending limit"
           value={spendingLimit}
           onChangeText={setSpendingLimit}
           keyboardType="numeric"
@@ -190,7 +190,7 @@ export default function CreateVirtualCardView() {
         />
 
         <CustomButton
-          title="Create Virtual Card"
+          title="Create virtual card"
           onPress={onPressBtn}
           btnContSty={styles.forgetTxt}
         />

@@ -88,7 +88,7 @@ export const ForgetPassword: React.FC = () => {
       <CustomButton
         loading={vm.isPending_ResetPasswordLink}
         btnContSty={styles.forgetTxt}
-        title="Send Reset Link"
+        title="Send reset link"
         onPress={vm.handleSendResetLink}
       />
 

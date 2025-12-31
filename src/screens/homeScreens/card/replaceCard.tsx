@@ -48,7 +48,7 @@ export default function ReplaceCard(props) {
       <View>
         <InputField
           disabled={false} 
-          placeholder="Reason for Replacement" 
+          placeholder="Reason for replacement" 
           value={reason} 
           enableDropdown={true}
           dropdownData={REASON_OPTION}
@@ -61,7 +61,7 @@ export default function ReplaceCard(props) {
           marginTp={handleSize.h(20)}
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Full Name"
+          placeholder="Full name"
           value={firstName}
           onChangeText={setFirstName}
           keyboardType={'default'}
@@ -107,7 +107,7 @@ export default function ReplaceCard(props) {
       <CustomButton
         btnContSty={styles.forgetTxt}
         loading={false}
-        title="Request Replacement"
+        title="Request replacement"
         onPress={reqReplacement}
       />
     );

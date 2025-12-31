@@ -303,7 +303,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
             marginTp={20}
             autoCapital={'none'}
             blurOnSubmit={false}
-            placeholder="First Name"
+            placeholder="First name"
             value={firstName}
             onChangeText={setfirstName}
           />
@@ -312,7 +312,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
             marginTp={20}
             autoCapital={'none'}
             blurOnSubmit={false}
-            placeholder="Last Name"
+            placeholder="Last name"
             value={lastName}
             onChangeText={setlastName}
           />
@@ -323,7 +323,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
             marginTp={20}
             autoCapital={'none'}
             blurOnSubmit={false}
-            placeholder="Business / Personal Email Address"
+            placeholder="Business / personal email address"
             value={firstName}
             onChangeText={setfirstName}
         />
@@ -350,7 +350,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
             autoCapital={'none'}
             secureEntry={secure2}
             blurOnSubmit={false}
-            placeholder="Confirm New Password"
+            placeholder="Confirm new password"
             value={confirmPassword}
             onPress={()=>{ setSecure2(!secure2) }}
             onChangeText={setconfirmPassword}
@@ -360,7 +360,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
 
       <CustomButton
         btnContSty={styles.forgetTxt}
-        title="Create Account"
+        title="Create account"
         onPress={() => {
           console.log("Login pressed");
         }}

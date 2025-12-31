@@ -71,7 +71,7 @@ export default function TransactionHistory(props) {
 
   return (
     <View style={styles.emptyContainer}>
-      <Text style={styles.emptyTitle}>No Transactions Found</Text>
+      <Text style={styles.emptyTitle}>No transactions found</Text>
     </View>
   );
 };

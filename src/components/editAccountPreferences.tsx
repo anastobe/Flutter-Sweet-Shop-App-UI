@@ -41,7 +41,7 @@ const EditAccountPreferences: React.FC<Props> = ({
 
           {/* Account Row */}
           <View style={styles.accountRow}>
-            <Text style={styles.accountLabel}>Account Name</Text>
+            <Text style={styles.accountLabel}>Account name</Text>
             <View style={styles.accountRight}>
               <Text style={styles.accountValue}>{currentAccount?.name}</Text>
             </View>
@@ -51,7 +51,7 @@ const EditAccountPreferences: React.FC<Props> = ({
           <CustomButton
             loading={isPendingAccFreeze}
             btnContSty={styles.forgetTxt2}
-            title="Freeze Now"
+            title="Freeze account"
             onPress={onPressFreeze}
           />
           
@@ -60,7 +60,7 @@ const EditAccountPreferences: React.FC<Props> = ({
             loading={isPendingAccDelete}
             btnContSty={styles.button}
             txtColor={styles.buttonText}
-            title="Delete Account"
+            title="Delete account"
             onPress={onPressDelete}
           />
         </View>

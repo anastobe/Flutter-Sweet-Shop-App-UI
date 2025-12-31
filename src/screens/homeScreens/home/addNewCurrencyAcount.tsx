@@ -91,7 +91,7 @@ const AddNewCurrencyAcount = () => {
 
         <InputField
           disabled={false} 
-          placeholder="Select Account"
+          placeholder="Select account"
           value={fromAccount?.name} // null = show input box
           enableDropdown={true}
           dropdownData={allAccounts}
@@ -148,7 +148,7 @@ const AddNewCurrencyAcount = () => {
 {/* accountTypeList */}
         <CustomButton
           btnContSty={styles.forgetTxt}
-          title="Add Currency"
+          title="Add currency"
           onPress={handleAddCurrency}
         />
 

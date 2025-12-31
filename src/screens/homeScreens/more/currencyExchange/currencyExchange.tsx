@@ -123,7 +123,7 @@ const CurrencyExchange = ({ ...props }) => {
     
     <InputField
         disabled={false} 
-        placeholder="From Currency"
+        placeholder="From currency"
         value={fromCurrency.iso_code} 
         enableDropdown={true}
         dropdownData={currencyList}
@@ -142,7 +142,7 @@ const CurrencyExchange = ({ ...props }) => {
       
     <InputField
         disabled={false} 
-        placeholder="To Currency"
+        placeholder="To currency"
         value={toCurrency.iso_code} 
         enableDropdown={true}
         dropdownData={currencyList}
@@ -160,7 +160,7 @@ const CurrencyExchange = ({ ...props }) => {
 
     <InputField
       // renderRightInput={renderRightInput}
-      placeholder="Enter Amount"
+      placeholder="Enter amount"
       removeTitle={false}
       value={amount}
       onChangeText={setamount}
@@ -186,7 +186,7 @@ const CurrencyExchange = ({ ...props }) => {
         renderRightInput={renderRightInputTextOnly}
         autoCapital={'none'}
         blurOnSubmit={false}
-        placeholder="You will Receive"
+        placeholder="You will receive"
         // value={youWillReceive}
         onChangeText={setYouWillReceive}
         keyboardType={'numeric'}
@@ -196,7 +196,7 @@ const CurrencyExchange = ({ ...props }) => {
       
     <CustomButton
       btnContSty={styles.forgetTxt2}
-      title="Create Payment"
+      title="Create payment"
       loading={false}
       onPress={onPressBtn2}
       />

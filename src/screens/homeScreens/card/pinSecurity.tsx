@@ -34,7 +34,7 @@ export default function PinSecurityView({...props}) {
         />
         <InputField
           marginTp={20}
-          placeholder="Confirm New PIN"
+          placeholder="Confirm new PIN"
           value={confirmPin}
           onChangeText={setConfirmPin}
           keyboardType="numeric"

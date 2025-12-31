@@ -606,7 +606,7 @@ const InternationalTransfer = ({...props}) => {
           
 
           <InputDropDownStyle
-            title="From Account"
+            title="From account"
             value={fromAccount}  // null = show input box
             // data={getCurrencyAccArray}
             data={getCurrencyAccArray}
@@ -645,7 +645,7 @@ const InternationalTransfer = ({...props}) => {
           <InputField
               disabled={false}
               autoFocused={autoFocused}
-              placeholder="Select Beneficiary"
+              placeholder="Select beneficiary"
               removeTitle={false}
               value={ beneficiary?.beneficiary_id ? beneficiary?.first_name + " " + beneficiary.last_name : ""}
               enableDropdown={true}
@@ -670,7 +670,7 @@ const InternationalTransfer = ({...props}) => {
           <InputField
             disabled={false}
             autoFocused={autoFocusedpaymentTypes}
-            placeholder="Select Payment Method"
+            placeholder="Select payment method"
             removeTitle={false}
             value={ payment_method_id?.method ? payment_method_id?.method  : ""}
             enableDropdown={true}
@@ -691,7 +691,7 @@ const InternationalTransfer = ({...props}) => {
 
           <InputField
             // renderRightInput={renderRightInput}
-            placeholder="Enter Note / Refrence"
+            placeholder="Enter note / refrence"
             removeTitle={false}
             value={note}
             onChangeText={setnote}
@@ -719,7 +719,7 @@ const InternationalTransfer = ({...props}) => {
           <CustomButton
             btnContSty={styles.forgetTxt}
             loading={false}
-            title="Transfer Payment"
+            title="Transfer payment"
             onPress={handleTransfer}
           />
 
@@ -743,8 +743,8 @@ const InternationalTransfer = ({...props}) => {
               refrence={paymentconfrm} 
               onPress={ApiCall}
               style={{ flex: 1, paddingHorizontal: 20 }}
-              title="Confirm Payment"  
-              subtitle="Confirm Payment" 
+              title="Confirm payment"  
+              subtitle="Confirm payment" 
               convertrate={convertrate}
               loading={isPendinguseFXConversion}
               loadingBtn={isPending}

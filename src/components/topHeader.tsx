@@ -6,7 +6,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
 import { Images } from "../config";
 import { handleSize } from "../config/responsiveTheme";
 
-const OptionsHeader = ({currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show }) => {
+const OptionsHeader = ({isFetching,currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show }) => {
   const navigation = useNavigation();
 
   // console.log("currentAccount==>",currentAccount); 
@@ -18,7 +18,7 @@ const OptionsHeader = ({currentAccount, onPressSelectAccounts, onPressThreeDots,
      
      {show == "accountname" ?
       <View style={{ flexDirection: "row",  }}>
-        <TouchableOpacity
+        {isFetching ? null :<TouchableOpacity
           onPress={onPressSelectAccounts}
           style={styles.leftCont}
         >
@@ -30,7 +30,7 @@ const OptionsHeader = ({currentAccount, onPressSelectAccounts, onPressThreeDots,
             color={THEME.textPrimary}
             />
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity>}
 
         <TouchableOpacity
           onPress={onPressThreeDots}

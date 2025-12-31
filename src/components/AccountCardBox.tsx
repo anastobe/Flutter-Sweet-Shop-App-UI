@@ -31,16 +31,16 @@ const AccountCardBox = ({ total, onHold, available, onPress, onPresseye, showBal
         </View>
       </TouchableWithoutFeedback>
 
-      <Text style={styles.label}>Total Balance</Text>
+      <Text style={styles.label}>Total balance</Text>
 
       <View style={styles.row}>
         <View style={styles.column}>
           <Text style={styles.sub}>{!showBalance ? "****" : onHold}</Text>
-          <Text style={styles.subLabel}>On Hold or Pending</Text>
+          <Text style={styles.subLabel}>On hold or pending</Text>
         </View>
         <View style={styles.column}>
           <Text style={styles.sub}>{!showBalance ? "****" : available}</Text>
-          <Text style={styles.subLabel}>Available to Use</Text>
+          <Text style={styles.subLabel}>Available</Text>
         </View>
       </View>
     </TouchableOpacity>

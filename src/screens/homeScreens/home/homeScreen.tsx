@@ -89,7 +89,7 @@ const HomeScreen = () => {
     <View>
       <View style={{ flexDirection: "row", justifyContent: 'space-between', marginHorizontal: handleSize.w(20), }} >
       <View style={{marginTop: handleSize.h(20), }} >
-        <Text style={styles.title}>Great to See You,</Text>
+        <Text style={styles.title}>Great to see you,</Text>
         {/* <Text 
         numberOfLines={1} ellipsizeMode="tail"
         style={styles.titlesub}>{personal_customers?.first_name || "" + " " + personal_customers?.last_name || "" }</Text> */}
@@ -144,7 +144,7 @@ const renderBalanceCard = () => (
         </View>
 
         <View style={styles.balanceTop}>
-          <Text style={styles.balanceLabel}>Choose Assets</Text>
+          <Text style={styles.balanceLabel}>Choose assets</Text>
 
           <Pressable
             style={styles.currencySelector}
@@ -237,7 +237,7 @@ const renderBalanceCard = () => (
             </View>
           ) : (
             <Text style={{ textAlign: 'center', color: THEME.white }}>
-              No Transactions Found
+              No transactions found
             </Text>
           )
         }
@@ -245,7 +245,7 @@ const renderBalanceCard = () => (
         ListFooterComponent={
           transactions?.length < commonUtils.MAX_LENGTH_10 ? null : (
             <SmallBtn
-              title="Show More"
+              title="Show more"
               onPress={handleNavigateTransactionHistory}
             />
           )
@@ -321,7 +321,7 @@ const ScrollableCards = () => {
         else{
           return(
             <View style={{ width: Metrics.width, alignItems: "center" }} >
-            <Text style={styles.noCards} >No Cards Found</Text>
+            <Text style={styles.noCards} >No cards found</Text>
             </View>
           )
       }}
@@ -377,7 +377,7 @@ const ScrollableCards = () => {
             style={[styles.container,{ paddingHorizontal: handleSize.w(16)}]}
           >
 
-          <Text style={styles.sheetTitle}>Select Assets</Text>
+          <Text style={styles.sheetTitle}>Select assets</Text>
 
           <FlatList
             bounces={false}
@@ -386,7 +386,7 @@ const ScrollableCards = () => {
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={(
               <View style={styles.noAccCont} >
-                <Text style={styles.noAccountTxt}>No Asset Found</Text>
+                <Text style={styles.noAccountTxt}>No asset found</Text>
               </View>
               )}
             contentContainerStyle={{ paddingBottom: handleSize.h(20) }}

@@ -121,7 +121,7 @@ const ConfirmCurrencyExchange = ({...props}) => {
  
      <InputField
        // renderRightInput={renderRightInput}
-       placeholder="Enter Amount"
+       placeholder="Enter amount"
        autoFocused={autoFocused}
        removeTitle={false}
        value={amount}
@@ -140,7 +140,7 @@ const ConfirmCurrencyExchange = ({...props}) => {
         renderRightInput={renderRightInputTextOnly}
         autoCapital={'none'}
         blurOnSubmit={false}
-        placeholder="You will Receive"
+        placeholder="You will receive"
         // value={youWillReceive}
         onChangeText={setYouWillReceive}
         keyboardType={'numeric'}

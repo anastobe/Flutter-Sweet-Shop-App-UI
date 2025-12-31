@@ -50,13 +50,13 @@ const AdminBeneficiaryStatus = () => {
         margBtm={10}
         autoCapital={'none'}
         blurOnSubmit={false}
-        placeholder="Beneficiary Name"
+        placeholder="Beneficiary name"
         value={vm.beneficiaryName}
         onChangeText={vm.setBeneficiaryName}
       />
 
       <InputField
-        placeholder="IBAN / Account No."
+        placeholder="IBAN / account No."
         value={vm.accountNo}
                 // customInpStyle={styles.forgetTxt}
         onChangeText={vm.setAccountNo}
@@ -72,7 +72,7 @@ const AdminBeneficiaryStatus = () => {
 
       <InputField
         disabled={false} 
-        placeholder="To Account"
+        placeholder="To account"
         value={vm.country} 
         enableDropdown={true}
         dropdownData={[

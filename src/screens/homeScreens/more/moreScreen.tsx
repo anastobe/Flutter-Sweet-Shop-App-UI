@@ -201,7 +201,7 @@ const MoreScreen = () => {
           onPress1={vm.onCloseHelpSheet}
           onPress2={vm.onCloseHelpSheet}
           style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-          title="Need Help?"
+          title="Need help?"
           subtitle={`You can reach us at anytime at: \n ${SHOW_CLIENT}`}
         />
       </BottomSheet>

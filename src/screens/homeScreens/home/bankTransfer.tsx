@@ -100,7 +100,7 @@ const BankTransfer = () => {
           </Text>
           
           <InputDropDownStyle
-            title="From Account"
+            title="From account"
             value={fromAccount}  // null = show input box
             // data={getCurrencyAccArray}
             data={getCurrencyAccArray}
@@ -139,7 +139,7 @@ const BankTransfer = () => {
           <InputField
             disabled={false}
             autoFocused={autoFocused}
-            placeholder="Select Beneficiary"
+            placeholder="Select beneficiary"
             removeTitle={false}
             value={ beneficiary?.beneficiary_id ? beneficiary?.first_name + " " + beneficiary.last_name : ""}
             enableDropdown={true}
@@ -163,7 +163,7 @@ const BankTransfer = () => {
           <InputField
             disabled={false}
             autoFocused={autoFocusedpaymentTypes}
-            placeholder="Select Payment Method"
+            placeholder="Select payment method"
             removeTitle={false}
             value={ payment_method_id?.method ? payment_method_id?.method  : ""}
             enableDropdown={true}
@@ -186,7 +186,7 @@ const BankTransfer = () => {
 
           <InputField
             // renderRightInput={renderRightInput}
-            placeholder="Enter Note / Refrence"
+            placeholder="Enter note / refrence"
             removeTitle={false}
             value={note}
             onChangeText={setnote}
@@ -199,7 +199,7 @@ const BankTransfer = () => {
           <CustomButton
             btnContSty={styles.forgetTxt}
             loading={false}
-            title="Transfer Payment"
+            title="Transfer payment"
             onPress={handleTransfer}
           />
 

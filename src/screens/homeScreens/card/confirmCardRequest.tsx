@@ -121,7 +121,7 @@ function ConfirmCardRequest(props: any) {
         <CustomButton
           btnContSty={styles.forgetTxt}
           loading={isPending}
-          title="Create Card"
+          title="Create card"
           onPress={() => {
             if (payload?.format?.toLowerCase() === "physical" && !tick) {
               Alert.alert("Allow","Please confirm the deduction by checking the box before continuing.");

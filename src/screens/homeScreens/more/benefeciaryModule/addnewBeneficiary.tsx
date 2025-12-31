@@ -57,7 +57,7 @@ const AddNewBeneficiary = () => {
         margBtm={23}
         autoCapital={'none'}
         blurOnSubmit={false}
-        placeholder="First Name"
+        placeholder="First name"
         value={vm.firstName}
         onChangeText={vm.setfirstName}
       />
@@ -66,7 +66,7 @@ const AddNewBeneficiary = () => {
         margBtm={23}
         autoCapital={'none'}
         blurOnSubmit={false}
-        placeholder="Last Name"
+        placeholder="Last name"
         value={vm.lastName}
         onChangeText={vm.setlastName}
       />
@@ -122,7 +122,7 @@ const AddNewBeneficiary = () => {
       {vm.selectBeneficiary == BENEFICIARY_KEY_FOR.bank ?
         <InputField
         margBtm={23}
-        placeholder="IBAN / Account No."
+        placeholder="IBAN / account no."
         value={vm.accountNo}
         returnKeyType="done"
                 // customInpStyle={styles.forgetTxt}
@@ -305,7 +305,7 @@ const AddNewBeneficiary = () => {
         {renderModal()}
           <CustomButton
             btnContSty={styles.forgetTxt}
-            title="Save Beneficiary"
+            title="Save beneficiary"
             loading={false}
             onPress={vm.openConfirmationModal}
             />

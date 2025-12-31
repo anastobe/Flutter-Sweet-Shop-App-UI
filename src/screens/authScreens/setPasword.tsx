@@ -88,7 +88,7 @@ const SetPassword: React.FC = () => {
         autoCapital="none"
         blurOnSubmit={false}
         secureEntry={secure2}
-        placeholder="Confirm New Password"
+        placeholder="Confirm new password"
         value={newPassword}
         onPress={toggleSecure2}
         onChangeText={setNewPassword}
@@ -97,7 +97,7 @@ const SetPassword: React.FC = () => {
 
       <CustomButton
         btnContSty={styles.forgetTxt}
-        title="Set New Password"
+        title="Set new password"
         onPress={onSubmit}
       />
     </MainContainer>

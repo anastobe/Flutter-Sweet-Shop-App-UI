@@ -91,6 +91,7 @@ const Notification = () => {
         <View style={{ marginHorizontal: 20 }}>
             <FlatList
               data={notification}
+              contentContainerStyle={{ paddingBottom: handleSize.h(20) }}
               showsVerticalScrollIndicator={false}
               // keyExtractor={(item) => item?.id?.toString()}
               keyExtractor={(_, index) => index.toString()}
@@ -102,7 +103,7 @@ const Notification = () => {
               ListEmptyComponent={() =>{
                 if (!isPending && !notification?.length) {
                   return(
-                    <Text style={styles.messageEmpty}>No Notifications</Text>
+                    <Text style={styles.messageEmpty}>No notifications</Text>
                   )
                 }
               }}

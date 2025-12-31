@@ -61,7 +61,7 @@ const CreatePhysicalCard = () => {
           marginTp={20}
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Card Name"
+          placeholder="Card name"
           value={cardName}
           onChangeText={setcardName}
           keyboardType={'email-address'}
@@ -82,7 +82,7 @@ const CreatePhysicalCard = () => {
       
         <InputField
           disabled={false} 
-          placeholder="Linked Account"
+          placeholder="Linked account"
           value={linkedAccount.name} 
           enableDropdown={true}
           dropdownData={getCurrencyAccArray}
@@ -102,7 +102,7 @@ const CreatePhysicalCard = () => {
           margTp={0}
           autoCapital={'none'}
           blurOnSubmit={false}
-          placeholder="Spending Limit"
+          placeholder="Spending limit"
           value={spendingLimit}
           onChangeText={setSpendingLimit}
           keyboardType={'numeric'}
@@ -112,7 +112,7 @@ const CreatePhysicalCard = () => {
  
           <InputField
             disabled={false} 
-            placeholder="Card Design (Optional)"
+            placeholder="Card design (optional)"
             value={design.name} 
             enableDropdown={true}
             dropdownData={[

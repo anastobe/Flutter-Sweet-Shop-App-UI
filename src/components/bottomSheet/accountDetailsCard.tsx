@@ -26,7 +26,7 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy, onPressEdit })
         style={{ marginTop: handleSize.h(10) }}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.accountdetail}>Account Details</Text>
+        <Text style={styles.accountdetail}>Account details</Text>
 
         <View style={styles.container}>
           {details.map((item, index) => (

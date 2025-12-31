@@ -68,7 +68,7 @@ export default function UpdatePassword() {
         imagetintColor={THEME.white}
         blurOnSubmit={false}
         secureEntry={secure}
-        placeholder="Current Password"
+        placeholder="Current password"
         value={password}
         onPress={() => setSecure(!secure)}
         onChangeText={setPassword}
@@ -83,7 +83,7 @@ export default function UpdatePassword() {
         imagetintColor={THEME.white}
         secureEntry={secure2}
         blurOnSubmit={false}
-        placeholder="New Password"
+        placeholder="New password"
         value={newPassword}
         onPress={() => setSecure2(!secure2)}
         onChangeText={setNewPassword}
@@ -103,7 +103,7 @@ export default function UpdatePassword() {
         autoCapital="none"
         secureEntry={secure3}
         blurOnSubmit={false}
-        placeholder="Confirm New Password"
+        placeholder="Confirm new password"
         value={confirmNewPassword}
         onPress={() => setSecure3(!secure3)}
         onChangeText={setConfirmNewPassword}
@@ -113,7 +113,7 @@ export default function UpdatePassword() {
       <CustomButton
         loading={isPending_changePassword}
         btnContSty={styles.forgetTxt}
-        title="Update Password"
+        title="Update password"
         onPress={onUpdatePress}
       />
     </MainContainer>

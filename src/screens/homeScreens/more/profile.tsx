@@ -51,7 +51,7 @@ const Profile = () => {
           marginTp={handleSize.h(20)}
           autoCapital={'none'}
           blurOnSubmit={false}         
-          placeholder="Full Name"
+          placeholder="Full name"
           value={name}
           keyboardType={'default'}
           margBtm={handleSize.h(15)}

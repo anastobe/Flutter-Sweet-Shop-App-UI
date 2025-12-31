@@ -62,7 +62,7 @@ const AccountScreen = () => {
             </View>
           ) : (
             <Text style={{ textAlign: 'center', color: THEME.white }}>
-              No Transactions Found
+              No transactions found
             </Text>
           )
         }
@@ -70,7 +70,7 @@ const AccountScreen = () => {
         ListFooterComponent={
           vm?.transactions?.length < commonUtils.MAX_LENGTH_10 ? null : (
             <SmallBtn
-              title="Show More"
+              title="Show more"
               onPress={vm.handleNavigateTransactionHistory}
             />
           )
@@ -157,6 +157,7 @@ const renderSubHeaderStuffs = useCallback(() => {
         resizeMode="stretch"
       >
         <OptionsHeader
+          isFetching={vm.isFetching}
           show={"accountname"}
           currentAccount={vm?.currentAccount}
           onPressSelectAccounts={() =>
@@ -182,7 +183,7 @@ const renderSubHeaderStuffs = useCallback(() => {
           showsHorizontalScrollIndicator={false}
           ListEmptyComponent={(
             <View style={styles.noAccCont} >
-              <Text style={styles.noAccountTxt}>No Transactions Found</Text>
+              <Text style={styles.noAccountTxt}>No transactions found</Text>
             </View>
             )}
           onScroll={vm.handleScroll}
@@ -253,7 +254,7 @@ const renderSubHeaderStuffs = useCallback(() => {
                 onPressEdit={vm.onPressEdit}
                 details={[
                   {
-                    label: 'Account Name',
+                    label: 'Account name',
                     value: vm?.currentAccount?.name,
                     bold: true,
                   },
@@ -263,13 +264,13 @@ const renderSubHeaderStuffs = useCallback(() => {
                     label: 'Currency',
                     value: "DUMMY",
                   },
-                  { label: 'Account Type', value: 'DUMMY' },
+                  { label: 'Account type', value: 'DUMMY' },
                   {
-                    label: 'Created On',
+                    label: 'Created cards',
                     value: vm?.currentAccount?.created_at ?  CommonUtils.formatDate("2025-04-13T19:15:08.556537+00:00") : "DUMMY",
                   },
                   {
-                    label: 'Linked Cards',
+                    label: 'Linked cards',
                     value: "DUMMY",
                   },
                 ]}

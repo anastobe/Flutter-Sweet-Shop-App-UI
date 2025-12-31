@@ -118,7 +118,7 @@ const config = {
       />
 
       <Image source={Images.logo} style={styles.logo} />
-      <Text style={styles.title}>Let’s Sign you In.</Text>
+      <Text style={styles.title}>Sign in</Text>
 
       
          {/* {renderError()} */}
@@ -154,7 +154,7 @@ const config = {
        <CustomButton
          btnContSty={styles.forgetTxt}
          loading={vm.isPending}
-         title="Login"
+         title="Log in"
          onPress={vm.handleLogin}
        />
 
@@ -176,7 +176,7 @@ const config = {
 
       <CustomButton
         txtColor={styles.btnTxt}
-        title="Login with Biometrics / Face ID"
+        title="Log in with Biometrics / Face ID"
         // image={Images.faceID}
         tintColor={THEME.white}
         showmyStyleOnly={true} 
