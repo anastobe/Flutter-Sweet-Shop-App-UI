@@ -19,29 +19,6 @@ export const ForgetPassword: React.FC = () => {
 
   function renderPOPUP() {
     return (
-      // <ImageBackground
-      //   imageStyle={{ borderRadius: 16 }}
-      //   source={Images.addCardGradient}
-      //   style={styles.modal}
-      // >
-      //   <TouchableOpacity style={styles.closeBtn} onPress={vm.closePopup}>
-      //     <Text style={styles.closeText}>×</Text>
-      //   </TouchableOpacity>
-
-      //   <View style={styles.iconCircle}>
-      //     <Image source={Images.mail} style={styles.icon} />
-      //   </View>
-
-      //   <Text style={styles.titles}>Check Your Email</Text>
-      //   <Text style={styles.description}>
-      //     If an account exists for <Text style={{ fontWeight: '600' }}>{vm.email}</Text>, an email
-      //     with password reset instructions has been sent. The link will be valid for{' '}
-      //     <Text style={{ fontWeight: '600' }}>60 minutes</Text>.
-      //   </Text>
-
-      //   <CustomButton btnContSty={styles.forgetTxt} title="Okay" onPress={vm.handleOkayPress} />
-      // </ImageBackground>
-    
       <BluryModal
         style={{ flex: 1, paddingHorizontal: 20 }}
         onClose={vm.closePopup}
@@ -97,6 +74,7 @@ export const ForgetPassword: React.FC = () => {
       </Text>
 
       <InputField
+        disabled={!vm.isPending_ResetPasswordLink}
         marginTp={20}
         autoCapital={'none'}
         blurOnSubmit={false}
@@ -108,12 +86,20 @@ export const ForgetPassword: React.FC = () => {
       />
 
       <CustomButton
+        loading={vm.isPending_ResetPasswordLink}
         btnContSty={styles.forgetTxt}
         title="Send Reset Link"
         onPress={vm.handleSendResetLink}
       />
 
-      <TouchableOpacity onPress={() => navigation.goBack()}>
+      <TouchableOpacity onPress={() => {
+        if (vm.isPending_ResetPasswordLink) {
+         return
+        }
+        else{
+          navigation.goBack()
+        }
+      }}>
         <Text style={styles.forgotText}>Back to Login</Text>
       </TouchableOpacity>
 
@@ -136,7 +122,7 @@ const styles = StyleSheet.create({
   },
   forgetTxt: { marginTop: handleSize.h(20), marginBottom: handleSize.h(20), width: '100%' },
   title: {
-    color: THEME.primary,
+    color: THEME.white,
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.threesix,
     marginBottom: scale(10),
@@ -145,14 +131,14 @@ const styles = StyleSheet.create({
     lineHeight: handleSize.h(35),
   },
   titlesub: {
-    color: THEME.primary,
+    color: THEME.white,
     fontFamily: FONTFAMILY.Light,
     fontSize: FONT_SIZES.onesix,
     marginBottom: handleSize.h(40),
     textAlign: 'center',
   },
   forgotText: {
-    color: THEME.primary,
+    color: THEME.white,
     fontFamily: FONTFAMILY.Medium,
     fontSize: FONT_SIZES.onesix,
     textAlign: 'center',
@@ -186,20 +172,6 @@ const styles = StyleSheet.create({
     width: scale(30),
     height: scale(30),
     resizeMode: 'contain',
-  },
-  titles: {
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.threezero,
-    color: THEME.primary,
-    textAlign: 'center',
-  },
-  description: {
-    marginTop: 10,
-    fontFamily: FONTFAMILY.Light,
-    fontSize: FONT_SIZES.onefour,
-    color: THEME.primary,
-    textAlign: 'center',
-    marginHorizontal: 20,
   },
 });
 

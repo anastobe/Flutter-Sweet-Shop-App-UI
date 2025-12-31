@@ -11,6 +11,7 @@ import {
 
 import {
     userLogin,
+    ResetPasswordLink,
     createCard,
     cardUsedStatus,
     getCards,
@@ -61,6 +62,7 @@ import {
 } from './more/more.service';
 
 const apis = {
+  ResetPasswordLink,
   userLogin,
   usePaymentTransfer,
   useFXConversion,

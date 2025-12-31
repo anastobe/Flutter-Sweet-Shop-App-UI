@@ -28,6 +28,21 @@ export const useLogin = ({callback} : {callback: (res: any) => void}) => {
   });
 };
 
+export const ResetPasswordLink = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.ResetPasswordLink,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+          callback(response)
+      }
+  },
+    onError: (error: any) => {
+      console.log('ResetPasswordLink error:', error);
+    }
+  });
+};
 
 export const createCard = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
