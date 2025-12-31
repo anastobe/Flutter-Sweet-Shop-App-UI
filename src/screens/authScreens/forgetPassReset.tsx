@@ -10,10 +10,8 @@ import StatusBarManager from '../../components/statusBarManager';
 import { handleSize } from '../../config/responsiveTheme';
 import Metrics from '../../styles/metrics';
 
-export default function ForgetPassReset() {
+export default function ForgetPassReset({...props}) {
   const {
-    password,
-    setPassword,
     newPassword,
     setNewPassword,
     confirmNewPassword,
@@ -26,9 +24,8 @@ export default function ForgetPassReset() {
     setSecure3,
     pressBackArrow,
     onUpdatePress,
-    isPending_changePassword
-  } = useforgetPassResetViewModel();
-
+    isPending_resetPassword
+  } = useforgetPassResetViewModel(props);
 
   return (
     <MainContainer
@@ -47,22 +44,7 @@ export default function ForgetPassReset() {
       <Text style={styles.title}>Reset Password</Text>
 
       <InputField
-        margTp={handleSize.h(15)}
-        margBtm={handleSize.h(20)}
-        textInputStyle={styles.innerinput}
-        image={secure ? 'eye-off-outline' : 'eye-outline'}
-        autoCapital="none"
-        imagetintColor={THEME.white}
-        blurOnSubmit={false}
-        secureEntry={secure}
-        placeholder="Current Password"
-        value={password}
-        onPress={() => setSecure(!secure)}
-        onChangeText={setPassword}
-        maxlen={30}
-      />
-
-      <InputField
+        disabled={!isPending_resetPassword}
         margBtm={handleSize.h(20)}
         textInputStyle={styles.innerinput}
         image={secure2 ? 'eye-off-outline' : 'eye-outline'}
@@ -77,14 +59,16 @@ export default function ForgetPassReset() {
       />
 
       <InputField
+        disabled={!isPending_resetPassword}
         margTp={handleSize.h(0)}
         margBtm={handleSize.h(10)}
         textInputStyle={styles.innerinput}
-        image={secure3 ? 'eye-off-outline' : 'eye-outline'}
+        // image={secure3 ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
-        secureEntry={secure3}
+        // secureEntry={secure3}
         blurOnSubmit={false}
-        placeholder="Confirm New Password"
+        keyboardType={"numeric"}
+        placeholder="Enter Confirmation Code"
         value={confirmNewPassword}
         onPress={() => setSecure3(!secure3)}
         onChangeText={setConfirmNewPassword}
@@ -92,9 +76,9 @@ export default function ForgetPassReset() {
       />
 
       <CustomButton
-        loading={isPending_changePassword}
+        loading={isPending_resetPassword}
         btnContSty={styles.forgetTxt}
-        title="Update Password"
+        title="Reset Password"
         onPress={onUpdatePress}
       />
     </MainContainer>

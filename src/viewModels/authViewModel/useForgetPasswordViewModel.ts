@@ -4,11 +4,12 @@ import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../APICall/constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../styles';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { CommonUtils, Toast } from '../../utils';
 import { ResetPasswordLink } from '../../queries/auth.query';
 
-export const useForgetPasswordViewModel = (navigation: any) => {
+export const useForgetPasswordViewModel = () => {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('newuser@yopmail.com');
   const [Open, setOpen] = useState(false);
 
@@ -36,14 +37,6 @@ export const useForgetPasswordViewModel = (navigation: any) => {
     
   };
 
-  const handleOkayPress = () => {
-    setOpen(false);
-    // Alert.alert("NEED",SHOW_CLIENT)
-    setTimeout(() => {
-      navigation.navigate(Auth_ROUTES.FORGET_PASS_RESET);
-    }, 1000);
-  };
-
   const closePopup = () => setOpen(false);
 
   return {
@@ -51,7 +44,7 @@ export const useForgetPasswordViewModel = (navigation: any) => {
     setEmail,
     Open,
     handleSendResetLink,
-    handleOkayPress,
+    // handleOkayPress,
     closePopup,
     isPending_ResetPasswordLink
     

@@ -44,6 +44,22 @@ export const ResetPasswordLink = ({callback} : {callback: (res: any) => void}) =
   });
 };
 
+export const resetPassword = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.resetPassword,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+          callback(response)
+      }
+  },
+    onError: (error: any) => {
+      console.log('resetPassword error:', error);
+    }
+  });
+};
+
 export const createCard = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
 

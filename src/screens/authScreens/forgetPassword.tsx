@@ -29,7 +29,7 @@ export const ForgetPassword: React.FC = () => {
         onConfirm={() => {
           vm.closePopup()
           setTimeout(() => {
-            navigation.navigate(Auth_ROUTES.FORGET_PASS_RESET)
+            navigation.navigate(Auth_ROUTES.FORGET_PASS_RESET,{ email: vm.email })
           }, 500);
         }}
         iconNameBottom={1}

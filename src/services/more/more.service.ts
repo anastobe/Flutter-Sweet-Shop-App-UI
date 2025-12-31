@@ -60,3 +60,8 @@ export const changePassword = async (body: any) => {
   const response = await axiosInstance('/change-password', 'POST', body, true);
   return response;
 };
+
+export const resetPassword = async (body: any) => {
+  const response = await axiosInstance('/reset-password', 'POST', body, true);
+  return response;
+};

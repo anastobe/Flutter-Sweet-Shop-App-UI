@@ -7,22 +7,26 @@ import { Toast } from '../../utils';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../styles';
 import { AddnewBeneficiaryApi, changePassword } from '../../queries/moreQueries/moreQuery';
+import { resetPassword } from '../../queries/auth.query';
 
-export default function useforgetPassResetViewModel() {
+export default function useforgetPassResetViewModel(props: any) {
   const navigation = useNavigation();
+  const { email } = props?.route?.params
 
-  const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [secure, setSecure] = useState(true);
   const [secure2, setSecure2] = useState(true);
   const [secure3, setSecure3] = useState(true);
 
-  
-    const { mutate: changePasswordFunc, isPending: isPending_changePassword } = changePassword({
+   
+    const { mutate: resetPasswordFunc, isPending: isPending_resetPassword } = resetPassword({
       callback: (response: any) => {
           if (response?.success) {
-            navigation.goBack()
+            navigation.reset({
+              index: 0,
+              routes: [{ name: Auth_ROUTES.LOGIN }],
+            });
           }
       },
     });
@@ -33,27 +37,25 @@ export default function useforgetPassResetViewModel() {
   }
 
   function onUpdatePress() {
-    if (!password) {
-      Toast.showToast('Please enter password', '', 'error');
-    } 
-    else if (!newPassword) {
-      Toast.showToast('Please enter new password', '', 'error');
-    } 
-    else if (confirmNewPassword !== newPassword) {
-      Toast.showToast('Password not match', '', 'error');
+
+    if (!newPassword.trim()) {
+      return Toast.showToast("Enter new password", '', 'error');
+    }
+    else if (!confirmNewPassword.trim()) {
+      return Toast.showToast("Enter confirmation code", '', 'error');
     } 
     else { 
       let payload ={
-        previousPassword: password,
-        proposedPassword: confirmNewPassword
+        usernameOrEmail: email,
+        confirmationCode: confirmNewPassword, 
+        newPassword: newPassword
       }
-      changePasswordFunc(payload)
+
+      resetPasswordFunc(payload)
     }
   } 
 
   return {
-    password,
-    setPassword,
     newPassword,
     setNewPassword,
     confirmNewPassword,
@@ -66,7 +68,7 @@ export default function useforgetPassResetViewModel() {
     setSecure3,
     pressBackArrow,
     onUpdatePress,
-    changePasswordFunc,
-    isPending_changePassword
+    isPending_resetPassword,
+
   };
 }
