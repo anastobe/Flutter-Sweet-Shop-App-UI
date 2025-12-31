@@ -153,7 +153,7 @@ export default function ReplaceCard(props) {
         barStyle="light-content" 
       />
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Replace Card</Text>
+        <Text style={styles.title}>Replace card</Text>
         <Text style={styles.subtitle}>
           Request a new card to replace your current one. Your old card will be deactivated once the new card is activated.
         </Text>

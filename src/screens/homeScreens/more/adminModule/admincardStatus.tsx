@@ -116,7 +116,7 @@ function AdminConfirmCardRequest(props: any) {
       <StatusBarManager backgroundColor={THEME.darkSecondary} barStyle="light-content" />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Confirm Card Request</Text>
+        <Text style={styles.title}>Confirm card request</Text>
         <Text style={styles.subtitle}>
           A small fee will be deducted from your account to issue and ship your card.
         </Text>

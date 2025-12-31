@@ -51,7 +51,7 @@ const VerifyAddress = ({ style, onPress1, onPress2, backImg, loginUserData }) =>
     return (
         <ImageBackground resizeMode="cover" source={backImg} style={style}>
             <ScrollView style={{ marginTop: handleSize.h(10) }} showsVerticalScrollIndicator={false}>
-                <Text style={styles.title}>Verify Your Registered Address</Text>
+                <Text style={styles.title}>Verify your registered address</Text>
                 <Text style={styles.subtitle}>Your card is linked to the following address</Text>
                 {renderCardDetails()}
                 {renderBottomStuffs(onPress1, onPress2)}

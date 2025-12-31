@@ -104,7 +104,7 @@ const ContactAddress = () => {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Contact & Address</Text>
+        <Text style={styles.title}>Contact & address</Text>
         {renderInputField()}
         {renderLimitType()}
         {renderBtn()}

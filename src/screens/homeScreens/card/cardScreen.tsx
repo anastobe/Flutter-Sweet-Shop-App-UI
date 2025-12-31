@@ -201,7 +201,7 @@ const CardScreen = () => {
   function Options() {
     return (
       <OptionsHeader
-        leftTxt={"Manage Cards"}
+        leftTxt={"Manage cards"}
         showBackIcon={false}
         onPressNotification={() => navigation.navigate(HOME_ROUTES.NOTIFICATION) }
         onPressAdd={() => vm.AddCardRef?.current?.open()}

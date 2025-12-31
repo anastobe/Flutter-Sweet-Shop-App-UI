@@ -39,7 +39,7 @@ const ManageOption = ({ style, onPress1, onPress2, backImg }) => {
         style={{ marginTop: handleSize.h(10) }}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.title}>Manage Cards</Text>
+        <Text style={styles.title}>Manage cards</Text>
 
         {/* {Listitem(
           'pin-outline',

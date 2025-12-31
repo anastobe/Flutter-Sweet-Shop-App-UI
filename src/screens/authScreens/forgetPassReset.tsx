@@ -41,7 +41,7 @@ export default function ForgetPassReset({...props}) {
         barStyle="light-content" 
       />
 
-      <Text style={styles.title}>Reset Password</Text>
+      <Text style={styles.title}>Reset password</Text>
 
       <InputField
         disabled={!isPending_resetPassword}

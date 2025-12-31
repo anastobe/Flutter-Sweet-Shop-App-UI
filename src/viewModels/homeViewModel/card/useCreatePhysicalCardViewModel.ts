@@ -15,6 +15,7 @@ export function useCreatePhysicalCardViewModel() {
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
+  const allAccounts = useSelector((state: any) => state?.HomeReducer?.allAccounts)
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [design, setdesign] = useState({id: "", name: ""});
@@ -77,13 +78,13 @@ export function useCreatePhysicalCardViewModel() {
         format: 'physical',
         card_name: cardName,
         spending_limits: spendingLimit,
-        limit_type: limitType,
-        currency_type: currency.iso_code,
-        linked_account: linkedAccount.name,
-        card_desgin: 'steel',
+        limit_type: limitType?.toLowerCase(),//
+        currency_type: currency.id?.toString(),
+        linked_account: linkedAccount.id,
         pin: pin
       };
-      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, address: completeAddress });
+      // card_desgin: 'steel', REMOVED
+      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, address: completeAddress, linkedAccount: linkedAccount, currency: currency  });
     }, 800);
   };
 
@@ -121,6 +122,7 @@ export function useCreatePhysicalCardViewModel() {
     getCurrencyAccArray,
     loginUserData,
     pin, 
-    setPin
+    setPin,
+    allAccounts
   };
 }

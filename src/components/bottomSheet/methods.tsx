@@ -66,7 +66,7 @@ const Methods = ({
         style={{ marginTop: handleSize.h(10) }}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.title}>Payment Methods</Text>
+        <Text style={styles.title}>Payment methods</Text>
 
         {loading ? (
           <View style={{ marginTop: handleSize.h(20) }}>

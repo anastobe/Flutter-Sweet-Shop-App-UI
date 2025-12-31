@@ -94,7 +94,7 @@ const BankTransfer = () => {
       <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(50) }}>
         <View style={{ marginHorizontal: handleSize.w(20) }}>
           
-          <Text style={styles.title}>Bank Transfer</Text>
+          <Text style={styles.title}>Bank tansfer</Text>
           <Text style={styles.subtitle}>
             Make local or international bank transfers.
           </Text>

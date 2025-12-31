@@ -66,17 +66,17 @@ export default function useCreateVirtualCardViewModel() {
         format: 'virtual',//
         card_name: cardName,//
         spending_limits: spendingLimit,//
-        limit_type: limitType,//
-        currency_type: currency.iso_code,
-        linked_account: linkedAccount.name,
-        card_desgin: 'steel',//
-        pin: pin//
+        limit_type: limitType?.toLowerCase(),//
+        currency_type: currency.id?.toString(),
+        linked_account: linkedAccount.id,
+        pin: pin
       };
+      // card_desgin: 'steel',//REMOVED
 
       console.log("ASdasd=>",payload);
       // return
 
-      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
+      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, linkedAccount: linkedAccount, currency: currency });
     }
   }
 

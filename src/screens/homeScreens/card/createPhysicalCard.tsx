@@ -37,7 +37,9 @@ const CreatePhysicalCard = () => {
     getCurrencyAccArray,
     loginUserData,
     pin, 
-    setPin
+    setPin,
+    allAccounts
+
   } = useCreatePhysicalCardViewModel();
 
   return (
@@ -55,7 +57,7 @@ const CreatePhysicalCard = () => {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Request a Physical Card</Text>
+        <Text style={styles.title}>Request a physical card</Text>
 
         <InputField
           marginTp={20}
@@ -85,15 +87,15 @@ const CreatePhysicalCard = () => {
           placeholder="Linked account"
           value={linkedAccount.name} 
           enableDropdown={true}
-          dropdownData={getCurrencyAccArray}
+          dropdownData={allAccounts}
           margBtm={20}
           isOpen={openDropdown === 'linked'}
           onToggleDropdown={() => toggleDropdown('linked')}
           onDropdownSelect={(item) => setLinkedAccount({
-              id: JSON.stringify(item?.currency_id),
-              name: item?.currency?.name,
+              id: item?.id,
+              name: item?.name,
               iso_code: item?.currency?.iso_code,
-              num_code:  item?.currency?.num_code,
+              num_code: "",
             })
           }
         />

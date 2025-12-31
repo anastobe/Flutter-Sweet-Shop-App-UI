@@ -294,7 +294,7 @@ const AddNewBeneficiary = () => {
 
       <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(80) }}> 
         <View style={{ marginHorizontal: handleSize.w(20) }}>
-          <Text style={styles.title}>Add Beneficiary</Text>
+          <Text style={styles.title}>Add beneficiary</Text>
           <Text style={styles.subtitle}>
             Save recipient details for quicker payments in the future.
           </Text>

@@ -57,7 +57,7 @@ export default function UpdatePassword() {
         barStyle="light-content" 
       />
 
-      <Text style={styles.title}>Change Password</Text>
+      <Text style={styles.title}>Change password</Text>
 
       <InputField
         margTp={handleSize.h(15)}

@@ -118,7 +118,7 @@ export default function UpdateAddressView() {
       />
 
       <View style={{ marginHorizontal:  handleSize.w(20), }}>
-        <Text style={styles.title}>Update Delivery Address</Text>
+        <Text style={styles.title}>Update delivery address</Text>
         {renderInputFields()}
       </View>
     </MainContainer>

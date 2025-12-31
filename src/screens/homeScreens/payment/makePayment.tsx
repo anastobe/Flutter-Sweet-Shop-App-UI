@@ -55,7 +55,7 @@ const MakePayment = () => {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Make a Payment</Text>
+        <Text style={styles.title}>Make payment</Text>
 
         <Text style={styles.subtitle}>
           Send money locally or internationally, or transfer between your own accounts.

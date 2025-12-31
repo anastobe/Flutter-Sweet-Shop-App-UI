@@ -11,7 +11,7 @@ const AddCardPopup = ({ style, onPress1, onPress2, backImg }) => {
         style={{ marginTop: handleSize.h(10) }}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.title}>Select Card Type</Text>
+        <Text style={styles.title}>Select card type</Text>
 
         {/* Virtual Card */}
         <TouchableOpacity onPress={onPress1} style={styles.cardItem}>

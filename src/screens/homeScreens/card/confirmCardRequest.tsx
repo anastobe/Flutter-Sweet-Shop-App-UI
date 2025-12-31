@@ -36,7 +36,9 @@ function ConfirmCardRequest(props: any) {
   const [open, setOpen] = useState(false);
   const payload = props?.route?.params?.data;
   const address = props?.route?.params?.address;
-
+  const linkedAccount = props?.route?.params?.linkedAccount;
+  const currency = props?.route?.params?.currency;
+  
   const { mutate: createCardFunc, isPending } = createCard({
     callback: function (response) {
       if (response.success) {
@@ -68,7 +70,7 @@ function ConfirmCardRequest(props: any) {
     return (
       <>
         <Text style={styles.totalLabel}>Total Amount</Text>
-        <Text style={styles.totalAmount}>{payload.currency_type} {payload.spending_limits}</Text>
+        <Text style={styles.totalAmount}>{CommonUtils.getCurrencySymbol(currency?.iso_code)} {payload.spending_limits}</Text>
       </>
     );
   }
@@ -89,9 +91,9 @@ function ConfirmCardRequest(props: any) {
                 padding: handleSize.h(2),
                 marginTop: handleSize.h(2),
               }}>
-                <Text style={styles.badgeText}>{payload.currency_type}</Text>
+                <Text style={styles.badgeText}>{linkedAccount.name}</Text>
               </View>
-              <Text style={styles.accountTextbelow}> {payload.linked_account}</Text>
+              <Text style={styles.accountTextbelow}> {linkedAccount.iso_code}</Text>
             </View>
           </View>
         </View>
@@ -126,7 +128,11 @@ function ConfirmCardRequest(props: any) {
             if (payload?.format?.toLowerCase() === "physical" && !tick) {
               Alert.alert("Allow","Please confirm the deduction by checking the box before continuing.");
             } else {
+
+              console.log("check==>",payload);
+              // return              
               createCardFunc(payload);
+
             }
           }}
         />
@@ -174,7 +180,7 @@ function ConfirmCardRequest(props: any) {
   return (
     <MainContainer
       showBackArrow={true}
-      pressBackArrow={pressBackArrow}
+      pressBackArrow={isPending ? null : pressBackArrow}
       isFlatList={true}
       barStyle="dark-content"
       mainContainerStyle={styles.container}
@@ -185,7 +191,7 @@ function ConfirmCardRequest(props: any) {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Confirm Card Request</Text>
+        <Text style={styles.title}>Confirm card request</Text>
         <Text style={styles.subtitle}>
           A small fee will be deducted from your account to issue and ship your card.
         </Text>

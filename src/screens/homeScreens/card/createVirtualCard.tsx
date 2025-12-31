@@ -212,7 +212,7 @@ export default function CreateVirtualCardView() {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Create Virtual Card</Text>
+        <Text style={styles.title}>Create virtual card</Text>
         <Text style={styles.subtitle}>Enter Details of your virtual card</Text>
         {renderInputField()}
         {renderLimitType()}

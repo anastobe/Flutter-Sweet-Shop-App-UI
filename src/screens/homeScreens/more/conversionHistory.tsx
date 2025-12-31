@@ -178,7 +178,7 @@ const HistoryList = () => {
       />
 
       <View style={{ paddingHorizontal: handleSize.w(20), flex: 1 }}>
-        <Text style={styles.title}>Conversion History</Text>
+        <Text style={styles.title}>Conversion history</Text>
         <Text style={styles.subtitle}>
           Track all your quick exchange and transfer orders here.
         </Text> 

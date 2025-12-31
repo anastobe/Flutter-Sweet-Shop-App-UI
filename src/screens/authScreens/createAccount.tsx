@@ -295,7 +295,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = ({ ...props }) => {
         barStyle="light-content" 
       />
 
-      <Text style={styles.title}>Create Account</Text>
+      <Text style={styles.title}>Create account</Text>
       
         <View style={{ flexDirection: "row", justifyContent: "space-between" }} >
           <InputField

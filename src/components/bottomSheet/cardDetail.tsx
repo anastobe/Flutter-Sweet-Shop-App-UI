@@ -50,7 +50,7 @@ const CardDetail = ({
         showsVerticalScrollIndicator={false}
       >
         <Text style={styles.title}>
-          {saveCureentDisplayData?.format} Card Details
+          {saveCureentDisplayData?.format} Card details
         </Text>
 
         <Text style={styles.subtitle}>

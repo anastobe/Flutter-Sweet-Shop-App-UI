@@ -69,7 +69,7 @@ export default function PinSecurityView({...props}) {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20), }}>
-        <Text style={styles.title}>PIN & Security</Text>
+        <Text style={styles.title}>PIN & security</Text>
         <Text style={styles.subtitle}>
           Manage your card's PIN and extra security options.
         </Text>

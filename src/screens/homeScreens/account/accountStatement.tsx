@@ -119,7 +119,7 @@ const AccountStatement = () => {
 
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Account Statement</Text>
+        <Text style={styles.title}>Account statement</Text>
         {renderFilter()}
         {renderTransactions()}
 

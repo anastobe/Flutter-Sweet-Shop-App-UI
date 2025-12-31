@@ -146,7 +146,7 @@ const AdminPaymentStatus = () => {
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>Send Money to Your Account</Text>
+          <Text style={styles.title}>Send money to your account</Text>
           <Text style={styles.subtitle}>
             Convert and transfer funds between your currency wallets instantly.
           </Text>

@@ -598,7 +598,7 @@ const InternationalTransfer = ({...props}) => {
         <View style={{ marginHorizontal: handleSize.w(20) }}>
           
           
-          <Text style={styles.title}>International Transfer</Text>
+          <Text style={styles.title}>International transfer</Text>
 
           <Text style={styles.subtitle}>
             Move funds between your own accounts instantly.

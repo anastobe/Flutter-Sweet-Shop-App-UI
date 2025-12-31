@@ -109,7 +109,7 @@ const renderItem = ({ item }) => (
 
       <View style={{ flex: 1 }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between",marginHorizontal: handleSize.w(20) }} >
-          <Text style={styles.title}>Transactions History</Text>
+          <Text style={styles.title}>transactions history</Text>
 
         <TouchableOpacity
           onPress={() => cardDetailRef?.current?.open()}

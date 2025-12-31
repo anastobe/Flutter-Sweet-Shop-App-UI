@@ -167,7 +167,7 @@ function TransactionDetail(props) {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Transaction Details</Text>
+        <Text style={styles.title}>Transaction details</Text>
         {/* <Text style={styles.subtitle}>
           Transport for london.
         </Text> */}

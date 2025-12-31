@@ -53,7 +53,7 @@ export const LoginSecurePassword: React.FC<LoginSecurePasswordProps> = ({...prop
 
       <Image source={Images.logo} style={styles.logo} />
 
-      <Text style={styles.title}>Create Your Secure Password</Text>
+      <Text style={styles.title}>Create your secure password</Text>
       <Text style={styles.titlesub}>For your security, please create a new password for your Frontier Pay account.</Text>
 
  

@@ -53,7 +53,7 @@ const SetPassword: React.FC = () => {
 
       <Image source={Images.logo} style={styles.logo} />
 
-      <Text style={styles.title}>Create Your New Password</Text>
+      <Text style={styles.title}>Create your new password</Text>
       <Text style={styles.titlesub}>
         Choose a strong, new password for your Frontier Pay account.
       </Text>

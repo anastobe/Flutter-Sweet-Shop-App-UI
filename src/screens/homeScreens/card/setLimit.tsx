@@ -203,7 +203,7 @@ export default function SetLimits({...props}) {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Set Spending Limit</Text>
+        <Text style={styles.title}>Set spending limit</Text>
         <Text style={styles.subtitle}>
           Control how much can be spent from this card per day.
         </Text>

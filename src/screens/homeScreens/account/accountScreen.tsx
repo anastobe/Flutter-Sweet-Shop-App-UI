@@ -259,7 +259,7 @@ const renderSubHeaderStuffs = useCallback(() => {
                     bold: true,
                   },
                   { label: 'IBAN', value: vm?.currentAccount?.iban },
-                  { label: 'SWIFT Code', value: 'DUMMY' },
+                  { label: 'SWIFT code', value: 'DUMMY' },
                   {
                     label: 'Currency',
                     value: "DUMMY",
