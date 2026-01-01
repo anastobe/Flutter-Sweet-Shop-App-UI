@@ -75,7 +75,7 @@ const Methods = ({
           </View>
         ) : (
           <View>
-            {Listitem(
+            {currentItem?.format == "physical" && Listitem(
               Images.atmWithdrawl,
               "ATM withdrawals",
               "Control and monitor your cash withdrawals from ATMs",
@@ -83,7 +83,7 @@ const Methods = ({
               () => setAtmSwitch(!atmSwitch)
             )}
 
-            {currentItem?.format == "physical" && Listitem(
+            {Listitem(
               Images.onlinePayments,
               "Online payments",
               "Enable or disable card usage for online purchases",
@@ -91,7 +91,7 @@ const Methods = ({
               () => setOnlineSwitch(!onlineSwitch)
             )}
 
-            {Listitem(
+            {currentItem?.format == "physical" && Listitem(
               Images.chipandPinTransaction,
               "Chip and PIN transactions",
               "Manage in-person card usage with secure PIN entry",
@@ -99,7 +99,7 @@ const Methods = ({
               () => setChipSwitch(!chipSwitch)
             )}
 
-            {currentItem?.format == "physical" && Listitem(
+            {Listitem(
               Images.internationalTransaction,
               "International transactions",
               "Control usage of your card via Apple Pay, Google Pay, and others",

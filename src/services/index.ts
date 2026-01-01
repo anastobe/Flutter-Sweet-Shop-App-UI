@@ -32,6 +32,7 @@ import {
 import {
     freezUnFreezCardNoMessage,
     useReplaceCard,
+    CardpaymentHistry,
     setSpendLimit,
     setPinSecurity,
     updateUsageRules,
@@ -74,6 +75,7 @@ const apis = {
   getCards,
   freezUnFreezCard,
   useReplaceCard,
+  CardpaymentHistry,
   getUserDetail,
   getBeneficiaryDetail,
   getFxQuote,

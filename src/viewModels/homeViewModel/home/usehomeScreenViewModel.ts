@@ -176,6 +176,8 @@ const refreshAccountBasedData = async () => {
 
 
   useEffect(() => {
+    console.log("Anasid= >",assetsList?.firstObject?.id);
+    
   if (assetsList?.firstObject?.id) {
     refreshAccountBasedData();
   }

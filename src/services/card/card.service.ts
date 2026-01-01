@@ -6,6 +6,10 @@ export const useReplaceCard = async (body: any) => {
   return await axiosInstance('/card/replace', 'POST', body, true);
 };
 
+export const CardpaymentHistry = async (payloadWithParams: any) => {
+  return await axiosInstance(`/transactions/card/${payloadWithParams?.card_id}`, 'POST', payloadWithParams?.payload || {}, false);
+};
+
 // Set spend limit
 export const setSpendLimit = async (body: any) => {
   return await axiosInstance('/card/update-usage-limit', 'POST', body, true);

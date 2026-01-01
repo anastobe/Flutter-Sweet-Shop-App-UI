@@ -1,5 +1,5 @@
 // src/screens/home/CardScreen.tsx
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Text,
@@ -38,6 +38,11 @@ import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
 import { HOME_ROUTES } from '../../../constants';
 import { LoaderCompleteScreenOnly } from '../../../components/activityIndicator';
+import commonUtils from '../../../utils/common.utils';
+import SmallBtn from '../../../components/smallBtn';
+import TransactionList from '../../../components/transactionList';
+
+const header_Height = 290;
 
 const CardScreen = () => {
   const navigation = useNavigation<any>();
@@ -73,7 +78,6 @@ const CardScreen = () => {
         onPress1={() => vm.HandleOnPressCardDetail('1')}
         onPress2={() => vm.HandleOnPressCardDetail('2')}
         style={{ paddingHorizontal: 20 }}
-        iconColor={THEME.white}
       />
     ),
   },
@@ -172,7 +176,20 @@ const CardScreen = () => {
     );
   };
 
-  const TransactionList = () => {
+    //   transactions,
+    // isPendingpaymentCardHistry
+
+    
+  /** 🔹 Transaction Item */
+const renderItem = useCallback(({ item }) => (
+  <TransactionList
+    item={item}
+    onPress={vm.handleNavigateTransaction}
+  />
+), []);
+
+
+  const renderTransactionList = () => {
     return (
       <View style={{ marginTop: handleSize.h(20) }}>
         <View style={styles.cardHeadr}>
@@ -187,34 +204,41 @@ const CardScreen = () => {
         </View>
 
         {/* Replace DATA with your transactions list */}
-        <FlatList
-          data={DATA}
-          keyExtractor={(item: any) => item.id}
-          renderItem={({ item }: any) => (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('TRANSACTION_DETAIL' as any)}
-              style={styles.item}
-            >
-              <View style={styles.sectionLeft}>
-                <View style={styles.iconCONT}>
-                  <Icon
-                    name={'arrow-forward-outline'}
-                    size={16}
-                    color={THEME.textPrimary}
-                  />
-                </View>
-                <View>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.subname}>19 july</Text>
-                </View>
-              </View>
-              <View>
-                <Text style={styles.amount}>{item.amount}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          contentContainerStyle={{ marginHorizontal: handleSize.w(20), paddingBottom: handleSize.h(40) }}
-        />
+      <FlatList
+        // data={vm.transactions}
+        data={vm?.isPendingpaymentCardHistry ? [] : vm?.transactions}
+        keyExtractor={item => item?.id}
+        /** 🔹 Initial Loader */
+        ListEmptyComponent={
+          vm.isPendingpaymentCardHistry ? (
+            <View style={{ marginTop: handleSize.h(40) }}>
+              <ActivityIndicator size="large" color={THEME.primary} />
+            </View>
+          ) : (
+            <Text style={{ textAlign: 'center', color: THEME.white }}>
+              No transactions found
+            </Text>
+          )
+        }
+        /** 🔹 Footer Loader (Pagination) */
+        ListFooterComponent={
+          vm?.transactions?.length < commonUtils.MAX_LENGTH_10 ? null : (
+            <SmallBtn
+              title="Show more"
+              onPress={vm.handleNavigateTransactionHistory}
+            />
+          )
+        }
+        // onEndReachedThreshold={0.1}
+        // onEndReached={vm.loadMoreTransactions}
+        refreshing={vm.refreshing}
+        onRefresh={vm.onRefresh}
+        nestedScrollEnabled
+        renderItem={renderItem}
+        // contentContainerStyle={{
+        //   paddingBottom: handleSize.h(header_Height + 20)        }}
+      />
+
       </View>
     );
   };
@@ -305,7 +329,7 @@ function renderBottomSheets() {
        
          <ScrollView>
            {renderCardFeatureButtons()}
-           {TransactionList()}
+           {renderTransactionList()}
          </ScrollView>
        </SafeAreaView>
         

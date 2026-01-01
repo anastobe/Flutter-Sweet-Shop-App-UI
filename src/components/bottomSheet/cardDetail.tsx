@@ -11,8 +11,11 @@ const CardDetail = ({
   onPress1,
   onPress2,
   getSucureCardData,
-  isPendinggetSucureCard,
+  isPendinggetSucureCard
 }) => {
+
+  console.log("getSucureCardData==>",getSucureCardData);
+  
 
   function cardDetailBox(loading, onPress, title, desc, icon, iconColor, show) {
     return (

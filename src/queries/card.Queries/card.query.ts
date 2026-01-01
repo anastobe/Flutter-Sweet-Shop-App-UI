@@ -23,6 +23,25 @@ export const useReplaceCard = ({callback} : {callback: (res: any) => void}) => {
 };
 
 
+export const CardpaymentHistry = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.CardpaymentHistry,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+    }  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('AccDelete error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    }
+  });
+};
+
+
 export const freezUnFreezCard = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
 

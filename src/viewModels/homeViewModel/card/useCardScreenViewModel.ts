@@ -9,6 +9,7 @@ import {
   getCards,
 } from '../../../queries/auth.query';
 import {
+  CardpaymentHistry,
   getCardsUsageRules,
   getSucureCard,
   updateUsageRules,
@@ -19,7 +20,6 @@ import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import { Toast } from '../../../utils';
 import { CARD_STATUS } from '../../../utils/data';
-
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
@@ -32,12 +32,13 @@ export const useCardScreenViewModel = () => {
   const [onlineSwitch, setOnlineSwitch] = useState(false);
   const [chipSwitch, setChipSwitch] = useState(true);
   const [walletSwitch, setWalletSwitch] = useState(false);
-
+  
   // modal / bottom sheet state
   const [currentIndex, setCurrentIndex] = useState(0);
   const [saveCureentDisplayData, setsaveCureentDisplayData] = useState<any>({});
   const [refreshing, setRefreshing] = useState(false);
   const [activeModal, setActiveModal] = useState<keyof typeof MODAL_CONFIG | null>(null);
+  const [transactions, setTransactions] = useState<any[]>([]);
   // const [modalVisible, setModalVisible] = useState(false);
   // const [modalVisibleUnfreez, setmodalVisibleUnfreez] = useState(false);
   // const [modalVisibleActive, setmodalVisibleActive] = useState(false);
@@ -49,6 +50,29 @@ export const useCardScreenViewModel = () => {
   const methodsRef = useRef<any>(null);
   const manageRef = useRef<any>(null);
 
+  const currentItem = getCardsData[currentIndex];
+
+const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
+
+// paymentHistry
+
+  CardpaymentHistry
+  ({
+    callback: (response: any) => {
+      if (response?.success) {
+        const newData = response?.results?.values || [];
+
+        setTransactions(newData);
+
+        // if (newData.length < LIMIT) {
+        //   setHasMore(false);
+        // }
+
+        // setIsLoadingMore(false);
+      }
+    },
+  });
+  
 
   // queries / mutations (hooks you already used)
   const { mutate: freezUnFreezCardFunc, isPending: isPendingfreezUnFreezCard } =
@@ -77,27 +101,18 @@ export const useCardScreenViewModel = () => {
   const { mutate: getCardsFunc, isPending } = getCards({
       callback: (response: any) => {
         if (response?.success) {
-          // const newData = response?.results?.values || [];
-          setgetCardsData(response?.results?.values);
+          const newData = response?.results?.values || [];
+          setgetCardsData(newData);
         }
       }, 
     });
 
-  // const { data: getCardsData, refetch: refetchgetCardsData, isPending } = getCards({
-  //   enabled: false,
-  //   dispatch,
-  // });
-
-  // console.log("res===>",getCardsData);
-
-  // current item derived
-  const currentItem = getCardsData[currentIndex];
-
-  const {
-    data: getCardsUsageRulesData,
-    refetch: refetchgetCardsUsageRules,
-    isFetching: isPendingGetCardsUsageRules,
-  } = getCardsUsageRules({
+    
+    const {
+      data: getCardsUsageRulesData,
+      refetch: refetchgetCardsUsageRules,
+      isFetching: isPendingGetCardsUsageRules,
+    } = getCardsUsageRules({
     enabled: false,
     dispatch,
     card_id: currentItem?.card_id,
@@ -112,14 +127,15 @@ export const useCardScreenViewModel = () => {
     dispatch,
     card_id: currentItem?.card_id,
   });
-
+  
+  
   useEffect(() => {
     if (getCardsUsageRulesData?.success) {
       const rule = findRule(getCardsUsageRulesData?.results?.usages, 'allow_atm_withdrawal');
       const rule2 = findRule(getCardsUsageRulesData?.results?.usages, 'allow_ecomm');
       const rule3 = findRule(getCardsUsageRulesData?.results?.usages, 'allow_offline_pin');
       const rule4 = findRule(getCardsUsageRulesData?.results?.usages, 'allow_international_transactions');
-
+      
       // console.log("rule=>1234",rule?.enabled,rule2?.enabled,rule3?.enabled,rule4?.enabled);
       
       setAtmSwitch((rule?.enabled));
@@ -128,10 +144,40 @@ export const useCardScreenViewModel = () => {
       setWalletSwitch(rule4?.enabled);
     }
   }, [getCardsUsageRulesData]);
+  
+
+
+  const fetchTransactions = (ID: any) => {
+  if (!ID) return;
+    const payloadWithParams = {
+      card_id: ID,
+      payload: {
+        page: 1,
+        limit: 10,
+        // search,
+        sort: {
+          key: 'created_at',
+          order: 'desc',
+        }
+      }
+    };
+
+  CardpaymentHistryFunc(payloadWithParams);
+};
 
   useEffect(() => {
     refetchgetCardsData();
   }, [refreshCall]);
+
+  useEffect(() => {
+    if (!currentItem?.card_id) return;
+    
+    if (currentItem?.card_id) {
+      fetchTransactions(currentItem?.card_id)
+    }
+  }, [currentItem?.card_id]);
+
+  
 
   const MODAL_CONFIG = {
   freeze: {
@@ -172,7 +218,6 @@ export const useCardScreenViewModel = () => {
 
 
   function refetchgetCardsData() {
-    console.log("play");    
     getCardsFunc({})    
   }
 
@@ -198,14 +243,6 @@ export const useCardScreenViewModel = () => {
     }, 1200);
   };
 
-                // modalVisible = active
-              // modalVisibleUnfreez = freeze
-              // modalVisibleActive = inactive
-
-// setActiveModal('freeze');
-// setActiveModal('unfreeze');
-// setActiveModal('inactive');
-// setActiveModal('atm');
 
   function openFreezCard() {
     if (currentItem?.card_status == 'active')  {
@@ -295,6 +332,27 @@ export const useCardScreenViewModel = () => {
       else navigation.navigate('CREATE_PC' as any);
     }, 500);
   }
+
+  const handleNavigateTransactionHistory = () => {
+
+    console.log("handleNavigateTransactionHistory");
+    return
+
+    if (currentAccDetail?.id != "") {
+      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentAccDetail?.id})
+    }
+  };
+
+
+  const handleNavigateTransaction = (item: any) => {
+    console.log("handleNavigateTransaction");
+    return
+
+    if (item) {
+      navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item });
+    }
+  };
+  
 
   async function HandleOnPressCardDetail(txt: any) {
     // this calls secure card data
@@ -413,7 +471,12 @@ export const useCardScreenViewModel = () => {
     // setmodalVisibleActive,
     MODAL_CONFIG,
     activeModal, 
-    setActiveModal
+    setActiveModal,
+    transactions,
+    isPendingpaymentCardHistry,
+    handleNavigateTransactionHistory,
+    handleNavigateTransaction,
+    onRefresh
     // refetchgetCardsData,
   };
 };

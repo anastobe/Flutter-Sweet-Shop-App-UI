@@ -7,8 +7,8 @@ import { handleSize } from '../config/responsiveTheme';
 import { CommonUtils } from '../utils';
 
 interface Props {
-  item: any;
-  onPress: () => void;
+  item?: any;
+  onPress?: () => void;
 }
 
 const TransactionItem = ({ item, onPress }: Props) => {

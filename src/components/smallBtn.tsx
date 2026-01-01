@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     paddingVertical: handleSize.h(8),
     borderRadius: handleSize.h(20),
     marginTop: handleSize.h(16),
+    marginBottom: handleSize.h(16),
   },
   text: {
     color: THEME.white,
