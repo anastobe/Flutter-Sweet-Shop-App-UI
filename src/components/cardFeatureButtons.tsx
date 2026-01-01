@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { FONTFAMILY, FONT_SIZES, THEME } from '../styles';
 import { Images } from '../config';
 import { handleSize } from '../config/responsiveTheme';
+import { CommonUtils } from '../utils';
 
 type CardFeatureButton = {
   icon: any;
@@ -24,6 +25,8 @@ const CardFeatureButtons: React.FC<Props> = ({
   iconColor = THEME.white,
   onPressbtn,
 }) => {
+
+
   return (
     <View style={styles.container}>
       {features.map((feature, index) => (
@@ -41,7 +44,7 @@ const CardFeatureButtons: React.FC<Props> = ({
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <Text style={styles.label}>{feature.text}</Text>
+          <Text style={styles.label}>{CommonUtils.firstCapitaAllSmall(feature.text)}</Text>
         </View>
       ))}
     </View>
@@ -76,7 +79,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: 'center',
-    textTransform: 'capitalize',
     marginTop: handleSize.h(8),
   },
 });

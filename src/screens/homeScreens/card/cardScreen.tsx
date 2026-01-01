@@ -43,7 +43,7 @@ const CardScreen = () => {
   const navigation = useNavigation<any>();
   const vm = useCardScreenViewModel();
 
-  // const currentItem = vm?.getCardsData?.[vm.currentIndex];
+  const currentItem = vm?.getCardsData?.[vm.currentIndex];
  
   const BOTTOM_SHEETS = [
   {
@@ -103,10 +103,11 @@ const CardScreen = () => {
   {
     key: 'MANAGE',
     ref: vm.manageRef,
-    height: 200,
-    maxHeightPercent: 0.33,
+    height: currentItem?.format == "physical" ? 310 : 210,
+    maxHeightPercent: 0.5,
     render: () => (
       <ManageOption
+        currentItem={currentItem}
         style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
         backImg={Images.addCardGradient}
         onPress1={() => vm.onPressOption('1')}
@@ -253,7 +254,7 @@ const CardScreen = () => {
         style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
         backImg={Images.addCardGradient}
         btnLoader={vm.isPendingfreezUnFreezCard}
-        onClose={() => !vm.isPendingfreezUnFreezCard && vm.setActiveModal(null)}
+        onClose={() => !vm.isPendingfreezUnFreezCard && vm.setActiveModal(false)}
         onConfirm={config?.action}
         title={config?.title}
         body={config?.body}

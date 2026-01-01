@@ -34,7 +34,6 @@ export const useCardScreenViewModel = () => {
   const [walletSwitch, setWalletSwitch] = useState(false);
 
   // modal / bottom sheet state
-  const [open, setopen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [saveCureentDisplayData, setsaveCureentDisplayData] = useState<any>({});
   const [refreshing, setRefreshing] = useState(false);
@@ -165,9 +164,9 @@ export const useCardScreenViewModel = () => {
 
   atm: {
     body: 'Kindly visit your nearest ATM',
-    confirmText: 'Continue',
+    confirmText: 'Ok',
     iconName: 'alert-outline',
-    action: () => setopen(false),
+    action: () => setActiveModal(false),
   },
 };
 
@@ -311,9 +310,11 @@ export const useCardScreenViewModel = () => {
           // setopen(true);
           setActiveModal('atm');
         }
-        else if (currentItem?.format == 'virtual') {
-          navigation.navigate(HOME_ROUTES.PIN_SECURITY, { cardDetail: currentItem })    
-        }
+        // else if (currentItem?.format == 'virtual') {
+        //   navigation.navigate(HOME_ROUTES.PIN_SECURITY, { cardDetail: currentItem })    
+        // }
+
+
       } else if (id == 2) {  
         navigation.navigate(HOME_ROUTES.SET_LIMIT, { cardDetail: currentItem, getCardsData: getCardsData })    
       }

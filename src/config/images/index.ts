@@ -22,8 +22,6 @@ const Images = {
   lock: require("../../assets/images/lock.png"),
   finger: require("../../assets/images/finger.png"),
   welcome: require("../../assets/images/welcome.png"),
-  cardBack: require("../../assets/images/cardBack.png"),
-  freezeView: require("../../assets/images/freezeView.png"),
   frontPayLogo: require("../../assets/images/frontPayLogo.png"),
   gradientBg: require("../../assets/images/gradientBg.png"),
 
@@ -59,7 +57,9 @@ const Images = {
     increase: require("../../assets/figmaImages/increase/Vector.png"),
     decrease: require("../../assets/figmaImages/decrease/Vector.png"),
     uploadPhoto: require("../../assets/figmaImages/uploadPhoto/Vector.png"),
-    
+    cardBack: require("../../assets/figmaImages/cardBack/Group.png"),
+    freezeView: require("../../assets/figmaImages/freezeView/Group.png"),
+
     //payment
     toMyAcc: require("../../assets/figmaImages/toMyAcc/pt_cards_icons.png"),
     international: require("../../assets/figmaImages/international/pt_cards_icons.png"),

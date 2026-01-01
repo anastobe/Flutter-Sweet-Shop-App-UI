@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Images } from '../../config';
 import { handleSize } from '../../config/responsiveTheme';
 
-const ManageOption = ({ style, onPress1, onPress2, backImg }) => {
+const ManageOption = ({currentItem, style, onPress1, onPress2, backImg }) => {
 
   function Listitem(icon, title, switchOnpress, iconRight, desc) {
     return (
@@ -31,7 +31,10 @@ const ManageOption = ({ style, onPress1, onPress2, backImg }) => {
         </View>
       </TouchableOpacity>
     );
-  }
+  } 
+
+  console.log("currentItemcurrentItemcurrentItem==>",currentItem?.format == "physical");
+  
 
   return (
     <ImageBackground resizeMode="cover" source={backImg} style={style}>
@@ -41,13 +44,14 @@ const ManageOption = ({ style, onPress1, onPress2, backImg }) => {
       >
         <Text style={styles.title}>Manage cards</Text>
 
-        {/* {Listitem(
+      {currentItem?.format == "physical" &&
+        Listitem(
           'pin-outline',
           'Pin & Security',
           onPress1,
           'arrow-forward-outline',
           'Generate an instant-use card for safer online payments.'
-        )} */}
+        )}
 
         {Listitem(
           'card-outline',

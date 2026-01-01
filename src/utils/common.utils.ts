@@ -88,6 +88,11 @@ function capitalizeFirstLetter(string: any) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+const firstCapitaAllSmall = (text?: string) => {
+  if (!text) return '';
+  return text[0].toUpperCase() + text.slice(1).toLowerCase();
+};
+
 const RegEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const RegixNumbersOnly = /^[0-9]+$/
@@ -295,5 +300,6 @@ export default {
   MAX_LENGTH_10,
   formatDate,
   formatTime,
-  getCurrencySymbol
+  getCurrencySymbol,
+  firstCapitaAllSmall
 };

@@ -153,7 +153,7 @@ const MoreScreen = () => {
           iconNameBottom={-20}
           body={"Kindly visit your nearest ATM"}
           iconName={"alert-outline"}
-          confirmText={'Continue'}
+          confirmText={'Ok'}
         />
       }
       onClose={vm.onPressSecurity}
