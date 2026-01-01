@@ -40,7 +40,7 @@ const AccountCard = ({
     >
       <ImageBackground
         resizeMode="stretch"
-        source={Images.cardBack}
+        source={item.card_status == "freeze" ? Images.freezeView : Images.cardBack}
         imageStyle={{ borderRadius: handleSize.f(15) }}
         style={{ flex: 1, marginHorizontal: handleSize.w(25) }}
       >

@@ -23,6 +23,7 @@ const Images = {
   finger: require("../../assets/images/finger.png"),
   welcome: require("../../assets/images/welcome.png"),
   cardBack: require("../../assets/images/cardBack.png"),
+  freezeView: require("../../assets/images/freezeView.png"),
   frontPayLogo: require("../../assets/images/frontPayLogo.png"),
   gradientBg: require("../../assets/images/gradientBg.png"),
 

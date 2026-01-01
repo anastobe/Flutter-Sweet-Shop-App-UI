@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: 'center',
+    textTransform: 'capitalize',
     marginTop: handleSize.h(8),
   },
 });
