@@ -620,6 +620,6 @@ const styles = StyleSheet.create<any>({
   tabCont: {
     // width: handleSize.w(METRICS.width / 5 - 22),
     width: (METRICS.width / 5) - handleSize.w(5),
-    top: handleSize.h(10),
+    top: handleSize.h(10), 
   },
 });
