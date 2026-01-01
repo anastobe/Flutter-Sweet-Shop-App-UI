@@ -271,6 +271,11 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
     } else if (item.text == 'Replace Card') {
       navigation.navigate('REPLACE_CARD' as any, { cardDetail: currentItem });
     } else if (item.text == 'Methods') {
+      // if (currentItem?.card_status == "inactive") {
+      //   Toast.showToast("Please active your card", '', 'error')
+      // }
+      // else 
+      
       if (isPendingupdateUsageRules) {
         Toast.showToast("Payments methods is loading", '', 'error')
       }
