@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconCONT: {
-    width: handleSize.w(36),
-    height: handleSize.h(36),
+    width: handleSize.f(36),
+    height: handleSize.f(36),
     backgroundColor: THEME.primary,
     borderRadius: handleSize.f(10),
     justifyContent: 'center',

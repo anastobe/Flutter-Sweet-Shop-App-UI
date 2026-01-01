@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
     marginLeft: handleSize.w(5),
   },
   leftIconCont: {
-    width: handleSize.w(28),
-    height: handleSize.h(28),
+    width: handleSize.f(28),
+    height: handleSize.f(28),
     borderRadius: handleSize.f(100),
     justifyContent: "center",
     alignItems: "center",
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.white,
   },
   rightIconCont: {
-    width: handleSize.w(28),
-    height: handleSize.h(28),
+    width: handleSize.f(28),
+    height: handleSize.f(28),
     borderRadius: handleSize.f(100),
     justifyContent: "center",
     alignItems: "center",

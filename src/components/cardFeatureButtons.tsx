@@ -51,7 +51,7 @@ const CardFeatureButtons: React.FC<Props> = ({
   );
 };
 
-const BUTTON_SIZE = handleSize.w(54);
+const BUTTON_SIZE = handleSize.f(54);
 
 const styles = StyleSheet.create({
   container: {

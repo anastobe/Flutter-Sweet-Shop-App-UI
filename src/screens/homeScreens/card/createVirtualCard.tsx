@@ -254,8 +254,8 @@ const styles = StyleSheet.create({
     marginRight: handleSize.w(20),
   },
   radio: {
-    height: handleSize.w(24),
-    width: handleSize.w(24),
+    height: handleSize.f(24),
+    width: handleSize.f(24),
     borderRadius: handleSize.w(12),
     borderWidth: 1,
     marginRight: handleSize.w(6),

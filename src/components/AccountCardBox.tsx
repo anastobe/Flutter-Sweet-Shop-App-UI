@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: "center",
-    marginBottom: handleSize.h(20),
+    marginBottom: handleSize.h(10),
   },
   row: {
     flexDirection: "row",

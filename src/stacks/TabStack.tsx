@@ -618,7 +618,8 @@ const styles = StyleSheet.create<any>({
     borderRadius: handleSize.w(8),
   },
   tabCont: {
-    width: handleSize.w(METRICS.width / 5 - 22),
+    // width: handleSize.w(METRICS.width / 5 - 22),
+    width: (METRICS.width / 5),
     top: handleSize.h(10),
   },
 });

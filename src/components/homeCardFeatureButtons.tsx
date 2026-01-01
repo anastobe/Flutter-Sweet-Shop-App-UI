@@ -4,7 +4,7 @@ import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { handleSize } from '../config/responsiveTheme';
 import Metrics from '../styles/metrics';
 
-const BUTTON_SIZE = handleSize.w(54);
+const BUTTON_SIZE = handleSize.f(54);
 
 type CardFeatureButton = {
   icon: string;
