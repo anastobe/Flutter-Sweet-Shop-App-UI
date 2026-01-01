@@ -39,7 +39,10 @@ import TransactionList from '../../../components/transactionList';
 import SmallBtn from '../../../components/smallBtn';
 import { CommonUtils } from '../../../utils';
 import AccountList from '../../../components/accountList';
-import { LoaderCompleteScreenOnly, LoaderOnly } from '../../../components/activityIndicator';
+import {
+  LoaderCompleteScreenOnly,
+  LoaderOnly,
+} from '../../../components/activityIndicator';
 
 const header_flatlist_BottomSizeAdjust = 260;
 
@@ -47,7 +50,10 @@ const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
   const navigation = useNavigation();
 
-  
+  let NoAssetOfAccount =
+    vm.allAccounts_withAsset?.length > 0 &&
+    vm.allAccounts_withAsset[0]?.assets?.length > 0;
+
   const renderTransactionList = () => (
     <View style={{ zIndex: -9 }}>
       <FlatList
@@ -79,75 +85,93 @@ const AccountScreen = () => {
         // onEndReached={vm.loadMoreTransactions}
         refreshing={vm.refreshing}
         onRefresh={vm.onRefresh}
-
-        ListHeaderComponent={renderSubHeaderStuffs}
+        ListHeaderComponent={
+          vm.allAccounts_withAsset[0]?.assets ? renderSubHeaderStuffs() : null
+        }
         nestedScrollEnabled
         renderItem={renderItem}
         contentContainerStyle={{
-          paddingBottom: handleSize.h(header_flatlist_BottomSizeAdjust + 20)        }}
+          paddingBottom: handleSize.h(header_flatlist_BottomSizeAdjust + 20),
+        }}
       />
     </View>
   );
-  
-    /** 🔹 Transaction Item */
-const renderItem = useCallback(({ item }) => (
-  <TransactionList
-    item={item}
-    onPress={vm.handleNavigateTransaction}
-  />
-), []);
 
+  /** 🔹 Transaction Item */
+  const renderItem = useCallback(
+    ({ item }) => (
+      <TransactionList item={item} onPress={vm.handleNavigateTransaction} />
+    ),
+    [],
+  );
 
-const renderSubHeaderStuffs = useCallback(() => {
-    return(
-                  <View>
-              <CardFeatureButtons
-                features={vm.features}
-                onPressbtn={(item: any) => item.onPress()}
-              />
+  console.log(
+    'vm?.getDashboardData_Data==>',
+    vm.allAccounts_withAsset[0]?.assets?.length,
+  );
 
-              <GradientLineGraph
-                data={vm?.getDashboardData_Data?.graph}
-                loading={vm?.getDashboardDataPending}
-                marginTop={handleSize.h(60)}
-              />
+  const renderSubHeaderStuffs = useCallback(() => {
+    function renderGraphAndAvg() {
+      return (
+        <View>
+          <GradientLineGraph
+            data={vm?.getDashboardData_Data?.graph}
+            loading={vm?.getDashboardDataPending}
+            marginTop={handleSize.h(60)}
+          />
 
-              <View style={styles.statecontainer}>
-                <StatCard
-                  value={vm?.getDashboardData_Data?.average_spent}
-                  title="Avg monthly spend (DUMMY)"
-                  amount="£820.0"
-                  percentage={vm?.getDashboardData_Data?.avg_spent_percentage ? vm?.getDashboardData_Data?.avg_spent_percentage : 0}
-                  //           // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
-                  onPress={() => console.log('Avg monthly ')}
-                  isPositive
-                />
-                <StatCard
-                  value={vm?.getDashboardData_Data?.monthly_spend}
-                  title="Spent this month (DUMMY)"
-                  amount="£440.24"
-                  percentage={vm?.getDashboardData_Data?.avg_monthly_spend ? vm?.getDashboardData_Data?.avg_monthly_spend : 0}
-                  // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
-                  onPress={() => console.log('Avg monthly ')}
-                  isPositive={false}
-                />
-              </View>
+          <View style={styles.statecontainer}>
+            <StatCard
+              value={vm?.getDashboardData_Data?.average_spent}
+              title="Avg monthly spend (DUMMY)"
+              amount="£820.0"
+              percentage={
+                vm?.getDashboardData_Data?.avg_spent_percentage
+                  ? vm?.getDashboardData_Data?.avg_spent_percentage
+                  : 0
+              }
+              //           // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
+              onPress={() => console.log('Avg monthly ')}
+              isPositive
+            />
+            <StatCard
+              value={vm?.getDashboardData_Data?.monthly_spend}
+              title="Spent this month (DUMMY)"
+              amount="£440.24"
+              percentage={
+                vm?.getDashboardData_Data?.avg_monthly_spend
+                  ? vm?.getDashboardData_Data?.avg_monthly_spend
+                  : 0
+              }
+              // onPress={() => navigation.navigate(HOME_ROUTES.ACCOUNT_STATEMENT)}
+              onPress={() => console.log('Avg monthly ')}
+              isPositive={false}
+            />
+          </View>
+        </View>
+      );
+    }
+    return (
+      <View>
+        <CardFeatureButtons
+          features={vm.features}
+          onPressbtn={(item: any) => item.onPress()}
+        />
 
-              <View style={styles.cardHeader}>
-                <Text style={styles.cardTransactionTXT}>
-                  Activity
-                </Text>
-                <TouchableOpacity onPress={vm.handleNavigateTransactionHistory}>
-                  <Text style={styles.viewAllTxt}>View All</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-    )
+        {NoAssetOfAccount && renderGraphAndAvg()}
+
+        <View style={styles.cardHeader}>
+          <Text style={styles.cardTransactionTXT}>Activity</Text>
+          <TouchableOpacity onPress={vm.handleNavigateTransactionHistory}>
+            <Text style={styles.viewAllTxt}>View All</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
   }, [vm.features, vm.getDashboardData_Data]);
 
-  // console.log("currentAccount==>????",vm.currentAccount); 
-   
-  
+  // console.log("currentAccount==>????",vm.currentAccount);
+
   function renderHeaderStuffs() {
     return (
       <ImageBackground
@@ -158,14 +182,14 @@ const renderSubHeaderStuffs = useCallback(() => {
       >
         <OptionsHeader
           isFetching={vm.isFetching}
-          show={"accountname"}
+          show={'accountname'}
           currentAccount={vm?.currentAccount}
-          onPressSelectAccounts={() =>
-            vm.selectAccountRef?.current?.open()
+          onPressSelectAccounts={
+            () => vm.selectAccountRef?.current?.open()
             // selectAccountRef
           }
-          onPressThreeDots={() =>
-            vm.editRef?.current?.open()
+          onPressThreeDots={
+            () => vm.editRef?.current?.open()
             // selectAccountRef
           }
           onPressNotification={() =>
@@ -181,11 +205,11 @@ const renderSubHeaderStuffs = useCallback(() => {
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          ListEmptyComponent={(
-            <View style={styles.noAccCont} >
-              <Text style={styles.noAccountTxt}>No transactions found</Text>
+          ListEmptyComponent={
+            <View style={styles.noAccCont}>
+              <Text style={styles.noAccountTxt}>No asset found</Text>
             </View>
-            )}
+          }
           onScroll={vm.handleScroll}
           scrollEventThrottle={16}
           keyExtractor={(item, index) => String(item?.id ?? index)}
@@ -197,9 +221,15 @@ const renderSubHeaderStuffs = useCallback(() => {
           renderItem={({ item }) => (
             <AccountCardBox
               showBalance={vm.showbalance}
-              total={`${CommonUtils.getCurrencySymbol(item.currency.iso_code)} ${item.available_balance}`}
-              onHold={`${CommonUtils.getCurrencySymbol(item.currency.iso_code)} ${item.pending_balance}`}
-              available={`${CommonUtils.getCurrencySymbol(item.currency.iso_code)} ${item.available_balance}`}
+              total={`${CommonUtils.getCurrencySymbol(
+                item.currency.iso_code,
+              )} ${item.available_balance}`}
+              onHold={`${CommonUtils.getCurrencySymbol(
+                item.currency.iso_code,
+              )} ${item.pending_balance}`}
+              available={`${CommonUtils.getCurrencySymbol(
+                item.currency.iso_code,
+              )} ${item.available_balance}`}
               onPresseye={() => vm.setshowbalance(!vm.showbalance)}
             />
           )}
@@ -217,7 +247,6 @@ const renderSubHeaderStuffs = useCallback(() => {
   }
 
   // console.log("vm?.getAccountsAndAssets_Data=> ?",vm?.getAccountsAndAssets_Data[0]?.accounts);
-  
 
   return (
     <ImageBackground
@@ -262,16 +291,20 @@ const renderSubHeaderStuffs = useCallback(() => {
                   { label: 'SWIFT code', value: 'DUMMY' },
                   {
                     label: 'Currency',
-                    value: "DUMMY",
+                    value: 'DUMMY',
                   },
                   { label: 'Account type', value: 'DUMMY' },
                   {
                     label: 'Created cards',
-                    value: vm?.currentAccount?.created_at ?  CommonUtils.formatDate("2025-04-13T19:15:08.556537+00:00") : "DUMMY",
+                    value: vm?.currentAccount?.created_at
+                      ? CommonUtils.formatDate(
+                          '2025-04-13T19:15:08.556537+00:00',
+                        )
+                      : 'DUMMY',
                   },
                   {
                     label: 'Linked cards',
-                    value: "DUMMY",
+                    value: 'DUMMY',
                   },
                 ]}
               />
@@ -302,39 +335,34 @@ const renderSubHeaderStuffs = useCallback(() => {
           draggable={false}
           bottomSheetRef={vm.selectAccountRef}
         >
-           <ImageBackground
+          <ImageBackground
             resizeMode="cover"
             source={Images.addCardGradient}
-            style={[styles.container,{ paddingHorizontal: handleSize.w(16)}]}
+            style={[styles.container, { paddingHorizontal: handleSize.w(16) }]}
           >
+            <Text style={styles.sheetTitle}>Select Account</Text>
 
-          <Text style={styles.sheetTitle}>Select Account</Text>
+            <FlatList
+              data={vm?.allAccounts_withAsset}
+              keyExtractor={item => item?.id}
+              scrollEnabled
+              showsVerticalScrollIndicator={false}
+              ItemSeparatorComponent={() => <View style={styles.separator} />}
+              renderItem={({ item, index }) => (
+                // console.log(" FLAT LISTgetAccountsAndAssets_Data==>",item),
 
-          <FlatList
-            data={vm?.allAccounts_withAsset}
-            keyExtractor={(item) => item?.id}
-            scrollEnabled
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={() => <View style={styles.separator} />}
-            renderItem={({ item, index }) => (
-              // console.log(" FLAT LISTgetAccountsAndAssets_Data==>",item),
-               
-              <AccountList
-                length={vm?.allAccounts_withAsset}
-                index={index}
-                account={item}
-                onPress={() => {
-                  vm.selectAccount(item);
-
-                }}
-              />
-            )}
-          />
-
-        </ImageBackground>
+                <AccountList
+                  length={vm?.allAccounts_withAsset}
+                  index={index}
+                  account={item}
+                  onPress={() => {
+                    vm.selectAccount(item);
+                  }}
+                />
+              )}
+            />
+          </ImageBackground>
         </BottomSheet>
-
-        
       </SafeAreaView>
       {vm.isFetching && <LoaderCompleteScreenOnly />}
     </ImageBackground>
@@ -418,6 +446,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: handleSize.w(20),
     marginVertical: handleSize.h(10),
+    marginTop: handleSize.h(15),
   },
 
   cardTransactionTXT: {
@@ -485,7 +514,7 @@ const styles = StyleSheet.create({
   },
 
   //accout list detail
-    sheetContainer: {
+  sheetContainer: {
     // flex: 1,
     // padding: 16,
     // backgroundColor: '#fff',
@@ -495,9 +524,9 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZES.onesix,
     fontFamily: FONTFAMILY.Medium,
     marginTop: handleSize.h(16),
-    color: THEME.white
+    color: THEME.white,
   },
-    separator: {
+  separator: {
     height: 10,
   },
 
@@ -510,10 +539,14 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-  noAccCont:{
-   width: Metrics.width, justifyContent: 'center'
+  noAccCont: {
+    width: Metrics.width,
+    justifyContent: 'center',
   },
-  noAccountTxt:
-{  color: THEME.white, alignSelf: "center", fontSize: FONT_SIZES.onesix, fontFamily: FONTFAMILY.Medium }
-
+  noAccountTxt: {
+    color: THEME.white,
+    alignSelf: 'center',
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Medium,
+  },
 });

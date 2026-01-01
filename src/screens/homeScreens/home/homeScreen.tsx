@@ -132,6 +132,7 @@ const renderBalanceCard = () => (
         </View>
         :
       <>
+       {assetsList?.array?.length > 0 &&
         <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: handleSize.h(50) }} >
         {showbalance ? 
         <Text style={styles.total}>{assetsList?.firstObject?.currency?.iso_code} {assetsList?.firstObject?.available_balance}</Text> 
@@ -141,7 +142,7 @@ const renderBalanceCard = () => (
           <TouchableOpacity style={{  alignItems: "center", justifyContent: "center",height: handleSize.h(50) }} onPress={()=>setshowbalance(!showbalance)} >
         <Icon name={showbalance ? "eye-outline" : "eye-off" } style={{ top: handleSize.h(2) }} size={handleSize.f(20)} color={THEME.white} />
           </TouchableOpacity>
-        </View>
+        </View>}
 
         <View style={styles.balanceTop}>
           <Text style={styles.balanceLabel}>Choose assets</Text>
