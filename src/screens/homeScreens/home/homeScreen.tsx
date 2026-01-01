@@ -237,7 +237,7 @@ const renderBalanceCard = () => (
               <ActivityIndicator size="large" color={THEME.primary} />
             </View>
           ) : (
-            <Text style={{ textAlign: 'center', color: THEME.white }}>
+            <Text style={{ textAlign: 'center', color: THEME.white, fontSize: handleSize.h(FONT_SIZES.onefour) }}>
               No transactions found
             </Text>
           )
@@ -449,8 +449,8 @@ const styles = StyleSheet.create({
   titlePicBack: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: handleSize.w(29),
-    height: handleSize.h(29),
+    width: handleSize.f(29),
+    height: handleSize.f(29),
     backgroundColor: THEME.whitergba,
     borderRadius: handleSize.f(100),
   },
@@ -458,8 +458,8 @@ const styles = StyleSheet.create({
   titlePicNotification: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: handleSize.w(28),
-    height: handleSize.h(28),
+    width: handleSize.f(28),
+    height: handleSize.f(28),
     marginRight: handleSize.w(8),
     backgroundColor: THEME.white,
     borderRadius: handleSize.f(100),
@@ -698,23 +698,22 @@ const styles = StyleSheet.create({
   
 
   sheetTitle: {
-    fontSize: FONT_SIZES.onesix,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     marginTop: handleSize.h(16),
     color: THEME.white
   },
     separator: {
-    height: 0.6,
+    height: handleSize.h(0.6),
     color: THEME.white,
     backgroundColor: THEME.white
     
   },
 
   accountName: {
-    fontSize: FONT_SIZES.onefour,
+    fontSize: handleSize.h(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
-    width: Metrics.width-handleSize.w(110),
 
   },
   

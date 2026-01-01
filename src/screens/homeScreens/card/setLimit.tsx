@@ -284,8 +284,8 @@ export const styles = StyleSheet.create({
   },
 
   radio: {
-    height: handleSize.w(20),
-    width: handleSize.w(20),
+    height: handleSize.f(20),
+    width: handleSize.f(20),
     borderRadius: handleSize.w(10),
     borderWidth: 1.5,
     marginRight: handleSize.w(5),

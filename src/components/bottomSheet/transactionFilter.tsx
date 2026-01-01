@@ -176,8 +176,8 @@ const styles = StyleSheet.create({
     },
 
     boxShape: {
-        width: handleSize.w(20),
-        height: handleSize.h(20),
+        width: handleSize.f(20),
+        height: handleSize.f(20),
         borderWidth: handleSize.w(1.5),
         borderRadius: handleSize.w(3),
         justifyContent: 'center',
