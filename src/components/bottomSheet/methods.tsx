@@ -7,6 +7,7 @@ import SwitchToggle from "react-native-switch-toggle";
 import { handleSize } from '../../config/responsiveTheme';
 
 const Methods = ({
+  currentItem,
   Data,
   loading,
   atmSwitch,
@@ -82,7 +83,7 @@ const Methods = ({
               () => setAtmSwitch(!atmSwitch)
             )}
 
-            {Listitem(
+            {currentItem?.format == "physical" && Listitem(
               Images.onlinePayments,
               "Online payments",
               "Enable or disable card usage for online purchases",
@@ -98,7 +99,7 @@ const Methods = ({
               () => setChipSwitch(!chipSwitch)
             )}
 
-            {Listitem(
+            {currentItem?.format == "physical" && Listitem(
               Images.internationalTransaction,
               "International transactions",
               "Control usage of your card via Apple Pay, Google Pay, and others",

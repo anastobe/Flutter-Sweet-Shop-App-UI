@@ -271,10 +271,18 @@ export const useCardScreenViewModel = () => {
   }
 };
 
-  function renderCardFeature() {
+  function renderCardFeaturePhysical() {
     return [
       { icon: Images.freeze, text: getCardActionText(currentItem?.card_status), width: 22, height: 22 },
       { icon: Images.replace, text: 'Replace Card', width: 22, height: 22 },
+      { icon: Images.methods, text: 'Methods', width: 22, height: 22 },
+      { icon: Images.manage, text: 'Manage', width: 22, height: 22 },
+    ];
+  }
+
+  function renderCardFeatureVirtual() {
+    return [
+      { icon: Images.freeze, text: getCardActionText(currentItem?.card_status), width: 22, height: 22 },
       { icon: Images.methods, text: 'Methods', width: 22, height: 22 },
       { icon: Images.manage, text: 'Manage', width: 22, height: 22 },
     ];
@@ -386,7 +394,8 @@ export const useCardScreenViewModel = () => {
     freezCardApi,
     onPressCard,
     onPressfeature,
-    renderCardFeature,
+    renderCardFeaturePhysical,
+    renderCardFeatureVirtual,
     TransactionListProps: {
       onRefresh,
     },

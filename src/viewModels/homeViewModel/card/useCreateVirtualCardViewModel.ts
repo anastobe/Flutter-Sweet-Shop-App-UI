@@ -55,21 +55,23 @@ export default function useCreateVirtualCardViewModel() {
       Toast.showToast('Please Select Limit Type', '', 'error');
     } else if (spendingLimit?.length === 0) {
       Toast.showToast('Please Enter Spending Limit', '', 'error');
-    } else if (pin?.length === 0) {
-      Toast.showToast('Please Your Security Pin', '', 'error');
-    } else if (pin?.length < 4) {
-      Toast.showToast('Security Pin Must be 4 Digit', '', 'error');
-    }  else if (pin?.length > 4) {
-      Toast.showToast('Security Pin Must be 4 Digit', '', 'error');
-    } else {
+    } 
+    // else if (pin?.length === 0) {
+    //   Toast.showToast('Please Your Security Pin', '', 'error');
+    // } 
+    // else if (pin?.length < 4) {
+    //   Toast.showToast('Security Pin Must be 4 Digit', '', 'error');
+    // }  else if (pin?.length > 4) {
+    //   Toast.showToast('Security Pin Must be 4 Digit', '', 'error');
+    // } 
+    else {
       const payload = {
         format: 'virtual',//
         card_name: cardName,//
         spending_limits: spendingLimit,//
         limit_type: limitType?.toLowerCase(),//
         currency_type: currency.id?.toString(),
-        linked_account: linkedAccount.id,
-        pin: pin
+        linked_account: linkedAccount.id
       };
       // card_desgin: 'steel',//REMOVED
 

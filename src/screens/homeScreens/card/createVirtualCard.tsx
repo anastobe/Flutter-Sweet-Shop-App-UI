@@ -179,7 +179,7 @@ export default function CreateVirtualCardView() {
           </Text>
         </View> */}
 
-        <InputField
+        {/* <InputField
           marginTp={handleSize.h(20)}
           margBtm={handleSize.h(20)}
           placeholder="PIN"
@@ -187,7 +187,7 @@ export default function CreateVirtualCardView() {
           onChangeText={setPin}
           keyboardType="numeric"
           maxlen={10}
-        />
+        /> */}
 
         <CustomButton
           title="Create virtual card"

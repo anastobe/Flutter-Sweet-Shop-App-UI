@@ -80,11 +80,12 @@ const CardScreen = () => {
   {
     key: 'METHODS',
     ref: vm.methodsRef,
-    height: 500,
+    height: currentItem?.format == "physical" ? 500 : 300,
     maxHeightPercent: 0.65,
     onClose: vm.updateCardStatuses,
     render: () => (
       <Methods
+        currentItem={currentItem}
         Data={vm.getCardsUsageRulesData}
         loading={vm.isPendingGetCardsUsageRules}
         atmSwitch={vm.atmSwitch}
@@ -118,7 +119,7 @@ const CardScreen = () => {
   ];
 
   function renderCardFeatureButtons() {
-    const features = vm.renderCardFeature();
+    const features = currentItem?.format == "physical" ? vm.renderCardFeaturePhysical() : vm.renderCardFeatureVirtual()
     return (
       <CardFeatureButtons
         features={features}
