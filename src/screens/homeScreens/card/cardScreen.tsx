@@ -37,6 +37,7 @@ import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
 import { HOME_ROUTES } from '../../../constants';
+import { LoaderCompleteScreenOnly } from '../../../components/activityIndicator';
 
 const CardScreen = () => {
   const navigation = useNavigation<any>();
@@ -45,57 +46,6 @@ const CardScreen = () => {
   // const currentItem = vm?.getCardsData?.[vm.currentIndex];
  
 
-  // function renderPopup(icon: any, title: any, btnTxt: any) {
-  //   return (
-  //       <ImageBackground
-  //         // imageStyle={{ borderRadius: 16 }}
-  //         source={Images.universalModalBack} 
-  //         resizeMode="contain"
-  //         style={styles.modal}
-  //       >
- 
-  //       <TouchableOpacity
-  //         style={styles.closeBtn}
-  //         onPress={() => vm.setopen(false)}
-  //       >
-  //         <Text style={styles.closeText}>×</Text>
-  //       </TouchableOpacity>
-
-  //       <View style={styles.iconCircle}>
-  //         <Icon name={icon} size={25} color={THEME.textPrimary} />
-  //       </View>
-
-  //       <Text style={styles.titles}>{title}</Text>
-
-  //       <CustomButton
-  //         btnContSty={styles.forgetTxtpop}
-  //         title={btnTxt}
-  //         onPress={() => vm.setopen(false)}
-  //       />
-  //       </ImageBackground>
-  //   );
-  // }
-
-  function renderNearestAtm() {
-    return (
-      <Modal
-        isVisible={vm.open}
-        isKeyboardAvoidingView={true}
-        children={<BluryModal
-            style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-            onClose={() => vm.setopen(false)}
-            btnLoader={false}
-            marginTopTitle={20}
-            onConfirm={() => vm.setopen(false)}
-            iconNameBottom={-20}
-            body={"Kindly visit your nearest ATM"}
-            iconName={"alert-outline"}
-            confirmText={'Continue'}
-          />}
-        onClose={() => vm.setopen(false)}
-      />
-    );
-  }
 
   function renderCardFeatureButtons() {
     const features = vm.renderCardFeature();
@@ -223,23 +173,10 @@ const CardScreen = () => {
     )
   }
 
-  return (
-    <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
-      <SafeAreaView style={styles.container}>
-
-      <StatusBarManager
-        backgroundColor={THEME.gradientStatusBarColor} 
-        barStyle="light-content" 
-      />
-
-       {renderHeaderStuffs()}
-       
-       
-         <ScrollView>
-           {renderCardFeatureButtons()}
-           {TransactionList()}
-           {/* Modals */}
-
+    function renderModals() {
+    return (
+      <View>
+        
            <Modal
              isVisible={vm.modalVisible}
              isKeyboardAvoidingView={true}
@@ -248,7 +185,7 @@ const CardScreen = () => {
                 style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
                  backImg={Images.addCardGradient}
                  visible={vm.modalVisible}
-                 onClose={() => vm.setModalVisible(false)}
+                 onClose={() =>{ !vm?.isPendingfreezUnFreezCard && vm.setModalVisible(false)}}
                  btnLoader={vm.isPendingfreezUnFreezCard}
                  onConfirm={() => vm.freezCardApi('freeze')}
                  showSubBody={true}
@@ -278,7 +215,7 @@ const CardScreen = () => {
                  backImg={Images.addCardGradient}
                  visible={vm.modalVisibleUnfreez}
                  btnLoader={vm.isPendingfreezUnFreezCard}
-                 onClose={() => vm.setmodalVisibleUnfreez(false)}
+                 onClose={() =>{ !vm?.isPendingfreezUnFreezCard && vm.setmodalVisibleUnfreez(false)}}
                  onConfirm={() => vm.freezCardApi('active')}
                  title={'Card is Frozen'}
                  body={
@@ -302,11 +239,11 @@ const CardScreen = () => {
                  backImg={Images.addCardGradient}
                  visible={vm.modalVisibleActive}
                  btnLoader={vm.isPendingfreezUnFreezCard}
-                 onClose={() => vm.setmodalVisibleActive(false)}
+                 onClose={() =>{ !vm?.isPendingfreezUnFreezCard &&  vm.setmodalVisibleActive(false)}}
                  onConfirm={() => vm.freezCardApi('active')}
-                 title={'Card is Inactive'}
+                 title={'Card is inactive'}
                  body={
-                   'Your card is currently Inactive for security reasons. Tap below to unfreeze it instantly and resume spending.'
+                   'Your card is currently inactive for security reasons. Tap below to active it and resume spending.'
                  }
                  showSubBody={false}
                  confirmText={'Active Card'}
@@ -316,10 +253,29 @@ const CardScreen = () => {
              onClose={() => {}}
            />
 
-         </ScrollView>
-    
-         {renderNearestAtm()}
+            <Modal
+              isVisible={vm.open}
+              isKeyboardAvoidingView={true}
+              children={<BluryModal
+                  style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+                  onClose={() => vm.setopen(false)}
+                  btnLoader={false}
+                  marginTopTitle={20}
+                  onConfirm={() => vm.setopen(false)}
+                  iconNameBottom={-20}
+                  body={"Kindly visit your nearest ATM"}
+                  iconName={"alert-outline"}
+                  confirmText={'Continue'}
+                />}
+              onClose={() => vm.setopen(false)}
+            />
+      </View>
+    );
+  }
 
+  function renderBottomSheets() {
+    return(
+      <View>
          {/* BottomSheets */}
          <BottomSheet
           height={300}
@@ -403,7 +359,35 @@ const CardScreen = () => {
           }
         />
 
+      </View>
+    )
+  }
+
+  return (
+    <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
+      <SafeAreaView style={styles.container}>
+
+      <StatusBarManager
+        backgroundColor={THEME.gradientStatusBarColor} 
+        barStyle="light-content" 
+      />
+
+       {renderHeaderStuffs()}
+       
+       
+         <ScrollView>
+           {renderCardFeatureButtons()}
+           {TransactionList()}
+           {/* Modals */}
+
+           {renderModals()}
+
+         </ScrollView>
        </SafeAreaView>
+        
+        {renderBottomSheets()}
+        {vm.isPending && <LoaderCompleteScreenOnly />}
+
       </ImageBackground>
   );
 };
