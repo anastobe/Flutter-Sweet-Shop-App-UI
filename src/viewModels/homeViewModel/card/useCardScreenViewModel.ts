@@ -37,10 +37,11 @@ export const useCardScreenViewModel = () => {
   const [open, setopen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [saveCureentDisplayData, setsaveCureentDisplayData] = useState<any>({});
-  const [modalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const [modalVisibleUnfreez, setmodalVisibleUnfreez] = useState(false);
-  const [modalVisibleActive, setmodalVisibleActive] = useState(false);
+  const [activeModal, setActiveModal] = useState<keyof typeof MODAL_CONFIG | null>(null);
+  // const [modalVisible, setModalVisible] = useState(false);
+  // const [modalVisibleUnfreez, setmodalVisibleUnfreez] = useState(false);
+  // const [modalVisibleActive, setmodalVisibleActive] = useState(false);
 
 
   // refs for bottom sheets (exposed so View can attach)
@@ -55,19 +56,21 @@ export const useCardScreenViewModel = () => {
     freezUnFreezCard({
       callback: (response: any) => {
         refetchgetCardsData();
-        setModalVisible(false);
-        setmodalVisibleUnfreez(false);
-        setmodalVisibleActive(false)
+        setActiveModal(false);
+        // setModalVisible(false);
+        // setmodalVisibleUnfreez(false);
+        // setmodalVisibleActive(false)
       },
     });
 
   const { mutate: updateUsageRulesFunc, isPending: isPendingupdateUsageRules } =
     updateUsageRules({
       callback: (response: any) => {
-        refetchgetCardsData();
-        setModalVisible(false);
-        setmodalVisibleUnfreez(false);
-        setmodalVisibleActive(false)
+        // refetchgetCardsData();
+        setActiveModal(false);
+        // setModalVisible(false);
+        // setmodalVisibleUnfreez(false);
+        // setmodalVisibleActive(false)
       },
     });
 
@@ -131,6 +134,44 @@ export const useCardScreenViewModel = () => {
     refetchgetCardsData();
   }, [refreshCall]);
 
+  const MODAL_CONFIG = {
+  freeze: {
+    title: 'Freeze This Card?',
+    body: 'Freezing will temporarily disable all transactions from this card.',
+    subBody:
+      'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.',
+    confirmText: 'Freeze Card',
+    iconName: 'snow-outline',
+    action: () => freezCardApi('freeze'),
+  },
+
+  unfreeze: {
+    title: 'Card is Frozen',
+    body:
+      'Your card is currently frozen for security reasons. Tap below to unfreeze it instantly and resume spending.',
+    confirmText: 'Unfreeze Card',
+    iconName: 'snow-outline',
+    action: () => freezCardApi('active'),
+  },
+
+  inactive: {
+    title: 'Card is inactive',
+    body:
+      'Your card is currently inactive for security reasons. Tap below to active it and resume spending.',
+    confirmText: 'Active Card',
+    iconName: 'alert-outline',
+    action: () => freezCardApi('active'),
+  },
+
+  atm: {
+    body: 'Kindly visit your nearest ATM',
+    confirmText: 'Continue',
+    iconName: 'alert-outline',
+    action: () => setopen(false),
+  },
+};
+
+
   function refetchgetCardsData() {
     console.log("play");    
     getCardsFunc({})    
@@ -162,15 +203,23 @@ export const useCardScreenViewModel = () => {
               // modalVisibleUnfreez = freeze
               // modalVisibleActive = inactive
 
+// setActiveModal('freeze');
+// setActiveModal('unfreeze');
+// setActiveModal('inactive');
+// setActiveModal('atm');
+
   function openFreezCard() {
     if (currentItem?.card_status == 'active')  {
-      setModalVisible(true);
+      // setModalVisible(true);
+      setActiveModal('freeze');
     }
     else if (currentItem?.card_status == 'freeze')  {
-      setmodalVisibleUnfreez(true);
+      // setmodalVisibleUnfreez(true);
+      setActiveModal('unfreeze');
     }
     else if (currentItem?.card_status == 'inactive')  {
-      setmodalVisibleActive(true);
+      // setmodalVisibleActive(true);
+      setActiveModal('inactive');
     }
   }
 
@@ -259,7 +308,8 @@ export const useCardScreenViewModel = () => {
     setTimeout(() => {
       if (id == 1) {
         if (currentItem?.format == 'physical') {
-          setopen(true);
+          // setopen(true);
+          setActiveModal('atm');
         }
         else if (currentItem?.format == 'virtual') {
           navigation.navigate(HOME_ROUTES.PIN_SECURITY, { cardDetail: currentItem })    
@@ -302,12 +352,12 @@ export const useCardScreenViewModel = () => {
     onlineSwitch,
     chipSwitch,
     walletSwitch,
-    open,
+    // open,
     currentIndex,
     saveCureentDisplayData,
-    modalVisible,
     refreshing,
-    modalVisibleUnfreez,
+    // modalVisible,
+    // modalVisibleUnfreez,
     // refs
     AddCardRef,
     cardDetailRef,
@@ -326,11 +376,11 @@ export const useCardScreenViewModel = () => {
     setOnlineSwitch,
     setChipSwitch,
     setWalletSwitch,
-    setopen,
+    // setopen,
     setCurrentIndex,
     setsaveCureentDisplayData,
-    setModalVisible,
-    setmodalVisibleUnfreez,
+    // setModalVisible,
+    // setmodalVisibleUnfreez,
     setRefreshing,
     freezCardApi,
     onPressCard,
@@ -349,8 +399,11 @@ export const useCardScreenViewModel = () => {
     updateUsageRulesFunc,
     currentItem,
     updateCardStatuses,
-    modalVisibleActive, 
-    setmodalVisibleActive
+    // modalVisibleActive, 
+    // setmodalVisibleActive,
+    MODAL_CONFIG,
+    activeModal, 
+    setActiveModal
     // refetchgetCardsData,
   };
 };

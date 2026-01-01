@@ -23,7 +23,7 @@ type Props = {
   showCancelBtn?: boolean;
   onConfirm?: () => void;
   onPressBottomBtn?: () => void;
-  title: string;
+  title?: string;
   marginTopTitle?: number;
   showSubBody?: boolean;
   showSubBodyIcon?: boolean

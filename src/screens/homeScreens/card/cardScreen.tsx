@@ -45,7 +45,76 @@ const CardScreen = () => {
 
   // const currentItem = vm?.getCardsData?.[vm.currentIndex];
  
-
+  const BOTTOM_SHEETS = [
+  {
+    key: 'ADD_CARD',
+    ref: vm.AddCardRef,
+    height: 300,
+    maxHeightPercent: 0.55,
+    render: () => (
+      <AddCardPopup
+        backImg={Images.addCardGradient}
+        onPress1={() => vm.HandleOnPress('1', navigation)}
+        onPress2={() => vm.HandleOnPress('2', navigation)}
+        style={{ flex: 1, paddingHorizontal: 20 }}
+      />
+    ),
+  },
+  {
+    key: 'CARD_DETAIL',
+    ref: vm.cardDetailRef,
+    height: 320,
+    maxHeightPercent: 0.55,
+    render: () => (
+      <CardDetail
+        isPendinggetSucureCard={vm.isPendinggetSucureCard}
+        getSucureCardData={vm.getSucureCardData}
+        saveCureentDisplayData={vm.saveCureentDisplayData}
+        onPress1={() => vm.HandleOnPressCardDetail('1')}
+        onPress2={() => vm.HandleOnPressCardDetail('2')}
+        style={{ paddingHorizontal: 20 }}
+        iconColor={THEME.white}
+      />
+    ),
+  },
+  {
+    key: 'METHODS',
+    ref: vm.methodsRef,
+    height: 500,
+    maxHeightPercent: 0.65,
+    onClose: vm.updateCardStatuses,
+    render: () => (
+      <Methods
+        Data={vm.getCardsUsageRulesData}
+        loading={vm.isPendingGetCardsUsageRules}
+        atmSwitch={vm.atmSwitch}
+        setAtmSwitch={vm.setAtmSwitch}
+        onlineSwitch={vm.onlineSwitch}
+        setOnlineSwitch={vm.setOnlineSwitch}
+        chipSwitch={vm.chipSwitch}
+        setChipSwitch={vm.setChipSwitch}
+        walletSwitch={vm.walletSwitch}
+        setWalletSwitch={vm.setWalletSwitch}
+        backImg={Images.addCardGradient}
+        style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+      />
+    ),
+  },
+  {
+    key: 'MANAGE',
+    ref: vm.manageRef,
+    height: 200,
+    maxHeightPercent: 0.33,
+    render: () => (
+      <ManageOption
+        style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+        backImg={Images.addCardGradient}
+        onPress1={() => vm.onPressOption('1')}
+        onPress2={() => vm.onPressOption('2')}
+      />
+    ),
+  },
+  ];
 
   function renderCardFeatureButtons() {
     const features = vm.renderCardFeature();
@@ -173,195 +242,52 @@ const CardScreen = () => {
     )
   }
 
-    function renderModals() {
-    return (
-      <View>
-        
-           <Modal
-             isVisible={vm.modalVisible}
-             isKeyboardAvoidingView={true}
-             children={
-               <BluryModal
-                style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-                 backImg={Images.addCardGradient}
-                 visible={vm.modalVisible}
-                 onClose={() =>{ !vm?.isPendingfreezUnFreezCard && vm.setModalVisible(false)}}
-                 btnLoader={vm.isPendingfreezUnFreezCard}
-                 onConfirm={() => vm.freezCardApi('freeze')}
-                 showSubBody={true}
-                 showCancelBtn={false}
-                 downConfirmText={'Cancel'}
-                 title={'Freeze This Card?'}
-                 body={
-                   'Freezing will temporarily disable all transactions from this card.'
-                 }
-                 subBody={
-                   'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
-                 }
-                 iconName={'snow-outline'}
-                 confirmText={'Freeze Card'}
-               />
-             }
-             onClose={() => {}}
-           />
+  function RenderBluryModal() {
+  if (!vm.activeModal) return null;
 
-           <Modal
-             isVisible={vm.modalVisibleUnfreez}
-             isKeyboardAvoidingView={true}
-             children={
-               <BluryModal
-                showCancelBtn={false}
-                 style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-                 backImg={Images.addCardGradient}
-                 visible={vm.modalVisibleUnfreez}
-                 btnLoader={vm.isPendingfreezUnFreezCard}
-                 onClose={() =>{ !vm?.isPendingfreezUnFreezCard && vm.setmodalVisibleUnfreez(false)}}
-                 onConfirm={() => vm.freezCardApi('active')}
-                 title={'Card is Frozen'}
-                 body={
-                   'Your card is currently frozen for security reasons. Tap below to unfreeze it instantly and resume spending.'
-                 }
-                 showSubBody={false}
-                 confirmText={'Unfreeze Card'}
-                 downConfirmText={'Cancel'}
-               />
-             }
-             onClose={() => {}}
-           />
+  const config = vm.MODAL_CONFIG[vm.activeModal];
 
-           <Modal
-             isVisible={vm.modalVisibleActive}
-             isKeyboardAvoidingView={true}
-             children={
-               <BluryModal
-                showCancelBtn={false}
-                 style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-                 backImg={Images.addCardGradient}
-                 visible={vm.modalVisibleActive}
-                 btnLoader={vm.isPendingfreezUnFreezCard}
-                 onClose={() =>{ !vm?.isPendingfreezUnFreezCard &&  vm.setmodalVisibleActive(false)}}
-                 onConfirm={() => vm.freezCardApi('active')}
-                 title={'Card is inactive'}
-                 body={
-                   'Your card is currently inactive for security reasons. Tap below to active it and resume spending.'
-                 }
-                 showSubBody={false}
-                 confirmText={'Active Card'}
-                 downConfirmText={'Cancel'}
-               />
-             }
-             onClose={() => {}}
-           />
+  return (
+    <Modal isVisible>
+      <BluryModal
+        style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
+        backImg={Images.addCardGradient}
+        btnLoader={vm.isPendingfreezUnFreezCard}
+        onClose={() => !vm.isPendingfreezUnFreezCard && vm.setActiveModal(null)}
+        onConfirm={config?.action}
+        title={config?.title}
+        body={config?.body}
+        subBody={config?.subBody}
+        iconName={config?.iconName}
+        confirmText={config?.confirmText}
+        showSubBody={!!config?.subBody}
+        showCancelBtn={false}
+        downConfirmText="Cancel"
+      />
+    </Modal>
+  );
+}
 
-            <Modal
-              isVisible={vm.open}
-              isKeyboardAvoidingView={true}
-              children={<BluryModal
-                  style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-                  onClose={() => vm.setopen(false)}
-                  btnLoader={false}
-                  marginTopTitle={20}
-                  onConfirm={() => vm.setopen(false)}
-                  iconNameBottom={-20}
-                  body={"Kindly visit your nearest ATM"}
-                  iconName={"alert-outline"}
-                  confirmText={'Continue'}
-                />}
-              onClose={() => vm.setopen(false)}
-            />
-      </View>
-    );
-  }
-
-  function renderBottomSheets() {
-    return(
-      <View>
-         {/* BottomSheets */}
-         <BottomSheet
-          height={300}
-          maxHeightPercent={0.55}   // optional, override for screen
-          draggable={false} 
-          openTime={500}
-          closeDuration={500}
-          bottomSheetRef={vm.AddCardRef}
-          children={
-            <AddCardPopup
-              backImg={Images.addCardGradient}
-              onPress1={() => vm.HandleOnPress('1', navigation)}
-              onPress2={() => vm.HandleOnPress('2', navigation)}
-              style={{ flex: 1, paddingHorizontal: 20 }}
-            />
-          }
-        />
-
+function renderBottomSheets() {
+  return (
+    <>
+      {BOTTOM_SHEETS.map(sheet => (
         <BottomSheet
-          height={320}              // minimum height
-          maxHeightPercent={0.55}   // optional, override for screen
+          key={sheet.key}
+          height={sheet.height}
+          maxHeightPercent={sheet.maxHeightPercent}
           draggable={false}
           openTime={500}
           closeDuration={500}
-          bottomSheetRef={vm.cardDetailRef}
-          children={
-            <CardDetail
-              isPendinggetSucureCard={vm.isPendinggetSucureCard}
-              getSucureCardData={vm.getSucureCardData}
-              saveCureentDisplayData={vm.saveCureentDisplayData}
-              onPress1={() => vm.HandleOnPressCardDetail('1')}
-              onPress2={() => vm.HandleOnPressCardDetail('2')}
-              style={{ paddingHorizontal: 20 }}
-              iconColor={THEME.white}
-            />
-          }
-        />
-
-        <BottomSheet
-          height={500}
-          maxHeightPercent={0.65}   // optional, override for screen
-          draggable={false}
-          openTime={500}
-          closeDuration={500}
-          onClose={() => {
-            vm.updateCardStatuses()
-          }}
-          bottomSheetRef={vm.methodsRef}
-          children={
-            <Methods
-              Data={vm.getCardsUsageRulesData}
-              loading={vm.isPendingGetCardsUsageRules}
-              atmSwitch={vm.atmSwitch}
-              setAtmSwitch={vm.setAtmSwitch}
-              onlineSwitch={vm.onlineSwitch}
-              setOnlineSwitch={vm.setOnlineSwitch}
-              chipSwitch={vm.chipSwitch}
-              setChipSwitch={vm.setChipSwitch}
-              walletSwitch={vm.walletSwitch}
-              setWalletSwitch={vm.setWalletSwitch}
-              backImg={Images.addCardGradient}
-              style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-            />
-          }
-        />
-
-        <BottomSheet
-          height={200}
-          maxHeightPercent={0.33}   // optional, override for screen
-          draggable={false}
-          openTime={500}
-          closeDuration={500}
-          bottomSheetRef={vm.manageRef}
-          children={
-            <ManageOption
-              style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-              backImg={Images.addCardGradient}
-              onPress1={() => vm.onPressOption('1')}
-              onPress2={() => vm.onPressOption('2')}
-            />
-          }
-        />
-
-      </View>
-    )
-  }
+          bottomSheetRef={sheet.ref}
+          onClose={sheet.onClose}
+        >
+          {sheet.render()}
+        </BottomSheet>
+      ))}
+    </>
+  );
+}
 
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
@@ -378,13 +304,11 @@ const CardScreen = () => {
          <ScrollView>
            {renderCardFeatureButtons()}
            {TransactionList()}
-           {/* Modals */}
-
-           {renderModals()}
-
          </ScrollView>
        </SafeAreaView>
         
+        {/* {renderBottomSheets and Modals */}
+        {RenderBluryModal()}
         {renderBottomSheets()}
         {vm.isPending && <LoaderCompleteScreenOnly />}
 
