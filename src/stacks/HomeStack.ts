@@ -5,6 +5,7 @@ import CreatePhysicalCard from "../screens/homeScreens/card/createPhysicalCard";
 import CreateVirtualCard from "../screens/homeScreens/card/createVirtualCard";
 import PinSecurity from "../screens/homeScreens/card/pinSecurity";
 import ReplaceCard from "../screens/homeScreens/card/replaceCard";
+import ReplaceCardConfirm from "../screens/homeScreens/card/replaceCardConfirm";
 import SetLimits from "../screens/homeScreens/card/setLimit";
 import TransactionHistory from "../screens/homeScreens/card/transactionHistory";
 import UpdateAddress from "../screens/homeScreens/card/updateAddress";
@@ -57,6 +58,11 @@ export const HomeStack: HomeScreenStacksTypes = [
     name: HOME_ROUTES.SET_LIMIT,
     component: SetLimits,
   },
+  {
+    name: HOME_ROUTES.RELACE_CARD_CONFIRM,
+    component: ReplaceCardConfirm,
+  },
+
   {
     name: HOME_ROUTES.TRANSACTIONHISTORY,
     component: TransactionHistory,

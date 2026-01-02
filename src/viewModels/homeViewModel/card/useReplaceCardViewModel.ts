@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
+import { HOME_ROUTES } from '../../../constants';
 
 export default function useReplaceCardViewModel(navigation, props) {
 
@@ -17,13 +18,6 @@ export default function useReplaceCardViewModel(navigation, props) {
   const [firstName, setFirstName] = useState("");
   const [openDropdown, setOpenDropdown] = useState(null)
  
-
-  const { mutate: useReplaceCardFunc, isPending } = useReplaceCard({
-    callback: (response) => {
-      setModalVisible(false)
-      navigation.goBack();
-    },
-  });
 
   // const { mutate: freezUnFreezCardFunc, isPending: isPendingFreezUnFreezCard } = freezUnFreezCardNoMessage({
   //   callback: (response) => {
@@ -50,7 +44,9 @@ export default function useReplaceCardViewModel(navigation, props) {
         emboss_name: firstName,
         format: props?.route?.params?.cardDetail?.format,
       };
-      useReplaceCardFunc(payload);
+      navigation.navigate(HOME_ROUTES.RELACE_CARD_CONFIRM,{payload: payload})
+      return
+      // useReplaceCardFunc(payload);
   }
 
   function reqReplacement() {
@@ -66,7 +62,16 @@ export default function useReplaceCardViewModel(navigation, props) {
       Toast.showToast("Please Unfreeze your card", "", "error");
     } 
     else if ( props?.route?.params?.cardDetail?.card_status == "active") {
-      setModalVisible(true)
+      
+      let payload = {
+        card_id: props?.route?.params?.cardDetail?.card_id,
+        emboss_name: firstName,
+        format: props?.route?.params?.cardDetail?.format,
+      };
+      navigation.navigate(HOME_ROUTES.RELACE_CARD_CONFIRM,{payload: payload})
+      return
+      
+      // setModalVisible(true)
     }
   }
 
@@ -75,7 +80,6 @@ export default function useReplaceCardViewModel(navigation, props) {
     setReason,
     firstName,
     setFirstName,
-    isPending,
     // isPendingFreezUnFreezCard,
     pressBackArrow,
     reqReplacement,
