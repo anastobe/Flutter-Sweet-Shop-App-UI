@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     // marginTop: handleSize.h(25),
   },
   leftCont:
-  { flexDirection: "row", marginRight: handleSize.w(5), backgroundColor: THEME.white, justifyContent: "center", alignItems: "center", borderRadius: 15, height: handleSize.h(28), paddingHorizontal: handleSize.w(10), width: handleSize.w(150)},
+  { flexDirection: "row", marginRight: handleSize.w(5), backgroundColor: THEME.white, justifyContent: "center", alignItems: "center", borderRadius: handleSize.w(8), height: handleSize.h(28), paddingHorizontal: handleSize.w(10), width: handleSize.w(150)},
   leftSubCont:
   {width: handleSize.w(110), textAlign: "center", color: THEME.textPrimary, fontFamily: FONTFAMILY.SemiBold, fontSize: handleSize.f(FONT_SIZES.onetwo) }
 });
