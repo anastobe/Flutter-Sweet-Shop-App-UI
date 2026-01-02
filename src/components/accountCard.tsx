@@ -70,7 +70,7 @@ const AccountCard = ({
         >
           <View>
             <Text style={styles.limitTxtUp}>({CommonUtils.capitalizeFirstLetter(item.card_status)})</Text>
-            <Text style={styles.limitTxt}>{item?.spending_type} /Available Limit:</Text>
+            <Text style={styles.limitTxt}>{item?.spending_type} /Available limit:</Text>
             <Text style={styles.balanceTxt}>£{item?.available_limit}</Text>
           </View>
           {/* Optional Show Details */}

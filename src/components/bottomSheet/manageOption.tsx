@@ -47,7 +47,7 @@ const ManageOption = ({currentItem, style, onPress1, onPress2, backImg }) => {
       {currentItem?.format == "physical" &&
         Listitem(
           'pin-outline',
-          'Pin & Security',
+          'Pin and security',
           onPress1,
           'arrow-forward-outline',
           'Generate an instant-use card for safer online payments.'
@@ -55,7 +55,7 @@ const ManageOption = ({currentItem, style, onPress1, onPress2, backImg }) => {
 
         {Listitem(
           'card-outline',
-          'Set Spending Limit',
+          'Set spending limit',
           onPress2,
           'arrow-forward-outline',
           'Order a card to use in-store, online, and for ATM withdrawals.'

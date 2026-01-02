@@ -269,12 +269,19 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
     if (item.text == CARD_STATUS.Freeze_Card || item.text == CARD_STATUS.Unfreeze_Card || item.text ==  CARD_STATUS.Active_Card) {
       openFreezCard();
     } else if (item.text == 'Replace Card') {
-      navigation.navigate('REPLACE_CARD' as any, { cardDetail: currentItem });
-    } else if (item.text == 'Methods') {
-
-        console.log("ASdasdssaasdasd=>",currentItem?.card_status);
-        
       
+      if (currentItem?.card_status == "inactive") {
+        Toast.showToast("Please active your card", '', 'error')
+      }
+      else if (currentItem?.card_status == "freeze") {
+        Toast.showToast("Please unfreeze your card", '', 'error')
+      }
+      else if (currentItem?.card_status == "active") {
+        navigation.navigate('REPLACE_CARD' as any, { cardDetail: currentItem });
+      }
+
+    } else if (item.text == 'Methods') {
+     
       if (isPendingupdateUsageRules) {
         Toast.showToast("Payments methods is loading", '', 'error')
       }
@@ -290,7 +297,16 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
       }
 
     } else if (item.text == 'Manage') {
-      manageRef?.current?.open();
+
+      if (currentItem?.card_status == "inactive") {
+        Toast.showToast("Please active your card", '', 'error')
+      }
+      else if (currentItem?.card_status == "freeze") {
+        Toast.showToast("Please unfreeze your card", '', 'error')
+      }
+      else if (currentItem?.card_status == "active") {
+        manageRef?.current?.open();
+      }
     }
   }
 
