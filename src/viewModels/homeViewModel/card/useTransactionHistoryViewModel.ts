@@ -26,6 +26,18 @@ export default function useTransactionHistoryViewModel(props: any) {
     direction: [] as string[], // ['debit', 'credit']
   });
 
+  const [filterUIState, setFilterUIState] = useState({
+    from: '',
+    to: '',
+    checked: {
+      all: false,
+      debit: false,
+      credit: false,
+      refund: false,
+      atm: false,
+    },
+  });
+
   /** 🔹 API */
   const { mutate: paymentHistryFunc, isPending } = paymentHistry({
     callback: (response: any) => {
@@ -104,45 +116,52 @@ export default function useTransactionHistoryViewModel(props: any) {
   };
 
   /** 🔹 Apply Filters */
+
 const applyFilters = (newFilters: any) => {
-  let direction: string | undefined = undefined;
+  setFilterUIState(newFilters); // ✅ persist UI state
 
-  const isCredit = newFilters?.checked?.credit;
-  const isDebit = newFilters?.checked?.debit;
+  let direction: string | undefined;
+  let atm: string | undefined; //when add then see
+  let refund: string | undefined; //when add then see
 
-  if (isCredit && !isDebit) {
+  if (newFilters.checked.credit && !newFilters.checked.debit) {
     direction = 'credit';
-  } else if (!isCredit && isDebit) {
+  } else if (!newFilters.checked.credit && newFilters.checked.debit) {
     direction = 'debit';
   }
-  // else → both true OR both false → direction undefined
+
+  console.log("apply filter=>",newFilters.checked);
 
   const formattedFilters = {
-    from_date: newFilters?.from || '',
-    to_date: newFilters?.to || '',
-    ...(direction && { direction }), // 🔥 only include if valid
+    from_date: newFilters.from,
+    to_date: newFilters.to,
+    ...(direction && { direction }),
   };
 
   setFilters(formattedFilters);
-
-  console.log('formattedFilters==>', formattedFilters);
-
   fetchTransactions(1, formattedFilters);
   cardDetailRef.current?.close?.();
 };
 
-  /** 🔹 Reset Filters */
-  const resetFilters = () => {
-    const clearedFilters = {
-      from_date: '',
-      to_date: '',
-      direction: [],
-    };
 
-    setFilters(clearedFilters);
-    fetchTransactions(1, clearedFilters);
-    cardDetailRef.current?.close?.();
+  const resetFilters = () => {
+  const clearedUI = {
+    from: '',
+    to: '',
+    checked: {
+      all: false,
+      debit: false,
+      credit: false,
+      refund: false,
+      atm: false,
+    },
   };
+
+  setFilterUIState(clearedUI);
+  setFilters({ from_date: '', to_date: '', direction: [] });
+  fetchTransactions(1, clearedUI);
+  cardDetailRef.current?.close?.();
+};
 
   /** 🔹 Navigation */
   const pressBackArrow = () => navigation.goBack();
@@ -165,5 +184,7 @@ const applyFilters = (newFilters: any) => {
     handleNavigateTransactionHistory,
     isLoadingMore,
     isPending,
+    filterUIState,
+    setFilterUIState
   };
 }

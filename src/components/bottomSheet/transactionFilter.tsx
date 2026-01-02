@@ -7,41 +7,82 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import CustomCalendar from '../customCalander';
 import { handleSize } from '../../config/responsiveTheme';
 
-const TransactionFilter = ({ onPress, onPress2 }: { onPress: any, onPress2: any }) => {
+// const TransactionFilter = ({ onPress, onPress2 }: { onPress: any, onPress2: any }) => {
 
-    const [from, setfrom] = useState('');
-    const [to, setto] = useState('');
-    const [checked, setChecked] = useState({
-        all: false,
-        debit: false,
-        credit: false,
-        refund: false,
-        atm: false,
-    });
+const TransactionFilter = ({
+  value,
+  onChange,
+  onPress,
+  onPress2,
+}: {
+  value: any;
+  onChange: (v: any) => void;
+  onPress: any;
+  onPress2: any;
+}) => {
 
-    const handlePress = (key: any) => {
-        if (key === 'all') {
-            const newValue = !checked.all;
-            setChecked({
-                all: newValue,
-                debit: newValue,
-                credit: newValue,
-                refund: newValue,
-                atm: newValue,
-            });
-        } else {
-            setChecked((prev: any) => ({
-                ...prev,
-                [key]: !prev[key],
-                all: false,
-            }));
-        }
-    };
+
+  const { from, to, checked } = value;
+
+  const handlePress = (key: string) => {
+    if (key === 'all') {
+      const newValue = !checked.all;
+      onChange({
+        ...value,
+        checked: {
+          all: newValue,
+          debit: newValue,
+          credit: newValue,
+          refund: newValue,
+          atm: newValue,
+        },
+      });
+    } else {
+      onChange({
+        ...value,
+        checked: {
+          ...checked,
+          [key]: !checked[key],
+          all: false,
+        },
+      });
+    }
+  };
+
+
+    // const [from, setfrom] = useState('');
+    // const [to, setto] = useState('');
+    // const [checked, setChecked] = useState({
+    //     all: false,
+    //     debit: false,
+    //     credit: false,
+    //     refund: false,
+    //     atm: false,
+    // });
+
+    // const handlePress = (key: any) => {
+    //     if (key === 'all') {
+    //         const newValue = !checked.all;
+    //         setChecked({
+    //             all: newValue,
+    //             debit: newValue,
+    //             credit: newValue,
+    //             refund: newValue,
+    //             atm: newValue,
+    //         });
+    //     } else {
+    //         setChecked((prev: any) => ({
+    //             ...prev,
+    //             [key]: !prev[key],
+    //             all: false,
+    //         }));
+    //     }
+    // };
 
     function renderFilterRange() {
         return (
             <View>
-                <CustomCalendar
+                {/* <CustomCalendar
                     placeholder="From"
                     value={from}
                     onDateChange={setfrom}
@@ -52,7 +93,21 @@ const TransactionFilter = ({ onPress, onPress2 }: { onPress: any, onPress2: any 
                     placeholder="To"
                     value={to}
                     onDateChange={setto}
+                /> */}
+
+                <CustomCalendar
+                    placeholder="From"
+                    value={from}
+                    onDateChange={(date) => onChange({ ...value, from: date })}
                 />
+
+                <CustomCalendar
+                    margTp={handleSize.h(20)}
+                    placeholder="To"
+                    value={to}
+                    onDateChange={(date) => onChange({ ...value, to: date })}
+                />
+
             </View>
         )
     }

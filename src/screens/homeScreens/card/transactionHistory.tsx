@@ -35,6 +35,8 @@ export default function TransactionHistory(props) {
     handleNavigateTransactionHistory,
     isLoadingMore,
     isPending,
+    filterUIState,
+    setFilterUIState
   } = useTransactionHistoryViewModel(props);
 
   /** 🔹 Search + Filter Row */
@@ -109,7 +111,7 @@ const renderItem = ({ item }) => (
 
       <View style={{ flex: 1 }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between",marginHorizontal: handleSize.w(20) }} >
-          <Text style={styles.title}>transactions history</Text>
+          <Text style={styles.title}>Transactions history</Text>
 
         <TouchableOpacity
           onPress={() => cardDetailRef?.current?.open()}
@@ -161,10 +163,18 @@ const renderItem = ({ item }) => (
           closeDuration={400}
           bottomSheetRef={cardDetailRef}
         >
-          <TransactionFilter
+          {/* <TransactionFilter
             onPress={applyFilters}
             onPress2={resetFilters}
-          />
+          /> */}
+
+            <TransactionFilter
+              value={filterUIState}
+              onChange={setFilterUIState}
+              onPress={applyFilters}
+              onPress2={resetFilters}
+            />
+
         </BottomSheet>
       </View>
     </MainContainer>
@@ -211,6 +221,7 @@ const styles = StyleSheet.create({
     height: handleSize.h(46),
     backgroundColor: THEME.primary,
     borderRadius: handleSize.f(10),
+    marginBottom: handleSize.h(5),
     justifyContent: 'center',
     alignItems: 'center'
     // marginHorizontal: handleSize.w(20)
