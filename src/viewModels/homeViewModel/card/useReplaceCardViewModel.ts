@@ -68,7 +68,7 @@ export default function useReplaceCardViewModel(navigation, props) {
         emboss_name: firstName,
         format: props?.route?.params?.cardDetail?.format,
       };
-      navigation.navigate(HOME_ROUTES.RELACE_CARD_CONFIRM,{payload: payload})
+      navigation.navigate(HOME_ROUTES.RELACE_CARD_CONFIRM,{data: payload})
       return
       
       // setModalVisible(true)

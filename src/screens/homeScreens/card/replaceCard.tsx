@@ -31,7 +31,7 @@ export default function ReplaceCard(props) {
     setReason,
     firstName,
     setFirstName,
-    isPending,
+    // isPending,
     // isPendingFreezUnFreezCard,
     pressBackArrow,
     reqReplacement,
@@ -118,7 +118,8 @@ export default function ReplaceCard(props) {
       <BluryModal
         style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
         onClose={() => setModalVisible(false)}
-        btnLoader={isPending 
+        btnLoader={false
+          // isPending 
           // || isPendingFreezUnFreezCard
         }
         marginTopTitle={handleSize.h(50)}

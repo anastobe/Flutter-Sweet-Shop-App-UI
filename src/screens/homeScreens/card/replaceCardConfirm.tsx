@@ -13,6 +13,7 @@ import { createCard } from '../../../queries/auth.query';
 import { CommonUtils } from '../../../utils';
 import { HOME_ROUTES } from '../../../constants';
 import { handleSize } from '../../../config/responsiveTheme';
+import { useReplaceCard } from '../../../queries/card.Queries/card.query';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -41,15 +42,13 @@ function ReplaceCardConfirm(props: any) {
 
   console.log("payload==>",props?.route?.params);
   
-  
-  const { mutate: createCardFunc, isPending } = createCard({
-    callback: function (response) {
-      if (response.success) {
-        setOpen(true);
-      }
+  const { mutate: useReplaceCardFunc, isPending } = useReplaceCard({
+    callback: (response) => {
+      setOpen(true)
     },
   });
 
+  
   function pressBackArrow() {
     navigation.goBack();
   }
@@ -58,9 +57,9 @@ function ReplaceCardConfirm(props: any) {
     return (
       <View style={styles.summaryBox}>
         <InfoRow icon="card-outline" label="Card Type" value={CommonUtils.capitalizeFirstLetter(payload?.format)} />
-        <InfoRow icon="person-outline" label="Cardholder Name" value={payload?.card_name} />
+        <InfoRow icon="person-outline" label="Cardholder Name" value={payload?.emboss_name} />
         {payload?.format?.toLowerCase() === "physical" && <>
-          <InfoRow icon="home-outline" label="Delivery Address" value={address} />
+          {/* <InfoRow icon="home-outline" label="Delivery Address" value={address} /> */}
           <InfoRow icon="time-outline" label="Estimated Delivery" value="DUMMY" />
           <InfoRow icon="pricetag-outline" label="Card Issuance Fee" value="DUMMY" />
           <InfoRow icon="flash-outline" label="Delivery Fee" value="DUMMY" />
@@ -73,7 +72,7 @@ function ReplaceCardConfirm(props: any) {
     return (
       <>
         <Text style={styles.totalLabel}>Total Amount</Text>
-        <Text style={styles.totalAmount}>{CommonUtils.getCurrencySymbol(currency?.iso_code)} {payload.spending_limits}</Text>
+        <Text style={styles.totalAmount}>{CommonUtils.getCurrencySymbol(currency?.iso_code)} {payload?.spending_limits}</Text>
       </>
     );
   }
@@ -94,9 +93,9 @@ function ReplaceCardConfirm(props: any) {
                 padding: handleSize.h(2),
                 marginTop: handleSize.h(2),
               }}>
-                <Text style={styles.badgeText}>{linkedAccount.name}</Text>
+                <Text style={styles.badgeText}>{linkedAccount?.name}</Text>
               </View>
-              <Text style={styles.accountTextbelow}> {linkedAccount.iso_code}</Text>
+              <Text style={styles.accountTextbelow}> {linkedAccount?.iso_code}</Text>
             </View>
           </View>
         </View>
@@ -126,16 +125,12 @@ function ReplaceCardConfirm(props: any) {
         <CustomButton
           btnContSty={styles.forgetTxt}
           loading={isPending}
-          title="Create card"
+          title="Replace card"
           onPress={() => {
             if (payload?.format?.toLowerCase() === "physical" && !tick) {
               Alert.alert("Allow","Please confirm the deduction by checking the box before continuing.");
             } else {
-
-              console.log("check==>",payload);
-              // return              
-              createCardFunc(payload);
-
+              useReplaceCardFunc(payload)
             }
           }}
         />
@@ -161,8 +156,8 @@ function ReplaceCardConfirm(props: any) {
             navigation.navigate(HOME_ROUTES.TABSTACK, { screen: "CardStack" });
           }, 500);
         }}
-        title={"Card Created Successfully."}
-        body={`${payload?.format} card created and ready to use.`}
+        title={"Card replace successfully."}
+        body={`${payload?.format} card replace and ready to use.`}
         iconName={""}
         confirmText={'Yes'}
       />
@@ -194,17 +189,17 @@ function ReplaceCardConfirm(props: any) {
       />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Confirm card request</Text>
+        <Text style={styles.title}>Confirm replace card request</Text>
         <Text style={styles.subtitle}>
           A small fee will be deducted from your account to issue and ship your card.
         </Text>
 
-        {/* {renderCardDetails()}
+        {renderCardDetails()}
         {renderTotalAmount()}
-        {chooseFundingAcc()}
-        {renderConfirmation()} */}
+        {/* {chooseFundingAcc()} */}
+        {renderConfirmation()}
         {renderButton()}
-        {/* {renderModal()} */}
+        {renderModal()}
       </View>
     </MainContainer>
   );
