@@ -31,7 +31,7 @@ export default function useTransactionHistoryViewModel(props: any) {
     callback: (response: any) => {
       if (!response?.success) return;
 
-      console.log("new data aya==>",response?.results?.values);
+      // console.log("new data aya==>",response?.results?.values);
 
       const newData = response?.results?.values || [];
 
@@ -91,6 +91,8 @@ export default function useTransactionHistoryViewModel(props: any) {
         },
       },
     };
+
+    console.log("payload become==>",payloadWithParams?.body);
 
     paymentHistryFunc(payloadWithParams);
   };

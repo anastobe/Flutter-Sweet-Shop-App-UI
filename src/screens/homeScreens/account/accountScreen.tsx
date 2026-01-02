@@ -105,10 +105,10 @@ const AccountScreen = () => {
     [],
   );
 
-  console.log(
-    'vm?.getDashboardData_Data==>',
-    vm.allAccounts_withAsset[0]?.assets?.length,
-  );
+  // console.log(
+  //   'vm?.getDashboardData_Data==>',
+  //   vm.allAccounts_withAsset[0]?.assets?.length,
+  // );
 
   const renderSubHeaderStuffs = useCallback(() => {
     function renderGraphAndAvg() {
