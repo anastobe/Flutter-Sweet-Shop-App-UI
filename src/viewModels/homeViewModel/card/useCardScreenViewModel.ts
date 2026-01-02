@@ -271,18 +271,24 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
     } else if (item.text == 'Replace Card') {
       navigation.navigate('REPLACE_CARD' as any, { cardDetail: currentItem });
     } else if (item.text == 'Methods') {
-      // if (currentItem?.card_status == "inactive") {
-      //   Toast.showToast("Please active your card", '', 'error')
-      // }
-      // else 
+
+        console.log("ASdasdssaasdasd=>",currentItem?.card_status);
+        
       
       if (isPendingupdateUsageRules) {
         Toast.showToast("Payments methods is loading", '', 'error')
       }
-      else{
+      else if (currentItem?.card_status == "inactive") {
+        Toast.showToast("Please active your card", '', 'error')
+      }
+      else if (currentItem?.card_status == "freeze") {
+        Toast.showToast("Please unfreeze your card", '', 'error')
+      }
+      else if (currentItem?.card_status == "active") {
         methodsRef?.current?.open();
         refetchgetCardsUsageRules();
       }
+
     } else if (item.text == 'Manage') {
       manageRef?.current?.open();
     }
