@@ -44,7 +44,9 @@ function ReplaceCardConfirm(props: any) {
   
   const { mutate: useReplaceCardFunc, isPending } = useReplaceCard({
     callback: (response) => {
-      setOpen(true)
+      if (response?.success) {
+        setOpen(true) 
+      }
     },
   });
 
@@ -68,14 +70,14 @@ function ReplaceCardConfirm(props: any) {
     );
   }
 
-  function renderTotalAmount() {
-    return (
-      <>
-        <Text style={styles.totalLabel}>Total Amount</Text>
-        <Text style={styles.totalAmount}>{CommonUtils.getCurrencySymbol(currency?.iso_code)} {payload?.spending_limits}</Text>
-      </>
-    );
-  }
+  // function renderTotalAmount() {
+  //   return (
+  //     <>
+  //       <Text style={styles.totalLabel}>Total Amount</Text>
+  //       <Text style={styles.totalAmount}>{CommonUtils.getCurrencySymbol(currency?.iso_code)} {payload?.spending_limits}</Text>
+  //     </>
+  //   );
+  // }
 
   function chooseFundingAcc() {
     return (
@@ -195,7 +197,7 @@ function ReplaceCardConfirm(props: any) {
         </Text>
 
         {renderCardDetails()}
-        {renderTotalAmount()}
+        {/* {renderTotalAmount()} */}
         {/* {chooseFundingAcc()} */}
         {renderConfirmation()}
         {renderButton()}
