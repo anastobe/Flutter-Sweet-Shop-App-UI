@@ -50,6 +50,7 @@ import AdminConfirmCardRequest from '../screens/homeScreens/more/adminModule/adm
 import { StatusBar } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { handleSize } from '../config/responsiveTheme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -447,6 +448,11 @@ function RenderTab({ focus, txt, img, sty }: { focus: any, txt: any, img: any, s
 
 export const TabStack: React.FC = ({ }) => {
 
+    const insets = useSafeAreaInsets();
+  
+    // console.log("====",insets);
+    
+
   return (
     <Tab.Navigator
       initialRouteName={"HomeStack"}
@@ -466,7 +472,7 @@ export const TabStack: React.FC = ({ }) => {
       // }}
       screenOptions={{
         tabBarStyle: {
-          height: scale(65),
+          height: scale(65) + insets.bottom,
           // width: screenHeight >= 926 && isIphoneX() ? '95%' : '95%',
           // paddingBottom: 0,
           // alignSelf: 'center',

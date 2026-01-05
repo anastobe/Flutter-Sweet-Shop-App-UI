@@ -50,7 +50,7 @@ const AccountCardBox = ({ total, onHold, available, onPress, onPresseye, showBal
 const styles = StyleSheet.create({
   card: {
     width: Metrics.width,
-    marginTop: handleSize.h(10),
+    marginTop: handleSize.h(0),
     padding: handleSize.f(15),
     borderRadius: handleSize.f(16),
     // backgroundColor: "#6a1b9a", // replace with gradient if needed

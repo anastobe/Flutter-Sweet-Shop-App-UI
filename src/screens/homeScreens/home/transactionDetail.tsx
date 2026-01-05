@@ -118,6 +118,13 @@ function TransactionDetail(props) {
         />
         
         <CustomButton
+          btnContSty={styles.forgetTxt1}
+          loading={false}
+          title="Save"
+          onPress={saveTransaction}
+        />
+        
+        <CustomButton
           btnContSty={styles.forgetTxt}
           loading={false}
           title="Download PDF"
@@ -151,6 +158,11 @@ function TransactionDetail(props) {
 
   function downloadPdf() {
     console.log("downloadPdf");
+  }
+
+
+  function saveTransaction() {
+    console.log("saveTransaction");
   }
 
   return (
@@ -211,7 +223,10 @@ const styles = StyleSheet.create({
     color: THEME.primary,
     marginTop: handleSize.h(12),
   },
-
+  forgetTxt1: {
+    marginTop: handleSize.h(15),
+    marginBottom: handleSize.h(0),
+  },
   forgetTxt: {
     marginTop: handleSize.h(15),
     marginBottom: handleSize.h(50),

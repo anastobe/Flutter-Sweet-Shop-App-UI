@@ -44,7 +44,7 @@ import {
   LoaderOnly,
 } from '../../../components/activityIndicator';
 
-const header_flatlist_BottomSizeAdjust = 260;
+const header_flatlist_BottomSizeAdjust = 240;
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -117,7 +117,7 @@ const AccountScreen = () => {
           <GradientLineGraph
             data={vm?.getDashboardData_Data?.graph}
             loading={vm?.getDashboardDataPending}
-            marginTop={handleSize.h(60)}
+            marginTop={handleSize.h(25)}
           />
 
           <View style={styles.statecontainer}>
@@ -438,7 +438,9 @@ const styles = StyleSheet.create({
   statecontainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: handleSize.h(16),
+    marginHorizontal: handleSize.f(16),
+    marginTop: handleSize.f(6),
+    // padding: handleSize.f(16),
   },
 
   cardHeader: {
