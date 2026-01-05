@@ -376,7 +376,8 @@ import InputField from '../textInput';
 import { ACCOUNT_HISTRY_VALIDATION } from '../../utils/data';
 
 interface Props {
-  show?: any,
+  show?: any;
+  sheetTile?: string;
   value: any;
   onChange: (v: any) => void;
   onPress: (v: any) => void;
@@ -385,6 +386,7 @@ interface Props {
 
 const TransactionFilter = ({
   show,
+  sheetTile,
   value,
   onChange,
   onPress,
@@ -571,7 +573,7 @@ const TransactionFilter = ({
       style={styles.container}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Filter transactions</Text>
+        <Text style={styles.title}>{sheetTile}</Text>
 
         {renderDateRange()}
         {renderTransactionType()}

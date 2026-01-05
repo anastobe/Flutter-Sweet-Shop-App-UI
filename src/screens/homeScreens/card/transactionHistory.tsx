@@ -21,6 +21,7 @@ import { handleSize } from '../../../config/responsiveTheme';
 import Metrics from '../../../styles/metrics';
 import { CommonUtils } from '../../../utils';
 import TransactionList from '../../../components/transactionList';
+import { ACCOUNT_HISTRY_VALIDATION } from '../../../utils/data';
 
 export default function TransactionHistory(props) {
   
@@ -114,7 +115,12 @@ const renderItem = ({ item }) => (
 
       <View style={{ flex: 1 }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between",marginHorizontal: handleSize.w(20) }} >
-          <Text style={styles.title}>Transactions history</Text>
+          <Text style={styles.title}>{
+          show == ACCOUNT_HISTRY_VALIDATION.INCOMPLETE ?
+          "Account statement"
+          :
+          "Transactions history"          
+          }</Text>
 
         <TouchableOpacity
           onPress={() => cardDetailRef?.current?.open()}
@@ -173,6 +179,12 @@ const renderItem = ({ item }) => (
 
             <TransactionFilter
               show={show}
+              sheetTile={
+                show == ACCOUNT_HISTRY_VALIDATION.INCOMPLETE ?
+                  'Filter statement'
+                  :
+                  'Filter transactions'
+              }
               value={filterUIState}
               onChange={setFilterUIState}
               onPress={applyFilters}

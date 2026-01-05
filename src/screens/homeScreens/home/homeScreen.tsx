@@ -279,7 +279,7 @@ const renderBalanceCard = () => (
           <View style={styles.cardHeader}>
             <Text style={styles.cardTransactionTXT}>Activity</Text>
             <TouchableOpacity onPress={handleNavigateTransactionHistory}>
-              <Text style={styles.viewAllTxt}>View All</Text>
+              <Text style={styles.viewAllTxt}>View all</Text>
             </TouchableOpacity>
           </View>
       </View>

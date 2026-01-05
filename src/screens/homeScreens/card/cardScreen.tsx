@@ -199,7 +199,7 @@ const renderItem = useCallback(({ item }) => (
           <TouchableOpacity
               onPress={vm.handleNavigateTransactionHistory}
           >
-            <Text style={styles.viewAllTxt}>View All</Text>
+            <Text style={styles.viewAllTxt}>View all</Text>
           </TouchableOpacity>
         </View>
 
