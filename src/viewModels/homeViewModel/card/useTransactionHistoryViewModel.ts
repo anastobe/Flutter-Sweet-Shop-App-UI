@@ -308,11 +308,14 @@ import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { paymentHistry } from '../../../queries/accountQueries/accountQuery';
 import { CommonUtils, Toast } from '../../../utils';
+import { ACCOUNT_HISTRY_VALIDATION } from '../../../utils/data';
 
 const LIMIT = 10;
 
 export default function useTransactionHistoryViewModel(props: any) {
   const assetId = props?.route?.params?.assetId;
+  const show = props?.route?.params?.show;
+
   const navigation = useNavigation();
 
   const cardDetailRef = useRef<any>(null);
@@ -445,7 +448,7 @@ export default function useTransactionHistoryViewModel(props: any) {
   /** 🔹 Apply Filters */
   const applyFilters = (newFilters: any) => {
 
-    if (!CommonUtils.RegixNumbersOnly.test(newFilters.amount.min)){
+    if (show == ACCOUNT_HISTRY_VALIDATION.COMPLETE && !CommonUtils.RegixNumbersOnly.test(newFilters.amount.min)){
       return Toast.showToast("Enter valid amount range", '', 'error');
     }
 

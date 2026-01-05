@@ -10,6 +10,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Images } from "../../../config";
 import { CommonUtils } from "../../../utils";
 import Clipboard from '@react-native-clipboard/clipboard';
+import { ACCOUNT_HISTRY_VALIDATION } from "../../../utils/data";
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
@@ -148,7 +149,7 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
 
   const handleNavigateTransactionHistory = () => {
     if (currentAccDetail?.id != "") {
-      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentAccDetail?.id})
+      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentAccDetail?.id, show: ACCOUNT_HISTRY_VALIDATION.INCOMPLETE})
     }
   };
 

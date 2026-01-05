@@ -2,7 +2,7 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { HOME_ROUTES } from '../../../constants';
-import { CURRENT_ACCOUNT, DATA } from '../../../utils/data';
+import { ACCOUNT_HISTRY_VALIDATION, CURRENT_ACCOUNT, DATA } from '../../../utils/data';
 import { Alert } from 'react-native';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
@@ -113,7 +113,7 @@ export const useHomeViewModel = () => {
 
   const handleNavigateTransactionHistory = () => {
     if (assetsList?.firstObject?.id != "") {
-      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: assetsList?.firstObject?.id})
+      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: assetsList?.firstObject?.id, show: ACCOUNT_HISTRY_VALIDATION.INCOMPLETE })
     }
     // navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY);
   };

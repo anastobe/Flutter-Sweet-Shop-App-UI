@@ -23,6 +23,9 @@ import { CommonUtils } from '../../../utils';
 import TransactionList from '../../../components/transactionList';
 
 export default function TransactionHistory(props) {
+  
+  const show = props?.route?.params?.show;
+
   const {
     transactions,
     search,
@@ -169,6 +172,7 @@ const renderItem = ({ item }) => (
           /> */}
 
             <TransactionFilter
+              show={show}
               value={filterUIState}
               onChange={setFilterUIState}
               onPress={applyFilters}

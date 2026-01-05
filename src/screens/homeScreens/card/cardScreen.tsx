@@ -197,7 +197,7 @@ const renderItem = useCallback(({ item }) => (
             
           </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate('TRANSACTIONHISTORY' as any)}
+              onPress={vm.handleNavigateTransactionHistory}
           >
             <Text style={styles.viewAllTxt}>View All</Text>
           </TouchableOpacity>

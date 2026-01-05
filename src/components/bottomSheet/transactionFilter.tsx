@@ -373,8 +373,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import CustomCalendar from '../customCalander';
 import { handleSize } from '../../config/responsiveTheme';
 import InputField from '../textInput';
+import { ACCOUNT_HISTRY_VALIDATION } from '../../utils/data';
 
 interface Props {
+  show?: any,
   value: any;
   onChange: (v: any) => void;
   onPress: (v: any) => void;
@@ -382,6 +384,7 @@ interface Props {
 }
 
 const TransactionFilter = ({
+  show,
   value,
   onChange,
   onPress,
@@ -572,8 +575,16 @@ const TransactionFilter = ({
 
         {renderDateRange()}
         {renderTransactionType()}
-        {renderAmountRange()}
-        {renderStatusSelection()}
+
+        {show == ACCOUNT_HISTRY_VALIDATION.COMPLETE ?
+        <View>
+            {renderAmountRange()}
+            {renderStatusSelection()}
+        </View>
+         : 
+         null 
+        }
+
         {renderButtons()}
       </ScrollView>
     </ImageBackground>

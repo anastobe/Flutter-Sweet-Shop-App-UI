@@ -24,6 +24,11 @@ const ACCOUNT_TYPES = [
   { label: 'Savings', value: 'savings' },
 ];
 
+const ACCOUNT_HISTRY_VALIDATION = {
+  COMPLETE: 'COMPLETE',
+  INCOMPLETE: 'INCOMPLETE'  
+}
+
 const COUNTRIES = [
   { label: 'Country', value: '' },
   { label: 'Pakistan', value: 'pakistan' },
@@ -397,8 +402,8 @@ export {
     TIME_LIMIT,
     BENEFICIARY_ADD_FOR,
     BENEFICIARY_KEY_FOR,
-    CARD_STATUS
-
+    CARD_STATUS,
+    ACCOUNT_HISTRY_VALIDATION
 
 
 };

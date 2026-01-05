@@ -19,7 +19,7 @@ import { HOME_ROUTES } from '../../../constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import { Toast } from '../../../utils';
-import { CARD_STATUS } from '../../../utils/data';
+import { ACCOUNT_HISTRY_VALIDATION, CARD_STATUS } from '../../../utils/data';
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
@@ -361,12 +361,10 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   }
 
   const handleNavigateTransactionHistory = () => {
-
-    console.log("handleNavigateTransactionHistory");
-    return
-
+  console.log("handleNavigateTransactionHistory");
+  return
     if (currentAccDetail?.id != "") {
-      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentAccDetail?.id})
+      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentAccDetail?.id, show: ACCOUNT_HISTRY_VALIDATION.COMPLETE})
     }
   };
 

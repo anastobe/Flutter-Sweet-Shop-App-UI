@@ -9,7 +9,7 @@ const AccountList = ({length,index, account, onPress }: any) => {
   const asset = account.assets?.[0]; // default first currency
 
   return (
-    <View style={[styles.accountCard,{ borderBottomWidth: length?.length - 1 == index  ? 0 : 0.5,  }]} >
+    <TouchableOpacity activeOpacity={0.5} onPress={onPress} style={[styles.accountCard,{ borderBottomWidth: length?.length - 1 == index  ? 0 : 0.5,  }]} >
       <View style={styles.row}>
         <Text numberOfLines={1} ellipsizeMode="tail" style={styles.accountName}>{account.name} ( {asset?.currency?.iso_code} ) </Text>
       <Text numberOfLines={1} ellipsizeMode="tail" style={styles.iban}>
@@ -18,13 +18,13 @@ const AccountList = ({length,index, account, onPress }: any) => {
 
       </View>
 
-        <TouchableOpacity onPress={onPress} style={styles.currencyCont} >
+        <View style={styles.currencyCont} >
         <Text style={styles.currency}>
           Select
         </Text>
-        </TouchableOpacity>
+        </View>
 
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -88,7 +88,8 @@ const styles = StyleSheet.create({
   },
   currency: {
     fontSize: FONT_SIZES.onefour,
-    fontFamily: FONTFAMILY.SemiBold,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.gray
   },
 
   iban: {
