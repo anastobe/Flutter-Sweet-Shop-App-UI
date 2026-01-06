@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../styles';
-import { MainContainer } from '../../components';
+import { MainContainer, OTPInput } from '../../components';
 import InputField from '../../components/textInput';
 import CustomButton from '../../components/customButton';
 import useforgetPassResetViewModel from '../../viewModels/authViewModel/useforgetPassResetViewModel';
 import StatusBarManager from '../../components/statusBarManager';
 import { handleSize } from '../../config/responsiveTheme';
 import Metrics from '../../styles/metrics';
+
 
 export default function ForgetPassReset({...props}) {
   const {
@@ -24,13 +25,15 @@ export default function ForgetPassReset({...props}) {
     setSecure3,
     pressBackArrow,
     onUpdatePress,
-    isPending_resetPassword
+    isPending_resetPassword,
+    otp, 
+    setOtp
   } = useforgetPassResetViewModel(props);
 
   return (
     <MainContainer
       showBackArrow
-      pressBackArrow={pressBackArrow}
+      pressBackArrow={isPending_resetPassword ? console.log("disabled") : pressBackArrow}
       isFlatList
       barStyle="dark-content"
       customeStyle={{ paddingHorizontal: handleSize.w(20) }}
@@ -41,11 +44,18 @@ export default function ForgetPassReset({...props}) {
         barStyle="light-content" 
       />
 
-      <Text style={styles.title}>Reset password</Text>
+        <Text style={styles.title}>Verify it’s you</Text>
+        <Text style={styles.subtitle}>
+          Enter the 6-digit code we sent to your email address
+        </Text>
+        
+      {/* <Text style={styles.title}>Reset password</Text> */}
+      <OTPInput length={6} onChange={(val: string) => setOtp(val)} />
 
       <InputField
         disabled={!isPending_resetPassword}
         margBtm={handleSize.h(20)}
+        margTp={handleSize.h(20)}
         textInputStyle={styles.innerinput}
         image={secure2 ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
@@ -58,22 +68,6 @@ export default function ForgetPassReset({...props}) {
         onChangeText={setNewPassword}
       />
 
-      <InputField
-        disabled={!isPending_resetPassword}
-        margTp={handleSize.h(0)}
-        margBtm={handleSize.h(10)}
-        textInputStyle={styles.innerinput}
-        // image={secure3 ? 'eye-off-outline' : 'eye-outline'}
-        autoCapital="none"
-        // secureEntry={secure3}
-        blurOnSubmit={false}
-        keyboardType={"numeric"}
-        placeholder="Enter confirmation code"
-        value={confirmNewPassword}
-        onPress={() => setSecure3(!secure3)}
-        onChangeText={setConfirmNewPassword}
-        imagetintColor={THEME.white}
-      />
 
       <CustomButton
         loading={isPending_resetPassword}
@@ -117,6 +111,12 @@ const styles = StyleSheet.create({
       color: THEME.white,
       justifyContent: "center",
     },
-  
+    subtitle: {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    lineHeight: handleSize.h(20),
+    marginBottom: 16,
+  },
 
 });

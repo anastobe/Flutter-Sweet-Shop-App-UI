@@ -313,7 +313,7 @@ const AccountScreen = () => {
         </BottomSheet>
 
         <BottomSheet
-          height={300} // minimum height
+          height={250} // minimum height
           maxHeightPercent={0.5} // optional, override for screen
           draggable={false}
           bottomSheetRef={vm.editRef}

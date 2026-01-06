@@ -55,14 +55,14 @@ const EditAccountPreferences: React.FC<Props> = ({
             onPress={onPressFreeze}
           />
           
-          <CustomButton
+          {/* <CustomButton
             showmyStyleOnly={true}
             loading={isPendingAccDelete}
             btnContSty={styles.button}
             txtColor={styles.buttonText}
             title="Delete account"
             onPress={onPressDelete}
-          />
+          /> */}
         </View>
       </ScrollView>
     </ImageBackground>

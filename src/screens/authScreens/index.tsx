@@ -127,10 +127,11 @@ const config = {
              marginTp={20}
              autoCapital={'none'}
              blurOnSubmit={false}
-             placeholder="Email address"
+            //  placeholder="Email username"
+             placeholder="Email or username"
              value={vm.email}
              onChangeText={vm.setEmail}
-             keyboardType={'email-address'}
+            //  keyboardType={'email-address'}
              margBtm={20}
       />
            <InputField

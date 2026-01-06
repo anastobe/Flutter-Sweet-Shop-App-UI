@@ -18,7 +18,7 @@ export default function useforgetPassResetViewModel(props: any) {
   const [secure, setSecure] = useState(true);
   const [secure2, setSecure2] = useState(true);
   const [secure3, setSecure3] = useState(true);
-
+  const [otp, setOtp] = useState("");
    
     const { mutate: resetPasswordFunc, isPending: isPending_resetPassword } = resetPassword({
       callback: (response: any) => {
@@ -38,18 +38,21 @@ export default function useforgetPassResetViewModel(props: any) {
 
   function onUpdatePress() {
 
-    if (!newPassword.trim()) {
+    if (otp == "") {
+      return Toast.showToast("Enter otp code", '', 'error');
+    } 
+    else if (!newPassword.trim()) {
       return Toast.showToast("Enter new password", '', 'error');
     }
-    else if (!confirmNewPassword.trim()) {
-      return Toast.showToast("Enter confirmation code", '', 'error');
-    } 
     else { 
       let payload ={
         usernameOrEmail: email,
-        confirmationCode: confirmNewPassword, 
+        confirmationCode: otp, 
         newPassword: newPassword
       }
+
+      console.log("payoload==>",payload);
+      // return
 
       resetPasswordFunc(payload)
     }
@@ -69,6 +72,8 @@ export default function useforgetPassResetViewModel(props: any) {
     pressBackArrow,
     onUpdatePress,
     isPending_resetPassword,
+    otp, 
+    setOtp
 
   };
 }

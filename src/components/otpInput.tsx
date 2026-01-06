@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 import { FONT_SIZES, THEME } from "../styles";
 import { handleSize } from "../config/responsiveTheme";
+import Metrics from "../styles/metrics";
 
 const OTPInput = ({ length = 6, onChange }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
@@ -54,8 +55,8 @@ const styles = StyleSheet.create({
     marginTop: handleSize.h(0),
   },
   box: {
-    width: handleSize.w(55), // adjusted width for better scaling
-    height: handleSize.h(55),
+    width: Metrics.width /6 -  handleSize.f(10), // adjusted width for better scaling
+    height: handleSize.f(55),
     borderRadius: handleSize.f(8),
     backgroundColor: "rgba(255,255,255,0.1)",
     borderWidth: 0.8,

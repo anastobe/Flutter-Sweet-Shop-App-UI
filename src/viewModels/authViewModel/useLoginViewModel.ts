@@ -117,9 +117,9 @@ requestFCMPermission()
 //     // Alert.alert("NEED",SHOW_CLIENT)
 // return
     if (email == "") {
-      Toast.showToast("Please Enter Email Address", '', 'error');
+      Toast.showToast("Enter email address or username", '', 'error');
     } else if (password == ""){
-      Toast.showToast("Please Enter Password", '', 'error');
+      Toast.showToast("Please enter password", '', 'error');
     }    
     else{
       loginFunc({ username: email, password: password, device_token: token, device_type: Platform.OS });
