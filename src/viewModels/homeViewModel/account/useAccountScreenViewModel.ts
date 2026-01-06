@@ -119,7 +119,7 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
 
   const onRefresh = async () => {
   try {
-    setRefreshing(true);
+    // setRefreshing(true);
 
      console.log("🔄 Pull to refresh triggered");
 
@@ -141,7 +141,7 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
   } catch (e) {
     console.log('Refresh error', e);
   } finally {
-    setRefreshing(false);
+    // setRefreshing(false);
   }
 };
 

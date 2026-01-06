@@ -66,17 +66,17 @@ const BankTransfer = () => {
         isKeyboardAvoidingView={true}
         children={<BluryModal
             style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
-            onClose={onClose}
+            onClose={()=>onClose(true)}
             btnLoader={false}
             marginTopTitle={20}
-            onConfirm={onClose}
+            onConfirm={()=>onClose(true)}
             iconNameBottom={10}
             title={"Success"}
             body={modalMsg}
             iconName={"checkmark-outline"}
             confirmText={'Continue'}
           />}
-        onClose={onClose}
+          onClose={()=>onClose(true)}
       />
     );
   }

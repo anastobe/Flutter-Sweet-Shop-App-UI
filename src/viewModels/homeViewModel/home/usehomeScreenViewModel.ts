@@ -80,7 +80,7 @@ export const useHomeViewModel = () => {
     
   const onRefresh = async () => {
   try {
-    setRefreshing(true);
+    // setRefreshing(true);
       await Promise.all([
         apis.getCurrencyAccount(dispatch),
         apis.getAccountsAndAssets(dispatch),
@@ -89,7 +89,7 @@ export const useHomeViewModel = () => {
   } catch (e) {
     console.log('Refresh error', e);
   } finally {
-    setRefreshing(false);
+    // setRefreshing(false);
   }
 };
 
