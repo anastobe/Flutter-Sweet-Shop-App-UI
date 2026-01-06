@@ -52,7 +52,10 @@ const BankTransfer = () => {
     payment_method_id, 
     setpayment_method_id,
     autoFocusedpaymentTypes, 
-    setautoFocusedpaymentTypes
+    setautoFocusedpaymentTypes,
+    openSureModal, 
+    setopenSureModal,
+    pressSure
 
   } = useBankTransferViewModel();
  
@@ -76,6 +79,28 @@ const BankTransfer = () => {
         onClose={onClose}
       />
     );
+  }
+
+  function renderSure() {
+    return(
+      <Modal isVisible={openSureModal} onClose={() => setopenSureModal(false)}>
+        <BluryModal
+          iconName={"checkmark-outline"}
+          onClose={() =>{
+            if (isPending) {
+              return              
+            }
+            else{
+            setopenSureModal(false)
+            }
+          }}
+          btnLoader={isPending}
+          onConfirm={pressSure}
+          body="Are you sure you want to proceed this payment?"
+          confirmText="Proceed"
+        />
+      </Modal>
+    )
   }
   
   return (
@@ -206,6 +231,7 @@ const BankTransfer = () => {
         </View>
       </ScrollView>
       {renderSuccess()}
+      {renderSure()}
       
         <BottomSheet 
           height={Metrics.height } // minimum height

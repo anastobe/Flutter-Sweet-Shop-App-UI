@@ -21,6 +21,7 @@ export const useBankTransferViewModel = () => {
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
   const [open, setopen] = useState(false);
+  const [openSureModal, setopenSureModal] = useState(false);
   const [autoFocused, setautoFocused] = useState(false);
   const [autoFocusedpaymentTypes, setautoFocusedpaymentTypes] = useState(false);
   
@@ -55,12 +56,15 @@ export const useBankTransferViewModel = () => {
       
 
       if (res?.success) {
-        setopen(true)
-        setmodalMsg(res?.message)
+        setopenSureModal(false)
+        setTimeout(() => {
+          setopen(true)
+          setmodalMsg(res?.message)
+        }, 400);
       }
     },
     onError: (error: any) => {
-
+        setopenSureModal(false)
       console.log("error usePaymentTransfer==>",error);
     },
 
@@ -112,7 +116,20 @@ export const useBankTransferViewModel = () => {
       Toast.showToast('Enter Your Note/Refrence', '', 'error');
     } 
     else {
-      const payload ={
+
+      setopenSureModal(true)
+
+    // return
+    // usePaymentTransferFunc(payload)
+      // navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
+    }
+
+    // fromAccount
+    // Alert.alert("NEED",SHOW_CLIENT)
+  };
+
+  function pressSure() {
+    const payload ={
       amount: enterAmount, 
       asset_id:  fromAccount?.id,
       banking_partner_id: loginUserData?.banking_partner_id, 
@@ -122,27 +139,9 @@ export const useBankTransferViewModel = () => {
       reference: note
     }
     console.log("===>payload==>",payload);
-    
-    // return
     usePaymentTransferFunc(payload)
-      // navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload });
-    }
+  }
 
-    // fromAccount
-    // Alert.alert("NEED",SHOW_CLIENT)
-  };
-
-  // function onClose() {
-  //     setTimeout(() => {
-  //       setopen(false)
-  //     }, 1000); 
-  //     navigation.reset({
-  //       index: 0,
-  //       routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
-  //     });
-
-  //     // navigation.navigate(HOME_ROUTES.TABSTACK, { screen: "HomeStack" });
-  //   }
     
     function onClose(status: boolean) {
       if (status) {
@@ -201,7 +200,10 @@ export const useBankTransferViewModel = () => {
     payment_method_id, 
     setpayment_method_id,
     autoFocusedpaymentTypes, 
-    setautoFocusedpaymentTypes
+    setautoFocusedpaymentTypes,
+    openSureModal, 
+    setopenSureModal,
+    pressSure
   
   };
 };
