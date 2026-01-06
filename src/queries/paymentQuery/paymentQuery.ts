@@ -32,7 +32,11 @@ export const usePaymentTransfer = (
   });
 };
 
-export const useFXConversion = ({callback} : {callback: (res: any) => void}) => {
+export const useFXConversion = (
+  {callback, onError} 
+  : 
+  {callback: (res: any) => void, onError: (res: any) => void}
+) => {
   const dispatch = useDispatch();
 
   return useMutation({
@@ -43,10 +47,8 @@ export const useFXConversion = ({callback} : {callback: (res: any) => void}) => 
       }
   },
     onError: (error: any) => {
-      // this is usually a network/server-side error
-      console.log('usePaymentTransfer error:', error);
-      // onErrorCallback?.(error?.message || 'Something went wrong');
-    }
+      onError(error)
+    },
   });
 };
 

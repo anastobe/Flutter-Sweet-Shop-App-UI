@@ -69,6 +69,20 @@ export default function useCurrencyExchangeViewModel({...props}) {
       // if (res?.success) {
       //   navigation.navigate(HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE,{ key: "calculated", data: res?.results, stateData: {fromAccount: fromAccount, toAccount: toAccount, amount: amount} });    
       // }
+    },
+    onError: (res: any) => {
+      
+      setFxInfo({
+        rateText: '',
+        fee: '',
+        validFor: '',
+        settlementAmount: '',
+        quoteId: ''
+      });
+      setYouWillReceive('')
+      // 🔥 START COUNTDOWN
+      startCountdown(60);
+    
     }
   });
 
@@ -89,6 +103,9 @@ export default function useCurrencyExchangeViewModel({...props}) {
       } 
       else if (toCurrency.id == "") {
         return Toast.showToast('Select to currency', '', 'error');
+      }
+      else if (fromCurrency.id == toCurrency.id) {
+        return Toast.showToast('Select another currency', '', 'error');
       }
       else if (amount == "" ) {
         return Toast.showToast('Enter amount', '', 'error');
@@ -124,7 +141,15 @@ export default function useCurrencyExchangeViewModel({...props}) {
     };
   }, []);
 
-  const reFetchFXRate = () => {
+const reFetchFXRate = () => {
+  if (
+    !fromCurrency?.iso_code ||
+    !toCurrency?.iso_code ||
+    parseInt(amount) <= 0
+  ) {
+    return;
+  }
+
   const payload = {
     itemsToQuote: [
       {
