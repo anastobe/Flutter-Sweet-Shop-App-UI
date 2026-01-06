@@ -422,8 +422,8 @@ const styles = StyleSheet.create({
   },
 
   dot: {
-    height: handleSize.h(6),
-    width: handleSize.w(6),
+    height: handleSize.f(6),
+    width: handleSize.f(6),
     borderRadius: handleSize.h(10),
     backgroundColor: THEME.SlateBlue,
     marginHorizontal: handleSize.w(4),
@@ -431,8 +431,8 @@ const styles = StyleSheet.create({
 
   activeDot: {
     backgroundColor: THEME.white,
-    width: handleSize.w(6),
-    height: handleSize.h(6),
+    width: handleSize.f(6),
+    height: handleSize.f(6),
   },
 
   statecontainer: {

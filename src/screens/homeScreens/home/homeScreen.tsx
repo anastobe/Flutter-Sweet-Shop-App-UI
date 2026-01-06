@@ -663,7 +663,8 @@ const styles = StyleSheet.create({
 
   card: {
     width: Metrics.width * 0.44,
-    padding: handleSize.w(16),
+    paddingHorizontal: handleSize.w(10),
+    paddingVertical: handleSize.w(10),
     marginRight: handleSize.w(14),
     borderRadius: handleSize.f(16),
     justifyContent: 'space-between',

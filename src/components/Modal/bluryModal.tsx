@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     backgroundColor: THEME.primary,
     borderRadius: handleSize.f(50),
-    width: handleSize.w(65),
-    height: handleSize.h(65),
+    width: handleSize.f(65),
+    height: handleSize.f(65),
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -64,14 +64,14 @@ const BeneficiariesManagement = () => {
           style={styles.butnCont}
           onPress={() => onPressDelete(item)}
         >
-          <Icon name="trash-outline" size={20} color={THEME.white} />
+          <Icon name="trash-outline" size={handleSize.f(18)} color={THEME.white} />
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.butnCont2}
           onPress={() => onPressPayment(item)}
         >
-          <Icon name="arrow-forward-outline" size={20} color={THEME.white} />
+          <Icon name="arrow-forward-outline" size={handleSize.f(18)} color={THEME.white} />
         </TouchableOpacity>
 
       </LinearGradient>
@@ -211,8 +211,8 @@ const styles = StyleSheet.create({
     marginBottom: handleSize.h(10),
   },
   avatar: {
-    width: handleSize.w(40),
-    height: handleSize.h(40),
+    width: handleSize.f(40),
+    height: handleSize.f(40),
     borderRadius: handleSize.f(14),
     backgroundColor: THEME.primary,
     justifyContent: 'center',

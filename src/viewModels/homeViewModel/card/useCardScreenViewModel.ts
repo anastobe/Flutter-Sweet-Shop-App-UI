@@ -181,7 +181,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
 
   const MODAL_CONFIG = {
   freeze: {
-    title: 'Freeze This Card?',
+    title: 'Freeze this card?',
     body: 'Freezing will temporarily disable all transactions from this card.',
     subBody:
       'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.',
@@ -191,7 +191,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   },
 
   unfreeze: {
-    title: 'Card is Frozen',
+    title: 'Card is frozen',
     body:
       'Your card is currently frozen for security reasons. Tap below to unfreeze it instantly and resume spending.',
     confirmText: 'Unfreeze Card',
