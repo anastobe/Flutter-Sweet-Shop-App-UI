@@ -282,20 +282,18 @@ const startCountdown = (seconds: number) => {
   };
 
   function onClose(status: boolean) {
+    setopen(false)
       if (status) {
-        setopen(false)
         paymentconfrm?.current?.close()
         setTimeout(() => {
 
-        // navigation.reset({
-        //   index: 0,
-        //   routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
-        // });
-        navigation.navigate(HOME_ROUTES.MAKE_PAYMENT)
+        navigation.reset({
+          index: 0,
+          routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
+        });
+        // navigation.navigate(HOME_ROUTES.MAKE_PAYMENT)
 
         }, 500); 
-      } else {
-        setopen(false)
       }
     }
 

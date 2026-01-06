@@ -28,7 +28,7 @@ const InfoRow = ({ icon, label, value }) => (
       }
       <Text style={styles.label}>{label}</Text>
     </View>
-    <Text style={styles.value}>{value}</Text>
+    <Text style={[styles.value,{ color: icon == "time-outline" ? THEME.green : THEME.white  }]}>{value}</Text>
   </View>
 );
 
@@ -409,8 +409,7 @@ const styles = StyleSheet.create({
 
   value: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: handleSize.f(FONT_SIZES.onefour),
-    color: THEME.white,
+    fontSize: handleSize.f(FONT_SIZES.onefour)
   },
 
   
