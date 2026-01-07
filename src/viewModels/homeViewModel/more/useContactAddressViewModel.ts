@@ -6,19 +6,25 @@ import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Alert } from 'react-native';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AddnewBeneficiaryApi, UpdateContactAddress } from '../../../queries/moreQueries/moreQuery';
+import apis from '../../../services';
 
 export default function useContactAddressViewModel() {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
+  const dispatch = useDispatch()
 
+  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData)
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [open, setOpen] = useState(false);
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
+  const [country, setCountry] = useState({
+    id: '',
+    name: ''
+  });
+  const [town, setown] = useState('');
   const [address, setAddress] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,22 +34,54 @@ export default function useContactAddressViewModel() {
   const { mutate: UpdateContactAddressFunc, isPending: isPending_UpdateContactAddress } = UpdateContactAddress({
     callback: (res: any) => {
       if (res.success) {
+        updateDataInRedux()
         navigation.goBack() 
       }
     }
   });
+
+  useEffect(()=>{
+    if (loginUserData) { 
+      setCountry({
+        id: loginUserData?.country?.id,
+        name: loginUserData?.country?.name
+      })
+      setown(loginUserData?.town)
+      setAddress(loginUserData?.address_line1)
+      setPostalCode(loginUserData?.postcode)
+    }
+  },[loginUserData])
+
+  async function updateDataInRedux() {
+    await apis.getUserDetail(dispatch)
+  }
 
   function pressBackArrow() {
     navigation.goBack();
   }
 
   function onPressBtn() {
-    if (!country) return Toast.showToast('Please Select Country', '', 'error');
-    else if (!city) return Toast.showToast('Please Select City', '', 'error');
-    else if (!address) return Toast.showToast('Please Enter Address', '', 'error');
-    else if (!postalCode) return Toast.showToast('Please Enter Postal Code', '', 'error');
+    if (!country?.id) return Toast.showToast('Please select country', '', 'error');
+    else if (!town) return Toast.showToast('Please enter town', '', 'error');
+    else if (!address) return Toast.showToast('Please enter address', '', 'error');
+    else if (!postalCode) return Toast.showToast('Please enter postal code', '', 'error');
+    // else if (!confirmPassword) return Toast.showToast('Please enter password', '', 'error')
+
     else{
-        cardDetailRef?.current?.open();
+      
+    let payloadWithParams = {
+      ID: loginUserData?.id, //will change in futhure
+      payload: {
+        country_id: country?.id,
+        town: town,
+        address_line1: address,
+        postcode: postalCode,
+        password: confirmPassword
+      }
+    }
+    UpdateContactAddressFunc(payloadWithParams)
+
+        // cardDetailRef?.current?.open();
     }
   }
 
@@ -56,16 +94,8 @@ export default function useContactAddressViewModel() {
 
   function ApiCall() {
 
-    let payloadWithParams = {
-      ID: "1",
-      payload: {
-        address_line1: address,
-    // "address_line2": "hello1",
-    // "address_line3": "hello1"
-        }
-    }
-    UpdateContactAddressFunc(payloadWithParams)
-    console.log(payloadWithParams,"data==>",country,city,address,postalCode,confirmPassword);
+console.log("play");
+
     
   }
 
@@ -82,8 +112,8 @@ export default function useContactAddressViewModel() {
     setOpen,
     country,
     setCountry,
-    city,
-    setCity,
+    town,
+    setown,
     address,
     setAddress,
     postalCode,
@@ -97,6 +127,7 @@ export default function useContactAddressViewModel() {
     setOpenDropdown,
     countryList,
     ApiCall,
+    loginUserData,
     isPending_UpdateContactAddress
 
 

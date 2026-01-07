@@ -102,7 +102,7 @@ export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) =
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('Login error:', error);
+      console.log('UpdateContactAddress error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });

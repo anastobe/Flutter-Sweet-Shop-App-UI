@@ -60,7 +60,7 @@ export const UpdateContactAddress = async (payloadWithParams: any) => {
 
   console.log("=====>",payloadWithParams);
   
-  const response = await axiosInstance(`/member/${payloadWithParams?.ID}`, 'POST', payloadWithParams.payload, false);
+  const response = await axiosInstance(`/member/${payloadWithParams?.ID}`, 'PUT', payloadWithParams.payload, false);
   return response;
 };
 

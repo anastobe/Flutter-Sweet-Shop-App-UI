@@ -12,60 +12,46 @@ import { handleSize } from '../../../config/responsiveTheme'; // responsive help
 
 const ContactAddress = () => {
   const vm = useContactAddressViewModel();
+
+  
+
 // currencyList
   const renderInputField = () => (
     <View>
-      {/* <InputField
-        disabled={false}
-        placeholder="Select Country"
-        value={vm.country}
-        enableDropdown={true}
-        dropdownData={[
-          { name: "Country" },
-          { name: "Pakistan" },
-          { name: "Canada" },
-          { name: "Italy" },
-          { name: "Ireland" },
-        ]}
-        margBtm={handleSize.h(15)}
-        isOpen={vm.openDropdown === 'country'}
-        onToggleDropdown={() => vm.toggleDropdown('country')}
-        onDropdownSelect={(item: any) => vm.setCountry(item.name)}
-      /> */}
-      
       <InputField
         disabled={false} 
+        autoFocused={vm?.country?.name ? true : false}
         placeholder="Select country"
-        value={vm.country} 
+        value={vm?.country?.name} 
         enableDropdown={true}
         dropdownData={vm.countryList} 
         margBtm={23}
         isOpen={vm.openDropdown === 'country'} 
         onToggleDropdown={() =>{ vm.toggleDropdown('country') }}
-        onDropdownSelect={(item:any )=> vm.setCountry(item.name)}
+        onDropdownSelect={(item:any )=>{
+          vm.setCountry({
+            id: item?.id,
+            name: item?.name
+          })
+          }}
       />
 
       <InputField
-        disabled={false}
-        placeholder="City"
-        value={vm.city}
-        enableDropdown={true}
-        dropdownData={[
-          { name: "City A" },
-          { name: "City B" },
-          { name: "City C" }
-        ]}
-        margBtm={handleSize.h(15)}
-        isOpen={vm.openDropdown === 'city'}
-        onToggleDropdown={() => vm.toggleDropdown('city')}
-        onDropdownSelect={(item: any) => vm.setCity(item.name)}
+        autoFocused={vm.town ? true : false}
+        marginTp={handleSize.h(20)}
+        placeholder="Town"
+        value={vm.town}
+        onChangeText={vm.setown}
+        margBtm={handleSize.h(20)}
       />
+
     </View>
   );
 
   const renderLimitType = () => (
     <View>
       <InputField
+        autoFocused={vm.address ? true : false}
         marginTp={handleSize.h(20)}
         placeholder="Address"
         value={vm.address}
@@ -73,6 +59,7 @@ const ContactAddress = () => {
         margBtm={handleSize.h(20)}
       />
       <InputField
+        autoFocused={vm.postalCode ? true : false}
         marginTp={handleSize.h(20)}
         placeholder="Postal code"
         value={vm.postalCode}
@@ -87,6 +74,7 @@ const ContactAddress = () => {
     <CustomButton
       btnContSty={styles.forgetTxt}
       title="Update contact"
+      loading={vm?.isPending_UpdateContactAddress}
       onPress={vm.onPressBtn}
     />
   );
