@@ -246,9 +246,9 @@ const BENEFICIARY_MANAGEMENT_DATA = [
 ];
 
 const PAYMENT_OPTION = [
-  { id: '1', name: 'Bank Transfer', detailTxt: 'Transfer funds to any bank account locally.', icon: Images.bank, route: HOME_ROUTES.BANK_TRANSFER, key: "bank" },
-  { id: '2', name: 'International Transfer', detailTxt: 'Send payments across borders in multiple currencies.', icon: Images.international, route: HOME_ROUTES.INTERNATIONAL_TRANSFER, key: "international"  },
-  { id: '3', name: 'To My Account', detailTxt: 'Move money between your own accounts.', icon: Images.toMyAcc, route: HOME_ROUTES.MY_ACCOUNT_TRANSFER, key: "myaccount"  }
+  { id: '1', name: 'Bank transfer', detailTxt: 'Transfer funds to any bank account locally.', icon: Images.bank, route: HOME_ROUTES.BANK_TRANSFER, key: "bank" },
+  { id: '2', name: 'International transfer', detailTxt: 'Send payments across borders in multiple currencies.', icon: Images.international, route: HOME_ROUTES.INTERNATIONAL_TRANSFER, key: "international"  },
+  { id: '3', name: 'To my account', detailTxt: 'Move money between your own accounts.', icon: Images.toMyAcc, route: HOME_ROUTES.MY_ACCOUNT_TRANSFER, key: "myaccount"  }
 ];
 
 

@@ -29,7 +29,8 @@ const TransactionItem = ({ item, onPress }: Props) => {
         </View>
 
         <View>
-          <Text style={styles.name}>
+          <Text numberOfLines={2} ellipsizeMode='tail' style={styles.name}>
+            {/* {item?.description} */}
             {item?.frontier_customer?.business_customer?.company_name || '-'}
           </Text>
           <Text style={styles.subname}>
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: THEME.SlateBlue,
     borderRadius: handleSize.f(10),
-    height: handleSize.h(68),
+    height: handleSize.f(68),
     marginHorizontal: handleSize.w(20),
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -71,7 +72,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   name: {
-    fontSize: handleSize.f(FONT_SIZES.onefour),
+    width: handleSize.w(140),
+    // backgroundColor: "red",
+    fontSize: handleSize.f(FONT_SIZES.onethree),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
     marginLeft: handleSize.w(10),

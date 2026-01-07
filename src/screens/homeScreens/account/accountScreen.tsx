@@ -117,7 +117,7 @@ const AccountScreen = () => {
           <GradientLineGraph
             data={vm?.getDashboardData_Data?.graph}
             loading={vm?.getDashboardDataPending}
-            marginTop={handleSize.h(25)}
+            marginTop={handleSize.f(25)}
           />
 
           <View style={styles.statecontainer}>

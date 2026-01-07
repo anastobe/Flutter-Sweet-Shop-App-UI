@@ -54,7 +54,7 @@ const CardScreen = () => {
   {
     key: 'ADD_CARD',
     ref: vm.AddCardRef,
-    height: 300,
+    height: 320,
     maxHeightPercent: 0.55,
     render: () => (
       <AddCardPopup
@@ -235,8 +235,9 @@ const renderItem = useCallback(({ item }) => (
         onRefresh={vm.onRefresh}
         nestedScrollEnabled
         renderItem={renderItem}
-        // contentContainerStyle={{
-        //   paddingBottom: handleSize.h(header_Height + 20)        }}
+        contentContainerStyle={{
+          paddingBottom: handleSize.h(20)
+        }}
       />
 
       </View>
@@ -347,7 +348,7 @@ export default CardScreen;
 export const styles = StyleSheet.create({
   container: { flex: 1 },
   headerContainer: {
-    height: handleSize.h(290),
+    height: handleSize.h(280),
     width: Metrics.width,
     borderBottomLeftRadius: handleSize.f(30),
     borderBottomRightRadius: handleSize.f(30),
@@ -463,7 +464,7 @@ export const styles = StyleSheet.create({
     color: THEME.white,
   },
   viewAllTxt: {
-    fontSize: handleSize.f(FONT_SIZES.oneone),
+    fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     backgroundColor: THEME.SlateBlue,

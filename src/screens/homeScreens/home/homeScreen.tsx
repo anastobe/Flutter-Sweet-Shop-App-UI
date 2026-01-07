@@ -272,7 +272,7 @@ const renderBalanceCard = () => (
           <GradientLineGraph 
                 data={getDashboardData_Data?.graph}
                 loading={getDashboardDataPending}
-                marginTop={handleSize.h(25)} 
+                marginTop={handleSize.f(25)} 
           />
           {ScrollableCards()}
           {renderCardFeature()}

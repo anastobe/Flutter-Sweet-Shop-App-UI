@@ -37,7 +37,7 @@ export const getAccountsAndAssets  = (    {
     initialData: [],
     queryFn: ()=> apis.getDashboardData(ID),
     enabled: enabled,
-
+    
     staleTime: 0, // Data will never be considered stale
     retry: false // Disable retry on failure
   });

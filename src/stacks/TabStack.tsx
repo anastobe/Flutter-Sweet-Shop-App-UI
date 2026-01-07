@@ -470,33 +470,56 @@ export const TabStack: React.FC = ({ }) => {
       //     }
       //   }
       // }}
-      screenOptions={{
-        tabBarStyle: {
-          height: scale(65) + insets.bottom,
-          // width: screenHeight >= 926 && isIphoneX() ? '95%' : '95%',
-          // paddingBottom: 0,
-          // alignSelf: 'center',
-          backgroundColor: THEME.darkSecondary,
-          // bottom: 5.2,
-          // marginBottom: 0,
-          // alignItems: 'center',
-          // elevation: 0,
-          // position: 'absolute',
-          // borderTopColor: 'rgba(255, 255, 255, 0.3)',
-          // borderTopWidth: 1
-        },
-        tabBarActiveTintColor: 'blue',
-        tabBarInactiveTintColor: 'grey',
-        tabBarHideOnKeyboard: true,
+      
+      // screenOptions={{
+      //   tabBarStyle: {
+      //     // height: handleSize.f(65),
+      //     // height: handleSize.f(65) + handleSize.f(insets.bottom),
+      //     // width: screenHeight >= 926 && isIphoneX() ? '95%' : '95%',
+      //     // paddingBottom: 0,
+      //     // alignSelf: 'center',
+      //     backgroundColor: THEME.darkSecondary,
+      //     // bottom: 5.2,
+      //     // marginBottom: 0,
+      //     // alignItems: 'center',
+      //     // elevation: 0,
+      //     // position: 'absolute',
+      //     // borderTopColor: 'rgba(255, 255, 255, 0.3)',
+      //     // borderTopWidth: 1
+      //   },
+      //   tabBarActiveTintColor: 'blue',
+      //   tabBarInactiveTintColor: 'grey',
+      //   tabBarHideOnKeyboard: true,
 
-        // tabBarLabelStyle: {
-        //   textTransform: 'uppercase',
-        //   marginTop: 0,
-        //   top: -15,
-        // },
-        tabBarShowLabel: false,
-        // tabBarStyle: { display: 'none' },
-      }}
+      //   // tabBarLabelStyle: {
+      //   //   textTransform: 'uppercase',
+      //   //   marginTop: 0,
+      //   //   top: -15,
+      //   // },
+      //   tabBarShowLabel: false,
+      //   // tabBarStyle: { display: 'none' },
+      // }}
+
+
+       screenOptions={{
+    tabBarHideOnKeyboard: true,
+    tabBarShowLabel: false,
+    tabBarStyle: {
+      backgroundColor: THEME.darkSecondary,
+      // height: handleSize.f(65), // ✅ SAFE AREA INCLUDED
+      // paddingBottom: insets.bottom > 0 ? insets.bottom : 8,
+      // paddingTop: 4,
+      // borderTopWidth: 0,
+      // elevation: 0,
+      // borderTopColor: 'rgba(255, 255, 255, 0.3)',
+      // borderTopWidth: 1
+
+      borderTopWidth: 0,        // Removes the actual border line
+      elevation: 0,             // Removes shadow on Android
+      shadowOpacity: 0,         // Removes shadow on iOS
+    },
+  }}
+
         // screenOptions={({ route }) => {
         //   const routeName =
         //     getFocusedRouteNameFromRoute(route) ?? route.name;
@@ -611,21 +634,33 @@ const styles = StyleSheet.create<any>({
   tabTxt: {
     fontFamily: FONTFAMILY.Regular,
     fontSize: handleSize.f(FONT_SIZES.nine),
-    marginTop: handleSize.h(3),
+    marginTop: handleSize.f(1),
+    marginBottom: handleSize.f(6),
   },
   imgTab: {
-    width: handleSize.w(25),
-    height: handleSize.h(25),
+    width: handleSize.f(25),
+    height: handleSize.f(25),
+    marginTop: handleSize.f(3),
   },
   iconBack: {
-    paddingVertical: handleSize.h(10),
+    // paddingVertical: handleSize.f(10),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: handleSize.w(8),
   },
   tabCont: {
     // width: handleSize.w(METRICS.width / 5 - 22),
-    width: (METRICS.width / 5) - handleSize.w(5),
-    top: handleSize.h(10), 
+    width: (METRICS.width / 5),
+    height: handleSize.f(65),
+    // width: (METRICS.width / 5),
+    backgroundColor: THEME.darkSecondary,
+    // paddingVertical: handleSize.f(5),
+    paddingTop: handleSize.f(4.5),
+    // justifyContent: "center",
+    borderTopColor: 'rgba(255, 255, 255, 0.3)',
+    borderTopWidth: 1,
+
+    // backgroundColor: "red",
+    // paddingTop: handleSize.f(5), 
   },
 });

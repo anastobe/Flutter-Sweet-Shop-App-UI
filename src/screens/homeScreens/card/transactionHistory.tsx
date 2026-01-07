@@ -233,8 +233,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   filterBtn: {
-    width: handleSize.w(46),
-    height: handleSize.h(46),
+    width: handleSize.f(46),
+    height: handleSize.f(46),
     backgroundColor: THEME.primary,
     borderRadius: handleSize.f(10),
     marginBottom: handleSize.h(5),

@@ -32,7 +32,7 @@ const AccountCard = ({
       style={[
         {
           width: METRICS.width,
-          height: handleSize.h(174),
+          height: handleSize.h(164),
           borderRadius: handleSize.f(15),
         },
         containerStyle,
