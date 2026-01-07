@@ -20,18 +20,29 @@ export default function useCreateVirtualCardViewModel() {
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [cardName, setCardName] = useState('');
   const [pin, setPin] = useState('');
-  const [currency, setCurrency] = useState({
-    __typename: "",
+  const [openDropdownsty, setOpenDropdownSty] = useState(false);
+  // const [currency, setCurrency] = useState({
+  //   __typename: "",
+  //   id: "",
+  //   iso_code: "",
+  //   num_code: ""
+  // });
+  // const [linkedAccount, setLinkedAccount] = useState( {
+  //   id: "",
+  //   name: "",
+  //   iso_code: "",
+  //   num_code: ""
+  // });
+
+  
+  const [fromAccount, setFromAccount] = useState({
     id: "",
-    iso_code: "",
-    num_code: ""
-  });
-  const [linkedAccount, setLinkedAccount] = useState( {
-    id: "",
+    available_balance: "",
+    currency_id: "",
     name: "",
-    iso_code: "",
-    num_code: ""
+    iso_code: ""
   });
+
   const [limitType, setLimitType] = useState('');
   const [spendingLimit, setSpendingLimit] = useState('');
 
@@ -47,11 +58,14 @@ export default function useCreateVirtualCardViewModel() {
   function onPressBtn() {
     if (cardName?.length === 0) {
       Toast.showToast('Please Enter Name', '', 'error');
-    } else if (currency?.iso_code?.length === 0) {
-      Toast.showToast('Please Select Currency', '', 'error');
-    } else if (linkedAccount?.name?.length === 0) {
-      Toast.showToast('Please Select Linked Account Type', '', 'error');
-    } else if (limitType?.length === 0) {
+    } 
+    else if (fromAccount?.id == "" || fromAccount?.currency_id == "") {
+      Toast.showToast('Please Select Account', '', 'error');
+    } 
+    // else if (fromAccount?.name?.length === 0) {
+    //   Toast.showToast('Please Select Linked Account Type', '', 'error');
+    // } 
+    else if (limitType?.length === 0) {
       Toast.showToast('Please Select Limit Type', '', 'error');
     } else if (spendingLimit?.length === 0) {
       Toast.showToast('Please Enter Spending Limit', '', 'error');
@@ -66,29 +80,29 @@ export default function useCreateVirtualCardViewModel() {
     // } 
     else {
       const payload = {
-        format: 'virtual',//
-        card_name: cardName,//
-        spending_limits: spendingLimit,//
-        limit_type: limitType?.toLowerCase(),//
-        currency_type: currency.id?.toString(),
-        linked_account: linkedAccount.id
+        format: 'virtual',
+        card_name: cardName,
+        spending_limits: spendingLimit,
+        limit_type: limitType?.toLowerCase(),
+        currency_type: fromAccount?.currency_id?.toString(),
+        linked_account: fromAccount.id
       };
       // card_desgin: 'steel',//REMOVED
 
-      console.log("ASdasd=>",payload);
+      // console.log("ASdasd=>",payload);
       // return
 
-      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, linkedAccount: linkedAccount, currency: currency });
+      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, linkedAccount: fromAccount, currency: fromAccount });
     }
   }
 
   return {
     cardName,
     setCardName,
-    currency,
-    setCurrency,
-    linkedAccount,
-    setLinkedAccount,
+    // currency,
+    // setCurrency,
+    // linkedAccount,
+    // setLinkedAccount,
     limitType,
     setLimitType,
     spendingLimit,
@@ -104,6 +118,10 @@ export default function useCreateVirtualCardViewModel() {
     getCurrencyAccArray,
     pin, 
     setPin,
-    allAccounts
+    allAccounts,
+    fromAccount, 
+    setFromAccount,
+    openDropdownsty, 
+    setOpenDropdownSty
   };
 }

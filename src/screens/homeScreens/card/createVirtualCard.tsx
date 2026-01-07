@@ -1,7 +1,7 @@
 // src/screens/Home/view/CreateVirtualCardView.js
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { MainContainer } from '../../../components';
+import { InputDropDownStyle, MainContainer } from '../../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import InputField from '../../../components/textInput';
@@ -14,10 +14,10 @@ export default function CreateVirtualCardView() {
   const {
     cardName,
     setCardName,
-    currency,
-    setCurrency,
-    linkedAccount,
-    setLinkedAccount,
+    // currency,
+    // setCurrency,
+    // linkedAccount,
+    // setLinkedAccount,
     limitType,
     setLimitType,
     spendingLimit,
@@ -30,7 +30,11 @@ export default function CreateVirtualCardView() {
     getCurrencyAccArray,
     allAccounts,
     pin,
-    setPin
+    setPin,
+    fromAccount, 
+    setFromAccount,
+    openDropdownsty, 
+    setOpenDropdownSty
   } = useCreateVirtualCardViewModel();
 
   console.log("getCurrencyAccArray=>",allAccounts);
@@ -48,7 +52,7 @@ export default function CreateVirtualCardView() {
           margBtm={handleSize.h(20)}
         />
         
-        <InputField
+        {/* <InputField
           disabled={false} 
           placeholder="Currency"
           value={currency.iso_code} 
@@ -77,7 +81,27 @@ export default function CreateVirtualCardView() {
               num_code: "",
             })
           }}
+        /> */}
+
+        
+        <InputDropDownStyle
+          title="Linked account"
+          value={fromAccount}  // null = show input box
+          // data={getCurrencyAccArray}
+          data={getCurrencyAccArray}
+          isOpen={openDropdownsty}
+          onToggle={() =>{ setOpenDropdownSty(!openDropdownsty) }}
+          onSelect={(item: any) =>{ 
+            setFromAccount({     
+            id: item?.account?.id,    
+            available_balance: item?.available_balance,       
+            currency_id: item?.currency?.id,
+            name: item?.account?.name,
+            iso_code: item?.currency?.iso_code
+            })
+          }}
         />
+
       </View>
     );
   }

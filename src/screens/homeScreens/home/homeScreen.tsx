@@ -662,10 +662,10 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    width: Metrics.width * 0.44,
-    paddingHorizontal: handleSize.w(10),
-    paddingVertical: handleSize.w(10),
-    marginRight: handleSize.w(14),
+    width: handleSize.w(160),
+    paddingHorizontal: handleSize.f(10),
+    paddingVertical: handleSize.f(10),
+    marginRight: handleSize.f(14),
     borderRadius: handleSize.f(16),
     justifyContent: 'space-between',
   },

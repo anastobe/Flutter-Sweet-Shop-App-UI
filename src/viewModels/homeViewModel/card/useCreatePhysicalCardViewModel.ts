@@ -21,19 +21,30 @@ export function useCreatePhysicalCardViewModel() {
   const [design, setdesign] = useState({id: "", name: ""});
   const [pin, setPin] = useState('');
   const [cardName, setcardName] = useState('');
-  const [currency, setCurrency] = useState({
-    __typename: "",
-    id: "",
-    iso_code: "",
-    num_code: ""
-  });
+
+  const [openDropdownsty, setOpenDropdownSty] = useState(false);
   
-  const [linkedAccount, setLinkedAccount] = useState( {
+  const [fromAccount, setFromAccount] = useState({
     id: "",
+    available_balance: "",
+    currency_id: "",
     name: "",
-    iso_code: "",
-    num_code: ""
+    iso_code: ""
   });
+
+  // const [currency, setCurrency] = useState({
+  //   __typename: "",
+  //   id: "",
+  //   iso_code: "",
+  //   num_code: ""
+  // });
+  
+  // const [linkedAccount, setLinkedAccount] = useState( {
+  //   id: "",
+  //   name: "",
+  //   iso_code: "",
+  //   num_code: ""
+  // });
 
   const [limitType, setLimitType] = useState('Weekly');
   const [spendingLimit, setSpendingLimit] = useState('');
@@ -47,13 +58,20 @@ export function useCreatePhysicalCardViewModel() {
   const onPressBtn = () => {
     if (!cardName) {
       Toast.showToast('Please Enter Name', '', 'error');
-    }else if (currency?.iso_code?.length === 0) {
-      Toast.showToast('Please Select Currency', '', 'error');
-    } else if (linkedAccount?.name?.length === 0) {
-      Toast.showToast('Please Select Linked Account Type', '', 'error');
-    } else if (!limitType) {
+    }
+    else if (fromAccount?.id == "" || fromAccount?.currency_id == "") {
+      Toast.showToast('Please Select Account', '', 'error');
+    } 
+    // else if (currency?.iso_code?.length === 0) {
+    //   Toast.showToast('Please Select Currency', '', 'error');
+    // } 
+    // else if (linkedAccount?.name?.length === 0) {
+    //   Toast.showToast('Please Select Linked Account Type', '', 'error');
+    // } 
+    else if (!limitType) {
       Toast.showToast('Please Select Limit Type', '', 'error');
-    } else if (!spendingLimit) {
+    } 
+    else if (!spendingLimit) {
       Toast.showToast('Please Enter Spending Limit', '', 'error');
     } else if (pin?.length === 0) {
       Toast.showToast('Please Your Security Pin', '', 'error');
@@ -63,7 +81,7 @@ export function useCreatePhysicalCardViewModel() {
       Toast.showToast('Security Pin Must be 4 Digit', '', 'error');
     }  else {
 
-      console.log("ASdasdsasa====>",cardName,currency,linkedAccount,limitType,spendingLimit);
+      console.log("ASdasdsasa====>",cardName,fromAccount,limitType,spendingLimit);
       
 
       cardDetailRef?.current?.open();
@@ -79,12 +97,12 @@ export function useCreatePhysicalCardViewModel() {
         card_name: cardName,
         spending_limits: spendingLimit,
         limit_type: limitType?.toLowerCase(),//
-        currency_type: currency.id?.toString(),
-        linked_account: linkedAccount.id,
+        currency_type: fromAccount?.currency_id?.toString(),
+        linked_account: fromAccount.id,
         pin: pin
       };
       // card_desgin: 'steel', REMOVED
-      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, address: completeAddress, linkedAccount: linkedAccount, currency: currency  });
+      navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, address: completeAddress, linkedAccount: fromAccount, currency: fromAccount  });
     }, 800);
   };
 
@@ -99,10 +117,10 @@ export function useCreatePhysicalCardViewModel() {
     cardDetailRef,
     cardName,
     setcardName,
-    currency,
-    setCurrency,
-    linkedAccount,
-    setLinkedAccount,
+    // currency,
+    // setCurrency,
+    // linkedAccount,
+    // setLinkedAccount,
     limitType,
     setLimitType,
     spendingLimit,
@@ -123,6 +141,10 @@ export function useCreatePhysicalCardViewModel() {
     loginUserData,
     pin, 
     setPin,
-    allAccounts
+    allAccounts,
+    fromAccount, 
+    setFromAccount,
+    openDropdownsty, 
+    setOpenDropdownSty
   };
 }

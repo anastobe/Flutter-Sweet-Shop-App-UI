@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { BottomSheet, MainContainer } from '../../../components';
+import { BottomSheet, InputDropDownStyle, MainContainer } from '../../../components';
 import { Images } from '../../../config';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
 import { scale } from 'react-native-size-matters';
@@ -17,10 +17,12 @@ const CreatePhysicalCard = () => {
     cardDetailRef,
     cardName,
     setcardName,
-    currency,
-    setCurrency,
-    linkedAccount,
-    setLinkedAccount,
+    fromAccount, 
+    setFromAccount,
+    // currency,
+    // setCurrency,
+    // linkedAccount,
+    // setLinkedAccount,
     spendingLimit,
     setSpendingLimit,
     pressBackArrow,
@@ -38,7 +40,9 @@ const CreatePhysicalCard = () => {
     loginUserData,
     pin, 
     setPin,
-    allAccounts
+    allAccounts,
+    openDropdownsty, 
+    setOpenDropdownSty
 
   } = useCreatePhysicalCardViewModel();
 
@@ -70,7 +74,7 @@ const CreatePhysicalCard = () => {
           margBtm={20}
         />
 
-        <InputField
+        {/* <InputField
           disabled={false} 
           placeholder="Currency"
           value={currency.iso_code} 
@@ -98,7 +102,27 @@ const CreatePhysicalCard = () => {
               num_code: "",
             })
           }
+        /> */}
+
+        
+        <InputDropDownStyle
+          title="Linked account"
+          value={fromAccount}  // null = show input box
+          // data={getCurrencyAccArray}
+          data={getCurrencyAccArray}
+          isOpen={openDropdownsty}
+          onToggle={() =>{ setOpenDropdownSty(!openDropdownsty) }}
+          onSelect={(item: any) =>{ 
+            setFromAccount({     
+              id: item?.account?.id,    
+              available_balance: item?.available_balance,       
+              currency_id: item?.currency?.id,
+              name: item?.account?.name,
+              iso_code: item?.currency?.iso_code
+            })
+          }}
         />
+        
 
         <InputField
           margTp={0}
