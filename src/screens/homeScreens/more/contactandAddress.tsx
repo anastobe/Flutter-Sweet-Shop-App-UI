@@ -58,6 +58,16 @@ const ContactAddress = () => {
         onChangeText={vm.setAddress}
         margBtm={handleSize.h(20)}
       />
+
+      <InputField
+        autoFocused={false}
+        marginTp={handleSize.h(20)}
+        placeholder="Apartment/Suite (Optional)"
+        value={vm.address2}
+        onChangeText={vm.setAddress2}
+        margBtm={handleSize.h(20)}
+      />
+
       <InputField
         autoFocused={vm.postalCode ? true : false}
         marginTp={handleSize.h(20)}
@@ -97,7 +107,7 @@ const ContactAddress = () => {
         {renderLimitType()}
         {renderBtn()}
 
-        <BottomSheet
+        {/* <BottomSheet
           height={handleSize.h(320)}              // responsive minimum height
           maxHeightPercent={0.5}                  // optional, override for screen
           draggable={false}
@@ -115,7 +125,7 @@ const ContactAddress = () => {
               subtitle="For your security, please enter your login password to proceed with updating your address."
             />
           }
-        />
+        /> */}
       </View>
     </MainContainer>
   );

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { HOME_ROUTES } from '../../../constants';
+import { Auth_ROUTES, HOME_ROUTES } from '../../../constants';
 import { Toast } from '../../../utils';
 import { useSelector } from 'react-redux';
 import { StatusBar } from 'react-native';
@@ -109,7 +109,7 @@ export function useCreatePhysicalCardViewModel() {
   const updateLocation = () => {
     cardDetailRef?.current?.close();
     setTimeout(() => {
-      navigation.navigate(HOME_ROUTES.UPDATE_ADDRESS);
+      navigation.navigate(HOME_ROUTES.CONTACTADDRESS);
     }, 800);
   };
 

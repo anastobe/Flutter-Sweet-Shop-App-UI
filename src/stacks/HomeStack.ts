@@ -11,6 +11,7 @@ import TransactionHistory from "../screens/homeScreens/card/transactionHistory";
 import UpdateAddress from "../screens/homeScreens/card/updateAddress";
 import AddNewCurrencyAcount from "../screens/homeScreens/home/addNewCurrencyAcount";
 import TransactionDetail from "../screens/homeScreens/home/transactionDetail";
+import ContactAddress from "../screens/homeScreens/more/contactandAddress";
 import { TabStack } from "./TabStack";
 // import { TabStack } from "./TabStack";
 
@@ -37,6 +38,10 @@ export const HomeStack: HomeScreenStacksTypes = [
   {
     name: HOME_ROUTES.CREATE_PC,
     component: CreatePhysicalCard,
+  },
+  {
+    name: HOME_ROUTES.CONTACTADDRESS,
+    component: ContactAddress,
   },
   {
     name: HOME_ROUTES.ConfirmCardRequest,

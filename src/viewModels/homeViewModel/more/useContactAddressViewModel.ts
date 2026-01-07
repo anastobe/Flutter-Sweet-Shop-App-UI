@@ -15,6 +15,7 @@ export default function useContactAddressViewModel() {
   const cardDetailRef = useRef(null);
   const dispatch = useDispatch()
 
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData)
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
 
@@ -26,6 +27,7 @@ export default function useContactAddressViewModel() {
   });
   const [town, setown] = useState('');
   const [address, setAddress] = useState('');
+  const [address2, setAddress2] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secure, setSecure] = useState(true);
@@ -70,11 +72,12 @@ export default function useContactAddressViewModel() {
     else{
       
     let payloadWithParams = {
-      ID: loginUserData?.id, //will change in futhure
+      ID: userData?.user_id, //will change in futhure
       payload: {
         country_id: country?.id,
         town: town,
         address_line1: address,
+        address_line2: address2,
         postcode: postalCode,
         password: confirmPassword
       }
@@ -128,7 +131,10 @@ console.log("play");
     countryList,
     ApiCall,
     loginUserData,
-    isPending_UpdateContactAddress
+    userData,
+    isPending_UpdateContactAddress,
+    address2, 
+    setAddress2
 
 
   };
