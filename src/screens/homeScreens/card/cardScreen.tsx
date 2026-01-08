@@ -41,6 +41,7 @@ import { LoaderCompleteScreenOnly } from '../../../components/activityIndicator'
 import commonUtils from '../../../utils/common.utils';
 import SmallBtn from '../../../components/smallBtn';
 import TransactionList from '../../../components/transactionList';
+import AccountList from '../../../components/accountList';
 
 const header_Height = 290;
 
@@ -146,29 +147,45 @@ const CardScreen = () => {
       </View>
 
     )
-  }
+  }  
 
   const SlidingCards = () => {
     return (
       <View>
         <FlatList
           data={vm.getCardsData}
+          ref={vm.cardListRef}
           horizontal
           pagingEnabled
-          ListEmptyComponent={() => (
+          ListEmptyComponent={
             <View style={styles.cardLoadingContainer}>
-              <ActivityIndicator size="small" color={THEME.primary} />
+              {vm.isPending ? (
+                <View>
+                  <ActivityIndicator size="small" color={THEME.primary} />
+                </View>
+              ) : (
+                <Text style={{ textAlign: 'center', color: THEME.white, fontSize: handleSize.h(FONT_SIZES.onefour), marginTop: handleSize.h(10)  }}>
+                  No card found
+                </Text>
+              )}
             </View>
-          )}
+          }
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item: any) => item?.card_id}
           scrollEventThrottle={16}
           onViewableItemsChanged={vm.SlidingCardsProps.onViewableItemsChanged}
+          onScrollToIndexFailed={() => {
+            vm.cardListRef.current?.scrollToOffset({
+              offset: 0,
+              animated: false,
+            });
+          }}
           viewabilityConfig={vm.SlidingCardsProps.viewabilityConfig}
           renderItem={({ item, index }: any) => (
             <AccountCard
+              key={index}
               onPressCard={(it: any) => vm.onPressCard(it)}
-              item={item}
+              item={item} 
               index={index}
             />
           )}
@@ -253,18 +270,27 @@ const renderItem = useCallback(({ item }) => (
     );
   };
 
-  function Options() {
+  function Options() { 
     return (
       <OptionsHeader
-        leftTxt={"Manage cards"}
-        showBackIcon={false}
-        onPressNotification={() => navigation.navigate(HOME_ROUTES.NOTIFICATION) }
-        onPressAdd={() => vm.AddCardRef?.current?.open()}
+          // leftTxt={"Manage cards"} 
+          isFetching={false}
+          show={'accountname'}
+          currentAccount={vm?.currentAccount}
+          onPressSelectAccounts={()=>{ vm.selectAccountRef?.current?.open() }}
+          // onPressThreeDots={
+          //   () => vm.editRef?.current?.open()
+          //   // selectAccountRef
+          // }
+          onPressNotification={() =>
+            navigation.navigate(HOME_ROUTES.NOTIFICATION)
+          }
+          onPressAdd={() => vm.AddCardRef?.current?.open()}
       />
     );
   }
 
-  function renderHeaderStuffs() {
+  const renderHeaderStuffs = () => {
     return(
     <ImageBackground
        imageStyle={styles.botmRadius}
@@ -341,6 +367,43 @@ function renderBottomSheets() {
         {/* {renderBottomSheets and Modals */}
         {RenderBluryModal()}
         {renderBottomSheets()}
+
+        
+        <BottomSheet
+          height={350} // minimum height
+          maxHeightPercent={0.5} // optional, override for screen
+          draggable={false}
+          bottomSheetRef={vm.selectAccountRef}
+        >
+          <ImageBackground
+            resizeMode="cover"
+            source={Images.addCardGradient}
+            style={[styles.container, { paddingHorizontal: handleSize.w(16) }]}
+          >
+            <Text style={styles.sheetTitle}>Select Account</Text>
+
+            <FlatList
+              data={vm?.allAccounts}
+              keyExtractor={item => item?.id}
+              scrollEnabled
+              showsVerticalScrollIndicator={false}
+              ItemSeparatorComponent={() => <View style={styles.separator} />}
+              renderItem={({ item, index }) => (
+                // console.log(" FLAT LISTgetAccountsAndAssets_Data==>",item),
+
+                <AccountList
+                  length={vm?.allAccounts}
+                  index={index}
+                  account={item}
+                  onPress={() => {
+                    vm.selectAccount(item);
+                  }}
+                />
+              )}
+            />
+          </ImageBackground>
+        </BottomSheet>
+
         {vm.isPending && <LoaderCompleteScreenOnly />}
 
       </ImageBackground>
@@ -521,4 +584,16 @@ export const styles = StyleSheet.create({
   dot: { width: handleSize.w(6), height: handleSize.w(6), borderRadius: handleSize.f(5), marginHorizontal: handleSize.w(2) },
   dotInactive: { backgroundColor: THEME.SlateBlue },
   dotActive: { backgroundColor: THEME.white },
+  
+  
+  sheetTitle: {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.Medium,
+    marginTop: handleSize.h(16),
+    color: THEME.white,
+  },
+  separator: {
+    height: 10,
+  },
+  
 });

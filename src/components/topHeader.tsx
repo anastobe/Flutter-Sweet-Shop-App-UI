@@ -32,7 +32,7 @@ const OptionsHeader = ({isFetching,currentAccount, onPressSelectAccounts, onPres
           </View>
         </TouchableOpacity>}
 
-        <TouchableOpacity
+        {onPressThreeDots && <TouchableOpacity
           onPress={onPressThreeDots}
           style={[styles.leftIconCont, { marginLeft: handleSize.w(5) }]}
         >
@@ -41,7 +41,7 @@ const OptionsHeader = ({isFetching,currentAccount, onPressSelectAccounts, onPres
             size={handleSize.f(17)}
             color={THEME.textPrimary}
           />
-        </TouchableOpacity>
+        </TouchableOpacity>}
      
       </View> 
       :

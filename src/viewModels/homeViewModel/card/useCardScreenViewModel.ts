@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { Alert } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 import {
   createCard,
   freezUnFreezCard,
@@ -23,8 +23,12 @@ import { ACCOUNT_HISTRY_VALIDATION, CARD_STATUS } from '../../../utils/data';
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
+  const selectAccountRef = useRef<any>(null);
+  const cardListRef = useRef<FlatList>(null);
 
   const refreshCall = useSelector((state: any) => state?.HomeReducer?.refreshCall)
+  //below allAccounts data must save in application opening
+  const allAccounts = useSelector((state: any) => state?.HomeReducer?.allAccounts)
 
   // UI toggles
   const [getCardsData, setgetCardsData] = useState([]);
@@ -34,6 +38,7 @@ export const useCardScreenViewModel = () => {
   const [walletSwitch, setWalletSwitch] = useState(false);
   
   // modal / bottom sheet state
+  const [currentAccount, setcurrentAccount] = useState<any | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [saveCureentDisplayData, setsaveCureentDisplayData] = useState<any>({});
   const [refreshing, setRefreshing] = useState(false);
@@ -78,7 +83,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   const { mutate: freezUnFreezCardFunc, isPending: isPendingfreezUnFreezCard } =
     freezUnFreezCard({
       callback: (response: any) => {
-        refetchgetCardsData();
+        refetchgetCardsData(currentAccount?.id);
         setActiveModal(false);
         // setModalVisible(false);
         // setmodalVisibleUnfreez(false);
@@ -153,7 +158,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
       card_id: ID,
       payload: {
         page: 1,
-        limit: 10,
+        limit: 20,
         // search,
         sort: {
           key: 'created_at',
@@ -166,8 +171,32 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
 };
 
   useEffect(() => {
-    refetchgetCardsData();
-  }, [refreshCall]);
+    if (currentAccount?.id) {
+      refetchgetCardsData(currentAccount?.id);
+    }
+  
+  }, [
+    // refreshCall
+    currentAccount?.id
+  ]);
+
+  const saveDatainState = (data: any[] = []) => {
+
+    const accounts = data ? data : [];
+
+    if (!accounts.length) return;
+
+    setcurrentAccount((prev: any) =>
+      prev?.id === accounts[0]?.id ? prev : accounts[0]
+    );
+  };
+
+//this below useeffect save first asset and all accounts and assets
+  useEffect(() => {
+    if (allAccounts?.length) {
+      saveDatainState(allAccounts)
+    }
+  }, [allAccounts]);
 
   useEffect(() => {
     if (!currentItem?.card_id) return;
@@ -217,8 +246,13 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
 };
 
 
-  function refetchgetCardsData() {
-    getCardsFunc({})    
+  function refetchgetCardsData(ID: any) {
+    let payload = {
+      page: 1,
+      limit: 10,
+      account_id: ID
+    }
+    getCardsFunc(payload)    
   }
 
   // Viewability config and handler
@@ -237,7 +271,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   const onRefresh = () => {
     setRefreshing(true);
     // call refetch if needed
-    refetchgetCardsData();
+    refetchgetCardsData(currentAccount?.id);
     setTimeout(() => {
       setRefreshing(false);
     }, 1200);
@@ -437,6 +471,22 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
     console.log("payload==>",payload);    
     updateUsageRulesFunc(payload);
   }
+  
+function selectAccount(account: any) {
+  selectAccountRef.current?.close();
+  setcurrentAccount(account);
+  setCurrentIndex(0)
+  
+  // 🔥 VERY IMPORTANT
+  setTimeout(() => {
+    cardListRef?.current?.scrollToIndex({
+      index: 0,
+      animated: false,
+    });
+  }, 50);
+
+}
+
 
   return {
     // state
@@ -501,7 +551,12 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
     isPendingpaymentCardHistry,
     handleNavigateTransactionHistory,
     handleNavigateTransaction,
-    onRefresh
+    onRefresh,
+    currentAccount,
+    selectAccount,
+    selectAccountRef,
+    allAccounts,
+    cardListRef
     // refetchgetCardsData,
   };
 };
