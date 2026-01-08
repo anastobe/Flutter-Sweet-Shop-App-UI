@@ -132,6 +132,22 @@ const CardScreen = () => {
     );
   }
 
+  function ListTransactionHeader() {
+    return(
+      <View style={styles.cardHeadr}>
+        <Text style={styles.cardTransactinTXT}>
+          
+        </Text>
+        <TouchableOpacity
+            onPress={vm.handleNavigateTransactionHistory}
+        >
+          <Text style={styles.viewAllTxt}>View all</Text>
+        </TouchableOpacity>
+      </View>
+
+    )
+  }
+
   const SlidingCards = () => {
     return (
       <View>
@@ -191,19 +207,7 @@ const renderItem = useCallback(({ item }) => (
 
   const renderTransactionList = () => {
     return (
-      <View style={{ marginTop: handleSize.h(20) }}>
-        <View style={styles.cardHeadr}>
-          <Text style={styles.cardTransactinTXT}>
-            
-          </Text>
-          <TouchableOpacity
-              onPress={vm.handleNavigateTransactionHistory}
-          >
-            <Text style={styles.viewAllTxt}>View all</Text>
-          </TouchableOpacity>
-        </View>
 
-        {/* Replace DATA with your transactions list */}
       <FlatList
         // data={vm.transactions}
         data={vm?.isPendingpaymentCardHistry ? [] : vm?.transactions}
@@ -229,6 +233,13 @@ const renderItem = useCallback(({ item }) => (
             />
           )
         }
+        ListHeaderComponent={
+            <View>
+              {renderHeaderStuffs()}
+              {renderCardFeatureButtons()}
+              {ListTransactionHeader()}
+            </View>
+         }
         // onEndReachedThreshold={0.1}
         // onEndReached={vm.loadMoreTransactions}
         refreshing={vm.refreshing}
@@ -239,8 +250,6 @@ const renderItem = useCallback(({ item }) => (
           paddingBottom: handleSize.h(20)
         }}
       />
-
-      </View>
     );
   };
 
@@ -325,13 +334,8 @@ function renderBottomSheets() {
         barStyle="light-content" 
       />
 
-       {renderHeaderStuffs()}
-       
-       
-         <ScrollView>
-           {renderCardFeatureButtons()}
+
            {renderTransactionList()}
-         </ScrollView>
        </SafeAreaView>
         
         {/* {renderBottomSheets and Modals */}
@@ -457,6 +461,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: handleSize.w(20),
+    marginTop: handleSize.h(20),
   },
   cardTransactinTXT: {
     fontSize: handleSize.f(FONT_SIZES.onetwo),
