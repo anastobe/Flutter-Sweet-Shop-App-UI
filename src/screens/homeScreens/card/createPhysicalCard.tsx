@@ -38,6 +38,7 @@ const CreatePhysicalCard = () => {
     toggleDropdown,
     getCurrencyAccArray,
     loginUserData,
+    user,
     pin, 
     setPin,
     allAccounts,
@@ -180,7 +181,7 @@ const CreatePhysicalCard = () => {
             <VerifyAddress
               style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
               backImg={Images.addCardGradient}
-              loginUserData={loginUserData}
+              user={user}
               // value={loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3}
               onPress1={yesConfirm}
               onPress2={updateLocation}

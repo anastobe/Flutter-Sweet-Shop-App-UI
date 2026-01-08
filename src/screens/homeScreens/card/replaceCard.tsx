@@ -12,6 +12,8 @@ import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { handleSize } from '../../../config/responsiveTheme';
+import { TouchableOpacity } from 'react-native';
+import { HOME_ROUTES } from '../../../constants';
 
 function InfoRow({ label, value }) {
   return (
@@ -38,9 +40,12 @@ export default function ReplaceCard(props) {
     toggleDropdown,
     openDropdown,
     loginUserData,
+    user,
     modalVisible, 
     setModalVisible,
     openConfirmationModal,
+    firstNameautoFocus, 
+    setFirstNameautoFocus
   } = useReplaceCardViewModel(navigation, props);
 
   function renderField() {
@@ -60,6 +65,7 @@ export default function ReplaceCard(props) {
         <InputField
           marginTp={handleSize.h(20)}
           autoCapital={'none'}
+          autoFocused={firstNameautoFocus}
           blurOnSubmit={false}
           placeholder="Full name"
           value={firstName}
@@ -77,13 +83,17 @@ export default function ReplaceCard(props) {
         <Text style={styles.labelHead}>Cards will be sent to your default address:</Text>
         <InfoRow 
           label="Address" 
-          value={`${loginUserData.address_line1 || ""} ${loginUserData.address_line2 || ""} ${loginUserData.address_line3 || ""}`} 
+          // value={`${loginUserData.address_line1 || ""} ${loginUserData.address_line2 || ""} ${loginUserData.address_line3 || ""}`} 
+          value={`${user.address_line1 || ""}`} 
         />
-        <InfoRow label="City" value="DUMMY" />
-        <InfoRow label="Postal Code" value={loginUserData.postcode || ""} />
-        <InfoRow label="Country" value={loginUserData.county || ""} />
+        {/* <InfoRow label="City" value="DUMMY" /> */}
+        <InfoRow label="Town" value={user?.town} />
+        <InfoRow label="Postal Code" value={user?.postcode || ""} />
+        <InfoRow label="Country" value={user?.country?.name || "XXX"} />
         <View style={styles.botmLine}></View>
-        <Text style={styles.valueChangeTxt}>Change Address</Text>
+        <TouchableOpacity onPress={()=>{ navigation.navigate(HOME_ROUTES.CONTACTADDRESS) }} >
+          <Text style={styles.valueChangeTxt}>Change Address</Text>
+        </TouchableOpacity>
       </View>
     );
   }

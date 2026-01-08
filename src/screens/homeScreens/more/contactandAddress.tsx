@@ -60,7 +60,7 @@ const ContactAddress = () => {
       />
 
       <InputField
-        autoFocused={false}
+        autoFocused={vm.address2 ? true : false}
         marginTp={handleSize.h(20)}
         placeholder="Apartment/Suite (Optional)"
         value={vm.address2}

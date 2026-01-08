@@ -55,6 +55,9 @@ function ReplaceCardConfirm(props: any) {
     navigation.goBack();
   }
 
+  console.log("ASdasdsdas===>",payload);
+  
+
   function renderCardDetails() {
     return (
       <View style={styles.summaryBox}>

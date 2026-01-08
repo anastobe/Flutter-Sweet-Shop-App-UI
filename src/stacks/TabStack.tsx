@@ -605,7 +605,7 @@ export const TabStack: React.FC = ({ }) => {
           headerShown: false,
           tabBarIcon: ({ color, focused }) => {
             return (
-              <RenderTab focus={focused} txt="Card" img={Images.cardTab} />
+              <RenderTab focus={focused} txt="Cards" img={Images.cardTab} />
             )
           }
         }}

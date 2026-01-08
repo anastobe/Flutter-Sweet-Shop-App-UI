@@ -47,6 +47,7 @@ const Profile = () => {
         </View>
 
         <InputField
+          autoFocused={true}
           disabled={false}
           marginTp={handleSize.h(20)}
           autoCapital={'none'}
@@ -60,6 +61,7 @@ const Profile = () => {
         />
 
         <InputField
+          autoFocused={true}
           marginTp={handleSize.h(20)}
           autoCapital={'none'}
           blurOnSubmit={false}
@@ -73,6 +75,7 @@ const Profile = () => {
         />
 
         <InputField
+          autoFocused={true}
           marginTp={handleSize.h(20)}
           disabled={false}
           blurOnSubmit={false}
@@ -85,6 +88,7 @@ const Profile = () => {
         />
 
         <InputField
+          autoFocused={true}
           marginTp={handleSize.h(20)}
           disabled={false}
           placeholder="Phone"

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Auth_ROUTES, HOME_ROUTES } from '../../../constants';
 import { Toast } from '../../../utils';
@@ -16,6 +16,10 @@ export function useCreatePhysicalCardViewModel() {
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const allAccounts = useSelector((state: any) => state?.HomeReducer?.allAccounts)
+  // ✅ SAFE user extraction (never undefined)
+  const user = useMemo(() => {
+    return loginUserData?.members?.[0] ?? null;
+  }, [loginUserData]);
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [design, setdesign] = useState({id: "", name: ""});
@@ -90,7 +94,7 @@ export function useCreatePhysicalCardViewModel() {
 
   const yesConfirm = () => {
     cardDetailRef?.current?.close();
-    let completeAddress = loginUserData.address_line1 + " " + loginUserData.address_line2 + " " + loginUserData.address_line3
+    let completeAddress = user.address_line1 + " " + user.address_line2 + " " + user.address_line3
     setTimeout(() => {
       const payload = {
         format: 'physical',
@@ -139,6 +143,7 @@ export function useCreatePhysicalCardViewModel() {
     toggleDropdown,
     getCurrencyAccArray,
     loginUserData,
+    user,
     pin, 
     setPin,
     allAccounts,

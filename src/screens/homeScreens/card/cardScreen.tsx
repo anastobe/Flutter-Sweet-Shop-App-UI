@@ -236,7 +236,7 @@ const renderItem = useCallback(({ item }) => (
               <ActivityIndicator size="large" color={THEME.primary} />
             </View>
           ) : (
-            <Text style={{ textAlign: 'center', color: THEME.white,fontSize: handleSize.h(FONT_SIZES.onefour)  }}>
+            <Text style={{ textAlign: 'center', color: THEME.white,fontSize: handleSize.h(FONT_SIZES.onefour), marginTop: handleSize.h(20) }}>
               No transactions found
             </Text>
           )

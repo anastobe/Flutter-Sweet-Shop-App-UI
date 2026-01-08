@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { Toast } from '../../../utils';
@@ -32,6 +32,9 @@ export default function useContactAddressViewModel() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secure, setSecure] = useState(true);
 
+    const user = useMemo(() => {
+      return loginUserData?.members?.[0] ?? null;
+    }, [loginUserData]);
   
   const { mutate: UpdateContactAddressFunc, isPending: isPending_UpdateContactAddress } = UpdateContactAddress({
     callback: (res: any) => {
@@ -43,16 +46,16 @@ export default function useContactAddressViewModel() {
   });
 
   useEffect(()=>{
-    if (loginUserData) { 
+    if (!user) return 
       setCountry({
-        id: loginUserData?.country?.id,
-        name: loginUserData?.country?.name
+        id: user?.country_id,
+        name: user?.county
       })
-      setown(loginUserData?.town)
-      setAddress(loginUserData?.address_line1)
-      setPostalCode(loginUserData?.postcode)
-    }
-  },[loginUserData])
+      setown(user?.town)
+      setAddress(user?.address_line1)
+      setAddress2(user?.address_line1)
+      setPostalCode(user?.postcode)
+  },[user])
 
   async function updateDataInRedux() {
     await apis.getUserDetail(dispatch)

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Toast } from '../../../utils';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,15 +9,32 @@ import { THEME } from '../../../styles';
 const useProfileViewModel = () => {
 
   const dispatch = useDispatch();
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
-  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData)
-  //  const personal_customers = loginUserData?.personal_customers[0]
+
+  const loginUserData = useSelector(
+    (state: any) => state?.HomeReducer?.loginUserData
+  );
+
+  // ✅ SAFE user extraction (never undefined)
+  const user = useMemo(() => {
+    return loginUserData?.members?.[0]?.user ?? null;
+  }, [loginUserData]);
 
   const [profile, setProfile] = useState<string | null>(null);
-  const [name, setName] = useState(`${userData?.first_name + " " + userData?.last_name }`);
-  const [username, setUsername] = useState((`${userData?.first_name}`));
-  const [email, setEmail] = useState(`${userData?.email}`);
-  const [phone, setPhone] = useState(loginUserData?.telephone);
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+
+  // ✅ Update state ONLY when user is available
+  useEffect(() => {
+    if (!user) return;
+
+    setName(`${user.first_name ?? ''} ${user.last_name ?? ''}`.trim());
+    setUsername(user.first_name ?? '');
+    setEmail(user.email ?? '');
+    setPhone(user.mobile ?? '');
+    setProfile(user.profile_image ?? null); // if exists
+  }, [user]);
 
   // ✅ Image Picker
   function openImagePicker() {

@@ -1,5 +1,5 @@
 // ReplaceCardViewModel.js
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Toast } from '../../../utils';
 import { freezUnFreezCardNoMessage, useReplaceCard } from '../../../queries/card.Queries/card.query';
 import { freezUnFreezCard } from '../../../queries/auth.query';
@@ -12,12 +12,24 @@ import { HOME_ROUTES } from '../../../constants';
 export default function useReplaceCardViewModel(navigation, props) {
 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
+  const cardDetail = props?.route?.params?.cardDetail
 
   const [modalVisible, setModalVisible] = useState(false);
   const [reason, setReason] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [firstNameautoFocus, setFirstNameautoFocus] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null)
- 
+
+  const user = useMemo(() => {
+    return loginUserData?.members?.[0] ?? null;
+  }, [loginUserData]);
+
+  useEffect(()=>{
+    if (cardDetail?.card_name) {
+      setFirstName(cardDetail?.card_name)
+      setFirstNameautoFocus(true)
+    }
+  },[cardDetail])
 
   // const { mutate: freezUnFreezCardFunc, isPending: isPendingFreezUnFreezCard } = freezUnFreezCardNoMessage({
   //   callback: (response) => {
@@ -86,8 +98,11 @@ export default function useReplaceCardViewModel(navigation, props) {
     toggleDropdown,
     openDropdown,
     loginUserData,
+    user,
     modalVisible, 
     setModalVisible,
-    openConfirmationModal
+    openConfirmationModal,
+    firstNameautoFocus, 
+    setFirstNameautoFocus
   };
 }
