@@ -81,7 +81,7 @@ export const useBankTransferViewModel = () => {
   //   },
   // });
 
-  console.log('FINAL BENEFICIARY IN VIEWMODEL ===>', beneficiary);
+  // console.log('FINAL BENEFICIARY IN VIEWMODEL ===>', beneficiary);
 
   const pressBackArrow = () => navigation.goBack();
 

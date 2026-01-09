@@ -402,7 +402,7 @@ const startCountdown = (seconds: number) => {
 
   const pressBackArrow = () => navigation.goBack();
 
-  console.log('FINAL BENEFICIARY IN VIEWMODEL ===>', beneficiary);
+  // console.log('FINAL BENEFICIARY IN VIEWMODEL ===>', beneficiary);
 
   const handlePress = () => {
     console.log("From Account pressed");
