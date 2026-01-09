@@ -148,11 +148,13 @@ export const useBankTransferViewModel = () => {
 
       if (status) {
         setTimeout(() => {
+          
+          navigation.popToTop();
 
-        navigation.reset({
-          index: 0,
-          routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
-        });
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
+        // });
 
         // navigation.navigate(HOME_ROUTES.MAKE_PAYMENT)
 

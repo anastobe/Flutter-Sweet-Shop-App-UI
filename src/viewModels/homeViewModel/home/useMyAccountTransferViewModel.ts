@@ -287,10 +287,13 @@ const startCountdown = (seconds: number) => {
         paymentconfrm?.current?.close()
         setTimeout(() => {
 
-        navigation.reset({
-          index: 0,
-          routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
-        });
+          navigation.popToTop();
+
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{ name: HOME_ROUTES.MAKE_PAYMENT }],
+        // });
+        
         // navigation.navigate(HOME_ROUTES.MAKE_PAYMENT)
 
         }, 500); 
