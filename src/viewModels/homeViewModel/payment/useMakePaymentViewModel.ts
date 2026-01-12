@@ -4,13 +4,28 @@ import { useEffect } from "react";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
 import { HOME_ROUTES } from "../../../constants";
+import apis from "../../../services";
+import { useDispatch } from "react-redux";
 
 export const useMakePaymentViewModel = () => {
   const navigation = useNavigation(); 
+  const dispatch = useDispatch()
+  const FOCUS = useIsFocused()
+
+  useEffect(()=>{
+    if (FOCUS) {
+      getAccountforupdatedResult()    
+    }
+  },[FOCUS])
+
+  async function getAccountforupdatedResult() {
+    apis.getCurrencyAccount(dispatch)
+  }
 
   const pressBackArrow = () => {
     navigation.goBack();
   };
+
 
   const handleNavigate = (route: string, key: any) => {
     navigation.navigate(route,{key: key});

@@ -11,6 +11,7 @@ import { Images } from "../../../config";
 import { CommonUtils } from "../../../utils";
 import Clipboard from '@react-native-clipboard/clipboard';
 import { ACCOUNT_HISTRY_VALIDATION } from "../../../utils/data";
+import apis from "../../../services";
 
 export const useAccountScreenViewModel = () => {
   const navigation = useNavigation();
@@ -124,7 +125,23 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
      console.log("🔄 Pull to refresh triggered");
 
     // 1️⃣ Accounts & Assets refresh
-    await refetchgetAccountsAndAssets();
+    // await refetchgetAccountsAndAssets();
+
+      let res = await apis.getAccountsAndAssets(dispatch)
+    // if (res?.status) {
+      const accounts = res?.[0]?.accounts ?? [];
+
+      const foundAccount = accounts.find(acc =>
+        acc.assets?.some((asset:any) => asset.id === currentAccDetail?.id)
+      );
+
+     console.log("🔄 foundAccount>",foundAccount);
+
+      
+      setcurrentAccount(foundAccount);
+  
+    // }
+
 
     // 2️⃣ Agar account already selected hai
     if (currentAccDetail?.id) {
@@ -134,7 +151,7 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
       await refetchgetDashboardData();
 
       // 4️⃣ Transactions refresh
-      fetchTransactions(currentAccDetail.id);
+      fetchTransactions(currentAccDetail?.id);
     }
     
 
@@ -175,10 +192,10 @@ const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
   if (!currentAsset) return;
 
   setcurrentAccDetail({
-    name: currentAsset.account?.name,
-    iban: currentAsset.account?.iban,
-    created_at: currentAsset.created_at,
-    id: currentAsset.id,
+    name: currentAsset?.account?.name,
+    iban: currentAsset?.account?.iban,
+    created_at: currentAsset?.created_at,
+    id: currentAsset?.id,
   });
 };
 
@@ -250,13 +267,25 @@ const onPressCopy = () => {
   const onPressEditSave = () => Alert.alert("NEED",SHOW_CLIENT);
 
   const saveDatainState = (data: any[] = []) => {
+
+    console.log("i am saving data in state");
+
   const accounts = data?.[0]?.accounts ?? [];
+
+  const currrentAsset = accounts?.[0]?.assets[activeIndex]
 
   if (!accounts.length) return;
 
   setcurrentAccount((prev: any) =>
     prev?.id === accounts[0]?.id ? prev : accounts[0]
   );
+
+  setcurrentAccDetail({
+    name: currrentAsset?.currency?.iso_code,
+    iban: "000",
+    created_at: "create at",
+    id: currrentAsset?.id,
+  });
 
   setallAccounts_withAsset(accounts);
 };
@@ -289,7 +318,7 @@ const onPressCopy = () => {
   
 
   useEffect(() => {
-  if (currentAccDetail.id) {
+  if (currentAccDetail?.id) {
 
     // console.log("currentAccDetail==>",currentAccDetail);
     

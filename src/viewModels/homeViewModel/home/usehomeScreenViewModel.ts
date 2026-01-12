@@ -19,6 +19,7 @@ export const useHomeViewModel = () => {
   const selectAccountRef = useRef<any>(null);
 
   const [refreshing, setRefreshing] = useState(false);
+  const [activeIndex, setactiveIndex] = useState(0);
   const [transactions, setTransactions] = useState<any[]>([]);
   const [cards, setcards] = useState<any[]>([]);
   const [showbalance, setshowbalance] = useState(false);
@@ -81,10 +82,24 @@ export const useHomeViewModel = () => {
   const onRefresh = async () => {
   try {
     // setRefreshing(true);
+      const [ currencyAccountRes, AllAsset_n_AccountsRes] =
       await Promise.all([
         apis.getCurrencyAccount(dispatch),
         apis.getAccountsAndAssets(dispatch),
       ]);
+
+      
+      
+      if (currencyAccountRes?.results) {
+      console.log("=====",currencyAccountRes,"-also save-");
+      // setSelectedCurrency(currencyAccountRes?.results[0]);
+      setAssetsList((prev: any )=> ({
+        ...prev,          // keep previous keys same
+        firstObject: currencyAccountRes?.results[activeIndex]
+      }))
+
+    }
+
       refreshAccountBasedData()
   } catch (e) {
     console.log('Refresh error', e);
@@ -148,7 +163,7 @@ const fetchAllInitialData = async () => {
     if (currencyAccountRes?.results) {
       // setSelectedCurrency(currencyAccountRes?.results[0]);
       setAssetsList({
-        firstObject: currencyAccountRes?.results[0],
+        firstObject: currencyAccountRes?.results[activeIndex],
         array: currencyAccountRes?.results
       })
     }
@@ -250,12 +265,13 @@ const fetchCard = () => {
 // }, [assetsList]);
 
 
-const onSelectCurrency = (asset: any) => {
+const onSelectCurrency = (asset: any, index: any) => {
   // setSelectedCurrency(asset);
   setAssetsList((prev: any )=> ({
     ...prev,          // keep previous keys same
     firstObject: asset  // only update this one
   }));
+  setactiveIndex(index)
   setShowCurrencyDropdown(false);
   selectAccountRef?.current?.close()
 };

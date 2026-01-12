@@ -395,7 +395,7 @@ const ScrollableCards = () => {
             renderItem={({ item, index }) => (              
               <Pressable 
                 style={styles.dropdownItem}
-                onPress={() => onSelectCurrency(item)}
+                onPress={() => onSelectCurrency(item,index)}
               >
                 <Text style={styles.accountName}>
                   {item.currency.iso_code} {"->"} ( {item.account.name} )
