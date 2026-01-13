@@ -6,7 +6,7 @@ export const BASE_URL = "http://fpapi.avengers.pk";  //live on domain name
 
 export const BASE_PATH = "/api";
 
-export const Google_Api_Key = 'AIzaSyD3OveDAOQkvWjlbEkeJkG3y0SbVK-XeXk1'
+export const Google_Api_Key = 'AIzaSyD3OveDAOQkvWjlbEkeJkG3y0SbVK-XeXk'
 
 export const API_TIMEOUT = 500000;
 
