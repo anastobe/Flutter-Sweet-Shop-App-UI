@@ -31,7 +31,12 @@ export const updateUsageRules = async (body: any) => {
 };
 
 export const getSucureCard = async (ID: string) => {
-  return await axiosInstance(`/card/detail/${ID}`, 'GET', undefined , false);
+
+  console.log("getSucureCard==>",`/card/detail/${ID}`);
+  const response = await axiosInstance(`/card/detail/${ID}`, 'GET', {} , false);
+  if (response?.success) {
+    return response?.results;
+  }
 };
 
 export const getCardsUsageRules = async (ID: string): Promise<CardUsageResponse> => {

@@ -20,6 +20,7 @@ import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import { Toast } from '../../../utils';
 import { ACCOUNT_HISTRY_VALIDATION, CARD_STATUS } from '../../../utils/data';
+import Clipboard from '@react-native-clipboard/clipboard';
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
@@ -54,6 +55,8 @@ export const useCardScreenViewModel = () => {
   const cardDetailRef = useRef<any>(null);
   const methodsRef = useRef<any>(null);
   const manageRef = useRef<any>(null);
+  const [showvalidThru, setshowvalidThru] = useState(false);
+  const [showccvv, setshowccvv] = useState(false);
 
   const currentItem = getCardsData[currentIndex];
 
@@ -295,6 +298,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
 
   function onPressCard(item: any) {
     setsaveCureentDisplayData(item);
+    refetchgetSucureCard()
     cardDetailRef?.current?.open();
   }
 
@@ -413,9 +417,19 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   };
   
 
-  async function HandleOnPressCardDetail(txt: any) {
-    // this calls secure card data
-    await refetchgetSucureCard();
+  async function HandleOnPressCardDetail(id: any, data: any) {
+
+    if (id == '1') {
+      let makeString = `Card Number: ${data?.pan}`
+        Clipboard.setString(makeString);
+        Alert.alert('Copied', 'Card number copied to clipboard');
+    }
+    else if (id == '2') {
+      setshowvalidThru(!showvalidThru)
+    }
+    else if (id == '3') {
+      setshowccvv(!showccvv)
+    }
   }
 
   function freezCardApi(status: any) {
@@ -445,6 +459,11 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
       }
     }, 1000);
   }
+  
+function updateToSecure() {
+  setshowvalidThru(false)
+  setshowccvv(false)
+}
 
   function updateCardStatuses() {
     const payload = {
@@ -486,6 +505,7 @@ function selectAccount(account: any) {
   }, 50);
 
 }
+
 
 
   return {
@@ -556,7 +576,13 @@ function selectAccount(account: any) {
     selectAccount,
     selectAccountRef,
     allAccounts,
-    cardListRef
+    cardListRef,
+    updateToSecure,
+    showvalidThru,
+    setshowvalidThru,
+    showccvv, 
+    setshowccvv,
+
     // refetchgetCardsData,
   };
 };

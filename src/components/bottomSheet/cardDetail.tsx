@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, ImageBackground, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles';
@@ -6,18 +6,20 @@ import { Images } from '../../config';
 import { handleSize } from '../../config/responsiveTheme';
 
 const CardDetail = ({
+  showvalidThru,
+  showccvv,
   saveCureentDisplayData,
   style,
   onPress1,
   onPress2,
+  onPress3,
   getSucureCardData,
   isPendinggetSucureCard
-}) => {
+}) => {  
 
-  console.log("getSucureCardData==>",getSucureCardData);
-  
 
-  function cardDetailBox(loading, onPress, title, desc, icon, iconColor, show) {
+
+  function cardDetailBox(showStar, onPress, title, desc, icon, iconColor, show) {
     return (
       <View
         style={[
@@ -32,11 +34,11 @@ const CardDetail = ({
         <View>
           <Text style={styles.cardTitle}>{title}</Text>
 
-          {loading ? (
+          {/* {loading ? (
             <ActivityIndicator size="small" color={THEME.white} />
-          ) : (
-            <Text style={styles.cardDesc}>{desc}</Text>
-          )}
+          ) : ( */}
+            <Text style={styles.cardDesc}>{showStar ? desc : "***"}</Text>
+          {/* )} */}
         </View>
       </View>
     );
@@ -60,9 +62,17 @@ const CardDetail = ({
           Use this information to make online purchases
         </Text>
 
-        {cardDetailBox(null, null, "Card Number:", "DUMMY", "copy-outline", THEME.primary, true)}
-        {cardDetailBox(isPendinggetSucureCard, onPress1, "Valid Thru", saveCureentDisplayData?.expiry_date, "eye-outline", THEME.primary, true)}
-        {cardDetailBox(isPendinggetSucureCard, onPress2, "CVV:", "DUMMY", "eye-outline", THEME.primary, false)}
+        {isPendinggetSucureCard ? 
+          <View style={{ marginTop: handleSize.h(20) }}>
+            <ActivityIndicator size="small" color={THEME.primary} />
+          </View>
+        :
+          <View>
+            <View style={{ borderBottomWidth: handleSize.h(0.5), borderColor: THEME.lightGrey }} />
+            {cardDetailBox(true, onPress1, "Card Number:", getSucureCardData?.pan, "copy-outline", THEME.primary, true)}
+            {cardDetailBox(showvalidThru,  onPress2, "Valid Thru", getSucureCardData?.expiry_date,showvalidThru ? "eye-outline" : "eye-off-outline", THEME.primary, true)}
+            {cardDetailBox(showccvv, onPress3, "CVV:", getSucureCardData?.cvv, showccvv ? "eye-outline" : "eye-off-outline", THEME.primary, false)}
+          </View>}
       </ScrollView>
     </ImageBackground>
   );
@@ -90,8 +100,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
     marginTop: handleSize.h(10),
-    borderBottomWidth: handleSize.h(0.5),
-    borderColor: THEME.lightGrey,
     paddingBottom: handleSize.h(20),
     textAlign: "center",
     lineHeight: handleSize.h(20),

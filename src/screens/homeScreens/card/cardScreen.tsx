@@ -71,13 +71,17 @@ const CardScreen = () => {
     ref: vm.cardDetailRef,
     height: 320,
     maxHeightPercent: 0.55,
+    onClose: vm.updateToSecure,
     render: () => (
       <CardDetail
+        showvalidThru={vm.showvalidThru}
+        showccvv={vm.showccvv}
         isPendinggetSucureCard={vm.isPendinggetSucureCard}
         getSucureCardData={vm.getSucureCardData}
         saveCureentDisplayData={vm.saveCureentDisplayData}
-        onPress1={() => vm.HandleOnPressCardDetail('1')}
-        onPress2={() => vm.HandleOnPressCardDetail('2')}
+        onPress1={() => vm.HandleOnPressCardDetail('1',vm?.getSucureCardData)}
+        onPress2={() => vm.HandleOnPressCardDetail('2',vm?.getSucureCardData)}
+        onPress3={() => vm.HandleOnPressCardDetail('3',vm?.getSucureCardData)}
         style={{ paddingHorizontal: 20 }}
       />
     ),
