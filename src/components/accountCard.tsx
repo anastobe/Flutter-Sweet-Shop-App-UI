@@ -10,6 +10,7 @@ import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { Images } from '../config';
 import { handleSize } from '../config/responsiveTheme';
 import { CommonUtils } from '../utils';
+import Metrics from '../styles/metrics';
 
 const AccountCard = ({
   item,
@@ -32,7 +33,7 @@ const AccountCard = ({
       style={[
         {
           width: METRICS.width,
-          height: handleSize.h(164),
+          height: handleSize.f(174),
           borderRadius: handleSize.f(15),
         },
         containerStyle,
@@ -69,7 +70,7 @@ const AccountCard = ({
           }}
         >
           <View>
-            <Text style={styles.limitTxtUp}>({CommonUtils.capitalizeFirstLetter(item.card_status)})</Text>
+            <Text style={styles.limitTxtUp}>{item?.card_name} ({CommonUtils.capitalizeFirstLetter(item.card_status)})</Text>
             <Text style={styles.limitTxt}>{item?.spending_type} available limit:</Text>
             <Text style={styles.balanceTxt}>£{item?.available_limit}</Text>
           </View>
@@ -94,6 +95,7 @@ const styles = StyleSheet.create({
     marginTop: handleSize.h(5),
   },
   limitTxtUp: {
+    width: Metrics.width/2-20,
     color: THEME.textPrimary,
     fontSize: handleSize.f(FONT_SIZES.oneZero),
     fontFamily: FONTFAMILY.SemiBold,

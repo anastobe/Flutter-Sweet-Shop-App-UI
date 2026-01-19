@@ -118,7 +118,7 @@ const HistoryList = () => {
       // data={DATA}
       renderItem={({ item }) => (
         <View style={styles.card}>
-          <View>
+          <View style={{ width: '70%' }} >
             <Text style={styles.name}>{item?.purpose}</Text>
             <Text style={styles.pair}>{item?.from_currency?.iso_code} {"->"} {item?.to_currency?.iso_code}</Text>
 
@@ -133,6 +133,7 @@ const HistoryList = () => {
           <Text style={styles.amount}>{item?.amount}</Text>
         </View>
       )}
+      contentContainerStyle={{ paddingBottom: handleSize.f(50) }}
       showsVerticalScrollIndicator={false}
       keyExtractor={item => item.id}
       onEndReachedThreshold={0.3}
@@ -195,7 +196,7 @@ const HistoryList = () => {
 export default ConversionHistory;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: THEME.white },
+  container: { flex: 1, backgroundColor: THEME.white, },
 
 
   title: {

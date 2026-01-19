@@ -9,5 +9,6 @@ export default class QueryKey {
     static GET_DASHBOARD_DATA = 'GET_DASHBOARD_DATA';
     static GET_CURR_ACCOUNTS = 'GET_CURR_ACCOUNTS';
     static GET_CARDS_RULES = 'GET_CARDS_RULES';
+    static GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 
   }

@@ -21,10 +21,13 @@ const VerifyAddress = ({ style, onPress1, onPress2, backImg, user }) => {
     function renderCardDetails() {
         return (
             <View style={styles.summaryBox}>
-                <InfoRow label="Address" value={user.address_line1 + " " + user.address_line2 + " " + user.address_line3} />
+                <InfoRow label="Address" value={[user?.address_line1, user?.address_line2, user?.address_line3]
+                    .filter(Boolean)
+                    .join(' ') || '-'} 
+                />
                 <InfoRow label="Town" value={user?.town} />
                 <InfoRow label="Postal Code" value={user.postcode} />
-                <InfoRow label="Country" value={user?.county?.name || "XXX"} />
+                <InfoRow label="Country" value={user?.country?.name} />
             </View>
         );
     }

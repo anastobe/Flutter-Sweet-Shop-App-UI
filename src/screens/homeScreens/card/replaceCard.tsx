@@ -84,7 +84,9 @@ export default function ReplaceCard(props) {
         <InfoRow 
           label="Address" 
           // value={`${loginUserData.address_line1 || ""} ${loginUserData.address_line2 || ""} ${loginUserData.address_line3 || ""}`} 
-          value={`${user.address_line1 || ""}`} 
+          value={[user?.address_line1, user?.address_line2, user?.address_line3]
+            .filter(Boolean)
+            .join(' ') || '-'}  
         />
         {/* <InfoRow label="City" value="DUMMY" /> */}
         <InfoRow label="Town" value={user?.town} />

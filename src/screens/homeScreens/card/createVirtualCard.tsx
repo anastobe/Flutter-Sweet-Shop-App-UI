@@ -37,7 +37,7 @@ export default function CreateVirtualCardView() {
     setOpenDropdownSty
   } = useCreateVirtualCardViewModel();
 
-  console.log("getCurrencyAccArray=>",allAccounts);
+  // console.log("getCurrencyAccArray=>",allAccounts);
   
 
   function renderInputField() {
@@ -160,7 +160,7 @@ export default function CreateVirtualCardView() {
             </View>
           
             <Text style={styles.limitDetail}>
-              {""}for this card.
+              {""} for this card.
             </Text>
           </View>
   
@@ -299,12 +299,14 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
+    lineHeight: handleSize.f(26)
   },
   limitDetail: {
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
     marginTop: handleSize.h(1),
+    lineHeight: handleSize.f(22)
   },
   boldText: {
     fontSize: handleSize.f(FONT_SIZES.onesix),
@@ -316,6 +318,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     marginTop: handleSize.h(5),
+    lineHeight: handleSize.f(20)
   },
   forgetTxt: { marginBottom: handleSize.h(50) },
 });

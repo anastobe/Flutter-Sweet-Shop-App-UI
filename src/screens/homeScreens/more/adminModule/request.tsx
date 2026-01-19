@@ -12,11 +12,11 @@ import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../../constants';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
+import { REQUEST_DATA } from '../../../../utils/data';
 
 export default function Request() {
   const {
     DATA,
-    REQUEST_DATA,
     cardName,
     onSearch,
     cardDetailRef,
@@ -61,7 +61,7 @@ export default function Request() {
     return (
       <FlatList
         data={REQUEST_DATA}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item?.id}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={()=>{ handleonPress(item) }} style={styles.item}>
             <View style={styles.iconCONTContainer}>

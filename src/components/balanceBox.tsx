@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,
-    fontSize: handleSize.f(FONT_SIZES.threezero),
+    fontSize: handleSize.f(FONT_SIZES.twosix),
     color: THEME.white,
     lineHeight: handleSize.h(30),
     // marginBottom: handleSize.h(5),

@@ -114,3 +114,21 @@ export const AccDelete = ({callback} : {callback: (res: any) => void}) => {
     }
   });
 };
+
+export const getTransactionAttachement  = (    {
+  enabled,
+  id
+}: {
+  enabled?: boolean;
+  id?: any;
+}
+) =>
+  useQuery({ 
+    queryKey: [QueryKey.GET_TRANSACTIONS,id],
+    initialData: [],
+    queryFn: ()=> apis.getTransactionAttachement(id),
+    enabled: enabled,
+
+    staleTime: 0, // Data will never be considered stale
+    retry: false // Disable retry on failure
+  });

@@ -144,7 +144,7 @@ export const PushNotificationHandler = () => {
     if (pendingTx?.queue?.length){
       let current = pendingTx?.queue[0]
       
-      console.log("pendingTx?.queue??.data==>",current);
+      console.log("pendingTx?.queue??.data==>",current?.data);
 
       let backendTime = current?.data?.challenge_expiry_datetime
       const isValid = CommonUtils.isTimeRemaining(backendTime);

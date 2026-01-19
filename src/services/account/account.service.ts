@@ -24,6 +24,22 @@ export const getAccountsAndAssets = async (dispatch: any) => {
   }
 };
 
+export const getTransactionAttachement = async (id: any) => {
+  try {
+    const response = await axiosInstance(
+      `/payment/attachments/${id}`,
+      'GET',
+      undefined,
+      false
+    );
+    return response;
+  } catch (error) {
+    console.log('getTransactionAttachement error:', error);
+    return [];
+  }
+};
+
+
 export const getNotifications = async (body: any) => {
   const response = await axiosInstance('/notifications', 'POST', body, false);
   return response;

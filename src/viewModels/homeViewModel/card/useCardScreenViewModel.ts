@@ -27,6 +27,7 @@ export const useCardScreenViewModel = () => {
   const selectAccountRef = useRef<any>(null);
   const cardListRef = useRef<FlatList>(null);
 
+  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const refreshCall = useSelector((state: any) => state?.HomeReducer?.refreshCall)
   //below allAccounts data must save in application opening
   const allAccounts = useSelector((state: any) => state?.HomeReducer?.allAccounts)
@@ -582,6 +583,7 @@ function selectAccount(account: any) {
     setshowvalidThru,
     showccvv, 
     setshowccvv,
+    loginUserData
 
     // refetchgetCardsData,
   };

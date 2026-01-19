@@ -2,7 +2,7 @@ import axiosInstance from "../https.service"; // Ye tumhare global SSL pinning w
 
 export const userLogin = async (body: any) => {
   // POST axiosInstance using global wrapper
-  const response = await axiosInstance('/login', 'POST', body, true);
+  const response = await axiosInstance('/login', 'POST', body, false);
   return response;
 };
 
@@ -10,6 +10,12 @@ export const ResetPasswordLink = async (body: any) => {
   const response = await axiosInstance('/forgot-password', 'POST', body, true);
   return response;
 };
+
+export const uploadFile = async (body: any) => {
+  const response = await axiosInstance('/payment/attachment/upload', 'POST', body, true);
+  return response;
+};
+
 
 export const createCard = async (body: any) => {
   const response = await axiosInstance('/card/create', 'POST', body, true);

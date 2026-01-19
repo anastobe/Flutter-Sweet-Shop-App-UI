@@ -5,7 +5,8 @@ import {
     paymentHistry,
     fetchLinkedAccCards,
     getDashboardData,
-    getAccountsAndAssets
+    getAccountsAndAssets,
+    getTransactionAttachement
     
 } from './account/account.service';
 
@@ -16,7 +17,7 @@ import {
     cardUsedStatus,
     getCards,
     freezUnFreezCard,
-    
+    uploadFile
 
 
 } from './auth/auth.service';
@@ -71,6 +72,7 @@ const apis = {
   useFXConversion,
   useMyAccount_InternationalTransfer,
   createCard,
+  uploadFile,
   cardUsedStatus,
   getCards,
   freezUnFreezCard,
@@ -101,7 +103,8 @@ const apis = {
   fetchLinkedAccCards,
   updateUsageRules,
   getCardsUsageRules,
-  getSucureCard
+  getSucureCard,
+  getTransactionAttachement
   
   };
   

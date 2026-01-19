@@ -55,7 +55,7 @@ const CardScreen = () => {
   {
     key: 'ADD_CARD',
     ref: vm.AddCardRef,
-    height: 320,
+    height: 330,
     maxHeightPercent: 0.55,
     render: () => (
       <AddCardPopup
@@ -151,7 +151,7 @@ const CardScreen = () => {
       </View>
 
     )
-  }  
+  }    
 
   const SlidingCards = () => {
     return (
@@ -277,9 +277,10 @@ const renderItem = useCallback(({ item }) => (
   function Options() { 
     return (
       <OptionsHeader
-          // leftTxt={"Manage cards"} 
+          leftTxt={"Manage cards"} 
           isFetching={false}
           show={'accountname'}
+          loginUserData={vm?.loginUserData}
           currentAccount={vm?.currentAccount}
           onPressSelectAccounts={()=>{ vm.selectAccountRef?.current?.open() }}
           // onPressThreeDots={
@@ -357,7 +358,7 @@ function renderBottomSheets() {
 
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView edges={['top']} style={styles.container}>
 
       <StatusBarManager
         backgroundColor={THEME.gradientStatusBarColor} 
@@ -419,7 +420,7 @@ export default CardScreen;
 export const styles = StyleSheet.create({
   container: { flex: 1 },
   headerContainer: {
-    height: handleSize.h(280),
+    height: handleSize.f(290),
     width: Metrics.width,
     borderBottomLeftRadius: handleSize.f(30),
     borderBottomRightRadius: handleSize.f(30),
@@ -540,9 +541,13 @@ export const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     backgroundColor: THEME.SlateBlue,
-    paddingHorizontal: handleSize.w(9),
-    paddingVertical: handleSize.h(3),
+    // paddingHorizontal: handleSize.w(9),
+    // paddingVertical: handleSize.h(3),
     borderRadius: handleSize.f(10),
+    width: handleSize.f(70),
+    height: handleSize.f(20),
+    justifyContent: "center",
+    alignItems: "center"
   },
   item: {
     backgroundColor: THEME.secondary,
@@ -583,9 +588,9 @@ export const styles = StyleSheet.create({
   dotsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: handleSize.h(15),
+    marginTop: handleSize.f(15),
   },
-  dot: { width: handleSize.w(6), height: handleSize.w(6), borderRadius: handleSize.f(5), marginHorizontal: handleSize.w(2) },
+  dot: { width: handleSize.f(6), height: handleSize.f(6), borderRadius: handleSize.f(5), marginHorizontal: handleSize.w(2) },
   dotInactive: { backgroundColor: THEME.SlateBlue },
   dotActive: { backgroundColor: THEME.white },
   

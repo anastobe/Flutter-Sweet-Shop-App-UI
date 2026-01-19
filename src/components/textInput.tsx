@@ -3,6 +3,7 @@ import {
   Animated,
   FlatList,
   Image,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -143,7 +144,7 @@ return (
                   {
                     top: labelAnim.interpolate({
                       inputRange: [0, 1],
-                      outputRange: [handleSize.h(16.5), (isFocused || value?.length) ? handleSize.h(8) : handleSize.h(4)],
+                      outputRange: [handleSize.h(16.5), (isFocused || value?.length) ? Platform.OS == 'ios' ?  handleSize.h(10) : handleSize.h(8) : handleSize.h(4)],
                     }),
                     fontSize: labelAnim.interpolate({
                       inputRange: [0, 1],
@@ -269,7 +270,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     borderColor: THEME.white,
-    borderWidth: handleSize.h(1),
+    borderWidth: handleSize.f(1),
     borderRadius: handleSize.h(10),
   },
 

@@ -33,7 +33,7 @@ export const MainContainer: React.FC<MainContainerProps> = ({
   pressRightArrow,
 }) => {
   return (
-    <SafeAreaView style={[{ flex: 1 }, mainContainerStyle]}>
+    <SafeAreaView edges={['top']} style={[{ flex: 1 }, mainContainerStyle]}>
       <ImageBackground
         source={Images.universalGradientBackground}
         style={StyleSheet.absoluteFillObject}

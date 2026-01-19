@@ -16,6 +16,7 @@ import { useMyAccountTransferViewModel } from "../../../viewModels/homeViewModel
 import { Images } from "../../../config";
 import FingerPrintContent from "../../../components/bottomSheet/fingerPrintContent";
 import ConfrmPayment from "../../../components/bottomSheet/confrmPayment";
+import { CommonUtils } from "../../../utils";
 
 // ---------- Reusable ----------
 const InfoRow = ({ icon, label, value }) => (
@@ -149,7 +150,15 @@ const MyAccountTransfer = ({...props}) => {
 
           {/* Balance */}
           {fromAccount?.name &&
-            <BalanceBox amount={fromAccount?.iso_code +" "+ enterAmount && fromAccount?.available_balance - enterAmount }  label="Available Balance"  containerHeight={78} />}
+            <BalanceBox 
+            // amount={fromAccount?.iso_code +" "+ enterAmount && fromAccount?.available_balance - enterAmount }  
+            // amount={
+            //   fromAccount?.available_balance - enterAmount < 0
+            //     ? 'Insufficient Balance'
+            //     : (fromAccount?.available_balance - enterAmount).toFixed(2)
+            // }
+            amount={ `${CommonUtils.getCurrencySymbol(fromAccount?.iso_code)} ${(fromAccount?.available_balance)?.toFixed(2)}`}
+            label="Available Balance"  containerHeight={78} />}
 
 
           {/* Recipient Gets */}
@@ -161,7 +170,7 @@ const MyAccountTransfer = ({...props}) => {
             value={enterAmount}
             onChangeText={setenterAmount}
             keyboardType={"numeric"}
-            maxlen={10}
+            maxlen={9}
             margBtm={handleSize.h(15)}
           />
 

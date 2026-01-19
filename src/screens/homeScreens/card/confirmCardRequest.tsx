@@ -70,7 +70,7 @@ function ConfirmCardRequest(props: any) {
     return (
       <>
         <Text style={styles.totalLabel}>Total Amount</Text>
-        <Text style={styles.totalAmount}>{CommonUtils.getCurrencySymbol(currency?.iso_code)} {payload.spending_limits}</Text>
+        <Text style={styles.totalAmount}>{CommonUtils.getCurrencySymbol(currency?.iso_code)} {linkedAccount.available_balance}</Text>
       </>
     );
   }
@@ -82,14 +82,14 @@ function ConfirmCardRequest(props: any) {
           <View style={{ width: handleSize.w(55), height: handleSize.h(45), justifyContent: "center", alignItems: "center" }} >
             <Icon name="flag" size={handleSize.f(28)} color={THEME.white} />
           </View>
-          <View>
+          <View style={{ justifyContent: "center" }} >
             <Text style={styles.accountText}>Funding Account</Text>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', marginTop: handleSize.f(5) }}>
               <View style={{
                 backgroundColor: THEME.secondary_hover,
                 borderRadius: handleSize.f(6),
                 padding: handleSize.h(2),
-                marginTop: handleSize.h(2),
+                // marginTop: handleSize.h(2),
               }}>
                 <Text style={styles.badgeText}>{linkedAccount.name}</Text>
               </View>
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     marginBottom: handleSize.h(10),
     lineHeight: handleSize.h(20),
   },
-  forgetTxt: { marginTop: handleSize.h(30), marginBottom: handleSize.h(50) },
+  forgetTxt: { marginTop: handleSize.h(20), marginBottom: handleSize.h(50) },
   forgetTxtpop:{ backgroundColor: THEME.primary, width: '100%', marginTop: handleSize.h(20), marginBottom: handleSize.h(20) },
 
   summaryBox: { borderRadius: handleSize.f(8), padding: handleSize.h(10), marginBottom: handleSize.h(10) },
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.primary,
-    marginBottom: handleSize.h(30),
+    marginBottom: handleSize.f(20),
   },
   accountBox: {
     flexDirection: 'row',

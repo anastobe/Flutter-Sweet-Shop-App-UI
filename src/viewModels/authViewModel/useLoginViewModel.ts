@@ -29,12 +29,12 @@ export const useLoginViewModel = (navigation: any) => {
   // "password": "Pass@123",
 
   //coperate
-  const [email, setEmail] = useState("new-user");
-  const [password, setPassword] = useState("Uhf@1234");
+  // const [email, setEmail] = useState("new-user");
+  // const [password, setPassword] = useState("Uhf@1234");
 
   //user,individual
-  // const [email, setEmail] = useState("uhf-personal");
-  // const [password, setPassword] = useState("Pass@123");
+  const [email, setEmail] = useState("uhf-personal");
+  const [password, setPassword] = useState("Pass@123");
   const [token, setToken] = useState("");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
@@ -130,11 +130,12 @@ requestFCMPermission()
     rnBiometrics.simplePrompt({ promptMessage: "Login with Biometrics" })
       .then(({ success }) => {
         if (success) {
-          Alert.alert("Success", "Authenticated Successfully");
+          // Alert.alert("Success", "Authenticated Successfully");
+          handleLogin()
           biometryRef?.current?.close();
-          setTimeout(() => {
-            navigation.navigate("LoginSecurePass");
-          }, 1000);
+          // setTimeout(() => {
+          //   navigation.navigate("LoginSecurePass");
+          // }, 1000);
         } else {
           Alert.alert("Cancelled", "User Cancelled");
         }

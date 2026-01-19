@@ -212,7 +212,9 @@ const config = {
          openTime={500}
          closeDuration={500}
          bottomSheetRef={vm.biometryRef}
-         children={<FingerPrintContent refrence={vm.biometryRef} onPress={()=>{ vm.setOpen({ open: true, text: "Looks like you have not set your Touch ID. Please login and set your Touch ID from Profile." }) }}
+         children={<FingerPrintContent refrence={vm.biometryRef} 
+         onPress2={vm.handleBiometricAuth}
+         onPress={()=>{ vm.setOpen({ open: true, text: "Looks like you have not set your Touch ID. Please login and set your Touch ID from Profile." }) }}
             style={{ flex: 1, paddingHorizontal: 20 }}
          title="Login with Biometric and Face ID"  subtitle="" />}
         />

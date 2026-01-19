@@ -6,7 +6,7 @@ import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
 import { Images } from "../config";
 import { handleSize } from "../config/responsiveTheme";
 
-const OptionsHeader = ({isFetching,currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show }) => {
+const OptionsHeader = ({isFetching,loginUserData,currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show }) => {
   const navigation = useNavigation();
 
   // console.log("currentAccount==>",currentAccount); 
@@ -18,7 +18,21 @@ const OptionsHeader = ({isFetching,currentAccount, onPressSelectAccounts, onPres
      
      {show == "accountname" ?
       <View style={{ flexDirection: "row",  }}>
-        {isFetching ? null :<TouchableOpacity
+      {onPressThreeDots && <TouchableOpacity
+        onPress={onPressThreeDots}
+        style={[styles.leftIconCont, { marginRight: handleSize.w(5) }]}
+      >
+        <Icon
+          name="ellipsis-vertical-outline"
+          size={handleSize.f(17)}
+          color={THEME.textPrimary}
+        />
+      </TouchableOpacity>}
+   
+        {(loginUserData?.customer_type == 'personal' || isFetching) ? 
+        null 
+        :
+        <TouchableOpacity
           onPress={onPressSelectAccounts}
           style={styles.leftCont}
         >
@@ -32,17 +46,6 @@ const OptionsHeader = ({isFetching,currentAccount, onPressSelectAccounts, onPres
           </View>
         </TouchableOpacity>}
 
-        {onPressThreeDots && <TouchableOpacity
-          onPress={onPressThreeDots}
-          style={[styles.leftIconCont, { marginLeft: handleSize.w(5) }]}
-        >
-          <Icon
-            name="ellipsis-vertical-outline"
-            size={handleSize.f(17)}
-            color={THEME.textPrimary}
-          />
-        </TouchableOpacity>}
-     
       </View> 
       :
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
     // marginTop: handleSize.h(25),
   },
   leftCont:
-  { flexDirection: "row", marginRight: handleSize.w(5), backgroundColor: THEME.white, justifyContent: "center", alignItems: "center", borderRadius: handleSize.w(8), height: handleSize.h(28), paddingHorizontal: handleSize.w(10), width: handleSize.w(150)},
+  { flexDirection: "row", marginRight: handleSize.w(5), backgroundColor: THEME.white, justifyContent: "center", alignItems: "center", borderRadius: handleSize.w(8), height: handleSize.h(30), paddingHorizontal: handleSize.w(10), width: handleSize.w(150)},
   leftSubCont:
   {width: handleSize.w(110), textAlign: "center", color: THEME.textPrimary, fontFamily: FONTFAMILY.SemiBold, fontSize: handleSize.f(FONT_SIZES.onetwo) }
 });

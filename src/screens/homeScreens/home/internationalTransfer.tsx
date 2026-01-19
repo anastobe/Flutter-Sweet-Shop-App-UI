@@ -493,6 +493,7 @@ import ConfrmPayment from "../../../components/bottomSheet/confrmPayment";
 import { useInternationalTransferViewModel } from "../../../viewModels/homeViewModel/home/useInternationalTransferViewModel";
 import GlobalInputsearch from "../../../components/globalInputsearch";
 import Metrics from "../../../styles/metrics";
+import { CommonUtils } from "../../../utils";
 
 
 // ---------- Reusable ----------
@@ -625,7 +626,15 @@ const InternationalTransfer = ({...props}) => {
 
           {/* Balance */}
           {fromAccount?.name &&
-            <BalanceBox amount={fromAccount?.iso_code +" "+ enterAmount && fromAccount?.available_balance - enterAmount }  label="Available Balance"  containerHeight={78} />}
+            <BalanceBox 
+            // amount={fromAccount?.iso_code +" "+ enterAmount && fromAccount?.available_balance - enterAmount }  
+            // amount={
+            //   fromAccount?.available_balance - enterAmount < 0
+            //     ? 'Insufficient Balance'
+            //     : (fromAccount?.available_balance - enterAmount).toFixed(2)
+            // }
+            amount={ `${CommonUtils.getCurrencySymbol(fromAccount?.iso_code)} ${(fromAccount?.available_balance)?.toFixed(2)}`}
+            label="Available Balance"  containerHeight={78} />}
 
 
           {/* Recipient Gets */}
@@ -636,7 +645,7 @@ const InternationalTransfer = ({...props}) => {
             value={enterAmount}
             onChangeText={setenterAmount}
             keyboardType={"numeric"}
-            maxlen={10}
+            maxlen={9}
             margBtm={handleSize.h(15)}
           />
 

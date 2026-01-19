@@ -292,7 +292,7 @@ const AddNewBeneficiary = () => {
         barStyle="light-content" 
       />
 
-      <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(80) }}> 
+      <ScrollView contentContainerStyle={{ paddingBottom: handleSize.h(90) }}> 
         <View style={{ marginHorizontal: handleSize.w(20) }}>
           <Text style={styles.title}>Add beneficiary</Text>
           <Text style={styles.subtitle}>

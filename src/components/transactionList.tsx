@@ -14,7 +14,7 @@ interface Props {
 const TransactionItem = ({ item, onPress }: Props) => {
   const isDebit = item?.direction === 'debit';
 
-  // console.log("TransactionItem==>",item?.currency);
+  console.log("TransactionItem==>",item);
   
 
   return (
@@ -31,7 +31,8 @@ const TransactionItem = ({ item, onPress }: Props) => {
         <View>
           <Text numberOfLines={2} ellipsizeMode='tail' style={styles.name}>
             {/* {item?.description} */}
-            {item?.frontier_customer?.business_customer?.company_name || '-'}
+            {item?.payment_transactions?.[0]?.beneficiary_name?.company_name || '...'}
+            {/* {item?.frontier_customer?.business_customer?.company_name || '-'} */}
           </Text>
           <Text style={styles.subname}>
             {/* {commonUtils.timeHumanize(item?.created_at)} */}

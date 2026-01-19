@@ -183,6 +183,7 @@ const AccountScreen = () => {
         <OptionsHeader
           isFetching={vm.isFetching}
           show={'accountname'}
+          loginUserData={vm?.loginUserData}
           currentAccount={vm?.currentAccount}
           onPressSelectAccounts={
             () => vm.selectAccountRef?.current?.open()
@@ -263,8 +264,8 @@ const AccountScreen = () => {
         {renderTransactionList()}
 
         <BottomSheet
-          height={500} // minimum height
-          maxHeightPercent={0.62} // optional, override for screen
+          height={530} // minimum height
+          maxHeightPercent={0.68} // optional, override for screen
           draggable={false}
           bottomSheetRef={vm.manageRef}
         >
@@ -291,9 +292,9 @@ const AccountScreen = () => {
                   { label: 'SWIFT code', value: 'DUMMY' },
                   {
                     label: 'Currency',
-                    value: 'DUMMY',
+                    value: vm?.currentAccount?.currency?.iso_code,
                   },
-                  { label: 'Account type', value: 'DUMMY' },
+                  { label: 'Account type', value: vm?.loginUserData?.customer_type == 'personal' ? 'Single currency' : 'Multicurrency' },
                   {
                     label: 'Created cards',
                     value: vm?.currentAccount?.created_at

@@ -68,7 +68,7 @@ export const CardBox: React.FC<Props> = ({
         </View>
 
         <View>
-          <Image style={{ width: handleSize.w(22), height: handleSize.h(22) }} source={Images.arrow} />
+          <Image style={{ width: handleSize.w(22), height: handleSize.h(22), marginRight: handleSize.f(10) }} source={Images.arrow} />
           {/* <Icon name={iconRight} size={handleSize.f(24)} color={THEME.primary} /> */}
         </View>
       </LinearGradient>
@@ -82,10 +82,11 @@ const styles = StyleSheet.create({
     height: handleSize.h(55),
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: handleSize.w(10),
+    // paddingHorizontal: handleSize.w(10),
     marginTop: handleSize.h(8),
   },
   boxTitleText: {
+    marginLeft: handleSize.f(12),
     fontFamily: FONTFAMILY.Medium,
     fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,

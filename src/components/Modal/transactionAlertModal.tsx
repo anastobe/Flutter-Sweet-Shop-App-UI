@@ -6,7 +6,7 @@ import { Modal } from '../../components';
 import BluryModal from './bluryModal';
 import { cardUsedStatus } from '../../queries/auth.query';
 import commonUtils from '../../utils/common.utils';
-import { Toast } from '../../utils';
+import { CommonUtils, Toast } from '../../utils';
 import { dequeueTransaction } from '../../Redux/Action/Notification/notificationActions';
 
 const TransactionAlertModal = () => {
@@ -93,7 +93,7 @@ const { mutate: cardUsedAcceptFunc, isPending: isPendingAccept } =
           CallApi(approved);
         }}
         iconNameBottom={1}
-        title={`Amount: ${data?.transaction_amount} ${data?.transaction_currency_code}\nAccount: **** ${data?.transaction_pan}`}
+        title={`Amount: ${parseFloat(data?.transaction_amount)?.toFixed(2)} ${CommonUtils.getCurrencySymbol(data?.transaction_currency_code)}\nAccount: **** ${data?.transaction_pan}`}
         iconName={'alert-outline'}
         confirmText={'APPROVE'}
         showCancelBtn

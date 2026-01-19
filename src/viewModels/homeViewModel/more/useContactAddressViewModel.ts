@@ -48,8 +48,8 @@ export default function useContactAddressViewModel() {
   useEffect(()=>{
     if (!user) return 
       setCountry({
-        id: user?.country_id,
-        name: user?.county
+        id: user?.country?.id,
+        name: user?.country?.name
       })
       setown(user?.town)
       setAddress(user?.address_line1)

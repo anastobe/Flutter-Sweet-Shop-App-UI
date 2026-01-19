@@ -12,10 +12,11 @@ type Props = {
   subtitle?: string;
   style?: any;
   onPress: () => void;
+  onPress2: () => void;
   img?: any;
 };
 
-const FingerPrintContent: React.FC<Props> = ({ refrence, title, subtitle, style, onPress, img }) => {
+const FingerPrintContent: React.FC<Props> = ({ refrence, title, subtitle, style, onPress,onPress2,  img }) => {
   return (
     <ImageBackground resizeMode="cover" source={Images.addCardGradient} style={style}>
       <ScrollView style={{ marginTop: handleSize.h(10) }} showsVerticalScrollIndicator={false}>
@@ -28,7 +29,7 @@ const FingerPrintContent: React.FC<Props> = ({ refrence, title, subtitle, style,
         <CustomButton
           btnContSty={styles.forgetTxt}
           title="Use password"
-          onPress={() => { refrence?.current?.close(); }}
+          onPress={onPress2}
         />
       </ScrollView>
     </ImageBackground>

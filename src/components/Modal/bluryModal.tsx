@@ -107,13 +107,13 @@ const BluryModal: React.FC<Props> = ({
         )}
 
         {/* CONFIRM BUTTON */}
-        <CustomButton
+        {confirmText && <CustomButton
           loading={btnLoader}
           btnContSty={styles.forgetTxt}
           title={confirmText}
           onPress={onConfirm}
         />
-
+}
         {/* CANCEL BUTTON */}
         {showCancelBtn && (
           <CustomButton

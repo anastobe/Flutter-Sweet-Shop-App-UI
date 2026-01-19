@@ -33,6 +33,10 @@ const Notification = () => {
  
 
   function onPressItem(item: any) {
+
+    console.log("play");
+    return
+
     if (item?.data?.is_modal === 'yes') {
 
     let backendTime = item?.data?.challenge_expiry_datetime
@@ -89,6 +93,7 @@ const Notification = () => {
         barStyle="light-content" 
       />
         <View style={{ marginHorizontal: 20 }}>
+            <Text style={styles.title}>Notifications</Text>
             <FlatList
               data={notification}
               contentContainerStyle={{ paddingBottom: handleSize.h(20) }}
@@ -130,6 +135,13 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: THEME.whitergba,
     borderRadius: 10,
+  },
+    title: {
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+    marginBottom: handleSize.h(15),
+    marginTop: handleSize.h(10),
   },
   message: {
     fontSize: FONT_SIZES.onefour,

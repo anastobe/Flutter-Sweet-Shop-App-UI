@@ -60,6 +60,23 @@ export const resetPassword = ({callback} : {callback: (res: any) => void}) => {
   });
 };
 
+export const uploadFile = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.uploadFile,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+          callback(response)
+      }
+  },
+    onError: (error: any) => {
+      console.log('uploadFile error:', error);
+    }
+  });
+};
+
+
 export const createCard = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
 
@@ -91,6 +108,9 @@ export const cardUsedStatus = ({
     mutationFn: apis.cardUsedStatus,
 
     onSuccess: async (response: any) => {
+
+      console.log('cardUsedStatus success:', response);
+
       if (response?.success) {
         onSuccessCallback?.(response);
       } else {

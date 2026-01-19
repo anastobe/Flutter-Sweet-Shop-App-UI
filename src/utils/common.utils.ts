@@ -1,11 +1,13 @@
 import moment from "moment";
-import { Alert, NativeScrollEvent, NativeSyntheticEvent } from "react-native";
+import {  NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 // import { CommonUtils, SD } from "../../utils";
 // import Text from "../components/text";
 // import { useTheme } from "../hooks";
 import apis from "../services";
 // import { NavigationService } from "../config";
 import { HOME_ROUTES } from "../constants";
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import { Platform, Alert } from 'react-native';
 
 // const {AppTheme} = useTheme()
 
@@ -40,7 +42,7 @@ function formatDate(date: any) {
 
   const d = new Date(date); // 👈 STRING → DATE
 
-  const formattedDate = d.toLocaleDateString('en-GB', {
+  const formattedDate = d.toLocaleDateString('en-US', {
     day: '2-digit',
     month: 'long',
     year: 'numeric',
@@ -49,18 +51,28 @@ function formatDate(date: any) {
   return formattedDate;
 }
 
+// function formatTime(date: any) {
+//   if (!date) return '';
+
+//   const d = new Date(date);
+
+//   return d.toLocaleTimeString('en-US', {
+//     hour: '2-digit',
+//     minute: '2-digit',
+//     hour12: true,
+//   });
+// }
+
 function formatTime(date: any) {
   if (!date) return '';
 
-  const d = new Date(date);
+  const d = new Date(date + 'Z'); // 👈 VERY IMPORTANT
 
-  const timePart = d.toLocaleTimeString('en-GB', {
+  return d.toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
     hour12: true,
   });
-
-  return timePart
 }
 
 export const getCurrencySymbol = (
@@ -280,6 +292,45 @@ export function validateBIC(input: string) {
   return SWIFT_REGEX.test(bic);
 }
 
+const downloadFile = async (
+  url: string,
+  onSuccess?: () => void,
+  onError?: () => void,
+) => {
+  try {
+    const { fs, config } = ReactNativeBlobUtil;
+
+    const fileName =
+      url.split('/').pop()?.split('?')[0] || `file_${Date.now()}`;
+
+    const downloadPath =
+      Platform.OS === 'android'
+        ? `${fs.dirs.DownloadDir}/${fileName}`
+        : `${fs.dirs.DocumentDir}/${fileName}`;
+
+    const res = await config({
+      fileCache: true,
+      path: downloadPath,
+      addAndroidDownloads: {
+        useDownloadManager: true,
+        notification: true,
+        path: downloadPath,
+        title: fileName,
+        description: 'Downloading attachment...',
+        mediaScannable: true,
+      },
+    }).fetch('GET', url);
+
+    console.log('Download success:', res.path());
+
+    Alert.alert('Success', `File downloaded to:\n${res.path()}`);
+    onSuccess?.();
+  } catch (error) {
+    console.log('Download error:', error);
+    Alert.alert('Error', 'Download failed');
+    onError?.();
+  }
+};
 
 
 export default {
@@ -301,5 +352,7 @@ export default {
   formatDate,
   formatTime,
   getCurrencySymbol,
-  firstCapitaAllSmall
+  firstCapitaAllSmall,
+  downloadFile
+
 };

@@ -19,29 +19,27 @@ const axiosInstance = async (
   try {
     const token = dataHandlerService?.getStore()?.getState()?.AuthReducer?.userData?.token;
 
-    // Prepare fetch options
+    const isFormData = data instanceof FormData;
+
     const fetchOptions: any = {
       method,
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
         ...(token && { Authorization: `Bearer ${token}` }),
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
       },
       timeoutInterval: 60000,
       sslPinning: ENABLE_SSL_PINNING ? { certs: CERTS } : undefined,
       disableAllSecurity: !ENABLE_SSL_PINNING,
+      body:
+        method === 'POST' || method === 'PUT'
+          ? isFormData
+            ? data // ✅ DIRECT FormData
+            : JSON.stringify(data)
+          : undefined,
     };
-
-    // Only attach body for POST and PUT
-    if (method === 'POST' || method === 'PUT') {
-      fetchOptions.body = data ? JSON.stringify(data) : undefined;
-    }
 
     const response = await fetch(BASE_URL + BASE_PATH + url, fetchOptions);
 
-    // console.log("main handler==>",response);
-
-    // Parse JSON from response.bodyString
     const responseJson =
       response.bodyString && typeof response.bodyString === 'string'
         ? JSON.parse(response.bodyString)
@@ -53,7 +51,6 @@ const axiosInstance = async (
 
     return responseJson;
   } catch (error: any) {
-
     const errorResponse =
       error.bodyString && typeof error.bodyString === 'string'
         ? JSON.parse(error.bodyString)
@@ -62,19 +59,88 @@ const axiosInstance = async (
     console.log("errorResponse main", errorResponse);
 
     MessageHandler(errorResponse);
-    
-    if (errorResponse?.message?.toLowerCase()?.includes('unauthenticated')) {
+
+    if (errorResponse?.message?.toLowerCase()?.includes('unauthenticated') 
+      || errorResponse?.message?.toLowerCase()?.includes('session expired. please login again.')) {
       logoutUser();
-      return; 
+      return;
     }
 
-    
+
 
     throw errorResponse;
   }
 };
 
 export default axiosInstance;
+
+
+// const axiosInstance = async (
+//   url: string,
+//   method: HttpMethod = 'GET',
+//   data?: any,
+//   options?: boolean
+// ) => {
+
+//   try {
+//     const token = dataHandlerService?.getStore()?.getState()?.AuthReducer?.userData?.token;
+
+//     // Prepare fetch options
+//     const fetchOptions: any = {
+//       method,
+//       headers: {
+//         // 'Content-Type': 'application/json',
+//         // Accept: 'application/json',
+//         ...(token && { Authorization: `Bearer ${token}` }),
+//       },
+//       timeoutInterval: 60000,
+//       sslPinning: ENABLE_SSL_PINNING ? { certs: CERTS } : undefined,
+//       disableAllSecurity: !ENABLE_SSL_PINNING,
+//     };
+
+//     // Only attach body for POST and PUT
+//     if (method === 'POST' || method === 'PUT') {
+//       fetchOptions.body = data ? JSON.stringify(data) : undefined;
+//     }
+
+//     const response = await fetch(BASE_URL + BASE_PATH + url, fetchOptions);
+
+//     // console.log("main handler==>",response);
+
+//     // Parse JSON from response.bodyString
+//     const responseJson =
+//       response.bodyString && typeof response.bodyString === 'string'
+//         ? JSON.parse(response.bodyString)
+//         : response.bodyString;
+
+//     if (options) {
+//       MessageHandler(responseJson);
+//     }
+
+//     return responseJson;
+//   } catch (error: any) {
+
+//     const errorResponse =
+//       error.bodyString && typeof error.bodyString === 'string'
+//         ? JSON.parse(error.bodyString)
+//         : error.bodyString;
+
+//     console.log("errorResponse main", errorResponse);
+
+//     MessageHandler(errorResponse);
+    
+//     if (errorResponse?.message?.toLowerCase()?.includes('unauthenticated')) {
+//       logoutUser();
+//       return; 
+//     }
+
+    
+
+//     throw errorResponse;
+//   }
+// };
+
+
 
 
 

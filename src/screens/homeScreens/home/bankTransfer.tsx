@@ -16,6 +16,7 @@ import { useBankTransferViewModel } from "../../../viewModels/homeViewModel/home
 import Metrics from "../../../styles/metrics";
 import BeneficiariesManagement from "../more/benefeciaryModule/BeneficiariesManagement";
 import GlobalInputsearch from "../../../components/globalInputsearch";
+import { CommonUtils } from "../../../utils";
 
 const BankTransfer = () => {
   const {
@@ -144,7 +145,10 @@ const BankTransfer = () => {
 
           {/* Balance */}
           {fromAccount?.name &&
-            <BalanceBox amount={fromAccount?.iso_code +" "+enterAmount && fromAccount?.available_balance - enterAmount }  label="Available Balance"  containerHeight={78} />}
+            <BalanceBox 
+            // amount={fromAccount?.iso_code  && fromAccount?.available_balance - enterAmount < 1 ?  'Insufficient Balance' : fromAccount?.available_balance - enterAmount }
+            amount={ `${CommonUtils.getCurrencySymbol(fromAccount?.iso_code)} ${(fromAccount?.available_balance)?.toFixed(2)}`}
+            label="Available Balance"  containerHeight={78} />}
 
 
           {/* Recipient Gets */}
@@ -155,7 +159,7 @@ const BankTransfer = () => {
             value={enterAmount}
             onChangeText={setenterAmount}
             keyboardType={"numeric"}
-            maxlen={10}
+            maxlen={9}
             margBtm={handleSize.h(15)}
           />
 

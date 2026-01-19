@@ -5,7 +5,7 @@ import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
 import { SHOW_CLIENT } from "../../../APICall/constants";
 import { AccDelete, AccFreeze, getAccountsAndAssets, getDashboardData, paymentHistry,  } from "../../../queries/accountQueries/accountQuery";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { Images } from "../../../config";
 import { CommonUtils } from "../../../utils";
@@ -14,6 +14,9 @@ import { ACCOUNT_HISTRY_VALIDATION } from "../../../utils/data";
 import apis from "../../../services";
 
 export const useAccountScreenViewModel = () => {
+
+  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -135,10 +138,10 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
         acc.assets?.some((asset:any) => asset.id === currentAccDetail?.id)
       );
 
-     console.log("🔄 foundAccount>",foundAccount);
+     console.log("🔄 foundAccount>",foundAccount); 
 
       
-      setcurrentAccount(foundAccount);
+      setcurrentAccount(foundAccount); 
   
     // }
 
@@ -445,7 +448,8 @@ function selectAccount(account: any) {
     getAccountDetailsText,
     onRefresh,
     refreshing,
-    setRefreshing
+    setRefreshing,
+    loginUserData
     // isLoadingMore,
     // loadMoreTransactions,
     // hasMore, 

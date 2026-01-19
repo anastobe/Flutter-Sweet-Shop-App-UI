@@ -94,7 +94,10 @@ export function useCreatePhysicalCardViewModel() {
 
   const yesConfirm = () => {
     cardDetailRef?.current?.close();
-    let completeAddress = user.address_line1 + " " + user.address_line2 + " " + user.address_line3
+    let completeAddress = [user?.address_line1, user?.address_line2, user?.address_line3]
+        .filter(Boolean)
+        .join(' ') || '-'
+
     setTimeout(() => {
       const payload = {
         format: 'physical',
