@@ -18,12 +18,13 @@ import SplashScreen from "react-native-splash-screen";
 import { NotificationModalProvider } from "./src/components/notificationModalContext";
 import TransactionAlertModal from "./src/components/Modal/transactionAlertModal";
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
+import OfflineModal from "./src/components/offlineApp";
 // import { initIdleTimer, resetActivity } from "./src/security/IdleTimer";
 // import { TouchableWithoutFeedback } from "react-native";
 
 const App: React.FC = () => {
 
-    const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -181,6 +182,7 @@ const App: React.FC = () => {
             >
             <MainStack />
             <LoaderFullScreen />
+            <OfflineModal />           
             <PushNotificationHandler />
             <TransactionAlertModal />
           </NavigationContainer>
