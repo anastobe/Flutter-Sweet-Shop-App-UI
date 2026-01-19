@@ -84,7 +84,7 @@ function ConfirmCardRequest(props: any) {
           </View>
           <View style={{ justifyContent: "center" }} >
             <Text style={styles.accountText}>Funding Account</Text>
-            <View style={{ flexDirection: 'row', marginTop: handleSize.f(5) }}>
+            <View style={{ flexDirection: 'row', marginTop: handleSize.f(10) }}>
               <View style={{
                 backgroundColor: THEME.secondary_hover,
                 borderRadius: handleSize.f(6),
@@ -258,6 +258,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.primary,
     marginBottom: handleSize.f(20),
+    marginTop: handleSize.f(10),
   },
   accountBox: {
     flexDirection: 'row',

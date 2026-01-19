@@ -53,18 +53,20 @@ const styles = StyleSheet.create({
     marginTop: handleSize.f(10),
     // padding: handleSize.f(15),
     borderRadius: handleSize.f(16),
+    justifyContent: "center",
     // backgroundColor: "#6a1b9a", // replace with gradient if needed
   },
   balanceRow: {
     flexDirection: 'row',
     alignItems: "center",
     justifyContent: "center",
-    height: handleSize.h(50),
+    height: handleSize.f(50),
   },
   eyeButton: {
     alignItems: "center",
     justifyContent: "center",
     height: handleSize.h(55),
+    marginTop: handleSize.f(-2),
     marginLeft: handleSize.w(10),
   },
   total: {
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: "center",
-    marginBottom: handleSize.h(8),
+    marginBottom: handleSize.f(8),
   },
   row: {
     flexDirection: "row",
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.SemiBold,
     color: THEME.white,
+    marginTop: handleSize.h(4),
   },
 });
 

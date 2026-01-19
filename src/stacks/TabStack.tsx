@@ -634,7 +634,7 @@ const styles = StyleSheet.create<any>({
   tabTxt: {
     fontFamily: FONTFAMILY.Regular,
     fontSize: handleSize.f(FONT_SIZES.nine),
-    marginTop: handleSize.f(1),
+    marginTop: Platform.OS == 'ios' ? handleSize.f(4) : handleSize.f(2),
     marginBottom: handleSize.f(6),
   },
   imgTab: {

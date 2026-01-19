@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: "space-between",
-    paddingVertical: handleSize.h(20),
+    paddingVertical: handleSize.f(15),
   },
 
   iconBox: {

@@ -99,11 +99,14 @@ const styles = StyleSheet.create({
     color: THEME.textPrimary,
     fontSize: handleSize.f(FONT_SIZES.oneZero),
     fontFamily: FONTFAMILY.SemiBold,
+    lineHeight: handleSize.f(14),
   },
   limitTxt: {
     color: THEME.textPrimary,
     fontSize: handleSize.f(FONT_SIZES.nine),
     fontFamily: FONTFAMILY.SemiBold,
+    lineHeight: handleSize.f(14),
+    paddingBottom: handleSize.f(5)
   },
   balanceTxt: {
     color: THEME.textPrimary,

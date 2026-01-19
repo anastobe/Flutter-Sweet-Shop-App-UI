@@ -57,7 +57,7 @@ export default function ReplaceCard(props) {
           value={reason} 
           enableDropdown={true}
           dropdownData={REASON_OPTION}
-          margBtm={handleSize.h(15)}
+          margBtm={handleSize.f(15)}
           isOpen={openDropdown === 'currency'} 
           onToggleDropdown={() => toggleDropdown('currency')}
           onDropdownSelect={(item:any )=> setReason(item.label)}
@@ -71,7 +71,7 @@ export default function ReplaceCard(props) {
           value={firstName}
           onChangeText={setFirstName}
           keyboardType={'default'}
-          margBtm={handleSize.h(20)}
+          margBtm={handleSize.f(20)}
         />
       </View>
     );
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: handleSize.h(30),
+    marginBottom: handleSize.f(30),
     lineHeight: handleSize.h(20),
   },
   forgetTxt: { marginTop: handleSize.h(20), marginBottom: handleSize.h(20) },
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
-    marginVertical: handleSize.h(5),
+    marginBottom: handleSize.h(15),
   },
   botmLine: { height: handleSize.h(1), backgroundColor: THEME.lightGray },
   label: {
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
     paddingVertical: handleSize.h(15),
     paddingHorizontal: handleSize.w(10),
     borderRadius: handleSize.f(10),
-    marginTop: handleSize.h(10),
+    marginTop: handleSize.f(0),
     borderWidth: 0.4,
     borderColor: THEME.white,
   },

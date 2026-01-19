@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     lineHeight: handleSize.h(26),
     color: THEME.white,
     textAlign: 'center',
-    marginTop: handleSize.h(15),
+    marginTop: handleSize.f(12),
   },
   description: {
     fontFamily: FONTFAMILY.Regular,

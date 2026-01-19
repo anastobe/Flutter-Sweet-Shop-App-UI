@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
 
   containerAlert: {
     flexDirection: 'row',
-    marginBottom: handleSize.h(30),
+    marginBottom: handleSize.f(30),
     justifyContent: 'space-between',
   },
 

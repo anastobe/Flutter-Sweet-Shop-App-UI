@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   containerAMOUNT: {
     backgroundColor: THEME.whitergba,
     width: "100%",
-    marginVertical: handleSize.h(15),
+    marginVertical: handleSize.f(15),
     borderRadius: handleSize.f(12),
     alignItems: "center",
     justifyContent: "center",
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
-    // marginTop: handleSize.h(5),
+    marginTop: handleSize.f(5),
   },
   balanceAmountTxt: {
     fontFamily: FONTFAMILY.Medium,

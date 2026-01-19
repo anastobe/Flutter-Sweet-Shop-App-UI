@@ -211,7 +211,7 @@ export default function SetLimits({...props}) {
       <InputField
         autoFocused={true}
         disabled={false} 
-        placeholder="Select card (DUMMY)"
+        placeholder="Select card"
         value={selectedCards?.card_name} 
         enableDropdown={true}
         // dropdownData={[
@@ -309,6 +309,7 @@ export const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
+    lineHeight: handleSize.f(26)
   },
 
   limitDetail: {
@@ -316,6 +317,7 @@ export const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Light,
     color: THEME.white,
     marginTop: handleSize.h(3),
+    lineHeight: handleSize.f(22)
   },
 
   boldText: {

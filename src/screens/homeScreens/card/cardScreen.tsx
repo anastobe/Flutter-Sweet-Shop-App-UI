@@ -144,6 +144,7 @@ const CardScreen = () => {
           
         </Text>
         <TouchableOpacity
+          style={styles.viewAllTxtCont}
             onPress={vm.handleNavigateTransactionHistory}
         >
           <Text style={styles.viewAllTxt}>View all</Text>
@@ -358,6 +359,7 @@ function renderBottomSheets() {
 
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
+      <View style={styles.topColorBlend} />
       <SafeAreaView edges={['top']} style={styles.container}>
 
       <StatusBarManager
@@ -419,8 +421,10 @@ export default CardScreen;
 
 export const styles = StyleSheet.create({
   container: { flex: 1 },
+    topColorBlend:
+  { height: handleSize.f(100), width: Metrics.width , backgroundColor: THEME.gradientStatusBarColor, position: "absolute", top: 0 },
   headerContainer: {
-    height: handleSize.f(290),
+    height: handleSize.f(285),
     width: Metrics.width,
     borderBottomLeftRadius: handleSize.f(30),
     borderBottomRightRadius: handleSize.f(30),
@@ -536,16 +540,15 @@ export const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
   },
+viewAllTxtCont:
+  { justifyContent: 'center', alignItems: 'center',     backgroundColor: THEME.SlateBlue, width: handleSize.f(70), height: handleSize.f(25), borderRadius: handleSize.f(10), },
   viewAllTxt: {
     fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
-    backgroundColor: THEME.SlateBlue,
     // paddingHorizontal: handleSize.w(9),
     // paddingVertical: handleSize.h(3),
     borderRadius: handleSize.f(10),
-    width: handleSize.f(70),
-    height: handleSize.f(20),
     justifyContent: "center",
     alignItems: "center"
   },

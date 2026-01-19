@@ -133,14 +133,14 @@ const renderBalanceCard = () => (
         :
       <>
        {assetsList?.array?.length > 0 &&
-        <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: handleSize.h(50) }} >
+        <View style={{ flexDirection: 'row', alignItems: "center", justifyContent: "center", height: handleSize.f(50) }} >
         {showbalance ? 
-        <Text style={styles.total}>{assetsList?.firstObject?.currency?.iso_code} {assetsList?.firstObject?.available_balance}</Text> 
+        <Text style={styles.total}>{CommonUtils.getCurrencySymbol(assetsList?.firstObject?.currency?.iso_code)} {assetsList?.firstObject?.available_balance}</Text> 
         : 
         <Text style={styles.total}>**********</Text> 
         }
-          <TouchableOpacity style={{  alignItems: "center", justifyContent: "center",height: handleSize.h(50) }} onPress={()=>setshowbalance(!showbalance)} >
-        <Icon name={showbalance ? "eye-outline" : "eye-off" } style={{ top: handleSize.h(2) }} size={handleSize.f(20)} color={THEME.white} />
+          <TouchableOpacity style={{  alignItems: "center", justifyContent: "center",height: handleSize.f(50) }} onPress={()=>setshowbalance(!showbalance)} >
+        <Icon name={showbalance ? "eye-outline" : "eye-off" } style={{ top: handleSize.f(-2) }} size={handleSize.f(20)} color={THEME.white} />
           </TouchableOpacity>
         </View>}
 
@@ -207,7 +207,7 @@ const renderBalanceCard = () => (
   // );
 
   const renderCardFeature = () => (
-    <View style={{ zIndex: -9, marginBottom: handleSize.h(35) }} >
+    <View style={{ zIndex: -9, marginBottom: handleSize.f(25) }} >
     <HomeCardFeatureButtons  features={Sendoption} onPressbtn={(item: any) => handlePressCard(item)} />
     </View>
   );
@@ -272,7 +272,7 @@ const renderBalanceCard = () => (
           <GradientLineGraph 
                 data={getDashboardData_Data?.graph}
                 loading={getDashboardDataPending}
-                marginTop={handleSize.f(25)} 
+                marginTop={handleSize.f(15)} 
           />
           {ScrollableCards()}
           {renderCardFeature()}
@@ -330,7 +330,7 @@ const ScrollableCards = () => {
       keyExtractor={(item) => item?.id}
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ paddingHorizontal: handleSize.w(16), marginTop: handleSize.h(10) }}
+      contentContainerStyle={{ paddingHorizontal: handleSize.f(12), marginTop: handleSize.h(10) }}
       renderItem={({ item }) => (
         <LinearGradient
           colors={['#0d1133', '#0a0f2b']}
@@ -347,7 +347,8 @@ const ScrollableCards = () => {
  
   return (
     <ImageBackground source={Images.universalGradientBackground} style={styles.container}>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.topColorBlend} />
+      <SafeAreaView edges={['top']} style={styles.container}>
        {renderHeaderStuffs()}
 
       <StatusBarManager
@@ -417,9 +418,10 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-
+    topColorBlend:
+  { height: handleSize.f(100), width: Metrics.width , backgroundColor: THEME.gradientStatusBarColor, position: "absolute", top: 0 },
   headerContainer: {
-    height: handleSize.h(230),
+    height: handleSize.f(230),
     width: Metrics.width,
     borderBottomLeftRadius: handleSize.f(30),
     borderBottomRightRadius: handleSize.f(30),
@@ -482,6 +484,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.white,
     width: screenWidth - handleSize.w(160),
+    marginTop: handleSize.f(8),
   },
 
   headerContainerParent: {
@@ -528,9 +531,9 @@ const styles = StyleSheet.create({
 
   balanceCard: {
     borderRadius: handleSize.f(20),
-    height: handleSize.h(84),
+    height: handleSize.f(84),
     marginHorizontal: handleSize.w(20),
-    marginTop: handleSize.h(25),
+    marginTop: handleSize.f(25),
     marginBottom: handleSize.h(10),
     alignItems: 'center',
     justifyContent: 'center',
@@ -663,11 +666,12 @@ const styles = StyleSheet.create({
 
   card: {
     width: handleSize.w(160),
-    paddingHorizontal: handleSize.f(10),
-    paddingVertical: handleSize.f(10),
+    height: handleSize.f(100),
+    paddingLeft: handleSize.f(10),
+    // paddingVertical: handleSize.f(10),
     marginRight: handleSize.f(14),
     borderRadius: handleSize.f(16),
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
 
   lastDigits: {
@@ -687,14 +691,14 @@ const styles = StyleSheet.create({
     color: THEME.white,
    fontSize: handleSize.f(FONT_SIZES.oneeight),
     fontFamily: FONTFAMILY.Medium,
-    marginTop: handleSize.h(6),
+    marginTop: handleSize.f(7),
   },
 
   balanceTxt: {
     color: THEME.white,
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
-    marginTop: handleSize.h(4),
+    marginTop: handleSize.f(8),
   },
   
 

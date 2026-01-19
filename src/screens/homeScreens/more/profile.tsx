@@ -55,7 +55,7 @@ const Profile = () => {
           placeholder="Full name"
           value={name}
           keyboardType={'default'}
-          margBtm={handleSize.h(15)}
+          margBtm={handleSize.h(12)}
           onChangeText={setName}
           customInpStyle={styles.inputStyle}
         />
@@ -69,7 +69,7 @@ const Profile = () => {
           placeholder="Username"
           value={username}
           keyboardType={'default'}
-          margBtm={handleSize.h(15)}
+          margBtm={handleSize.h(12)}
           onChangeText={setUsername}
           customInpStyle={styles.inputStyle}
         />
@@ -83,7 +83,7 @@ const Profile = () => {
           value={email}
           onChangeText={setEmail}
           keyboardType={'email-address'}
-          margBtm={handleSize.h(15)}
+          margBtm={handleSize.h(12)}
           customInpStyle={styles.inputStyle}
         />
 
@@ -97,7 +97,7 @@ const Profile = () => {
           value={phone}
           onChangeText={setPhone}
           keyboardType={'numeric'}
-          margBtm={handleSize.h(15)}
+          margBtm={handleSize.h(12)}
           customInpStyle={styles.inputStyle}
         />
       </View>

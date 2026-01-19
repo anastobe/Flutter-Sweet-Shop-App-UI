@@ -56,7 +56,7 @@ export const InputDropDownStyle = ({
             <View style={{ marginLeft: handleSize.w(10) }}>
               <Text style={styles.title}>{title}</Text>
 
-              <View style={{ flexDirection: "row", marginTop: handleSize.h(4) }}>
+              <View style={{ flexDirection: "row", marginTop: handleSize.h(6), alignItems: "center" }}>
                 <Text style={styles.accName}>{value?.name}</Text>
 
                 {value?.iso_code && (

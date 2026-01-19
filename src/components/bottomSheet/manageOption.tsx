@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 
   containerAlert: {
     flexDirection: 'row',
-    paddingVertical: handleSize.h(15),
+    paddingVertical: handleSize.f(15),
     borderRadius: handleSize.w(10),
     alignItems: 'center',
   },

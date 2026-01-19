@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity, Platform } from 'react-native';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../styles';
 import { handleSize } from '../config/responsiveTheme';
 import Metrics from '../styles/metrics';
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: "space-evenly",
     alignItems: "center",
-    marginTop: handleSize.h(17),
+    marginTop: handleSize.f(10),
     paddingVertical: handleSize.h(10),
   },
   featureItem: {
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: 'center',
-    marginTop: handleSize.h(5),
+    marginTop: Platform.OS == 'ios' ? handleSize.f(10) : handleSize.f(5),
   },
 });
 

@@ -126,7 +126,7 @@ const CurrencyExchange = ({ ...props }) => {
         value={fromCurrency.iso_code} 
         enableDropdown={true}
         dropdownData={currencyList}
-        margBtm={handleSize.h(20)}
+        margBtm={handleSize.f(20)}
         isOpen={openDropdown === 'from_currency'}
         onToggleDropdown={() => toggleDropdown('from_currency')}
         onDropdownSelect={(item: string) =>{ 
@@ -145,7 +145,7 @@ const CurrencyExchange = ({ ...props }) => {
         value={toCurrency.iso_code} 
         enableDropdown={true}
         dropdownData={currencyList}
-        margBtm={handleSize.h(20)}
+        margBtm={handleSize.f(20)}
         isOpen={openDropdown === 'to_currency'}
         onToggleDropdown={() => toggleDropdown('to_currency')}
         onDropdownSelect={(item: string) =>{ 
@@ -165,7 +165,7 @@ const CurrencyExchange = ({ ...props }) => {
       onChangeText={setamount}
       keyboardType={"numeric"}
       maxlen={10}
-      margBtm={handleSize.h(15)}
+      margBtm={handleSize.f(15)}
     />
 
     <CustomButton
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
 //       onChangeText={setamount}
 //       keyboardType={"numeric"}
 //       maxlen={10}
-//       margBtm={handleSize.h(15)}
+//       margBtm={handleSize.h(12)}
 //     />
 
 //     </View>

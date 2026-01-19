@@ -364,6 +364,7 @@ import {
   ScrollView,
   ImageBackground,
   TextInput,
+  Platform,
 } from 'react-native';
 
 import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles';
@@ -455,7 +456,7 @@ const TransactionFilter = ({
       />
 
       <CustomCalendar
-        margTp={handleSize.h(20)}
+        margTp={Platform.OS === 'ios' ? handleSize.f(15) : handleSize.f(20)}
         placeholder="To"
         value={to}
         onDateChange={(date) => onChange({ ...value, to: date })}
@@ -617,7 +618,7 @@ const styles = StyleSheet.create({
         color: THEME.white,
         alignSelf: "center",
         paddingBottom: handleSize.h(20),
-        marginTop: handleSize.h(10)
+        marginTop: handleSize.f(20)
     },
 
     forgetTxt1: {
@@ -649,9 +650,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
   sectionTitle: {
-    marginTop: handleSize.h(10),
+    marginTop: handleSize.f(15),
     marginBottom: handleSize.h(10),
     color: THEME.white,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
   },
   box: {
@@ -679,9 +681,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   applyBtn: {
-    marginTop: handleSize.h(15),
+    marginTop: handleSize.f(15),
   },
   resetBtn: {
-    marginTop: handleSize.h(10),
+    marginTop: handleSize.f(10),
+    marginBottom: handleSize.f(40)
   },
 });

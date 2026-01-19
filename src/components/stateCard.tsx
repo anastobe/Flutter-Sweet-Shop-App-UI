@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#0e0e2f",
     borderRadius: handleSize.f(12),
-    height: handleSize.h(81),
+    height: handleSize.f(81),
     width: Metrics.width / 2 - handleSize.w(20),
     justifyContent: "center",
     paddingHorizontal: handleSize.w(10),
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     color: THEME.white,
     fontSize: handleSize.f(21),
     fontFamily: FONTFAMILY.Medium,
-    marginTop: handleSize.h(4),
+    marginTop: handleSize.f(6),
   },
   row: {
     flexDirection: "row",

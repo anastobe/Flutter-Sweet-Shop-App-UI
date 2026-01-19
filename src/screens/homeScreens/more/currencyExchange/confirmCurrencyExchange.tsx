@@ -128,7 +128,7 @@ const ConfirmCurrencyExchange = ({...props}) => {
        onChangeText={setamount}
        keyboardType={"numeric"}
        maxlen={10}
-       margBtm={handleSize.h(15)}
+       margBtm={handleSize.h(12)}
      />
 
       {renderCardDetails()}

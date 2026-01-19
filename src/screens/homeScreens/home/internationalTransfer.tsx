@@ -311,7 +311,7 @@
 //             onChangeText={setenterAmount}
 //             keyboardType={"numeric"}
 //             maxlen={10}
-//             margBtm={handleSize.h(15)}
+//             margBtm={handleSize.h(12)}
 //           />
 
 
@@ -323,7 +323,7 @@
 //             value={beneficiary?.first_name}
 //             enableDropdown={true}
 //             dropdownData={beneficiaryArray}
-//             margBtm={handleSize.h(15)}
+//             margBtm={handleSize.h(12)}
 //             isOpen={openDropdown === "toaccount"}
 //             onToggleDropdown={() => toggleDropdown("toaccount")}
 //             onDropdownSelect={(item: any) => 
@@ -343,7 +343,7 @@
 //             onChangeText={setnote}
 //             keyboardType={"default"}
 //             maxlen={10}
-//             margBtm={handleSize.h(15)}
+//             margBtm={handleSize.h(12)}
 //           />
 
 //           {/* Button */}
@@ -646,7 +646,7 @@ const InternationalTransfer = ({...props}) => {
             onChangeText={setenterAmount}
             keyboardType={"numeric"}
             maxlen={9}
-            margBtm={handleSize.h(15)}
+            margBtm={handleSize.h(12)}
           />
 
 
@@ -659,7 +659,7 @@ const InternationalTransfer = ({...props}) => {
               value={ beneficiary?.beneficiary_id ? beneficiary?.first_name + " " + beneficiary.last_name : ""}
               enableDropdown={true}
               dropdownData={beneficiaryArray}
-              margBtm={handleSize.h(15)}
+              margBtm={handleSize.h(12)}
               // isOpen={openDropdown === "toaccount"}
               onToggleDropdown={() =>{
                 // toggleDropdown("toaccount"),
@@ -684,7 +684,7 @@ const InternationalTransfer = ({...props}) => {
             value={ payment_method_id?.method ? payment_method_id?.method  : ""}
             enableDropdown={true}
             dropdownData={loginUserData?.banking_partner?.valid_payment_types}
-            margBtm={handleSize.h(15)}
+            margBtm={handleSize.h(12)}
             isOpen={openDropdown === "paymentTypes"}
             onToggleDropdown={() =>{
               toggleDropdown("paymentTypes")

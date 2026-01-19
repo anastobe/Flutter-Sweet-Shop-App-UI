@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
 
   currency: {
-    marginTop: handleSize.h(2),
+    marginTop: handleSize.f(4),
     fontSize: handleSize.f(FONT_SIZES.onetwo),
     lineHeight: handleSize.h(15),
     fontFamily: FONTFAMILY.Light,

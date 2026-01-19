@@ -160,7 +160,7 @@ const BankTransfer = () => {
             onChangeText={setenterAmount}
             keyboardType={"numeric"}
             maxlen={9}
-            margBtm={handleSize.h(15)}
+            margBtm={handleSize.h(12)}
           />
 
 
@@ -173,7 +173,7 @@ const BankTransfer = () => {
             value={ beneficiary?.beneficiary_id ? beneficiary?.first_name + " " + beneficiary.last_name : ""}
             enableDropdown={true}
             dropdownData={beneficiaryArray}
-            margBtm={handleSize.h(15)}
+            margBtm={handleSize.h(12)}
             // isOpen={openDropdown === "toaccount"}
             onToggleDropdown={() =>{
               // toggleDropdown("toaccount"),
@@ -197,7 +197,7 @@ const BankTransfer = () => {
             value={ payment_method_id?.method ? payment_method_id?.method  : ""}
             enableDropdown={true}
             dropdownData={loginUserData?.banking_partner?.valid_payment_types}
-            margBtm={handleSize.h(15)}
+            margBtm={handleSize.h(12)}
             isOpen={openDropdown === "paymentTypes"}
             onToggleDropdown={() =>{
               toggleDropdown("paymentTypes")
@@ -221,7 +221,7 @@ const BankTransfer = () => {
             onChangeText={setnote}
             keyboardType={"default"}
             maxlen={50}
-            margBtm={handleSize.h(15)}
+            margBtm={handleSize.h(12)}
           />
 
           {/* Button */}

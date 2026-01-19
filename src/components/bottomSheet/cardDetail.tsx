@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     marginLeft: handleSize.w(10),
+    marginTop: handleSize.h(6),
   },
 
 });

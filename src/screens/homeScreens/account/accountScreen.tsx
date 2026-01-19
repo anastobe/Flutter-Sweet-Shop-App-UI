@@ -44,7 +44,7 @@ import {
   LoaderOnly,
 } from '../../../components/activityIndicator';
 
-const header_flatlist_BottomSizeAdjust = 240;
+const header_flatlist_BottomSizeAdjust = 220;
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -63,7 +63,7 @@ const AccountScreen = () => {
         /** 🔹 Initial Loader */
         ListEmptyComponent={
           vm.isPendingpaymentHistry ? (
-            <View style={{ marginTop: handleSize.h(40) }}>
+            <View style={{ marginTop: handleSize.f(20) }}>
               <ActivityIndicator size="large" color={THEME.primary} />
             </View>
           ) : (
@@ -117,13 +117,13 @@ const AccountScreen = () => {
           <GradientLineGraph
             data={vm?.getDashboardData_Data?.graph}
             loading={vm?.getDashboardDataPending}
-            marginTop={handleSize.f(25)}
+            marginTop={handleSize.f(20)}
           />
 
           <View style={styles.statecontainer}>
             <StatCard
               value={vm?.getDashboardData_Data?.average_spent}
-              title="Avg monthly spend (DUMMY)"
+              title="Avg monthly spend"
               amount="£820.0"
               percentage={
                 vm?.getDashboardData_Data?.avg_spent_percentage
@@ -136,7 +136,7 @@ const AccountScreen = () => {
             />
             <StatCard
               value={vm?.getDashboardData_Data?.monthly_spend}
-              title="Spent this month (DUMMY)"
+              title="Spent this month"
               amount="£440.24"
               percentage={
                 vm?.getDashboardData_Data?.avg_monthly_spend
@@ -162,7 +162,7 @@ const AccountScreen = () => {
 
         <View style={styles.cardHeader}>
           <Text style={styles.cardTransactionTXT}>Activity</Text>
-          <TouchableOpacity onPress={vm.handleNavigateTransactionHistory}>
+          <TouchableOpacity style={styles.viewAllTxtCont} onPress={vm.handleNavigateTransactionHistory}>
             <Text style={styles.viewAllTxt}>View all</Text>
           </TouchableOpacity>
         </View>
@@ -254,6 +254,7 @@ const AccountScreen = () => {
       source={Images.universalGradientBackground}
       style={styles.container}
     >
+      <View style={styles.topColorBlend} />
       <SafeAreaView style={styles.container}>
         <StatusBarManager
           backgroundColor={THEME.gradientStatusBarColor}
@@ -374,12 +375,15 @@ export default AccountScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-
+    topColorBlend:
+  { height: handleSize.f(100), width: Metrics.width , backgroundColor: THEME.gradientStatusBarColor, position: "absolute", top: 0 },
   headerContainer: {
     height: handleSize.h(header_flatlist_BottomSizeAdjust),
     width: METRICS.width, // ya screen width
     borderBottomLeftRadius: handleSize.h(30),
     borderBottomRightRadius: handleSize.h(30),
+    // justifyContent: "center",
+    // backgroundColor: THEME.white
   },
   botmRadius: {
     borderBottomLeftRadius: handleSize.h(30),
@@ -447,6 +451,7 @@ const styles = StyleSheet.create({
   cardHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginHorizontal: handleSize.w(20),
     marginVertical: handleSize.h(10),
     marginTop: handleSize.h(15),
@@ -458,14 +463,18 @@ const styles = StyleSheet.create({
     color: THEME.white,
   },
 
+
+  viewAllTxtCont:
+  { justifyContent: 'center', alignItems: 'center',     backgroundColor: THEME.SlateBlue, width: handleSize.f(70), height: handleSize.f(25), borderRadius: handleSize.f(10), },
   viewAllTxt: {
     fontSize: handleSize.f(FONT_SIZES.onetwo),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
-    backgroundColor: THEME.SlateBlue,
-    paddingHorizontal: handleSize.w(9),
-    paddingVertical: handleSize.h(3),
-    borderRadius: handleSize.h(10),
+    // paddingHorizontal: handleSize.w(9),
+    // paddingVertical: handleSize.h(3),
+    borderRadius: handleSize.f(10),
+    justifyContent: "center",
+    alignItems: "center"
   },
 
   item: {

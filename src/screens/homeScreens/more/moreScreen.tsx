@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, ScrollView, Platform } from 'react-native';
 import { BottomSheet, CardBox, MainContainer, Modal } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -124,13 +124,13 @@ const MoreScreen = () => {
      <View style={styles.space} >
      <Text style={styles.boxTitleTextHeading}>Legal & Policies</Text>
      <TouchableOpacity onPress={vm.onPressPrivacyPolicy} style={styles.policyRow}>
-       <Image style={{ width: handleSize.w(24), height: handleSize.h(24), marginRight: handleSize.w(10) }} source={Images.arrow} resizeMode='contain' />
+       <Image style={{ width: handleSize.w(24), height: Platform.OS == 'ios' ? handleSize.f(15) : handleSize.f(24), marginRight: handleSize.w(10) }} source={Images.arrow} resizeMode='contain' />
        <Text style={styles.boxTitleText}>Privacy Policy</Text>
      </TouchableOpacity>
 
 
      <TouchableOpacity onPress={vm.onPressTermsofUse} style={styles.policyRow}>
-       <Image style={{ width: handleSize.w(24), height: handleSize.h(24), marginRight: handleSize.w(10) }} source={Images.arrow} resizeMode='contain' />
+       <Image style={{ width: handleSize.w(24), height: Platform.OS == 'ios' ? handleSize.f(15) : handleSize.f(24), marginRight: handleSize.w(10) }} source={Images.arrow} resizeMode='contain' />
        <Text style={styles.boxTitleText}>Terms of Use</Text>
      </TouchableOpacity>
      </View>
