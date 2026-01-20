@@ -109,7 +109,7 @@ export function useCreatePhysicalCardViewModel() {
         linked_account: fromAccount.id,
         pin: pin,
 
-        is_corporate: userData?.role == "checker" ? "yes" : "no",
+        // is_corporate: userData?.role == "checker" ? "yes" : "no",
         // user_id: "86f27234-2061-70ba-0601-406e71c662fd" //for if checker want to make card for same company corporate maker
 
       };
