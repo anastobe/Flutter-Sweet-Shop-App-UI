@@ -60,8 +60,8 @@ export default function UpdatePassword() {
       <Text style={styles.title}>Change password</Text>
 
       <InputField
-        margTp={handleSize.h(15)}
-        margBtm={handleSize.h(20)}
+        margTp={handleSize.f(15)}
+        margBtm={handleSize.f(15)}
         textInputStyle={styles.innerinput}
         image={secure ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
@@ -76,7 +76,7 @@ export default function UpdatePassword() {
       />
 
       <InputField
-        margBtm={handleSize.h(20)}
+        margBtm={handleSize.f(15)}
         textInputStyle={styles.innerinput}
         image={secure2 ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"
@@ -96,8 +96,8 @@ export default function UpdatePassword() {
       {renderRule(rules.specialChar(newPassword), 'At least 1 special character (e.g., !@#$%^&*)')}
 
       <InputField
-        margTp={handleSize.h(30)}
-        margBtm={handleSize.h(10)}
+        margTp={handleSize.f(15)}
+        margBtm={handleSize.f(10)}
         textInputStyle={styles.innerinput}
         image={secure3 ? 'eye-off-outline' : 'eye-outline'}
         autoCapital="none"

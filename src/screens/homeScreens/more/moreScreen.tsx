@@ -188,7 +188,9 @@ const MoreScreen = () => {
      <Text style={styles.title}>Settings</Text>
 
 
-     {renderExchangeReq('Request')}
+     {vm?.userData?.role == 'checker' &&
+     renderExchangeReq('Request')
+     }
      {renderExchangeCurrency('Currency Exchange')}
      {renderBeneficiaries('Beneficiaries')}
      {renderSettings('Settings')}

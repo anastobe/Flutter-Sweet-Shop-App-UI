@@ -104,6 +104,9 @@ export const useadminRequestViewModal = () => {
     if (FOCUS) {
       fetchrequest(1);
     }
+    return ()=>{
+      setrequest([])
+    }
   }, [FOCUS]);
 
   /* ---------------- LOAD MORE ---------------- */

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { HOME_ROUTES } from '../../../constants';
 import { storeUserToken } from '../../../Redux/Action/Auth/AuthActions';
 import { StatusBar } from 'react-native';
@@ -10,7 +10,7 @@ import { logoutUser } from '../../../utils/logout.helper';
 export default function useMoreViewModel() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
- 
+   const userData = useSelector((state: any) => state?.AuthReducer?.userData);
   
   const [open, setopen] = useState(false);
 
@@ -95,6 +95,7 @@ export default function useMoreViewModel() {
     onPressLogout,
     onCloseHelpSheet,
     setopen,
-    open
+    open,
+    userData
   };
 }
