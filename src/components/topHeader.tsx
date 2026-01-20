@@ -17,10 +17,10 @@ const OptionsHeader = ({isFetching,loginUserData,currentAccount, onPressSelectAc
       {/* Left Back Arrow */}
      
      {show == "accountname" ?
-      <View style={{ flexDirection: "row",  }}>
+      <View style={{ flexDirection: "row", alignItems: "center"  }}>
       {onPressThreeDots && <TouchableOpacity
         onPress={onPressThreeDots}
-        style={[styles.leftIconCont, { marginRight: handleSize.w(5) }]}
+        style={[styles.leftIconCont, { marginRight: handleSize.w(8) }]}
       >
         <Icon
           name="ellipsis-vertical-outline"

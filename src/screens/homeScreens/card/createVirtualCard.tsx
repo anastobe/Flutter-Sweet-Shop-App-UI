@@ -49,7 +49,7 @@ export default function CreateVirtualCardView() {
           value={cardName}
           onChangeText={setCardName}
           keyboardType="email-address"
-          margBtm={handleSize.h(20)}
+          margBtm={handleSize.f(15)}
         />
         
         {/* <InputField
@@ -266,6 +266,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
+    marginTop: handleSize.h(10),
   },
   radioRow: {
     flexDirection: 'row',

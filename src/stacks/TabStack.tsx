@@ -634,7 +634,7 @@ const styles = StyleSheet.create<any>({
   tabTxt: {
     fontFamily: FONTFAMILY.Regular,
     fontSize: handleSize.f(FONT_SIZES.nine),
-    marginTop: Platform.OS == 'ios' ? handleSize.f(4) : handleSize.f(2),
+    marginTop: Platform.OS == 'ios' ? handleSize.f(6) : handleSize.f(2),
     marginBottom: handleSize.f(6),
   },
   imgTab: {
@@ -647,6 +647,7 @@ const styles = StyleSheet.create<any>({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: handleSize.w(8),
+    marginHorizontal: handleSize.f(6),
   },
   tabCont: {
     // width: handleSize.w(METRICS.width / 5 - 22),

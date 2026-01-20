@@ -25,7 +25,7 @@ const ContactAddress = () => {
         value={vm?.country?.name} 
         enableDropdown={true}
         dropdownData={vm.countryList} 
-        margBtm={23}
+        margBtm={15}
         isOpen={vm.openDropdown === 'country'} 
         onToggleDropdown={() =>{ vm.toggleDropdown('country') }}
         onDropdownSelect={(item:any )=>{
@@ -42,7 +42,7 @@ const ContactAddress = () => {
         placeholder="Town"
         value={vm.town}
         onChangeText={vm.setown}
-        margBtm={handleSize.h(20)}
+        margBtm={handleSize.f(15)}
       />
 
     </View>
@@ -56,7 +56,7 @@ const ContactAddress = () => {
         placeholder="Address"
         value={vm.address}
         onChangeText={vm.setAddress}
-        margBtm={handleSize.h(20)}
+        margBtm={handleSize.f(15)}
       />
 
       <InputField
@@ -65,7 +65,7 @@ const ContactAddress = () => {
         placeholder="Apartment/Suite (Optional)"
         value={vm.address2}
         onChangeText={vm.setAddress2}
-        margBtm={handleSize.h(20)}
+        margBtm={handleSize.f(15)}
       />
 
       <InputField
@@ -75,7 +75,7 @@ const ContactAddress = () => {
         value={vm.postalCode}
         onChangeText={vm.setPostalCode}
         keyboardType="numeric"
-        margBtm={handleSize.h(20)}
+        margBtm={handleSize.f(15)}
       />
     </View>
   );
