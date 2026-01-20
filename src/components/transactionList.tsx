@@ -8,13 +8,14 @@ import { CommonUtils } from '../utils';
 
 interface Props {
   item?: any;
+  type?: string;
   onPress?: () => void;
 }
 
-const TransactionItem = ({ item, onPress }: Props) => {
+const TransactionItem = ({ item, type, onPress }: Props) => {
   const isDebit = item?.direction === 'debit';
 
-  console.log("TransactionItem==>",item);
+  console.log("TransactionItem==>",type);
   
 
   return (
@@ -31,8 +32,13 @@ const TransactionItem = ({ item, onPress }: Props) => {
         <View>
           <Text numberOfLines={2} ellipsizeMode='tail' style={styles.name}>
             {/* {item?.description} */}
-            {item?.payment_transactions?.[0]?.beneficiary_name?.company_name || '...'}
-            {/* {item?.frontier_customer?.business_customer?.company_name || '-'} */}
+            {type == 'card' ? 
+              item?.frontier_customer?.personal_customer?.first_name + ' ' + item?.frontier_customer?.personal_customer?.last_name  || '...'
+              :
+              item?.payment_transactions?.[0]?.beneficiary_name?.company_name || '...'
+
+            }
+            {/* {item?.payment_transactions?.[0]?.beneficiary_name?.company_name || '...'} */}
           </Text>
           <Text style={styles.subname}>
             {/* {commonUtils.timeHumanize(item?.created_at)} */}

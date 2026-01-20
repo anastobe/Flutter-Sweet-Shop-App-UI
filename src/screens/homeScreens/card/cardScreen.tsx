@@ -222,6 +222,7 @@ const CardScreen = () => {
 const renderItem = useCallback(({ item }) => (
   <TransactionList
     item={item}
+    type={'card'}
     onPress={vm.handleNavigateTransaction}
   />
 ), []);

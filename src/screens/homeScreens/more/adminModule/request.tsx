@@ -61,7 +61,7 @@ export default function Request() {
   }
 
   function renderItem({item}: any) {
-    
+
     return (
       <TouchableOpacity onPress={() => { handleonPress(item) }} style={styles.item}>
         <View style={styles.iconCONTContainer}>
@@ -77,7 +77,7 @@ export default function Request() {
           </View>
 
           <View>
-            <Text style={styles.midTxt}>Your new card has been created and is ready to use.</Text>
+            <Text style={styles.midTxt}>Your card with name {item?.card_name} has been created and is ready to use.</Text>
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(10) }}>
@@ -115,7 +115,7 @@ export default function Request() {
  return (
     <MainContainer
       refreshingeffect={false}
-      showBackArrow={true}
+      // showBackArrow={true}
       pressBackArrow={pressBackArrow}
       isFlatList={false}
       barStyle="dark-content"
