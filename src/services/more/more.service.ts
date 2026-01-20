@@ -18,6 +18,14 @@ export const getBeneficiaryDetail = async (body: any) => {
   return response;
 };
 
+export const getPendingRequest = async (body: any) => {
+
+  // console.log("getBeneficiaryDetail==>",body);
+  
+  const response = await axiosInstance('/cards/request', 'POST', body, false);
+  return response;
+};
+
 export const getFxQuote = async (body: any) => {
   const response = await axiosInstance('/fx', 'POST', body, false);
   return response;

@@ -22,7 +22,23 @@ export const getBeneficiaryDetail = ({
   });
 };
 
-
+export const getPendingRequest = ({
+  callback,
+}: {
+  callback: (res: any) => void;
+}) => {
+  return useMutation({
+    mutationFn: apis.getPendingRequest,
+    onSuccess: (response: any) => {
+      if (response?.success) {
+        callback(response);
+      }
+    },
+    onError: (error: any) => {
+      console.log('getPendingRequest error:', error);
+    },
+  });
+};
 
 export const getFxQuote = ({
   callback,

@@ -20,6 +20,11 @@ export const freezUnFreezCardNoMessage = async (body: any) => {
   return await axiosInstance('/card/status', 'POST', body, true);
 };
 
+
+export const changeCardStatus = async (body: any) => {
+  return await axiosInstance('/cards/request/status', 'POST', body, true);
+};
+
 // Set PIN security
 export const setPinSecurity = async (body: any) => {
   return await axiosInstance('/card/set-pin', 'POST', body,true);

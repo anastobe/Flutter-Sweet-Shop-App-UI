@@ -68,11 +68,12 @@ function formatTime(date: any) {
 
   const d = new Date(date + 'Z'); // 👈 VERY IMPORTANT
 
-  return d.toLocaleTimeString('en-US', {
+  const formattedDate = d.toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',
     hour12: true,
   });
+  return formattedDate;
 }
 
 export const getCurrencySymbol = (
@@ -195,7 +196,7 @@ function formatDateTime(inputTime: any) {
   let monthWithZero = month < 10 ? `0${month}` : `${month}`
 
   // Return formatted date and time string
-  return `${monthWithZero}-${dayWithZero}-${year}---${formattedTime}`;
+  return `${monthWithZero}-${dayWithZero}-${year}    ${formattedTime}`;
 }
 
 

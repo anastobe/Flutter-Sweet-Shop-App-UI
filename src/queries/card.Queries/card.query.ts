@@ -80,6 +80,26 @@ export const freezUnFreezCardNoMessage = ({callback} : {callback: (res: any) => 
 };
 
 
+export const changeCardStatus = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.changeCardStatus,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+    }  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('changeCardStatus error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    }
+  });
+};
+
+
+
 export const setSpendLimit = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
 

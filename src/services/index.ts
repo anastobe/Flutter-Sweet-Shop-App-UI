@@ -32,6 +32,7 @@ import {
 
 import {
     freezUnFreezCardNoMessage,
+    changeCardStatus,
     useReplaceCard,
     CardpaymentHistry,
     setSpendLimit,
@@ -52,6 +53,7 @@ import {
 
 import { 
     getBeneficiaryDetail,
+    getPendingRequest,
     getFxQuote,
     DeleteBeneficiary,
     AddnewBeneficiaryApi,
@@ -80,6 +82,7 @@ const apis = {
   CardpaymentHistry,
   getUserDetail,
   getBeneficiaryDetail,
+  getPendingRequest,
   getFxQuote,
   DeleteBeneficiary,
   AddnewBeneficiaryApi,
@@ -97,6 +100,7 @@ const apis = {
   setSpendLimit,
   setPinSecurity,
   freezUnFreezCardNoMessage,
+  changeCardStatus,
   AccFreeze,
   AccDelete,
   paymentHistry,

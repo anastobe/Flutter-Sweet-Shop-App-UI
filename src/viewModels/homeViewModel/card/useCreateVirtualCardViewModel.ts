@@ -10,7 +10,7 @@ import { THEME } from '../../../styles';
 
 export default function useCreateVirtualCardViewModel() {
   const navigation = useNavigation();
-
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
@@ -85,12 +85,11 @@ export default function useCreateVirtualCardViewModel() {
         spending_limits: spendingLimit,
         limit_type: limitType?.toLowerCase(),
         currency_type: fromAccount?.currency_id?.toString(),
-        linked_account: fromAccount.id
+        linked_account: fromAccount.id,
+        
+        is_corporate: userData?.role == "checker" ? "yes" : "no", 
+        // user_id: "86f27234-2061-70ba-0601-406e71c662fd" //for if checker want to make card for same company corporate maker
       };
-      // card_desgin: 'steel',//REMOVED
-
-      // console.log("ASdasd=>",payload);
-      // return
 
       navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, linkedAccount: fromAccount, currency: fromAccount });
     }

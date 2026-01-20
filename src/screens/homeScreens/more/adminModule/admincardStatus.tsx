@@ -11,6 +11,8 @@ import StatusBarManager from '../../../../components/statusBarManager';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
 import { handleSize } from '../../../../config/responsiveTheme';
 import Metrics from '../../../../styles/metrics';
+import { changeCardStatus } from '../../../../queries/card.Queries/card.query';
+import { LoaderCompleteScreenOnly } from '../../../../components/activityIndicator';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -28,22 +30,50 @@ function InfoRow({ icon, label, value }) {
 }
 
 function AdminConfirmCardRequest(props: any) {
+  
+  const { Detail } = props.route.params;
   const navigation = useNavigation();
+
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
 
+  const { mutate: changeCardStatusFunc, isPending: isPendingchangeCardStatus } = changeCardStatus({
+      callback: (response: any) => {        
+        
+        setOpen(false);
+        setOpen2(false);
+
+        setTimeout(() => {
+          navigation.goBack();
+        }, 500);
+      
+      },
+    });
+
+
   const pressBackArrow = () => navigation.goBack();
+
+  console.log("Details==>",Detail);
+  
 
   const renderCardDetails = () => (
     <View style={styles.summaryBox}>
-      <InfoRow icon="card-outline" label="Card Type" value="Visa" />
-      <InfoRow icon="person-outline" label="Cardholder Name" value="John Doe" />
-      <InfoRow icon="home-outline" label="Delivery Address" value="221B Baker Street" />
-      <InfoRow icon="time-outline" label="Estimated Delivery" value="3–5 Business Days" />
-      <InfoRow icon="time-outline" label="Card Issuance Fee" value="£4.95 GBP" />
-      <InfoRow icon="flash-outline" label="Delivery Fee" value="Free" />
+      <InfoRow icon="card-outline" label="Card Type" value={Detail?.format} />
+      <InfoRow icon="person-outline" label="Cardholder Name" value={Detail?.card_name} />
+      <InfoRow icon="home-outline" label="Delivery Address" value="DUMMY" />
+      <InfoRow icon="time-outline" label="Estimated Delivery" value="DUMMY 3–5  Days" />
+      <InfoRow icon="time-outline" label="Card Issuance Fee" value="DUMMY £4.95 GBP" />
+      <InfoRow icon="flash-outline" label="Delivery Fee" value="DUMMY Free" />
     </View>
   );
+
+  function changeCaredStatus(status: string) {
+    let payload = {
+        request_id: Detail?.id,
+        status: status   //Approved or Rejected
+      }
+    changeCardStatusFunc(payload)
+  }
 
   const renderAccept = () => (
     <Modal
@@ -55,12 +85,9 @@ function AdminConfirmCardRequest(props: any) {
           backImg={Images.addCardGradient}
           visible={open}
           onClose={() => setOpen(false)}
-          btnLoader={false}
+          btnLoader={isPendingchangeCardStatus}
           marginTopTitle={handleSize.h(40)}
-          onConfirm={() => {
-            Alert.alert('NEED', SHOW_CLIENT);
-            setOpen(false);
-          }}
+          onConfirm={()=>changeCaredStatus('Rejected')}
           showSubBody={false}
           showCancelBtn={false}
           downConfirmText="Cancel"
@@ -85,12 +112,9 @@ function AdminConfirmCardRequest(props: any) {
           backImg={Images.addCardGradient}
           visible={open2}
           onClose={() => setOpen2(false)}
-          btnLoader={false}
+          btnLoader={isPendingchangeCardStatus}
           marginTopTitle={handleSize.h(40)}
-          onConfirm={() => {
-            Alert.alert('NEED', SHOW_CLIENT);
-            setOpen2(false);
-          }}
+          onConfirm={()=>changeCaredStatus('Approved')}
           showSubBody={false}
           showCancelBtn={false}
           downConfirmText="Cancel"
@@ -145,6 +169,9 @@ function AdminConfirmCardRequest(props: any) {
         {renderAccept()}
         {renderReject()}
       </View>
+        
+        {/* {isPendingchangeCardStatus && <LoaderCompleteScreenOnly />} */}
+
     </MainContainer>
   );
 }

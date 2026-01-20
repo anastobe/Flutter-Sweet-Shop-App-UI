@@ -34,7 +34,7 @@ const LoaderFullScreen = () => {
 
 const LoaderOnly = () => {
         return(
-        <View>
+        <View style={{ marginVertical: handleSize.f(20) }} >
             <ActivityIndicator size="large" color={THEME.white}  />
         </View>
       )

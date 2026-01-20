@@ -61,7 +61,9 @@ const axiosInstance = async (
     MessageHandler(errorResponse);
 
     if (errorResponse?.message?.toLowerCase()?.includes('unauthenticated') 
-      || errorResponse?.message?.toLowerCase()?.includes('session expired. please login again.')) {
+      || errorResponse?.message?.toLowerCase()?.includes('session expired. please login again.')
+      || errorResponse?.message?.toLowerCase()?.includes('unauthenticated user')
+    ) {
       logoutUser();
       return;
     }
