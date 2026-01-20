@@ -72,7 +72,7 @@ const CreatePhysicalCard = () => {
           value={cardName}
           onChangeText={setcardName}
           keyboardType={'email-address'}
-          margBtm={20}
+          margBtm={10}
         />
 
         {/* <InputField
@@ -133,7 +133,7 @@ const CreatePhysicalCard = () => {
           value={spendingLimit}
           onChangeText={setSpendingLimit}
           keyboardType={'numeric'}
-          margBtm={20}
+          margBtm={10}
              maxlen={10}
         />
  
@@ -146,7 +146,7 @@ const CreatePhysicalCard = () => {
               { id: 1, name: "Metalic" },
               { id: 2,  name: "Plastic" }
             ]}
-            margBtm={20}
+            margBtm={10}
             isOpen={openDropdown === 'design'}
             onToggleDropdown={() => toggleDropdown('design')}
             onDropdownSelect={(item:any )=> setdesign(item)}

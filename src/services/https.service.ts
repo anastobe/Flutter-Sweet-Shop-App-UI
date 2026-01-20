@@ -60,7 +60,8 @@ const axiosInstance = async (
 
     MessageHandler(errorResponse);
 
-    if (errorResponse?.message?.toLowerCase()?.includes('unauthenticated') 
+    if (errorResponse?.message?.toLowerCase()?.includes('unauthenticated')
+      || errorResponse?.message?.toLowerCase()?.includes('missing token') 
       || errorResponse?.message?.toLowerCase()?.includes('session expired. please login again.')
       || errorResponse?.message?.toLowerCase()?.includes('unauthenticated user')
     ) {

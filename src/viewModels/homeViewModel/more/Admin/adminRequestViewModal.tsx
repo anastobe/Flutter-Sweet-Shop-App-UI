@@ -1,11 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../../constants';
 import { useEffect, useRef, useState } from 'react';
 import { DeleteBeneficiary, getBeneficiaryDetail, getPendingRequest } from '../../../../queries/moreQueries/moreQuery';
 
 export const useadminRequestViewModal = () => {
   const navigation = useNavigation();
-
+  const FOCUS = useIsFocused();
   const [open, setOpen] = useState(false);
   const [request, setrequest] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -101,8 +101,10 @@ export const useadminRequestViewModal = () => {
   /* ---------------- INITIAL LOAD ---------------- */
 
   useEffect(() => {
-    fetchrequest(1);
-  }, []);
+    if (FOCUS) {
+      fetchrequest(1);
+    }
+  }, [FOCUS]);
 
   /* ---------------- LOAD MORE ---------------- */
 

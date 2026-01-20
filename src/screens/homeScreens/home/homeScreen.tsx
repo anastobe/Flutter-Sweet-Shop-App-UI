@@ -419,7 +419,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: { flex: 1 },
     topColorBlend:
-  { height: handleSize.f(100), width: Metrics.width , backgroundColor: THEME.gradientStatusBarColor, position: "absolute", top: 0 },
+  { height: handleSize.f(200), width: Metrics.width , backgroundColor: THEME.gradientStatusBarColor, position: "absolute", top: 0 },
   headerContainer: {
     height: handleSize.f(230),
     width: Metrics.width,

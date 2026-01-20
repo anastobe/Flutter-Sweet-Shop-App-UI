@@ -153,13 +153,15 @@ export default function Request() {
               tintColor={THEME.white} // iOS
               colors={[THEME.white, THEME.white, THEME.white]} // Android
               progressBackgroundColor={THEME.white} // Android background
-              refreshing={refreshing} onRefresh={onRefresh} />
+              refreshing={refreshing} 
+              onRefresh={onRefresh}
+               />
           )}
          ListFooterComponent={() =>
            isPending && request.length > 0 ? <LoaderOnly /> : null
          }
          ListEmptyComponent={() => {
-           if (isSearching || isPending || request?.length ==0 ) {
+           if (isSearching || isPending ) {
              return <LoaderOnly />;
            }
 
