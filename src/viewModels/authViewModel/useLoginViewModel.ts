@@ -9,7 +9,7 @@ import { SHOW_CLIENT } from "../../APICall/constants";
 import { Toast } from "../../utils";
 import { StatusBar } from "react-native";
 import { THEME } from "../../styles"; 
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Auth_ROUTES } from "../../constants";
 import messaging from '@react-native-firebase/messaging';
 import {
@@ -21,20 +21,21 @@ import {
 
 const messagingInstance = getMessaging();
 
-export const useLoginViewModel = (navigation: any) => {
+export const useLoginViewModel = () => {
 
   // const countryList = useSelector((state: any) => state);
-  
-  //   "username": "uhf-personal",       //indi
-  // "password": "Pass@123",
 
-  //coperate
+  //coperate - checker
+  const [email, setEmail] = useState("mohtashim");
+  const [password, setPassword] = useState("Uhf@1234");
+
+  //coperate -maker
   // const [email, setEmail] = useState("new-user");
   // const [password, setPassword] = useState("Uhf@1234");
 
   //user,individual
-  const [email, setEmail] = useState("uhf-personal");
-  const [password, setPassword] = useState("Pass@123");
+  // const [email, setEmail] = useState("uhf-personal");
+  // const [password, setPassword] = useState("Pass@123");
   const [token, setToken] = useState("");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
@@ -45,6 +46,7 @@ export const useLoginViewModel = (navigation: any) => {
 
   const dispatch = useDispatch()
   const biometryRef = useRef(null); 
+  const navigation = useNavigation(); 
   const rnBiometrics = new ReactNativeBiometrics();
  
 
@@ -101,6 +103,7 @@ requestFCMPermission()
     callback: (res: any) => {
       console.log("Login response:", res);
     },
+    navigation
   });
 
   const handleLogin = () => { 

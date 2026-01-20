@@ -6,17 +6,24 @@ import QueryKey from './queryKey';
 import { Toast } from '../utils';
 import apis from '../services';
 
-export const useLogin = ({callback} : {callback: (res: any) => void}) => {
+export const useLogin = ({callback, navigation} : {callback: (res: any) => void, navigation: any}) => {
   const dispatch = useDispatch();
 
   return useMutation({
     mutationFn: apis.userLogin,
     onSuccess: async (response: any) => {
 
+      // dispatch(userIsLoggedIn(true))  
       if (response.success) {
         dispatch(storeUserToken(response.results))  
-        dispatch(userIsLoggedIn(true))  &&
         callback(response)
+        
+        if (response?.results?.role == 'checker') {
+          navigation.navigate(Auth_ROUTES.REQUEST)
+        }
+        else { //individual or corporate maker
+          dispatch(userIsLoggedIn(true))  
+        }
     }
   
   },
@@ -27,6 +34,28 @@ export const useLogin = ({callback} : {callback: (res: any) => void}) => {
     }
   });
 };
+
+// export const useLogin = ({callback} : {callback: (res: any) => void}) => {
+//   const dispatch = useDispatch();
+
+//   return useMutation({
+//     mutationFn: apis.userLogin,
+//     onSuccess: async (response: any) => {
+
+//       if (response.success) {
+//         dispatch(storeUserToken(response.results))  
+//         dispatch(userIsLoggedIn(true))  &&
+//         callback(response)
+//     }
+  
+//   },
+//     onError: (error: any) => {
+//       // this is usually a network/server-side error
+//       console.log('Login error:', error);
+//       // onErrorCallback?.(error?.message || 'Something went wrong');
+//     }
+//   });
+// };
 
 export const ResetPasswordLink = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
