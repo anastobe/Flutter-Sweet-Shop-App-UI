@@ -61,12 +61,12 @@ export default function Request() {
     return (
       <FlatList
         data={REQUEST_DATA}
-        keyExtractor={(item) => item?.id}
+        keyExtractor={(item: any) => item?.id}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={()=>{ handleonPress(item) }} style={styles.item}>
             <View style={styles.iconCONTContainer}>
               <View style={styles.iconCONT}>
-                <Icon name={item.icon} size={handleSize.f(16)} color={THEME.textPrimary} />
+                <Icon name={item.icon} size={handleSize.f(22)} color={THEME.textPrimary} />
               </View>
             </View>
 
@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconCONT:{
-    width: handleSize.w(40),
-    height: handleSize.h(40),
+    width: handleSize.f(45),
+    height: handleSize.f(45),
     backgroundColor: THEME.primary,
     justifyContent: 'center',
     alignItems: 'center',

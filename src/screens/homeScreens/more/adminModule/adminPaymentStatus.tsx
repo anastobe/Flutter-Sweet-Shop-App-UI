@@ -28,13 +28,6 @@ const InfoRow = ({ icon, label, value }: { icon: string; label: string; value: s
   </View>
 );
 
-const BalanceCard = ({ label, amount }: { label: string; amount: string }) => (
-  <View style={styles.balanceContainer}>
-    <Text style={styles.balanceAmount}>{amount}</Text>
-    <Text style={styles.balanceLabel}>{label}</Text>
-  </View>
-);
-
 const AdminPaymentStatus = () => {
   const {
     amountSpend,
@@ -161,7 +154,7 @@ const AdminPaymentStatus = () => {
           />
 
           {/* <BalanceCard label="Available Balance" amount="£1,250.00" /> */}
-          <BalanceBox amount="£1,250.00" label="Available Balance" containerHeight={78} />
+          <BalanceBox containerHeight={90} amount="£1,250.00" label="Available Balance" />
 
           <InputDropDownStyle
             title="To Account"
@@ -172,7 +165,7 @@ const AdminPaymentStatus = () => {
           />
 
           <InputField
-            margTp={20}
+            margTp={5}
             renderRightInput={renderRightInput}
             autoCapital="none"
             blurOnSubmit={false}
@@ -241,7 +234,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Regular,
     color: THEME.white,
-    marginBottom: handleSize.h(30),
+    marginBottom: handleSize.f(20),
     lineHeight: handleSize.h(20),
   },
   infoIcon: { marginRight: handleSize.w(8), width: handleSize.w(15), height: handleSize.h(15) },
@@ -249,7 +242,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: handleSize.h(10),
+    marginVertical: handleSize.f(5),
   },
   infoLeft: { flexDirection: 'row', alignItems: 'center' },
   label: {
@@ -262,14 +255,14 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
   },
-  summaryBox: { borderRadius: handleSize.f(10), padding: handleSize.f(10), marginBottom: handleSize.h(10) },
+  summaryBox: { borderRadius: handleSize.f(10), padding: handleSize.f(0), marginBottom: handleSize.f(10) },
   balanceContainer: {
     backgroundColor: THEME.whitergba,
     padding: handleSize.f(10),
     borderRadius: handleSize.f(12),
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: handleSize.h(15),
+    marginVertical: handleSize.f(0),
   },
   balanceLabel: {
     fontFamily: FONTFAMILY.Medium,

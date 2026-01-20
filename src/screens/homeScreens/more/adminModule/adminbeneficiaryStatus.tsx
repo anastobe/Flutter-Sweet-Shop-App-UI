@@ -47,7 +47,7 @@ const AdminBeneficiaryStatus = () => {
   const renderInputFields = () => (
     <View>
       <InputField
-        margBtm={10}
+        // margBtm={10}
         autoCapital={'none'}
         blurOnSubmit={false}
         placeholder="Beneficiary name"
@@ -58,13 +58,14 @@ const AdminBeneficiaryStatus = () => {
       <InputField
         placeholder="IBAN / account No."
         value={vm.accountNo}
+        margTp={15}
                 // customInpStyle={styles.forgetTxt}
         onChangeText={vm.setAccountNo}
       />
 
       <InputField
-       margTp={10}
-         margBtm={10}
+       margTp={15}
+         margBtm={15}
         placeholder="SWIFT/BIC (optional)"
         value={vm.bicNo}
         onChangeText={vm.setBicNo}
@@ -79,7 +80,7 @@ const AdminBeneficiaryStatus = () => {
           { name: "Pak" },
           { name: "China" },
         ]} 
-        margBtm={10}
+        // margBtm={10}
       isOpen={vm.openDropdown === 'acc_type'} 
         onToggleDropdown={() => vm.toggleDropdown('acc_type')}
         onDropdownSelect={(item:any )=> vm.setCountry(item.name)}
@@ -223,7 +224,7 @@ Please review and confirm the beneficiary details before proceeding
 
           {renderInputFields()}
 
-        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(50) }} >
+        <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.f(30) }} >
          <CustomButton
             btnContSty={styles.transferBtnReject}
             loading={false}

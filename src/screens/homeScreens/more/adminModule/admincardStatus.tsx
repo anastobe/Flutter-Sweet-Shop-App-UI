@@ -123,7 +123,7 @@ function AdminConfirmCardRequest(props: any) {
 
         {renderCardDetails()}
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: handleSize.h(40) }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: handleSize.f(30) }}>
           <CustomButton
             btnContSty={styles.transferBtnReject}
             loading={false}

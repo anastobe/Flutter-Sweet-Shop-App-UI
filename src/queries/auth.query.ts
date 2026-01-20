@@ -19,7 +19,7 @@ export const useLogin = ({callback, navigation} : {callback: (res: any) => void,
         callback(response)
         
         if (response?.results?.role == 'checker') {
-          navigation.navigate(Auth_ROUTES.REQUEST)
+          navigation.reset({ routes: [{ name: Auth_ROUTES.REQUEST }] });
         }
         else { //individual or corporate maker
           dispatch(userIsLoggedIn(true))  

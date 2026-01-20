@@ -16,7 +16,7 @@ const BalanceBox: React.FC<BalanceBoxProps> = ({
   containerHeight,
 }) => {
   return (
-    <View style={[styles.containerAMOUNT, { height: containerHeight ? handleSize.h(containerHeight) : handleSize.h(80) }]}>
+    <View style={[styles.containerAMOUNT, { height: containerHeight ? handleSize.f(containerHeight) : handleSize.f(80) }]}>
       <Text style={styles.balanceAmountTxt}>{amount}</Text>
       <Text style={styles.balanceTxt}>{label}</Text>
     </View>

@@ -47,7 +47,7 @@ export const InputDropDownStyle = ({
 
 
   return (
-    <View style={{ marginBottom: handleSize.h(18) }}>
+    <View style={{ marginBottom: handleSize.f(10) }}>
       {/* ⭐ IF VALUE SELECTED => Show PREVIEW STYLE */}
       {value?.name ? (
         <TouchableOpacity style={styles.selectedBox} onPress={onToggle}>
@@ -81,7 +81,7 @@ export const InputDropDownStyle = ({
 
           <Image
             source={Images.dropDown}
-            style={{ width: handleSize.w(26), height: handleSize.h(26) }}
+            style={{ width: handleSize.f(28), height: handleSize.f(28) }}
             tintColor={THEME.white}
           />
         </Pressable>
