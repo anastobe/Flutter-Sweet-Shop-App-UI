@@ -11,7 +11,7 @@ import { StatusBar } from "react-native";
 import { THEME } from "../../styles"; 
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Auth_ROUTES } from "../../constants";
-import messaging from '@react-native-firebase/messaging';
+// import messaging from '@react-native-firebase/messaging';
 import {
   getMessaging,
   requestPermission,
@@ -26,12 +26,12 @@ export const useLoginViewModel = () => {
   // const countryList = useSelector((state: any) => state);
 
   //coperate - checker
-  // const [email, setEmail] = useState("mohtashim");
-  // const [password, setPassword] = useState("Uhf@1234");
+  const [email, setEmail] = useState("mohtashim");
+  const [password, setPassword] = useState("Uhf@1234");
 
   //coperate -maker
-  const [email, setEmail] = useState("new-user");
-  const [password, setPassword] = useState("Uhf@1234");
+  // const [email, setEmail] = useState("new-user");
+  // const [password, setPassword] = useState("Uhf@1234");
 
   //user,individual
   // const [email, setEmail] = useState("uhf-personal");
@@ -63,21 +63,28 @@ export const useLoginViewModel = () => {
 requestFCMPermission()
   }, []);
 
+
+
   const requestFCMPermission = async () => {
   const authStatus = await requestPermission(messagingInstance);
+
 
   const enabled =
     authStatus === AuthorizationStatus.AUTHORIZED ||
     authStatus === AuthorizationStatus.PROVISIONAL;
 
+
   if (!enabled) return;
 
-  const token = await getToken(messagingInstance);
+
+  // const token = await getToken(messagingInstance);
+  const token = await getMessaging().getToken()
   console.log("devicde token is:=>",token);
-  
+ 
     setToken(token)
 };
-  
+ 
+
 
 
 

@@ -18,7 +18,7 @@ type Props = {
   onPressbtn?: any;
 };
 
-const HomeCardFeatureButtons: React.FC<Props> = ({
+const CoperatehomeCardFeatureButtons: React.FC<Props> = ({
   features,
   buttonColor = '#615d87',  // Default: purplish blue
   iconColor = THEME.white,   // Default: white
@@ -30,7 +30,7 @@ const HomeCardFeatureButtons: React.FC<Props> = ({
         <View key={index} style={styles.featureItem}>
           <TouchableOpacity
             onPress={() => onPressbtn(feature)}
-            style={[styles.button, { backgroundColor: index === 0 ? THEME.prinkishBlue : THEME.primary }]}
+            style={[styles.button, { backgroundColor:  THEME.primary }]}
           >
             <Image 
               style={{ width: handleSize.w(feature.width), height: handleSize.h(feature.height) }}  
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeCardFeatureButtons;
+export default CoperatehomeCardFeatureButtons;

@@ -646,6 +646,7 @@ const InternationalTransfer = ({...props}) => {
             onChangeText={setenterAmount}
             keyboardType={"numeric"}
             maxlen={9}
+            margTp={5}
             margBtm={handleSize.h(12)}
           />
 

@@ -8,7 +8,7 @@ import { Alert, AppState, Easing, TouchableOpacity, View, useColorScheme } from 
 import { Auth_ROUTES, HOME_ROUTES } from '../constants';
 import { CommonUtils, Toast } from '../utils';
 import { Images } from '../config';
-import apis from '../services';
+import { CoperateStack } from './CoperateStack';
 
 type RootStackParamList = HomeStackParamList & AuthStackParamList;
 
@@ -19,8 +19,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const MainStack = () => {
 
   const dispatch = useDispatch()
-  // const userData = useSelector((state: any) => state?.AuthReducer?.userData);
-  const userlogdedIn = useSelector((state: any) => state?.AuthReducer?.userlogdedIn);
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+  // const userlogdedIn = useSelector((state: any) => state?.AuthReducer?.userlogdedIn);
   // console.log("REDUX=>",userData);
   
 
@@ -49,6 +49,18 @@ export const MainStack = () => {
       />
   ));
 
+    const CoperateScreens = CoperateStack?.map((stack: any) => (
+    <Stack.Screen
+      key={stack?.name}
+      name={stack?.name}
+      component={stack?.component}
+      options={{
+        gestureEnabled: true
+      }}
+      />
+  ));
+  
+
   return (
     <Stack.Navigator
     screenOptions={{
@@ -56,8 +68,13 @@ export const MainStack = () => {
       headerShown: false
     }}>
       {
-       userlogdedIn ? 
-       HomeScreens 
+       userData?.role == 'checker' 
+       ? 
+       CoperateScreens  //this route is for coorporate - checker
+       : 
+       userData?.role == 'maker' 
+       ?
+       HomeScreens   //this route is for user/individual and coorporate - maker
        : 
        AuthScreens
       }

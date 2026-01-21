@@ -23,7 +23,23 @@ const MoreScreen = () => {
      <Text style={styles.headingTxt}>{heading}</Text>
      <CardBox
        rotate="-45deg"
-       titleLeft="Request"
+       titleLeft="Request Beneficiary"
+       iconRight="arrow-forward-outline"
+       TL_radius={handleSize.f(10)}
+       TR_radius={handleSize.f(10)}
+       onPress={vm.onPressRequest}
+     />
+          <CardBox
+       rotate="-45deg"
+       titleLeft="Request Money"
+       iconRight="arrow-forward-outline"
+       TL_radius={handleSize.f(10)}
+       TR_radius={handleSize.f(10)}
+       onPress={vm.onPressRequest}
+     />
+          <CardBox
+       rotate="-45deg"
+       titleLeft="Request Card"
        iconRight="arrow-forward-outline"
        TL_radius={handleSize.f(10)}
        TR_radius={handleSize.f(10)}
@@ -191,8 +207,11 @@ const MoreScreen = () => {
      {vm?.userData?.role == 'checker' &&
      renderExchangeReq('Request')
      }
-     {renderExchangeCurrency('Currency Exchange')}
-     {renderBeneficiaries('Beneficiaries')}
+     {vm?.userData?.role !== 'checker' &&  //show if not checker
+     renderExchangeCurrency('Currency Exchange')}
+
+     {vm?.userData?.role !== 'checker' && 
+     renderBeneficiaries('Beneficiaries')}
      {renderSettings('Settings')}
 
 

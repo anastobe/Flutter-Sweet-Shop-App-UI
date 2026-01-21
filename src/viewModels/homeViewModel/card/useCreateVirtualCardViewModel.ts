@@ -87,6 +87,8 @@ export default function useCreateVirtualCardViewModel() {
         currency_type: fromAccount?.currency_id?.toString(),
         linked_account: fromAccount.id,
         
+        linked_account_name: fromAccount?.name,
+        currency_name: fromAccount?.iso_code,
         is_corporate: userData?.role == "maker" ? "yes" : "no", 
         // user_id: "86f27234-2061-70ba-0601-406e71c662fd" //for if checker want to make card for same company corporate maker
       };

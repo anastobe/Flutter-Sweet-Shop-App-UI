@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
    fontSize: handleSize.f(FONT_SIZES.onefour),
    fontFamily: FONTFAMILY.Light,
    color: THEME.white,
-   marginTop: handleSize.f(3)
+   marginTop: handleSize.f(4)
  },
  forgetTxtpop: {
    backgroundColor: THEME.primary,

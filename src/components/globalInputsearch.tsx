@@ -139,6 +139,9 @@ const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary, filter
         colors={['#433c71ff', '#2c2d5e', '#272d5a']}
         style={styles.item}
       >
+      <View style={{ flexDirection: 'row', alignItems: 'center', padding: handleSize.f(12) }}>
+
+
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>{initials}</Text>
         </View>
@@ -151,25 +154,8 @@ const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary, filter
             {item?.currency?.iso_code || 'XXX'}
           </Text>
         </View>
-
-        {/* <TouchableOpacity
-          style={styles.butnCont}
-          onPress={() => onPressDelete(item)}
-        >
-          <Icon name="trash-outline" size={20} color={THEME.white} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.butnCont2}
-          onPress={() => onPressPayment(item)}
-        >
-          <Icon
-            name="arrow-forward-outline"
-            size={20}
-            color={THEME.white}
-          />
-        </TouchableOpacity> */}
-
+        
+        </View>
       </LinearGradient>
         </TouchableOpacity>
     );
@@ -277,17 +263,18 @@ const styles = StyleSheet.create({
     // marginBottom: handleSize.h(30),
   },
   item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: THEME.textPrimary,
-    borderRadius: handleSize.f(12),
-    padding: handleSize.h(12),
-    // height: 100,
-    marginBottom: handleSize.h(10),
+   backgroundColor: THEME.textPrimary,
+   borderRadius: handleSize.f(12),
+   // padding: handleSize.h(12),
+   // height: 100,
+   marginBottom: handleSize.h(10),
+   flexDirection: "row",
+    alignItems: "center",
+    // paddingVertical: handleSize.h(10),
   },
   avatar: {
-    width: handleSize.w(40),
-    height: handleSize.h(40),
+    width: handleSize.f(40),
+    height: handleSize.f(40),
     borderRadius: handleSize.f(14),
     backgroundColor: THEME.primary,
     justifyContent: 'center',
@@ -301,17 +288,19 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onesix),
     textTransform: "capitalize" 
   },
-  name: {
-    fontSize: handleSize.f(FONT_SIZES.onesix),
-    fontFamily: FONTFAMILY.SemiBold,
-    color: THEME.white,
-    textTransform: "capitalize" 
-  },
-  currency: {
-    fontSize: handleSize.f(FONT_SIZES.onefour),
-    fontFamily: FONTFAMILY.Light,
-    color: THEME.white,
-  },
+ name: {
+   fontSize: handleSize.f(FONT_SIZES.onesix),
+   fontFamily: FONTFAMILY.SemiBold,
+   color: THEME.white,
+   textTransform: "capitalize"
+ },
+ currency: {
+   fontSize: handleSize.f(FONT_SIZES.onefour),
+   fontFamily: FONTFAMILY.Light,
+   color: THEME.white,
+   marginTop: handleSize.f(4)
+ },
+
   forgetTxtpop: {
     backgroundColor: THEME.primary,
     width: '100%',
@@ -398,8 +387,8 @@ const styles = StyleSheet.create({
   },
 
   rightIconCont: {
-    width: handleSize.w(28),
-    height: handleSize.h(28),
+    width: handleSize.f(28),
+    height: handleSize.f(28),
     borderRadius: handleSize.f(50),
     justifyContent: "center",
     alignItems: "center",

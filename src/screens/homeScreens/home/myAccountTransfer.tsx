@@ -171,7 +171,8 @@ const MyAccountTransfer = ({...props}) => {
             onChangeText={setenterAmount}
             keyboardType={"numeric"}
             maxlen={9}
-            margBtm={handleSize.h(12)}
+            margTp={5}
+            margBtm={handleSize.f(12)}
           />
 
 
@@ -205,6 +206,7 @@ const MyAccountTransfer = ({...props}) => {
             enableDropdown={true}
             dropdownData={loginUserData?.banking_partner?.valid_payment_types}
             margBtm={handleSize.h(12)}
+            margTp={5}
             isOpen={openDropdown === "paymentTypes"}
             onToggleDropdown={() =>{
               toggleDropdown("paymentTypes")

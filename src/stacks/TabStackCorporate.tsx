@@ -51,6 +51,7 @@ import { StatusBar } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { handleSize } from '../config/responsiveTheme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Coperate_homeScreen from '../screens/homeScreens/home/coperate_homeScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -71,53 +72,13 @@ const HomeStack = () => {
         headerShown: false 
       }}>
         <Stack.Screen
-          name={HOME_ROUTES.HOME}
-          component={HomeScreen}
+          name={HOME_ROUTES.CORPORATE_HOME}
+          component={Coperate_homeScreen}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name={HOME_ROUTES.TRANSACTION_DETAIL}
-          component={TransactionDetail}
-          options={{ headerShown: false }}
-        />
-              <Stack.Screen
-        name={HOME_ROUTES.BENEFICIARY_MANAGEMENT}
-        component={BeneficiariesManagement}
-        options={{ headerShown: false }}
-      />
       <Stack.Screen
         name={HOME_ROUTES.PROFILE}
         component={Profile}
-        options={{ headerShown: false }}
-      />      
-      <Stack.Screen
-        name={HOME_ROUTES.ADD_NEW_BENEFICIARY}
-        component={AddnewBeneficiary}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.CURRENCY_EXCHANGE}
-        component={CurrencyExchange}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.MAKE_PAYMENT}
-        component={MakePayment}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.MY_ACCOUNT_TRANSFER}
-        component={MyAccountTransfer}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.BANK_TRANSFER}
-        component={BankTansfer}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.INTERNATIONAL_TRANSFER}
-        component={InternationalTransfer}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -131,14 +92,8 @@ const HomeStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name={HOME_ROUTES.ACCOUNT_STATEMENT}
-        component={AccountStatement}
-        options={{ headerShown: false }}
-      />
-      
-              <Stack.Screen
-        name={HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT}
-        component={AddNewCurrencyAcount}
+        name={HOME_ROUTES.REQUEST}
+        component={Request}
         options={{ headerShown: false }}
       />
 
@@ -147,164 +102,6 @@ const HomeStack = () => {
   );
 };
 
-const AccountStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{        animation: "slide_from_right", headerShown: false }}>
-      <Stack.Screen
-        name={HOME_ROUTES.ACCOUNT}
-        component={AccountScreen}
-        options={{ headerShown: false }}
-      />
-            <Stack.Screen
-        name={HOME_ROUTES.ACCOUNT_STATEMENT}
-        component={AccountStatement}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.ACCOUNT_DETAIL}
-        component={AccountDetail}
-        options={{ headerShown: false }}
-      />
-              <Stack.Screen
-        name={HOME_ROUTES.BENEFICIARY_MANAGEMENT}
-        component={BeneficiariesManagement}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.ADD_NEW_BENEFICIARY}
-        component={AddnewBeneficiary}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.CURRENCY_EXCHANGE}
-        component={CurrencyExchange}
-        options={{ headerShown: false }}
-      />
-            <Stack.Screen
-        name={HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE}
-        component={ConfirmCurrencyExchange}
-        options={{ headerShown: false }}
-      />
-    <Stack.Screen
-          name={HOME_ROUTES.MAKE_PAYMENT}
-          component={MakePayment}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={HOME_ROUTES.MY_ACCOUNT_TRANSFER}
-          component={MyAccountTransfer}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={HOME_ROUTES.BANK_TRANSFER}
-          component={BankTansfer}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={HOME_ROUTES.INTERNATIONAL_TRANSFER}
-          component={InternationalTransfer}
-          options={{ headerShown: false }}
-        />
-            <Stack.Screen
-        name={HOME_ROUTES.NOTIFICATION}
-        component={Notification}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
-
-
-const PaymentStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{        animation: "slide_from_right", headerShown: false }}>
-      {/* <Stack.Screen
-        name={HOME_ROUTES.PAYMENT}
-        component={PaymentScreen}
-        options={{ headerShown: false }}
-      /> */}
-           <Stack.Screen
-          name={HOME_ROUTES.MAKE_PAYMENT}
-          component={MakePayment}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={HOME_ROUTES.MY_ACCOUNT_TRANSFER}
-          component={MyAccountTransfer}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={HOME_ROUTES.BANK_TRANSFER}
-          component={BankTansfer}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={HOME_ROUTES.INTERNATIONAL_TRANSFER}
-          component={InternationalTransfer}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={HOME_ROUTES.ACCOUNT_DETAIL}
-          component={AccountDetail}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-        name={HOME_ROUTES.CURRENCY_EXCHANGE}
-        component={CurrencyExchange}
-        options={{ headerShown: false }}
-      />
-       <Stack.Screen
-        name={HOME_ROUTES.CONFIRM_CURENCY_EXCHANGE}
-        component={ConfirmCurrencyExchange}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
-
-const CardStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{        animation: "slide_from_right", headerShown: false }}>
-      
-      <Stack.Screen
-        name={HOME_ROUTES.CARD}
-        component={CardScreen}
-        options={{ headerShown: false }}
-      />
-      
-              <Stack.Screen
-          name={HOME_ROUTES.TRANSACTION_DETAIL}
-          component={TransactionDetail}
-          options={{ headerShown: false }}
-        />
-      <Stack.Screen
-        name={HOME_ROUTES.ConfirmCardRequest}
-        component={ConfirmCardRequest}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.ACCOUNT_DETAIL}
-        component={AccountDetail}
-        options={{ headerShown: false }}
-      />
-            <Stack.Screen
-        name={HOME_ROUTES.NOTIFICATION}
-        component={Notification}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.ADD_NEW_BENEFICIARY}
-        component={AddnewBeneficiary}
-        options={{ headerShown: false }}
-      />
-            <Stack.Screen
-        name={HOME_ROUTES.REQUEST}
-        component={Request}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
 
 const MoreStack = () => {
   return (
@@ -451,7 +248,7 @@ function RenderTab({ focus, txt, img, sty }: { focus: any, txt: any, img: any, s
 }
 
 
-export const TabStack: React.FC = ({ }) => {
+export const TabStackCorporate: React.FC = ({ }) => {
 
     const insets = useSafeAreaInsets();
   
@@ -524,66 +321,7 @@ export const TabStack: React.FC = ({ }) => {
       shadowOpacity: 0,         // Removes shadow on iOS
     },
   }}
-
-        // screenOptions={({ route }) => {
-        //   const routeName =
-        //     getFocusedRouteNameFromRoute(route) ?? route.name;
-
-        //   console.log("checking2=> ", routeName);
-
-        //   // List of main tab root screens
-        //   const MAIN_SCREENS = [
-        //     "HOME",
-        //     "AccountScreen", 
-        //     "CardScreen"
-        //   ]; 
-
-        //   if (MAIN_SCREENS.includes(routeName)) {
-        //     StatusBar.setBackgroundColor(THEME.gradientStatusBarColor);
-        //   } else {
-        //     StatusBar.setBackgroundColor(THEME.darkSecondary);
-        //   }
-
-        //   return {
-        //     tabBarStyle: {
-        //       height: scale(65),
-        //       backgroundColor: THEME.darkSecondary
-        //     },
-        //     tabBarShowLabel: false,
-        //   };
-        // }}
-
-
       >
-
-             <Tab.Screen
-        key={'AccountStack'}
-        name={'AccountStack'}
-        component={AccountStack}
-        options={{
-          tabBarLabel: 'HomeStack',
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => {
-            return (
-              <RenderTab focus={focused} txt="Account" img={Images.accountTab} />
-            )
-          }
-        }}
-      />
-      <Tab.Screen
-        key={'PaymentStack'}
-        name={'PaymentStack'}
-        component={PaymentStack}
-        options={{
-          tabBarLabel: 'PaymentStack',
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => {
-            return (
-              <RenderTab focus={focused} txt="Payment" img={Images.paymentTab} />
-            )
-          }
-        }}
-      />
 
       <Tab.Screen
         key={'HomeStack'}
@@ -600,21 +338,6 @@ export const TabStack: React.FC = ({ }) => {
         }}
       />
 
- 
-      <Tab.Screen
-        key={'CardStack'}
-        name={'CardStack'}
-        component={CardStack}
-        options={{
-          tabBarLabel: 'CardStack',
-          headerShown: false,
-          tabBarIcon: ({ color, focused }) => {
-            return (
-              <RenderTab focus={focused} txt="Cards" img={Images.cardTab} />
-            )
-          }
-        }}
-      />
 
       <Tab.Screen
         key={'MoreStack'}
@@ -652,11 +375,11 @@ const styles = StyleSheet.create<any>({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: handleSize.w(8),
-    marginHorizontal: handleSize.f(6),
+    marginHorizontal: handleSize.f(40),
   },
   tabCont: {
     // width: handleSize.w(METRICS.width / 5 - 22),
-    width: (METRICS.width / 5),
+    width: (METRICS.width / 2),
     height: handleSize.f(65),
     // width: (METRICS.width / 5),
     backgroundColor: THEME.darkSecondary,

@@ -115,7 +115,7 @@ export default function Request() {
  return (
     <MainContainer
       refreshingeffect={false}
-      // showBackArrow={true}
+      showBackArrow={true}
       pressBackArrow={pressBackArrow}
       isFlatList={false}
       barStyle="dark-content"
