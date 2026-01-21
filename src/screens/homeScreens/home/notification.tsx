@@ -35,7 +35,7 @@ const Notification = () => {
   function onPressItem(item: any) {
 
     console.log("play");
-    return
+    // return
 
     if (item?.data?.is_modal === 'yes') {
 

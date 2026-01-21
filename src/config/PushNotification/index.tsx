@@ -8,7 +8,7 @@ import {
 import { useEffect, useRef } from 'react';
 import { useNotificationModal } from '../../components/notificationModalContext';
 import messaging from '@react-native-firebase/messaging';
-import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
+import notifee, { AndroidImportance, AndroidStyle, EventType } from '@notifee/react-native';
 import { CommonUtils } from '../../utils';
 
 // const EXPIRY_MS = 30 * 60 * 1000;s
@@ -59,7 +59,15 @@ export const PushNotificationHandler = () => {
         sound: 'default',
         pressAction: { id: 'default' },
       },
+
+      style: {
+        type: AndroidStyle.BIGTEXT,
+        text: Parsebody, // full description here
+      },
+
     });
+
+    console.log("handleMessage==>",data);
 
     if (data?.is_modal === 'yes') {
         dispatch(enqueueTransaction(data));

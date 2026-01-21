@@ -496,14 +496,15 @@ function selectAccount(account: any) {
   selectAccountRef.current?.close();
   setcurrentAccount(account);
   setCurrentIndex(0)
-  
-  // 🔥 VERY IMPORTANT
-  setTimeout(() => {
-    cardListRef?.current?.scrollToIndex({
-      index: 0,
-      animated: false,
-    });
-  }, 50);
+
+  if (getCardsData?.length) {
+    setTimeout(() => {
+      cardListRef?.current?.scrollToIndex({
+        index: 0,
+        animated: false,
+      });
+    }, 50);
+  }
 
 }
 

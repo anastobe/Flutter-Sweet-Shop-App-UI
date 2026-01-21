@@ -17,13 +17,14 @@ export const useLogin = ({callback, navigation} : {callback: (res: any) => void,
       if (response.success) {
         dispatch(storeUserToken(response.results))  
         callback(response)
+        dispatch(userIsLoggedIn(true))  
         
-        if (response?.results?.role == 'checker') {
-          navigation.reset({ routes: [{ name: Auth_ROUTES.REQUEST }] });
-        }
-        else { //individual or corporate maker
-          dispatch(userIsLoggedIn(true))  
-        }
+        // if (response?.results?.role == 'checker') {
+        //   navigation.reset({ routes: [{ name: Auth_ROUTES.REQUEST }] });
+        // }
+        // else { //individual or corporate maker
+        //   dispatch(userIsLoggedIn(true))  
+        // }
     }
   
   },

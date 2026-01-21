@@ -158,8 +158,8 @@ const CardScreen = () => {
     return (
       <View>
         <FlatList
-          data={vm.getCardsData}
-          ref={vm.cardListRef}
+          data={vm?.getCardsData}
+          ref={vm?.cardListRef}
           horizontal
           pagingEnabled
           ListEmptyComponent={
@@ -180,12 +180,12 @@ const CardScreen = () => {
           scrollEventThrottle={16}
           onViewableItemsChanged={vm.SlidingCardsProps.onViewableItemsChanged}
           onScrollToIndexFailed={() => {
-            vm.cardListRef.current?.scrollToOffset({
+            vm?.cardListRef?.current?.scrollToOffset({
               offset: 0,
               animated: false,
             });
           }}
-          viewabilityConfig={vm.SlidingCardsProps.viewabilityConfig}
+          viewabilityConfig={vm?.SlidingCardsProps?.viewabilityConfig}
           renderItem={({ item, index }: any) => (
             <AccountCard
               key={index}
@@ -198,7 +198,7 @@ const CardScreen = () => {
         />
 
         <View style={styles.dotsContainer}>
-          {vm.getCardsData?.map((item: any, index: number) => (
+          {vm?.getCardsData?.map((item: any, index: number) => (
             <View
               key={index}
               style={[
@@ -222,7 +222,6 @@ const CardScreen = () => {
 const renderItem = useCallback(({ item }) => (
   <TransactionList
     item={item}
-    type={'card'}
     onPress={vm.handleNavigateTransaction}
   />
 ), []);
