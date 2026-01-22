@@ -13,6 +13,16 @@ const BENEFICIARY_KEY_TYPES = {
    bank: "bank"
 }
 
+const GLOBAL_USER_TYPES = {
+  MAKER: 'MAKER',
+  CHECKER: 'CHECKER'
+}
+
+const CUSTOMER_TYPE = { 
+  CORPORATE: 'corporate',
+  PERSONAL: 'personal'
+}
+
 const BENEFICIARY_TYPES: BeneficiaryType[] = [
   { key: BENEFICIARY_KEY_TYPES.frontier, label: 'Frontier Pay User (by @username, email, or phone)' },
   { key: BENEFICIARY_KEY_TYPES.bank, label: 'Bank Account' },
@@ -403,7 +413,9 @@ export {
     BENEFICIARY_ADD_FOR,
     BENEFICIARY_KEY_FOR,
     CARD_STATUS,
-    ACCOUNT_HISTRY_VALIDATION
+    ACCOUNT_HISTRY_VALIDATION,
+    GLOBAL_USER_TYPES,
+    CUSTOMER_TYPE
 
 
 };
