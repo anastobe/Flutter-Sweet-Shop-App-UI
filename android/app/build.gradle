@@ -52,6 +52,7 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
+            signingConfig signingConfigs.debug
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -60,7 +61,10 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation platform('com.google.firebase:firebase-bom:33.3.0')
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics'
+
     implementation("com.facebook.react:react-android")
     implementation project(':react-native-vector-icons')
     implementation (platform('com.google.firebase:firebase-bom:33.3.0'))
