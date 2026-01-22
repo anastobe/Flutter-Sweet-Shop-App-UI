@@ -15,7 +15,7 @@ interface Props {
 const TransactionItem = ({ item, type, onPress }: Props) => {
   const isDebit = item?.direction === 'debit';
 
-  console.log("TransactionItem==>",type);
+  console.log(type,"TransactionItem==>",item?.card_transactions[0]?.merchant_id); 
   
 
   return (
@@ -33,9 +33,9 @@ const TransactionItem = ({ item, type, onPress }: Props) => {
           <Text numberOfLines={2} ellipsizeMode='tail' style={styles.name}>
             {/* {item?.description} */}
             {type == 'card' ? 
-              item?.frontier_customer?.personal_customer?.first_name + ' ' + item?.frontier_customer?.personal_customer?.last_name  || '...'
-              :
               item?.payment_transactions?.[0]?.beneficiary_name?.company_name || '...'
+              :
+              item?.card_transactions[0]?.merchant_id || '...'
 
             }
             {/* {item?.payment_transactions?.[0]?.beneficiary_name?.company_name || '...'} */}

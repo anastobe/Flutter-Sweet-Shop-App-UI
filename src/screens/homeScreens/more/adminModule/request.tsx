@@ -72,12 +72,12 @@ export default function Request() {
 
         <View style={styles.rightSide}>
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-            <Text style={styles.txt16}>Card Created</Text>
+            <Text style={styles.txt16}>Card Request</Text>
             <Text style={styles.txt13}>{item?.status}</Text>
           </View>
 
           <View>
-            <Text style={styles.midTxt}>Your card with name {item?.card_name} has been created and is ready to use.</Text>
+            <Text style={styles.midTxt}>Your have a new card request with name {item?.card_name}.</Text>
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(10) }}>

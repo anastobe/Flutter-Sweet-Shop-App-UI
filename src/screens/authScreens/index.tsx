@@ -82,7 +82,9 @@ const config = {
         }}
         btnLoader={false}
         // marginTopTitle={20}
-        onConfirm={()=>{vm.setOpen({
+        onConfirm={()=>{
+          Alert.alert("token",vm.token)
+          vm.setOpen({
             open: false,
             text: ""
           }) 

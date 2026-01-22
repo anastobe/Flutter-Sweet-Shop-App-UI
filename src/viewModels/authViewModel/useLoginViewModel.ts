@@ -34,8 +34,12 @@ export const useLoginViewModel = () => {
   // const [password, setPassword] = useState("Uhf@1234");
 
   //user,individual
-  const [email, setEmail] = useState("uhf-personal");
-  const [password, setPassword] = useState("Pass@123");
+  // const [email, setEmail] = useState("uhf-personal");
+  // const [password, setPassword] = useState("Pass@123");
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const [token, setToken] = useState("");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
@@ -74,14 +78,14 @@ requestFCMPermission()
     authStatus === AuthorizationStatus.PROVISIONAL;
 
 
-  if (!enabled) return;
+  if (!enabled) return; 
 
 
-  const token1 = await getToken(messagingInstance);
+  // const token1 = await getToken(messagingInstance);
   const token2 = await getMessaging().getToken()
-  console.log("devicde token is:=>",token1,"\n\n",token2);
+  console.log("devicde token is:=>","\n\n",token2);
  
-    setToken(token1 || token2)
+    setToken(token2)
 };
  
 
@@ -133,7 +137,6 @@ requestFCMPermission()
     }    
     else{
       console.log("check==>",{ username: email, password: password, device_token: token, device_type: Platform.OS });
-      Alert.alert("ss=>",token)
       
       loginFunc({ username: email, password: password, device_token: token, device_type: Platform.OS });
     }
@@ -171,6 +174,7 @@ requestFCMPermission()
     handleBiometricAuth,
     isPending,
     Open, 
-    setOpen
+    setOpen,
+    token
   };
 };
