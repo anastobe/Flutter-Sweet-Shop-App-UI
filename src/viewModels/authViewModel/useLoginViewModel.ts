@@ -12,14 +12,15 @@ import { THEME } from "../../styles";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Auth_ROUTES } from "../../constants";
 // import messaging from '@react-native-firebase/messaging';
-import {
-  getMessaging,
-  requestPermission,
-  getToken,
-  AuthorizationStatus,
-} from '@react-native-firebase/messaging';
+import messaging from '@react-native-firebase/messaging';
+// import {
+//   getMessaging,
+//   requestPermission,
+//   getToken,
+//   AuthorizationStatus,
+// } from '@react-native-firebase/messaging';
 
-const messagingInstance = getMessaging();
+// const messagingInstance = getMessaging();
 
 export const useLoginViewModel = () => {
 
@@ -63,34 +64,68 @@ export const useLoginViewModel = () => {
   }, []);
 
   
-  React.useEffect(() => {
-requestFCMPermission()
-  }, []);
+//   React.useEffect(() => {
+// requestFCMPermission()
+//   }, []);
 
 
 
-  const requestFCMPermission = async () => {
-  const authStatus = await requestPermission(messagingInstance);
+//   const requestFCMPermission = async () => {
+//   const authStatus = await requestPermission(messagingInstance);
 
+
+//   const enabled =
+//     authStatus === AuthorizationStatus.AUTHORIZED ||
+//     authStatus === AuthorizationStatus.PROVISIONAL;
+
+
+//   if (!enabled) return; 
+
+
+//   // const token1 = await getToken(messagingInstance);
+//   const token2 = await getMessaging().getToken()
+//   console.log("devicde token is:=>","\n\n",token2);
+ 
+//     setToken(token2)
+// };
+
+useEffect(() => {
+  initFCM();
+}, []);
+
+
+const initFCM = async () => {
+
+  // Android 13 permission
+  if (Platform.OS === 'android' && Platform.Version >= 33) {
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+    );
+  }
+
+  const authStatus = await messaging().requestPermission();
 
   const enabled =
-    authStatus === AuthorizationStatus.AUTHORIZED ||
-    authStatus === AuthorizationStatus.PROVISIONAL;
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
+  if (!enabled) return;
 
-  if (!enabled) return; 
+  // Wait and get token
+  const fcmToken = await messaging().getToken();
 
+  if (fcmToken) {
+    console.log("FCM TOKEN:", fcmToken);
+    setToken(fcmToken);
+  } 
 
-  // const token1 = await getToken(messagingInstance);
-  const token2 = await getMessaging().getToken()
-  console.log("devicde token is:=>","\n\n",token2);
- 
-    setToken(token2)
+  // IMPORTANT: Listen for refresh
+  messaging().onTokenRefresh(token => {
+    console.log("NEW TOKEN:", token);
+    setToken(token);
+  });
 };
  
-
-
-
 
   // const requestPermission = async () => {
   //   if (Platform.OS === 'android' && Platform.Version >= 33) {
@@ -137,7 +172,7 @@ requestFCMPermission()
     }    
     else{
       console.log("check==>",{ username: email, password: password, device_token: token, device_type: Platform.OS });
-      
+      // Alert.alert("token",token)
       loginFunc({ username: email, password: password, device_token: token, device_type: Platform.OS });
     }
   };
