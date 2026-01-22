@@ -400,8 +400,8 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   }
 
   const handleNavigateTransactionHistory = () => {
-  // console.log("handleNavigateTransactionHistory");
-  // return
+  console.log("handleNavigateTransactionHistory");
+  return
     if (currentItem?.card_id != "") {
       navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentItem?.card_id, show: ACCOUNT_HISTRY_VALIDATION.COMPLETE})
     }

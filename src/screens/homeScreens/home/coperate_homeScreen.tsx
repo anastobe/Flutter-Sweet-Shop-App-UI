@@ -75,7 +75,7 @@ const Coperate_homeScreen = () => {
   const renderHeader = () => (
     <View>
       <View style={{ flexDirection: "row", justifyContent: 'space-between', marginHorizontal: handleSize.w(20), }} >
-      <View style={{marginTop: handleSize.h(20), }} >
+      <View style={{marginTop: handleSize.f(70), }} >
         <Text style={styles.title}>Great to see you,</Text>
         {/* <Text 
         numberOfLines={1} ellipsizeMode="tail"
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     topColorBlend:
   { height: handleSize.f(150), width: Metrics.width , backgroundColor: THEME.gradientStatusBarColor, position: "absolute", top: 0 },
   headerContainer: {
-    height: handleSize.f(120),
+    height: handleSize.f(180),
     width: Metrics.width,
     borderBottomLeftRadius: handleSize.f(30),
     borderBottomRightRadius: handleSize.f(30),
@@ -214,7 +214,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Light,
     fontSize: handleSize.f(FONT_SIZES.threezero),
     color: THEME.white,
-    width: screenWidth - handleSize.w(160),
+    width: screenWidth - handleSize.f(140),
     marginTop: handleSize.f(8),
   },
 

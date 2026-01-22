@@ -132,6 +132,8 @@ requestFCMPermission()
       Toast.showToast("Please enter password", '', 'error');
     }    
     else{
+      console.log("check==>",{ username: email, password: password, device_token: token, device_type: Platform.OS });
+      
       loginFunc({ username: email, password: password, device_token: token, device_type: Platform.OS });
     }
   };

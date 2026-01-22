@@ -69,6 +69,9 @@ const { mutate: cardUsedAcceptFunc, isPending: isPendingAccept } =
       user_response: status,
     };
 
+    console.log("payload going ==>",payload);
+    
+
     if (status === approved) {
       Toast.showToast("Transaction Successfull", '', 'success',5000);
       closeAndNext();

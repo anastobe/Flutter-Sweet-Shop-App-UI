@@ -96,6 +96,11 @@ const HomeStack = () => {
         component={Request}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name={HOME_ROUTES.ADMIN_CARD_STATUS}
+        component={AdminConfirmCardRequest}
+        options={{ headerShown: false }}
+      />
 
       </Stack.Navigator>
     </>

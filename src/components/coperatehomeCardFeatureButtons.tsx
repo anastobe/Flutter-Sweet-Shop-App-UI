@@ -35,6 +35,7 @@ const CoperatehomeCardFeatureButtons: React.FC<Props> = ({
             <Image 
               style={{ width: handleSize.w(feature.width), height: handleSize.h(feature.height) }}  
               source={feature.icon} 
+              tintColor={THEME.textPrimary}
               resizeMode='contain' 
             />
           </TouchableOpacity>
@@ -50,8 +51,9 @@ const CoperatehomeCardFeatureButtons: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: "space-evenly",
+    // justifyContent: "space-evenly",
     alignItems: "center",
+    marginLeft: handleSize.f(12),
     marginTop: handleSize.f(10),
     paddingVertical: handleSize.h(10),
   },

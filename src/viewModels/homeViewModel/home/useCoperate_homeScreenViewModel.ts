@@ -109,9 +109,9 @@ export const useCoperate_homeScreenViewModel = () => {
 };
 
   const SendoptionCorporate = [ 
-    { icon: Images.sendMoney, onPress: HOME_ROUTES.REQUEST, text: "Request Money", width: 15, height: 15 },
-    { icon: Images.sendMoney, onPress: HOME_ROUTES.REQUEST, text: "Request Beneficiary", width: 20, height: 20 },
-    { icon: Images.sendMoney, onPress: HOME_ROUTES.REQUEST, text: "Request Card", width: 20, height: 20 },
+    // { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST, text: "Pending transaction request", width: 20, height: 20 },
+    // { icon: Images.accountTab, onPress: HOME_ROUTES.REQUEST, text: "Pending beneficiary request", width: 20, height: 20 },
+    { icon: Images.cardTab, onPress: HOME_ROUTES.REQUEST, text: "Pending card request", width: 20, height: 20 },
   ];
 
   const handleLogout = () => {

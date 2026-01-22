@@ -204,9 +204,9 @@ const MoreScreen = () => {
      <Text style={styles.title}>Settings</Text>
 
 
-     {vm?.userData?.role == 'checker' &&
+     {/* {vm?.userData?.role == 'checker' &&
      renderExchangeReq('Request')
-     }
+     } */}
      {vm?.userData?.role !== 'checker' &&  //show if not checker
      renderExchangeCurrency('Currency Exchange')}
 
