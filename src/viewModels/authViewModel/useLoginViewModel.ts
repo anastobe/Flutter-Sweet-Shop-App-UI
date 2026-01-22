@@ -77,11 +77,11 @@ requestFCMPermission()
   if (!enabled) return;
 
 
-  // const token = await getToken(messagingInstance);
-  const token = await getMessaging().getToken()
-  console.log("devicde token is:=>",token);
+  const token1 = await getToken(messagingInstance);
+  const token2 = await getMessaging().getToken()
+  console.log("devicde token is:=>",token1,"\n\n",token2);
  
-    setToken(token)
+    setToken(token1 || token2)
 };
  
 
@@ -133,6 +133,7 @@ requestFCMPermission()
     }    
     else{
       console.log("check==>",{ username: email, password: password, device_token: token, device_type: Platform.OS });
+      Alert.alert("ss=>",token)
       
       loginFunc({ username: email, password: password, device_token: token, device_type: Platform.OS });
     }
