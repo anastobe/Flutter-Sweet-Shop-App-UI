@@ -65,7 +65,7 @@ function TransactionDetail(props) {
 
   const queryClient = useQueryClient();
 
-  const DETAIL = props?.route?.params?.DETAIL;
+  const { DETAIL, showAttachement, currentItem } = props?.route?.params;
 
   // console.log("DETAIL==>",DETAIL);
 
@@ -88,15 +88,18 @@ function TransactionDetail(props) {
     refetch: refetchgetTransactionAttachement,
     isFetching: isPendinggetTransactionAttachement,
   } = getTransactionAttachement({
-    enabled: true,
+    enabled: false,
     id: DETAIL?.reference
   });
 
+  console.log("=====>",showAttachement); 
+
   useEffect(()=>{
-    if (DETAIL?.reference) {
+
+    if (showAttachement && DETAIL?.reference){ 
       refetchgetTransactionAttachement(DETAIL?.reference)
     }
-    
+
     return () => {
       queryClient.removeQueries({
         queryKey: [QueryKey.GET_TRANSACTIONS,  DETAIL?.reference],
@@ -105,7 +108,7 @@ function TransactionDetail(props) {
 
   },[DETAIL?.reference])
 
-  console.log("==>",getTransactionAttachementData,"---",DETAIL?.reference,"-",isPendinggetTransactionAttachement);
+  console.log("==>",getTransactionAttachementData,"---",DETAIL,"-",isPendinggetTransactionAttachement);
   
 
   function pressBackArrow() {
@@ -115,8 +118,8 @@ function TransactionDetail(props) {
   function renderCardDetails() {
     return (
       <View style={styles.summaryBox}>
-        <InfoRow icon="card-outline" label="Card" value={DETAIL?.amount} />
-        <InfoRow icon="person-outline" label="Merchant" value="Transport for London" />
+        <InfoRow icon="card-outline" label="Card" value={currentItem?.card_name} />
+        <InfoRow icon="person-outline" label="Merchant" value={DETAIL?.card_transactions?.[0]?.merchant_id} />
         <InfoRow icon="home-outline" label="Currency" value={DETAIL?.currency} />
       </View>
     );
@@ -360,6 +363,31 @@ function saveTransaction() {
   }
   }
 
+  function renderAttachement() {
+    return(
+      <View>
+      {isPendinggetTransactionAttachement ? (
+        <View style={{ marginTop: handleSize.h(20) }}>
+          <ActivityIndicator size="small" color={THEME.primary} />
+        </View>
+      )
+      :
+      getTransactionAttachementData?.results?.length ?
+      <View>
+        <Text style={[styles.title2,{ marginTop: handleSize.f(20) }]}>Uploaded file</Text>
+        {renderUpload()}
+        {renderUploadedStuffs()}
+      </View>
+      :
+      <View>
+        {renderNotUpload()}
+        {renderNot_UploadedStuffs()}
+      </View>
+      }
+      </View>
+    )
+  }
+
   return (
     <MainContainer
       showBackArrow={true}
@@ -382,26 +410,8 @@ function saveTransaction() {
         {DETAIL?.product_type == "Bank" ? null : renderCardDetails()} 
         {renderTotalAmount()}
         {rendermoredetail()}
+        {showAttachement && renderAttachement()}
 
-        {isPendinggetTransactionAttachement ? (
-          <View style={{ marginTop: handleSize.h(20) }}>
-            <ActivityIndicator size="small" color={THEME.primary} />
-          </View>
-        )
-        :
-        getTransactionAttachementData?.results?.length ?
-        <View>
-          <Text style={[styles.title2,{ marginTop: handleSize.f(20) }]}>Uploaded file</Text>
-          {renderUpload()}
-          {renderUploadedStuffs()}
-        </View>
-        :
-        <View>
-          {renderNotUpload()}
-          {renderNot_UploadedStuffs()}
-        </View>
-        
-        }
 
 
       </View>

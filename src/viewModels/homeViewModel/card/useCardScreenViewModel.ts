@@ -410,10 +410,10 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
 
   const handleNavigateTransaction = (item: any) => {
     console.log("handleNavigateTransaction");
-    return
+    // return
 
     if (item) {
-      navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item });
+      navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item, showAttachement: false, currentItem: currentItem  });
     }
   };
   

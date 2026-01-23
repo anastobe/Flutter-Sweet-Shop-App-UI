@@ -176,7 +176,7 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
 
   const handleNavigateTransaction = (item: any) => {
     if (item) {
-      navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item });
+      navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item, showAttachement: true });
     }
   };
   
