@@ -12,10 +12,15 @@ import { CommonUtils } from "../../../utils";
 import Clipboard from '@react-native-clipboard/clipboard';
 import { ACCOUNT_HISTRY_VALIDATION } from "../../../utils/data";
 import apis from "../../../services";
+import { handleLoader } from "../../../Redux/Action/Auth/AuthActions";
+import { storeSelectedAccountWholeApp } from "../../../Redux/Action/Home/HomeActions";
 
 export const useAccountScreenViewModel = () => {
 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
+  const allAccounts = useSelector((state: any) => state?.HomeReducer?.allAccounts)
+  const selectedAccount_WholeApp = useSelector((state: any) => state?.HomeReducer?.selectedAccount_WholeApp)
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -35,11 +40,12 @@ const [transactions, setTransactions] = useState<any[]>([]);
 
 
   // const LIMIT = 10;
-  const [allAccounts_withAsset, setallAccounts_withAsset] = useState([])
-  // const [currentAccount, setcurrentAccount] = useState([])
-  const [currentAccount, setcurrentAccount] = useState<any | null>(null);
+  // const [allAccounts_withAsset, setallAccounts_withAsset] = useState([])
+  // const [selectedAccount_WholeApp, setselectedAccount_WholeApp] = useState([])
+  // const [currentAccount, setcurrentAccount] = useState<any | null>(null);
 
-  const [currentAccDetail, setcurrentAccDetail] = useState({
+
+  const [currentAssetDetail, setcurrentAssetDetail] = useState({
     name: "", 
     iban: "", 
     created_at: "",
@@ -51,17 +57,17 @@ const [transactions, setTransactions] = useState<any[]>([]);
   const [showbalance, setshowbalance] = useState(false);
 
 
-  const { data: getAccountsAndAssets_Data, refetch: refetchgetAccountsAndAssets, isFetching } = getAccountsAndAssets({
-    enabled: false, 
-    dispatch,
-  });
+  // const { data: getAccountsAndAssets_Data, refetch: refetchgetAccountsAndAssets, isFetching } = getAccountsAndAssets({
+  //   enabled: false, 
+  //   dispatch,
+  // });
 
 
   //dashboard
   const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isPending: getDashboardDataPending } = getDashboardData({
     enabled: false, 
     dispatch,
-    ID: currentAccDetail?.id,
+    ID: currentAssetDetail?.id,
   });
  
   //  console.log("getDashboardData_Data=>",getDashboardData_Data);
@@ -108,6 +114,10 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
       },
     });
 
+    async function refetchgetAccountsAndAssets() {
+       await apis.getAccountsAndAssets(dispatch)
+    }
+
   const data = [
     { id: "1", total: "€50,000.00", onHold: "€22.50", available: "€53,534.00" },
     { id: "2", total: "€10,000.00", onHold: "€150.00", available: "€9,850.00" },
@@ -135,26 +145,26 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
       const accounts = res?.[0]?.accounts ?? [];
 
       const foundAccount = accounts.find(acc =>
-        acc.assets?.some((asset:any) => asset.id === currentAccDetail?.id)
+        acc.assets?.some((asset:any) => asset.id === currentAssetDetail?.id)
       );
 
      console.log("🔄 foundAccount>",foundAccount); 
 
-      
-      setcurrentAccount(foundAccount); 
+      dispatch(storeSelectedAccountWholeApp(foundAccount))
+      // setselectedAccount_WholeApp(foundAccount); 
   
     // }
 
 
     // 2️⃣ Agar account already selected hai
-    if (currentAccDetail?.id) {
+    if (currentAssetDetail?.id) {
       setTransactions([]); // 🔥 reset list
 
       // 3️⃣ Dashboard refresh
       await refetchgetDashboardData();
 
       // 4️⃣ Transactions refresh
-      fetchTransactions(currentAccDetail?.id);
+      fetchTransactions(currentAssetDetail?.id);
     }
     
 
@@ -168,8 +178,8 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
   const onPressCard = () => navigation.navigate(HOME_ROUTES.ACCOUNT_DETAIL);
 
   const handleNavigateTransactionHistory = () => {
-    if (currentAccDetail?.id != "") {
-      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentAccDetail?.id, show: ACCOUNT_HISTRY_VALIDATION.INCOMPLETE})
+    if (currentAssetDetail?.id != "") {
+      navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentAssetDetail?.id, show: ACCOUNT_HISTRY_VALIDATION.INCOMPLETE})
     }
   };
 
@@ -188,13 +198,13 @@ const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
 
   setActiveIndex(index);
 
-  if (!currentAccount?.assets?.length) return;
+  if (!selectedAccount_WholeApp?.assets?.length) return;
 
-  const currentAsset = currentAccount.assets[index];
+  const currentAsset = selectedAccount_WholeApp.assets[index];
 
   if (!currentAsset) return;
 
-  setcurrentAccDetail({
+  setcurrentAssetDetail({
     name: currentAsset?.account?.name,
     iban: currentAsset?.account?.iban,
     created_at: currentAsset?.created_at,
@@ -236,15 +246,15 @@ const onPressCopy = () => {
   
   const getAccountDetailsText = () => {
   const details = [
-    { label: 'Account name', value: currentAccount?.name ?? 'DUMMY' },
-    { label: 'IBAN', value: currentAccount?.iban ?? 'DUMMY' },
+    { label: 'Account name', value: selectedAccount_WholeApp?.name ?? 'DUMMY' },
+    { label: 'IBAN', value: selectedAccount_WholeApp?.iban ?? 'DUMMY' },
     { label: 'SWIFT code', value: 'DUMMY' },
     { label: 'Currency', value: 'DUMMY' },
     { label: 'Account type', value: 'DUMMY' },
     {
       label: 'Created cards',
-      value: currentAccount?.created_at
-        ? CommonUtils.formatDate(currentAccount.created_at)
+      value: selectedAccount_WholeApp?.created_at
+        ? CommonUtils.formatDate(selectedAccount_WholeApp.created_at)
         : 'DUMMY',
     },
     { label: 'Linked cards', value: 'DUMMY' },
@@ -258,13 +268,13 @@ const onPressCopy = () => {
   const onPressFreeze = () =>{ 
     let payload ={
       status: "frozen",
-      name: currentAccount.name,
-      id: currentAccount?.id
+      name: selectedAccount_WholeApp.name,
+      id: selectedAccount_WholeApp?.id
     }
       AccFreezeFunc(payload)
   }
   const onPressDelete = () => { 
-      AccDeleteFunc(currentAccDetail?.id)
+      AccDeleteFunc(currentAssetDetail?.id)
   }
 
   const onPressEditSave = () => Alert.alert("NEED",SHOW_CLIENT);
@@ -273,63 +283,85 @@ const onPressCopy = () => {
 
     console.log("i am saving data in state");
 
-  const accounts = data?.[0]?.accounts ?? [];
+  const accounts = data ?? [];
 
   const currrentAsset = accounts?.[0]?.assets[activeIndex]
 
   if (!accounts.length) return;
 
-  setcurrentAccount((prev: any) =>
-    prev?.id === accounts[0]?.id ? prev : accounts[0]
-  );
+  dispatch(storeSelectedAccountWholeApp(accounts?.[0]))
 
-  setcurrentAccDetail({
+  // setselectedAccount_WholeApp((prev: any) =>
+  //   prev?.id === accounts[0]?.id ? prev : accounts[0]
+  // );
+
+  setcurrentAssetDetail({
     name: currrentAsset?.currency?.iso_code,
     iban: "000",
     created_at: "create at",
     id: currrentAsset?.id,
   });
 
-  setallAccounts_withAsset(accounts);
+  // setallAccounts_withAsset(accounts);
 };
 
 //this below useeffect save first asset and all accounts and assets
   useEffect(() => {
-    
-    if (getAccountsAndAssets_Data?.length) {
+    if (allAccounts?.length) {
 
-      saveDatainState(getAccountsAndAssets_Data)
+      
+      saveDatainState(allAccounts)
+    }
+
+    setTimeout(() => {
+      console.log("play ===");
+    }, 1000);
+  
+  }, [allAccounts || selectedAccount_WholeApp?.id]);
 
 
-  //   if (firstAsset) {
-  //     setcurrentAccDetail({ 
-  //       name: firstAsset.name, //change
-  //       iban: firstAsset.account?.iban,
-  //       created_at: firstAsset.created_at,
-  //       id: firstAsset?.id
-  //     });
-  // }
-}
+  const fetchAllInitialData = async () => {
+    try {
+      dispatch(handleLoader(true));
+  
+      const [
+        userDetailRes,
+        countryRes, currencyRes, assetTypeRes, currencyAccountRes, AllAsset_n_AccountsRes] =
+      await Promise.all([
+        apis.getUserDetail(dispatch),
+        apis.getCoutry(dispatch),
+        apis.getCurrency(dispatch),
+        apis.getAssetType(dispatch),
+        apis.getCurrencyAccount(dispatch), // ✅ This returns your all accounts array
+        apis.getAccountsAndAssets(dispatch)
+      ]);      
 
-  }, [getAccountsAndAssets_Data]);
+    } catch (error) {
+      dispatch(handleLoader(false))
+      console.log("Error fetching initial data:", error);
+    } finally {
+      dispatch(handleLoader(false))
+    }
+  };
+
 
   useEffect(() => {
-    refetchgetAccountsAndAssets();
+    fetchAllInitialData()
     // apis.getCurrencyAccount(dispatch);
   }, []);
 
   
 
   useEffect(() => {
-  if (currentAccDetail?.id) {
+  if (currentAssetDetail?.id) {
 
-    // console.log("currentAccDetail==>",currentAccDetail);
+    // console.log("currentAssetDetail==>",currentAssetDetail);
     
     setTransactions([]); // 🔥 reset
     refetchgetDashboardData()
-    fetchTransactions(currentAccDetail?.id); // 🔥 reset + reload
+    fetchTransactions(currentAssetDetail?.id); // 🔥 reset + reload
   }
-  }, [currentAccDetail?.id]);
+  }, [currentAssetDetail?.id]);
 
 
 /** 🔹 Fetch Transactions */
@@ -378,7 +410,8 @@ const fetchTransactions = (ID: any) => {
 // };
 
 function selectAccount(account: any) {
-  setcurrentAccount(account);
+  // setselectedAccount_WholeApp(account);
+    dispatch(storeSelectedAccountWholeApp(account))
 
   // 🔥 reset index
   setActiveIndex(0);
@@ -394,7 +427,7 @@ function selectAccount(account: any) {
   // 🔥 first asset auto select
   const firstAsset = account?.assets?.[0];
   if (firstAsset) {
-    setcurrentAccDetail({
+    setcurrentAssetDetail({
       name: firstAsset.account?.name,
       iban: firstAsset.account?.iban,
       created_at: firstAsset.created_at,
@@ -430,10 +463,10 @@ function selectAccount(account: any) {
     onPressFreeze,
     onPressDelete,
     onPressEditSave,
-    getAccountsAndAssets_Data,
+    // getAccountsAndAssets_Data,
     refetchgetAccountsAndAssets,
-    isFetching,
-    currentAccDetail,
+    // isFetching,
+    currentAssetDetail,
     isPendingAccFreeze,
     isPendingAccDelete,
     handleNavigateTransactionHistory,
@@ -443,13 +476,15 @@ function selectAccount(account: any) {
     getDashboardDataPending,
 
     isPendingpaymentHistry,
-    allAccounts_withAsset,
-    currentAccount,
+    // allAccounts_withAsset,
+    selectedAccount_WholeApp,
     getAccountDetailsText,
     onRefresh,
     refreshing,
     setRefreshing,
-    loginUserData
+    loginUserData,
+    allAccounts,
+    userData
     // isLoadingMore,
     // loadMoreTransactions,
     // hasMore, 

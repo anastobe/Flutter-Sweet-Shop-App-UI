@@ -278,11 +278,13 @@ const renderItem = useCallback(({ item }) => (
   function Options() { 
     return (
       <OptionsHeader
-          leftTxt={"Manage cards"} 
+          // leftTxt={"Manage cards"} 
+          leftTxt={`( ${vm?.selectedAccount_WholeApp?.name} )`}
+          // allAccounts={vm?.allAccounts}
           isFetching={false}
-          show={'accountname'}
+          show={'no'}
           loginUserData={vm?.loginUserData}
-          currentAccount={vm?.currentAccount}
+          // currentAccount={vm?.selectedAccount_WholeApp}
           onPressSelectAccounts={()=>{ vm.selectAccountRef?.current?.open() }}
           // onPressThreeDots={
           //   () => vm.editRef?.current?.open()

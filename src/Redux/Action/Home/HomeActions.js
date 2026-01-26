@@ -32,3 +32,9 @@ export const storeLoginUserData = (res) => {
       dispatch({type: ActionType.GET_ACCOUNTS, payload: res });
   };
   };
+
+  export const storeSelectedAccountWholeApp = (res) => {
+  return dispatch => {
+      dispatch({type: ActionType.SELECTED_ACCOUNT_WHOLE_APP, payload: res });
+  };
+  };

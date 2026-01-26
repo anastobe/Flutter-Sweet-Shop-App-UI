@@ -13,7 +13,7 @@ export const getAccountsAndAssets = async (dispatch: any) => {
     );
 
     if (response?.success && Array.isArray(response?.results)) {
-      const accounts = response.results[0]?.accounts ?? [];
+      const accounts = response.results?.[0]?.accounts ?? [];
       dispatch(storeAccounts(accounts));
     }
 

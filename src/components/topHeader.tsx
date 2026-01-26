@@ -2,15 +2,13 @@ import React from "react";
 import { View, TouchableOpacity, StyleSheet, Image, Text } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
-import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
+import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from "../styles";
 import { Images } from "../config";
 import { handleSize } from "../config/responsiveTheme";
+import Metrics from "../styles/metrics";
 
-const OptionsHeader = ({isFetching,loginUserData,currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show }) => {
+const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show }) => {
   const navigation = useNavigation();
-
-  // console.log("currentAccount==>",currentAccount); 
-  
 
   return (
     <View style={styles.headerContainer}>
@@ -18,7 +16,7 @@ const OptionsHeader = ({isFetching,loginUserData,currentAccount, onPressSelectAc
      
      {show == "accountname" ?
       <View style={{ flexDirection: "row", alignItems: "center"  }}>
-      {onPressThreeDots && <TouchableOpacity
+      {/* {onPressThreeDots && <TouchableOpacity
         onPress={onPressThreeDots}
         style={[styles.leftIconCont, { marginRight: handleSize.w(8) }]}
       >
@@ -27,23 +25,29 @@ const OptionsHeader = ({isFetching,loginUserData,currentAccount, onPressSelectAc
           size={handleSize.f(17)}
           color={THEME.textPrimary}
         />
-      </TouchableOpacity>}
+      </TouchableOpacity>} */}
    
         {(loginUserData?.customer_type == 'personal' || isFetching) ? 
-        null 
+          <View>
+        <Text style={styles.title}>Great to see you,</Text>
+        <Text 
+          numberOfLines={1} ellipsizeMode="tail"
+          style={styles.titlesub}>{`${userData?.first_name + " " + userData?.last_name }`}</Text>
+          </View>         
         :
         <TouchableOpacity
           onPress={onPressSelectAccounts}
           style={styles.leftCont}
         >
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.leftSubCont} >{currentAccount?.name}</Text>
+          {allAccounts?.length &&
           <View style={{ marginLeft: handleSize.w(3), marginTop: handleSize.h(2) }} >
            <Icon
             name="chevron-down-outline"
             size={handleSize.f(17)}
             color={THEME.textPrimary}
             />
-          </View>
+          </View>}
         </TouchableOpacity>}
 
       </View> 
@@ -54,13 +58,13 @@ const OptionsHeader = ({isFetching,loginUserData,currentAccount, onPressSelectAc
           // onPress={() => navigation.goBack()}
           style={styles.arrowCont}
         >
-          <Text style={styles.titleTop}>{leftTxt}</Text>
+          <Text numberOfLines={1} style={styles.titleTop}>{leftTxt}</Text>
         </TouchableOpacity>
       </View>
       }
       
       {/* Right Icons */}
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row", }}>
         <TouchableOpacity
           onPress={onPressNotification}
           style={[styles.rightIconCont, { marginRight: handleSize.w(10) }]}
@@ -72,11 +76,11 @@ const OptionsHeader = ({isFetching,loginUserData,currentAccount, onPressSelectAc
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={onPressAdd} style={styles.rightIconCont}>
-          <Image
-            source={Images.add}
-            style={{ width: handleSize.w(11), height: handleSize.h(11) }}
-            tintColor={THEME.textPrimary}
+        <TouchableOpacity onPress={onPressThreeDots} style={styles.rightIconCont}>
+          <Icon
+            name="ellipsis-vertical-outline"
+            size={handleSize.f(17)}
+            color={THEME.textPrimary}
           />
         </TouchableOpacity>
       </View>
@@ -96,9 +100,10 @@ const styles = StyleSheet.create({
   },
   titleTop: {
     fontFamily: FONTFAMILY.SemiBold,
-    fontSize: handleSize.f(FONT_SIZES.oneeight),
+    fontSize: handleSize.f(FONT_SIZES.onesix),
     color: THEME.white,
     marginLeft: handleSize.w(5),
+    width: Metrics.width - handleSize.f(150),
   },
   leftIconCont: {
     width: handleSize.f(28),
@@ -121,6 +126,19 @@ const styles = StyleSheet.create({
   arrowCont: {
     // marginTop: handleSize.h(25),
   },
+    title: {
+      color: THEME.white,
+      fontFamily: FONTFAMILY.Medium,
+      fontSize: handleSize.f(FONT_SIZES.onefour),
+    },
+  
+    titlesub: {
+      fontFamily: FONTFAMILY.Light,
+      fontSize: handleSize.f(FONT_SIZES.twosix),
+      color: THEME.white,
+      width: METRICS.width - handleSize.f(140),
+      marginTop: handleSize.f(6),
+    },
   leftCont:
   { flexDirection: "row", marginRight: handleSize.w(5), backgroundColor: THEME.white, justifyContent: "center", alignItems: "center", borderRadius: handleSize.w(8), height: handleSize.h(30), paddingHorizontal: handleSize.w(10), width: handleSize.w(150)},
   leftSubCont:

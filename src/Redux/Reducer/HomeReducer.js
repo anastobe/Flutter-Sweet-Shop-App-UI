@@ -5,7 +5,9 @@ const initialState = {
   getCurrencyAccArray: [],
   beneficiaryArray: [],
   refreshCall: Math.random(),
-  allAccounts: []
+  allAccounts: [],
+  selectedAccount_WholeApp: {}
+
 };
 
 export default (state = initialState, action) => {
@@ -37,6 +39,12 @@ export default (state = initialState, action) => {
         ...state,
         allAccounts: action.payload,
       };
+      case ActionType.SELECTED_ACCOUNT_WHOLE_APP:
+      return {
+        ...state,
+        selectedAccount_WholeApp: action.payload,
+      };
+      
 
 
       case ActionType.LOGOUT:
@@ -45,7 +53,9 @@ export default (state = initialState, action) => {
         loginUserData: {},
         getCurrencyAccArray: [],
         beneficiaryArray: [],
-        refreshCall: ""
+        refreshCall: "",
+        allAccounts: [],
+        selectedAccount_WholeApp: {}
       };
 
     default:

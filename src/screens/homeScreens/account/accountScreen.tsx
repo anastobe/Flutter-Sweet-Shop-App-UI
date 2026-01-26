@@ -51,8 +51,8 @@ const AccountScreen = () => {
   const navigation = useNavigation();
 
   let NoAssetOfAccount =
-    vm.allAccounts_withAsset?.length > 0 &&
-    vm.allAccounts_withAsset[0]?.assets?.length > 0;
+    vm.allAccounts?.length > 0 &&
+    vm.allAccounts[0]?.assets?.length > 0;
 
   const renderTransactionList = () => (
     <View style={{ zIndex: -9 }}>
@@ -86,7 +86,7 @@ const AccountScreen = () => {
         refreshing={vm.refreshing}
         onRefresh={vm.onRefresh}
         ListHeaderComponent={
-          vm.allAccounts_withAsset[0]?.assets ? renderSubHeaderStuffs() : null
+          vm.allAccounts[0]?.assets ? renderSubHeaderStuffs() : null
         }
         nestedScrollEnabled
         renderItem={renderItem}
@@ -107,7 +107,7 @@ const AccountScreen = () => {
 
   // console.log(
   //   'vm?.getDashboardData_Data==>',
-  //   vm.allAccounts_withAsset[0]?.assets?.length,
+  //   vm.allAccounts[0]?.assets?.length,
   // );
 
   const renderSubHeaderStuffs = useCallback(() => {
@@ -181,10 +181,12 @@ const AccountScreen = () => {
         resizeMode="stretch"
       >
         <OptionsHeader
-          isFetching={vm.isFetching}
+          userData={vm.userData}
+          isFetching={vm?.isFetching}
+          allAccounts={vm?.allAccounts}
           show={'accountname'}
           loginUserData={vm?.loginUserData}
-          currentAccount={vm?.currentAccount}
+          currentAccount={vm?.selectedAccount_WholeApp}
           onPressSelectAccounts={
             () => vm.selectAccountRef?.current?.open()
             // selectAccountRef
@@ -202,7 +204,7 @@ const AccountScreen = () => {
         />
         <FlatList
           ref={vm.flatListRef}
-          data={vm?.currentAccount?.assets || []}
+          data={vm?.selectedAccount_WholeApp?.assets || []}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
@@ -236,7 +238,7 @@ const AccountScreen = () => {
           )}
         />
         <View style={styles.pagination}>
-          {vm?.currentAccount?.assets?.map((_, index) => (
+          {vm?.selectedAccount_WholeApp?.assets?.map((_, index) => (
             <View
               key={index}
               style={[styles.dot, vm.activeIndex === index && styles.activeDot]}
@@ -286,19 +288,19 @@ const AccountScreen = () => {
                 details={[
                   {
                     label: 'Account name',
-                    value: vm?.currentAccount?.name,
+                    value: vm?.selectedAccount_WholeApp?.name,
                     bold: true,
                   },
-                  { label: 'IBAN', value: vm?.currentAccount?.iban },
+                  { label: 'IBAN', value: vm?.selectedAccount_WholeApp?.iban },
                   { label: 'SWIFT code', value: 'DUMMY' },
                   {
                     label: 'Currency',
-                    value: vm?.currentAccount?.currency?.iso_code,
+                    value: vm?.selectedAccount_WholeApp?.currency?.iso_code,
                   },
                   { label: 'Account type', value: vm?.loginUserData?.customer_type == 'personal' ? 'Single currency' : 'Multicurrency' },
                   {
                     label: 'Created cards',
-                    value: vm?.currentAccount?.created_at
+                    value: vm?.selectedAccount_WholeApp?.created_at
                       ? CommonUtils.formatDate(
                           '2025-04-13T19:15:08.556537+00:00',
                         )
@@ -321,7 +323,7 @@ const AccountScreen = () => {
           bottomSheetRef={vm.editRef}
         >
           <EditAccountPreferences
-            currentAccount={vm?.currentAccount}
+            currentAccount={vm?.selectedAccount_WholeApp}
             onPressEdit={() => vm.editAccountRef?.current?.open()}
             onPressSave={vm.onPressSave}
             isPendingAccFreeze={vm.isPendingAccFreeze}
@@ -345,7 +347,7 @@ const AccountScreen = () => {
             <Text style={styles.sheetTitle}>Select Account</Text>
 
             <FlatList
-              data={vm?.allAccounts_withAsset}
+              data={vm?.allAccounts}
               keyExtractor={item => item?.id}
               scrollEnabled
               showsVerticalScrollIndicator={false}
@@ -354,7 +356,7 @@ const AccountScreen = () => {
                 // console.log(" FLAT LISTgetAccountsAndAssets_Data==>",item),
 
                 <AccountList
-                  length={vm?.allAccounts_withAsset}
+                  length={vm?.allAccounts}
                   index={index}
                   account={item}
                   onPress={() => {

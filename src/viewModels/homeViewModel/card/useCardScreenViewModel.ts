@@ -21,6 +21,7 @@ import { THEME } from '../../../styles';
 import { Toast } from '../../../utils';
 import { ACCOUNT_HISTRY_VALIDATION, CARD_STATUS } from '../../../utils/data';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { storeSelectedAccountWholeApp } from '../../../Redux/Action/Home/HomeActions';
 export const useCardScreenViewModel = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
@@ -31,6 +32,7 @@ export const useCardScreenViewModel = () => {
   const refreshCall = useSelector((state: any) => state?.HomeReducer?.refreshCall)
   //below allAccounts data must save in application opening
   const allAccounts = useSelector((state: any) => state?.HomeReducer?.allAccounts)
+  const selectedAccount_WholeApp = useSelector((state: any) => state?.HomeReducer?.selectedAccount_WholeApp)
 
   // UI toggles
   const [getCardsData, setgetCardsData] = useState([]);
@@ -40,7 +42,7 @@ export const useCardScreenViewModel = () => {
   const [walletSwitch, setWalletSwitch] = useState(false);
   
   // modal / bottom sheet state
-  const [currentAccount, setcurrentAccount] = useState<any | null>(null);
+  // const [currentAccount, setcurrentAccount] = useState<any | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [saveCureentDisplayData, setsaveCureentDisplayData] = useState<any>({});
   const [refreshing, setRefreshing] = useState(false);
@@ -87,7 +89,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   const { mutate: freezUnFreezCardFunc, isPending: isPendingfreezUnFreezCard } =
     freezUnFreezCard({
       callback: (response: any) => {
-        refetchgetCardsData(currentAccount?.id);
+        refetchgetCardsData(selectedAccount_WholeApp?.id);
         setActiveModal(false);
         // setModalVisible(false);
         // setmodalVisibleUnfreez(false);
@@ -175,32 +177,46 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
 };
 
   useEffect(() => {
-    if (currentAccount?.id) {
-      refetchgetCardsData(currentAccount?.id);
+    if (selectedAccount_WholeApp?.id) {
+      refetchgetCardsData(selectedAccount_WholeApp?.id);
+    }
+
+    //move index to 0 and scroll to index 0 when account change in whole app
+
+    setCurrentIndex(0)
+
+    if (getCardsData?.length) {
+      setTimeout(() => {
+        cardListRef?.current?.scrollToIndex({
+          index: 0,
+          animated: false,
+        });
+      }, 50);
     }
   
   }, [
     // refreshCall
-    currentAccount?.id
+    selectedAccount_WholeApp?.id
   ]);
 
-  const saveDatainState = (data: any[] = []) => {
+//   const saveDatainState = (data: any[] = []) => {
 
-    const accounts = data ? data : [];
+//     const accounts = data ? data : [];
 
-    if (!accounts.length) return;
+//     if (!accounts.length) return;
+//     dispatch(storeSelectedAccountWholeApp(accounts?.[0]))
 
-    setcurrentAccount((prev: any) =>
-      prev?.id === accounts[0]?.id ? prev : accounts[0]
-    );
-  };
+//     // setcurrentAccount((prev: any) =>
+//     //   prev?.id === accounts[0]?.id ? prev : accounts[0]
+//     // );
+//   };
 
-//this below useeffect save first asset and all accounts and assets
-  useEffect(() => {
-    if (allAccounts?.length) {
-      saveDatainState(allAccounts)
-    }
-  }, [allAccounts]);
+// //this below useeffect save first asset and all accounts and assets
+//   useEffect(() => {
+//     if (allAccounts?.length) {
+//       saveDatainState(allAccounts)
+//     }
+//   }, [allAccounts]);
 
   useEffect(() => {
     if (!currentItem?.card_id) return;
@@ -275,7 +291,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   const onRefresh = () => {
     setRefreshing(true);
     // call refetch if needed
-    refetchgetCardsData(currentAccount?.id);
+    refetchgetCardsData(selectedAccount_WholeApp?.id);
     setTimeout(() => {
       setRefreshing(false);
     }, 1200);
@@ -493,8 +509,15 @@ function updateToSecure() {
   }
   
 function selectAccount(account: any) {
+
+  console.log("account selection is close");
+  return
+
   selectAccountRef.current?.close();
-  setcurrentAccount(account);
+  // setcurrentAccount(account);
+
+  dispatch(storeSelectedAccountWholeApp(account))
+
   setCurrentIndex(0)
 
   if (getCardsData?.length) {
@@ -574,7 +597,8 @@ function selectAccount(account: any) {
     handleNavigateTransactionHistory,
     handleNavigateTransaction,
     onRefresh,
-    currentAccount,
+    // currentAccount,
+    selectedAccount_WholeApp,
     selectAccount,
     selectAccountRef,
     allAccounts,
