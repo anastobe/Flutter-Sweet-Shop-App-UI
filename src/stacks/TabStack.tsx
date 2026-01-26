@@ -63,89 +63,89 @@ type TabStackType = {
 }[];
 
 
-const HomeStack = () => {
+// const HomeStack = () => {
 
-  return (
-    <>
-      <Stack.Navigator screenOptions={{        animation: "slide_from_right", 
-        headerShown: false 
-      }}>
-        <Stack.Screen
-          name={HOME_ROUTES.HOME}
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name={HOME_ROUTES.TRANSACTION_DETAIL}
-          component={TransactionDetail}
-          options={{ headerShown: false }}
-        />
-              <Stack.Screen
-        name={HOME_ROUTES.BENEFICIARY_MANAGEMENT}
-        component={BeneficiariesManagement}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.PROFILE}
-        component={Profile}
-        options={{ headerShown: false }}
-      />      
-      <Stack.Screen
-        name={HOME_ROUTES.ADD_NEW_BENEFICIARY}
-        component={AddnewBeneficiary}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.CURRENCY_EXCHANGE}
-        component={CurrencyExchange}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.MAKE_PAYMENT}
-        component={MakePayment}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.MY_ACCOUNT_TRANSFER}
-        component={MyAccountTransfer}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.BANK_TRANSFER}
-        component={BankTansfer}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.INTERNATIONAL_TRANSFER}
-        component={InternationalTransfer}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.ACCOUNT_DETAIL}
-        component={AccountDetail}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.NOTIFICATION}
-        component={Notification}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={HOME_ROUTES.ACCOUNT_STATEMENT}
-        component={AccountStatement}
-        options={{ headerShown: false }}
-      />
+//   return (
+//     <>
+//       <Stack.Navigator screenOptions={{        animation: "slide_from_right", 
+//         headerShown: false 
+//       }}>
+//         <Stack.Screen
+//           name={HOME_ROUTES.HOME}
+//           component={HomeScreen}
+//           options={{ headerShown: false }}
+//         />
+//         <Stack.Screen
+//           name={HOME_ROUTES.TRANSACTION_DETAIL}
+//           component={TransactionDetail}
+//           options={{ headerShown: false }}
+//         />
+//               <Stack.Screen
+//         name={HOME_ROUTES.BENEFICIARY_MANAGEMENT}
+//         component={BeneficiariesManagement}
+//         options={{ headerShown: false }}
+//       />
+//       <Stack.Screen
+//         name={HOME_ROUTES.PROFILE}
+//         component={Profile}
+//         options={{ headerShown: false }}
+//       />      
+//       <Stack.Screen
+//         name={HOME_ROUTES.ADD_NEW_BENEFICIARY}
+//         component={AddnewBeneficiary}
+//         options={{ headerShown: false }}
+//       />
+//       <Stack.Screen
+//         name={HOME_ROUTES.CURRENCY_EXCHANGE}
+//         component={CurrencyExchange}
+//         options={{ headerShown: false }}
+//       />
+//       <Stack.Screen
+//         name={HOME_ROUTES.MAKE_PAYMENT}
+//         component={MakePayment}
+//         options={{ headerShown: false }}
+//       />
+//       <Stack.Screen
+//         name={HOME_ROUTES.MY_ACCOUNT_TRANSFER}
+//         component={MyAccountTransfer}
+//         options={{ headerShown: false }}
+//       />
+//       <Stack.Screen
+//         name={HOME_ROUTES.BANK_TRANSFER}
+//         component={BankTansfer}
+//         options={{ headerShown: false }}
+//       />
+//       <Stack.Screen
+//         name={HOME_ROUTES.INTERNATIONAL_TRANSFER}
+//         component={InternationalTransfer}
+//         options={{ headerShown: false }}
+//       />
+//       <Stack.Screen
+//         name={HOME_ROUTES.ACCOUNT_DETAIL}
+//         component={AccountDetail}
+//         options={{ headerShown: false }}
+//       />
+//       <Stack.Screen
+//         name={HOME_ROUTES.NOTIFICATION}
+//         component={Notification}
+//         options={{ headerShown: false }}
+//       />
+//       <Stack.Screen
+//         name={HOME_ROUTES.ACCOUNT_STATEMENT}
+//         component={AccountStatement}
+//         options={{ headerShown: false }}
+//       />
       
-              <Stack.Screen
-        name={HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT}
-        component={AddNewCurrencyAcount}
-        options={{ headerShown: false }}
-      />
+//               <Stack.Screen
+//         name={HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT}
+//         component={AddNewCurrencyAcount}
+//         options={{ headerShown: false }}
+//       />
 
-      </Stack.Navigator>
-    </>
-  );
-};
+//       </Stack.Navigator>
+//     </>
+//   );
+// };
 
 const AccountStack = () => {
   return (
@@ -460,7 +460,8 @@ export const TabStack: React.FC = ({ }) => {
 
   return (
     <Tab.Navigator
-      initialRouteName={"HomeStack"}
+      // initialRouteName={"HomeStack"}
+      initialRouteName={"AccountStack"}
       // screenListeners={{
       //   tabPress: e => {
       //     const routeName = e?.target?.split('-')[0];
@@ -585,7 +586,7 @@ export const TabStack: React.FC = ({ }) => {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         key={'HomeStack'}
         name={'HomeStack'}
         component={HomeStack}
@@ -598,7 +599,7 @@ export const TabStack: React.FC = ({ }) => {
             )
           }
         }}
-      />
+      /> */}
 
  
       <Tab.Screen
@@ -652,11 +653,11 @@ const styles = StyleSheet.create<any>({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: handleSize.w(8),
-    marginHorizontal: handleSize.f(6),
+    marginHorizontal: handleSize.f(10),
   },
   tabCont: {
     // width: handleSize.w(METRICS.width / 5 - 22),
-    width: (METRICS.width / 5),
+    width: (METRICS.width / 4),
     height: handleSize.f(65),
     // width: (METRICS.width / 5),
     backgroundColor: THEME.darkSecondary,
