@@ -92,12 +92,12 @@ function TransactionDetail(props) {
     id: DETAIL?.reference
   });
 
-  console.log("=====>",showAttachement); 
+  console.log("=====>?",getTransactionAttachementData);  
 
   useEffect(()=>{
 
     if (showAttachement && DETAIL?.reference){ 
-      refetchgetTransactionAttachement(DETAIL?.reference)
+      refetchgetTransactionAttachement(DETAIL?.reference) 
     }
 
     return () => {
@@ -108,7 +108,6 @@ function TransactionDetail(props) {
 
   },[DETAIL?.reference])
 
-  console.log("==>",getTransactionAttachementData,"---",DETAIL,"-",isPendinggetTransactionAttachement);
   
 
   function pressBackArrow() {
@@ -203,7 +202,7 @@ function TransactionDetail(props) {
   function renderUpload() {
     return(
         <View style={{ flexDirection: "row", flexWrap: "wrap" }} >
-        {getTransactionAttachementData?.results?.splice(0,1)?.map((v: any,i:any)=>{
+        {getTransactionAttachementData?.results?.slice(0,1)?.map((v: any,i:any)=>{          
           return(
             <TouchableOpacity key={i} style={[styles.fileCont,{ marginLeft: i > 0 ? handleSize.f(5) : 0 }]}  activeOpacity={0.8} onPress={()=>prevewDoc(v?.url)} >
               <Text numberOfLines={2} ellipsizeMode="tail" style={styles.txtUpload2} >
@@ -222,9 +221,6 @@ function TransactionDetail(props) {
   }
 
   function pressDownload() {
-    console.log("pending");
-    return
-
     if (!getTransactionAttachementData?.results?.length) return null; 
     if (getTransactionAttachementData?.results?.length) {
       downloadPdf(getTransactionAttachementData?.results?.[0]?.url)

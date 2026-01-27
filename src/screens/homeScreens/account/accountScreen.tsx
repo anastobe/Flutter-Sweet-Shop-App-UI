@@ -173,8 +173,6 @@ const AccountScreen = () => {
     );
   }, [vm.features, vm.getDashboardData_Data]);
 
-  // console.log("currentAccount==>????",vm.currentAccount);
-
   function renderHeaderStuffs() {
     return (
       <ImageBackground
@@ -254,7 +252,7 @@ const AccountScreen = () => {
     );
   }
 
-  // console.log("vm?.getAccountsAndAssets_Data=> ?",vm?.getAccountsAndAssets_Data[0]?.accounts);
+  console.log("vm?.getAccountsAndAssets_Data=> ?", vm?.selectedAccount_WholeApp?.currency);
 
   return (
     <ImageBackground

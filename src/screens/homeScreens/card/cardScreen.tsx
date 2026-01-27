@@ -190,6 +190,9 @@ const CardScreen = () => {
           }}
           viewabilityConfig={vm?.SlidingCardsProps?.viewabilityConfig}
           renderItem={({ item, index }: any) => (
+
+            console.log("item==>",item),
+            
             <AccountCard
               key={index}
               onPressCard={(it: any) => vm.onPressCard(it)}
