@@ -155,7 +155,14 @@ const AccountStack = () => {
         component={AccountScreen}
         options={{ headerShown: false }}
       />
-            <Stack.Screen
+
+      <Stack.Screen
+        name={HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT}
+        component={AddNewCurrencyAcount}
+        options={{ headerShown: false }}
+       />
+      
+      <Stack.Screen
         name={HOME_ROUTES.ACCOUNT_STATEMENT}
         component={AccountStatement}
         options={{ headerShown: false }}

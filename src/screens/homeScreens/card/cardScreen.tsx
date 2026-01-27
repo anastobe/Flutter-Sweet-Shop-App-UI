@@ -133,6 +133,9 @@ const CardScreen = () => {
       <CardFeatureButtons
         features={features}
         onPressbtn={(item: any) => vm.onPressfeature(item, navigation)}
+        btnSize={54}
+        txtSize={11}
+        txtLineHeight={14}
       />
     );
   }
@@ -257,7 +260,6 @@ const renderItem = useCallback(({ item }) => (
         }
         ListHeaderComponent={
             <View>
-              {renderHeaderStuffs()}
               {renderCardFeatureButtons()}
               {ListTransactionHeader()}
             </View>
@@ -293,7 +295,8 @@ const renderItem = useCallback(({ item }) => (
           onPressNotification={() =>
             navigation.navigate(HOME_ROUTES.NOTIFICATION)
           }
-          onPressAdd={() => vm.AddCardRef?.current?.open()}
+          onPressThreeDots={() => vm.AddCardRef?.current?.open()}
+          rightIconName={"add-outline"}
       />
     );
   }
@@ -369,7 +372,7 @@ function renderBottomSheets() {
         barStyle="light-content" 
       />
 
-
+              {renderHeaderStuffs()}
            {renderTransactionList()}
        </SafeAreaView>
         

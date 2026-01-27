@@ -42,7 +42,7 @@ const AccountDetailsCard = ({ details, onPressShare, onPressCopy, onPressEdit })
         <View style={styles.bottomOptions}>
           {renderOptons("arrow-redo-outline", THEME.textPrimary, THEME.primary, onPressShare)}
           {renderOptons("copy-outline", THEME.textPrimary, THEME.primary, onPressCopy)}
-          {/* {renderOptons("create-outline", THEME.textPrimary, THEME.primary, onPressEdit)} */}
+          {renderOptons("create-outline", THEME.textPrimary, THEME.primary, onPressEdit)}
         </View>
 
       </ScrollView>

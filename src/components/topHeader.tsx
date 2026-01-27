@@ -7,7 +7,7 @@ import { Images } from "../config";
 import { handleSize } from "../config/responsiveTheme";
 import Metrics from "../styles/metrics";
 
-const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show }) => {
+const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show, rightIconName }) => {
   const navigation = useNavigation();
 
   return (
@@ -16,16 +16,7 @@ const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAc
      
      {show == "accountname" ?
       <View style={{ flexDirection: "row", alignItems: "center"  }}>
-      {/* {onPressThreeDots && <TouchableOpacity
-        onPress={onPressThreeDots}
-        style={[styles.leftIconCont, { marginRight: handleSize.w(8) }]}
-      >
-        <Icon
-          name="ellipsis-vertical-outline"
-          size={handleSize.f(17)}
-          color={THEME.textPrimary}
-        />
-      </TouchableOpacity>} */}
+     
    
         {(loginUserData?.customer_type == 'personal' || isFetching) ? 
           <View>
@@ -40,7 +31,7 @@ const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAc
           style={styles.leftCont}
         >
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.leftSubCont} >{currentAccount?.name}</Text>
-          {allAccounts?.length &&
+          {allAccounts?.length > 0 &&
           <View style={{ marginLeft: handleSize.w(3), marginTop: handleSize.h(2) }} >
            <Icon
             name="chevron-down-outline"
@@ -78,7 +69,7 @@ const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAc
 
         <TouchableOpacity onPress={onPressThreeDots} style={styles.rightIconCont}>
           <Icon
-            name="ellipsis-vertical-outline"
+            name={rightIconName}
             size={handleSize.f(17)}
             color={THEME.textPrimary}
           />

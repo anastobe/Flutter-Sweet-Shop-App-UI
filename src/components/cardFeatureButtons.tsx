@@ -17,6 +17,9 @@ type Props = {
   buttonColor?: string;
   iconColor?: string;
   onPressbtn?: (feature: CardFeatureButton) => void;
+  btnSize?: any;
+  txtSize?: any;
+  txtLineHeight?: any;
 };
 
 const CardFeatureButtons: React.FC<Props> = ({
@@ -24,34 +27,36 @@ const CardFeatureButtons: React.FC<Props> = ({
   buttonColor = '#615d87',
   iconColor = THEME.white,
   onPressbtn,
+  btnSize,
+  txtSize,
+  txtLineHeight
 }) => {
 
 
   return (
     <View style={styles.container}>
-      {features.map((feature, index) => (
-        <View key={index} style={styles.featureItem}>
+      {features?.map((feature, index) => (
+        <View key={index} style={[styles.featureItem,{ height: btnSize + handleSize.h(20) }]}>
           <TouchableOpacity
             onPress={() => onPressbtn && onPressbtn(feature)}
-            style={[styles.button, { backgroundColor: buttonColor }]}
+            style={[styles.button, { width: btnSize, height: btnSize },{ backgroundColor: buttonColor }]}
           >
             <Image
               style={{
-                width: feature.width ? handleSize.w(feature.width) : handleSize.w(27),
-                height: feature.height ? handleSize.h(feature.height) : handleSize.h(27),
+                width: feature.width ? handleSize.f(feature.width) : handleSize.f(27),
+                height: feature.height ? handleSize.f(feature.height) : handleSize.f(27),
               }}
+              tintColor={THEME.white}
               source={feature.icon}
               resizeMode="contain"
             />
           </TouchableOpacity>
-          <Text style={styles.label}>{CommonUtils.firstCapitaAllSmall(feature.text)}</Text>
+          <Text style={[styles.label,{ fontSize: handleSize.f(txtSize), lineHeight: txtLineHeight, }]}>{CommonUtils.firstCapitaAllSmall(feature.text)}</Text>
         </View>
       ))}
     </View>
   );
 };
-
-const BUTTON_SIZE = handleSize.f(54);
 
 const styles = StyleSheet.create({
   container: {
@@ -62,20 +67,16 @@ const styles = StyleSheet.create({
     marginTop: handleSize.h(15),
   },
   featureItem: {
-    alignItems: 'center',
-    height: BUTTON_SIZE + handleSize.h(20), // button + label spacing
+    alignItems: 'center'
   },
   button: {
-    width: BUTTON_SIZE,
-    height: BUTTON_SIZE,
-    borderRadius: BUTTON_SIZE / 2,
+    borderRadius: 50,
     borderWidth: handleSize.f(0.7),
     borderColor: THEME.white,
     justifyContent: 'center',
     alignItems: 'center',
   },
   label: {
-    fontSize: handleSize.f(FONT_SIZES.oneone),
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: 'center',

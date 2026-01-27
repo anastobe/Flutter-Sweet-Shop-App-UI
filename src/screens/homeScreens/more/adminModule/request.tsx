@@ -62,6 +62,8 @@ export default function Request() {
 
   function renderItem({item}: any) {
 
+    const name = item?.requestedByUser
+
     return (
       <TouchableOpacity onPress={() => { handleonPress(item) }} style={styles.item}>
         <View style={styles.iconCONTContainer}>
@@ -77,7 +79,7 @@ export default function Request() {
           </View>
 
           <View>
-            <Text style={styles.midTxt}>Your have a new card request with name {item?.card_name}.</Text>
+            <Text style={styles.midTxt}>Your have a new card request with name {item?.card_name}. Created by {name?.first_name} {name?.last_name}</Text>
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(10) }}>

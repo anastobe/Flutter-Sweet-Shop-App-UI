@@ -392,18 +392,18 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
 
   function renderCardFeaturePhysical() {
     return [
-      { icon: Images.freeze, text: getCardActionText(currentItem?.card_status), width: 22, height: 22 },
-      { icon: Images.replace, text: 'Replace Card', width: 22, height: 22 },
-      { icon: Images.methods, text: 'Methods', width: 22, height: 22 },
-      { icon: Images.manage, text: 'Manage', width: 22, height: 22 },
+      { icon: Images.freeze, text: getCardActionText(currentItem?.card_status), width: 21, height: 21 },
+      { icon: Images.replace, text: 'Replace Card', width: 21, height: 21 },
+      { icon: Images.methods, text: 'Methods', width: 21, height: 21 },
+      { icon: Images.manage, text: 'Manage', width: 21, height: 21 },
     ];
   }
 
   function renderCardFeatureVirtual() {
     return [
-      { icon: Images.freeze, text: getCardActionText(currentItem?.card_status), width: 22, height: 22 },
-      { icon: Images.methods, text: 'Methods', width: 22, height: 22 },
-      { icon: Images.manage, text: 'Manage', width: 22, height: 22 },
+      { icon: Images.freeze, text: getCardActionText(currentItem?.card_status), width: 21, height: 21 },
+      { icon: Images.methods, text: 'Methods', width: 21, height: 21 },
+      { icon: Images.manage, text: 'Manage', width: 21, height: 21 },
     ];
   }
 

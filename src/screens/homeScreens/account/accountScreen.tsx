@@ -44,7 +44,7 @@ import {
   LoaderOnly,
 } from '../../../components/activityIndicator';
 
-const header_flatlist_BottomSizeAdjust = 220;
+const header_flatlist_BottomSizeAdjust = 230;
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -86,7 +86,7 @@ const AccountScreen = () => {
         refreshing={vm.refreshing}
         onRefresh={vm.onRefresh}
         ListHeaderComponent={
-          vm.allAccounts[0]?.assets ? renderSubHeaderStuffs() : null
+          vm.allAccounts?.[0]?.assets ? renderSubHeaderStuffs() : null
         }
         nestedScrollEnabled
         renderItem={renderItem}
@@ -117,7 +117,7 @@ const AccountScreen = () => {
           <GradientLineGraph
             data={vm?.getDashboardData_Data?.graph}
             loading={vm?.getDashboardDataPending}
-            marginTop={handleSize.f(20)}
+            marginTop={handleSize.f(25)}
           />
 
           <View style={styles.statecontainer}>
@@ -156,6 +156,9 @@ const AccountScreen = () => {
         <CardFeatureButtons
           features={vm.features}
           onPressbtn={(item: any) => item.onPress()}
+          btnSize={56}
+          txtSize={9}
+          txtLineHeight={12}
         />
 
         {NoAssetOfAccount && renderGraphAndAvg()}
@@ -192,7 +195,8 @@ const AccountScreen = () => {
             // selectAccountRef
           }
           onPressThreeDots={
-            () => vm.editRef?.current?.open()
+            // () => vm.editRef?.current?.open()
+            ()=> navigation.navigate(HOME_ROUTES.ADD_NEW_CURRENCY_ACCOUNT)
             // selectAccountRef
           }
           onPressNotification={() =>
@@ -201,6 +205,7 @@ const AccountScreen = () => {
           onPressAdd={() =>
             vm.navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY)
           }
+          rightIconName={"add-outline"}
         />
         <FlatList
           ref={vm.flatListRef}
@@ -267,7 +272,7 @@ const AccountScreen = () => {
         {renderTransactionList()}
 
         <BottomSheet
-          height={530} // minimum height
+          height={450} // minimum height
           maxHeightPercent={0.68} // optional, override for screen
           draggable={false}
           bottomSheetRef={vm.manageRef}
@@ -306,10 +311,10 @@ const AccountScreen = () => {
                         )
                       : 'DUMMY',
                   },
-                  {
-                    label: 'Linked cards',
-                    value: 'DUMMY',
-                  },
+                  // {
+                  //   label: 'Linked cards',
+                  //   value: 'DUMMY',
+                  // },
                 ]}
               />
             </ScrollView>
@@ -368,7 +373,7 @@ const AccountScreen = () => {
           </ImageBackground>
         </BottomSheet>
       </SafeAreaView>
-      {vm.isFetching && <LoaderCompleteScreenOnly />}
+      {/* {vm.isFetching && <LoaderCompleteScreenOnly />} */}
     </ImageBackground>
   );
 };
