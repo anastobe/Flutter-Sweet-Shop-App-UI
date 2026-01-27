@@ -266,7 +266,7 @@ const renderItem = useCallback(({ item }) => (
          }
         // onEndReachedThreshold={0.1}
         // onEndReached={vm.loadMoreTransactions}
-        refreshing={vm.refreshing}
+        refreshing={false}
         onRefresh={vm.onRefresh}
         nestedScrollEnabled
         renderItem={renderItem}

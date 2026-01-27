@@ -7,6 +7,7 @@ import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { card_Screen_Refresh } from '../../../Redux/Action/Home/HomeActions';
+import { HOME_ROUTES } from '../../../constants';
 
 export default function useSetLimitsViewModel({...props}) {
 
@@ -26,9 +27,19 @@ export default function useSetLimitsViewModel({...props}) {
 
   const {mutate: setSpendLimitFunc, isPending: isPendingsetSpendLimit} = setSpendLimit({
     callback: (response: any) => {
-      dispatch(card_Screen_Refresh(Math.random()))
-      props?.navigation.goBack();
+       
+      setModalVisible(false)
+      setTimeout(() => {
+        navigation.navigate(HOME_ROUTES.TABSTACK, { screen: "CardStack" });
+      }, 500);
+
+      // dispatch(card_Screen_Refresh(Math.random()))
+      // props?.navigation.goBack();
     },
+    onError: (error) =>{
+                      
+      console.log("error ha==>",error);
+    }
   });
 
   function pressBackArrow() {
@@ -64,7 +75,7 @@ export default function useSetLimitsViewModel({...props}) {
     else{
       let payload = {
       card_id: selectedCards.card_id,
-      spending_type: limitType, // monthly | weekly | daily
+      spending_type: limitType?.toLowerCase(), // monthly | weekly | daily
       spending_limit: spendingLimit
       }
       console.log("payload===>",payload);

@@ -269,7 +269,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   function refetchgetCardsData(ID: any) {
     let payload = {
       page: 1,
-      limit: 10,
+      limit: 20,
       account_id: ID
     }
     getCardsFunc(payload)    

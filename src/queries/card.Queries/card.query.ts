@@ -100,7 +100,11 @@ export const changeCardStatus = ({callback} : {callback: (res: any) => void}) =>
 
 
 
-export const setSpendLimit = ({callback} : {callback: (res: any) => void}) => {
+export const setSpendLimit = (
+  {callback, onError} 
+  : 
+  {callback: (res: any) => void, onError: (res: any) => void}
+) => {
   const dispatch = useDispatch();
 
   return useMutation({
@@ -111,6 +115,7 @@ export const setSpendLimit = ({callback} : {callback: (res: any) => void}) => {
     }  
   },
     onError: (error: any) => {
+      onError(error)
       // this is usually a network/server-side error
       console.log('setSpendLimit error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');

@@ -101,6 +101,14 @@ function capitalizeFirstLetter(string: any) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+
+function smallFirstLetter(string: any) {
+  if (!string) {
+    return "";
+  }
+  return string.charAt(0).toLowerCase() + string.slice(1);
+}
+
 const firstCapitaAllSmall = (text?: string) => {
   if (!text) return '';
   return text[0].toUpperCase() + text.slice(1).toLowerCase();
@@ -344,6 +352,7 @@ export default {
   formatDateTime,
   updateThumbnailUrls,
   capitalizeFirstLetter,
+  smallFirstLetter,
   getInitials,
   validateIBAN,
   isTimeRemaining,
