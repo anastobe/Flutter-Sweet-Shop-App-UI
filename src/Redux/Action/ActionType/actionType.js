@@ -1,5 +1,6 @@
 export default class ActionType {
   static USER_DATA = 'USER_DATA'; 
+  static UPDATE_TOKEN = 'UPDATE_TOKEN';
   static LOGIN_USER_DATA = 'LOGIN_USER_DATA';  
   static SAVE_FCM = 'SAVE_FCM';
   static LOGOUT = 'LOGOUT';

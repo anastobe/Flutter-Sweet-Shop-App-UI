@@ -113,6 +113,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
       callback: (response: any) => {
         if (response?.success) {
           const newData = response?.results?.values || [];
+          console.log("getCardsFunc==>",newData);          
           setgetCardsData(newData);
         }
       }, 
@@ -289,6 +290,9 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   };
 
   const onRefresh = () => {
+    
+    console.log("refresh trigger");
+    
     setRefreshing(true);
     // call refetch if needed
     refetchgetCardsData(selectedAccount_WholeApp?.id);

@@ -33,7 +33,7 @@ const ManageOption = ({currentItem, style, onPress1, onPress2, backImg }) => {
     );
   } 
 
-  console.log("currentItemcurrentItemcurrentItem==>",currentItem?.format == "physical");
+  // console.log("currentItemcurrentItemcurrentItem==>",currentItem?.format == "physical");
   
 
   return (

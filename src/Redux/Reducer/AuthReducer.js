@@ -15,6 +15,17 @@ export default (state = initialState, action) => {
         ...state,
         userData: action.payload,
       };
+    
+case ActionType.UPDATE_TOKEN:
+  return {
+    ...state,
+    userData: {
+      ...state.userData,
+      token: action.payload.token,
+      expiry_time: action.payload.expiry_time,
+    },
+  };
+
     case ActionType.LOADER:
       return {
         ...state,

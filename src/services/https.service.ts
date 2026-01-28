@@ -3,25 +3,156 @@ import { BASE_URL, BASE_PATH } from '../APICall/constants';
 import dataHandlerService from '../APICall/dataHandler.service';
 import MessageHandler from '../APICall/messageHandler';
 import { logoutUser } from '../utils/logout.helper';
+import { updateUserToken } from '../Redux/Action/Auth/AuthActions';
 
-const ENABLE_SSL_PINNING = false; // 🔹 Set TRUE when certificate is available
-const CERTS = ['mycert']; // 🔹 Certificate name(s) without extension
+const ENABLE_SSL_PINNING = false;
+const CERTS = ['mycert'];
+const REFRESH_BEFORE = 180; // 3 minutes
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
+/* =======================
+   REFRESH CONTROL
+======================= */
+let isRefreshing = false;
+let refreshQueue: Array<(token: string | null) => void> = [];
+
+const processQueue = (token: string | null) => {
+  //   console.log(
+  //   '🚦 PROCESS QUEUE — releasing',
+  //   refreshQueue.length,
+  //   'requests with token',
+  //   token?.slice(-80)
+  // );
+
+  refreshQueue.forEach(resolve => resolve(token));
+  refreshQueue = [];
+};
+
+/* =======================
+   REFRESH TOKEN API
+======================= */
+const refreshTokenCall = async () => {
+  const store = dataHandlerService.getStore();
+  const userData = store.getState().AuthReducer.userData;
+
+  if (!userData?.refresh_token) {
+    throw { message: 'No refresh token' };
+  }
+
+  const payload = {
+    refresh_token: userData.refresh_token,
+    user_id: userData.user_id,
+    expiry_time: userData.expiry_time,
+    ip: userData.ip,
+  };
+
+  const response = await fetch(
+    BASE_URL + BASE_PATH + '/refresh_token',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      timeoutInterval: 60000,
+      sslPinning: ENABLE_SSL_PINNING ? { certs: CERTS } : undefined,
+      disableAllSecurity: !ENABLE_SSL_PINNING,
+      body: JSON.stringify(payload),
+    }
+  );
+
+  const json =
+    response?.bodyString && typeof response?.bodyString === 'string'
+      ? JSON.parse(response?.bodyString)
+      : response?.bodyString;
+
+  if (!json?.results?.token) {
+    throw { message: json?.message || 'Refresh failed' };
+  }
+
+  store.dispatch(updateUserToken({
+    token: json?.results?.token,
+    expiry_time: json?.results?.expiry_time,
+  }));
+
+  return json?.results?.token;
+};
+
+/* =======================
+   MAIN API WRAPPER
+======================= */
 const axiosInstance = async (
   url: string,
   method: HttpMethod = 'GET',
   data?: any,
   options?: boolean
 ) => {
+  const store = dataHandlerService.getStore();
+  const authData = store.getState().AuthReducer.userData;
 
+  let token = authData?.token;
+  const expiryTime = authData?.expiry_time;
+
+  const currentTime = Math.floor(Date.now() / 1000);
+  const timeLeft = expiryTime - currentTime;
+
+  /* =======================
+     TOKEN REFRESH CHECK
+  ======================= */
+console.log(
+  timeLeft,
+  `(${Math.floor(timeLeft / 60)}m ${timeLeft % 60}s before expiry)`,
+  `${timeLeft <= 575}`
+);
+
+  if (timeLeft <= REFRESH_BEFORE) { // ~9 min 40 sec
+
+    if (!isRefreshing) {
+      isRefreshing = true;
+   
+      // console.log('🔁 REFRESH STARTED at', new Date().toLocaleTimeString());
+
+      try {
+        const newToken = await refreshTokenCall();
+        
+        // console.log(
+        //   '✅ REFRESH SUCCESS at',
+        //   Math.floor(Date.now() / 1000)
+        // );
+        // console.log("new token is=>",newToken);
+        
+
+        token = newToken;
+        processQueue(newToken);
+      } catch (err) {
+        // console.log('❌ REFRESH FAILED',"---",err);
+        processQueue(null);
+        logoutUser();
+        return;
+      } finally {
+        isRefreshing = false;
+      }
+
+    } else {
+      //  console.log('⏳ API WAITING FOR REFRESH');
+      token = await new Promise(resolve => {
+        refreshQueue.push(resolve);
+      });
+
+      if (!token) {
+        logoutUser();
+        return;
+      }
+    }
+  }
+
+  /* =======================
+     ACTUAL API CALL
+  ======================= */
   try {
-    const token = dataHandlerService?.getStore()?.getState()?.AuthReducer?.userData?.token;
-
     const isFormData = data instanceof FormData;
 
-    const fetchOptions: any = {
+    const response = await fetch(BASE_URL + BASE_PATH + url, {
       method,
       headers: {
         ...(token && { Authorization: `Bearer ${token}` }),
@@ -33,45 +164,39 @@ const axiosInstance = async (
       body:
         method === 'POST' || method === 'PUT'
           ? isFormData
-            ? data // ✅ DIRECT FormData
+            ? data
             : JSON.stringify(data)
           : undefined,
-    };
-
-    const response = await fetch(BASE_URL + BASE_PATH + url, fetchOptions);
+    });
 
     const responseJson =
-      response.bodyString && typeof response.bodyString === 'string'
+      response?.bodyString && typeof response.bodyString === 'string'
         ? JSON.parse(response.bodyString)
         : response.bodyString;
 
-    if (options) {
-      MessageHandler(responseJson);
-    }
+    if (options) MessageHandler(responseJson);
 
     return responseJson;
+
   } catch (error: any) {
-    const errorResponse =
-      error.bodyString && typeof error.bodyString === 'string'
+    const err =
+      error?.bodyString && typeof error.bodyString === 'string'
         ? JSON.parse(error.bodyString)
-        : error.bodyString;
+        : error;
 
-    console.log("errorResponse main", errorResponse);
+    MessageHandler(err);
 
-    MessageHandler(errorResponse);
-
-    if (errorResponse?.message?.toLowerCase()?.includes('unauthenticated')
-      || errorResponse?.message?.toLowerCase()?.includes('missing token') 
-      || errorResponse?.message?.toLowerCase()?.includes('session expired. please login again.')
-      || errorResponse?.message?.toLowerCase()?.includes('unauthenticated user')
+    if (
+      err?.message?.toLowerCase()?.includes('unauthenticated') ||
+      err?.message?.toLowerCase()?.includes('missing token') ||
+      err?.message?.toLowerCase()?.includes('session expired') ||
+      err?.message?.toLowerCase()?.includes('unauthenticated user')
     ) {
       logoutUser();
       return;
     }
 
-
-
-    throw errorResponse;
+    throw err;
   }
 };
 

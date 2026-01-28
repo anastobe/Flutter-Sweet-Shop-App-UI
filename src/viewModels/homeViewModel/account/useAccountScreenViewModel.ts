@@ -148,7 +148,7 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
         acc.assets?.some((asset:any) => asset.id === currentAssetDetail?.id)
       );
 
-     console.log("🔄 foundAccount>",foundAccount); 
+    //  console.log("🔄 foundAccount>",foundAccount); 
 
       dispatch(storeSelectedAccountWholeApp(foundAccount))
       // setselectedAccount_WholeApp(foundAccount); 
@@ -281,7 +281,7 @@ const onPressCopy = () => {
 
   const saveDatainState = (data: any[] = []) => {
 
-    console.log("i am saving data in state");
+    // console.log("i am saving data in state");
 
   const accounts = data ?? [];
 
@@ -312,10 +312,6 @@ const onPressCopy = () => {
       
       saveDatainState(allAccounts)
     }
-
-    setTimeout(() => {
-      console.log("play ===");
-    }, 1000);
   
   }, [allAccounts || selectedAccount_WholeApp?.id]);
 

@@ -15,7 +15,7 @@ interface Props {
 const TransactionItem = ({ item, type, onPress }: Props) => {
   const isDebit = item?.direction === 'debit';
 
-  console.log(type,"TransactionItem==>",item?.card_transactions[0]?.merchant_id); 
+  // console.log(type,"TransactionItem==>",item?.card_transactions[0]?.merchant_id); 
   
 
   return (

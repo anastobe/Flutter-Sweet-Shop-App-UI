@@ -7,6 +7,8 @@ import { Toast } from '../../../utils';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import { AddnewBeneficiaryApi, changePassword } from '../../../queries/moreQueries/moreQuery';
+import dataHandlerService from '../../../APICall/dataHandler.service';
+import ActionType from '../../../Redux/Action/ActionType/actionType';
 
 export default function useUpdatePasswordViewModel() {
   const navigation = useNavigation();
@@ -22,7 +24,12 @@ export default function useUpdatePasswordViewModel() {
     const { mutate: changePasswordFunc, isPending: isPending_changePassword } = changePassword({
       callback: (response: any) => {
           if (response?.success) {
-            navigation.goBack()
+
+            dataHandlerService?.getStore()?.dispatch({
+              type: ActionType.LOGOUT,
+              payload: {},
+            });
+
           }
       },
     });

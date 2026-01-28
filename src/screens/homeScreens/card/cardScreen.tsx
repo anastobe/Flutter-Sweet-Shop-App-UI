@@ -191,7 +191,7 @@ const CardScreen = () => {
           viewabilityConfig={vm?.SlidingCardsProps?.viewabilityConfig}
           renderItem={({ item, index }: any) => (
 
-            console.log("item==>",item),
+            // console.log("item==>",item),
             
             <AccountCard
               key={index}

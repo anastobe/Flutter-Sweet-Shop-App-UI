@@ -14,6 +14,16 @@ export const storeUserToken = (res) => {
     };
   };
 
+export const updateUserToken = (data) => {
+  return dispatch => {
+    dispatch({
+      type: ActionType.UPDATE_TOKEN,
+      payload: data, // { token, expiry_time }
+    });
+  };
+};
+
+
 export const userIsLoggedIn = (res) => {
   return dispatch => {
     dispatch({type: ActionType.USER_LOGGEDIN, payload: res });

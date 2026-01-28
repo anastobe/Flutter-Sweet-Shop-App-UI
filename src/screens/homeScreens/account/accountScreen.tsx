@@ -252,7 +252,7 @@ const AccountScreen = () => {
     );
   }
 
-  console.log("vm?.getAccountsAndAssets_Data=> ?", vm?.selectedAccount_WholeApp?.currency);
+  // console.log("vm?.getAccountsAndAssets_Data=> ?", vm?.selectedAccount_WholeApp?.currency);
 
   return (
     <ImageBackground
