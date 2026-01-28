@@ -32,10 +32,12 @@ const CardFeatureButtons: React.FC<Props> = ({
   txtLineHeight
 }) => {
 
+  console.log("features==>",features);
+  
 
   return (
     <View style={styles.container}>
-      {features?.map((feature, index) => (
+      {features && features?.map((feature, index) => (
         <View key={index} style={[styles.featureItem,{ height: btnSize + handleSize.h(20) }]}>
           <TouchableOpacity
             onPress={() => onPressbtn && onPressbtn(feature)}

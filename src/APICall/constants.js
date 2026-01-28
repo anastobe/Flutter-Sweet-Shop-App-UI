@@ -2,7 +2,8 @@
 // export const BASE_URL = "http://18.144.152.181:3000/";  //live on port
 
 // export const BASE_URL = "https://02e5c99c493b.ngrok-free.app";  //ngrol live url
-export const BASE_URL = "http://fpapi.avengers.pk";  //live on domain name
+// export const BASE_URL = "http://fpapi.avengers.pk";  //live on domain name
+export const BASE_URL = "http://18.134.77.216:5000";  //live on domain name
 
 export const BASE_PATH = "/api";
 

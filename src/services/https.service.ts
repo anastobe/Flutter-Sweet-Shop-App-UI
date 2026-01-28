@@ -115,11 +115,11 @@ console.log(
       try {
         const newToken = await refreshTokenCall();
         
-        // console.log(
-        //   '✅ REFRESH SUCCESS at',
-        //   Math.floor(Date.now() / 1000)
-        // );
-        // console.log("new token is=>",newToken);
+        console.log(
+          '✅ REFRESH SUCCESS at',
+          Math.floor(Date.now() / 1000)
+        );
+        console.log("new token is=>",newToken);
         
 
         token = newToken;
@@ -179,10 +179,14 @@ console.log(
     return responseJson;
 
   } catch (error: any) {
+
+    console.log("error main==>",error);
+
     const err =
-      error?.bodyString && typeof error.bodyString === 'string'
-        ? JSON.parse(error.bodyString)
-        : error;
+    error?.bodyString && typeof error?.bodyString === 'string'
+    ? JSON.parse(error?.bodyString)
+    : error?.bodyString;
+            
 
     MessageHandler(err);
 

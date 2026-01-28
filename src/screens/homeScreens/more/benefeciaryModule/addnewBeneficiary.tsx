@@ -122,7 +122,8 @@ const AddNewBeneficiary = () => {
       {vm.selectBeneficiary == BENEFICIARY_KEY_FOR.bank ?
         <InputField
         margBtm={23}
-        placeholder="IBAN / account no."
+        // placeholder="IBAN / account no."
+        placeholder="IBAN"
         value={vm.accountNo}
         returnKeyType="done"
                 // customInpStyle={styles.forgetTxt}

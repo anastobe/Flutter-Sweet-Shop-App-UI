@@ -56,7 +56,8 @@ const AdminBeneficiaryStatus = () => {
       />
 
       <InputField
-        placeholder="IBAN / account No."
+        // placeholder="IBAN / account no."
+        placeholder="IBAN"
         value={vm.accountNo}
         margTp={15}
                 // customInpStyle={styles.forgetTxt}

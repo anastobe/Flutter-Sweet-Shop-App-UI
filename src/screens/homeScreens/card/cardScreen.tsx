@@ -128,7 +128,11 @@ const CardScreen = () => {
   ];
 
   function renderCardFeatureButtons() {
-    const features = currentItem?.format == "physical" ? vm.renderCardFeaturePhysical() : vm.renderCardFeatureVirtual()
+    const features = currentItem?.format == "physical" ? vm.renderCardFeaturePhysical() : currentItem?.format == "virtual" ? vm.renderCardFeatureVirtual() : []
+
+    console.log("--->",features);
+    
+
     return (
       <CardFeatureButtons
         features={features}
