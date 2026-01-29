@@ -26,6 +26,7 @@ const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAc
           style={styles.titlesub}>{`${userData?.first_name + " " + userData?.last_name }`}</Text>
           </View>         
         :
+        <View>
         <TouchableOpacity
           onPress={onPressSelectAccounts}
           style={styles.leftCont}
@@ -39,7 +40,10 @@ const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAc
             color={THEME.textPrimary}
             />
           </View>}
-        </TouchableOpacity>}
+        </TouchableOpacity>
+          {currentAccount?.status && <Text style={styles.accStatus} >( {currentAccount?.status} )</Text>}
+        </View>
+        }
 
       </View> 
       :
@@ -95,6 +99,14 @@ const styles = StyleSheet.create({
     color: THEME.white,
     marginLeft: handleSize.w(5),
     width: Metrics.width - handleSize.f(150),
+  },
+  accStatus: {
+    marginTop: handleSize.f(4),
+    fontFamily: FONTFAMILY.Medium,
+    fontSize: handleSize.f(FONT_SIZES.onesix),
+    color: THEME.white,
+    marginLeft: handleSize.w(5),
+    textTransform: 'capitalize',
   },
   leftIconCont: {
     width: handleSize.f(28),

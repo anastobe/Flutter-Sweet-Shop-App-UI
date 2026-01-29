@@ -44,7 +44,7 @@ import {
   LoaderOnly,
 } from '../../../components/activityIndicator';
 
-const header_flatlist_BottomSizeAdjust = 230;
+const header_flatlist_BottomSizeAdjust = 240;
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -305,7 +305,7 @@ const AccountScreen = () => {
                     label: 'Created cards',
                     value: vm?.selectedAccount_WholeApp?.created_at
                       ? CommonUtils.formatDate(
-                          '2025-04-13T19:15:08.556537+00:00',
+                          vm?.selectedAccount_WholeApp?.created_at,
                         )
                       : 'DUMMY',
                   },

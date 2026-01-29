@@ -49,9 +49,8 @@ export const getNotifications = async (body: any) => {
 export const AccFreeze = async (payload: any) => {
 
   const body = {
-    status: payload.status
-    // ,
-    // name: payload.name
+    status: payload.status,
+    name: payload.name
   };
 
   console.log("=>services=> AccFreeze", payload);

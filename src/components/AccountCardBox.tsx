@@ -50,7 +50,7 @@ const AccountCardBox = ({ total, onHold, available, onPress, onPresseye, showBal
 const styles = StyleSheet.create({
   card: {
     width: Metrics.width,
-    marginTop: handleSize.f(10),
+    marginTop: handleSize.f(3),
     // padding: handleSize.f(15),
     borderRadius: handleSize.f(16),
     justifyContent: "center",
@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: "center",
     justifyContent: "center",
-    height: handleSize.f(50),
+    // height: handleSize.f(50),
+    // backgroundColor: "red"
   },
   eyeButton: {
     alignItems: "center",
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: "center",
-    marginBottom: handleSize.f(8),
+    marginBottom: handleSize.f(6),
   },
   row: {
     flexDirection: "row",
