@@ -133,29 +133,16 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
 
   const onRefresh = async () => {
   try {
-    // setRefreshing(true);
 
      console.log("🔄 Pull to refresh triggered");
 
-    // 1️⃣ Accounts & Assets refresh
-    // await refetchgetAccountsAndAssets();
+    //  let res = await 
+     apis.getAccountsAndAssets(dispatch)
 
-      let res = await apis.getAccountsAndAssets(dispatch)
-    // if (res?.status) {
-      const accounts = res?.[0]?.accounts ?? [];
+      // const accounts = res?.[0]?.accounts ?? [];
+ 
 
-      const foundAccount = accounts.find(acc =>
-        acc.assets?.some((asset:any) => asset.id === currentAssetDetail?.id)
-      );
-
-    //  console.log("🔄 foundAccount>",foundAccount); 
-
-      dispatch(storeSelectedAccountWholeApp(foundAccount))
-      // setselectedAccount_WholeApp(foundAccount); 
-  
-    // }
-
-
+    
     // 2️⃣ Agar account already selected hai
     if (currentAssetDetail?.id) {
       setTransactions([]); // 🔥 reset list
@@ -279,31 +266,59 @@ const onPressCopy = () => {
 
   const onPressEditSave = () => Alert.alert("NEED",SHOW_CLIENT);
 
-  const saveDatainState = (data: any[] = []) => {
+//   const saveDatainState = (data: any[] = []) => {
 
-    // console.log("i am saving data in state");
+//     console.log("i am saving data in state");
 
-  const accounts = data ?? [];
+//   const accounts = data ?? [];
 
-  const currrentAsset = accounts?.[0]?.assets[activeIndex]
+//   const currrentAsset = accounts?.[0]?.assets[activeIndex]
 
-  if (!accounts.length) return;
+//   if (!accounts.length) return;
 
-  dispatch(storeSelectedAccountWholeApp(accounts?.[0]))
+//   const foundAccount = accounts.find((acc: any) =>
+//     acc?.id === selectedAccount_WholeApp?.id)
 
-  // setselectedAccount_WholeApp((prev: any) =>
-  //   prev?.id === accounts[0]?.id ? prev : accounts[0]
-  // );
+//   let saveData = foundAccount ? foundAccount : accounts?.[0]
+
+//   dispatch(storeSelectedAccountWholeApp(saveData))
+
+//   // setselectedAccount_WholeApp((prev: any) =>
+//   //   prev?.id === accounts[0]?.id ? prev : accounts[0]
+//   // );
+
+//   setcurrentAssetDetail({
+//     name: currrentAsset?.currency?.iso_code,
+//     iban: "000",
+//     created_at: "create at",
+//     id: currrentAsset?.id,
+//   });
+
+//   // setallAccounts_withAsset(accounts);
+// };
+
+const saveDatainState = (data: any[] = []) => {
+  console.log("i am saving data in state");
+
+  if (!data?.length) return;
+
+  const selectedAcc =
+    data?.find(acc => acc?.id === selectedAccount_WholeApp?.id) ??
+    data?.[0];
+
+  dispatch(storeSelectedAccountWholeApp(selectedAcc));
+
+  const currentAsset = selectedAcc?.assets?.[activeIndex];
+
+  if (!currentAsset) return;
 
   setcurrentAssetDetail({
-    name: currrentAsset?.currency?.iso_code,
-    iban: "000",
-    created_at: "create at",
-    id: currrentAsset?.id,
+    name: currentAsset?.currency?.iso_code ?? "",
+    iban: currentAsset?.iban ?? "",
+    created_at: currentAsset?.created_at ?? "",
+    id: currentAsset?.id,
   });
-
-  // setallAccounts_withAsset(accounts);
-};
+}; 
 
 //this below useeffect save first asset and all accounts and assets
   useEffect(() => {
@@ -313,7 +328,7 @@ const onPressCopy = () => {
       saveDatainState(allAccounts)
     }
   
-  }, [allAccounts || selectedAccount_WholeApp?.id]);
+  }, [allAccounts]);
 
 
   const fetchAllInitialData = async () => {
@@ -407,7 +422,7 @@ const fetchTransactions = (ID: any) => {
 
 function selectAccount(account: any) {
   // setselectedAccount_WholeApp(account);
-    dispatch(storeSelectedAccountWholeApp(account))
+  dispatch(storeSelectedAccountWholeApp(account))
 
   // 🔥 reset index
   setActiveIndex(0);

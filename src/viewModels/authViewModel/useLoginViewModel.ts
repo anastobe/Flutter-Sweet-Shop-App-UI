@@ -35,11 +35,11 @@ export const useLoginViewModel = () => {
   // const [password, setPassword] = useState("Uhf@1234");
 
   //user,individual
-  // const [email, setEmail] = useState("uhf-personal");
-  // const [password, setPassword] = useState("Pass@123");
+  const [email, setEmail] = useState("uhf-personal");
+  const [password, setPassword] = useState("Pass@1234");
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
  
   const [token, setToken] = useState("");
   const [secure, setSecure] = useState(true);

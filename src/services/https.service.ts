@@ -99,11 +99,11 @@ const axiosInstance = async (
   /* =======================
      TOKEN REFRESH CHECK
   ======================= */
-console.log(
-  timeLeft,
-  `(${Math.floor(timeLeft / 60)}m ${timeLeft % 60}s before expiry)`,
-  `${timeLeft <= 575}`
-);
+// console.log(
+//   timeLeft,
+//   `(${Math.floor(timeLeft / 60)}m ${timeLeft % 60}s before expiry)`,
+//   `${timeLeft <= 575}`
+// );
 
   if (timeLeft <= REFRESH_BEFORE) { // ~9 min 40 sec
 

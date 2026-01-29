@@ -86,10 +86,18 @@ export const useAddNewCurrencyAccountViewModel = () => {
 
   const handleCloseRequestSubmitted = () => {
     // setRequestSubmitted(false);
-    navigation.reset({
-      index: 0,
-      routes: [{ name: HOME_ROUTES.HOME }],
-    });
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{ name: HOME_ROUTES.HOME }],
+    // });
+
+    setRequestSubmitted(false);
+    setTimeout(() => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: HOME_ROUTES.ACCOUNT }],
+      });      
+    }, 500);
   };
 
   const freezeModalProps = {

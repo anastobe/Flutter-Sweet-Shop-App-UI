@@ -32,7 +32,7 @@ const CardFeatureButtons: React.FC<Props> = ({
   txtLineHeight
 }) => {
 
-  console.log("features==>",features);
+  // console.log("features==>",features);
   
 
   return (
