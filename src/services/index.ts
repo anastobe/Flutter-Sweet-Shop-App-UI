@@ -12,6 +12,7 @@ import {
 
 import {
     userLogin,
+    LogoutApi,
     ResetPasswordLink,
     createCard,
     cardUsedStatus,
@@ -70,6 +71,7 @@ import {
 const apis = {
   ResetPasswordLink,
   userLogin,
+  LogoutApi,
   usePaymentTransfer,
   useFXConversion,
   useMyAccount_InternationalTransfer,

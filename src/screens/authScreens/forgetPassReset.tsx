@@ -27,8 +27,23 @@ export default function ForgetPassReset({...props}) {
     onUpdatePress,
     isPending_resetPassword,
     otp, 
-    setOtp
+    setOtp,
+    rules
   } = useforgetPassResetViewModel(props);
+
+  
+  function renderRule(iconCondition: boolean, txt: string) {
+    return (
+      <View style={{ flexDirection: 'row', paddingVertical: handleSize.h(2), alignItems: "center" }}>
+        <Icon
+          name={iconCondition ? 'checkmark-circle-outline' : 'close-circle-outline'}
+          size={handleSize.f(20)}
+          color={iconCondition ? THEME.green : THEME.lightred}
+        />
+        <Text style={styles.ruleText}>{txt}</Text>
+      </View>
+    );
+  }
 
   return (
     <MainContainer
@@ -51,6 +66,14 @@ export default function ForgetPassReset({...props}) {
         
       {/* <Text style={styles.title}>Reset password</Text> */}
       <OTPInput length={6} onChange={(val: string) => setOtp(val)} />
+
+      <View style={{ marginTop: handleSize.f(20) }} >
+        {renderRule(rules.minLength(newPassword), 'Minimum 8 characters')}
+        {renderRule(rules.lowerCase(newPassword), 'At least one lower case letter')}
+        {renderRule(rules.upperCase(newPassword), 'At least one upper case letter')}
+        {renderRule(rules.number(newPassword), 'At least one number')}
+        {renderRule(rules.specialChar(newPassword), 'At least 1 special character (e.g., !@#$%^&*)')}
+      </View>
 
       <InputField
         disabled={!isPending_resetPassword}

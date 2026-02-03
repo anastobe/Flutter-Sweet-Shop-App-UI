@@ -65,7 +65,7 @@ function TransactionDetail(props) {
 
   const queryClient = useQueryClient();
 
-  const { DETAIL, showAttachement, currentItem } = props?.route?.params;
+  const { DETAIL, showAttachement } = props?.route?.params;
 
   // console.log("DETAIL==>",DETAIL);
 
@@ -117,7 +117,7 @@ function TransactionDetail(props) {
   function renderCardDetails() {
     return (
       <View style={styles.summaryBox}>
-        <InfoRow icon="card-outline" label="Card" value={currentItem?.card_name} />
+        {/* <InfoRow icon="card-outline" label="Card" value={DETAIL?.pan} /> */}
         <InfoRow icon="person-outline" label="Merchant" value={DETAIL?.card_transactions?.[0]?.merchant_id} />
         <InfoRow icon="home-outline" label="Currency" value={DETAIL?.currency} />
       </View>

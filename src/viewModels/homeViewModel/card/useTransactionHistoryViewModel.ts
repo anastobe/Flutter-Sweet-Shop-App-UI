@@ -309,6 +309,7 @@ import { HOME_ROUTES } from '../../../constants';
 import { paymentHistry } from '../../../queries/accountQueries/accountQuery';
 import { CommonUtils, Toast } from '../../../utils';
 import { ACCOUNT_HISTRY_VALIDATION } from '../../../utils/data';
+import { CardpaymentHistry } from '../../../queries/card.Queries/card.query';
 
 const LIMIT = 10;
 
@@ -360,8 +361,13 @@ export default function useTransactionHistoryViewModel(props: any) {
     },
   });
 
+  const historyMutation =
+  show == ACCOUNT_HISTRY_VALIDATION.COMPLETE
+    ? CardpaymentHistry
+    : paymentHistry;
+
   /** 🔹 API */
-  const { mutate: paymentHistryFunc, isPending } = paymentHistry({
+  const { mutate: paymentHistryFunc, isPending } = historyMutation({
     callback: (response: any) => {
       if (!response?.success) {
         setIsLoadingMore(false);
@@ -434,9 +440,26 @@ export default function useTransactionHistoryViewModel(props: any) {
       },
     };
 
-    console.log("uncomment for refunct amount and atm==>",payload);
+      const payloadWithParams = {
+          card_id: assetId,
+          payload: {
+            page: 1,
+            limit: 20,
+            // search,
+            sort: {
+              key: 'created_at',
+              order: 'desc',
+            }
+          }
+      };
 
-    paymentHistryFunc(payload);
+
+    console.log("uncomment for refunct amount and atm==>",payload);
+    if (show == ACCOUNT_HISTRY_VALIDATION.COMPLETE) {
+      paymentHistryFunc(payloadWithParams)
+    } else if (show == ACCOUNT_HISTRY_VALIDATION.INCOMPLETE){
+      paymentHistryFunc(payload);
+    }
   };
 
   /** 🔹 Load More */
@@ -535,9 +558,12 @@ export default function useTransactionHistoryViewModel(props: any) {
   const pressBackArrow = () => navigation.goBack();
 
   const handleNavigateTransactionHistory = (item: any) => {
+    console.log("handleNavigateTransactionHistory==>",item);
+    // return
     if (item) {
       navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL, {
         DETAIL: item,
+        showAttachement: false
       });
     }
   };

@@ -4,7 +4,7 @@ import { Alert, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, Share 
 import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
 import { SHOW_CLIENT } from "../../../APICall/constants";
-import { AccDelete, AccFreeze, getAccountsAndAssets, getDashboardData, paymentHistry,  } from "../../../queries/accountQueries/accountQuery";
+import { AccDelete, AccFreeze, getAccountsAndAssets, getDashboardData, getUserDetail, paymentHistry,  } from "../../../queries/accountQueries/accountQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { Images } from "../../../config";
@@ -13,7 +13,7 @@ import Clipboard from '@react-native-clipboard/clipboard';
 import { ACCOUNT_HISTRY_VALIDATION } from "../../../utils/data";
 import apis from "../../../services";
 import { handleLoader } from "../../../Redux/Action/Auth/AuthActions";
-import { storeSelectedAccountWholeApp } from "../../../Redux/Action/Home/HomeActions";
+import { storeLoginUserData, storeSelectedAccountWholeApp } from "../../../Redux/Action/Home/HomeActions";
 
 export const useAccountScreenViewModel = () => {
 
@@ -114,6 +114,18 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
       },
     });
 
+    const {mutate: getUserDetailFunc, isPending: isPendinggetUserDetail} = getUserDetail({
+      callback: (response: any) => {
+        if (response.success) {
+          // console.log("get user detail fetch",response);         
+            if (response?.results) {
+              dispatch(storeLoginUserData(response.results));
+            }
+        }
+      },
+    });
+
+
     async function refetchgetAccountsAndAssets() {
        await apis.getAccountsAndAssets(dispatch)
     }
@@ -132,10 +144,10 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
   ];
 
   const onRefresh = async () => {
-  try {
+  try { 
 
      console.log("🔄 Pull to refresh triggered");
-
+        
     //  let res = await 
      apis.getAccountsAndAssets(dispatch)
 
@@ -298,7 +310,7 @@ const onPressCopy = () => {
 // };
 
 const saveDatainState = (data: any[] = []) => {
-  console.log("i am saving data in state");
+  // console.log("i am saving data in state");
 
   if (!data?.length) return;
 
@@ -337,9 +349,14 @@ const saveDatainState = (data: any[] = []) => {
   
       const [
         userDetailRes,
-        countryRes, currencyRes, assetTypeRes, currencyAccountRes, AllAsset_n_AccountsRes] =
+        countryRes, 
+        currencyRes, 
+        assetTypeRes, 
+        currencyAccountRes, 
+        AllAsset_n_AccountsRes
+      ] =
       await Promise.all([
-        apis.getUserDetail(dispatch),
+        getUserDetailFunc({skip_activity_check: true}), 
         apis.getCoutry(dispatch),
         apis.getCurrency(dispatch),
         apis.getAssetType(dispatch),
@@ -356,7 +373,7 @@ const saveDatainState = (data: any[] = []) => {
   };
 
 
-  useEffect(() => {
+  useEffect(() => {    
     fetchAllInitialData()
     // apis.getCurrencyAccount(dispatch);
   }, []);

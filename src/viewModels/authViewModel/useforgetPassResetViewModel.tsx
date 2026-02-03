@@ -31,16 +31,29 @@ export default function useforgetPassResetViewModel(props: any) {
       },
     });
 
+  const rules = {
+    minLength: (text: string) => text.length >= 8,
+    lowerCase: (text: string) => /[a-z]/.test(text),
+    upperCase: (text: string) => /[A-Z]/.test(text),
+    number: (text: string) => /\d/.test(text),
+    specialChar: (text: string) => /[!@#$%^&*]/.test(text),
+  };
 
   function pressBackArrow() {
     navigation.goBack();
   }
+
+  console.log("chk rules==>",!(rules.minLength(newPassword) && rules.lowerCase(newPassword) && rules.upperCase(newPassword) && rules.number(newPassword) && rules.specialChar(newPassword)) ? "true" : "false" );
+  
 
   function onUpdatePress() {
 
     if (otp == "") {
       return Toast.showToast("Enter otp code", '', 'error');
     } 
+    else if (!(rules.minLength(newPassword) && rules.lowerCase(newPassword) && rules.upperCase(newPassword) && rules.number(newPassword) && rules.specialChar(newPassword))) {
+      return Toast.showToast("Incorrect new password", '', 'error');
+    }
     else if (!newPassword.trim()) {
       return Toast.showToast("Enter new password", '', 'error');
     }
@@ -73,7 +86,8 @@ export default function useforgetPassResetViewModel(props: any) {
     onUpdatePress,
     isPending_resetPassword,
     otp, 
-    setOtp
+    setOtp,
+    rules
 
   };
 }

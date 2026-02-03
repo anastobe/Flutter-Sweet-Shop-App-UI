@@ -11,7 +11,8 @@ import { Images } from '../../../config';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import apis from '../../../services';
-import { fetchLinkedAccCards, getDashboardData, paymentHistry } from '../../../queries/accountQueries/accountQuery';
+import { fetchLinkedAccCards, getDashboardData, getUserDetail, paymentHistry } from '../../../queries/accountQueries/accountQuery';
+import { storeLoginUserData } from '../../../Redux/Action/Home/HomeActions';
 
 export const useCoperate_homeScreenViewModel = () => {
   const navigation = useNavigation();
@@ -78,7 +79,17 @@ export const useCoperate_homeScreenViewModel = () => {
       },
     });
 
-    
+    const {mutate: getUserDetailFunc, isPending: isPendinggetUserDetail} = getUserDetail({
+      callback: (response: any) => {
+        if (response.success) {
+          // console.log("get user detail fetch",response);         
+            if (response?.results) {
+              dispatch(storeLoginUserData(response.results));
+            }
+        }
+      },
+    });
+          
   const onRefresh = async () => {
   try {
     // setRefreshing(true);
@@ -151,7 +162,8 @@ const fetchAllInitialData = async () => {
       userDetailRes,
       countryRes, currencyRes, assetTypeRes, currencyAccountRes, AllAsset_n_AccountsRes] =
     await Promise.all([
-      apis.getUserDetail(dispatch),
+      // apis.getUserDetail(dispatch),
+      getUserDetailFunc({skip_activity_check:true}),
       apis.getCoutry(dispatch),
       apis.getCurrency(dispatch),
       apis.getAssetType(dispatch),

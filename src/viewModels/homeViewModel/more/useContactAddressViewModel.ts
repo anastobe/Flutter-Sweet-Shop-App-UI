@@ -9,6 +9,8 @@ import { THEME } from '../../../styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddnewBeneficiaryApi, UpdateContactAddress } from '../../../queries/moreQueries/moreQuery';
 import apis from '../../../services';
+import { storeLoginUserData } from '../../../Redux/Action/Home/HomeActions';
+import { getUserDetail } from '../../../queries/accountQueries/accountQuery';
 
 export default function useContactAddressViewModel() {
   const navigation = useNavigation();
@@ -57,6 +59,17 @@ export default function useContactAddressViewModel() {
     }
   });
 
+  const {mutate: getUserDetailFunc, isPending: isPendinggetUserDetail} = getUserDetail({
+    callback: (response: any) => {
+      if (response.success) {
+        // console.log("get user detail fetch",response);         
+          if (response?.results) {
+            dispatch(storeLoginUserData(response.results));
+          }
+      }
+    },
+  });
+
   useEffect(()=>{
     if (!user) return 
       setCountry({
@@ -70,7 +83,8 @@ export default function useContactAddressViewModel() {
   },[user])
 
   async function updateDataInRedux() {
-    await apis.getUserDetail(dispatch)
+    getUserDetailFunc({skip_activity_check:true})
+    // await apis.getUserDetail(dispatch)
   }
 
   function pressBackArrow() {

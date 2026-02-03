@@ -132,3 +132,22 @@ export const getTransactionAttachement  = (    {
     staleTime: 0, // Data will never be considered stale
     retry: false // Disable retry on failure
   });
+
+  
+export const getUserDetail = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.getUserDetail,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+    }  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('getUserDetail error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    }
+  });
+};

@@ -6,6 +6,11 @@ export const userLogin = async (body: any) => {
   return response;
 };
 
+export const LogoutApi = async (body: any) => {
+  const response = await axiosInstance('/logout', 'POST', body, false);
+  return response;
+};
+
 export const ResetPasswordLink = async (body: any) => {
   const response = await axiosInstance('/forgot-password', 'POST', body, true);
   return response;

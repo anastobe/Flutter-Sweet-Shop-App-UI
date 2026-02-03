@@ -420,8 +420,8 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   }
 
   const handleNavigateTransactionHistory = () => {
-  console.log("handleNavigateTransactionHistory");
-  return
+  // console.log("handleNavigateTransactionHistory");
+  // return
     if (currentItem?.card_id != "") {
       navigation.navigate(HOME_ROUTES.TRANSACTIONHISTORY,{assetId: currentItem?.card_id, show: ACCOUNT_HISTRY_VALIDATION.COMPLETE})
     }
@@ -429,11 +429,11 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
 
 
   const handleNavigateTransaction = (item: any) => {
-    console.log("handleNavigateTransaction");
+    console.log("handleNavigateTransaction",item);
     // return
 
     if (item) {
-      navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item, showAttachement: false, currentItem: currentItem  });
+      navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL,{ DETAIL: item, showAttachement: false  });
     }
   };
   
