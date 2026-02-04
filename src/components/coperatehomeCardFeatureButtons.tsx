@@ -51,16 +51,22 @@ const CoperatehomeCardFeatureButtons: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    // justifyContent: "space-evenly",
-    alignItems: "center",
+      flexWrap: 'wrap',          // ✅ YEH LINE ADD KARO
+    justifyContent: "space-evenly",
+    // alignItems: "center",
+    // backgroundColor: "red",
     marginLeft: handleSize.f(12),
     marginTop: handleSize.f(10),
     paddingVertical: handleSize.h(10),
   },
   featureItem: {
     alignItems: 'center',
-    height: BUTTON_SIZE,
-    width: Metrics.width / 3 - handleSize.w(30),
+    justifyContent: "center",
+    // height: BUTTON_SIZE + 100,
+    // width: Metrics.width / 3 - handleSize.w(30),
+    width: handleSize.f(100),
+    // backgroundColor: "red",
+    marginBottom: 10
     // width: handleSize.w(METRICS.width / 2),
   },
   button: {
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: 'center',
-    lineHeight: handleSize.f(18),
+    lineHeight: handleSize.f(14),
     marginTop: Platform.OS == 'ios' ? handleSize.f(10) : handleSize.f(5),
   },
 });

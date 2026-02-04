@@ -52,6 +52,8 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { handleSize } from '../config/responsiveTheme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Coperate_homeScreen from '../screens/homeScreens/home/coperate_homeScreen';
+import RequestPendingTransaction from '../screens/homeScreens/home/requestPendingTransaction';
+import RequestPendingBeneficiary from '../screens/homeScreens/home/requestPendingBeneficiary';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -97,6 +99,16 @@ const HomeStack = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name={HOME_ROUTES.REQUEST_PENDING_TRANSACTION}
+        component={RequestPendingTransaction}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.REQUEST_PENDING_BENEFICIARY}
+        component={RequestPendingBeneficiary}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name={HOME_ROUTES.ADMIN_CARD_STATUS}
         component={AdminConfirmCardRequest}
         options={{ headerShown: false }}
@@ -134,6 +146,16 @@ const MoreStack = () => {
       <Stack.Screen
         name={HOME_ROUTES.REQUEST}
         component={Request}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.REQUEST_PENDING_TRANSACTION}
+        component={RequestPendingTransaction}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.REQUEST_PENDING_BENEFICIARY}
+        component={RequestPendingBeneficiary}
         options={{ headerShown: false }}
       />
       <Stack.Screen

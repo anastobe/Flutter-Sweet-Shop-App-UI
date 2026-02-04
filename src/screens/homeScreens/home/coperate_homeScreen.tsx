@@ -63,7 +63,9 @@ const Coperate_homeScreen = () => {
 
 
   const renderCardFeature = () => (
-    <View style={{ zIndex: -9, marginBottom: handleSize.f(25) }} >
+    <View 
+    // style={{ marginBottom: handleSize.f(25) }} 
+    >
     <CoperatehomeCardFeatureButtons  features={SendoptionCorporate} onPressbtn={(item: any) => handlePressCard(item)} />
     </View>
   );

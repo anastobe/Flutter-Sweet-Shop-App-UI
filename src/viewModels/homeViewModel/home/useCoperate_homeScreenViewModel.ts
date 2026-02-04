@@ -52,9 +52,9 @@ export const useCoperate_homeScreenViewModel = () => {
   }
 
   const SendoptionCorporate = [ 
-    // { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST, text: "Pending transaction request", width: 20, height: 20 },
-    // { icon: Images.accountTab, onPress: HOME_ROUTES.REQUEST, text: "Pending beneficiary request", width: 20, height: 20 },
-    { icon: Images.cardTab, onPress: HOME_ROUTES.REQUEST, text: "Pending card request", width: 20, height: 20 },
+    { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST_PENDING_TRANSACTION, text: "Pending\ntransaction\nrequest", width: 20, height: 20 },
+    { icon: Images.accountTab, onPress: HOME_ROUTES.REQUEST_PENDING_BENEFICIARY, text: "Pending\nbeneficiary\nrequest", width: 20, height: 20 },
+    { icon: Images.cardTab, onPress: HOME_ROUTES.REQUEST, text: "Pending\ncard\nrequest", width: 20, height: 20 },
   ];
 
   const handlePressCard = (item: any) => {
