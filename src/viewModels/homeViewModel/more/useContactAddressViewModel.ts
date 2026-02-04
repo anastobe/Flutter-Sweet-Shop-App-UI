@@ -34,19 +34,19 @@ export default function useContactAddressViewModel() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secure, setSecure] = useState(true);
 
-  console.log("userData===>",userData);
+  // console.log("userData===>",userData);
   
 
     const user = useMemo(() => {
 
-      if (loginUserData?.customer_type == "corporate") {
+      // if (loginUserData?.customer_type == "corporate") {
 
-        const foundObject = loginUserData?.members?.find(obj => obj.id === userData?.user_id);
-        return foundObject ?? null;
+      //   const foundObject = loginUserData?.members?.find(obj => obj.id === userData?.user_id);
+      //   return foundObject ?? null;
         
-      } else if(loginUserData?.customer_type == "personal") { //ok report
+      // } else if(loginUserData?.customer_type == "personal") { //ok report
         return loginUserData?.members?.[0] ?? null;
-      }
+      // }
       
     }, [loginUserData]);
   
