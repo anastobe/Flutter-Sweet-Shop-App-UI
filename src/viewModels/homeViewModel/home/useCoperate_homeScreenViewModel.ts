@@ -11,15 +11,18 @@ import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
 
 export const useCoperate_homeScreenViewModel = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const [refreshing, setRefreshing] = useState(false);
+
   const userData = useSelector((state: any) => state?.AuthReducer?.userData);  
 
   const {mutate: getUserDetailFunc, isPending: isPendinggetUserDetail} = getUserDetail({
     callback: (response: any) => {
-      if (response.success) {
-        // console.log("get user detail fetch",response);         
+      if (response?.success) {
+        console.log("get user detail fetch",response);         
           if (response?.results) {
-            dispatch(storeLoginUserData(response.results));
+            dispatch(storeLoginUserData(response?.results));
             dispatch(handleLoader(false)); 
           }
       }
@@ -36,10 +39,14 @@ export const useCoperate_homeScreenViewModel = () => {
         getUserDetailFunc({skip_activity_check:true})      
       }
       catch(err) {
-        dispatch(handleLoader(false)); 
+        setTimeout(() => {
+          dispatch(handleLoader(false)); 
+        }, 1000);
       }
       finally {
-        dispatch(handleLoader(false)); 
+        setTimeout(() => {
+          dispatch(handleLoader(false)); 
+        }, 1000);
       }
   
   }
@@ -62,6 +69,12 @@ export const useCoperate_homeScreenViewModel = () => {
   const handleNavigateProfile = () => {
     navigation.navigate(HOME_ROUTES.PROFILE);
   };
+
+  
+  const onRefresh = () => {
+    CallUserDetail()
+  };
+
   
   return {
     userData,
@@ -69,6 +82,8 @@ export const useCoperate_homeScreenViewModel = () => {
     handlePressCard,
     handleNavigateNotification,
     handleNavigateProfile,
-
+    refreshing, 
+    setRefreshing,
+    onRefresh
   };
 };

@@ -1,6 +1,6 @@
 // src/screens/Home/Coperate_homeScreen.tsx
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Pressable, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Pressable, RefreshControl, ScrollView } from 'react-native';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Images } from '../../../config';
@@ -20,6 +20,9 @@ const Coperate_homeScreen = () => {
     userData,
     SendoptionCorporate,
     handlePressCard,
+    onRefresh,
+    refreshing, 
+    setRefreshing,
     handleNavigateNotification,
     handleNavigateProfile,
   } = useCoperate_homeScreenViewModel();
@@ -88,7 +91,13 @@ const Coperate_homeScreen = () => {
       />
       <SafeAreaView edges={['top']} style={styles.container}>
        {renderHeaderStuffs()}
-       {renderCardFeature()}
+        <ScrollView 
+          refreshControl={(
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            )}
+        contentContainerStyle={{ marginTop: handleSize.h(10) }}>
+        {renderCardFeature()}
+       </ScrollView>
 
        
       </SafeAreaView>
