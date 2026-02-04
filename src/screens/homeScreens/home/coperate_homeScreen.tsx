@@ -1,36 +1,17 @@
 // src/screens/Home/Coperate_homeScreen.tsx
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, Pressable, RefreshControl } from 'react-native';
-import { BottomSheet, MainContainer } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, METRICS, THEME } from '../../../styles';
-import { scale } from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Images } from '../../../config';
-import CardFeatureButtons from '../../../components/cardFeatureButtons';
-import AccountCard from '../../../components/accountCard';
 import {useCoperate_homeScreenViewModel} from '../../../viewModels/homeViewModel/home/useCoperate_homeScreenViewModel';
 import { screenWidth } from '../../../utils/style.utils';
-import { SHOW_CLIENT } from '../../../APICall/constants';
-import { ActivityIndicator } from 'react-native';
 import { CommonUtils } from '../../../utils';
-import LinearGradient from 'react-native-linear-gradient';
-import { StatusBar } from 'react-native';
-import GradientLineGraph from '../../../components/gradientLineGraph';
-import HomeCardFeatureButtons from '../../../components/homeCardFeatureButtons';
 import Metrics from '../../../styles/metrics';
 import { ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView } from 'react-native';
-import { cardsScroll } from '../../../utils/data';
-import { useIsFocused } from '@react-navigation/native';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
-import commonUtils from '../../../utils/common.utils';
-import SmallBtn from '../../../components/smallBtn';
-import TransactionList from '../../../components/transactionList';
-import { HOME_ROUTES } from '../../../constants';
-import { LoaderOnly } from '../../../components/activityIndicator';
-import AccountList from '../../../components/accountList';
 import CoperatehomeCardFeatureButtons from '../../../components/coperatehomeCardFeatureButtons';
 // import * as Keychain from 'react-native-keychain';
 
@@ -38,38 +19,9 @@ const Coperate_homeScreen = () => {
   const {
     userData,
     SendoptionCorporate,
-    DATA,
-    CURRENT_ACCOUNT,
     handlePressCard,
     handleNavigateNotification,
     handleNavigateProfile,
-    handleNavigateTransactionHistory, 
-    // handleNavigateTransaction,
-    loginUserData,
-    personal_customers,
-    // getCurrencyAccount_DATA,
-    showCurrencyDropdown, 
-    setShowCurrencyDropdown,
-    // selectedCurrency, 
-    // setSelectedCurrency,
-    assetsList, 
-    setAssetsList,
-    onSelectCurrency,
-    loader,
-    showbalance, 
-    setshowbalance,
-    transactions,
-    isPendingpaymentHistry,
-    navigation,
-    getDashboardData_Data,
-    getDashboardDataPending,
-    cards,
-    isPendingfetchLinkedAccCards,
-    onRefresh,
-    refreshing,
-    setRefreshing,
-    selectAccountRef
-
   } = useCoperate_homeScreenViewModel();
 
   const renderHeader = () => (
