@@ -6,6 +6,7 @@ import { storeUserToken } from '../../../Redux/Action/Auth/AuthActions';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 import { logoutUser } from '../../../utils/logout.helper';
+import apis from '../../../services';
 
 export default function useMoreViewModel() {
   const navigation = useNavigation();
@@ -68,8 +69,10 @@ export default function useMoreViewModel() {
     navigation.navigate(HOME_ROUTES.TERMS_USE);
   }
 
-  function onPressLogout() {
+  async function onPressLogout() {
+    await apis.LogoutApi({})
     logoutUser()
+
     // dispatch(storeUserToken({}));
   }
 
