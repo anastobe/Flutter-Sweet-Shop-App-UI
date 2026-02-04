@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from "../styles";
 import { handleSize } from "../config/responsiveTheme";
 import Metrics from "../styles/metrics";
+import NumberSkeleton from "./numberSkeleton";
 
 type Props = {
   total: string;
@@ -12,14 +13,26 @@ type Props = {
   onPress: any;
   onPresseye: any;
   showBalance: boolean;
+  getAssetBalancePending: boolean
 };
 
-const AccountCardBox = ({ total, onHold, available, onPress, onPresseye, showBalance }: Props) => {
+const AccountCardBox = ({getAssetBalancePending, total, onHold, available, onPress, onPresseye, showBalance }: Props) => {
+
+  // console.log("==>",getAssetBalancePending);
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <TouchableWithoutFeedback>
         <View style={styles.balanceRow}>
-          <Text style={styles.total}>{showBalance ? total : "**********"}</Text>
+
+          {getAssetBalancePending ? (
+            // <NumberSkeleton width={120} height={50} />
+            <Text style={styles.total}>{"..."}</Text>                
+          ) : (
+            <Text style={styles.total}>{showBalance ? total : "**********"}</Text>
+          )}
+
+          {/* <Text style={styles.total}>{showBalance ? total : "**********"}</Text> */}
           <TouchableOpacity onPress={onPresseye} style={styles.eyeButton}>
             <Icon
               name={showBalance ? "eye-outline" : "eye-off-outline"}
@@ -35,12 +48,27 @@ const AccountCardBox = ({ total, onHold, available, onPress, onPresseye, showBal
 
       <View style={styles.row}>
         <View style={styles.column}>
-          <Text style={styles.sub}>{!showBalance ? "****" : onHold}</Text>
+          
+            {getAssetBalancePending ? (
+              // <NumberSkeleton width={120} />
+              <Text style={styles.sub}>{"..."}</Text>                
+            ) : (
+              <Text style={styles.sub}>{!showBalance ? "****" : onHold}</Text>
+            )}
+
           <Text style={styles.subLabel}>On hold or pending</Text>
         </View>
         <View style={styles.column}>
-          <Text style={styles.sub}>{!showBalance ? "****" : available}</Text>
-          <Text style={styles.subLabel}>Available</Text>
+          {/* <Text style={styles.sub}>{!showBalance ? "****" : available}</Text> */}
+
+            {getAssetBalancePending ? (
+              // <NumberSkeleton width={120} />
+              <Text style={styles.sub}>{"..."}</Text>                
+            ) : (
+                <Text style={styles.sub}>{!showBalance ? "****" : available}</Text>
+            )}
+
+          <Text style={styles.subLabel}>Available to use</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -50,7 +78,7 @@ const AccountCardBox = ({ total, onHold, available, onPress, onPresseye, showBal
 const styles = StyleSheet.create({
   card: {
     width: Metrics.width,
-    marginTop: handleSize.f(3),
+    marginTop: handleSize.f(2),
     // padding: handleSize.f(15),
     borderRadius: handleSize.f(16),
     justifyContent: "center",
@@ -81,7 +109,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     textAlign: "center",
-    marginBottom: handleSize.f(6),
+    marginBottom: handleSize.f(4),
   },
   row: {
     flexDirection: "row",

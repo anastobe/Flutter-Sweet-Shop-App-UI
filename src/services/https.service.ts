@@ -45,24 +45,25 @@ const generateRequestId = () => {
 
 const forceLogout = async () => {
 
-  console.log('🚪 FORCE LOGOUT');
-  try {
-    if (!isLoggingOut) {
-      isRefreshing = true;
+  // console.log('🚪 FORCE LOGOUT');
+  // try {
+  //   if (!isLoggingOut) {
+  //     isRefreshing = true;
+      requestQueue = [];
       dataHandlerService?.getStore()?.dispatch({
         type: ActionType.LOGOUT,
         payload: {},
       });
       // let res = await apis.LogoutApi({})
       // console.log("logout respnse===>",res);
-  }
+  // }
     
-  }catch(err){
-    console.log("force logout error is ",err);    
-  } 
-  finally {
-    isLoggingOut = false
-  }
+  // }catch(err){
+  //   console.log("force logout error is ",err);    
+  // } 
+  // finally {
+  //   isLoggingOut = false
+  // }
 
 
 };
@@ -137,11 +138,11 @@ const axiosInstance = async (
 
   const requestId = generateRequestId();
 
-console.log(
-  `[${requestId}] ➡️ REQUEST START`,
-  method,
-  url
-);
+// console.log(
+//   `[${requestId}] ➡️ REQUEST START`,
+//   method,
+//   url
+// );
 
   const store = dataHandlerService.getStore();
   const accessToken =
@@ -189,11 +190,11 @@ console.log(
 
     // console.log("main response==>",responseJson);
 
-    console.log(
-  `[${requestId}] ✅ SUCCESS`,
-  method,
-  url
-);
+//     console.log(
+//   `[${requestId}] ✅ SUCCESS`,
+//   method,
+//   url
+// );
 
     return responseJson;
   };
@@ -300,6 +301,9 @@ console.log(
       error.bodyString && typeof error.bodyString === 'string'
         ? JSON.parse(error.bodyString)
         : error.bodyString;
+
+    console.log("main error ",errorResponse);
+    
 
     MessageHandler(errorResponse);
     throw errorResponse;

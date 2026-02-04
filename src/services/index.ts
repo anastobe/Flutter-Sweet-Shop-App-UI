@@ -5,6 +5,7 @@ import {
     paymentHistry,
     fetchLinkedAccCards,
     getDashboardData,
+    getAssetBalance,
     getAccountsAndAssets,
     getTransactionAttachement
     
@@ -98,6 +99,7 @@ const apis = {
   getNotifications,
   useaddAsset,
   getDashboardData,
+  getAssetBalance,
   getAccountsAndAssets,
   setSpendLimit,
   setPinSecurity,

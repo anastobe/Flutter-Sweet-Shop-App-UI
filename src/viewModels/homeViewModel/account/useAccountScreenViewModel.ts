@@ -4,7 +4,7 @@ import { Alert, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, Share 
 import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
 import { SHOW_CLIENT } from "../../../APICall/constants";
-import { AccDelete, AccFreeze, getAccountsAndAssets, getDashboardData, getUserDetail, paymentHistry,  } from "../../../queries/accountQueries/accountQuery";
+import { AccDelete, AccFreeze, getAccountsAndAssets, getAssetBalance, getDashboardData, getUserDetail, paymentHistry,  } from "../../../queries/accountQueries/accountQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { Images } from "../../../config";
@@ -62,6 +62,13 @@ const [transactions, setTransactions] = useState<any[]>([]);
   //   dispatch,
   // });
 
+  //asset balance
+  const { data: getAssetBalance_Data, refetch: refetchgetAssetBalance, isFetching: getAssetBalancePending } = getAssetBalance({
+    enabled: false, 
+    dispatch,
+    ID: currentAssetDetail?.id,
+  });
+ 
 
   //dashboard
   const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isPending: getDashboardDataPending } = getDashboardData({
@@ -70,7 +77,7 @@ const [transactions, setTransactions] = useState<any[]>([]);
     ID: currentAssetDetail?.id,
   });
  
-  //  console.log("getDashboardData_Data=>",getDashboardData_Data);
+   console.log(getAssetBalancePending,"getAssetBalance_Data=>",getAssetBalance_Data);
   
 
 
@@ -114,17 +121,18 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
       },
     });
 
-    const {mutate: getUserDetailFunc, isPending: isPendinggetUserDetail} = getUserDetail({
-      callback: (response: any) => {
-        if (response.success) {
-          // console.log("get user detail fetch",response);         
-            if (response?.results) {
-              dispatch(storeLoginUserData(response.results));
-            }
-        }
-      },
-    });
+const { mutate: getUserDetailFunc, isPending } = getUserDetail({
+  callback: async (response: any) => {
+    if (response?.success && response?.results) {
+      dispatch(storeLoginUserData(response.results));
 
+      // 🔥 AFTER user detail → call all other APIs
+      await fetchAllInitialData();
+    } else {
+      dispatch(handleLoader(false)); // safety fallback
+    }
+  },
+});
 
     async function refetchgetAccountsAndAssets() {
        await apis.getAccountsAndAssets(dispatch)
@@ -161,6 +169,8 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
 
       // 3️⃣ Dashboard refresh
       await refetchgetDashboardData();
+
+      refetchgetAssetBalance(currentAssetDetail?.id)
 
       // 4️⃣ Transactions refresh
       fetchTransactions(currentAssetDetail?.id);
@@ -342,39 +352,28 @@ const saveDatainState = (data: any[] = []) => {
   
   }, [allAccounts]);
 
-
-  const fetchAllInitialData = async () => {
-    try {
-      dispatch(handleLoader(true));
-  
-      const [
-        userDetailRes,
-        countryRes, 
-        currencyRes, 
-        assetTypeRes, 
-        currencyAccountRes, 
-        AllAsset_n_AccountsRes
-      ] =
-      await Promise.all([
-        getUserDetailFunc({skip_activity_check: true}), 
-        apis.getCoutry(dispatch),
-        apis.getCurrency(dispatch),
-        apis.getAssetType(dispatch),
-        apis.getCurrencyAccount(dispatch), // ✅ This returns your all accounts array
-        apis.getAccountsAndAssets(dispatch)
-      ]);      
-
-    } catch (error) {
-      dispatch(handleLoader(false))
-      console.log("Error fetching initial data:", error);
-    } finally {
-      dispatch(handleLoader(false))
-    }
-  };
-
+const fetchAllInitialData = async () => {
+  try {
+    await Promise.all([
+      apis.getCoutry(dispatch),
+      apis.getCurrency(dispatch),
+      apis.getAssetType(dispatch),
+      apis.getCurrencyAccount(dispatch),
+      apis.getAccountsAndAssets(dispatch),
+    ]);
+  } catch (error) {
+    dispatch(handleLoader(false)); 
+    console.log("Error fetching initial data:", error);
+  } finally {
+    dispatch(handleLoader(false)); 
+  }
+};
 
   useEffect(() => {    
-    fetchAllInitialData()
+
+  dispatch(handleLoader(true));   // 🔥 loader ON at very start
+  getUserDetailFunc({ skip_activity_check: true });
+
     // apis.getCurrencyAccount(dispatch);
   }, []);
 
@@ -386,6 +385,7 @@ const saveDatainState = (data: any[] = []) => {
     // console.log("currentAssetDetail==>",currentAssetDetail);
     
     setTransactions([]); // 🔥 reset
+    refetchgetAssetBalance(currentAssetDetail?.id)
     refetchgetDashboardData()
     fetchTransactions(currentAssetDetail?.id); // 🔥 reset + reload
   }
@@ -479,6 +479,8 @@ function selectAccount(account: any) {
     activeIndex,
     setshowbalance,
     showbalance,
+    getAssetBalance_Data,
+    getAssetBalancePending,
     setActiveIndex,
     data,
     features,

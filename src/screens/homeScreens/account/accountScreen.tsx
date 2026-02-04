@@ -44,7 +44,7 @@ import {
   LoaderOnly,
 } from '../../../components/activityIndicator';
 
-const header_flatlist_BottomSizeAdjust = 240;
+const header_flatlist_BottomSizeAdjust = 250;
 
 const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
@@ -224,21 +224,25 @@ const AccountScreen = () => {
             offset: Metrics.width * index,
             index,
           })}
-          renderItem={({ item }) => (
+          renderItem={({ item }) => {
+            let getAssetBalance_Data = vm?.getAssetBalance_Data?.[0]
+            return(
             <AccountCardBox
+              getAssetBalancePending={vm?.getAssetBalancePending}
               showBalance={vm.showbalance}
-              total={`${CommonUtils.getCurrencySymbol(
-                item.currency.iso_code,
-              )} ${item.available_balance}`}
+              total={`${CommonUtils.getCurrencySymbol( 
+                item?.currency?.iso_code,
+              )} ${getAssetBalance_Data?.available_balance || 0}`}
               onHold={`${CommonUtils.getCurrencySymbol(
-                item.currency.iso_code,
-              )} ${item.pending_balance}`}
+                item?.currency?.iso_code,
+              )} ${getAssetBalance_Data?.pending_incoming_balance || 0}`}
               available={`${CommonUtils.getCurrencySymbol(
-                item.currency.iso_code,
-              )} ${item.available_balance}`}
+                item?.currency?.iso_code,
+              )} ${getAssetBalance_Data?.pending_outgoing_balance || 0}`}
               onPresseye={() => vm.setshowbalance(!vm.showbalance)}
             />
-          )}
+            )
+          }}
         />
         <View style={styles.pagination}>
           {vm?.selectedAccount_WholeApp?.assets?.map((_, index) => (
