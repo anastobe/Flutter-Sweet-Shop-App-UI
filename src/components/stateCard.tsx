@@ -5,12 +5,15 @@ import Metrics from "../styles/metrics";
 import { Images } from "../config";
 import { handleSize } from "../config/responsiveTheme";
 
-const StatCard = ({ value, title, amount, percentage, isPositive, onPress }) => {
+const StatCard = ({ loading, value, title, amount, percentage, isPositive, onPress }) => {
+
+  console.log("loading==>",loading);  
+
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.row}>
-        <Text style={styles.amount}>{value}</Text>
+        <Text style={styles.amount}>{loading ? "..." : value}</Text>
         <View style={styles.percentRow}>
           <Image
             tintColor={isPositive ? THEME.primary : THEME.medRed}
@@ -24,7 +27,7 @@ const StatCard = ({ value, title, amount, percentage, isPositive, onPress }) => 
               { color: isPositive ? THEME.primary : THEME.medRed },
             ]}
           >
-            {percentage}%
+            { loading ? "..." : `${percentage}%`}
           </Text>
         </View>
       </View>

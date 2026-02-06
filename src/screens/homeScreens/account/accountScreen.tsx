@@ -122,6 +122,7 @@ const AccountScreen = () => {
 
           <View style={styles.statecontainer}>
             <StatCard
+              loading={vm?.getDashboardDataPending}
               value={vm?.getDashboardData_Data?.average_spent}
               title="Avg monthly spend"
               amount="£820.0"
@@ -135,6 +136,7 @@ const AccountScreen = () => {
               isPositive
             />
             <StatCard
+              loading={vm?.getDashboardDataPending}
               value={vm?.getDashboardData_Data?.monthly_spend}
               title="Spent this month"
               amount="£440.24"
@@ -172,6 +174,26 @@ const AccountScreen = () => {
       </View>
     );
   }, [vm.features, vm.getDashboardData_Data]);
+
+  const renderItemBalance = React.useCallback(({ item }) => {
+  const assetBalance = vm?.getAssetBalance_Data
+
+  return (
+    <AccountCardBox
+      getAssetBalancePending={vm.getAssetBalancePending}
+      showBalance={vm.showbalance}
+      total={`${CommonUtils.getCurrencySymbol(item?.currency?.iso_code)} ${assetBalance?.available_balance || 0}`}
+      onHold={`${CommonUtils.getCurrencySymbol(item?.currency?.iso_code)} ${assetBalance?.pending_incoming_balance || 0}`}
+      available={`${CommonUtils.getCurrencySymbol(item?.currency?.iso_code)} ${assetBalance?.pending_outgoing_balance || 0}`}
+      onPresseye={vm?.toggleShowBalance}
+    />
+  );
+}, [
+  vm.getAssetBalancePending,
+  vm.showbalance,
+  vm.getAssetBalance_Data
+]);
+
 
   function renderHeaderStuffs() {
     return (
@@ -224,25 +246,26 @@ const AccountScreen = () => {
             offset: Metrics.width * index,
             index,
           })}
-          renderItem={({ item }) => {
-            let getAssetBalance_Data = vm?.getAssetBalance_Data?.[0]
-            return(
-            <AccountCardBox
-              getAssetBalancePending={vm?.getAssetBalancePending}
-              showBalance={vm.showbalance}
-              total={`${CommonUtils.getCurrencySymbol( 
-                item?.currency?.iso_code,
-              )} ${getAssetBalance_Data?.available_balance || 0}`}
-              onHold={`${CommonUtils.getCurrencySymbol(
-                item?.currency?.iso_code,
-              )} ${getAssetBalance_Data?.pending_incoming_balance || 0}`}
-              available={`${CommonUtils.getCurrencySymbol(
-                item?.currency?.iso_code,
-              )} ${getAssetBalance_Data?.pending_outgoing_balance || 0}`}
-              onPresseye={() => vm.setshowbalance(!vm.showbalance)}
-            />
-            )
-          }}
+          renderItem={renderItemBalance}
+          // renderItem={({ item }) => {
+          //   let getAssetBalance_Data = vm?.getAssetBalance_Data?.[0]
+          //   return(
+          //   <AccountCardBox
+          //     getAssetBalancePending={vm?.getAssetBalancePending}
+          //     showBalance={vm.showbalance}
+          //     total={`${CommonUtils.getCurrencySymbol( 
+          //       item?.currency?.iso_code,
+          //     )} ${getAssetBalance_Data?.available_balance || 0}`}
+          //     onHold={`${CommonUtils.getCurrencySymbol(
+          //       item?.currency?.iso_code,
+          //     )} ${getAssetBalance_Data?.pending_incoming_balance || 0}`}
+          //     available={`${CommonUtils.getCurrencySymbol(
+          //       item?.currency?.iso_code,
+          //     )} ${getAssetBalance_Data?.pending_outgoing_balance || 0}`}
+          //     onPresseye={() => vm.setshowbalance(!vm.showbalance)}
+          //   />
+          //   )
+          // }}
         />
         <View style={styles.pagination}>
           {vm?.selectedAccount_WholeApp?.assets?.map((_, index) => (

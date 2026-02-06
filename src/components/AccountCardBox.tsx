@@ -18,7 +18,7 @@ type Props = {
 
 const AccountCardBox = ({getAssetBalancePending, total, onHold, available, onPress, onPresseye, showBalance }: Props) => {
 
-  // console.log("==>",getAssetBalancePending);
+  // console.log("==>",getAssetBalancePending); 
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>

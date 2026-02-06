@@ -1,5 +1,5 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Alert, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, Share } from "react-native";
 import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
@@ -71,13 +71,13 @@ const [transactions, setTransactions] = useState<any[]>([]);
  
 
   //dashboard
-  const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isPending: getDashboardDataPending } = getDashboardData({
+  const { data: getDashboardData_Data, refetch: refetchgetDashboardData, isFetching: getDashboardDataPending } = getDashboardData({
     enabled: false, 
     dispatch,
     ID: currentAssetDetail?.id,
   });
  
-   console.log(getAssetBalancePending,"getAssetBalance_Data=>",getAssetBalance_Data);
+  //  console.log(getAssetBalancePending,"getAssetBalance_Data=>",getAssetBalance_Data);
   
 
 
@@ -466,6 +466,10 @@ function selectAccount(account: any) {
   selectAccountRef.current?.close();
 }
 
+const toggleShowBalance = React.useCallback(() => {
+  setshowbalance(prev => !prev);
+}, []);
+
   return {
     navigation,
     manageRef,
@@ -514,7 +518,8 @@ function selectAccount(account: any) {
     setRefreshing,
     loginUserData,
     allAccounts,
-    userData
+    userData,
+    toggleShowBalance
     // isLoadingMore,
     // loadMoreTransactions,
     // hasMore, 
