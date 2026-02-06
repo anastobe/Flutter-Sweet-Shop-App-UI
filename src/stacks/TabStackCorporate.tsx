@@ -113,7 +113,17 @@ const HomeStack = () => {
         component={AdminConfirmCardRequest}
         options={{ headerShown: false }}
       />
-
+      <Stack.Screen
+        name={HOME_ROUTES.ADMIN_PAYMENT_STATUS}
+        component={AdminPaymentStatus}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ADMIN_BENEFICIAY_STATUS}
+        component={AdminBeneficiaryStatus}
+        options={{ headerShown: false }}
+      />
+      
       </Stack.Navigator>
     </>
   );

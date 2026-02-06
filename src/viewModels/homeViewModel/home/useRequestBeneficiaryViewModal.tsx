@@ -1,16 +1,19 @@
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { useEffect, useRef, useState } from 'react';
-import { DeleteBeneficiary, getBeneficiaryDetail, getPendingRequest } from '../../../queries/moreQueries/moreQuery';
+import { DeleteBeneficiary, getBeneficiaryDetail } from '../../../queries/moreQueries/moreQuery';
+import { useSelector } from 'react-redux';
 
 export const useRequestBeneficiaryViewModal = () => {
   const navigation = useNavigation();
-  const FOCUS = useIsFocused();
+
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
+
   const [open, setOpen] = useState(false);
-  const [request, setrequest] = useState<any[]>([]);
+  const [beneficiaries, setBeneficiaries] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
 
   const [search, setSearch] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -24,26 +27,16 @@ export const useRequestBeneficiaryViewModal = () => {
     navigation.goBack();
   }
 
-  const onRefresh = async () => {
-    try {
-        setRefreshing(true);
-        fetchrequest(1);
-    } catch (e) {
-        console.log('Refresh error', e);
-        setRefreshing(false);
-    } finally {
-        console.log('Refresh finally');
-        setRefreshing(false);
-    }
-  };
-
+  function pressRightArrow() {
+    navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY);
+  }
 
   /* ---------------- SEARCH ---------------- */
 
   function onSearch(text: string) {
     setSearch(text);
     setIsSearching(true);          // 👈 start loader
-    setrequest([]);          // 👈 hide old list
+    setBeneficiaries([]);          // 👈 hide old list
     setPage(1);
     setHasMore(true);
 
@@ -52,7 +45,7 @@ export const useRequestBeneficiaryViewModal = () => {
     }
 
     searchTimeoutRef.current = setTimeout(() => {
-      fetchrequest(1, text);
+      fetchBeneficiaries(1, text);
     }, 500);
   }
 
@@ -69,11 +62,11 @@ export const useRequestBeneficiaryViewModal = () => {
 
   /* ---------------- API ---------------- */
 
-  const { mutate: getPendingRequestFunc, isPending } = getPendingRequest({
+  const { mutate: getBeneficiaryDetailFunc, isPending } = getBeneficiaryDetail({
     callback: (res: any) => {
       const newData = res?.results?.values || [];
 
-      setrequest(prev =>
+      setBeneficiaries(prev =>
         page === 1 ? newData : [...prev, ...newData]
       );
 
@@ -82,32 +75,31 @@ export const useRequestBeneficiaryViewModal = () => {
     },
   });
 
-  function fetchrequest(pageNumber: number, searchText = search) {
+  function fetchBeneficiaries(pageNumber: number, searchText = search) {
     if (!hasMore && pageNumber !== 1) return;
 
     const payload = {
-        page: pageNumber,
-        limit: 10,
-        order_by: "created_at",
-        order_direction: "desc",
-        search: searchText,
-        filters: {
-        status: "Pending"
-      }
-    }
-    getPendingRequestFunc(payload);
+      page: pageNumber,
+      limit: 10,
+      sort: {
+        key: 'created_at',
+        order: 'desc',
+      },
+      search: searchText,
+      filters: {
+        is_deleted: false,
+         status: "Pending"  //Approved and Pending
+      },
+    };
+
+    getBeneficiaryDetailFunc(payload);
   }
 
   /* ---------------- INITIAL LOAD ---------------- */
 
   useEffect(() => {
-    if (FOCUS) {
-      fetchrequest(1);
-    }
-    return ()=>{
-      setrequest([])
-    }
-  }, [FOCUS]);
+    fetchBeneficiaries(1);
+  }, []);
 
   /* ---------------- LOAD MORE ---------------- */
 
@@ -116,29 +108,29 @@ export const useRequestBeneficiaryViewModal = () => {
 
     const nextPage = page + 1;
     setPage(nextPage);
-    fetchrequest(nextPage);
+    fetchBeneficiaries(nextPage);
   }
 
   return {
+    navigation,
     pressBackArrow,
+    pressRightArrow,
 
     open,
     setOpen,
     onPressDelete,
     onPressPayment,
 
-    request,
+    beneficiaries,
     isPending,
     onLoadMore,
-    onRefresh,
 
     search,
     onSearch,
     isSearching, // 👈 expose to screen
-    navigation,
 
-    refreshing, 
-    setRefreshing
+    userData,
+    loginUserData
 
   };
 };

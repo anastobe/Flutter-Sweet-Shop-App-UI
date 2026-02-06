@@ -7,7 +7,7 @@ import { handleSize } from "../config/responsiveTheme";
 
 const StatCard = ({ loading, value, title, amount, percentage, isPositive, onPress }) => {
 
-  console.log("loading==>",loading);  
+  // console.log("loading==>",loading);  
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.card}>

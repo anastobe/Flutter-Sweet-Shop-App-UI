@@ -35,6 +35,7 @@ import {
 import {
     freezUnFreezCardNoMessage,
     changeCardStatus,
+    changeBeneficiaryStatus,
     useReplaceCard,
     CardpaymentHistry,
     setSpendLimit,
@@ -105,6 +106,7 @@ const apis = {
   setPinSecurity,
   freezUnFreezCardNoMessage,
   changeCardStatus,
+  changeBeneficiaryStatus,
   AccFreeze,
   AccDelete,
   paymentHistry,

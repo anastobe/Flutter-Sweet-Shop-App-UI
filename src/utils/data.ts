@@ -13,9 +13,14 @@ const BENEFICIARY_KEY_TYPES = {
    bank: "bank"
 }
 
+const GLOBAL_ARRPOVED_PENDING = {
+  ARRPOVED: 'Approved',
+  PENDING: 'Pending'
+}
+
 const GLOBAL_USER_TYPES = {
-  MAKER: 'MAKER',
-  CHECKER: 'CHECKER'
+  MAKER: 'maker',
+  CHECKER: 'checker'
 }
 
 const CUSTOMER_TYPE = { 
@@ -414,6 +419,7 @@ export {
     BENEFICIARY_KEY_FOR,
     CARD_STATUS,
     ACCOUNT_HISTRY_VALIDATION,
+    GLOBAL_ARRPOVED_PENDING,
     GLOBAL_USER_TYPES,
     CUSTOMER_TYPE
 

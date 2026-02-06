@@ -1,6 +1,6 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES, BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR } from '../../../utils/data';
+import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES, BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR, CUSTOMER_TYPE, GLOBAL_USER_TYPES } from '../../../utils/data';
 import { Alert } from 'react-native';
 import { SHOW_CLIENT } from '../../../APICall/constants';
 import { CommonUtils, Toast } from '../../../utils';
@@ -18,7 +18,10 @@ export const useAddNewBeneficiaryViewModel = () => {
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
-  
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
+
+  let corporateMaker = (userData?.customer_type == CUSTOMER_TYPE.CORPORATE && userData?.role == GLOBAL_USER_TYPES.MAKER )
   const [adjustScrollHeight, setadjustScrollHeight] = useState(false);
   const [adjustScrollHeightCountry, setadjustScrollHeightCountry] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -128,6 +131,7 @@ function openConfirmationModal() {
           first_name: firstName,
           last_name: lastName,
           email: email,
+          is_corporate: corporateMaker ? true : false,          
           account_name: "XYZ INPUT Bank",
           currency_id: currency?.id,
           ...(accountNo

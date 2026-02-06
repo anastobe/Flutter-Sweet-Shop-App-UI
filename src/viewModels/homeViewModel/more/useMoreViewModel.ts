@@ -70,7 +70,7 @@ export default function useMoreViewModel() {
   }
 
   async function onPressLogout() {
-    await apis.LogoutApi({})
+    // await apis.LogoutApi({})
     logoutUser()
 
     // dispatch(storeUserToken({}));

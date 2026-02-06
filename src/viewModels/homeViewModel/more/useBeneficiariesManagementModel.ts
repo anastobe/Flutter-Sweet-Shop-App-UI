@@ -2,9 +2,15 @@ import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { useEffect, useRef, useState } from 'react';
 import { DeleteBeneficiary, getBeneficiaryDetail } from '../../../queries/moreQueries/moreQuery';
+import { useSelector } from 'react-redux';
+import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from '../../../utils/data';
 
 export const useBeneficiariesManagementViewModel = () => {
   const navigation = useNavigation();
+
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
+  let corporateMaker = (userData?.customer_type == CUSTOMER_TYPE.CORPORATE && userData?.role == GLOBAL_USER_TYPES.MAKER )
 
   const [open, setOpen] = useState(false);
   const [beneficiaries, setBeneficiaries] = useState<any[]>([]);
@@ -139,5 +145,10 @@ export const useBeneficiariesManagementViewModel = () => {
     search,
     onSearch,
     isSearching, // 👈 expose to screen
+
+    userData,
+    loginUserData,
+    corporateMaker
+
   };
 };

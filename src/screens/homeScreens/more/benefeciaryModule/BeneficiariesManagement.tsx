@@ -35,6 +35,9 @@ const BeneficiariesManagement = () => {
    isPendingDeleteBeneficiary,
    onSearch,
    search,
+   userData,
+   loginUserData,
+   corporateMaker
  } = useBeneficiariesManagementViewModel();
 
 
@@ -47,46 +50,46 @@ const BeneficiariesManagement = () => {
      .map((n: any) => n[0])
 
 
-   return (
-     <LinearGradient
-       colors={['#433c71ff', '#2c2d5e', '#272d5a']}
-       style={styles.item}
-     >
-       <View style={{ flexDirection: 'row', alignItems: 'center', padding: handleSize.f(12) }} >
-       <View style={styles.avatar}>
-         <Text style={styles.avatarText}>{initials}</Text>
-       </View>
+    return (
+      <LinearGradient
+        colors={['#433c71ff', '#2c2d5e', '#272d5a']}
+        style={styles.item}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center', padding: handleSize.f(12) }} >
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>{initials}</Text>
+        </View>
 
 
-       <View style={{ flex: 1,  }}>
-         <Text style={styles.name}>
-           {item?.first_name} {item?.last_name}
-         </Text>
-         <Text style={styles.currency}>
-           {item?.currency?.iso_code || 'XXX'}
-         </Text>
-       </View>
+        <View style={{ flex: 1,  }}>
+          <Text style={styles.name}>
+            {item?.first_name} {item?.last_name}
+          </Text>
+          <Text style={styles.currency}>
+            {item?.currency?.iso_code || 'XXX'}  {corporateMaker ? `( ${item?.status} )` : null}
+          </Text>
+        </View>
 
 
-       <TouchableOpacity
-         style={styles.butnCont}
-         onPress={() => onPressDelete(item)}
-       >
-         <Icon name="trash-outline" size={handleSize.f(18)} color={THEME.white} />
-       </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.butnCont}
+          onPress={() => onPressDelete(item)}
+        >
+          <Icon name="trash-outline" size={handleSize.f(18)} color={THEME.white} />
+        </TouchableOpacity>
 
 
-       <TouchableOpacity
-         style={styles.butnCont2}
-         onPress={() => onPressPayment(item)}
-       >
-         <Icon name="arrow-forward-outline" size={handleSize.f(18)} color={THEME.white} />
-       </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.butnCont2}
+          onPress={() => onPressPayment(item)}
+        >
+          <Icon name="arrow-forward-outline" size={handleSize.f(18)} color={THEME.white} />
+        </TouchableOpacity>
 
 
-       </View>
-     </LinearGradient>
-   );
+        </View>
+      </LinearGradient>
+    );
  }
 
 
@@ -151,9 +154,13 @@ const BeneficiariesManagement = () => {
              onEndReachedCalledDuringMomentum.current = true;
            }
          }}
-         ListFooterComponent={() =>
-           isPending && beneficiaries.length > 0 ? <LoaderOnly /> : null
-         }
+         ListFooterComponent={() =>{
+          return(
+            <View style={{ marginBottom: 50 }} >
+            {isPending && beneficiaries.length > 0 ? <LoaderOnly /> : null}
+            </View>
+          )
+         }}
          ListEmptyComponent={() => {
            if (isSearching || isPending) {
              return <LoaderOnly />;
@@ -247,9 +254,10 @@ const styles = StyleSheet.create({
    textTransform: "capitalize"
  },
  name: {
-   fontSize: handleSize.f(FONT_SIZES.onesix),
+   fontSize: handleSize.f(FONT_SIZES.onefour),
    fontFamily: FONTFAMILY.SemiBold,
    color: THEME.white,
+   lineHeight: handleSize.f(16),
    textTransform: "capitalize"
  },
  currency: {

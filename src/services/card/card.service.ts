@@ -25,6 +25,11 @@ export const changeCardStatus = async (body: any) => {
   return await axiosInstance('/cards/request/status', 'POST', body, true);
 };
 
+export const changeBeneficiaryStatus = async (body: any) => {
+  return await axiosInstance(`/beneficiary/update_status/${body?.ID}`, 'PUT', body?.payload, true);
+};
+
+
 // Set PIN security
 export const setPinSecurity = async (body: any) => {
   return await axiosInstance('/card/set-pin', 'POST', body,true);
