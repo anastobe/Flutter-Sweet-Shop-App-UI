@@ -48,7 +48,7 @@ export default function RequestPendingTransaction() {
 
    function handleonPress(item: any) {
 
-    navigation.navigate(Auth_ROUTES.ADMIN_CARD_STATUS, { Detail: item })    
+    navigation.navigate(Auth_ROUTES.ADMIN_PAYMENT_STATUS, { Detail: item })    
     return
 
     if (item.type == "payment") {
@@ -62,57 +62,36 @@ export default function RequestPendingTransaction() {
 
   function renderItem({item}: any) {
 
+    // console.log("check==>",item);    
+
     const name = item?.requestedByUser
 
     return (
       <TouchableOpacity onPress={() => { handleonPress(item) }} style={styles.item}>
         <View style={styles.iconCONTContainer}>
           <View style={styles.iconCONT}>
-            <Icon name={'card-outline'} size={handleSize.f(22)} color={THEME.textPrimary} />
+            <Icon name={'wallet-outline'} size={handleSize.f(22)} color={THEME.textPrimary} />
           </View>
         </View>
 
         <View style={styles.rightSide}>
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-            <Text style={styles.txt16}>Card Request</Text>
+            <Text style={styles.txt16}>Transaction Request</Text>
             <Text style={styles.txt13}>{item?.status}</Text>
           </View>
 
           <View>
-            <Text style={styles.midTxt}>Your have a new card request with name {item?.card_name}. Created by {name?.first_name} {name?.last_name}</Text>
+            <Text style={styles.midTxt}>Your have a new transaction request of amount {item?.amount}.</Text>
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(10) }}>
-            <Text style={styles.txt10}>{CommonUtils.formatDateTime(item?.created_at)}</Text>
+            <Text style={styles.txt10}>{CommonUtils.formatDate(item?.created_at)}  ,{CommonUtils.formatTime(item?.created_at)}</Text>
             {/* <Text style={styles.txt10}>{CommonUtils.formatTime(item?.created_at)}</Text> */}
           </View>
         </View>
       </TouchableOpacity>
     )
   }
-
- function renderFilter() {
-   return (
-       <InputField
-         removeTitle={true}
-         margBtm={15}
-         textInputStyle={styles.innerinput}
-         imgViewLeft={styles.imgViewLeft}
-         imageLeft={'search-outline'}
-         imagetintColorLeft={THEME.white}
-         // image={'search-outline'}
-         autoCapital={'none'}
-         blurOnSubmit={false}
-         placeholder="Search"
-         value={search}
-         onChangeText={onSearch}
-         keyboardType={'default'}
-         imagetintColor={THEME.white}
-         customInpStyle={styles.innerinput}
-       />
-   );
- }
-
 
  return (
     <MainContainer
@@ -130,7 +109,7 @@ export default function RequestPendingTransaction() {
 
 
     <View style={{ paddingHorizontal: handleSize.w(20), flex: 1 }}>
-    <Text style={styles.title}>Request Pending Transactions</Text>
+    <Text style={styles.title}>Request Pending Transactions ( FX )</Text>
 
        {/* {renderFilter()} */}
 

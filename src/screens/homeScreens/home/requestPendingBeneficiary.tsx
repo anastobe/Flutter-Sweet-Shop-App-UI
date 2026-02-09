@@ -55,7 +55,7 @@ function handleonPress(item: any) {
       <TouchableOpacity onPress={() => { handleonPress(item) }} style={styles.item}>
         <View style={styles.iconCONTContainer}>
           <View style={styles.iconCONT}>
-            <Icon name={'card-outline'} size={handleSize.f(22)} color={THEME.textPrimary} />
+            <Icon name={'person-outline'} size={handleSize.f(22)} color={THEME.textPrimary} />
           </View>
         </View>
 

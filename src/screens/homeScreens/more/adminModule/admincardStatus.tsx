@@ -61,7 +61,7 @@ function AdminConfirmCardRequest(props: any) {
     <View style={styles.summaryBox}>
       <InfoRow icon="card-outline" label="Card Type" value={Detail?.format} />
       <InfoRow icon="person-outline" label="Cardholder Name" value={Detail?.card_name} />
-      <InfoRow icon="person-outline" label="Created by" value={name?.first_name + " " + name.last_name } />
+      <InfoRow icon="person-outline" label="Created by" value={name?.first_name || '' + " " + name?.last_name || '' } />
       <InfoRow icon="home-outline" label="Delivery Address" value="DUMMY" />
       <InfoRow icon="time-outline" label="Estimated Delivery" value="DUMMY 3–5  Days" />
       <InfoRow icon="time-outline" label="Card Issuance Fee" value="DUMMY £4.95 GBP" />

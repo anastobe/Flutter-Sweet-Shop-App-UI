@@ -1,7 +1,7 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { useEffect, useRef, useState } from 'react';
-import { DeleteBeneficiary, getBeneficiaryDetail, getPendingRequest } from '../../../queries/moreQueries/moreQuery';
+import { DeleteBeneficiary, getBeneficiaryDetail, getFxQuote, getPendingRequest } from '../../../queries/moreQueries/moreQuery';
 
 export const useRequestTransactionViewModal = () => {
   const navigation = useNavigation();
@@ -69,7 +69,7 @@ export const useRequestTransactionViewModal = () => {
 
   /* ---------------- API ---------------- */
 
-  const { mutate: getPendingRequestFunc, isPending } = getPendingRequest({
+  const { mutate: getFxQuoteFunc, isPending } = getFxQuote({
     callback: (res: any) => {
       const newData = res?.results?.values || [];
 
@@ -81,21 +81,24 @@ export const useRequestTransactionViewModal = () => {
       setIsSearching(false); // 👈 stop loader
     },
   });
+  
 
   function fetchrequest(pageNumber: number, searchText = search) {
     if (!hasMore && pageNumber !== 1) return;
 
     const payload = {
-        page: pageNumber,
-        limit: 10,
-        order_by: "created_at",
-        order_direction: "desc",
-        search: searchText,
-        filters: {
-        status: "Pending"
-      }
-    }
-    getPendingRequestFunc(payload);
+      page: pageNumber,
+      limit: 10,
+      sort: {
+        key: 'created_at',
+        order: 'desc',
+      },
+      search: "",
+      filters: {
+        status: "Pending"  //FOR GET FX QUOTE PENDING TRANSACTION
+      },
+    };
+    getFxQuoteFunc(payload);
   }
 
   /* ---------------- INITIAL LOAD ---------------- */

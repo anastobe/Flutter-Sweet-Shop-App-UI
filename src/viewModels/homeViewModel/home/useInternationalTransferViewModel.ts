@@ -194,6 +194,7 @@ import { CommonUtils, Toast } from "../../../utils";
 import { useLogin } from "../../../queries/auth.query";
 import { useFXConversion, usePaymentTransfer,useMyAccount_InternationalTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
+import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from "../../../utils/data";
 
 export const useInternationalTransferViewModel = ({...props}) => {
   const navigation = useNavigation();
@@ -205,7 +206,9 @@ export const useInternationalTransferViewModel = ({...props}) => {
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
 
+  let corporateMaker = (userData?.customer_type == CUSTOMER_TYPE.CORPORATE && userData?.role == GLOBAL_USER_TYPES.MAKER )
   const [countdown, setCountdown] = useState<number>(0);
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
@@ -419,7 +422,8 @@ const startCountdown = (seconds: number) => {
       from_asset: fromAccount?.id,
       payment_method_id: payment_method_id?.id,
       beneficiary_id: beneficiary?.beneficiary_id,
-      is_internal: false
+      is_internal: false,
+      is_corporate: corporateMaker ? true : false
     }
 
     console.log("going main payload=>",payload);
@@ -530,7 +534,8 @@ const startCountdown = (seconds: number) => {
     setpayment_method_id,
     autoFocusedpaymentTypes, 
     setautoFocusedpaymentTypes,
-    countdown
+    countdown,
+    corporateMaker
   
   };
 };

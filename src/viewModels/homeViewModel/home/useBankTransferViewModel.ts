@@ -11,6 +11,7 @@ import { useLogin } from "../../../queries/auth.query";
 import { usePaymentTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
 import { getBeneficiaryDetail } from "../../../queries/moreQueries/moreQuery";
+import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from "../../../utils/data";
 
 export const useBankTransferViewModel = () => {
   const navigation = useNavigation();
@@ -19,6 +20,9 @@ export const useBankTransferViewModel = () => {
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+
+  let corporateMaker = (userData?.customer_type == CUSTOMER_TYPE.CORPORATE && userData?.role == GLOBAL_USER_TYPES.MAKER )
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
   const [open, setopen] = useState(false);
   const [openSureModal, setopenSureModal] = useState(false);
@@ -136,7 +140,8 @@ export const useBankTransferViewModel = () => {
       beneficiary_id: beneficiary.beneficiary_id,
       currency_id: fromAccount?.currency_id,
       payment_method_id: payment_method_id?.id,
-      reference: note
+      reference: note,
+      is_corporate: corporateMaker ? true : false,  
     }
     console.log("===>payload==>",payload);
     usePaymentTransferFunc(payload)
@@ -204,7 +209,8 @@ export const useBankTransferViewModel = () => {
     setautoFocusedpaymentTypes,
     openSureModal, 
     setopenSureModal,
-    pressSure
+    pressSure,
+    corporateMaker
   
   };
 };
