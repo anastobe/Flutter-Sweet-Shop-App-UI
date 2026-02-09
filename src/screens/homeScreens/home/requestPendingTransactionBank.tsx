@@ -64,7 +64,7 @@ export default function RequestPendingTransactionBank() {
 
     // console.log("check==>",item);    
 
-    const name = item?.requestedByUser
+    const name = item?.beneficiary
 
     return (
       <TouchableOpacity onPress={() => { handleonPress(item) }} style={styles.item}>
@@ -77,11 +77,11 @@ export default function RequestPendingTransactionBank() {
         <View style={styles.rightSide}>
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
             <Text style={styles.txt16}>Transaction Request</Text>
-            <Text style={styles.txt13}>{item?.status}</Text>
+            {/* <Text style={styles.txt13}>{item?.status}5</Text> */}
           </View>
 
           <View>
-            <Text style={styles.midTxt}>Your have a new transaction request of amount {item?.amount}.</Text>
+            <Text style={styles.midTxt}>Your have a new transaction request of amount {item?.amount}. Against the beneficiary {name?.first_name || ''} {name?.last_name}</Text>
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(10) }}>
@@ -89,6 +89,14 @@ export default function RequestPendingTransactionBank() {
             {/* <Text style={styles.txt10}>{CommonUtils.formatTime(item?.created_at)}</Text> */}
           </View>
         </View>
+
+        <View style={styles.iconCONTContainer}>
+          <View style={styles.iconCONT}>
+            <Icon name={'wallet-outline'} size={handleSize.f(22)} color={THEME.textPrimary} />
+          </View>
+        </View>
+
+
       </TouchableOpacity>
     )
   }
@@ -224,7 +232,7 @@ const styles = StyleSheet.create({
     color: THEME.white,
     marginVertical: handleSize.h(5),
     lineHeight: handleSize.h(16),
-    width: '80%',
+    width: '100%',
   },
   subname: {
     fontSize: handleSize.f(FONT_SIZES.oneZero),

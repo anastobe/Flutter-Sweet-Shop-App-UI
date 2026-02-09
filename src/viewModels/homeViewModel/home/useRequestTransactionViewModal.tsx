@@ -95,7 +95,8 @@ export const useRequestTransactionViewModal = () => {
       },
       search: "",
       filters: {
-        status: "Pending"  //FOR GET FX QUOTE PENDING TRANSACTION
+        status: "Pending",  //FOR GET FX QUOTE PENDING TRANSACTION
+        is_internal: false
       },
     };
     getFxQuoteFunc(payload);

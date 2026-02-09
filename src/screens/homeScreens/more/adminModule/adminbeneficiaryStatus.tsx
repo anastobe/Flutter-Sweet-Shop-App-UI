@@ -93,7 +93,8 @@ function AdminBeneficiaryStatus(props: any) {
           }}
           btnLoader={isPendingchangeBeneficiaryStatus}
           marginTopTitle={handleSize.h(40)}
-          onConfirm={()=>changeCaredStatus('Rejected')}
+          // onConfirm={()=>changeCaredStatus('Rejected')}
+          onConfirm={()=>changeCaredStatus('Suspended')}
           showSubBody={false}
           showCancelBtn={false}
           downConfirmText="Cancel"

@@ -26,11 +26,13 @@ export const changeCardStatus = async (body: any) => {
 };
 
 export const changeBankPaymentStatus = async (body: any) => {
-  return await axiosInstance(`/update/payment_status/${body?.ID}`, 'PUT', body, true);
+  console.log("=changeBankPaymentStatus==>",body);  
+  return await axiosInstance(`/update/payment_status/${body?.ID}`, 'PUT', body?.payload, true);
 };
 
 export const changeFxPaymentStatus = async (body: any) => {
-  return await axiosInstance(`/fx_payment/update_status/${body?.ID}`, 'PUT', body, true);
+  console.log("=changeFxPaymentStatus==>",body);  
+  return await axiosInstance(`/fx_payment/update_status/${body?.ID}`, 'PUT', body?.payload, true);
 };
 
 export const changeBeneficiaryStatus = async (body: any) => {

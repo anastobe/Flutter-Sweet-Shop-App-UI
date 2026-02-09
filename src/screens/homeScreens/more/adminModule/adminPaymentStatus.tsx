@@ -61,9 +61,11 @@ const AdminPaymentStatus = ({...props}) => {
   const renderCardDetails = () => (
     <View style={styles.summaryBox}>
       <InfoRow icon="card-outline" label="Amount" value={Detail?.amount} />
-      <InfoRow icon="person-outline" label="From Currency" value={Detail?.card_name} />
-      <InfoRow icon="person-outline" label="Status" value={Detail?.Status || '' + " " + name?.last_name || '' } />
-      <InfoRow icon="person-outline" label="From Currency" value={CommonUtils.formatDate(Detail?.created_at)} />
+      <InfoRow icon="checkmark-circle-outline" label="Status" value={Detail?.status} />
+      <InfoRow icon="person-outline" label="Send To" value={`${name?.first_name || ''} ${name?.last_name || ''}`} />
+      <InfoRow icon="time-outline" label="Date" value={CommonUtils.formatDate(Detail?.created_at)} />
+      
+
       {/* <InfoRow icon="home-outline" label="Delivery Address" value="DUMMY" />
       <InfoRow icon="time-outline" label="Estimated Delivery" value="DUMMY 3–5  Days" />
       <InfoRow icon="time-outline" label="Card Issuance Fee" value="DUMMY £4.95 GBP" />

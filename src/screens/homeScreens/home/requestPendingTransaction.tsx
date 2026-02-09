@@ -62,9 +62,7 @@ export default function RequestPendingTransaction() {
 
   function renderItem({item}: any) {
 
-    // console.log("check==>",item);    
-
-    const name = item?.requestedByUser
+    // console.log("check==>",item);  
 
     return (
       <TouchableOpacity onPress={() => { handleonPress(item) }} style={styles.item}>
@@ -77,7 +75,7 @@ export default function RequestPendingTransaction() {
         <View style={styles.rightSide}>
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
             <Text style={styles.txt16}>Transaction Request</Text>
-            <Text style={styles.txt13}>{item?.status}</Text>
+            {/* <Text style={styles.txt13}>{item?.status}</Text> */}
           </View>
 
           <View>
@@ -224,7 +222,7 @@ const styles = StyleSheet.create({
     color: THEME.white,
     marginVertical: handleSize.h(5),
     lineHeight: handleSize.h(16),
-    width: '80%',
+    width: '100%',
   },
   subname: {
     fontSize: handleSize.f(FONT_SIZES.oneZero),

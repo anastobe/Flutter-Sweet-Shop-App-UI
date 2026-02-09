@@ -11,7 +11,7 @@ import StatusBarManager from '../../../../components/statusBarManager';
 import { SHOW_CLIENT } from '../../../../APICall/constants';
 import { handleSize } from '../../../../config/responsiveTheme';
 import Metrics from '../../../../styles/metrics';
-import { changeCardStatus, changeFxPaymentStatus } from '../../../../queries/card.Queries/card.query';
+import { changeBankPaymentStatus, changeCardStatus, changeFxPaymentStatus } from '../../../../queries/card.Queries/card.query';
 import { LoaderCompleteScreenOnly } from '../../../../components/activityIndicator';
 import { CommonUtils } from '../../../../utils';
 
@@ -38,7 +38,7 @@ const AdminBankPaymentStatus = ({...props}) => {
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
 
-  const { mutate: changeFxPaymentStatusFunc, isPending: isPendingchangeFxPaymentStatus } = changeFxPaymentStatus({
+  const { mutate: changeBankPaymentStatusFunc, isPending: isPendingchangeFxPaymentStatus } = changeBankPaymentStatus({
       callback: (response: any) => {        
         
         setOpen(false);
@@ -56,14 +56,14 @@ const AdminBankPaymentStatus = ({...props}) => {
 
   console.log("Details==>",Detail);
   
-  const name = Detail?.requestedByUser
+  const name = Detail?.beneficiary
 
   const renderCardDetails = () => (
     <View style={styles.summaryBox}>
       <InfoRow icon="card-outline" label="Amount" value={Detail?.amount} />
-      <InfoRow icon="person-outline" label="From Currency" value={Detail?.card_name} />
-      <InfoRow icon="person-outline" label="Status" value={Detail?.Status || '' + " " + name?.last_name || '' } />
-      <InfoRow icon="person-outline" label="From Currency" value={CommonUtils.formatDate(Detail?.created_at)} />
+      <InfoRow icon="checkmark-circle-outline" label="Status" value={Detail?.payment_status?.code} />
+      <InfoRow icon="person-outline" label="Send To" value={`${name?.first_name || ''} ${name?.last_name || ''}`} />
+      <InfoRow icon="time-outline" label="Date" value={CommonUtils.formatDate(Detail?.created_at)} />
       {/* <InfoRow icon="home-outline" label="Delivery Address" value="DUMMY" />
       <InfoRow icon="time-outline" label="Estimated Delivery" value="DUMMY 3–5  Days" />
       <InfoRow icon="time-outline" label="Card Issuance Fee" value="DUMMY £4.95 GBP" />
@@ -71,15 +71,15 @@ const AdminBankPaymentStatus = ({...props}) => {
     </View>
   );
 
-  function changeCaredStatus(status: string) {
+  function changeCaredStatus(status: number) {
 
     let payloadwithID = {
         ID: Detail?.id,
         payload: {
-          status: status   //Approved or Rejected
+          status_id: status   //Approved or Rejected
         }
       }
-    changeFxPaymentStatusFunc(payloadwithID)
+    changeBankPaymentStatusFunc(payloadwithID)
   }
 
   const renderAccept = () => (
@@ -91,10 +91,17 @@ const AdminBankPaymentStatus = ({...props}) => {
           style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
           backImg={Images.addCardGradient}
           visible={open}
-          onClose={() => setOpen(false)}
+          onClose={() =>{
+            if (isPendingchangeFxPaymentStatus) {
+            return
+           }  
+           else{
+             setOpen(false)
+           }
+          }}
           btnLoader={isPendingchangeFxPaymentStatus}
           marginTopTitle={handleSize.h(40)}
-          onConfirm={()=>changeCaredStatus('Rejected')}
+          onConfirm={()=>changeCaredStatus(5)}
           showSubBody={false}
           showCancelBtn={false}
           downConfirmText="Cancel"
@@ -118,10 +125,17 @@ const AdminBankPaymentStatus = ({...props}) => {
           style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
           backImg={Images.addCardGradient}
           visible={open2}
-          onClose={() => setOpen2(false)}
+          onClose={() =>{
+           if (isPendingchangeFxPaymentStatus) {
+            return
+           }  
+           else{
+             setOpen2(false)
+           }
+          }}
           btnLoader={isPendingchangeFxPaymentStatus}
           marginTopTitle={handleSize.h(40)}
-          onConfirm={()=>changeCaredStatus('Approved')}
+          onConfirm={()=>changeCaredStatus(1)}
           showSubBody={false}
           showCancelBtn={false}
           downConfirmText="Cancel"
@@ -148,9 +162,9 @@ const AdminBankPaymentStatus = ({...props}) => {
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
         <Text style={styles.title}>Confirm bank payment request</Text>
-        <Text style={styles.subtitle}>
+        {/* <Text style={styles.subtitle}>
           A small fee will be deducted from your account to issue and ship your card.
-        </Text>
+        </Text> */}
 
         {renderCardDetails()}
 
