@@ -22,6 +22,26 @@ export const getBeneficiaryDetail = ({
   });
 };
 
+
+export const getPendingBankPayment = ({
+  callback,
+}: {
+  callback: (res: any) => void;
+}) => {
+  return useMutation({
+    mutationFn: apis.getPendingBankPayment,
+    onSuccess: (response: any) => {
+      if (response?.success) {
+        callback(response);
+      }
+    },
+    onError: (error: any) => {
+      console.log('getPendingBankPayment error:', error);
+    },
+  });
+};
+
+
 export const getPendingRequest = ({
   callback,
 }: {

@@ -25,6 +25,10 @@ export const changeCardStatus = async (body: any) => {
   return await axiosInstance('/cards/request/status', 'POST', body, true);
 };
 
+export const changeBankPaymentStatus = async (body: any) => {
+  return await axiosInstance(`/update/payment_status/${body?.ID}`, 'PUT', body, true);
+};
+
 export const changeFxPaymentStatus = async (body: any) => {
   return await axiosInstance(`/fx_payment/update_status/${body?.ID}`, 'PUT', body, true);
 };

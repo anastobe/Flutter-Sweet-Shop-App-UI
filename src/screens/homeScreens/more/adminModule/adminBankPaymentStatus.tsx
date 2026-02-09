@@ -30,7 +30,7 @@ function InfoRow({ icon, label, value }) {
   );
 }
 
-const AdminPaymentStatus = ({...props}) => {
+const AdminBankPaymentStatus = ({...props}) => {
   
   const { Detail } = props.route.params; 
   const navigation = useNavigation();
@@ -147,7 +147,7 @@ const AdminPaymentStatus = ({...props}) => {
       <StatusBarManager backgroundColor={THEME.darkSecondary} barStyle="light-content" />
 
       <View style={{ marginHorizontal: handleSize.w(20) }}>
-        <Text style={styles.title}>Confirm international payment request</Text>
+        <Text style={styles.title}>Confirm bank payment request</Text>
         <Text style={styles.subtitle}>
           A small fee will be deducted from your account to issue and ship your card.
         </Text>
@@ -183,7 +183,7 @@ const AdminPaymentStatus = ({...props}) => {
   );
 }
 
-export default AdminPaymentStatus;
+export default AdminBankPaymentStatus;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },

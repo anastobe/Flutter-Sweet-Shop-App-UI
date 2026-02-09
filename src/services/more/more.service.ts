@@ -26,6 +26,11 @@ export const getPendingRequest = async (body: any) => {
   return response;
 };
 
+export const getPendingBankPayment = async (body: any) => {
+  const response = await axiosInstance('/payment', 'POST', body, false);
+  return response;
+};
+
 export const getFxQuote = async (body: any) => {
   const response = await axiosInstance('/fx', 'POST', body, false);
   return response;

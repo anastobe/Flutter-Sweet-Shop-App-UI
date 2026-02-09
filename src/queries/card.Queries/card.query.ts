@@ -116,6 +116,25 @@ export const changeCardStatus = ({callback} : {callback: (res: any) => void}) =>
   });
 };
 
+
+export const changeBankPaymentStatus = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.changeBankPaymentStatus,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+    }  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('changeBankPaymentStatus error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    }
+  });
+};
+
 export const changeFxPaymentStatus = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
 

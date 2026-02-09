@@ -54,6 +54,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Coperate_homeScreen from '../screens/homeScreens/home/coperate_homeScreen';
 import RequestPendingTransaction from '../screens/homeScreens/home/requestPendingTransaction';
 import RequestPendingBeneficiary from '../screens/homeScreens/home/requestPendingBeneficiary';
+import RequestPendingTransactionBank from '../screens/homeScreens/home/requestPendingTransactionBank';
+import AdminBankPaymentStatus from '../screens/homeScreens/more/adminModule/adminBankPaymentStatus';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -101,6 +103,16 @@ const HomeStack = () => {
       <Stack.Screen
         name={HOME_ROUTES.REQUEST_PENDING_TRANSACTION}
         component={RequestPendingTransaction}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.REQUEST_PENDING_TRANSACTION_BANK}
+        component={RequestPendingTransactionBank}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ADMIN_PAYMENT_BANK_STATUS}
+        component={AdminBankPaymentStatus}
         options={{ headerShown: false }}
       />
       <Stack.Screen
@@ -221,6 +233,11 @@ const MoreStack = () => {
       <Stack.Screen
         name={HOME_ROUTES.ADMIN_PAYMENT_STATUS}
         component={AdminPaymentStatus}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.ADMIN_PAYMENT_BANK_STATUS}
+        component={AdminBankPaymentStatus}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -17,12 +17,12 @@ import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
 import InputField from '../../../components/textInput';
-import { useRequestTransactionViewModal } from '../../../viewModels/homeViewModel/home/useRequestTransactionViewModal';
+import { useRequestTransactionBankViewModal } from '../../../viewModels/homeViewModel/home/useRequestTransactionBankViewModal';
 import { CommonUtils } from '../../../utils';
 import { Auth_ROUTES } from '../../../constants';
 
 
-export default function RequestPendingTransaction() {
+export default function RequestPendingTransactionBank() {
  const {
    pressBackArrow,
    open,
@@ -41,14 +41,14 @@ export default function RequestPendingTransaction() {
    refreshing, 
    setRefreshing
 
- } = useRequestTransactionViewModal();
+ } = useRequestTransactionBankViewModal();
 
 
  const onEndReachedCalledDuringMomentum = useRef(false);
 
    function handleonPress(item: any) {
 
-    navigation.navigate(Auth_ROUTES.ADMIN_PAYMENT_STATUS, { Detail: item })    
+    navigation.navigate(Auth_ROUTES.ADMIN_PAYMENT_BANK_STATUS, { Detail: item })    
     return
 
     if (item.type == "payment") {
@@ -85,7 +85,7 @@ export default function RequestPendingTransaction() {
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(10) }}>
-            <Text style={styles.txt10}>{CommonUtils.formatDate(item?.created_at)}  ,{CommonUtils.formatTime(item?.created_at)}</Text>
+            <Text style={styles.txt10}>{CommonUtils.formatDate(item?.created_at)}</Text>
             {/* <Text style={styles.txt10}>{CommonUtils.formatTime(item?.created_at)}</Text> */}
           </View>
         </View>
@@ -109,7 +109,7 @@ export default function RequestPendingTransaction() {
 
 
     <View style={{ paddingHorizontal: handleSize.w(20), flex: 1 }}>
-    <Text style={styles.title}>Pending international transactions</Text>
+    <Text style={styles.title}>Pending bank transactions</Text>
 
        {/* {renderFilter()} */}
 
