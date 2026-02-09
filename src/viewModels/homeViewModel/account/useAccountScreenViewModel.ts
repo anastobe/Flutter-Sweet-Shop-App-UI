@@ -352,28 +352,34 @@ const saveDatainState = (data: any[] = []) => {
   
   }, [allAccounts]);
 
-const fetchAllInitialData = async () => {
-  try {
-    await Promise.all([
-      apis.getCoutry(dispatch),
-      apis.getCurrency(dispatch),
-      apis.getAssetType(dispatch),
-      apis.getCurrencyAccount(dispatch),
-      apis.getAccountsAndAssets(dispatch),
-    ]);
-  } catch (error) {
-    dispatch(handleLoader(false)); 
-    console.log("Error fetching initial data:", error);
-  } finally {
-    dispatch(handleLoader(false)); 
-  }
-};
 
-  useEffect(() => {    
+  const fetchAllInitialData = async () => {
+    try {
+      dispatch(handleLoader(true));
+  
+      const [
+        userDetailRes,
+        countryRes, currencyRes, assetTypeRes, currencyAccountRes, AllAsset_n_AccountsRes] =
+      await Promise.all([
+        apis.getUserDetail(dispatch),
+        apis.getCoutry(dispatch),
+        apis.getCurrency(dispatch),
+        apis.getAssetType(dispatch),
+        apis.getCurrencyAccount(dispatch), // ✅ This returns your all accounts array
+        apis.getAccountsAndAssets(dispatch)
+      ]);      
 
-  dispatch(handleLoader(true));   // 🔥 loader ON at very start
-  getUserDetailFunc({ skip_activity_check: true });
+    } catch (error) {
+      dispatch(handleLoader(false))
+      console.log("Error fetching initial data:", error);
+    } finally {
+      dispatch(handleLoader(false))
+    }
+  };
 
+
+  useEffect(() => {
+    fetchAllInitialData()
     // apis.getCurrencyAccount(dispatch);
   }, []);
 

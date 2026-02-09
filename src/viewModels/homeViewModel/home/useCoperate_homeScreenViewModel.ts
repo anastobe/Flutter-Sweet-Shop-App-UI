@@ -8,6 +8,7 @@ import { Images } from '../../../config';
 import { fetchLinkedAccCards, getDashboardData, getUserDetail, paymentHistry } from '../../../queries/accountQueries/accountQuery';
 import { storeLoginUserData } from '../../../Redux/Action/Home/HomeActions';
 import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
+import apis from '../../../services';
 
 export const useCoperate_homeScreenViewModel = () => {
   const navigation = useNavigation();
@@ -33,23 +34,9 @@ export const useCoperate_homeScreenViewModel = () => {
       CallUserDetail()
     },[])
 
-    function CallUserDetail() {
-      try {
-        dispatch(handleLoader(true));
-        getUserDetailFunc({skip_activity_check:true})      
-      }
-      catch(err) {
-        setTimeout(() => {
-          dispatch(handleLoader(false)); 
-        }, 1000);
-      }
-      finally {
-        setTimeout(() => {
-          dispatch(handleLoader(false)); 
-        }, 1000);
-      }
-  
-  }
+    async function CallUserDetail() {
+      await apis.getUserDetail(dispatch)  
+    }
 
   const SendoptionCorporate = [ 
     { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST_PENDING_TRANSACTION_BANK, text: "Pending\nbank transfer\ntransaction", width: 20, height: 20 },

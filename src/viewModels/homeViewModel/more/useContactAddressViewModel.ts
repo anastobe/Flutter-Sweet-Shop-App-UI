@@ -83,8 +83,8 @@ export default function useContactAddressViewModel() {
   },[user])
 
   async function updateDataInRedux() {
-    getUserDetailFunc({skip_activity_check:true})
-    // await apis.getUserDetail(dispatch)
+    // getUserDetailFunc({skip_activity_check:true})
+    await apis.getUserDetail(dispatch)
   }
 
   function pressBackArrow() {
