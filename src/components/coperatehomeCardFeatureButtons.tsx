@@ -51,12 +51,12 @@ const CoperatehomeCardFeatureButtons: React.FC<Props> = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-      flexWrap: 'wrap',          // ✅ YEH LINE ADD KARO
-    justifyContent: "space-evenly",
+    flexWrap: 'wrap',          // ✅ YEH LINE ADD KARO
+    justifyContent: "space-between",
     // alignItems: "center",
     // backgroundColor: "red",
     marginLeft: handleSize.f(12),
-    marginTop: handleSize.f(10),
+    // marginTop: handleSize.f(10),
     paddingVertical: handleSize.h(10),
   },
   featureItem: {
@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
     // width: Metrics.width / 3 - handleSize.w(30),
     width: handleSize.f(100),
     // backgroundColor: "red",
-    marginBottom: 10
+    marginBottom: 10,
+    marginTop: 10,
     // width: handleSize.w(METRICS.width / 2),
   },
   button: {
