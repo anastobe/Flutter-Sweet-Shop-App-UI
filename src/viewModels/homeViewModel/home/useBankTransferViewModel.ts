@@ -15,7 +15,7 @@ import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from "../../../utils/data";
 
 export const useBankTransferViewModel = () => {
   const navigation = useNavigation();
-  const beneficiaryRef = useRef();
+  const beneficiaryRef = useRef(null);
 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
@@ -136,6 +136,7 @@ export const useBankTransferViewModel = () => {
     const payload ={
       amount: enterAmount, 
       asset_id:  fromAccount?.id,
+      // asset_id: 'd8a4d860-59ef-4e47-a1d9-28a5b3154dd7'.
       banking_partner_id: loginUserData?.banking_partner_id, 
       beneficiary_id: beneficiary.beneficiary_id,
       currency_id: fromAccount?.currency_id,

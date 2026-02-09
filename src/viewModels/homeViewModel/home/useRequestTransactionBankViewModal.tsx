@@ -96,7 +96,7 @@ export const useRequestTransactionBankViewModal = () => {
       },
       search: "",
       filters: {
-        status_id: 11
+        status_id: 11 //11 is for pending
       },
     };
     getPendingBankPaymentFunc(payload);

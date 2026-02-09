@@ -420,6 +420,7 @@ const startCountdown = (seconds: number) => {
       from_currency_id: fromAccount.currency_id, 
       to_currency_id: beneficiary.currency_id, //in international beneficiary ki currency id jayegi or in my account transfer to_asset ki currency id jayegi
       from_asset: fromAccount?.id,
+      // from_asset: 'd8a4d860-59ef-4e47-a1d9-28a5b3154dd7',
       payment_method_id: payment_method_id?.id,
       beneficiary_id: beneficiary?.beneficiary_id,
       is_internal: false,
