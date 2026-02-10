@@ -41,7 +41,7 @@ const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAc
             />
           </View>}
         </TouchableOpacity>
-          {currentAccount?.status && <Text style={styles.accStatus} >( {currentAccount?.status} )</Text>}
+          {currentAccount?.status && <Text style={styles.accStatus} >({currentAccount?.status})</Text>}
         </View>
         }
 
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   accStatus: {
     marginTop: handleSize.f(4),
     fontFamily: FONTFAMILY.Medium,
-    fontSize: handleSize.f(FONT_SIZES.onesix),
+    fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
     marginLeft: handleSize.w(5),
     textTransform: 'capitalize',

@@ -473,7 +473,7 @@ function selectAccount(account: any) {
 
   // 🔥 scroll assets back to first card
   requestAnimationFrame(() => {
-    flatListRef.current?.scrollToIndex({
+    flatListRef?.current?.scrollToIndex({
       index: 0,
       animated: false,
     });
@@ -483,14 +483,14 @@ function selectAccount(account: any) {
   const firstAsset = account?.assets?.[0];
   if (firstAsset) {
     setcurrentAssetDetail({
-      name: firstAsset.account?.name,
-      iban: firstAsset.account?.iban,
-      created_at: firstAsset.created_at,
-      id: firstAsset.id,
+      name: firstAsset?.account?.name,
+      iban: firstAsset?.account?.iban,
+      created_at: firstAsset?.created_at,
+      id: firstAsset?.id,
     });
   }
 
-  selectAccountRef.current?.close();
+  selectAccountRef?.current?.close();
 }
 
 const toggleShowBalance = React.useCallback(() => {
