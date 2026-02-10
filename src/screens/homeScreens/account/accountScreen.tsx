@@ -50,9 +50,13 @@ const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
   const navigation = useNavigation();
 
-  let NoAssetOfAccount =
-    vm.allAccounts?.length > 0 &&
-    vm.allAccounts[0]?.assets?.length > 0;
+  let NoAssetOfAccount = vm?.selectedAccount_WholeApp?.assets?.length > 0
+
+    // vm.allAccounts?.length > 0 &&
+    // vm.allAccounts?.[1]?.assets?.length > 0;
+
+    console.log("check==>",NoAssetOfAccount); 
+    
 
   const renderTransactionList = () => (
     <View style={{ zIndex: -9 }}>
@@ -86,7 +90,7 @@ const AccountScreen = () => {
         refreshing={vm.refreshing}
         onRefresh={vm.onRefresh}
         ListHeaderComponent={
-          vm.allAccounts?.[0]?.assets ? renderSubHeaderStuffs() : null
+          vm?.allAccounts?.[0]?.assets ? renderSubHeaderStuffs() : null
         }
         nestedScrollEnabled
         renderItem={renderItem}

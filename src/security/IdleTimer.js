@@ -1,36 +1,61 @@
-import { AppState } from 'react-native';
+// InteractionContext.tsx
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { AppState, Pressable } from 'react-native';
 
-let lastActivityTime = Date.now();
-let logoutCallback = null;
+const IDLE_TIME = 5000; // 2 minutes
 
-// const IDLE_LIMIT = 2 * 60 * 1000; // 2 minutes
+const InteractionContext = createContext(null);
 
-const IDLE_LIMIT = 5000; // 2 minutes
+export const InteractionProvider = ({ children }) => {
+  const timerRef = useRef(null);
+  const [lastInteraction, setLastInteraction] = useState(Date.now());
+  const [isIdle, setIsIdle] = useState(false);
 
-export function initIdleTimer(onLogout) {
-
-    console.log("play logout"); 
-    
-
-  logoutCallback = onLogout;
-
-  // app foreground/background tracking
-  AppState.addEventListener("change", (state) => {
-    if (state === "active") {
-      resetActivity();
+  const startTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
     }
-  });
 
-  // check every 3 seconds
-  setInterval(() => {
-    const now = Date.now();
-    if (now - lastActivityTime > IDLE_LIMIT) {
-      logoutCallback && logoutCallback();
+    timerRef.current = setTimeout(() => {
+      setIsIdle(true);
+      console.log('User inactive 🚫');
+      // 🔐 logout / lock / show modal
+    }, IDLE_TIME);
+  };
+
+
+   const resetTimer = () => {
+    setLastInteraction(Date.now());
+
+    if (isIdle) {
+      console.log('User active again ✅');
+      setIsIdle(false);
     }
-  }, 3000);
-}
 
-export function resetActivity() {
-  lastActivityTime = Date.now();
-}
+    startTimer();
+  };
 
+  useEffect(() => {
+   startTimer();
+
+
+    const sub = AppState.addEventListener('change', state => {
+      if (state === 'active') resetTimer();
+    });
+
+    return () => {
+      sub.remove();
+      clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  return (
+    <InteractionContext.Provider value={{ resetTimer, lastInteraction }}>
+      <Pressable style={{ flex: 1 }} onPressIn={resetTimer}>
+        {children}
+      </Pressable>
+    </InteractionContext.Provider>
+  );
+};
+
+export const useInteraction = () => useContext(InteractionContext);
