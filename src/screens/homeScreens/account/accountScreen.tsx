@@ -353,6 +353,7 @@ const AccountScreen = () => {
           bottomSheetRef={vm.editRef}
         >
           <EditAccountPreferences
+            // btnTitle1={CommonUtils.capitalizeFirstLetter(toggleAccountStatus(vm?.selectedAccount_WholeApp?.status))}
             currentAccount={vm?.selectedAccount_WholeApp}
             onPressEdit={() => vm.editAccountRef?.current?.open()}
             onPressSave={vm.onPressSave}

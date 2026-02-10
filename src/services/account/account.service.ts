@@ -47,14 +47,8 @@ export const getNotifications = async (body: any) => {
 
 // 🔹 Freeze / Unfreeze Account
 export const AccFreeze = async (payload: any) => {
-
-  const body = {
-    status: payload.status,
-    name: payload.name
-  };
-
   console.log("=>services=> AccFreeze", payload);
-  const response = await axiosInstance(`/account/${payload.id}`, 'PUT', body, true);
+  const response = await axiosInstance(`/account/${payload.id}`, 'PUT', payload?.body, true);
   return response;
 };
 

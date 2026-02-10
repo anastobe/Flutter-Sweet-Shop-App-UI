@@ -8,7 +8,7 @@ import { AccDelete, AccFreeze, getAccountsAndAssets, getAssetBalance, getDashboa
 import { useDispatch, useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { Images } from "../../../config";
-import { CommonUtils } from "../../../utils";
+import { CommonUtils, Toast } from "../../../utils";
 import Clipboard from '@react-native-clipboard/clipboard';
 import { ACCOUNT_HISTRY_VALIDATION } from "../../../utils/data";
 import apis from "../../../services";
@@ -104,6 +104,7 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
           refetchgetAccountsAndAssets()
           setTimeout(() => {
             editRef?.current?.close() 
+            manageRef?.current?.close()
           }, 500);
         }
       },
@@ -274,14 +275,34 @@ const onPressCopy = () => {
     .join('\n');
 };
 
+function toggleAccountStatus(status: any){
+  if (!status) return ""; // default
+  const s = status.toLowerCase();
+  return s === "frozen" ? "active" : "frozen";
+};
+
   const onPressFreeze = () =>{ 
+    
+    // name: selectedAccount_WholeApp.name,
+    // id: selectedAccount_WholeApp?.id
+
     let payload ={
-      status: "frozen",
-      name: selectedAccount_WholeApp.name,
-      id: selectedAccount_WholeApp?.id
+      id: selectedAccount_WholeApp?.id,
+      body:{
+        status: toggleAccountStatus(selectedAccount_WholeApp?.status),
+      }
+    }    
+    console.log("going payload-===>",payload);
+
+    if (payload?.body?.status == "") {
+        Toast.showToast("Couldn't change account status", '', 'error');
     }
+    else{
       AccFreezeFunc(payload)
+    }
   }
+
+
   const onPressDelete = () => { 
       AccDeleteFunc(currentAssetDetail?.id)
   }

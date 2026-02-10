@@ -4,6 +4,8 @@ import CustomButton from '../components/customButton';
 import { FONTFAMILY, FONT_SIZES, THEME } from "../styles";
 import Images from '../config/images';
 import { handleSize } from '../config/responsiveTheme';
+import { CommonUtils } from "../utils";
+import Metrics from "../styles/metrics";
 
 type Props = {
   currentAccount?: Object;
@@ -43,15 +45,15 @@ const EditAccountPreferences: React.FC<Props> = ({
           <View style={styles.accountRow}>
             <Text style={styles.accountLabel}>Account name</Text>
             <View style={styles.accountRight}>
-              <Text style={styles.accountValue}>{currentAccount?.name}</Text>
+              <Text style={styles.accountValue}>{currentAccount?.name} ( {currentAccount?.status} )</Text>
             </View>
           </View>
-
+          
           {/* Buttons */}
           <CustomButton
             loading={isPendingAccFreeze}
             btnContSty={styles.forgetTxt2}
-            title="Freeze account"
+            title={currentAccount?.status == "active" ? "Freeze account" : "Active account"}
             onPress={onPressFreeze}
           />
           
@@ -113,10 +115,12 @@ const styles = StyleSheet.create({
   accountRight: {
     flexDirection: "row",
     alignItems: "center",
+    width: Metrics.width / 2
   },
   accountValue: {
     fontSize: handleSize.f(FONT_SIZES.onefour),
     color: THEME.white,
+    lineHeight: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.Medium,
     marginRight: handleSize.w(10),
   },
