@@ -171,9 +171,9 @@ const AccountScreen = () => {
 
         <View style={styles.cardHeader}>
           <Text style={styles.cardTransactionTXT}>Activity</Text>
-          <TouchableOpacity style={styles.viewAllTxtCont} onPress={vm.handleNavigateTransactionHistory}>
+          {vm?.transactions?.length > 0 && <TouchableOpacity style={styles.viewAllTxtCont} onPress={vm.handleNavigateTransactionHistory}>
             <Text style={styles.viewAllTxt}>View all</Text>
-          </TouchableOpacity>
+          </TouchableOpacity>}
         </View>
       </View>
     );

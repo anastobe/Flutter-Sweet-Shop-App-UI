@@ -150,12 +150,12 @@ const CardScreen = () => {
         <Text style={styles.cardTransactinTXT}>
           
         </Text>
-        <TouchableOpacity
+        {vm?.transactions?.length > 0 && <TouchableOpacity
           style={styles.viewAllTxtCont}
             onPress={vm.handleNavigateTransactionHistory}
         >
           <Text style={styles.viewAllTxt}>View all</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </View>
 
     )
