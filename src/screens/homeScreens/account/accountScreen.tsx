@@ -55,7 +55,7 @@ const AccountScreen = () => {
     // vm.allAccounts?.length > 0 &&
     // vm.allAccounts?.[1]?.assets?.length > 0;
 
-    console.log("check==>",NoAssetOfAccount); 
+    // console.log("check==>",NoAssetOfAccount); 
     
 
   const renderTransactionList = () => (

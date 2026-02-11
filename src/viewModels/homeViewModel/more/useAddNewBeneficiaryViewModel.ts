@@ -138,7 +138,8 @@ function openConfirmationModal() {
             ? { iban: accountNo }
             : bicNo
             ? { bic: bicNo }
-            : {})
+            : {}),
+          account_type: userData?.customer_type == CUSTOMER_TYPE.CORPORATE ? "business" : "personal", //personal or business
         };
 
         console.log("PAYLOAD==>",payload);

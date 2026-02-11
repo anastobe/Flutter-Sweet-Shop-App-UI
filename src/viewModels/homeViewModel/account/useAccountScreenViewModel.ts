@@ -22,6 +22,7 @@ export const useAccountScreenViewModel = () => {
   const selectedAccount_WholeApp = useSelector((state: any) => state?.HomeReducer?.selectedAccount_WholeApp)
   const userData = useSelector((state: any) => state?.AuthReducer?.userData);
 
+  const isFocused = useIsFocused()
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -122,18 +123,6 @@ const { mutate: paymentHistryFunc, isPending: isPendingpaymentHistry } =
       },
     });
 
-const { mutate: getUserDetailFunc, isPending } = getUserDetail({
-  callback: async (response: any) => {
-    if (response?.success && response?.results) {
-      dispatch(storeLoginUserData(response.results));
-
-      // 🔥 AFTER user detail → call all other APIs
-      await fetchAllInitialData();
-    } else {
-      dispatch(handleLoader(false)); // safety fallback
-    }
-  },
-});
 
     async function refetchgetAccountsAndAssets() {
        await apis.getAccountsAndAssets(dispatch)
@@ -169,7 +158,7 @@ const { mutate: getUserDetailFunc, isPending } = getUserDetail({
       setTransactions([]); // 🔥 reset list
 
       // 3️⃣ Dashboard refresh
-      await refetchgetDashboardData();
+      refetchgetDashboardData();
 
       refetchgetAssetBalance(currentAssetDetail?.id)
 
@@ -341,7 +330,7 @@ function toggleAccountStatus(status: any){
 // };
 
 const saveDatainState = (data: any[] = []) => {
-  // console.log("i am saving data in state");
+  console.log("i am saving data in state=");
 
   if (!data?.length) return;
 
@@ -374,6 +363,12 @@ const saveDatainState = (data: any[] = []) => {
   }, [allAccounts]);
 
 
+useEffect(() => {
+  if (isFocused) {
+    onRefresh();
+  }
+}, [isFocused]);
+
   const fetchAllInitialData = async () => {
     try {
       dispatch(handleLoader(true));
@@ -387,7 +382,7 @@ const saveDatainState = (data: any[] = []) => {
         apis.getCurrency(dispatch),
         apis.getAssetType(dispatch),
         apis.getCurrencyAccount(dispatch), // ✅ This returns your all accounts array
-        apis.getAccountsAndAssets(dispatch)
+        // apis.getAccountsAndAssets(dispatch)
       ]);      
 
     } catch (error) {
@@ -472,13 +467,14 @@ function selectAccount(account: any) {
   setActiveIndex(0);
 
   // 🔥 scroll assets back to first card
+if (account?.assets?.length > 0) {
   requestAnimationFrame(() => {
     flatListRef?.current?.scrollToIndex({
       index: 0,
       animated: false,
     });
   });
-
+}
   // 🔥 first asset auto select
   const firstAsset = account?.assets?.[0];
   if (firstAsset) {
