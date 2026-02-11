@@ -19,6 +19,7 @@ import { NotificationModalProvider } from "./src/components/notificationModalCon
 import TransactionAlertModal from "./src/components/Modal/transactionAlertModal";
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
 import OfflineModal from "./src/components/offlineApp";
+import { InteractionProvider } from "./src/security/IdleTimer";
 // import { LogBox } from "react-native";
 // import { initIdleTimer, resetActivity } from "./src/security/IdleTimer";
 // import { TouchableWithoutFeedback } from "react-native";
@@ -176,6 +177,7 @@ const App: React.FC = () => {
       {/* <TouchableWithoutFeedback onPress={resetActivity}> */}
 
   return (
+    // <InteractionProvider>
     <QueryClientProvider client={queryClient} contextSharing={true} >
       <Provider store={Store}>
         <NotificationModalProvider>
@@ -193,7 +195,8 @@ const App: React.FC = () => {
         </NotificationModalProvider>
             <Toast config={toastConfig} />
       </Provider>
-      </QueryClientProvider>
+    </QueryClientProvider>
+    // </InteractionProvider>
   );
 };
 

@@ -1,16 +1,17 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CommonUtils, Toast } from "../../../utils";
 import { useFXConversion, usePaymentTransfer,useMyAccount_InternationalTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
+import { accountScreenRefresh } from "../../../Redux/Action/Home/HomeActions";
 
 export const useMyAccountTransferViewModel = ({...props}) => {
  
   const navigation = useNavigation();
   const params = props?.route?.params?.stateData;
   console.log("useMyAccountTransferViewModel=>",props?.route?.params);
-
+  const dispatch = useDispatch();
   const paymentconfrm = useRef(null); 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
@@ -288,6 +289,7 @@ const startCountdown = (seconds: number) => {
         setTimeout(() => {
 
           navigation.popToTop();
+          dispatch(accountScreenRefresh(Math.random()))
 
         // navigation.reset({
         //   index: 0,

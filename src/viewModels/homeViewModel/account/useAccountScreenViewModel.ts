@@ -21,6 +21,7 @@ export const useAccountScreenViewModel = () => {
   const allAccounts = useSelector((state: any) => state?.HomeReducer?.allAccounts)
   const selectedAccount_WholeApp = useSelector((state: any) => state?.HomeReducer?.selectedAccount_WholeApp)
   const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+  const refreshCallAccount = useSelector((state: any) => state?.HomeReducer?.refreshCallAccount)
 
   const isFocused = useIsFocused()
   const navigation = useNavigation();
@@ -364,10 +365,11 @@ const saveDatainState = (data: any[] = []) => {
 
 
 useEffect(() => {
-  if (isFocused) {
+  if (refreshCallAccount) {
+    console.log("play");
     onRefresh();
   }
-}, [isFocused]);
+}, [refreshCallAccount]);
 
   const fetchAllInitialData = async () => {
     try {

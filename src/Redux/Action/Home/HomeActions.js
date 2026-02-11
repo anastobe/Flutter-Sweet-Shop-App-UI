@@ -38,3 +38,9 @@ export const storeLoginUserData = (res) => {
       dispatch({type: ActionType.SELECTED_ACCOUNT_WHOLE_APP, payload: res });
   };
   };
+
+  export const accountScreenRefresh = (res) => {
+  return dispatch => {
+      dispatch({type: ActionType.ACCOUNT_SCREEN_REFRESH, payload: res });
+  };
+  };

@@ -189,12 +189,13 @@ import { SHOW_CLIENT } from "../../../APICall/constants";
 import { Alert } from "react-native";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CommonUtils, Toast } from "../../../utils";
 import { useLogin } from "../../../queries/auth.query";
 import { useFXConversion, usePaymentTransfer,useMyAccount_InternationalTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
 import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from "../../../utils/data";
+import { accountScreenRefresh } from "../../../Redux/Action/Home/HomeActions";
 
 export const useInternationalTransferViewModel = ({...props}) => {
   const navigation = useNavigation();
@@ -202,6 +203,7 @@ export const useInternationalTransferViewModel = ({...props}) => {
   // console.log("useInternationalTransferViewModel=>",props?.route?.params?.data);
   const paymentconfrm = useRef(null); 
   const beneficiaryRef = useRef();
+  const dispatch = useDispatch();
 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
@@ -476,6 +478,7 @@ const startCountdown = (seconds: number) => {
         setTimeout(() => {
 
         navigation.popToTop();
+        dispatch(accountScreenRefresh(Math.random()))
 
         // navigation.reset({
         //   index: 0,

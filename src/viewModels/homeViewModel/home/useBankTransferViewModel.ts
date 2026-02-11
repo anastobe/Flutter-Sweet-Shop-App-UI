@@ -5,16 +5,18 @@ import { SHOW_CLIENT } from "../../../APICall/constants";
 import { Alert } from "react-native";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CommonUtils, Toast } from "../../../utils";
 import { useLogin } from "../../../queries/auth.query";
 import { usePaymentTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
 import { getBeneficiaryDetail } from "../../../queries/moreQueries/moreQuery";
 import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from "../../../utils/data";
+import { accountScreenRefresh } from "../../../Redux/Action/Home/HomeActions";
 
 export const useBankTransferViewModel = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const beneficiaryRef = useRef(null);
 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
@@ -156,6 +158,7 @@ export const useBankTransferViewModel = () => {
         setTimeout(() => {
           
           navigation.popToTop();
+          dispatch(accountScreenRefresh(Math.random()))
 
         // navigation.reset({
         //   index: 0,

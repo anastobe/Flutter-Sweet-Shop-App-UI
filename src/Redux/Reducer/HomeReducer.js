@@ -5,6 +5,7 @@ const initialState = {
   getCurrencyAccArray: [],
   beneficiaryArray: [],
   refreshCall: Math.random(),
+  refreshCallAccount: Math.random(),
   allAccounts: [],
   selectedAccount_WholeApp: {}
 
@@ -33,6 +34,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         refreshCall: action.payload,
+      };
+      case ActionType.ACCOUNT_SCREEN_REFRESH:
+      return {
+        ...state,
+        refreshCallAccount: action.payload,
       };
       case ActionType.GET_ACCOUNTS:
       return {

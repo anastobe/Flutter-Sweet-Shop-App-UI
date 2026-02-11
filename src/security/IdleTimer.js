@@ -1,8 +1,10 @@
 // InteractionContext.tsx
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { AppState, Pressable } from 'react-native';
+import dataHandlerService from '../APICall/dataHandler.service';
+import ActionType from '../Redux/Action/ActionType/actionType';
 
-const IDLE_TIME = 5000; // 2 minutes
+const IDLE_TIME = 2 * 60 * 1000; // 2 minutes
 
 const InteractionContext = createContext(null);
 
@@ -19,6 +21,12 @@ export const InteractionProvider = ({ children }) => {
     timerRef.current = setTimeout(() => {
       setIsIdle(true);
       console.log('User inactive 🚫');
+            
+      dataHandlerService?.getStore()?.dispatch({
+        type: ActionType.LOGOUT,
+        payload: {},
+      });
+
       // 🔐 logout / lock / show modal
     }, IDLE_TIME);
   };
