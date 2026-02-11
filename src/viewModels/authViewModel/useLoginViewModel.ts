@@ -35,15 +35,15 @@ export const useLoginViewModel = () => {
   // const [password, setPassword] = useState("Uhf@1234");
 
   //coperate -maker
-  const [email, setEmail] = useState("new-user");
-  const [password, setPassword] = useState("Uhf@1234");
+  // const [email, setEmail] = useState("new-user");
+  // const [password, setPassword] = useState("Uhf@1234");
 
   //user,individual
   // const [email, setEmail] = useState("uhf-personal");
   // const [password, setPassword] = useState("Pass@1234");
 
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
  
   const [token, setToken] = useState("");
   const [secure, setSecure] = useState(true);
@@ -63,7 +63,7 @@ export const useLoginViewModel = () => {
     rnBiometrics.isSensorAvailable().then(result => {
       const { available, biometryType } = result;
       if (available) setBiometryType(biometryType);
-      else Alert.alert("Biometrics not supported");
+      // else Alert.alert("Biometrics not supported");
     });
   }, []);
 

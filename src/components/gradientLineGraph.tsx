@@ -47,7 +47,7 @@ const GradientLineGraph = ({
         // backgroundColor: "red"
       }}
       >
-      {data?.length &&
+      {(data?.length && !loading) &&
       <LineChart
         areaChart
         curved
