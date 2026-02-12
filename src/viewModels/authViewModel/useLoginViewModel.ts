@@ -12,6 +12,10 @@ export const useLoginViewModel = () => {
   const [email, setEmail] = useState("new-user");
   const [password, setPassword] = useState("Uhf@1234");
 
+  //coperate - checker
+  // const [email, setEmail] = useState("mohtashim");
+  // const [password, setPassword] = useState("Uhf@1234");
+
 
   //user,individual
   // const [email, setEmail] = useState("uhf-personal");

@@ -40,6 +40,9 @@ const BankTransfer = () => {
     setOpenDropdownSty,
     fromAccount, 
     setFromAccount,
+    refetchgetAssetBalance,
+    getAssetBalancePending,
+    getAssetBalance_Data,
     getCurrencyAccArray, 
     beneficiaryArray,
     isPending,
@@ -133,6 +136,7 @@ const BankTransfer = () => {
             isOpen={openDropdownsty}
             onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdown(null) }}
             onSelect={(item) =>{ 
+              refetchgetAssetBalance(item?.id)
               setFromAccount({     
               id: item?.id,    
               available_balance: item?.available_balance,       
@@ -147,7 +151,7 @@ const BankTransfer = () => {
           {fromAccount?.name &&
             <BalanceBox 
             // amount={fromAccount?.iso_code  && fromAccount?.available_balance - enterAmount < 1 ?  'Insufficient Balance' : fromAccount?.available_balance - enterAmount }
-            amount={ `${CommonUtils.getCurrencySymbol(fromAccount?.iso_code)} ${(fromAccount?.available_balance)?.toFixed(2)}`}
+            amount={getAssetBalancePending ? "..." : `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code)} ${(getAssetBalance_Data?.available_balance)?.toFixed(2)}`}
             label="Available Balance"  containerHeight={78} />}
 
 

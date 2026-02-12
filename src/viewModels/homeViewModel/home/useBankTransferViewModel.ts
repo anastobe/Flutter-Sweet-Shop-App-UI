@@ -12,6 +12,7 @@ import { HOME_ROUTES } from "../../../constants";
 import { getBeneficiaryDetail } from "../../../queries/moreQueries/moreQuery";
 import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from "../../../utils/data";
 import { accountScreenRefresh } from "../../../Redux/Action/Home/HomeActions";
+import { getAssetBalance } from "../../../queries/accountQueries/accountQuery";
 
 export const useBankTransferViewModel = () => {
   const navigation = useNavigation();
@@ -53,6 +54,15 @@ export const useBankTransferViewModel = () => {
   });
   const [recipientType, setRecipientType] = useState();
   const [modalMsg, setmodalMsg] = useState("");
+
+    //asset balance
+  const { data: getAssetBalance_Data, refetch: refetchgetAssetBalance, isFetching: getAssetBalancePending } = getAssetBalance({
+    enabled: false, 
+    dispatch,
+    ID: fromAccount?.id,
+  });
+   
+  console.log(getAssetBalancePending,"getAssetBalance_Data==>",getAssetBalance_Data);
 
   const { mutate: usePaymentTransferFunc, isPending } = usePaymentTransfer({
     callback: (res: any) => {
@@ -108,7 +118,7 @@ export const useBankTransferViewModel = () => {
     else if (!CommonUtils.RegixNumbersOnly.test(enterAmount)) {
     Toast.showToast('Enter correct amount', '', 'error'); 
   }
-    else if (enterAmount > fromAccount?.available_balance) {
+    else if (enterAmount > getAssetBalance_Data?.available_balance) {
       Toast.showToast('Amount is greater than available balance', '', 'error');
     } 
     else if (beneficiary.beneficiary_id == "") {
@@ -193,6 +203,9 @@ export const useBankTransferViewModel = () => {
     setOpenDropdownSty,
     fromAccount, 
     setFromAccount,
+    refetchgetAssetBalance,
+    getAssetBalancePending,
+    getAssetBalance_Data,
     getCurrencyAccArray,
     note, 
     setnote,

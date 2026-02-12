@@ -33,7 +33,7 @@ export const getAccountsAndAssets  = (    {
 }
 ) =>
   useQuery({
-    queryKey: [QueryKey.GET_ASSET_BALANCE],
+    queryKey: [QueryKey.GET_ASSET_BALANCE,ID],
     initialData: [],
     queryFn: ()=> apis.getAssetBalance(ID),
     enabled: enabled,

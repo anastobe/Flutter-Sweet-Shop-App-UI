@@ -95,6 +95,7 @@ export const getDashboardData = async (id: any) => {
 };
 
 export const getAssetBalance = async (assetId: any) => {
+  console.log("getAssetBalance=>",assetId);
   const response = await axiosInstance(`/wallet/asset-balance/${assetId}`, 'GET', undefined, false );
   return response?.results;
 };

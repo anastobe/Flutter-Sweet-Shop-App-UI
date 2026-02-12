@@ -11,6 +11,7 @@ import { useFXConversion, usePaymentTransfer,useMyAccount_InternationalTransfer 
 import { HOME_ROUTES } from "../../../constants";
 import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from "../../../utils/data";
 import { accountScreenRefresh } from "../../../Redux/Action/Home/HomeActions";
+import { getAssetBalance } from "../../../queries/accountQueries/accountQuery";
 
 export const useInternationalTransferViewModel = ({...props}) => {
   const navigation = useNavigation();
@@ -79,6 +80,15 @@ export const useInternationalTransferViewModel = ({...props}) => {
     status: false 
   });
    
+    //asset balance
+  const { data: getAssetBalance_Data, refetch: refetchgetAssetBalance, isFetching: getAssetBalancePending } = getAssetBalance({
+    enabled: false, 
+    dispatch,
+    ID: fromAccount?.id,
+  });
+    
+  console.log(getAssetBalancePending,"getAssetBalance_Data==>",getAssetBalance_Data);
+
   const { mutate: useFXConversionFunc, isPending: isPendinguseFXConversion } = useFXConversion({
     callback: (res: any) => {
       if (res?.success) {
@@ -271,7 +281,7 @@ const startCountdown = (seconds: number) => {
     else if (note == "") {
       Toast.showToast('Enter Your Note/Refrence', '', 'error');
     } 
-    else if (enterAmount > fromAccount?.available_balance) {
+    else if (enterAmount > getAssetBalance_Data?.available_balance) {
       Toast.showToast('Amount is greater than Available Balance', '', 'error');
     } 
     else if (convertrate.quoteId == "") {
@@ -354,7 +364,10 @@ const startCountdown = (seconds: number) => {
     autoFocusedpaymentTypes, 
     setautoFocusedpaymentTypes,
     countdown,
-    corporateMaker
+    corporateMaker,
+    refetchgetAssetBalance,
+    getAssetBalancePending,
+    getAssetBalance_Data,
   
   };
 };

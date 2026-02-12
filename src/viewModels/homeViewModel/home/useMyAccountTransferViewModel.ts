@@ -5,6 +5,7 @@ import { CommonUtils, Toast } from "../../../utils";
 import { useFXConversion, usePaymentTransfer,useMyAccount_InternationalTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
 import { accountScreenRefresh } from "../../../Redux/Action/Home/HomeActions";
+import { getAssetBalance } from "../../../queries/accountQueries/accountQuery";
 
 export const useMyAccountTransferViewModel = ({...props}) => {
  
@@ -131,6 +132,14 @@ export const useMyAccountTransferViewModel = ({...props}) => {
         }, delay);
       };
     }
+        //asset balance
+    const { data: getAssetBalance_Data, refetch: refetchgetAssetBalance, isFetching: getAssetBalancePending } = getAssetBalance({
+      enabled: false, 
+      dispatch,
+      ID: fromAccount?.id,
+    });
+      
+    console.log(getAssetBalancePending,"getAssetBalance_Data==>",getAssetBalance_Data);
   
     const fetchFxRate = async () => {
     try {
@@ -268,7 +277,7 @@ const startCountdown = (seconds: number) => {
     else if (toAccount?.id == fromAccount?.id) {
       Toast.showToast('Choose Another Account', '', 'error');
     } 
-    else if (enterAmount > fromAccount?.available_balance) {
+    else if (enterAmount > getAssetBalance_Data?.available_balance) {
       Toast.showToast('Amount is greater than Available Balance', '', 'error');
     } 
     else if (convertrate.quoteId == "") {
@@ -351,7 +360,10 @@ const startCountdown = (seconds: number) => {
     setpayment_method_id,
     autoFocusedpaymentTypes, 
     setautoFocusedpaymentTypes,
-    countdown
+    countdown,
+    refetchgetAssetBalance,
+    getAssetBalancePending,
+    getAssetBalance_Data,
   
   };
 };

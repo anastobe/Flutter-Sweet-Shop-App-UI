@@ -79,7 +79,10 @@ const MyAccountTransfer = ({...props}) => {
     setpayment_method_id,
     autoFocusedpaymentTypes, 
     setautoFocusedpaymentTypes,
-    countdown
+    countdown,
+    refetchgetAssetBalance,
+    getAssetBalancePending,
+    getAssetBalance_Data,
 
   } = useMyAccountTransferViewModel(props);
  
@@ -137,6 +140,7 @@ const MyAccountTransfer = ({...props}) => {
             isOpen={openDropdownsty}
             onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
             onSelect={(item) =>{  
+              refetchgetAssetBalance(item?.id)
               setFromAccount({     
               id: item?.id,    
               available_balance: item?.available_balance,       
@@ -157,7 +161,8 @@ const MyAccountTransfer = ({...props}) => {
             //     ? 'Insufficient Balance'
             //     : (fromAccount?.available_balance - enterAmount).toFixed(2)
             // }
-            amount={ `${CommonUtils.getCurrencySymbol(fromAccount?.iso_code)} ${(fromAccount?.available_balance)?.toFixed(2)}`}
+            amount={getAssetBalancePending ? "..." : `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code)} ${(getAssetBalance_Data?.available_balance)?.toFixed(2)}`}
+            // amount={ `${CommonUtils.getCurrencySymbol(fromAccount?.iso_code)} ${(fromAccount?.available_balance)?.toFixed(2)}`}
             label="Available Balance"  containerHeight={78} />}
 
 
