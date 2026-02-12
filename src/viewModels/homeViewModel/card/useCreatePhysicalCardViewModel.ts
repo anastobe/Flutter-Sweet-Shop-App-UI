@@ -35,7 +35,8 @@ export function useCreatePhysicalCardViewModel() {
     available_balance: "",
     currency_id: "",
     name: "",
-    iso_code: ""
+    iso_code: "",
+    asset_id: ""
   });
 
   // const [currency, setCurrency] = useState({
@@ -109,6 +110,7 @@ export function useCreatePhysicalCardViewModel() {
         currency_type: fromAccount?.currency_id?.toString(),
         linked_account: fromAccount.id,
         pin: pin,
+        asset_id: fromAccount?.asset_id,
 
         linked_account_name: fromAccount?.name,
         currency_name: fromAccount?.iso_code,

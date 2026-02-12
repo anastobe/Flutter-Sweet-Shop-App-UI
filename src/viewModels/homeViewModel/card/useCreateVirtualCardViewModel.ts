@@ -41,7 +41,8 @@ export default function useCreateVirtualCardViewModel() {
     available_balance: "",
     currency_id: "",
     name: "",
-    iso_code: ""
+    iso_code: "",
+    asset_id: ""
   });
 
   const [limitType, setLimitType] = useState('');
@@ -87,13 +88,14 @@ export default function useCreateVirtualCardViewModel() {
         limit_type: limitType?.toLowerCase(),
         currency_type: fromAccount?.currency_id?.toString(),
         linked_account: fromAccount.id,
+        asset_id: fromAccount?.asset_id,
         
         linked_account_name: fromAccount?.name,
         currency_name: fromAccount?.iso_code,
         is_corporate: userData?.customer_type == CUSTOMER_TYPE.CORPORATE ? "yes" : "no", 
         // user_id: "86f27234-2061-70ba-0601-406e71c662fd" //for if checker want to make card for same company corporate maker
       };
-
+      
       navigation.navigate(HOME_ROUTES.ConfirmCardRequest, { data: payload, linkedAccount: fromAccount, currency: fromAccount });
     }
   }

@@ -119,7 +119,8 @@ const CreatePhysicalCard = () => {
               available_balance: item?.available_balance,       
               currency_id: item?.currency?.id,
               name: item?.account?.name,
-              iso_code: item?.currency?.iso_code
+              iso_code: item?.currency?.iso_code,
+              asset_id: item?.id
             })
           }}
         />
