@@ -12,6 +12,11 @@ export const useLoginViewModel = () => {
   const [email, setEmail] = useState("new-user");
   const [password, setPassword] = useState("Uhf@1234");
 
+
+  //user,individual
+  // const [email, setEmail] = useState("uhf-personal");
+  // const [password, setPassword] = useState("Pass@1234");
+
   const [token, setToken] = useState("");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);

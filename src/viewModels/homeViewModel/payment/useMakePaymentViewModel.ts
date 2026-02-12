@@ -19,7 +19,20 @@ export const useMakePaymentViewModel = () => {
   },[FOCUS])
 
   async function getAccountforupdatedResult() {
-    apis.getCurrencyAccount(dispatch)
+    let assetBody = {
+      page: 1,
+      limit: 50,
+      sort: {
+          key: "created_at",
+          order: "desc"
+      },
+      search: "",
+      filters: {
+          // "account_id: "0dccc0e9-35f3-4ee5-b9e6-0c46d95213b7"
+      }
+    }
+
+    apis.getCurrencyAccount(assetBody,dispatch)
   }
 
   const pressBackArrow = () => {

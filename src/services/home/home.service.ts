@@ -14,10 +14,10 @@ export const getUserDetail = async (dispatch: any): Promise<CustomersResponse> =
 };
 
 // Get all currency accounts
-export const getCurrencyAccount = async (dispatch: any): Promise<AssetsResponse> => {
-  const response = await axiosInstance('/assets/all', 'GET', undefined, false);
+export const getCurrencyAccount = async (body: any , dispatch: any): Promise<AssetsResponse> => {
+  const response = await axiosInstance('/assets/all', 'POST', body, false);
   if (response?.success) {
-    dispatch(storeCurrArrayData(response.results));
+    dispatch(storeCurrArrayData(response?.results?.values));
   } 
   return response;
 };

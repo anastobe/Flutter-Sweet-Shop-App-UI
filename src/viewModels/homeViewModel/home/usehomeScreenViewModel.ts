@@ -79,11 +79,24 @@ export const useHomeViewModel = () => {
 
     
   const onRefresh = async () => {
+    let assetBody = {
+      page: 1,
+      limit: 50,
+      sort: {
+          key: "created_at",
+          order: "desc"
+      },
+      search: "",
+      filters: {
+          // "account_id: "0dccc0e9-35f3-4ee5-b9e6-0c46d95213b7"
+      }
+    }
+
   try {
     // setRefreshing(true);
       const [ currencyAccountRes, AllAsset_n_AccountsRes] =
       await Promise.all([
-        apis.getCurrencyAccount(dispatch),
+        apis.getCurrencyAccount(assetBody,dispatch),
         apis.getAccountsAndAssets(dispatch),
       ]);
 
@@ -143,6 +156,20 @@ export const useHomeViewModel = () => {
 
   
 const fetchAllInitialData = async () => {
+
+    let assetBody = {
+      page: 1,
+      limit: 50,
+      sort: {
+          key: "created_at",
+          order: "desc"
+      },
+      search: "",
+      filters: {
+          // "account_id: "0dccc0e9-35f3-4ee5-b9e6-0c46d95213b7"
+      }
+    }
+
   try {
     dispatch(handleLoader(true));
 
@@ -154,7 +181,7 @@ const fetchAllInitialData = async () => {
       apis.getCoutry(dispatch),
       apis.getCurrency(dispatch),
       apis.getAssetType(dispatch),
-      apis.getCurrencyAccount(dispatch), // ✅ This returns your all accounts array
+      apis.getCurrencyAccount(assetBody,dispatch), // ✅ This returns your all accounts array
       apis.getAccountsAndAssets(dispatch)
 
     ]);    
