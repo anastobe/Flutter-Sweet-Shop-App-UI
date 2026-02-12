@@ -26,6 +26,11 @@ import { InteractionProvider } from "./src/security/IdleTimer";
 
 // LogBox.ignoreAllLogs(); 
 
+// if (!__DEV__) {
+//   console.log = () => {};
+//   console.warn = () => {};
+//   console.info = () => {};
+// }
 
 const App: React.FC = () => {                           
 
@@ -53,11 +58,11 @@ const App: React.FC = () => {
       }
 
       if (isDebuggable()) {
-        console.log("⚠ Debug build detected");
+        // console.log("⚠ Debug build detected");
       }
 
       if (isEmulator()) {
-        console.log("⚠ Emulator detected");
+        // console.log("⚠ Emulator detected");
       }
     };
 

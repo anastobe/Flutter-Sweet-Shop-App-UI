@@ -1,7 +1,6 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { useEffect, useRef, useState } from "react";
 import { Images } from "../../../config";
-import { SHOW_CLIENT } from "../../../APICall/constants";
 import { Alert } from "react-native";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
@@ -131,7 +130,7 @@ export const useBankTransferViewModel = () => {
     }
 
     // fromAccount
-    // Alert.alert("NEED",SHOW_CLIENT)
+
   };
 
   function pressSure() {

@@ -1,24 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity, Pressable, Alert } from 'react-native';
 import CustomButton from '../../components/customButton';
-import CustomTextField from '../../components/customTextField';
 import Images from '../../config/images';
-import { Auth_ROUTES, HOME_ROUTES } from '../../constants';
-import { useNavigation } from '@react-navigation/native';
 import { FONTFAMILY, FONT_SIZES, METRICS, THEME } from '../../styles'; // Assuming you have this structure
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { BottomSheet, MainContainer, Modal } from '../../components';
-import InputField from '../../components/textInput';
 import { scale } from 'react-native-size-matters';
-import Icon from 'react-native-vector-icons/Ionicons';
-import FingerPrintContent from '../../components/bottomSheet/fingerPrintContent';
-import ReactNativeBiometrics from 'react-native-biometrics';
-import { useLogin } from '../../queries/auth.query';
-import { useLoginViewModel } from '../../viewModels/authViewModel/useLoginViewModel';
-import {authorize} from 'react-native-app-auth';
-import LinearGradient from 'react-native-linear-gradient';
-import { ImageBackground } from 'react-native';
-import { SHOW_CLIENT } from '../../APICall/constants';
 import { useWelcomeViewModel } from '../../viewModels/authViewModel/useWelcomeViewModel';
 import StatusBarManager from '../../components/statusBarManager';
 

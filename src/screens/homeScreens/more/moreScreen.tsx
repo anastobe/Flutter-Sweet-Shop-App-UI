@@ -7,7 +7,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import HelpSheet from '../../../components/bottomSheet/helpSheet';
 import useMoreViewModel from '../../../viewModels/homeViewModel/more/useMoreViewModel';
 import CustomButton from '../../../components/customButton';
-import { SHOW_CLIENT } from '../../../APICall/constants';
 import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
 import { Images } from '../../../config';
@@ -241,7 +240,7 @@ const MoreScreen = () => {
          onPress2={vm.onCloseHelpSheet}
          style={{ flex: 1, paddingHorizontal: handleSize.w(20) }}
          title="Need help?"
-         subtitle={`You can reach us at anytime at: \n ${SHOW_CLIENT}`}
+         subtitle={`You can reach us at anytime at: CLIENT`}
        />
      </BottomSheet>
    </MainContainer>

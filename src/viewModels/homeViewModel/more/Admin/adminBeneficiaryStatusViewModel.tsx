@@ -1,6 +1,6 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES } from '../../../../utils/data';
+import { BENEFICIARY_TYPES, ACCOUNT_TYPES } from '../../../../utils/data';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../../styles';
 
@@ -44,8 +44,6 @@ export const useAdminBeneficiariesManagementViewModel = () => {
     setOpen,
     BENEFICIARY_TYPES,
     ACCOUNT_TYPES,
-    COUNTRIES,
-    CURRENCIES,
     setBeneficiaryName,
     setAccountType,
     setAccountNo,

@@ -17,7 +17,7 @@ export const getBeneficiaryDetail = ({
       }
     },
     onError: (error: any) => {
-      console.log('getBeneficiaryDetail error:', error);
+      // console.log('getBeneficiaryDetail error:', error);
     },
   });
 };
@@ -36,7 +36,7 @@ export const getPendingBankPayment = ({
       }
     },
     onError: (error: any) => {
-      console.log('getPendingBankPayment error:', error);
+      // console.log('getPendingBankPayment error:', error);
     },
   });
 };
@@ -55,7 +55,7 @@ export const getPendingRequest = ({
       }
     },
     onError: (error: any) => {
-      console.log('getPendingRequest error:', error);
+      // console.log('getPendingRequest error:', error);
     },
   });
 };
@@ -73,7 +73,7 @@ export const getFxQuote = ({
       }
     },
     onError: (error: any) => {
-      console.log('getFxQuote error:', error);
+      // console.log('getFxQuote error:', error);
     },
   });
 };
@@ -91,7 +91,7 @@ export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) =
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('DeleteBeneficiary error:', error);
+      // console.log('DeleteBeneficiary error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -105,7 +105,7 @@ export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) =
     mutationFn: apis.AddnewBeneficiaryApi,
     onSuccess: async (response: any) => {
 
-      console.log("useMutation==>",response);
+      // console.log("useMutation==>",response);
       
 
       if (response.success) {
@@ -115,7 +115,7 @@ export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) =
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('Login error:', error);
+      // console.log('Login error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -128,7 +128,7 @@ export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) =
     mutationFn: apis.UpdateContactAddress,
     onSuccess: async (response: any) => {
 
-      console.log("useMutation==>",response);
+      // console.log("useMutation==>",response);
       
 
       if (response.success) {
@@ -138,7 +138,7 @@ export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) =
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('UpdateContactAddress error:', error);
+      // console.log('UpdateContactAddress error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -164,7 +164,7 @@ export const DeleteBeneficiary = ({callback} : {callback: (res: any) => void}) =
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('Login error:', error);
+      // console.log('Login error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });

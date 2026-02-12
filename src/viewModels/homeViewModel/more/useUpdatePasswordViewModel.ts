@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Auth_ROUTES } from '../../../constants';
 import { Alert } from 'react-native';
-import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Toast } from '../../../utils';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';

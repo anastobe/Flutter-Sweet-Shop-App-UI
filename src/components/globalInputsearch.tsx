@@ -110,7 +110,7 @@ const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary, filter
        not_null: [filterKey]
     };
 
-    console.log("==>",payload);
+    // console.log("==>",payload);
     
 
     getBeneficiaryDetailFunc(payload);
@@ -144,7 +144,7 @@ const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary, filter
         <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => {
-                console.log('BENEFICIARY CLICKED ===>', item);
+                // console.log('BENEFICIARY CLICKED ===>', item);
                 onSelectBeneficiary?.(item);
             }}
             >

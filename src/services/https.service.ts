@@ -25,10 +25,10 @@ let requestQueue: Array<{
   request: () => Promise<any>;
 }> = [];
 
-console.log(
-  '📦 CURRENT QUEUE:',
-  requestQueue?.length
-);
+// console.log(
+//   '📦 CURRENT QUEUE:',
+//   requestQueue?.length
+// );
 
 let requestCounter = 0;
 
@@ -87,7 +87,7 @@ const refreshAccessToken = async (): Promise<any> => {
   // }
 
   const response = await fetch(
-    BASE_URL + BASE_PATH + '/refresh_token',
+     `${process.env.BASE_URL}${process.env.BASE_PATH}${process.env.REFRESH_URL}`,
     {
       method: 'GET',
       headers: {
@@ -110,7 +110,7 @@ const refreshAccessToken = async (): Promise<any> => {
       throw new Error('REFRESH_FAILED');
     }
 
-  console.log("refresh token api response json==>",json);
+  // console.log("refresh token api response json==>",json);
   // return
   
   store.dispatch(updateUserToken({
@@ -180,9 +180,9 @@ const axiosInstance = async (
     }
 
     const response = await fetch(
-      BASE_URL + BASE_PATH + url,
+      `${process.env.BASE_URL}${process.env.BASE_PATH}${url}`,
       fetchOptions
-    );
+    );     
 
     // 🔥 Force errors into catch
     if (response.status === 401 || response.status === 403) {
@@ -217,12 +217,12 @@ const axiosInstance = async (
   } catch (error: any) {
     const status = error?.status;
   
-    console.log(
-  `[${requestId}] ❌ FAILED`,
-  status,
-  method,
-  url
-);
+//     console.log(
+//   `[${requestId}] ❌ FAILED`,
+//   status,
+//   method,
+//   url
+// );
 
     /**
      * ================================
@@ -231,7 +231,7 @@ const axiosInstance = async (
      */
 
     if (status === 401) {
-      console.log("logout perform code is", status);
+      // console.log("logout perform code is", status);
       forceLogout();
       throw error;
     }
@@ -243,9 +243,9 @@ const axiosInstance = async (
      */ 
     if (status === 403) {
 
-      console.log(
-  `[${requestId}] ⏳ QUEUED (403 – token expired)`
-);
+//       console.log(
+//   `[${requestId}] ⏳ QUEUED (403 – token expired)`
+// );
 
       const latestToken =
         store.getState()?.AuthReducer?.userData?.token;
@@ -260,9 +260,9 @@ const axiosInstance = async (
           resolve,
           reject,
           request: () => {
-            console.log(
-              `[${requestId}] 🚀 EXECUTING FROM QUEUE`
-            );
+            // console.log(
+            //   `[${requestId}] 🚀 EXECUTING FROM QUEUE`
+            // );
             return makeRequest(
               store.getState()?.AuthReducer?.userData?.token
             );
@@ -276,7 +276,7 @@ const axiosInstance = async (
           refreshAccessToken()
             .then(() => {
 
-              console.log("refresh succes and .then is running",requestQueue);
+              // console.log("refresh succes and .then is running",requestQueue);
               
               requestQueue.forEach(p =>
                 p.request().then(p.resolve).catch(p.reject)
@@ -285,7 +285,7 @@ const axiosInstance = async (
             })
             .catch(() => {
 
-              console.log("refresh fail and catch is running");
+              // console.log("refresh fail and catch is running");
               
               requestQueue.forEach(p =>
                 p.reject(new Error('SESSION_EXPIRED'))

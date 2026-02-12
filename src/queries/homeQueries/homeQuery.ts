@@ -16,7 +16,7 @@ export const getNotifications = ({
       }
     },
     onError: (error: any) => {
-      console.log('getNotifications error:', error);
+      // console.log('getNotifications error:', error);
     },
   });
 };

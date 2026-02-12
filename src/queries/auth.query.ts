@@ -30,7 +30,7 @@ export const useLogin = ({callback, navigation} : {callback: (res: any) => void,
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('Login error:', error);
+      // console.log('Login error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -69,7 +69,7 @@ export const ResetPasswordLink = ({callback} : {callback: (res: any) => void}) =
       }
   },
     onError: (error: any) => {
-      console.log('ResetPasswordLink error:', error);
+      // console.log('ResetPasswordLink error:', error);
     }
   });
 };
@@ -85,7 +85,7 @@ export const resetPassword = ({callback} : {callback: (res: any) => void}) => {
       }
   },
     onError: (error: any) => {
-      console.log('resetPassword error:', error);
+      // console.log('resetPassword error:', error);
     }
   });
 };
@@ -101,7 +101,7 @@ export const uploadFile = ({callback} : {callback: (res: any) => void}) => {
       }
   },
     onError: (error: any) => {
-      console.log('uploadFile error:', error);
+      // console.log('uploadFile error:', error);
     }
   });
 };
@@ -119,7 +119,7 @@ export const createCard = ({callback} : {callback: (res: any) => void}) => {
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('createCard error:', error);
+      // console.log('createCard error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -139,7 +139,7 @@ export const cardUsedStatus = ({
 
     onSuccess: async (response: any) => {
 
-      console.log('cardUsedStatus success:', response);
+      // console.log('cardUsedStatus success:', response);
 
       if (response?.success) {
         onSuccessCallback?.(response);
@@ -150,7 +150,7 @@ export const cardUsedStatus = ({
     },
 
     onError: (error: any) => {
-      console.log('cardUsedStatus error:', error);
+      // console.log('cardUsedStatus error:', error);
       onErrorCallback?.(error);
     },
   });
@@ -169,7 +169,7 @@ export const freezUnFreezCard = ({callback} : {callback: (res: any) => void}) =>
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('freezUnFreezCard error:', error);
+      // console.log('freezUnFreezCard error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -205,7 +205,7 @@ export const getCards = ({callback} : {callback: (res: any) => void}) => {
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('getCards error:', error);
+      // console.log('getCards error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });

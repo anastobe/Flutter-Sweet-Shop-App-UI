@@ -151,7 +151,7 @@ export const isTimeRemaining = (
   debug = true
 ): boolean => {
   if (!challenge_expiry_datetime) {
-    debug && console.log('EXPIRY CHECK ❌ no expiry provided');
+    // debug && console.log('EXPIRY CHECK ❌ no expiry provided');
     return false;
   }
 
@@ -159,18 +159,18 @@ export const isTimeRemaining = (
   const expiryTime = new Date(challenge_expiry_datetime).getTime();
 
   if (isNaN(expiryTime)) {
-    debug && console.log('EXPIRY CHECK ❌ invalid date');
+    // debug && console.log('EXPIRY CHECK ❌ invalid date');
     return false;
   }
 
   const isValid = now <= expiryTime;
 
-  debug &&
-    console.log('EXPIRY CHECK ✅', {
-      now: new Date(now).toLocaleString(),
-      expiry: new Date(expiryTime).toLocaleString(),
-      valid: isValid,
-    });
+  // debug &&
+  //   console.log('EXPIRY CHECK ✅', {
+  //     now: new Date(now).toLocaleString(),
+  //     expiry: new Date(expiryTime).toLocaleString(),
+  //     valid: isValid,
+  //   });
 
   return isValid;
 };
@@ -287,7 +287,7 @@ function mod97(numberString: any) {
 
 export function validateIBAN(input: any) {
   const iban = ibanClean(input);
-  console.log("play==>",input);
+  // console.log("play==>",input);
   
   if (!IBAN_BASIC_REGEX.test(iban)) return false;
   const numeric = ibanToNumericString(iban);
@@ -330,12 +330,12 @@ const downloadFile = async (
       },
     }).fetch('GET', url);
 
-    console.log('Download success:', res.path());
+    // console.log('Download success:', res.path());
 
     Alert.alert('Success', `File downloaded to:\n${res.path()}`);
     onSuccess?.();
   } catch (error) {
-    console.log('Download error:', error);
+    // console.log('Download error:', error);
     Alert.alert('Error', 'Download failed');
     onError?.();
   }

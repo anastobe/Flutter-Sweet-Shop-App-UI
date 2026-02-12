@@ -19,7 +19,6 @@ import FreezeCardModal from '../../../../components/Modal/FreezeCardModal ';
 import { Images } from '../../../../config';
 import Metrics from '../../../../styles/metrics';
 import BluryModal from '../../../../components/Modal/bluryModal';
-import { SHOW_CLIENT } from '../../../../APICall/constants';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
 import { BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR } from '../../../../utils/data';
@@ -319,29 +318,6 @@ const AddNewBeneficiary = () => {
   );
 };
 
-
-        //  <BluryModal
-        //     style={{ flex: 1, paddingHorizontal: 20 }}
-        //     backImg={Images.addCardGradient}
-        //     visible={vm.modalVisible}
-        //     onClose={() => vm.setModalVisible(false)}
-        //     btnLoader={false}
-        //     marginTopTitle={40}
-        //     onConfirm={() => {
-        //       Alert.alert('NEED', SHOW_CLIENT);
-        //       vm.setModalVisible(!vm.modalVisible);
-        //     }}
-        //     showSubBody={false}
-        //     showCancelBtn={false}
-        //     downConfirmText={'Cancel'}
-        //     title={'Are you sure you want to reject'}
-        //     body={''}
-        //     subBody={
-        //       'The card can be unfrozen at any time. Existing subscriptions may still attempt charges.'
-        //     }
-        //     iconName={'alert-outline'}
-        //     confirmText={'Yes'}
-        //   />
 export default AddNewBeneficiary;
 
 const styles = StyleSheet.create({

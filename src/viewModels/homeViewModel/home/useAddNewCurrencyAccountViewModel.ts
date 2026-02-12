@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Images } from "../../../config";
 import { Alert } from "react-native";
-import { SHOW_CLIENT } from "../../../APICall/constants";
 import { StatusBar } from "react-native";
 import { THEME } from "../../../styles";
 import { useSelector } from "react-redux";

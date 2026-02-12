@@ -3,7 +3,6 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Toast } from '../../../utils';
 import { HOME_ROUTES } from '../../../constants';
 import { Alert } from 'react-native';
-import { SHOW_CLIENT } from '../../../APICall/constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
 
@@ -34,7 +33,6 @@ export default function useUpdateAddressViewModel() {
     } else if (!country.trim()) {
       Toast.showToast('Please Select Country', '', 'error');
     } else {
-      Alert.alert("NEED",SHOW_CLIENT)
       cardDetailRef?.current?.open();
       navigation.goBack();
     }

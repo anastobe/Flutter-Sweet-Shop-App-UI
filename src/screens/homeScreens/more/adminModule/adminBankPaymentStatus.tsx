@@ -8,11 +8,9 @@ import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
 import BluryModal from '../../../../components/Modal/bluryModal';
 import { Images } from '../../../../config';
 import StatusBarManager from '../../../../components/statusBarManager';
-import { SHOW_CLIENT } from '../../../../APICall/constants';
 import { handleSize } from '../../../../config/responsiveTheme';
 import Metrics from '../../../../styles/metrics';
 import { changeBankPaymentStatus, changeCardStatus, changeFxPaymentStatus } from '../../../../queries/card.Queries/card.query';
-import { LoaderCompleteScreenOnly } from '../../../../components/activityIndicator';
 import { CommonUtils } from '../../../../utils';
 
 // InfoRow Component

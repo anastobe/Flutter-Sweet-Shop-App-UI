@@ -5,7 +5,6 @@ import { useLogin } from "../../queries/auth.query";
 import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
-import { SHOW_CLIENT } from "../../APICall/constants";
 import { Toast } from "../../utils";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { Auth_ROUTES } from "../../constants";

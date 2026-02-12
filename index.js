@@ -22,7 +22,7 @@ import notifee, { AndroidImportance } from '@notifee/react-native';
 
 // 🔥 BACKGROUND & QUIT STATE HANDLER
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('BACKGROUND / QUIT:', remoteMessage);
+  // console.log('BACKGROUND / QUIT:', remoteMessage);
 
   const parsed = JSON.parse(remoteMessage?.data?.notification);
   let Parsetitle = parsed.title;

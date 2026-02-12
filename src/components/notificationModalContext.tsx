@@ -40,7 +40,7 @@ export const NotificationModalProvider = ({children}: any) => {
     setData(undefined);
   };
 
-  console.log("modal open krwado");
+  // console.log("modal open krwado");
 
   return (
     <NotificationModalContext.Provider

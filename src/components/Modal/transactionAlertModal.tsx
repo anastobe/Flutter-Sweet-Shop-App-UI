@@ -69,7 +69,7 @@ const { mutate: cardUsedAcceptFunc, isPending: isPendingAccept } =
       user_response: status,
     };
 
-    console.log("payload going ==>",payload);
+    // console.log("payload going ==>",payload);
     
 
     if (status === approved) {

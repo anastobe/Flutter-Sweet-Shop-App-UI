@@ -76,7 +76,7 @@ export const AccFreeze = ({callback} : {callback: (res: any) => void}) => {
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('AccDelete error:', error);
+      // console.log('AccDelete error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -94,7 +94,7 @@ export const paymentHistry = ({callback} : {callback: (res: any) => void}) => {
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('AccDelete error:', error);
+      // console.log('AccDelete error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -112,7 +112,7 @@ export const fetchLinkedAccCards = ({callback} : {callback: (res: any) => void})
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('AccDelete error:', error);
+      // console.log('AccDelete error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -130,7 +130,7 @@ export const AccDelete = ({callback} : {callback: (res: any) => void}) => {
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('AccDelete error:', error);
+      // console.log('AccDelete error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -167,7 +167,7 @@ export const getUserDetail = ({callback} : {callback: (res: any) => void}) => {
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('getUserDetail error:', error);
+      // console.log('getUserDetail error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });

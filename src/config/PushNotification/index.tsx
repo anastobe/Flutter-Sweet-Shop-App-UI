@@ -67,7 +67,7 @@ export const PushNotificationHandler = () => {
 
     });
 
-    console.log("handleMessage==>",data);
+    // console.log("handleMessage==>",data);
 
     if (data?.is_modal === 'yes') {
         dispatch(enqueueTransaction(data));
@@ -111,15 +111,15 @@ export const PushNotificationHandler = () => {
     // This listener handles taps when the app is OPEN or MINIMIZED
 
     notifee.onBackgroundEvent(async ({ type, detail }) => {
-      console.log('Notifee background event=:??',detail.pressAction?.id);
+      // console.log('Notifee background event=:??',detail.pressAction?.id);
 
       
 
       if (type === EventType.PRESS) {
-        console.log(
-          'User pressed notification while app was in foreground/background',
-          detail.notification?.data,
-        );
+        // console.log(
+        //   'User pressed notification while app was in foreground/background',
+        //   detail.notification?.data,
+        // );
         // handleMessage(detail.notification)
 
         if (detail.notification?.data?.is_modal === 'yes') {
@@ -136,7 +136,7 @@ export const PushNotificationHandler = () => {
     if (type === EventType.PRESS) {
       const data = detail.notification?.data;
 
-      console.log('🔔 Foreground notification tapped', data);
+      // console.log('🔔 Foreground notification tapped', data);
 
       if (data?.is_modal === 'yes') {
         dispatch(enqueueTransaction(data));
@@ -152,7 +152,7 @@ export const PushNotificationHandler = () => {
     if (pendingTx?.queue?.length){
       let current = pendingTx?.queue[0]
       
-      console.log("pendingTx?.queue??.data==>",current?.data);
+      // console.log("pendingTx?.queue??.data==>",current?.data);
 
       let backendTime = current?.data?.challenge_expiry_datetime
       const isValid = CommonUtils.isTimeRemaining(backendTime);

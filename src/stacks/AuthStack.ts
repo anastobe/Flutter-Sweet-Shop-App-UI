@@ -1,5 +1,4 @@
 import { Auth_ROUTES, HOME_ROUTES } from "../constants";
-import CreateAccount from "../screens/authScreens/createAccount";
 import ForgetPassReset from "../screens/authScreens/forgetPassReset";
 import ForgetPassword from "../screens/authScreens/forgetPassword";
 import { Login } from "../screens/authScreens/index";
@@ -11,9 +10,6 @@ import AdminBeneficiaryStatus from "../screens/homeScreens/more/adminModule/admi
 import AdminConfirmCardRequest from "../screens/homeScreens/more/adminModule/admincardStatus";
 import AdminPaymentStatus from "../screens/homeScreens/more/adminModule/adminPaymentStatus";
 import Request from "../screens/homeScreens/more/adminModule/request";
-// import { SignupUploadProfile } from "../screens/authScreens/signupScreens/signupUploadProfile";
-// import { TabStack } from "./TabStack";
-import { HomeStack } from "./HomeStack";
 
 export type AuthStackParamList = {
   [Auth_ROUTES.LOGIN]: undefined;
@@ -44,10 +40,6 @@ export const AuthStack: AuthScreenStacksTypes = [
   {
     name: Auth_ROUTES.SETPASSWORD,
     component: SetPassword,
-  },
-  {
-    name: Auth_ROUTES.CREATEACCOUNT,
-    component: CreateAccount,
   },
   {
     name: Auth_ROUTES.FORGET_PASS_RESET,

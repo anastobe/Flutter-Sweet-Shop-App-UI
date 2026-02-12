@@ -29,12 +29,12 @@ const Notification = () => {
 
  } = useNotificationViewModel();
 
- console.log("useNotificationViewModel==>",notification);
+//  console.log("useNotificationViewModel==>",notification);
  
 
   function onPressItem(item: any) {
 
-    console.log("play");
+    // console.log("play");
     // return
 
     if (item?.data?.is_modal === 'yes') {
@@ -78,7 +78,7 @@ const Notification = () => {
     );
   };
   
-  console.log("!isPending && !notification?.length==>",isPending , !notification?.length );
+  // console.log("!isPending && !notification?.length==>",isPending , !notification?.length );
   
 
   return (

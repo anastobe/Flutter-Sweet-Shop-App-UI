@@ -1,50 +1,17 @@
-// viewModels/useLoginViewModel.ts
 import React, { useState, useEffect, useRef } from "react";
 import ReactNativeBiometrics from "react-native-biometrics";
 import { useLogin } from "../../queries/auth.query";
 import { Alert, PermissionsAndroid, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { storeUserToken } from "../../Redux/Action/Auth/AuthActions";
-import { SHOW_CLIENT } from "../../APICall/constants";
 import { Toast } from "../../utils";
-import { StatusBar } from "react-native";
-import { THEME } from "../../styles"; 
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { Auth_ROUTES } from "../../constants";
-// import messaging from '@react-native-firebase/messaging';
 import messaging from '@react-native-firebase/messaging';
-// import {
-//   getMessaging,
-//   requestPermission,
-//   getToken,
-//   AuthorizationStatus,
-// } from '@react-native-firebase/messaging';
-
-// const messagingInstance = getMessaging();
 
 export const useLoginViewModel = () => {
-
-  // const countryList = useSelector((state: any) => state);
-
-  //coperate - maker
-  // const [email, setEmail] = useState("auth-test-4");
-  // const [password, setPassword] = useState("Saadops@12");
-
-  //coperate - checker
-  // const [email, setEmail] = useState("mohtashim");
-  // const [password, setPassword] = useState("Uhf@1234");
-
   //coperate -maker
   const [email, setEmail] = useState("new-user");
   const [password, setPassword] = useState("Uhf@1234");
 
-  //user,individual
-  // const [email, setEmail] = useState("uhf-personal");
-  // const [password, setPassword] = useState("Pass@1234");
-
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
- 
   const [token, setToken] = useState("");
   const [secure, setSecure] = useState(true);
   const [biometryType, setBiometryType] = useState<string | null>(null);
@@ -119,13 +86,13 @@ const initFCM = async () => {
   const fcmToken = await messaging().getToken();
 
   if (fcmToken) {
-    console.log("FCM TOKEN:", fcmToken);
+    // console.log("FCM TOKEN:", fcmToken);
     setToken(fcmToken);
   } 
 
   // IMPORTANT: Listen for refresh
   messaging().onTokenRefresh(token => {
-    console.log("NEW TOKEN:", token);
+    // console.log("NEW TOKEN:", token);
     setToken(token);
   });
 };
@@ -167,7 +134,6 @@ const initFCM = async () => {
 //       token: "token"
 //     }
 //     dispatch(storeUserToken(token))  
-//     // Alert.alert("NEED",SHOW_CLIENT)
 // return
     if (email == "") {
       Toast.showToast("Enter email address or username", '', 'error');

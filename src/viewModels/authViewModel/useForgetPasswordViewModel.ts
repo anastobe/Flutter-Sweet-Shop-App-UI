@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Auth_ROUTES } from '../../constants';
 import { Alert } from 'react-native';
-import { SHOW_CLIENT } from '../../APICall/constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../styles';
 import { useIsFocused, useNavigation } from '@react-navigation/native';

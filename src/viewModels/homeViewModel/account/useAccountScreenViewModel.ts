@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Alert, FlatList, Image, NativeScrollEvent, NativeSyntheticEvent, Share } from "react-native";
 import Metrics from "../../../styles/metrics";
 import { HOME_ROUTES } from "../../../constants";
-import { SHOW_CLIENT } from "../../../APICall/constants";
 import { AccDelete, AccFreeze, getAccountsAndAssets, getAssetBalance, getDashboardData, getUserDetail, paymentHistry,  } from "../../../queries/accountQueries/accountQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
@@ -242,7 +241,7 @@ const onPressCopy = () => {
   // const onPressCopy = () => Alert.alert("copy", "copy");
   const onPressEdit = () => editRef?.current?.open();
 
-  const onPressSave = () =>{ Alert.alert("NEED",SHOW_CLIENT) };
+  const onPressSave = () =>{ console.log("NEED") }
   
   const getAccountDetailsText = () => {
   const details = [
@@ -297,7 +296,7 @@ function toggleAccountStatus(status: any){
       AccDeleteFunc(currentAssetDetail?.id)
   }
 
-  const onPressEditSave = () => Alert.alert("NEED",SHOW_CLIENT);
+  const onPressEditSave = () =>{ console.log("NEED") }
 
 //   const saveDatainState = (data: any[] = []) => {
 

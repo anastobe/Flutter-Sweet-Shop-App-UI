@@ -44,11 +44,6 @@ const ACCOUNT_HISTRY_VALIDATION = {
   INCOMPLETE: 'INCOMPLETE'  
 }
 
-const COUNTRIES = [
-  { label: 'Country', value: '' },
-  { label: 'Pakistan', value: 'pakistan' },
-  { label: 'America', value: 'america' },
-];
 
 const CURRENCIES = [
   { label: 'Currency', value: '' },
@@ -411,7 +406,6 @@ export {
     BENEFICIARY_KEY_TYPES,
     BENEFICIARY_TYPES,
     ACCOUNT_TYPES,
-    COUNTRIES,
     CURRENCIES,
     REASON_OPTION,
     TIME_LIMIT,

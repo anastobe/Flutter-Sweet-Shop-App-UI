@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Auth_ROUTES } from '../../constants';
 import { Alert } from 'react-native';
-import { SHOW_CLIENT } from '../../APICall/constants';
 import { Toast } from '../../utils';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../styles';
@@ -43,7 +42,7 @@ export default function useforgetPassResetViewModel(props: any) {
     navigation.goBack();
   }
 
-  console.log("chk rules==>",!(rules.minLength(newPassword) && rules.lowerCase(newPassword) && rules.upperCase(newPassword) && rules.number(newPassword) && rules.specialChar(newPassword)) ? "true" : "false" );
+  // console.log("chk rules==>",!(rules.minLength(newPassword) && rules.lowerCase(newPassword) && rules.upperCase(newPassword) && rules.number(newPassword) && rules.specialChar(newPassword)) ? "true" : "false" );
   
 
   function onUpdatePress() {
@@ -64,7 +63,7 @@ export default function useforgetPassResetViewModel(props: any) {
         newPassword: newPassword
       }
 
-      console.log("payoload==>",payload);
+      // console.log("payoload==>",payload);
       // return
 
       resetPasswordFunc(payload)

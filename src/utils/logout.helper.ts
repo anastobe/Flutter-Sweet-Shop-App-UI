@@ -4,7 +4,7 @@ import ActionType from "../Redux/Action/ActionType/actionType";
 
 export function logoutUser() {
   try {
-    console.log("🚀 Logging out user…");
+    // console.log("🚀 Logging out user…");
 
     // resetNetworkState(); // 🔥 MOST IMPORTANT LINE
     // Clear Redux User Data

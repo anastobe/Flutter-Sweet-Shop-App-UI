@@ -113,7 +113,7 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
       callback: (response: any) => {
         if (response?.success) {
           const newData = response?.results?.values || [];
-          console.log("getCardsFunc==>",newData);          
+          // console.log("getCardsFunc==>",newData);          
           setgetCardsData(newData);
         }
       }, 

@@ -4,9 +4,7 @@ import { MainContainer, BottomSheet } from '../../../components';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
 import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
-import ContactAdressSheet from '../../../components/bottomSheet/contactAdressSheet';
 import useContactAddressViewModel from '../../../viewModels/homeViewModel/more/useContactAddressViewModel';
-import { SHOW_CLIENT } from '../../../APICall/constants';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme'; // responsive helper
 

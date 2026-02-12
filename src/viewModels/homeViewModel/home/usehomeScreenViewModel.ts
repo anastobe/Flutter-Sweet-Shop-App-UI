@@ -6,7 +6,6 @@ import { ACCOUNT_HISTRY_VALIDATION, CURRENT_ACCOUNT, DATA } from '../../../utils
 import { Alert } from 'react-native';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { handleLoader } from '../../../Redux/Action/Auth/AuthActions';
-import { SHOW_CLIENT } from '../../../APICall/constants';
 import { Images } from '../../../config';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';

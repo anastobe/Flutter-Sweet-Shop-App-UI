@@ -1,8 +1,7 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { BENEFICIARY_TYPES, ACCOUNT_TYPES, COUNTRIES, CURRENCIES, BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR, CUSTOMER_TYPE, GLOBAL_USER_TYPES } from '../../../utils/data';
+import { BENEFICIARY_TYPES, ACCOUNT_TYPES, BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR, CUSTOMER_TYPE, GLOBAL_USER_TYPES } from '../../../utils/data';
 import { Alert } from 'react-native';
-import { SHOW_CLIENT } from '../../../APICall/constants';
 import { CommonUtils, Toast } from '../../../utils';
 import { useSelector } from 'react-redux';
 import { AddnewBeneficiaryApi } from '../../../queries/moreQueries/moreQuery';
@@ -148,7 +147,6 @@ function openConfirmationModal() {
   };
 
   const onClosePopup = () =>{
-    // Alert.alert("NEED",SHOW_CLIENT)
     setOpen(false)
     setTimeout(() => {
       navigation.goBack();
@@ -174,8 +172,6 @@ function openConfirmationModal() {
     open,
     BENEFICIARY_TYPES,
     ACCOUNT_TYPES,
-    COUNTRIES,
-    CURRENCIES,
     setfirstName,
     setAccountType,
     setAccountNo,

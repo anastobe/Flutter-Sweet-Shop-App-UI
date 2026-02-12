@@ -11,7 +11,6 @@ import Metrics from '../../../styles/metrics';
 import { DATA_STATEMENT } from '../../../utils/data';
 import { screenWidth } from '../../../utils/style.utils';
 import { Images } from '../../../config';
-import { SHOW_CLIENT } from '../../../APICall/constants';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme'; 
 
@@ -64,7 +63,7 @@ const AccountStatement = () => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            Alert.alert('NEED', SHOW_CLIENT);
+           console.log("need");
           }}
           style={{
             width: handleSize.w(40),

@@ -16,7 +16,7 @@ export const useReplaceCard = ({callback} : {callback: (res: any) => void}) => {
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('useReplaceCard error:', error);
+      // console.log('useReplaceCard error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -35,7 +35,7 @@ export const CardpaymentHistry = ({callback} : {callback: (res: any) => void}) =
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('AccDelete error:', error);
+      // console.log('AccDelete error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -54,7 +54,7 @@ export const freezUnFreezCard = ({callback} : {callback: (res: any) => void}) =>
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('freezUnFreezCard error:', error);
+      // console.log('freezUnFreezCard error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -73,7 +73,7 @@ export const freezUnFreezCardNoMessage = ({callback} : {callback: (res: any) => 
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('freezUnFreezCardNoMessage error:', error);
+      // console.log('freezUnFreezCardNoMessage error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -92,7 +92,7 @@ export const changeBeneficiaryStatus = ({callback} : {callback: (res: any) => vo
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('changeCardStatus error:', error);
+      // console.log('changeCardStatus error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -110,7 +110,7 @@ export const changeCardStatus = ({callback} : {callback: (res: any) => void}) =>
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('changeCardStatus error:', error);
+      // console.log('changeCardStatus error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -129,7 +129,7 @@ export const changeBankPaymentStatus = ({callback} : {callback: (res: any) => vo
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('changeBankPaymentStatus error:', error);
+      // console.log('changeBankPaymentStatus error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -147,7 +147,7 @@ export const changeFxPaymentStatus = ({callback} : {callback: (res: any) => void
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('changeFxPaymentStatus error:', error);
+      // console.log('changeFxPaymentStatus error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -172,7 +172,7 @@ export const setSpendLimit = (
     onError: (error: any) => {
       onError(error)
       // this is usually a network/server-side error
-      console.log('setSpendLimit error:', error);
+      // console.log('setSpendLimit error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -191,7 +191,7 @@ export const setPinSecurity = ({callback} : {callback: (res: any) => void}) => {
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('setSpendLimit error:', error);
+      // console.log('setSpendLimit error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
@@ -210,7 +210,7 @@ export const updateUsageRules = ({callback} : {callback: (res: any) => void}) =>
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      console.log('updateUsageRules error:', error);
+      // console.log('updateUsageRules error:', error);
       // onErrorCallback?.(error?.message || 'Something went wrong');
     }
   });
