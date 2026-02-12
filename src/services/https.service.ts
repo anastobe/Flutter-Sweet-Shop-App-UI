@@ -165,8 +165,18 @@ const axiosInstance = async (
       disableAllSecurity: !ENABLE_SSL_PINNING,
     };
 
+    // if (method === 'POST' || method === 'PUT') {
+    //   fetchOptions.body = data ? JSON.stringify(data) : undefined;
+    // }
+
     if (method === 'POST' || method === 'PUT') {
-      fetchOptions.body = data ? JSON.stringify(data) : undefined;
+      if (data instanceof FormData) {
+        fetchOptions.body = data;
+        // ❗ DO NOT set Content-Type
+      } else {
+        fetchOptions.body = data ? JSON.stringify(data) : undefined;
+        fetchOptions.headers['Content-Type'] = 'application/json';
+      }
     }
 
     const response = await fetch(

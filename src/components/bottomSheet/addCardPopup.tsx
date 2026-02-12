@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: handleSize.f(FONT_SIZES.onetwo),
     color: THEME.white,
     marginTop: handleSize.h(3),
-    width: handleSize.w(METRICS.width - 130),
-    lineHeight: handleSize.h(16),
+    width: handleSize.w(METRICS.width - 170),
+    lineHeight: handleSize.h(16)
   },
 });
