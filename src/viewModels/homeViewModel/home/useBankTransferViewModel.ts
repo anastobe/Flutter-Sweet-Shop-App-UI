@@ -57,7 +57,7 @@ export const useBankTransferViewModel = () => {
 
     //asset balance
   const { data: getAssetBalance_Data, refetch: refetchgetAssetBalance, isFetching: getAssetBalancePending } = getAssetBalance({
-    enabled: false, 
+    enabled: true, 
     dispatch,
     ID: fromAccount?.id,
   });
