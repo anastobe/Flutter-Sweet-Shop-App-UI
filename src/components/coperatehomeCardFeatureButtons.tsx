@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',          // ✅ YEH LINE ADD KARO
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     // alignItems: "center",
     // backgroundColor: "red",
     marginLeft: handleSize.f(12),

@@ -28,7 +28,9 @@ export const useRequestBeneficiaryViewModal = () => {
   }
 
   function pressRightArrow() {
-    navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY);
+    // navigation.navigate(HOME_ROUTES.ADD_NEW_BENEFICIARY);
+    console.log("notihing");
+    
   }
 
   /* ---------------- SEARCH ---------------- */
