@@ -153,7 +153,7 @@ const MyAccountTransfer = ({...props}) => {
           />
 
           {/* Balance */}
-          {fromAccount?.name &&
+          {/* {fromAccount?.name && */}
             <BalanceBox 
               amount={
                 getAssetBalancePending
@@ -168,7 +168,8 @@ const MyAccountTransfer = ({...props}) => {
             //     : (fromAccount?.available_balance - enterAmount).toFixed(2)
             // }
             // amount={getAssetBalancePending ? "..." : `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code)} ${(getAssetBalance_Data?.available_balance)?.toFixed(2)}`}
-            label="Available Balance"  containerHeight={78} />}
+            label="Available Balance"  containerHeight={78} />
+            {/* } */}
 
 
           {/* Recipient Gets */}

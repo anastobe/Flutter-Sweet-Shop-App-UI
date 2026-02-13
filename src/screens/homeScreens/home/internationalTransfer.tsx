@@ -629,7 +629,7 @@ const InternationalTransfer = ({...props}) => {
           />
 
           {/* Balance */}
-          {fromAccount?.name &&
+          {/* {fromAccount?.name && */}
             <BalanceBox 
               // amount={getAssetBalancePending ? "..." : `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code)} ${(getAssetBalance_Data?.available_balance)?.toFixed(2)}`}
               amount={
@@ -640,7 +640,8 @@ const InternationalTransfer = ({...props}) => {
                   : "0.00"
               }
             label="Available Balance"  
-            containerHeight={78} />}
+            containerHeight={78} />
+            {/* } */}
             
 
 

@@ -148,7 +148,6 @@ const BankTransfer = () => {
           />
 
           {/* Balance */}
-          {fromAccount?.name &&
             <BalanceBox 
               amount={
                 getAssetBalancePending
@@ -158,7 +157,8 @@ const BankTransfer = () => {
                   : "0.00"
               }
             // amount={getAssetBalancePending ? "..." : `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code)} ${(getAssetBalance_Data?.available_balance)?.toFixed(2)}`}
-            label="Available Balance"  containerHeight={78} />}
+            label="Available Balance"  containerHeight={78} />
+            
 
 
           {/* Recipient Gets */}
