@@ -22,25 +22,32 @@ export const getAccountsAndAssets  = (    {
   });
 
 
-  export const getAssetBalance  = (    {
-  enabled,
-  dispatch,
-  ID
-}: {
-  enabled?: boolean;
-  dispatch?: any;
-  ID?: any
-}
-) =>
-  useQuery({
-    queryKey: [QueryKey.GET_ASSET_BALANCE,ID],
-    initialData: [],
-    queryFn: ()=> apis.getAssetBalance(ID),
-    enabled: enabled,
-    
-    staleTime: 0, // Data will never be considered stale
-    retry: false // Disable retry on failure
-  });
+  export const getAssetBalance = ({
+    enabled,
+    dispatch,
+    ID,
+  }: {
+    enabled?: boolean;
+    dispatch?: any;
+    ID?: any;
+  }) =>
+    useQuery({
+      queryKey: [QueryKey.GET_ASSET_BALANCE, ID],
+      initialData: {
+        asset_id: '',
+        currency_code: '',
+        available_balance: 0,
+        posted_balance: 0,
+        pending_outgoing_balance: 0,
+        pending_incoming_balance: 0,
+        __typename: '',
+      },
+      queryFn: () => apis.getAssetBalance(ID),
+      enabled: enabled,
+
+      staleTime: 0, // Data will never be considered stale
+      retry: false, // Disable retry on failure
+    });
 
   
   export const getDashboardData  = (    {

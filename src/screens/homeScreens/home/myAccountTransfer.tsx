@@ -155,14 +155,19 @@ const MyAccountTransfer = ({...props}) => {
           {/* Balance */}
           {fromAccount?.name &&
             <BalanceBox 
-            // amount={fromAccount?.iso_code +" "+ enterAmount && fromAccount?.available_balance - enterAmount }  
+              amount={
+                getAssetBalancePending
+                  ? "..."
+                  : getAssetBalance_Data
+                  ? `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code || "")} ${Number(getAssetBalance_Data?.available_balance ?? 0)?.toFixed(2)}`
+                  : "0.00"
+              }
             // amount={
             //   fromAccount?.available_balance - enterAmount < 0
             //     ? 'Insufficient Balance'
             //     : (fromAccount?.available_balance - enterAmount).toFixed(2)
             // }
-            amount={getAssetBalancePending ? "..." : `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code)} ${(getAssetBalance_Data?.available_balance)?.toFixed(2)}`}
-            // amount={ `${CommonUtils.getCurrencySymbol(fromAccount?.iso_code)} ${(fromAccount?.available_balance)?.toFixed(2)}`}
+            // amount={getAssetBalancePending ? "..." : `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code)} ${(getAssetBalance_Data?.available_balance)?.toFixed(2)}`}
             label="Available Balance"  containerHeight={78} />}
 
 

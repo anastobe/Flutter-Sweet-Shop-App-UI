@@ -62,7 +62,7 @@ export const useBankTransferViewModel = () => {
     ID: fromAccount?.id,
   });
    
-  console.log(getAssetBalancePending,"getAssetBalance_Data==>",getAssetBalance_Data);
+  console.log(getAssetBalancePending,"=getAssetBalance_Data==>",getAssetBalance_Data);
 
   const { mutate: usePaymentTransferFunc, isPending } = usePaymentTransfer({
     callback: (res: any) => {

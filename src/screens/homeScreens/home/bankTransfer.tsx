@@ -150,8 +150,14 @@ const BankTransfer = () => {
           {/* Balance */}
           {fromAccount?.name &&
             <BalanceBox 
-            // amount={fromAccount?.iso_code  && fromAccount?.available_balance - enterAmount < 1 ?  'Insufficient Balance' : fromAccount?.available_balance - enterAmount }
-            amount={getAssetBalancePending ? "..." : `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code)} ${(getAssetBalance_Data?.available_balance)?.toFixed(2)}`}
+              amount={
+                getAssetBalancePending
+                  ? "..."
+                  : getAssetBalance_Data
+                  ? `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code || "")} ${Number(getAssetBalance_Data?.available_balance ?? 0)?.toFixed(2)}`
+                  : "0.00"
+              }
+            // amount={getAssetBalancePending ? "..." : `${CommonUtils.getCurrencySymbol(getAssetBalance_Data?.currency_code)} ${(getAssetBalance_Data?.available_balance)?.toFixed(2)}`}
             label="Available Balance"  containerHeight={78} />}
 
 
