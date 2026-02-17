@@ -443,8 +443,8 @@ export default function useTransactionHistoryViewModel(props: any) {
       const payloadWithParams = {
           card_id: assetId,
           payload: {
-            page: 1,
-            limit: 20,
+            page: pageNumber,
+            limit: LIMIT,
             // search,
             sort: {
               key: 'created_at',
@@ -454,7 +454,7 @@ export default function useTransactionHistoryViewModel(props: any) {
       };
 
 
-    console.log("uncomment for refunct amount and atm==>",payload);
+    console.log(show,"uncomment for refunct amount and atm==>",payload);
     if (show == ACCOUNT_HISTRY_VALIDATION.COMPLETE) {
       paymentHistryFunc(payloadWithParams)
     } else if (show == ACCOUNT_HISTRY_VALIDATION.INCOMPLETE){

@@ -4,7 +4,8 @@ import { AppState, Pressable } from 'react-native';
 import dataHandlerService from '../APICall/dataHandler.service';
 import ActionType from '../Redux/Action/ActionType/actionType';
 
-const IDLE_TIME = 2 * 60 * 1000; // 2 minutes
+// const IDLE_TIME = 2 * 60 * 1000; // 2 minutes
+const IDLE_TIME = 5000; // 2 minutes
 
 const InteractionContext = createContext(null);
 
