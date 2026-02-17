@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     // padding: 14,
     // borderRadius: 12,
     // backgroundColor: THEME.darkSecondary,
-    height: handleSize.h(65),
+    height: handleSize.f(65),
     flexDirection: "row",
 
     borderBottomColor: THEME.white,

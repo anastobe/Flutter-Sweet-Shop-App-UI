@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     marginTop: handleSize.f(4),
     fontFamily: FONTFAMILY.Medium,
     fontSize: handleSize.f(FONT_SIZES.onefour),
+    lineHeight: handleSize.f(20),
     color: THEME.white,
     marginLeft: handleSize.w(5),
     textTransform: 'capitalize',

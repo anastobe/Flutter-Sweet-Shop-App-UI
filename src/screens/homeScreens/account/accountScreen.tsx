@@ -159,7 +159,7 @@ const AccountScreen = () => {
           features={vm.features}
           onPressbtn={(item: any) => item.onPress()}
           btnSize={56}
-          txtSize={9}
+          txtSize={10}
           txtLineHeight={12}
         />
 
