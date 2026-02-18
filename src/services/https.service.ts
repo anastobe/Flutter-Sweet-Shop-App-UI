@@ -216,17 +216,23 @@ const axiosInstance = async (
     return await makeRequest(accessToken);
   } catch (error: any) {
     const status = error?.status;
+
+        const errorResponse =
+      error.bodyString && typeof error.bodyString === 'string'
+        ? JSON.parse(error.bodyString)
+        : error.bodyString;
   
-//     console.log(
-//   `[${requestId}] ❌ FAILED`,
-//   status,
-//   method,
-//   url
-// );
+    console.log(
+      error,
+      `[${requestId}] ❌ FAILED`,
+      status,
+      method,
+      url
+    );
 
     /**
      * ================================
-     * 🚪 401 → INACTIVITY → LOGOUT
+     * 🚪 401 → INACTIVITY OR IP CHANGE → LOGOUT
      * ================================
      */
 
@@ -241,7 +247,7 @@ const axiosInstance = async (
      * 🔐 403 → TOKEN EXPIRED → REFRESH
      * ================================
      */ 
-    if (status === 403) {
+    if (status === 403 && errorResponse?.message == "Unauthenticated User" ) {
 
 //       console.log(
 //   `[${requestId}] ⏳ QUEUED (403 – token expired)`
@@ -307,13 +313,8 @@ const axiosInstance = async (
      * ❌ OTHER ERRORS
      * ================================
      */
-    const errorResponse =
-      error.bodyString && typeof error.bodyString === 'string'
-        ? JSON.parse(error.bodyString)
-        : error.bodyString;
 
     console.log("main error ",errorResponse);
-    
 
     MessageHandler(errorResponse);
     throw errorResponse;

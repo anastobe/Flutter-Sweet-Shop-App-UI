@@ -47,7 +47,7 @@ const App: React.FC = () => {
  React.useEffect(() => {
     const check = () => {
 
-      if (isRootDetected()) {
+      if (isRootDetected() || isEmulator()) {
         Alert.alert(
           "Security Warning",
           "This device is rooted. App cannot run on rooted devices.",
@@ -58,12 +58,9 @@ const App: React.FC = () => {
       }
 
       if (isDebuggable()) {
-        // console.log("⚠ Debug build detected");
+        console.log("⚠ Debug build detected");
       }
 
-      if (isEmulator()) {
-        // console.log("⚠ Emulator detected");
-      }
     };
 
     check();
