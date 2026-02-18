@@ -1,5 +1,5 @@
 import { fetch } from 'react-native-ssl-pinning';
-import { BASE_URL, BASE_PATH } from '../APICall/constants';
+// import { BASE_URL, BASE_PATH } from '../APICall/constants';
 import dataHandlerService from '../APICall/dataHandler.service';
 import MessageHandler from '../APICall/messageHandler';
 // import { logoutUser } from '../utils/logout.helper';
@@ -633,7 +633,7 @@ export default axiosInstance;
         
 
 //       if (token) {
-//         config.headers.Authorization = `Bearer ${token}`;
+//         process.env.headers.Authorization = `Bearer ${token}`;
 //       }
 //       return config;
 //     },

@@ -69,17 +69,17 @@ const { mutate: cardUsedAcceptFunc, isPending: isPendingAccept } =
       user_response: status,
     };
 
-    // console.log("payload going ==>",payload);
+    console.log("payload going ==>",payload);
     
 
     if (status === approved) {
-      Toast.showToast("Transaction Successfull", '', 'success',5000);
-      closeAndNext();
-      // cardUsedAcceptFunc(payload);
+      // Toast.showToast("Transaction Successfull", '', 'success',5000);
+      // closeAndNext();
+      cardUsedAcceptFunc(payload);
     } else {
-      Toast.showToast("Transaction Rejected", '', 'error',5000);
-      closeAndNext();
-      // cardUsedDeclinedFunc(payload);
+      // Toast.showToast("Transaction Rejected", '', 'error',5000);
+      // closeAndNext();
+      cardUsedDeclinedFunc(payload);
     }
   };
 
