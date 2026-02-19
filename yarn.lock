@@ -6578,6 +6578,11 @@ react-native-dotenv@^3.4.11:
   dependencies:
     dotenv "^16.4.5"
 
+react-native-flag-secure@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-flag-secure/-/react-native-flag-secure-1.0.4.tgz#0c0165dc00fd2e2e933af7ecbf437cf90c10bce0"
+  integrity sha512-qPBcUwWZTC8+Fg8sLoJ4VMaOUuVEJ/F+dZhOkB5CLxOxLGXWpn+xdnxgYkguSCTw4TEjQ2E1Xbys1tYaGN2Qrw==
+
 react-native-fs@^2.20.0:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/react-native-fs/-/react-native-fs-2.20.0.tgz#05a9362b473bfc0910772c0acbb73a78dbc810f6"

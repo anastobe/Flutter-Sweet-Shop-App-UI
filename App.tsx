@@ -20,6 +20,8 @@ import TransactionAlertModal from "./src/components/Modal/transactionAlertModal"
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
 import OfflineModal from "./src/components/offlineApp";
 import { InteractionProvider } from "./src/security/IdleTimer";
+import FlagSecure from 'react-native-flag-secure';
+
 // import { LogBox } from "react-native";
 // import { initIdleTimer, resetActivity } from "./src/security/IdleTimer";
 // import { TouchableWithoutFeedback } from "react-native";
@@ -42,7 +44,12 @@ const App: React.FC = () => {
     }, 1000);
   }, []);
 
-  
+  React.useEffect(() => {
+    FlagSecure.activate();   // screenshots + recording block
+    return () => {
+      FlagSecure.deactivate(); // screen leave karte hi allow again
+    };
+  }, []);
 
  React.useEffect(() => {
     const check = () => {
