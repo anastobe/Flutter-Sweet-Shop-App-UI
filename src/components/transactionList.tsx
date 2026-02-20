@@ -32,11 +32,10 @@ const TransactionItem = ({ item, type, onPress }: Props) => {
         <View>
           <Text numberOfLines={2} ellipsizeMode='tail' style={styles.name}>
             {/* {item?.description} */}
-            {type == 'card' ? 
-              item?.payment_transactions?.[0]?.beneficiary_name?.company_name || '...'
-              :
+            {item?.product_type == 'Card' ? 
               item?.card_transactions[0]?.merchant_id || '...'
-
+              :
+              item?.payment_transactions?.[0]?.beneficiary_name|| '...'
             }
             {/* {item?.payment_transactions?.[0]?.beneficiary_name?.company_name || '...'} */}
           </Text>

@@ -563,7 +563,7 @@ export default function useTransactionHistoryViewModel(props: any) {
     if (item) {
       navigation.navigate(HOME_ROUTES.TRANSACTION_DETAIL, {
         DETAIL: item,
-        showAttachement: false
+        showAttachement: show == ACCOUNT_HISTRY_VALIDATION.INCOMPLETE ? true : false
       });
     }
   };

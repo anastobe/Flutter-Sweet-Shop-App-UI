@@ -14,8 +14,8 @@ export const useLoginViewModel = () => {
   // const [password, setPassword] = useState("Saadops@12");
 
   //coperate -maker
-  // const [email, setEmail] = useState("new-user");
-  // const [password, setPassword] = useState("Uhf@1234");
+  const [email, setEmail] = useState("new-user");
+  const [password, setPassword] = useState("Uhf@1234");
 
   //coperate - checker
   // const [email, setEmail] = useState("mohtashim");
@@ -23,8 +23,8 @@ export const useLoginViewModel = () => {
 
 
   //user,individual
-  const [email, setEmail] = useState("uhf-personal");
-  const [password, setPassword] = useState("Pass@1234");
+  // const [email, setEmail] = useState("uhf-personal");
+  // const [password, setPassword] = useState("Pass@1234");
 
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
