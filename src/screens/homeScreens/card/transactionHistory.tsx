@@ -22,6 +22,7 @@ import Metrics from '../../../styles/metrics';
 import { CommonUtils } from '../../../utils';
 import TransactionList from '../../../components/transactionList';
 import { ACCOUNT_HISTRY_VALIDATION } from '../../../utils/data';
+import AccountList from '../../../components/accountList';
 
 export default function TransactionHistory(props) {
   
@@ -32,6 +33,9 @@ export default function TransactionHistory(props) {
     search,
     setSearch,
     cardDetailRef,
+    YearRedRef,
+    MAX_YEAR,
+    StatementRef,
     pressBackArrow,
     loadMoreTransactions,
     applyFilters,
@@ -40,7 +44,19 @@ export default function TransactionHistory(props) {
     isLoadingMore,
     isPending,
     filterUIState,
-    setFilterUIState
+    setFilterUIState,
+    getMonthlyStatementFunc,
+    getMonthlyStatementPending,
+    monthlyStementList,
+    getMonthlyStatementUrlFunc,
+    getMonthlyStatementUrlPending,
+    openMothlyStetement,
+    openMothlyStetementSheet,
+    downloadStatement,
+    loadingYear, 
+    setloadingYear,
+    loadingMonth,
+    setloadingMonth
   } = useTransactionHistoryViewModel(props);
 
   /** 🔹 Search + Filter Row */
@@ -122,6 +138,19 @@ const renderItem = ({ item }) => (
           "Transactions history"          
           }</Text>
 
+      <View style={{ flexDirection: "row" }} >
+        {show == ACCOUNT_HISTRY_VALIDATION.INCOMPLETE &&
+          <TouchableOpacity
+           onPress={() => openMothlyStetementSheet()}
+           style={styles.filterBtn2}
+         >
+           <Icon
+             name="download-outline"
+             size={handleSize.f(22)}
+             color={THEME.textPrimary}
+           />
+         </TouchableOpacity>}
+
         <TouchableOpacity
           onPress={() => cardDetailRef?.current?.open()}
           style={styles.filterBtn}
@@ -132,6 +161,8 @@ const renderItem = ({ item }) => (
             color={THEME.textPrimary}
           />
         </TouchableOpacity>
+        </View>
+
         </View>
 
         {/* {renderFilter()} */}
@@ -163,7 +194,92 @@ const renderItem = ({ item }) => (
 
         )}
 
-        {/* 🔹 FILTER BOTTOM SHEET */}
+        {/*  FILTER Year */}
+        <BottomSheet
+          height={500}
+          maxHeightPercent={0.8}
+          draggable={false}
+          openTime={400}
+          closeDuration={400}
+          bottomSheetRef={YearRedRef}
+        >
+          <View style={styles.listHeaderCont} >
+            <Text style={styles.listHeaderTxt} >Select Year</Text>
+          </View>
+
+          <FlatList
+            data={MAX_YEAR}
+            keyExtractor={(item) => item.toString()}
+            ListEmptyComponent={() =>{
+                return(
+                  <Text style={styles.messageEmpty}>No year found</Text>
+                )
+            }}
+            renderItem={({ item, index }) => (              
+            <TouchableOpacity key={index} activeOpacity={0.5} style={[styles.accountCard,{ borderBottomWidth: MAX_YEAR?.length - 1 == index  ? 0 : 0.5,  }]} >
+              <View style={styles.row}>
+                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.accountName}>{item}</Text>
+            
+              </View>
+
+              <TouchableOpacity onPress={()=>{getMonthlyStatementPending ? console.log("disable") : openMothlyStetement(item)}} style={styles.currencyCont} >
+                {(getMonthlyStatementPending && item == loadingYear) ?
+                  <ActivityIndicator  size="small" color={THEME.textPrimary} />
+                :
+                <Text style={styles.currency}>
+                  Select
+                </Text>}
+              </TouchableOpacity>
+
+            </TouchableOpacity>
+
+            )}
+          />
+        </BottomSheet>
+
+        {/* 🔹 FILTER Statement MONTH SHEET */}
+        <BottomSheet
+          height={400}
+          maxHeightPercent={0.6}
+          draggable={false}
+          openTime={400}
+          closeDuration={400}
+          bottomSheetRef={StatementRef}
+        >
+          <View style={styles.listHeaderCont} >
+            <Text style={styles.listHeaderTxt} >{monthlyStementList?.year} Monthly Statement</Text>
+          </View>
+
+          <FlatList
+            data={monthlyStementList?.statements}
+            keyExtractor={(item) => item.toString()}
+            ListEmptyComponent={() =>{
+                return(
+                  <Text style={styles.messageEmpty}>No monthly statement found</Text>
+                )
+            }}
+            renderItem={({ item, index }) => (              
+            <TouchableOpacity key={index} activeOpacity={0.5} style={[styles.accountCard,{ borderBottomWidth: monthlyStementList?.statements?.length - 1 == index  ? 0 : 0.5,  }]} >
+              <View style={styles.row}>
+                <Text numberOfLines={1} ellipsizeMode="tail" style={styles.accountName}>{item.periodLabel}</Text>
+            
+              </View>
+
+              <TouchableOpacity onPress={()=>getMonthlyStatementUrlPending ? console.log("disable") : downloadStatement(item?.id)} style={styles.currencyCont} >
+                {(getMonthlyStatementUrlPending && item?.id == loadingMonth) ?
+                  <ActivityIndicator  size="small" color={THEME.textPrimary} />
+                :
+                <Text style={styles.currency}>
+                  Download
+                </Text>}
+              </TouchableOpacity>
+
+            </TouchableOpacity>
+
+            )}
+          />
+        </BottomSheet>
+
         <BottomSheet
           height={550}
           maxHeightPercent={0.8}
@@ -239,8 +355,18 @@ const styles = StyleSheet.create({
     borderRadius: handleSize.f(10),
     marginBottom: handleSize.h(5),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: handleSize.f(15)
     // marginHorizontal: handleSize.w(20)
+  },
+  filterBtn2 :{
+    width: handleSize.f(46),
+    height: handleSize.f(46),
+    backgroundColor: THEME.primary,
+    borderRadius: handleSize.f(10),
+    marginBottom: handleSize.h(5),
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   item: {
     backgroundColor: THEME.SlateBlue,
@@ -301,5 +427,89 @@ emptySubTitle: {
   marginTop: handleSize.h(5),
   textAlign: 'center',
 },
+
+listHeaderCont:{ alignItems: "center", height: handleSize.f(60), justifyContent: "center" },
+listHeaderTxt: {
+  fontSize: FONT_SIZES.oneeight,
+  fontFamily: FONTFAMILY.SemiBold,
+  color: THEME.white,
+},
+  messageEmpty:{
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.white,
+    textAlign: "center",
+    marginTop: handleSize.h(20)
+  },
+  accountCard: {
+    // padding: 14,
+    // borderRadius: 12,
+    // backgroundColor: THEME.darkSecondary,
+    height: handleSize.f(65),
+    flexDirection: "row",
+    marginHorizontal: handleSize.f(20),
+
+    borderBottomColor: THEME.white,
+    // paddingBottom: handleSize.h(20),
+    justifyContent: "space-between",
+    alignItems: "center"
+
+
+  },
+
+  row: {
+    // flexDirection: 'row',
+    // justifyContent: 'space-between',
+    // alignItems: 'center',
+  },
+
+  accountName: {
+    fontSize: FONT_SIZES.onesix,
+    fontFamily: FONTFAMILY.SemiBold,
+    color: THEME.white,
+
+  },
+  currencyCont: 
+  {
+     alignItems: "center",
+     justifyContent: "center",
+     height: handleSize.f(32),
+     width: handleSize.f(110),
+     backgroundColor: THEME.white,
+     borderRadius: 10,
+
+  },
+  currency: {
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Medium,
+    color: THEME.gray
+  },
+
+  iban: {
+    // marginTop: handleSize.h(6),
+    fontSize: FONT_SIZES.onefour,
+    fontFamily: FONTFAMILY.Regular,
+    color: THEME.white,
+    width: Metrics.width-handleSize.w(110),
+
+  },
+
+  balanceRow: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  balanceLabel: {
+    fontSize: 12,
+    color: '#999',
+  },
+
+  balanceValue: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#111',
+  },
+
 
 });

@@ -61,6 +61,26 @@ export const AccDelete = async (id: any) => {
   return response;
 };
 
+export const getMonthlyStatement = async (payload: any) => {
+  const response = await axiosInstance(
+    `/statement/list`,
+    'POST',
+    payload,
+    false
+  );
+  return response;
+};
+
+export const getMonthlyStatementUrl = async (ID: any) => {
+  const response = await axiosInstance(
+    `/statement/${ID}`,
+    'GET',
+    undefined,
+    false
+  );
+  return response;
+};
+
 export const paymentHistry = async (payloadWithParams: any) => {
 
   // console.log("=paymentHistry main function=",payloadWithParams);

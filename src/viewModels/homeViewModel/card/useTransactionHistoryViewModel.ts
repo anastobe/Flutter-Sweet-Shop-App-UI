@@ -306,7 +306,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
-import { paymentHistry } from '../../../queries/accountQueries/accountQuery';
+import { getMonthlyStatement, getMonthlyStatementUrl, paymentHistry } from '../../../queries/accountQueries/accountQuery';
 import { CommonUtils, Toast } from '../../../utils';
 import { ACCOUNT_HISTRY_VALIDATION } from '../../../utils/data';
 import { CardpaymentHistry } from '../../../queries/card.Queries/card.query';
@@ -320,13 +320,24 @@ export default function useTransactionHistoryViewModel(props: any) {
   const navigation = useNavigation();
 
   const cardDetailRef = useRef<any>(null);
-
+  const StatementRef = useRef<any>(null);
+  const YearRedRef = useRef<any>(null);
+  const CURRENT_YEAR = new Date().getFullYear();
+  const MAX_YEAR = Array.from(
+  { length: CURRENT_YEAR - 2000 + 1 },
+  (_, i) => 2000 + i
+  ).reverse();
+  
   /** 🔹 States */
   const [transactions, setTransactions] = useState<any[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [search, setSearch] = useState('');
+  const [monthlyStementList, setmonthlyStementList] = useState();
+  const [loadingYear, setloadingYear] = useState('');
+  const [loadingMonth, setloadingMonth] = useState('');
+
 
   /** 🔹 Filters (API) */
   const [filters, setFilters] = useState({
@@ -385,6 +396,26 @@ export default function useTransactionHistoryViewModel(props: any) {
       }
 
       setIsLoadingMore(false);
+    },
+  });
+
+  const { mutate: getMonthlyStatementFunc, isPending: getMonthlyStatementPending } = getMonthlyStatement({
+    callback: (response: any) => {
+      if (response?.success) {
+        setmonthlyStementList(response?.results?.statements)
+        StatementRef?.current?.open()
+        setloadingYear('')
+      }
+    },
+  });
+
+  
+  const { mutate: getMonthlyStatementUrlFunc, isPending: getMonthlyStatementUrlPending } = getMonthlyStatementUrl({
+    callback: (response: any) => {
+      if (response?.success) {
+        CommonUtils.downloadFile(response?.results?.url)     
+        setloadingMonth('')   
+      }
     },
   });
 
@@ -567,12 +598,35 @@ export default function useTransactionHistoryViewModel(props: any) {
       });
     }
   };
+
+  
+  function openMothlyStetement(YEAR: String) {
+    setloadingYear(YEAR)
+    let payload= {
+      asset_id: assetId,
+      year: YEAR
+    }
+    getMonthlyStatementFunc(payload)
+  }
+
+  function openMothlyStetementSheet() {
+        YearRedRef?.current?.open()
+  }
+
+  function downloadStatement(ID: any) {
+    setloadingMonth(ID)
+    getMonthlyStatementUrlFunc(ID)
+  }
+
       
   return {
     transactions,
     search,
     setSearch,
     cardDetailRef,
+    YearRedRef,
+    MAX_YEAR,
+    StatementRef,
     pressBackArrow,
     loadMoreTransactions,
     applyFilters,
@@ -582,6 +636,18 @@ export default function useTransactionHistoryViewModel(props: any) {
     isPending,
     filterUIState,
     setFilterUIState,
+    getMonthlyStatementFunc,
+    getMonthlyStatementPending,
+    monthlyStementList,
+    getMonthlyStatementUrlFunc,
+    getMonthlyStatementUrlPending,
+    openMothlyStetement,
+    openMothlyStetementSheet,
+    downloadStatement,
+    loadingYear, 
+    setloadingYear,
+    loadingMonth,
+    setloadingMonth
   };
 }
 
