@@ -156,7 +156,7 @@ const AddNewBeneficiary = () => {
         value={vm.currency.name} 
         enableDropdown={true}
         dropdownData={vm.currencyList} 
-        margBtm={23}
+        margBtm={18}
         isOpen={vm.openDropdown === 'currency'} 
         onToggleDropdown={() =>{ vm.toggleDropdown('currency') 
           // vm.setadjustScrollHeight(!vm.adjustScrollHeight)
@@ -167,6 +167,17 @@ const AddNewBeneficiary = () => {
             name: item?.iso_code
           })
         }}
+      />
+      
+      <InputField
+        heading={"For UK bank branches sort code is compulsory"} 
+        margBtm={23}
+        autoCapital={'none'}
+        keyboardType={"numeric"}
+        blurOnSubmit={false}
+        placeholder="sort code"
+        value={vm.sortCode}
+        onChangeText={vm.setsortCode}
       />
 
     </View>

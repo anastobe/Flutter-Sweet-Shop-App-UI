@@ -32,6 +32,7 @@ export const useAddNewBeneficiaryViewModel = () => {
   const [accountType, setAccountType] = useState('');
   const [selectBeneficiary, setselectBeneficiary] = useState('');
   const [accountNo, setAccountNo] = useState('');
+  const [sortCode, setsortCode] = useState('');
   const [bicNo, setBicNo] = useState('');
   const [country, setCountry] = useState('');
   const [currency, setCurrency] = useState({
@@ -138,6 +139,7 @@ function openConfirmationModal() {
             : bicNo
             ? { bic: bicNo }
             : {}),
+          sort_code: sortCode,
           account_type: userData?.customer_type == CUSTOMER_TYPE.CORPORATE ? "business" : "personal", //personal or business
         };
 
@@ -204,5 +206,7 @@ function openConfirmationModal() {
     email, 
     navigation,
     setemail,
+    sortCode, 
+    setsortCode
   };
 };

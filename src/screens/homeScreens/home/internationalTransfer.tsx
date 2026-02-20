@@ -720,7 +720,7 @@ const InternationalTransfer = ({...props}) => {
 
           {/* Summary */}
             <View style={styles.summaryBox}>
-            <InfoRow icon={Images.add} label="Conversion Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.conversion_Fee} />
+            <InfoRow icon={Images.add} label="Conversion Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.fxFeeAmount} />
             <InfoRow icon={Images.add} label="Total After Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.total_After_Fee} />
             <InfoRow icon={Images.exchangeRate} label="Exchange Rate (Live)" value={isPendinguseFXConversion ? "...loading" :convertrate.Exchange_Rate_Live} />
            

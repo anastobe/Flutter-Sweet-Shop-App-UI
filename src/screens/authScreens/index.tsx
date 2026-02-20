@@ -85,7 +85,7 @@ const config = {
         }}
         body={vm.Open.text}
         iconName={""}
-        confirmText={'ok'}
+        confirmText={''}
       />
     )
   }

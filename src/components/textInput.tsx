@@ -257,6 +257,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.Medium,
     color: THEME.white,
     fontSize: handleSize.f(FONT_SIZES.onesix),
+    lineHeight: handleSize.f(FONT_SIZES.onesix)
   },
 
   inputInner: {

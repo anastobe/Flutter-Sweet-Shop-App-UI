@@ -6,18 +6,14 @@ import QueryKey from './queryKey';
 import { Toast } from '../utils';
 import apis from '../services';
 
-export const useLogin = ({callback, navigation} : {callback: (res: any) => void, navigation: any}) => {
+export const useLogin = ({callback, onErrorCallback} : {callback: (res: any) => void, onErrorCallback: (res: any) => void}) => {
   const dispatch = useDispatch();
 
   return useMutation({
     mutationFn: apis.userLogin,
     onSuccess: async (response: any) => {
 
-      // dispatch(userIsLoggedIn(true))  
-      if (response.success) {
-        dispatch(storeUserToken(response.results))  
         callback(response)
-        dispatch(userIsLoggedIn(true))  
         
         // if (response?.results?.role == 'checker') {
         //   navigation.reset({ routes: [{ name: Auth_ROUTES.REQUEST }] });
@@ -25,13 +21,12 @@ export const useLogin = ({callback, navigation} : {callback: (res: any) => void,
         // else { //individual or corporate maker
         //   dispatch(userIsLoggedIn(true))  
         // }
-    }
   
   },
     onError: (error: any) => {
       // this is usually a network/server-side error
-      // console.log('Login error:', error);
-      // onErrorCallback?.(error?.message || 'Something went wrong');
+      console.log('Login error:', error);
+      onErrorCallback(error);
     }
   });
 };

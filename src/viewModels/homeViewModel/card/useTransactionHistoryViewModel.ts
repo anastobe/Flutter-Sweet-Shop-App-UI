@@ -567,7 +567,7 @@ export default function useTransactionHistoryViewModel(props: any) {
       });
     }
   };
-
+      
   return {
     transactions,
     search,

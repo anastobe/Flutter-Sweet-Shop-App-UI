@@ -116,6 +116,7 @@ export default function useConfirmCurrencyExchangeViewModel({ ...props }) {
           amount: amount,
         },
       ],
+      account_id: "a42a403c-6635-47dd-a16e-8031d479b7e3"
     };
 
     console.log('💱 FX PAYLOAD:', payload);

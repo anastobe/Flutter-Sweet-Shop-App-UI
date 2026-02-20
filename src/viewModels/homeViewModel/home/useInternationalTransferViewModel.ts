@@ -42,7 +42,7 @@ export const useInternationalTransferViewModel = ({...props}) => {
   });
   const [convertrate, setconvertrate] = useState({
     quoteId: "",
-    conversion_Fee: "0",
+    fxFeeAmount: "0",
     total_After_Fee: "0",
     Exchange_Rate_Live: "0"
   });
@@ -97,7 +97,7 @@ export const useInternationalTransferViewModel = ({...props}) => {
         if (rateObj) {
           setconvertrate({
             quoteId: rateObj?.quoteId,
-            conversion_Fee: "£2.00", // you can update based on API
+            fxFeeAmount: rateObj?.fxFeeAmount, // you can update based on API
             total_After_Fee: rateObj?.settlementAmount?.toString() ?? "",
             Exchange_Rate_Live: `${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`
           });
@@ -155,7 +155,8 @@ export const useInternationalTransferViewModel = ({...props}) => {
             toCurrency: beneficiary?.iso_code,
             amount: enterAmount
           }
-        ]
+        ],
+        account_id: fromAccount?.id
       }
 
       console.log("payload==>?",payload);
@@ -200,7 +201,8 @@ export const useInternationalTransferViewModel = ({...props}) => {
         toCurrency: beneficiary.iso_code,
         amount: enterAmount
       }
-    ]
+    ],
+    account_id: fromAccount?.id
   };
 
   useFXConversionFunc(payload);

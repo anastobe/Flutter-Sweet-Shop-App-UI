@@ -66,7 +66,7 @@ function formatDate(date: any) {
 function formatTime(date: any) {
   if (!date) return '';
 
-  const d = new Date(date + 'Z'); // 👈 VERY IMPORTANT
+  const d = new Date(date); // 👈 VERY IMPORTANT
 
   const formattedDate = d.toLocaleTimeString('en-US', {
     hour: '2-digit',

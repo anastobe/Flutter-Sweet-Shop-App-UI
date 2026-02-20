@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "../../utils";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import messaging from '@react-native-firebase/messaging';
+import { storeUserToken, userIsLoggedIn } from "../../Redux/Action/Auth/AuthActions";
 
 export const useLoginViewModel = () => {
 
@@ -13,8 +14,8 @@ export const useLoginViewModel = () => {
   // const [password, setPassword] = useState("Saadops@12");
 
   //coperate -maker
-  const [email, setEmail] = useState("new-user");
-  const [password, setPassword] = useState("Uhf@1234");
+  // const [email, setEmail] = useState("new-user");
+  // const [password, setPassword] = useState("Uhf@1234");
 
   //coperate - checker
   // const [email, setEmail] = useState("mohtashim");
@@ -22,8 +23,8 @@ export const useLoginViewModel = () => {
 
 
   //user,individual
-  // const [email, setEmail] = useState("uhf-personal");
-  // const [password, setPassword] = useState("Pass@1234");
+  const [email, setEmail] = useState("uhf-personal");
+  const [password, setPassword] = useState("Pass@1234");
 
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
@@ -133,10 +134,21 @@ const initFCM = async () => {
   // };
 
   const { mutate: loginFunc, isPending } = useLogin({
-    callback: (res: any) => {
-      console.log("Login response:", res);
+    callback: (response: any) => {
+      console.log("Login response:", response);
+      if (response?.success) {
+          dispatch(storeUserToken(response.results))  
+          dispatch(userIsLoggedIn(true))  
+      }
+
     },
-    navigation
+    onErrorCallback: (res: any) => {
+      setOpen({
+            open: true,
+            text: res?.message
+      }) 
+      console.log("onErrorCallback response:", res);
+    }
   });
 
   const handleLogin = () => { 
