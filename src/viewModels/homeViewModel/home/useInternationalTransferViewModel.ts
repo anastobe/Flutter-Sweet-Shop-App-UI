@@ -44,7 +44,11 @@ export const useInternationalTransferViewModel = ({...props}) => {
     quoteId: "",
     fxFeeAmount: "0",
     total_After_Fee: "0",
-    Exchange_Rate_Live: "0"
+    Exchange_Rate_Live: "0",
+    tradeCurrency: "",
+    rateInverted: "0",
+    settlementCurrency: "",
+    settlementAmount: ""
   });
   
   const [note, setnote] = useState(""); 
@@ -87,7 +91,7 @@ export const useInternationalTransferViewModel = ({...props}) => {
     ID: fromAccount?.id,
   });
     
-  console.log(getAssetBalancePending,"getAssetBalance_Data==>",getAssetBalance_Data);
+  // console.log(getAssetBalancePending,"getAssetBalance_Data==>",getAssetBalance_Data);
 
   const { mutate: useFXConversionFunc, isPending: isPendinguseFXConversion } = useFXConversion({
     callback: (res: any) => {
@@ -99,7 +103,11 @@ export const useInternationalTransferViewModel = ({...props}) => {
             quoteId: rateObj?.quoteId,
             fxFeeAmount: rateObj?.fxFeeAmount, // you can update based on API
             total_After_Fee: rateObj?.settlementAmount?.toString() ?? "",
-            Exchange_Rate_Live: `${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`
+            Exchange_Rate_Live: `${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`,
+            tradeCurrency: rateObj?.tradeCurrency,
+            rateInverted: rateObj?.rateInverted,
+            settlementCurrency: rateObj?.settlementCurrency,
+            settlementAmount: rateObj?.settlementAmount
           });
 
           // 🔥 START COUNTDOWN
@@ -107,6 +115,22 @@ export const useInternationalTransferViewModel = ({...props}) => {
         }
       }
     },
+    onError: (res: any) => {
+      
+      setconvertrate({
+        quoteId: "",
+        fxFeeAmount: "0",
+        total_After_Fee: "0",
+        Exchange_Rate_Live: "0",
+        tradeCurrency: "",
+        rateInverted: "0",
+        settlementCurrency: "",
+        settlementAmount: ""
+      });
+      // 🔥 START COUNTDOWN
+      startCountdown(60);
+    
+    }
   });
 
   const { mutate: useMyAccount_InternationalTransferFunc, isPending } = useMyAccount_InternationalTransfer({

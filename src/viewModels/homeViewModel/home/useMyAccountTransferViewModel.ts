@@ -29,9 +29,14 @@ export const useMyAccountTransferViewModel = ({...props}) => {
   });
   const [convertrate, setconvertrate] = useState({
     quoteId: "",
-    conversion_Fee: "0",
+    fxFeeAmount: "0",
     total_After_Fee: "0",
-    Exchange_Rate_Live: "0"
+    Exchange_Rate_Live: "0",
+    tradeCurrency: "",
+    rateInverted: "0",
+    settlementCurrency: "",
+    settlementAmount: ""
+
   });
   
   const [countdown, setCountdown] = useState<number>(0);
@@ -85,9 +90,13 @@ export const useMyAccountTransferViewModel = ({...props}) => {
         if (rateObj) {
           setconvertrate({
             quoteId: rateObj?.quoteId,
-            conversion_Fee: rateObj?.fxFeeAmount, // you can update based on API
+            fxFeeAmount: rateObj?.fxFeeAmount, // you can update based on API
             total_After_Fee: rateObj?.settlementAmount?.toString() ?? "",
-            Exchange_Rate_Live: `${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`
+            Exchange_Rate_Live: `${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`,
+            tradeCurrency: rateObj?.tradeCurrency,
+            rateInverted: rateObj?.rateInverted,
+            settlementCurrency: rateObj?.settlementCurrency,
+            settlementAmount: rateObj?.settlementAmount
           });
 
           // 🔥 START COUNTDOWN
@@ -96,6 +105,22 @@ export const useMyAccountTransferViewModel = ({...props}) => {
         }
       }
     },
+    onError: (res: any) => {
+      
+      setconvertrate({
+        quoteId: "",
+        fxFeeAmount: "0",
+        total_After_Fee: "0",
+        Exchange_Rate_Live: "0",
+        tradeCurrency: "",
+        rateInverted: "0",
+        settlementCurrency: "",
+        settlementAmount: ""
+      });
+      // 🔥 START COUNTDOWN
+      startCountdown(60);
+    
+    }
   });
 
   const { mutate: useMyAccount_InternationalTransferFunc, isPending } = useMyAccount_InternationalTransfer({
@@ -152,7 +177,8 @@ export const useMyAccountTransferViewModel = ({...props}) => {
             toCurrency: toAccount?.iso_code,
             amount: enterAmount
           }
-        ]
+        ],
+        account_id: fromAccount?.id
       }
 
       console.log("payload==>",payload);
@@ -196,7 +222,8 @@ export const useMyAccountTransferViewModel = ({...props}) => {
         toCurrency: toAccount.iso_code,
         amount: enterAmount
       }
-    ]
+    ],
+    account_id: fromAccount?.id
   };
 
   useFXConversionFunc(payload);

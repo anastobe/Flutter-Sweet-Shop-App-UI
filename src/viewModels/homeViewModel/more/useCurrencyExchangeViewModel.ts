@@ -126,7 +126,9 @@ export default function useCurrencyExchangeViewModel({...props}) {
               toCurrency: toCurrency.iso_code,
               amount: amount
             }
-          ]
+          ],
+          account_id: fromCurrency?.id
+
         }
 
       console.log("======>",payload);  

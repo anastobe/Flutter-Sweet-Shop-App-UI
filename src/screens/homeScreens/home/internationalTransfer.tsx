@@ -507,7 +507,7 @@ const InfoRow = ({ icon, label, value }) => (
       }
       <Text style={styles.label}>{label}</Text>
     </View>
-    <Text style={styles.value}>{value}</Text>
+    <Text style={[styles.value,{ color: icon == "time-outline" ? THEME.green : THEME.white  }]}>{value}</Text>
   </View>
 );
 
@@ -583,6 +583,9 @@ const InternationalTransfer = ({...props}) => {
       />
     );
   }
+
+  // console.log("convertrate==>",convertrate);
+  
   
 
   return (
@@ -720,17 +723,42 @@ const InternationalTransfer = ({...props}) => {
 
           {/* Summary */}
             <View style={styles.summaryBox}>
-            <InfoRow icon={Images.add} label="Conversion Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.fxFeeAmount} />
+            {/* <InfoRow icon={Images.add} label="Conversion Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.fxFeeAmount} />
             <InfoRow icon={Images.add} label="Total After Fee" value={isPendinguseFXConversion ? "...loading" :convertrate.total_After_Fee} />
-            <InfoRow icon={Images.exchangeRate} label="Exchange Rate (Live)" value={isPendinguseFXConversion ? "...loading" :convertrate.Exchange_Rate_Live} />
+            <InfoRow icon={Images.exchangeRate} label="Exchange Rate (Live)" value={isPendinguseFXConversion ? "...loading" : `1 ${convertrate?.tradeCurrency} = ${convertrate?.rateInverted} ${convertrate?.settlementCurrency}`} />
            
            {convertrate?.quoteId && <InfoRow
               icon="time-outline"
               label="Rate Valid For"
               value={isPendinguseFXConversion ? "...loading" : `${countdown} sec` || 0}
               // value={countdown > 0 ? `${countdown} sec` : 'Refreshing...'}
-            />}
+            />} */}
            
+          <InfoRow
+            icon={Images.exchangeRate} 
+            label="Exchange Rate (Live)"
+            value={isPendinguseFXConversion ? "...loading" : `1 ${convertrate.tradeCurrency} = ${convertrate.rateInverted} ${convertrate.settlementCurrency}`}
+          />
+
+          <InfoRow
+            icon={Images.add}
+            label="Conversion Fee"
+            value={isPendinguseFXConversion ? "...loading" : `${convertrate.fxFeeAmount} ${convertrate.settlementCurrency}`}
+          />
+
+          <InfoRow
+            icon={Images.transfer}
+            label="You Receive"
+            value={isPendinguseFXConversion ? "...loading" : `${(convertrate.settlementAmount - convertrate.fxFeeAmount).toFixed(2)} ${convertrate.settlementCurrency}`}
+          />
+
+          {convertrate?.quoteId && <InfoRow
+            icon="time-outline"
+            label="Rate Valid For"
+            value={isPendinguseFXConversion ? "...loading" : `${countdown} sec` || 0}
+            // value={countdown > 0 ? `${countdown} sec` : 'Refreshing...'}
+          />}
+
            </View>
 
           {/* Button */}
