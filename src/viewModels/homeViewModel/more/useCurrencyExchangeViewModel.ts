@@ -10,14 +10,15 @@ export default function useCurrencyExchangeViewModel({...props}) {
   const beneficiaryRef = useRef();
   
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
-  // const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
-  // const [openDropdownsty, setOpenDropdownSty] = useState(false);
-  // const [openDropdownstyToAcc, setOpenDropdownStyToAcc] = useState(false);
+  const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
+  const [openDropdownsty, setOpenDropdownSty] = useState(false);
+  const [openDropdownstyToAcc, setOpenDropdownStyToAcc] = useState(false);
   const [open, setopen] = useState(false);
   const [autoFocused, setautoFocused] = useState(false);
   const [countdown, setCountdown] = useState<number>(0);
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
 
+  
   const [youWillReceive, setYouWillReceive] = useState('');
   const [fxInfo, setFxInfo] = useState({
     rateText: '',
@@ -29,8 +30,9 @@ export default function useCurrencyExchangeViewModel({...props}) {
 
   const [fromCurrency, setfromCurrency] = useState({
     id: "",
+    currency_id: "",
     iso_code: "",
-    num_code: ""
+    name: ""
   });
 
   const [toCurrency, settoCurrency] = useState({
@@ -217,7 +219,13 @@ const startCountdown = (seconds: number) => {
     setYouWillReceive,
     fxInfo, 
     setFxInfo,
-    countdown
+    countdown,
+    getCurrencyAccArray,
+    openDropdownsty, 
+    setOpenDropdownSty,
+    openDropdownstyToAcc, 
+    setOpenDropdownStyToAcc
+     
 
   };
 };

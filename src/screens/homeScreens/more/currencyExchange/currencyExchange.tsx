@@ -52,7 +52,12 @@ const CurrencyExchange = ({ ...props }) => {
     setYouWillReceive,
     fxInfo, 
     setFxInfo,
-    countdown
+    countdown,
+    getCurrencyAccArray,
+    openDropdownsty, 
+    setOpenDropdownSty,
+    openDropdownstyToAcc, 
+    setOpenDropdownStyToAcc
 
   } = useCurrencyExchangeViewModel(props);
 
@@ -120,7 +125,7 @@ const CurrencyExchange = ({ ...props }) => {
       /> */}
 
     
-    <InputField
+    {/* <InputField
         disabled={false} 
         placeholder="From currency"
         value={fromCurrency.iso_code} 
@@ -136,6 +141,25 @@ const CurrencyExchange = ({ ...props }) => {
           num_code: item?.num_code
         })
       }}
+      />
+      
+      */}
+      
+      <InputDropDownStyle
+        title="Send from"
+        value={fromCurrency} // null = show input box
+        // data={getCurrencyAccArray}
+        data={getCurrencyAccArray}
+        isOpen={openDropdownsty}
+        onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
+        onSelect={item => {
+          setfromCurrency({
+            id: item?.id,
+            currency_id: item?.currency_id,
+            name: item?.account?.name,
+            iso_code: item?.currency?.iso_code,
+          });
+        }}
       />
 
       
@@ -309,7 +333,7 @@ const styles = StyleSheet.create({
     marginLeft: handleSize.w(10),
   },
   forgetTxt: {
-    marginTop: handleSize.h(20),
+    marginTop: handleSize.h(25),
     marginBottom: handleSize.h(10),
   },
   forgetTxt2:{
