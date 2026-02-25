@@ -35,7 +35,6 @@ const BeneficiariesManagement = () => {
    isPendingDeleteBeneficiary,
    onSearch,
    search,
-   userData,
    loginUserData,
    corporateMaker
  } = useBeneficiariesManagementViewModel();

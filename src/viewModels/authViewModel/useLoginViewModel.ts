@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactNativeBiometrics from "react-native-biometrics";
-import { useLogin } from "../../queries/auth.query";
+import { useBioMetryLogin, useLogin } from "../../queries/auth.query";
 import { Alert, PermissionsAndroid, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "../../utils";
@@ -151,6 +151,25 @@ const initFCM = async () => {
     }
   });
 
+  
+  const { mutate: useBioMetryLoginFunc, isPending: isPendingBioMetryLogin } = useBioMetryLogin({
+    callback: (response: any) => {
+      console.log("Login response:", response);
+      if (response?.success) {
+          dispatch(storeUserToken(response.results))  
+          dispatch(userIsLoggedIn(true))  
+      }
+
+    },
+    onErrorCallback: (res: any) => {
+      console.log("onErrorCallback response:", res);
+      setOpen({
+            open: true,
+            text: res?.message
+      }) 
+    }
+  });
+
   const handleLogin = () => { 
 
     // setOpen({ open: true, text: "Your device is not registered, Please register your device" })
@@ -179,8 +198,13 @@ const initFCM = async () => {
     rnBiometrics.simplePrompt({ promptMessage: "Login with Biometrics" })
       .then(({ success }) => {
         if (success) {
-          // Alert.alert("Success", "Authenticated Successfully");
-          handleLogin()
+
+          let payload = {
+            refresh_token: 'eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ.qY3D1p1aCZU5Bw6NoWnVmN3u38nIO4ddjq1v1rVKreP3yTUsS-7s4DOHILKNQekpdFqds70L8yo-QJCIgmvbZaAJdZOenV0bLDRiiAUHO1HUmWK4cspzVtepuNTxFpjpujcU-haFPVbcDeNGUQmIUV-OK8M0By6Qrck7EN89PpX_DGYy5yZ3enWixJBHjUdXETmNZetMkXP397v7E02Be-sWrB5JN80w1Cptk7_7m23Fx4OQ5Ohmdd2SiRn8196Hzz8pis_yXLEyeXIzMEq49NFswZ36FrGcF5eMbFODHxegj5f81Tj0A2zFBDXpUCCN57WNTFGzfXUHtrpO6-hsRg.zqKE8tM2wPerHpvk.SyLIiVF1DKnN_4vpCsZcx5jUrek1C2OErG9rqkBh9SZCaBePMOhzx2chL6DNqX6qGuCfi-tMmFiXcxV3jucU0rI1yDtQChED6_1HITMX4TeUHv4s6vCk1J4evcZLN-ELhy7u38miDO-ZnLbL78qcg5EMg_c3Tpgg37Nnq3DyuGG5_77wZYJruQs7FMBsvkGdrPRp-w4etUoJy08GQBji17KpdTJZXt9l-I231YnI9rMoCLUac-Ro3rS9yB0nMKSiVOAoiGSBDq0hgSuU9UaCTDT8C6fj61MkC2-jQXjhgGrGFA5ruOPo4TgQLQRT4dun9zWYxjcWMdm8P-DQICRlvUB5GRC9ZxkyyxRin1Qx5VO9jlySnGHsuFAWARulNjqtwy2qze9NDYok48q3dT3L7MXEHyg7wzxucwAhXpY0MWSRTLuOLpTWb-Ldtv3ruIbh5FrpBDPMP6r6EiHDLtHiP10ZOvKk_qk6xHwKPMvqfrqkgVCFKMrsJDqLoWAkf-Ija1UfesLUJgW6GQ4knBiPQC77nZ_UpspLoP3i_JhzN7H33tYueSwekGTsS6PwjYXMUqzfjZ_JOUon95I5mUxB90ZkzOP_6fs89mh9wPqdi-1zKRBbXb9YKMhgNwHJchpXDFdimG5Vf2M2IXDhWmv6iOi4CgnIVEnXRM_326xme1ZFtSJUqOncbwVUWBoINbF7SdkLQ5mT_MH8IhVt4tp2DWwrdDi7lTonb6LR-iBKALAMmkcDoI6ByNMHavV_oYGQ3rVXxgrJDJ6kRRIcDW2L8FCoQyQ5RGDM-JoqxSptgaVc9Xmz47x5zlag4BRfYVN4AwNPwkLRimsvuchU9XfklbAtmq8W_flrRYpeq5XviMyDHixsONHdVSkCCny24T7YjGfiRkBvgbbmu-SjH6lhlgvLE5whnLsu0jUJ7RTlBd1mP4SNLYekbio50ZSeL9x991PgohivzQ2F69eBzzdBTk9DNBLcRsTloHt9_WW4qEwq_AT2QVz1pA1AbfLK7TXSIjKCuIxsLvACdn9UUkUFP2vrgQIogUOA2nwgWlksjPBguJVO32ePa18mFAkfbyNipC8QL7pn1TJTCJrMuZ22iLoKNI-t_CHHec9osIj17_YKLpqPeYfKMvCAfTwdJbLGgKmfWWPuDiTjh-whfylZMwZH7wzJIWNGpim5f9vbQVbL43nszA7Vi1myjO7rom2i2xOF1qJK_mPtfiEylH0w760zS16UIkeE-X7lotUjMuiqPu44ugU_StThVy78jDTjwHTCDRQV.mFWSJypSN_cO2XohejYCaQ',
+            user_id: '46123284-a041-708b-16aa-4f1c1e3b021a'
+          }
+
+          useBioMetryLoginFunc(payload)
           biometryRef?.current?.close();
           // setTimeout(() => {
           //   navigation.navigate("LoginSecurePass");
@@ -208,6 +232,7 @@ const initFCM = async () => {
     isPending,
     Open, 
     setOpen,
-    token
+    token,
+    isPendingBioMetryLogin
   };
 };

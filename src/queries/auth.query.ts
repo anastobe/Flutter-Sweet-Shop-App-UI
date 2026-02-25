@@ -31,6 +31,32 @@ export const useLogin = ({callback, onErrorCallback} : {callback: (res: any) => 
   });
 };
 
+export const useBioMetryLogin = ({callback, onErrorCallback} : {callback: (res: any) => void, onErrorCallback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.useBioMetryLogin,
+    onSuccess: async (response: any) => {
+
+        callback(response)
+        
+        // if (response?.results?.role == 'checker') {
+        //   navigation.reset({ routes: [{ name: Auth_ROUTES.REQUEST }] });
+        // }
+        // else { //individual or corporate maker
+        //   dispatch(userIsLoggedIn(true))  
+        // }
+  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      console.log('Login error:', error);
+      onErrorCallback(error);
+    }
+  });
+};
+
+
 // export const useLogin = ({callback} : {callback: (res: any) => void}) => {
 //   const dispatch = useDispatch();
 

@@ -20,3 +20,14 @@ export interface CardUsageResponse {
   results: CardUsageResult;
   meta: Record<string, any>;
 }
+
+export interface CardPublicKey {
+  key: string;
+}
+
+export interface CardPublicKeyResponse {
+  success: boolean;
+  message: string;
+  results: CardPublicKey;
+  meta: Record<string, any>;
+}

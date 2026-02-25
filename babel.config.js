@@ -11,8 +11,7 @@ module.exports = function (api) {
           path: '.env',
         },
       ],
-      'react-native-reanimated/plugin',
-      ['transform-remove-console', { exclude: ['error', 'warn'] }],
+      'react-native-reanimated/plugin'
     ],
   };
 };

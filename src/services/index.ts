@@ -15,6 +15,7 @@ import {
 
 import {
     userLogin,
+    useBioMetryLogin,
     LogoutApi,
     ResetPasswordLink,
     createCard,
@@ -46,7 +47,9 @@ import {
     setPinSecurity,
     updateUsageRules,
     getCardsUsageRules,
-    getSucureCard
+    getPublicKey,
+    getSucureCard,
+    getSucureCardEncrypted
 
 
 } from './card/card.service';
@@ -78,6 +81,7 @@ import {
 const apis = {
   ResetPasswordLink,
   userLogin,
+  useBioMetryLogin,
   LogoutApi,
   usePaymentTransfer,
   useFXConversion,
@@ -123,7 +127,9 @@ const apis = {
   fetchLinkedAccCards,
   updateUsageRules,
   getCardsUsageRules,
+  getPublicKey,
   getSucureCard,
+  getSucureCardEncrypted,
   getTransactionAttachement
   
   };

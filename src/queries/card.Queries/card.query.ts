@@ -216,6 +216,25 @@ export const updateUsageRules = ({callback} : {callback: (res: any) => void}) =>
   });
 };
 
+export const getPublicKey  = (    {
+  enabled,
+  dispatch
+}: {
+  enabled?: boolean;
+  dispatch?: any;}
+) =>
+  useQuery({ 
+    queryKey: [QueryKey.GET_PUBLIC_KEY],
+    initialData: null,
+    queryFn: ()=> apis.getPublicKey(),
+    enabled: enabled,
+ 
+    staleTime: 0, // Data will never be considered stale
+    retry: false // Disable retry on failure
+  });
+
+  
+  
 export const getSucureCard  = (    {
   enabled,
   dispatch,

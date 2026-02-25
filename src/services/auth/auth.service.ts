@@ -6,6 +6,11 @@ export const userLogin = async (body: any) => {
   return response;
 };
 
+export const useBioMetryLogin = async (body: any) => {
+  const response = await axiosInstance('/biometric-login', 'POST', body, false);
+  return response;
+};
+
 export const LogoutApi = async (body: any) => {
   const response = await axiosInstance('/logout', 'POST', body, false);
   return response;

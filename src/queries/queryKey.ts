@@ -10,6 +10,7 @@ export default class QueryKey {
     static GET_ASSET_BALANCE = 'GET_ASSET_BALANCE';
     static GET_CURR_ACCOUNTS = 'GET_CURR_ACCOUNTS';
     static GET_CARDS_RULES = 'GET_CARDS_RULES';
+    static GET_PUBLIC_KEY = 'GET_PUBLIC_KEY';
     static GET_TRANSACTIONS = 'GET_TRANSACTIONS';
 
   }
