@@ -1,5 +1,6 @@
-import moment from "moment";
 import {  NativeScrollEvent, NativeSyntheticEvent } from "react-native";
+import * as Keychain from "react-native-keychain";
+import moment from "moment";
 // import { CommonUtils, SD } from "../../utils";
 // import Text from "../components/text";
 // import { useTheme } from "../hooks";
@@ -75,6 +76,18 @@ function formatTime(date: any) {
   });
   return formattedDate;
 }
+
+export const saveToKeychain = async (service: string, value: string) => {
+  await Keychain.setGenericPassword("app", value, {
+    service, // 👈 different slot
+    accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
+  });
+};
+
+export const getFromKeychain = async (service: string) => {
+  const creds = await Keychain.getGenericPassword({ service });
+  return creds ? creds.password : null;
+};
 
 export const getCurrencySymbol = (
   currencyCode: string,
@@ -363,6 +376,9 @@ export default {
   formatTime,
   getCurrencySymbol,
   firstCapitaAllSmall,
-  downloadFile
+  downloadFile,
+  saveToKeychain,
+  getFromKeychain
 
 };
+

@@ -17,6 +17,7 @@ import BluryModal from '../../components/Modal/bluryModal';
 import StatusBarManager from '../../components/statusBarManager';
 import { handleSize } from '../../config/responsiveTheme';
 import Metrics from '../../styles/metrics';
+import { LoaderCompleteScreenOnly } from '../../components/activityIndicator';
 
 type LoginProps = {};
   
@@ -89,6 +90,7 @@ const config = {
       />
     )
   }
+  
 
       function renderModal() {
         return (
@@ -150,7 +152,7 @@ const config = {
 
        <CustomButton
          btnContSty={styles.forgetTxt}
-         loading={vm.isPending || vm?.isPendinggetUserDetail ? true : false}
+        //  loading={vm.isPending || vm?.isPendinggetUserDetail ? true : false}
          title="Log in"
          onPress={vm.handleLogin}
        />
@@ -165,6 +167,8 @@ const config = {
         onPress={() => vm.biometryRef?.current?.open()}
       /> */}
 
+    {(vm?.bioEnable == "false" || vm?.bioEnable == null) ? null : 
+    <View>
     <View style={styles.containerline}>
       <View style={styles.line1} />
       <Text style={styles.textOR}>or</Text>
@@ -174,7 +178,7 @@ const config = {
       <CustomButton
         txtColor={styles.btnTxt}
         indicatorColor={THEME.white}
-        loading={vm.isPendingBioMetryLogin}
+        // loading={vm.isPendingBioMetryLogin || vm?.isPendinggetUserDetail ? true : false}
         title="Log in with Biometrics / Face ID"
         // image={Images.faceID}
         tintColor={THEME.white}
@@ -182,6 +186,8 @@ const config = {
         btnContSty={styles.btnContStyle}
         onPress={() => vm.biometryRef?.current?.open()}
       />
+      </View>
+      }
 
       {/* <View style={styles.contText}>
         <Text style={styles.dontAcc}>Don’t have an account? </Text>
@@ -218,6 +224,10 @@ const config = {
         />
 
         {renderModal()}
+
+        { vm.isPendingBioMetryLogin || vm?.isPendinggetUserDetail || vm?.isPending ? (
+          <LoaderCompleteScreenOnly />
+        ) : null}
 
     </MainContainer>
   );

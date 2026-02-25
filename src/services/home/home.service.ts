@@ -5,7 +5,7 @@ import { CustomersResponse } from "../../models/home/customersResponse.model";
 import { AssetsResponse } from "../../models/home/assetsResponse.model";
 
 // Get user details
-export const getUserDetail = async (dispatch: any): Promise<CustomersResponse> => {
+export const getUserDetail = async (): Promise<CustomersResponse> => {
   const response = await axiosInstance('/user/detail', 'POST', {}, false);
   // if (response?.results) {
   //   dispatch(storeLoginUserData(response.results));
