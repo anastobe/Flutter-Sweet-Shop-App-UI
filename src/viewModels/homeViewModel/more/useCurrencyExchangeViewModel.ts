@@ -20,12 +20,23 @@ export default function useCurrencyExchangeViewModel({...props}) {
 
   
   const [youWillReceive, setYouWillReceive] = useState('');
-  const [fxInfo, setFxInfo] = useState({
-    rateText: '',
-    fee: '',
-    validFor: '',
-    settlementAmount: '',
-    quoteId: ''
+  // const [fxInfo, setFxInfo] = useState({
+  //   rateText: '',
+  //   fee: '',
+  //   validFor: '',
+  //   settlementAmount: '',
+  //   quoteId: ''
+  // });
+
+  const [convertrate, setconvertrate] = useState({
+    quoteId: "",
+    fxFeeAmount: "0",
+    total_After_Fee: "0",
+    Exchange_Rate_Live: "0",
+    tradeCurrency: "",
+    rateInverted: "0",
+    settlementCurrency: "",
+    settlementAmount: ""
   });
 
   const [fromCurrency, setfromCurrency] = useState({
@@ -51,20 +62,23 @@ export default function useCurrencyExchangeViewModel({...props}) {
     callback: (res: any) => {
 
       if (res?.success && res?.results?.length > 0) {
-        const fx = res.results[0];
+        const rateObj = res?.results?.[0];
 
-        setFxInfo({
-          rateText: `1 ${fx.tradeCurrency} = ${fx.rate} ${fx.settlementCurrency}`,
-          fee: fx.fxFeeAmount?.toString(),
-          validFor: `${fx.validFor} sec`,
-          settlementAmount: fx.settlementAmount?.toString(),
-          quoteId: fx.quoteId
-        });
+          setconvertrate({
+            quoteId: rateObj?.quoteId,
+            fxFeeAmount: rateObj?.fxFeeAmount, // you can update based on API
+            total_After_Fee: rateObj?.settlementAmount?.toString() ?? "",
+            Exchange_Rate_Live: `${rateObj?.tradeCurrency} = ${rateObj?.rate} ${rateObj?.settlementCurrency}`,
+            tradeCurrency: rateObj?.tradeCurrency,
+            rateInverted: rateObj?.rateInverted,
+            settlementCurrency: rateObj?.settlementCurrency,
+            settlementAmount: rateObj?.settlementAmount
+          });
 
-        setYouWillReceive(fx.settlementAmount?.toString());
+        setYouWillReceive(rateObj.settlementAmount?.toString());
         
         // 🔥 START COUNTDOWN
-        startCountdown(Number(fx.validFor));
+        startCountdown(Number(rateObj.validFor));
 
       } 
 
@@ -74,16 +88,19 @@ export default function useCurrencyExchangeViewModel({...props}) {
     },
     onError: (res: any) => {
       
-      setFxInfo({
-        rateText: '',
-        fee: '',
-        validFor: '',
-        settlementAmount: '',
-        quoteId: ''
+      setconvertrate({
+        quoteId: "",
+        fxFeeAmount: "0",
+        total_After_Fee: "0",
+        Exchange_Rate_Live: "0",
+        tradeCurrency: "",
+        rateInverted: "0",
+        settlementCurrency: "",
+        settlementAmount: ""
       });
-      setYouWillReceive('')
       // 🔥 START COUNTDOWN
       startCountdown(60);
+      setYouWillReceive('')
     
     }
   });
@@ -219,15 +236,15 @@ const startCountdown = (seconds: number) => {
     openDropdown,
     youWillReceive, 
     setYouWillReceive,
-    fxInfo, 
-    setFxInfo,
+    // fxInfo, 
+    // setFxInfo,
     countdown,
     getCurrencyAccArray,
     openDropdownsty, 
     setOpenDropdownSty,
     openDropdownstyToAcc, 
-    setOpenDropdownStyToAcc
-     
+    setOpenDropdownStyToAcc,
+    convertrate
 
   };
 };

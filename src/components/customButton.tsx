@@ -12,6 +12,7 @@ import { ActivityIndicator } from 'react-native';
 import { handleSize } from '../config/responsiveTheme';
 
 const CustomButton = ({
+  indicatorColor,
   title,
   onPress,
   btnContSty,
@@ -21,6 +22,7 @@ const CustomButton = ({
   loading = false,
   tintColor,
 }: {
+  indicatorColor: string;
   title: string;
   onPress: any;
   btnContSty?: StyleProp<ViewStyle>;
@@ -38,7 +40,7 @@ const CustomButton = ({
     {loading ? (
       <ActivityIndicator
         size="small"
-        color={THEME.textPrimary}
+        color={indicatorColor ? indicatorColor : THEME.textPrimary}
         style={{ padding: handleSize.f(4) }}
       />
     ) : (

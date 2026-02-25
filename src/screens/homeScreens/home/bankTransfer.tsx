@@ -16,7 +16,7 @@ import { useBankTransferViewModel } from "../../../viewModels/homeViewModel/home
 import Metrics from "../../../styles/metrics";
 import BeneficiariesManagement from "../more/benefeciaryModule/BeneficiariesManagement";
 import GlobalInputsearch from "../../../components/globalInputsearch";
-import { CommonUtils } from "../../../utils";
+import { CommonUtils, Toast } from "../../../utils";
 
 const BankTransfer = () => {
   const {
@@ -135,15 +135,20 @@ const BankTransfer = () => {
             data={getCurrencyAccArray}
             isOpen={openDropdownsty}
             onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdown(null) }}
-            onSelect={(item) =>{ 
-              refetchgetAssetBalance(item?.id)
-              setFromAccount({     
-              id: item?.id,    
-              available_balance: item?.available_balance,       
-              currency_id: item?.currency_id,
-              name: item?.account?.name,
-              iso_code: item?.currency?.iso_code
-              })
+            onSelect={(item) =>{               
+              if (item?.account?.status == 'active') {
+                refetchgetAssetBalance(item?.id)
+                setFromAccount({     
+                id: item?.id,    
+                available_balance: item?.available_balance,       
+                currency_id: item?.currency_id,
+                name: item?.account?.name,
+                iso_code: item?.currency?.iso_code
+                })
+              } else {
+                Toast.showToast('Frozen, Select another', '', 'error');
+              }
+
             }}
           />
 

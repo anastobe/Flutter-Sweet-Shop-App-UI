@@ -8,6 +8,7 @@ import { useAddNewCurrencyAccountViewModel } from "../../../viewModels/homeViewM
 import BluryModal from "../../../components/Modal/bluryModal";
 import StatusBarManager from "../../../components/statusBarManager";
 import { handleSize } from "../../../config/responsiveTheme";
+import { Toast } from "../../../utils";
 
 const AddNewCurrencyAcount = () => {
   const {
@@ -98,12 +99,17 @@ const AddNewCurrencyAcount = () => {
           margBtm={handleSize.h(20)}
           isOpen={openDropdown === 'linked'}  
           onToggleDropdown={() => toggleDropdown('linked')}
-          onDropdownSelect={(item: any) =>(
-            setFromAccount({
-              id: item?.id,
-              name: item?.name
-            })
-          )}
+          onDropdownSelect={(item: any) =>{
+              if (item?.status == 'active') {
+              setFromAccount({
+                id: item?.id,
+                name: item?.name
+              })
+            }
+            else{
+              Toast.showToast('Frozen, Select another', '', 'error');
+            }
+        }}
         />
 
        <InputField

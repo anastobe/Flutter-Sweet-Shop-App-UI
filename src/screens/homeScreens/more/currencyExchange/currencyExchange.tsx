@@ -11,16 +11,32 @@ import CustomButton from '../../../../components/customButton';
 import useCurrencyExchangeViewModel from '../../../../viewModels/homeViewModel/more/useCurrencyExchangeViewModel';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
+import { Images } from '../../../../config';
+import { Image } from 'react-native';
+
+// const InfoRow = ({ icon, label, value }) => (
+//   <View style={styles.infoRow}>
+//     <View style={{ flexDirection: 'row' }}>
+//       <Icon name={icon} size={handleSize.f(20)} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />
+//       <Text style={styles.label}>{label}</Text>
+//     </View>
+//     <View style={styles.valueBox}>
+//       <Text style={[styles.value,{ color: icon == "time-outline" ? THEME.green : THEME.white  }]}>{value}</Text>
+//     </View>
+//   </View>
+// );
 
 const InfoRow = ({ icon, label, value }) => (
   <View style={styles.infoRow}>
-    <View style={{ flexDirection: 'row' }}>
-      <Icon name={icon} size={handleSize.f(20)} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />
+    <View style={styles.infoLeft}>
+     {icon == "time-outline" ?
+        <Icon name={icon} size={handleSize.f(20)} color={THEME.white} style={{ marginRight: handleSize.w(8) }} />
+      :
+        <Image source={icon} style={styles.infoIcon} resizeMode="contain" />
+      }
       <Text style={styles.label}>{label}</Text>
     </View>
-    <View style={styles.valueBox}>
-      <Text style={[styles.value,{ color: icon == "time-outline" ? THEME.green : THEME.white  }]}>{value}</Text>
-    </View>
+    <Text style={[styles.value,{ color: icon == "time-outline" ? THEME.green : THEME.white  }]}>{value}</Text>
   </View>
 );
 
@@ -50,14 +66,15 @@ const CurrencyExchange = ({ ...props }) => {
     isPendinguseFXConversion,
     youWillReceive, 
     setYouWillReceive,
-    fxInfo, 
-    setFxInfo,
+    // fxInfo, 
+    // setFxInfo,
     countdown,
     getCurrencyAccArray,
     openDropdownsty, 
     setOpenDropdownSty,
     openDropdownstyToAcc, 
-    setOpenDropdownStyToAcc
+    setOpenDropdownStyToAcc,
+    convertrate
 
   } = useCurrencyExchangeViewModel(props);
 
@@ -65,16 +82,33 @@ const CurrencyExchange = ({ ...props }) => {
   const renderCardDetails = () => (
     <View style={styles.summaryBox}>
 
-    <InfoRow icon="card-outline" label="Exchange Rate" value={isPendinguseFXConversion ? "...loading" : fxInfo.rateText || 0} />
+    {/* <InfoRow icon="card-outline" label="Exchange Rate" value={isPendinguseFXConversion ? "...loading" : fxInfo.rateText || 0} />
     <InfoRow icon="add-outline" label="Fee" value={isPendinguseFXConversion ? "...loading" : fxInfo.fee || 0} />
-    {/* <InfoRow icon="time-outline" label="Rate Valid For" value={isPendinguseFXConversion ? "...loading" :fxInfo.validFor || 0} /> */}
 
 <InfoRow
   icon="time-outline"
   label="Rate Valid For"
   value={isPendinguseFXConversion ? "...loading" : `${countdown} sec` || 0}
   // value={countdown > 0 ? `${countdown} sec` : 'Refreshing...'}
-/>
+/> */}
+
+      <InfoRow
+        icon={Images.exchangeRate} 
+        label="Exchange Rate (Live)"
+        value={isPendinguseFXConversion ? "...loading" : `1 ${convertrate.tradeCurrency} = ${convertrate.rateInverted} ${convertrate.settlementCurrency}`}
+      />
+
+      <InfoRow
+        icon={Images.add}
+        label="Conversion Fee"
+        value={isPendinguseFXConversion ? "...loading" : `${convertrate.fxFeeAmount} ${convertrate.settlementCurrency}`}
+      />
+
+      <InfoRow
+        icon={Images.transfer}
+        label="You Receive"
+        value={isPendinguseFXConversion ? "...loading" : `${(convertrate.settlementAmount - convertrate.fxFeeAmount).toFixed(2)} ${convertrate.settlementCurrency}`}
+      />
 
     </View>
   );
@@ -199,10 +233,10 @@ const CurrencyExchange = ({ ...props }) => {
       onPress={onPressBtn}
       />
     
-    {fxInfo.quoteId ?
+    {convertrate.quoteId ?
     <View>
       {renderCardDetails()}
-      <InputField
+      {/* <InputField
         margTp={20}
         editable={false}
         disabled={false}
@@ -214,7 +248,7 @@ const CurrencyExchange = ({ ...props }) => {
         onChangeText={setYouWillReceive}
         keyboardType={'numeric'}
         margBtm={10}
-      />
+      /> */}
 
       
     <CustomButton
@@ -351,6 +385,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: handleSize.h(9),
   },
+    infoLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+    infoIcon: {
+    marginRight: handleSize.w(8),
+    width: handleSize.w(15),
+    height: handleSize.h(15),
+  },
+  
   label: {
     fontFamily: FONTFAMILY.Light,
     fontSize: handleSize.f(FONT_SIZES.onefour),

@@ -9,6 +9,7 @@ import CustomButton from '../../../components/customButton';
 import useCreateVirtualCardViewModel from '../../../viewModels/homeViewModel/card/useCreateVirtualCardViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
+import { Toast } from '../../../utils';
 
 export default function CreateVirtualCardView() {
   const {
@@ -91,15 +92,21 @@ export default function CreateVirtualCardView() {
           data={getCurrencyAccArray}
           isOpen={openDropdownsty}
           onToggle={() =>{ setOpenDropdownSty(!openDropdownsty) }}
-          onSelect={(item: any) =>{ 
+          onSelect={(item) =>{               
+            if (item?.account?.status == 'active') {
             setFromAccount({     
-            id: item?.account?.id,    
-            available_balance: item?.available_balance,       
-            currency_id: item?.currency?.id,
-            name: item?.account?.name,
-            iso_code: item?.currency?.iso_code,
-            asset_id: item?.id
+              id: item?.account?.id,    
+              available_balance: item?.available_balance,       
+              currency_id: item?.currency?.id,
+              name: item?.account?.name,
+              iso_code: item?.currency?.iso_code,
+              asset_id: item?.id
             })
+
+          } else {
+            Toast.showToast('Frozen, Select another', '', 'error');
+          }
+
           }}
         />
 

@@ -493,7 +493,7 @@ import ConfrmPayment from "../../../components/bottomSheet/confrmPayment";
 import { useInternationalTransferViewModel } from "../../../viewModels/homeViewModel/home/useInternationalTransferViewModel";
 import GlobalInputsearch from "../../../components/globalInputsearch";
 import Metrics from "../../../styles/metrics";
-import { CommonUtils } from "../../../utils";
+import { CommonUtils, Toast } from "../../../utils";
 
 
 // ---------- Reusable ----------
@@ -619,15 +619,20 @@ const InternationalTransfer = ({...props}) => {
             data={getCurrencyAccArray}
             isOpen={openDropdownsty}
             onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
-            onSelect={(item) =>{     
-              refetchgetAssetBalance(item?.id)          
-              setFromAccount({     
-              id: item?.id,    
-              available_balance: item?.available_balance,       
-              currency_id: item?.currency_id,
-              name: item?.account?.name,
-              iso_code: item?.currency?.iso_code
-              })
+            onSelect={(item) =>{               
+                if (item?.account?.status == 'active') {
+                refetchgetAssetBalance(item?.id)          
+                setFromAccount({     
+                  id: item?.id,    
+                  available_balance: item?.available_balance,       
+                  currency_id: item?.currency_id,
+                  name: item?.account?.name,
+                  iso_code: item?.currency?.iso_code
+                })
+              } else {
+                Toast.showToast('Frozen, Select another', '', 'error');
+              }
+
             }}
           />
 

@@ -11,6 +11,7 @@ import VerifyAddress from '../../../components/bottomSheet/verifyAddress';
 import { useCreatePhysicalCardViewModel } from '../../../viewModels/homeViewModel/card/useCreatePhysicalCardViewModel';
 import StatusBarManager from '../../../components/statusBarManager';
 import { handleSize } from '../../../config/responsiveTheme';
+import { Toast } from '../../../utils';
 
 const CreatePhysicalCard = () => {
   const {
@@ -113,7 +114,8 @@ const CreatePhysicalCard = () => {
           data={getCurrencyAccArray}
           isOpen={openDropdownsty}
           onToggle={() =>{ setOpenDropdownSty(!openDropdownsty) }}
-          onSelect={(item: any) =>{ 
+          onSelect={(item) =>{               
+            if (item?.account?.status == 'active') {
             setFromAccount({     
               id: item?.account?.id,    
               available_balance: item?.available_balance,       
@@ -122,6 +124,11 @@ const CreatePhysicalCard = () => {
               iso_code: item?.currency?.iso_code,
               asset_id: item?.id
             })
+
+          } else {
+            Toast.showToast('Frozen, Select another', '', 'error');
+          }
+
           }}
         />
         

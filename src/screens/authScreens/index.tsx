@@ -173,6 +173,8 @@ const config = {
 
       <CustomButton
         txtColor={styles.btnTxt}
+        indicatorColor={THEME.white}
+        loading={vm.isPendingBioMetryLogin}
         title="Log in with Biometrics / Face ID"
         // image={Images.faceID}
         tintColor={THEME.white}

@@ -16,7 +16,7 @@ import { useMyAccountTransferViewModel } from "../../../viewModels/homeViewModel
 import { Images } from "../../../config";
 import FingerPrintContent from "../../../components/bottomSheet/fingerPrintContent";
 import ConfrmPayment from "../../../components/bottomSheet/confrmPayment";
-import { CommonUtils } from "../../../utils";
+import { CommonUtils, Toast } from "../../../utils";
 
 // ---------- Reusable ---------- 
 const InfoRow = ({ icon, label, value }) => (
@@ -138,17 +138,22 @@ const MyAccountTransfer = ({...props}) => {
             // data={getCurrencyAccArray}
             data={getCurrencyAccArray}
             isOpen={openDropdownsty}
-            onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}
-            onSelect={(item) =>{  
-              refetchgetAssetBalance(item?.id)
-              setFromAccount({     
-              id: item?.id,    
-              available_balance: item?.available_balance,       
-              currency_id: item?.currency_id,
-              name: item?.account?.name,
-                            // name: item?.currency?.name,
-              iso_code: item?.currency?.iso_code
-              })
+            onToggle={() =>{ setOpenDropdownSty(!openDropdownsty), setOpenDropdownStyToAcc(false), setOpenDropdown(null) }}            
+            onSelect={(item) =>{               
+              if (item?.account?.status == 'active') {
+                refetchgetAssetBalance(item?.id)
+                setFromAccount({     
+                id: item?.id,    
+                available_balance: item?.available_balance,       
+                currency_id: item?.currency_id,
+                name: item?.account?.name,
+                              // name: item?.currency?.name,
+                iso_code: item?.currency?.iso_code
+                })
+              } else {
+                Toast.showToast('Frozen, Select another', '', 'error');
+              }
+
             }}
           />
 
@@ -195,15 +200,21 @@ const MyAccountTransfer = ({...props}) => {
             data={getCurrencyAccArray}
             isOpen={openDropdownstyToAcc}
             onToggle={() =>{ setOpenDropdownStyToAcc(!openDropdownstyToAcc), setOpenDropdownSty(false), setOpenDropdown(null) }}
-            onSelect={(item) =>{ 
+            onSelect={(item) =>{               
+              if (item?.account?.status == 'active') {
               settoAccount({     
-              id: item?.id,    
-              available_balance: item?.available_balance,       
-              currency_id: item?.currency_id,
-              name: item?.account?.name,
-                            // name: item?.currency?.name,
-              iso_code: item?.currency?.iso_code
+                id: item?.id,    
+                available_balance: item?.available_balance,       
+                currency_id: item?.currency_id,
+                name: item?.account?.name,
+                              // name: item?.currency?.name,
+                iso_code: item?.currency?.iso_code
               })
+
+              } else {
+                Toast.showToast('Frozen, Select another', '', 'error');
+              }
+
             }}
           />
 
