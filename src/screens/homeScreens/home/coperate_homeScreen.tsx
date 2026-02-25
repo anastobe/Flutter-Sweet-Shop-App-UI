@@ -17,7 +17,7 @@ import CoperatehomeCardFeatureButtons from '../../../components/coperatehomeCard
 
 const Coperate_homeScreen = () => {
   const {
-    userData,
+    loginUserData,
     SendoptionCorporate,
     handlePressCard,
     onRefresh,
@@ -38,7 +38,7 @@ const Coperate_homeScreen = () => {
 
         <Text 
         numberOfLines={1} ellipsizeMode="tail"
-        style={styles.titlesub}>{`${userData?.first_name + " " + userData?.last_name }`}</Text>
+        style={styles.titlesub}>{`${loginUserData?.members?.[0]?.user?.first_name + " " + loginUserData?.members?.[0]?.user?.last_name }`}</Text>
 
 
                 {/* <Text 
@@ -52,7 +52,7 @@ const Coperate_homeScreen = () => {
         </TouchableOpacity>
           <TouchableOpacity style={styles.titlePicBack} onPress={handleNavigateProfile} >
           <Text style={styles.titlePic}>
-           {CommonUtils.getInitials(`${userData?.first_name + " " + userData?.last_name }`)}
+           {CommonUtils.getInitials(`${loginUserData?.members?.[0]?.user?.first_name + " " + loginUserData?.members?.[0]?.user?.last_name}`)}
           </Text>
           </TouchableOpacity>
       </View>

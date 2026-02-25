@@ -8,9 +8,8 @@ import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from '../../../utils/data';
 export const useBeneficiariesManagementViewModel = () => {
   const navigation = useNavigation();
 
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
-  let corporateMaker = (userData?.customer_type == CUSTOMER_TYPE.CORPORATE && userData?.role == GLOBAL_USER_TYPES.MAKER )
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
 
   const [open, setOpen] = useState(false);
   const [beneficiaries, setBeneficiaries] = useState<any[]>([]);
@@ -146,9 +145,8 @@ export const useBeneficiariesManagementViewModel = () => {
     onSearch,
     isSearching, // 👈 expose to screen
 
-    userData,
     loginUserData,
-    corporateMaker
+    save_user_type
 
   };
 };

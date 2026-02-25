@@ -9,6 +9,7 @@ import { Auth_ROUTES, HOME_ROUTES } from '../constants';
 import { CommonUtils, Toast } from '../utils';
 import { Images } from '../config';
 import { CoperateStack } from './CoperateStack';
+import { LOGIN_USER_TYPES } from '../utils/data';
 
 type RootStackParamList = HomeStackParamList & AuthStackParamList;
 
@@ -19,7 +20,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const MainStack = () => {
 
   const dispatch = useDispatch()
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
   // const userlogdedIn = useSelector((state: any) => state?.AuthReducer?.userlogdedIn);
   // console.log("REDUX=>",userData);
   
@@ -59,6 +60,8 @@ export const MainStack = () => {
       }}
       />
   ));
+
+  console.log("save_user_type==",save_user_type?.length ,LOGIN_USER_TYPES.corporate_maker || LOGIN_USER_TYPES.individual ? "true" : "false");
   
 
   return (
@@ -68,14 +71,15 @@ export const MainStack = () => {
       headerShown: false
     }}>
       {
-       userData?.role == 'checker' 
-       ? 
+      save_user_type === LOGIN_USER_TYPES.corporate_maker ||
+      save_user_type === LOGIN_USER_TYPES.individual
+      ?
+        HomeScreens   //this route is for user/individual and coorporate - maker
+      :
+        save_user_type == LOGIN_USER_TYPES.corporate_checker
+      ? 
        CoperateScreens  //this route is for coorporate - checker
-       : 
-       userData?.role == 'maker' 
-       ?
-       HomeScreens   //this route is for user/individual and coorporate - maker
-       : 
+      : 
        AuthScreens
       }
     </Stack.Navigator>

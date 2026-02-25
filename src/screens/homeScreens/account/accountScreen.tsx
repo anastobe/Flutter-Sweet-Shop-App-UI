@@ -204,7 +204,6 @@ const AccountScreen = () => {
         resizeMode="stretch"
       >
         <OptionsHeader
-          userData={vm.userData}
           isFetching={vm?.isFetching}
           allAccounts={vm?.allAccounts}
           show={'accountname'}

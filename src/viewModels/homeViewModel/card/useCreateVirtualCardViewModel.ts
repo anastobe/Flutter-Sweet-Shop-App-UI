@@ -7,11 +7,12 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
-import { CUSTOMER_TYPE } from '../../../utils/data';
+import { CUSTOMER_TYPE, LOGIN_USER_TYPES } from '../../../utils/data';
 
 export default function useCreateVirtualCardViewModel() {
   const navigation = useNavigation();
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
@@ -92,7 +93,7 @@ export default function useCreateVirtualCardViewModel() {
         
         linked_account_name: fromAccount?.name,
         currency_name: fromAccount?.iso_code,
-        is_corporate: userData?.customer_type == CUSTOMER_TYPE.CORPORATE ? "yes" : "no", 
+        is_corporate: save_user_type == LOGIN_USER_TYPES.individual ? "no" : "yes", 
         // user_id: "86f27234-2061-70ba-0601-406e71c662fd" //for if checker want to make card for same company corporate maker
       };
       

@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "../../utils";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import messaging from '@react-native-firebase/messaging';
-import { storeUserToken, userIsLoggedIn } from "../../Redux/Action/Auth/AuthActions";
+import { saveUserType, storeUserToken, userIsLoggedIn } from "../../Redux/Action/Auth/AuthActions";
+import apis from "../../services";
+import { getUserDetail } from "../../queries/accountQueries/accountQuery";
+import { storeLoginUserData } from "../../Redux/Action/Home/HomeActions";
 
 export const useLoginViewModel = () => {
 
@@ -14,8 +17,8 @@ export const useLoginViewModel = () => {
   // const [password, setPassword] = useState("Saadops@12");
 
   //coperate -maker
-  const [email, setEmail] = useState("new-user");
-  const [password, setPassword] = useState("Uhf@1234");
+  // const [email, setEmail] = useState("new-user");
+  // const [password, setPassword] = useState("Uhf@1234");
 
   //coperate - checker
   // const [email, setEmail] = useState("mohtashim");
@@ -23,8 +26,8 @@ export const useLoginViewModel = () => {
 
 
   //user,individual
-  // const [email, setEmail] = useState("uhf-personal");
-  // const [password, setPassword] = useState("Pass@1234");
+  const [email, setEmail] = useState("uhf-personal");
+  const [password, setPassword] = useState("Pass@1234");
 
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
@@ -50,6 +53,16 @@ export const useLoginViewModel = () => {
       // else Alert.alert("Biometrics not supported");
     });
   }, []);
+
+    const {mutate: getUserDetailFunc, isPending: isPendinggetUserDetail} = getUserDetail({
+    callback: (response: any) => {
+      if (response?.success) {
+        let userType = detectAndSaveUserType(response)
+        dispatch(saveUserType(userType))
+        dispatch(storeLoginUserData(response.results));
+      }
+    },
+  });
 
   
 //   React.useEffect(() => {
@@ -133,12 +146,68 @@ const initFCM = async () => {
   //   }
   // };
 
+const detectAndSaveUserType = (response: any) => {
+  try {
+    if (!response?.success) {
+      console.log("API not successful");
+      return;
+    }
+
+    const result = response?.results;
+
+    const customerType = result?.customer_type;
+    const memberRole =
+      result?.members?.[0]?.member_accounts?.[0]?.member_account_role;
+
+    console.log("Customer Type:", customerType);
+    console.log("Member Role:", memberRole);
+
+    let userType = "";
+
+    // ✅ Case 1: Corporate Maker
+    if (customerType === "corporate" && memberRole === "maker") {
+      userType = "corporate_maker";
+    }
+
+    // ✅ Case 2: Corporate Checker
+    else if (customerType === "corporate" && memberRole === "checker") {
+      userType = "corporate_checker";
+    }
+
+    // ✅ Case 3: Individual (Personal Maker)
+    else if (customerType === "personal" && memberRole === "maker") {
+      userType = "individual";
+    }
+
+    else {
+      console.log("Unknown user type ❌");
+      return;
+    }
+
+    // 🔥 Save in AsyncStorage / Redux / Context
+    console.log("Detected User Type ✅:", userType);
+
+    // Example: AsyncStorage
+    // await AsyncStorage.setItem("USER_TYPE", userType);
+
+    return userType;
+
+  } catch (error) {
+    console.log("User Type Detection Error:", error);
+  }
+};
+
   const { mutate: loginFunc, isPending } = useLogin({
     callback: (response: any) => {
       console.log("Login response:", response);
-      if (response?.success) {
-          dispatch(storeUserToken(response.results))  
-          dispatch(userIsLoggedIn(true))  
+      if (response?.success && response?.results?.token) {
+          
+        dispatch(storeUserToken(response.results))  
+        // saveUserRoleType()
+        
+        getUserDetailFunc()
+        dispatch(userIsLoggedIn(true))  
+
       }
 
     },
@@ -233,6 +302,7 @@ const initFCM = async () => {
     Open, 
     setOpen,
     token,
-    isPendingBioMetryLogin
+    isPendingBioMetryLogin,
+    isPendinggetUserDetail
   };
 };

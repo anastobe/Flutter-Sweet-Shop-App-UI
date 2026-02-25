@@ -13,6 +13,7 @@ export default class ActionType {
   static GET_ACCOUNTS = 'GET_ACCOUNTS';
   static USER_LOGGEDIN = 'USER_LOGGEDIN';
   static SELECTED_ACCOUNT_WHOLE_APP = 'SELECTED_ACCOUNT_WHOLE_APP';
+  static SAVE_USER_TYPE = 'SAVE_USER_TYPE'; 
 
     // 🔔 Notification related
   static SET_PENDING_TRANSACTION = 'SET_PENDING_TRANSACTION';

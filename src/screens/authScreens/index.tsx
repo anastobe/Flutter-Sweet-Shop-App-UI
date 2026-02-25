@@ -150,7 +150,7 @@ const config = {
 
        <CustomButton
          btnContSty={styles.forgetTxt}
-         loading={vm.isPending}
+         loading={vm.isPending || vm?.isPendinggetUserDetail ? true : false}
          title="Log in"
          onPress={vm.handleLogin}
        />

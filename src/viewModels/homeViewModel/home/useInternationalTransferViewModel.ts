@@ -9,7 +9,7 @@ import { CommonUtils, Toast } from "../../../utils";
 import { useLogin } from "../../../queries/auth.query";
 import { useFXConversion, usePaymentTransfer,useMyAccount_InternationalTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
-import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from "../../../utils/data";
+import { CUSTOMER_TYPE, GLOBAL_USER_TYPES, LOGIN_USER_TYPES } from "../../../utils/data";
 import { accountScreenRefresh } from "../../../Redux/Action/Home/HomeActions";
 import { getAssetBalance } from "../../../queries/accountQueries/accountQuery";
 
@@ -24,9 +24,8 @@ export const useInternationalTransferViewModel = ({...props}) => {
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
 
-  let corporateMaker = (userData?.customer_type == CUSTOMER_TYPE.CORPORATE && userData?.role == GLOBAL_USER_TYPES.MAKER )
   const [countdown, setCountdown] = useState<number>(0);
   const countdownRef = useRef<NodeJS.Timeout | null>(null);
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
@@ -277,7 +276,7 @@ const startCountdown = (seconds: number) => {
       payment_method_id: payment_method_id?.id,
       beneficiary_id: beneficiary?.beneficiary_id,
       is_internal: false,
-      is_corporate: corporateMaker ? true : false
+      is_corporate: save_user_type == LOGIN_USER_TYPES.corporate_maker ? true : false
     }
 
     console.log("going main payload=>",payload);
@@ -390,7 +389,7 @@ const startCountdown = (seconds: number) => {
     autoFocusedpaymentTypes, 
     setautoFocusedpaymentTypes,
     countdown,
-    corporateMaker,
+    save_user_type,
     refetchgetAssetBalance,
     getAssetBalancePending,
     getAssetBalance_Data,

@@ -1,6 +1,6 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { BENEFICIARY_TYPES, ACCOUNT_TYPES, BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR, CUSTOMER_TYPE, GLOBAL_USER_TYPES } from '../../../utils/data';
+import { BENEFICIARY_TYPES, ACCOUNT_TYPES, BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR, CUSTOMER_TYPE, GLOBAL_USER_TYPES, LOGIN_USER_TYPES } from '../../../utils/data';
 import { Alert } from 'react-native';
 import { CommonUtils, Toast } from '../../../utils';
 import { useSelector } from 'react-redux';
@@ -17,10 +17,8 @@ export const useAddNewBeneficiaryViewModel = () => {
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
   const accountTypeList = useSelector((state: any) => state?.MoreReducer?.accountTypeList);
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
-  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
 
-  let corporateMaker = (userData?.customer_type == CUSTOMER_TYPE.CORPORATE && userData?.role == GLOBAL_USER_TYPES.MAKER )
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
   const [adjustScrollHeight, setadjustScrollHeight] = useState(false);
   const [adjustScrollHeightCountry, setadjustScrollHeightCountry] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -131,7 +129,7 @@ function openConfirmationModal() {
           first_name: firstName,
           last_name: lastName,
           email: email,
-          is_corporate: corporateMaker ? true : false,          
+          is_corporate: save_user_type == LOGIN_USER_TYPES.corporate_maker ? true : false,          
           account_name: "XYZ INPUT Bank",
           currency_id: currency?.id,
           ...(accountNo
@@ -140,7 +138,8 @@ function openConfirmationModal() {
             ? { bic: bicNo }
             : {}),
           sort_code: sortCode,
-          account_type: userData?.customer_type == CUSTOMER_TYPE.CORPORATE ? "business" : "personal", //personal or business
+          account_type: save_user_type == LOGIN_USER_TYPES.individual ? "personal" : "business", //personal or business
+          // account_type: userData?.customer_type == CUSTOMER_TYPE.CORPORATE ? "business" : "personal", //personal or business
         };
 
         console.log("PAYLOAD==>",payload);

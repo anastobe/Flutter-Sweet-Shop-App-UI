@@ -11,6 +11,7 @@ import BluryModal from '../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../components/statusBarManager';
 import { Images } from '../../../config';
 import { handleSize } from '../../../config/responsiveTheme';
+import { LOGIN_USER_TYPES } from '../../../utils/data';
 
 
 const MoreScreen = () => {
@@ -203,13 +204,13 @@ const MoreScreen = () => {
      <Text style={styles.title}>Settings</Text>
 
 
-     {/* {vm?.userData?.role == 'checker' &&
+     {/* {save_user_type == 'LOGIN_USER_TYPES.corporate_checker&&
      renderExchangeReq('Request')
      } */}
-     {vm?.userData?.role !== 'checker' &&  //show if not checker
+     {vm?.save_user_type !== LOGIN_USER_TYPES.corporate_checker &&  //show if not checker
      renderExchangeCurrency('Currency Exchange')}
 
-     {vm?.userData?.role !== 'checker' && 
+     {vm?.save_user_type !== LOGIN_USER_TYPES.corporate_checker && 
      renderBeneficiaries('Beneficiaries')}
      {renderSettings('Settings')}
 

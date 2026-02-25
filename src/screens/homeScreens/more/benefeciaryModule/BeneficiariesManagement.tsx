@@ -17,6 +17,7 @@ import BluryModal from '../../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
 import InputField from '../../../../components/textInput';
+import { LOGIN_USER_TYPES } from '../../../../utils/data';
 
 
 const BeneficiariesManagement = () => {
@@ -35,8 +36,7 @@ const BeneficiariesManagement = () => {
    isPendingDeleteBeneficiary,
    onSearch,
    search,
-   loginUserData,
-   corporateMaker
+   save_user_type
  } = useBeneficiariesManagementViewModel();
 
 
@@ -65,7 +65,7 @@ const BeneficiariesManagement = () => {
             {item?.first_name} {item?.last_name}
           </Text>
           <Text style={styles.currency}>
-            {item?.currency?.iso_code || 'XXX'}  {corporateMaker ? `( ${item?.status} )` : null}
+            {item?.currency?.iso_code || 'XXX'}  {save_user_type == LOGIN_USER_TYPES.corporate_maker ? `( ${item?.status} )` : null}
           </Text>
         </View>
 

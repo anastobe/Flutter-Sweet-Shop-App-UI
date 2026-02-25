@@ -36,8 +36,6 @@ export default function RequestPendingBeneficiary() {
    onSearch,
    search,
    navigation,
-   userData,
-   loginUserData
  } = useRequestBeneficiaryViewModal();
 
 

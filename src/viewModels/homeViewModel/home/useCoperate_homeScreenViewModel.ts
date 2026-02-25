@@ -16,37 +16,16 @@ export const useCoperate_homeScreenViewModel = () => {
 
   const [refreshing, setRefreshing] = useState(false);
 
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);  
-
-  const {mutate: getUserDetailFunc, isPending: isPendinggetUserDetail} = getUserDetail({
-    callback: (response: any) => {
-      if (response?.success) {
-        console.log("get user detail fetch",response);         
-          if (response?.results) {
-            dispatch(storeLoginUserData(response?.results));
-            dispatch(handleLoader(false)); 
-          }
-      }
-    },
-  });
-
-    useEffect(()=>{
-      CallUserDetail()
-    },[])
-
-    async function CallUserDetail() {
-      await apis.getUserDetail(dispatch)  
-    }
+  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
 
   const SendoptionCorporate = [ 
-    // { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST_PENDING_TRANSACTION_BANK, text: "Pending\nbank transfer\ntransaction", width: 20, height: 20 },
-    // { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST_PENDING_TRANSACTION, text: "Pending\ntransaction\nInternational", width: 20, height: 20 },
+    { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST_PENDING_TRANSACTION_BANK, text: "Pending\nbank transfer\ntransaction", width: 20, height: 20 },
+    { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST_PENDING_TRANSACTION, text: "Pending\ntransaction\nInternational", width: 20, height: 20 },
     { icon: Images.accountTab, onPress: HOME_ROUTES.REQUEST_PENDING_BENEFICIARY, text: "Pending\nbeneficiary\nrequest", width: 20, height: 20 },
     { icon: Images.cardTab, onPress: HOME_ROUTES.REQUEST, text: "Pending\ncard\nrequest", width: 20, height: 20 },
   ];
 
   const handlePressCard = (item: any) => {
-  if (isPendinggetUserDetail) return 
     navigation.navigate(item.onPress)
   };
 
@@ -60,12 +39,12 @@ export const useCoperate_homeScreenViewModel = () => {
 
   
   const onRefresh = () => {
-    CallUserDetail()
+    console.log("refrsews");
   };
 
   
   return {
-    userData,
+    loginUserData,
     SendoptionCorporate,
     handlePressCard,
     handleNavigateNotification,

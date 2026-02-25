@@ -22,16 +22,13 @@ import {
   DeleteBeneficiary,
   getBeneficiaryDetail,
 } from '../queries/moreQueries/moreQuery';
-import { CUSTOMER_TYPE, GLOBAL_ARRPOVED_PENDING, GLOBAL_USER_TYPES } from '../utils/data';
+import { CUSTOMER_TYPE, GLOBAL_ARRPOVED_PENDING, GLOBAL_USER_TYPES, LOGIN_USER_TYPES } from '../utils/data';
 import { useSelector } from 'react-redux';
 
 const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary, filterKey }: any) => {
   const navigation = useNavigation();
 
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
-  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
-
-  let corporateMaker = (userData?.customer_type == CUSTOMER_TYPE.CORPORATE && userData?.role == GLOBAL_USER_TYPES.MAKER )
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
 
   const [ListArray, setListArray] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -102,7 +99,7 @@ const GlobalInputsearch = ({pressClose, placeholder, onSelectBeneficiary, filter
       search: searchText,
       filters: {
         is_deleted: false,
-        ...(corporateMaker && { //only show if coorporate maker wants to do payment individual directly add benefneficiary
+        ...(save_user_type == LOGIN_USER_TYPES.corporate_maker && { //only show if coorporate maker wants to do payment individual directly add benefneficiary
           status: GLOBAL_ARRPOVED_PENDING.ARRPOVED,
         }),
       },

@@ -7,9 +7,9 @@ import { AssetsResponse } from "../../models/home/assetsResponse.model";
 // Get user details
 export const getUserDetail = async (dispatch: any): Promise<CustomersResponse> => {
   const response = await axiosInstance('/user/detail', 'POST', {}, false);
-  if (response?.results) {
-    dispatch(storeLoginUserData(response.results));
-  }
+  // if (response?.results) {
+  //   dispatch(storeLoginUserData(response.results));
+  // }
   return response;
 };
 

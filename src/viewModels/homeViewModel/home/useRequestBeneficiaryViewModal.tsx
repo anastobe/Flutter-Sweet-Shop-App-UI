@@ -7,9 +7,6 @@ import { useSelector } from 'react-redux';
 export const useRequestBeneficiaryViewModal = () => {
   const navigation = useNavigation();
 
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
-  const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
-
   const [open, setOpen] = useState(false);
   const [beneficiaries, setBeneficiaries] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -131,8 +128,6 @@ export const useRequestBeneficiaryViewModal = () => {
     onSearch,
     isSearching, // 👈 expose to screen
 
-    userData,
-    loginUserData
 
   };
 };

@@ -14,6 +14,12 @@ export const storeUserToken = (res) => {
     };
   };
 
+export const saveUserType = (res) => {
+  return dispatch => {
+    dispatch({type: ActionType.SAVE_USER_TYPE, payload: res });
+  };
+};
+
 export const updateUserToken = (data) => {
   return dispatch => {
     dispatch({

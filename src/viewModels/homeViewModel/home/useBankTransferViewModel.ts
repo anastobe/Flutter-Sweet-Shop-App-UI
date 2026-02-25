@@ -10,7 +10,7 @@ import { useLogin } from "../../../queries/auth.query";
 import { usePaymentTransfer } from "../../../queries/paymentQuery/paymentQuery";
 import { HOME_ROUTES } from "../../../constants";
 import { getBeneficiaryDetail } from "../../../queries/moreQueries/moreQuery";
-import { CUSTOMER_TYPE, GLOBAL_USER_TYPES } from "../../../utils/data";
+import { CUSTOMER_TYPE, GLOBAL_USER_TYPES, LOGIN_USER_TYPES } from "../../../utils/data";
 import { accountScreenRefresh } from "../../../Redux/Action/Home/HomeActions";
 import { getAssetBalance } from "../../../queries/accountQueries/accountQuery";
 
@@ -22,9 +22,8 @@ export const useBankTransferViewModel = () => {
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const getCurrencyAccArray = useSelector((state: any) => state?.HomeReducer?.getCurrencyAccArray);
   const beneficiaryArray = useSelector((state: any) => state?.HomeReducer?.beneficiaryArray)
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
 
-  let corporateMaker = (userData?.customer_type == CUSTOMER_TYPE.CORPORATE && userData?.role == GLOBAL_USER_TYPES.MAKER )
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
   const [openDropdownsty, setOpenDropdownSty] = useState(false);
   const [open, setopen] = useState(false);
   const [openSureModal, setopenSureModal] = useState(false);
@@ -38,6 +37,9 @@ export const useBankTransferViewModel = () => {
     name: "",
     iso_code: ""
   });
+ 
+  console.log("loginUserData==>",loginUserData);
+  
  
   const [note, setnote] = useState(""); 
   const [openDropdown, setOpenDropdown] = useState(null); 
@@ -153,7 +155,7 @@ export const useBankTransferViewModel = () => {
       currency_id: fromAccount?.currency_id,
       payment_method_id: payment_method_id?.id,
       reference: note,
-      is_corporate: corporateMaker ? true : false,  
+      is_corporate: save_user_type == LOGIN_USER_TYPES.corporate_maker ? true : false,  
     }
     console.log("===>payload==>",payload);
     usePaymentTransferFunc(payload)
@@ -225,8 +227,7 @@ export const useBankTransferViewModel = () => {
     setautoFocusedpaymentTypes,
     openSureModal, 
     setopenSureModal,
-    pressSure,
-    corporateMaker
-  
+    pressSure
+
   };
 };

@@ -7,7 +7,7 @@ import { Images } from "../config";
 import { handleSize } from "../config/responsiveTheme";
 import Metrics from "../styles/metrics";
 
-const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show, rightIconName }) => {
+const OptionsHeader = ({isFetching,allAccounts,loginUserData,currentAccount, onPressSelectAccounts, onPressThreeDots, leftTxt, onPressNotification, onPressAdd,show, rightIconName }) => {
   const navigation = useNavigation();
 
   return (
@@ -23,7 +23,7 @@ const OptionsHeader = ({userData, isFetching,allAccounts,loginUserData,currentAc
         <Text style={styles.title}>Great to see you,</Text>
         <Text 
           numberOfLines={1} ellipsizeMode="tail"
-          style={styles.titlesub}>{`${userData?.first_name + " " + userData?.last_name }`}</Text>
+          style={styles.titlesub}>{`${loginUserData?.members?.[0]?.user?.first_name + " " + loginUserData?.members?.[0]?.user?.last_name }`}</Text>
           </View>         
         :
         <View>

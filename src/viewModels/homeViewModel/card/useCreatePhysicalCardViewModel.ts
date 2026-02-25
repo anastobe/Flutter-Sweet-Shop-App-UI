@@ -5,13 +5,13 @@ import { Toast } from '../../../utils';
 import { useSelector } from 'react-redux';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
-import { CUSTOMER_TYPE } from '../../../utils/data';
+import { CUSTOMER_TYPE, LOGIN_USER_TYPES } from '../../../utils/data';
 
 export function useCreatePhysicalCardViewModel() {
   const navigation = useNavigation();
   const cardDetailRef = useRef(null);
   
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData);
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
@@ -114,7 +114,8 @@ export function useCreatePhysicalCardViewModel() {
 
         linked_account_name: fromAccount?.name,
         currency_name: fromAccount?.iso_code,
-        is_corporate: userData?.customer_type == CUSTOMER_TYPE.CORPORATE ? "yes" : "no", 
+        is_corporate: save_user_type == LOGIN_USER_TYPES.individual ? "no" : "yes", 
+        // is_corporate: userData?.customer_type == CUSTOMER_TYPE.CORPORATE ? "yes" : "no", 
         // user_id: "86f27234-2061-70ba-0601-406e71c662fd" //for if checker want to make card for same company corporate maker
 
       };

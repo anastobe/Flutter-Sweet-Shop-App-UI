@@ -16,7 +16,6 @@ export default function useContactAddressViewModel() {
   const cardDetailRef = useRef(null);
   const dispatch = useDispatch()
 
-  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData)
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
 
@@ -32,9 +31,6 @@ export default function useContactAddressViewModel() {
   const [postalCode, setPostalCode] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secure, setSecure] = useState(true);
-
-  // console.log("userData===>",userData);
-  
 
     const user = useMemo(() => {
 
@@ -159,7 +155,6 @@ console.log("play");
     countryList,
     ApiCall,
     loginUserData,
-    userData,
     isPending_UpdateContactAddress,
     address2, 
     setAddress2

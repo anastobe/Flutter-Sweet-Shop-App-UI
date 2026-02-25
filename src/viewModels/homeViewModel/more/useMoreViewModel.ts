@@ -11,8 +11,9 @@ import apis from '../../../services';
 export default function useMoreViewModel() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-   const userData = useSelector((state: any) => state?.AuthReducer?.userData);
   
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
+
   const [open, setopen] = useState(false);
 
   const cardDetailRef = useRef(null);
@@ -99,6 +100,8 @@ export default function useMoreViewModel() {
     onCloseHelpSheet,
     setopen,
     open,
-    userData
+    save_user_type
+
+    
   };
 }

@@ -23,6 +23,12 @@ const GLOBAL_USER_TYPES = {
   CHECKER: 'checker'
 }
 
+const LOGIN_USER_TYPES = {
+  corporate_maker: 'corporate_maker',
+  corporate_checker: 'corporate_checker',
+  individual: 'individual'
+}
+
 const CUSTOMER_TYPE = { 
   CORPORATE: 'corporate',
   PERSONAL: 'personal'
@@ -415,7 +421,8 @@ export {
     ACCOUNT_HISTRY_VALIDATION,
     GLOBAL_ARRPOVED_PENDING,
     GLOBAL_USER_TYPES,
-    CUSTOMER_TYPE
+    CUSTOMER_TYPE,
+    LOGIN_USER_TYPES
 
 
 };
