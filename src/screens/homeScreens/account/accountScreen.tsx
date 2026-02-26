@@ -46,7 +46,7 @@ const AccountScreen = () => {
   const vm = useAccountScreenViewModel();
   const navigation = useNavigation();
 
-  let NoAssetOfAccount = vm?.selectedAccount_WholeApp?.assets?.length > 0
+
 
     // vm.allAccounts?.length > 0 &&
     // vm.allAccounts?.[1]?.assets?.length > 0;
@@ -58,7 +58,7 @@ const AccountScreen = () => {
     <View style={{ zIndex: -9 }}>
       <FlatList
         // data={vm.transactions}
-        data={vm?.isPendingpaymentHistry ? [] : vm?.transactions}
+        data={!vm?.NoAssetOfAccount || vm?.isPendingpaymentHistry ? [] : vm?.transactions}
         keyExtractor={item => item?.id}
         /** 🔹 Initial Loader */
         ListEmptyComponent={
@@ -74,7 +74,7 @@ const AccountScreen = () => {
         }
         /** 🔹 Footer Loader (Pagination) */
         ListFooterComponent={
-          vm?.transactions?.length < commonUtils.MAX_LENGTH_10 ? null : (
+          (!vm?.NoAssetOfAccount || vm?.transactions?.length < commonUtils.MAX_LENGTH_10) ? null : (
             <SmallBtn
               title="Show more"
               onPress={vm.handleNavigateTransactionHistory}
@@ -163,11 +163,11 @@ const AccountScreen = () => {
           txtLineHeight={12}
         />
 
-        {NoAssetOfAccount && renderGraphAndAvg()}
+        {vm.NoAssetOfAccount && renderGraphAndAvg()}
 
         <View style={styles.cardHeader}>
           <Text style={styles.cardTransactionTXT}>Activity</Text>
-          {vm?.transactions?.length > 0 && <TouchableOpacity style={styles.viewAllTxtCont} onPress={vm.handleNavigateTransactionHistory}>
+          {(vm?.transactions?.length > 0 && vm?.NoAssetOfAccount) && <TouchableOpacity style={styles.viewAllTxtCont} onPress={vm.handleNavigateTransactionHistory}>
             <Text style={styles.viewAllTxt}>View all</Text>
           </TouchableOpacity>}
         </View>

@@ -24,7 +24,8 @@ export const useAccountScreenViewModel = () => {
   const selectedAccount_WholeApp = useSelector((state: any) => state?.HomeReducer?.selectedAccount_WholeApp)
   const userData = useSelector((state: any) => state?.AuthReducer?.userData);
   const refreshCallAccount = useSelector((state: any) => state?.HomeReducer?.refreshCallAccount)
-
+  let NoAssetOfAccount = selectedAccount_WholeApp?.assets?.length > 0
+  
   const isFocused = useIsFocused()
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -618,7 +619,8 @@ const toggleShowBalance = React.useCallback(() => {
     loginUserData,
     allAccounts,
     userData,
-    toggleShowBalance
+    toggleShowBalance,
+    NoAssetOfAccount
     // isLoadingMore,
     // loadMoreTransactions,
     // hasMore, 
