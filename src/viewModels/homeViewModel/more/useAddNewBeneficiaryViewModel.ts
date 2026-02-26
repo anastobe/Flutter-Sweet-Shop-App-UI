@@ -1,10 +1,10 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BENEFICIARY_TYPES, ACCOUNT_TYPES, BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR, CUSTOMER_TYPE, GLOBAL_USER_TYPES, LOGIN_USER_TYPES } from '../../../utils/data';
 import { Alert } from 'react-native';
 import { CommonUtils, Toast } from '../../../utils';
 import { useSelector } from 'react-redux';
-import { AddnewBeneficiaryApi } from '../../../queries/moreQueries/moreQuery';
+import { AddnewBeneficiaryApi, GetCopDetail } from '../../../queries/moreQueries/moreQuery';
 import { HOME_ROUTES } from '../../../constants';
 import { StatusBar } from 'react-native';
 import { THEME } from '../../../styles';
@@ -13,6 +13,7 @@ import commonUtils from '../../../utils/common.utils';
 export const useAddNewBeneficiaryViewModel = () => {
 
   const navigation = useNavigation();
+  const confirmCop = useRef()
 
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
   const currencyList = useSelector((state: any) => state?.MoreReducer?.currencyList);
@@ -45,11 +46,19 @@ export const useAddNewBeneficiaryViewModel = () => {
   const { mutate: AddnewBeneficiaryApiFunc, isPending: isPending_AddnewBeneficiaryApi } = AddnewBeneficiaryApi({
     callback: (res: any) => {
       setModalVisible(false)
+      confirmCop?.current?.close()
       setTimeout(() => {
         setOpen(true)  
       }, 1000);
     },
   });
+
+  const { mutate: GetCopDetailFunc, isPending: isPending_GetCopDetail } = GetCopDetail({
+    callback: (res: any) => {
+       confirmCop?.current?.open()
+    },
+  });
+
 
   const toggleDropdown = (key: any) => {
     setOpenDropdown(openDropdown === key ? null : key);
@@ -120,7 +129,18 @@ function openConfirmationModal() {
   }
 
   // ✅ ALL OK
-  setModalVisible(true);
+  let payload ={
+    sort_code: sortCode,
+    account_number: accountNo,
+    account_type: save_user_type == LOGIN_USER_TYPES.individual ? "personal" : "business", //personal or business
+    account_name: firstName
+  }
+  
+  console.log("payload=>",payload);
+  
+  GetCopDetailFunc(payload)
+  // confirmCop?.current?.open()
+  // setModalVisible(true);
 }
 
   const onPressBtn = () => {
@@ -161,6 +181,9 @@ function openConfirmationModal() {
     navigation.navigate(HOME_ROUTES.MAKE_PAYMENT)    
     };
 
+  function onPressSave() {
+    setModalVisible(true);
+  }
 
   return {
     checked,
@@ -206,6 +229,11 @@ function openConfirmationModal() {
     navigation,
     setemail,
     sortCode, 
-    setsortCode
+    setsortCode,
+    confirmCop,
+    onPressSave,
+    GetCopDetailFunc,
+    isPending_GetCopDetail 
+
   };
 };

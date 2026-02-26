@@ -10,7 +10,7 @@ import {
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { scale } from 'react-native-size-matters';
-import { MainContainer, Modal } from '../../../../components';
+import { BottomSheet, MainContainer, Modal } from '../../../../components';
 import InputField from '../../../../components/textInput';
 import CustomButton from '../../../../components/customButton';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../../styles';
@@ -22,6 +22,9 @@ import BluryModal from '../../../../components/Modal/bluryModal';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
 import { BENEFICIARY_ADD_FOR, BENEFICIARY_KEY_FOR } from '../../../../utils/data';
+import { ImageBackground } from 'react-native';
+import AccountDetailsCard from '../../../../components/bottomSheet/accountDetailsCard';
+import BeneficiaryCopDetail from '../../../../components/bottomSheet/beneficiaryCopDetail';
 
 const AddNewBeneficiary = () => {
   const vm = useAddNewBeneficiaryViewModel();
@@ -317,13 +320,38 @@ const AddNewBeneficiary = () => {
           <CustomButton
             btnContSty={styles.forgetTxt}
             title="Save beneficiary"
-            loading={false}
+            loading={vm.isPending_GetCopDetail}
             onPress={vm.openConfirmationModal}
             />
       </ScrollView>
             
-        {/* <View style={{ backgroundColor: "#0e1546", width: Metrics.width, position: "absolute", bottom: 0, alignSelf: "center" }} > */}
-        {/* </View> */}
+        <BottomSheet
+          height={350} // minimum height
+          maxHeightPercent={0.68} // optional, override for screen
+          draggable={false}
+          bottomSheetRef={vm.confirmCop}
+        >
+          <ImageBackground
+            resizeMode="cover"
+            source={Images.addCardGradient}
+            style={styles.containerSheet}
+          >
+            <ScrollView
+              style={{ marginTop: handleSize.h(10) }}
+              showsVerticalScrollIndicator={false}
+            >
+              <BeneficiaryCopDetail
+                sheetTitle={"Beneficiary Details"}
+                sheetStaus={"Slightly Mismatched"}
+                circleNamext={"Ali Khan"}
+                accountNum={"GB29 NWBK 6016 1331 9023 29"} 
+                currency={"USD"}
+                onPressSave={vm.onPressSave}
+                btnLoading={vm.isPending_GetCopDetail}
+              />
+            </ScrollView>
+          </ImageBackground>
+        </BottomSheet>
 
     </MainContainer>
   );
@@ -333,7 +361,7 @@ export default AddNewBeneficiary;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: THEME.white },
-
+  containerSheet: { flex: 1, backgroundColor: THEME.gray },
   title: {
     fontSize: handleSize.f(FONT_SIZES.onesix),
     fontFamily: FONTFAMILY.SemiBold,

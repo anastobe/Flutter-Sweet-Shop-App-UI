@@ -42,6 +42,11 @@ export const DeleteBeneficiary = async (id: string | number) => {
   return response;
 };
 
+export const GetCopDetail = async (body: any) => {
+  const response = await axiosInstance(`/beneficiary/account/cop`, 'POST', body,false);
+  return response;
+};
+
 // Get countries
 export const getCoutry = async (dispatch: any): Promise<CountryApiResponse> => {
   const response = await axiosInstance('/lov/country', 'GET', undefined,false);
