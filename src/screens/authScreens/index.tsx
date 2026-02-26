@@ -167,7 +167,7 @@ const config = {
         onPress={() => vm.biometryRef?.current?.open()}
       /> */}
 
-    {(vm?.bioEnable == "false" || vm?.bioEnable == null) ? null : 
+    {vm?.showBiometricLogin && (
     <View>
     <View style={styles.containerline}>
       <View style={styles.line1} />
@@ -187,7 +187,7 @@ const config = {
         onPress={() => vm.biometryRef?.current?.open()}
       />
       </View>
-      }
+    )}
 
       {/* <View style={styles.contText}>
         <Text style={styles.dontAcc}>Don’t have an account? </Text>

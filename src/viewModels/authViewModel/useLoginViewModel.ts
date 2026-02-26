@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactNativeBiometrics from "react-native-biometrics";
 import { useBioMetryLogin, useLogin } from "../../queries/auth.query";
-import { Alert, PermissionsAndroid, Platform } from "react-native";
+import { Alert, DeviceEventEmitter, PermissionsAndroid, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { CommonUtils, Toast } from "../../utils";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
@@ -34,8 +34,9 @@ export const useLoginViewModel = () => {
 
   const [token, setToken] = useState("");
   const [secure, setSecure] = useState(true);
-  const [bioEnable, setbioEnable] = useState(null);
-  const [biometryType, setBiometryType] = useState<string | null>(null);
+  // const [bioEnable, setbioEnable] = useState(null);
+  // const [biometryType, setBiometryType] = useState<string | null>(null);
+  const [showBiometricLogin, setShowBiometricLogin] = useState(false);
   const [Open, setOpen] = useState({
     open: false,
     text: ""
@@ -47,15 +48,23 @@ export const useLoginViewModel = () => {
   const rnBiometrics = new ReactNativeBiometrics();
  
 
-  useEffect(() => {
-    rnBiometrics.isSensorAvailable().then(result => {
-      const { available, biometryType } = result;
-      if (available) setBiometryType(biometryType);
-      // else Alert.alert("Biometrics not supported");
-    });
+ useEffect(() => {
+  checkBiometricForLogin();
+}, []);
 
-    
-  }, []);
+const checkBiometricForLogin = async () => {
+  const BIO_ENABLE = await CommonUtils.getFromKeychain("BIO_ENABLE");
+
+  const device = await CommonUtils.checkDeviceBiometric();
+
+  console.log("bio metric status==>",device,BIO_ENABLE);
+
+  if (device.hardware && device.configured && BIO_ENABLE === "true") {
+    setShowBiometricLogin(true);
+  } else {
+    setShowBiometricLogin(false);
+  }
+};
 
   
   async function saveToKeyChain(results: any) {
@@ -104,14 +113,9 @@ export const useLoginViewModel = () => {
 //     setToken(token2)
 // };
 
-  async function biometricEnable() {
-    const BIO_ENABLE = await CommonUtils.getFromKeychain("BIO_ENABLE");
-    setbioEnable(BIO_ENABLE)
-  }
 
   useEffect(() => {
     initFCM();
-    biometricEnable()
   }, []);
 
 
@@ -327,7 +331,7 @@ const detectAndSaveUserType = (response: any) => {
     setPassword,
     secure,
     setSecure,
-    biometryType,
+    // biometryType,
     biometryRef,
     handleLogin,
     handleBiometricAuth,
@@ -337,6 +341,7 @@ const detectAndSaveUserType = (response: any) => {
     token,
     isPendingBioMetryLogin,
     isPendinggetUserDetail,
-    bioEnable
+    showBiometricLogin
+    // bioEnable
   };
 };

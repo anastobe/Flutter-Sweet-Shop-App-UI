@@ -9,6 +9,7 @@ import apis from "../services";
 import { HOME_ROUTES } from "../constants";
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import { Platform, Alert } from 'react-native';
+import ReactNativeBiometrics from "react-native-biometrics";
 
 // const {AppTheme} = useTheme()
 
@@ -16,6 +17,8 @@ const IBAN_BASIC_REGEX = /^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/i;
 const SWIFT_REGEX = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
 
 const MAX_LENGTH_10 = 10;
+
+  const rnBiometrics = new ReactNativeBiometrics();
 
 const objectContainsKey = (
   object: Record<string | number, any>,
@@ -87,6 +90,32 @@ export const saveToKeychain = async (service: string, value: string) => {
 export const getFromKeychain = async (service: string) => {
   const creds = await Keychain.getGenericPassword({ service });
   return creds ? creds.password : null;
+};
+
+export const checkDeviceBiometric = async () => {
+  try {
+    const result = await rnBiometrics.isSensorAvailable();
+
+    if (!result.available) {
+      return {
+        hardware: false,
+        configured: false,
+        type: null,
+      };
+    }
+
+    return {
+      hardware: true,
+      configured: true,
+      type: result.biometryType,
+    };
+  } catch (e) {
+    return {
+      hardware: false,
+      configured: false,
+      type: null,
+    };
+  }
 };
 
 export const getCurrencySymbol = (
@@ -378,7 +407,8 @@ export default {
   firstCapitaAllSmall,
   downloadFile,
   saveToKeychain,
-  getFromKeychain
+  getFromKeychain,
+  checkDeviceBiometric
 
 };
 

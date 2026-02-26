@@ -388,51 +388,42 @@ useEffect(() => {
   }
 }, [refreshCallAccount]);
 
+const askToEnableBiometric = async () => {
+  const BIO_ENABLE = await CommonUtils.getFromKeychain("BIO_ENABLE");
 
-  useEffect(()=>{
-    enableBioMetryInDevice()
-  },[])
+  if (BIO_ENABLE === "true") return;
 
-  async function enableBioMetryInDevice() {
-    
-    const BIO_ENABLE = await CommonUtils.getFromKeychain("BIO_ENABLE");
-    if (BIO_ENABLE == "true") return
-    Alert.alert(
-      "Bio Metry Enable",
-      "Would you like to enable Biometry in this device",
-      [
-        {
-          text: "No",
-          onPress: async() => {
-            await CommonUtils.saveToKeychain("BIO_ENABLE", "false");
-          },
-          style: "cancel" // Optional: gives 'No' the native 'cancel' style (iOS only)
-        },
-        {
-          text: "Yes",
-          onPress: async() => {
-            handleBiometricAuth()
-          } // The 'Yes' action goes here
-        }
-      ],
-      { cancelable: false } // Optional: prevents dismissing the alert by tapping outside
-    );
+  const device = await CommonUtils.checkDeviceBiometric();
+
+  if (!device.hardware) return;
+
+  Alert.alert(
+    "Enable Biometric Login",
+    "Would you like to enable biometric login for faster access?",
+    [
+      { text: "No", style: "cancel" },
+      {
+        text: "Yes",
+        onPress: () => enableBiometric(),
+      },
+    ]
+  );
+};
+
+const enableBiometric = async () => {
+  try {
+    const { success } = await rnBiometrics.simplePrompt({
+      promptMessage: "Confirm biometric to enable",
+    });
+
+    if (success) {
+      await CommonUtils.saveToKeychain("BIO_ENABLE", "true");
+      Alert.alert("Success", "Biometric login enabled");
+    }
+  } catch (e) {
+    // silent fail
   }
-
-  const handleBiometricAuth = () => {
-    rnBiometrics.simplePrompt({ promptMessage: "Login with Biometrics" })
-      .then(async({ success }) => {
-        if (success) {
-          await CommonUtils.saveToKeychain("BIO_ENABLE", "true");
-          Alert.alert("Success", "Biometric enabled successfully")
-        } else {
-          Alert.alert("Cancelled", "User Cancelled");
-          await CommonUtils.saveToKeychain("BIO_ENABLE", "false");
-        }
-      })
-      .catch(() => Alert.alert("Error", "Biometric auth failed"));
-  };
-
+};
 
   const fetchAllInitialData = async () => {
 
@@ -473,6 +464,7 @@ useEffect(() => {
 
   useEffect(() => {
     fetchAllInitialData()
+    askToEnableBiometric()
     // apis.getCurrencyAccount(dispatch);
   }, []);
 
