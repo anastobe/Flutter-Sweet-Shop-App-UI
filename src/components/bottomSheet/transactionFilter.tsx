@@ -393,7 +393,9 @@ const TransactionFilter = ({
   onPress,
   onPress2,
 }: Props) => {
+
   const { from, to, checked, amount, status } = value;
+  const today = new Date().toISOString().split('T')[0];
 
   /** 🔹 Transaction Type */
   const handleTransactionType = (key: string) => {
@@ -451,6 +453,7 @@ const TransactionFilter = ({
     <View>
       <CustomCalendar
         placeholder="From"
+        maxDate={to ? to : today}  // 🔥 From kabhi To se bada na ho
         value={from}
         onDateChange={(date) => onChange({ ...value, from: date })}
       />
@@ -459,6 +462,8 @@ const TransactionFilter = ({
         margTp={Platform.OS === 'ios' ? handleSize.f(15) : handleSize.f(20)}
         placeholder="To"
         value={to}
+        minDate={from}   // 🔥 To kabhi From se chota na ho
+        maxDate={today}  // 🔥 Future disable
         onDateChange={(date) => onChange({ ...value, to: date })}
       />
     </View>
@@ -467,7 +472,7 @@ const TransactionFilter = ({
   /** 🔹 Amount Range */
   const renderAmountRange = () => (
     <View>
-      <Text style={styles.sectionTitle}>Amount range</Text>        
+      <Text style={styles.sectionTitle}>Amount range minimun</Text>        
         <TextInput 
           value={amount.min}
           placeholder="Enter Amount"
@@ -611,7 +616,7 @@ const styles = StyleSheet.create({
         marginTop: handleSize.h(20)
     },
     txtInpu:
-    { height: 50, borderRadius: 100, backgroundColor: THEME.white, paddingLeft: handleSize.w(20), fontFamily: FONTFAMILY.Medium, fontSize: handleSize.f(FONT_SIZES.onefour) },
+    { height: 50, borderRadius: 100, backgroundColor: THEME.white, paddingLeft: handleSize.w(20), fontFamily: FONTFAMILY.Medium, fontSize: handleSize.f(FONT_SIZES.onefour), color: THEME.textPrimary },
     title: {
         fontSize: handleSize.f(FONT_SIZES.twosix),
         fontFamily: FONTFAMILY.SemiBold,

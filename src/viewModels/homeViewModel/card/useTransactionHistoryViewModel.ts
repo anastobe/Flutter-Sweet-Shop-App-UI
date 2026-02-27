@@ -544,6 +544,9 @@ export default function useTransactionHistoryViewModel(props: any) {
       status,
     };
 
+    console.log("checking==>",formattedFilters);
+    // return
+
     setFilters(formattedFilters);
     fetchTransactions(1, formattedFilters);
     cardDetailRef.current?.close?.();

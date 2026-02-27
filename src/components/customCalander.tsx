@@ -12,6 +12,8 @@ type CustomCalendarProps = {
   placeholder?: string;
   value?: string;
   margTp?: number;
+  minDate?: string;   // 🔥 add
+  maxDate?: string;   // 🔥 add
   onDateChange?: (date: string) => void;
 };
 
@@ -19,6 +21,8 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
   placeholder = 'Select Date',
   value,
   onDateChange,
+  minDate,
+  maxDate,
   margTp,
 }) => {
   const [showCalendar, setShowCalendar] = useState(false);
@@ -66,6 +70,9 @@ const CustomCalendar: React.FC<CustomCalendarProps> = ({
 
             <Calendar
               onDayPress={handleDayPress}
+              // maxDate={today}
+              minDate={minDate}
+              maxDate={maxDate}
               markedDates={{
                 [selectedDate]: {
                   selected: true,
