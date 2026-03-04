@@ -76,6 +76,15 @@ const AddNewBeneficiary = () => {
       <InputField
         margBtm={23}
         autoCapital={'none'}
+        blurOnSubmit={false}
+        placeholder="Account name"
+        value={vm.accountName}
+        onChangeText={vm.setaccountName}
+      />
+
+      <InputField
+        margBtm={23}
+        autoCapital={'none'}
         keyboardType={'email-address'}
         blurOnSubmit={false}
         placeholder="Email"
@@ -290,7 +299,7 @@ const AddNewBeneficiary = () => {
         />
         </>
       );
-    }
+    }    
 
   return (
     <MainContainer
@@ -342,10 +351,10 @@ const AddNewBeneficiary = () => {
             >
               <BeneficiaryCopDetail
                 sheetTitle={"Beneficiary Details"}
-                sheetStaus={"Slightly Mismatched"}
-                circleNamext={"Ali Khan"}
-                accountNum={"GB29 NWBK 6016 1331 9023 29"} 
-                currency={"USD"}
+                sheetStaus={JSON.stringify(vm?.saveCopDetail?.Matched)}
+                circleNamext={vm?.saveCopDetail?.Name}
+                accountNum={vm?.accountNo} 
+                currency={vm?.currency?.name}
                 onPressSave={vm.onPressSave}
                 btnLoading={vm.isPending_GetCopDetail}
               />

@@ -25,6 +25,29 @@ export const useAddNewBeneficiaryViewModel = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [checked, setChecked] = useState('frontier');
+  // const [accountName, setaccountName] = useState('Tell Money Ltd');
+  // const [firstName, setfirstName] = useState('Anas');
+  // const [lastName, setlastName] = useState('Ahmed');
+  // const [email, setemail] = useState('anastobe968@gmail.com');
+  // const [accountType, setAccountType] = useState('');
+  // const [selectBeneficiary, setselectBeneficiary] = useState('');
+  // const [accountNo, setAccountNo] = useState('21111112');
+  // const [sortCode, setsortCode] = useState('111111');
+  // const [bicNo, setBicNo] = useState('');
+  // const [country, setCountry] = useState('');
+  // const [currency, setCurrency] = useState({
+  //   id: "",
+  //   name: ""
+  // });
+  // const [saveCopDetail, setsaveCopDetail] = useState({
+  //   Matched: true,
+  //   ReasonCode: null,
+  //   Name: null,
+  //   ReasonDescription: null,
+  // });
+
+
+    const [accountName, setaccountName] = useState('');
   const [firstName, setfirstName] = useState('');
   const [lastName, setlastName] = useState('');
   const [email, setemail] = useState('');
@@ -38,6 +61,14 @@ export const useAddNewBeneficiaryViewModel = () => {
     id: "",
     name: ""
   });
+  const [saveCopDetail, setsaveCopDetail] = useState({
+    Matched: true,
+    ReasonCode: null,
+    Name: null,
+    ReasonDescription: null,
+  });
+
+  
   const [open, setOpen] = useState(false);
 
   const handlePressType = (key: string) => setChecked(key);
@@ -55,8 +86,17 @@ export const useAddNewBeneficiaryViewModel = () => {
 
   const { mutate: GetCopDetailFunc, isPending: isPending_GetCopDetail } = GetCopDetail({
     callback: (res: any) => {
+      if (res?.success) {
+      setsaveCopDetail({
+        Matched: res?.results?.Matched,
+        ReasonCode: res?.results?.ReasonCode,
+        Name: res?.results?.Name,
+        ReasonDescription: res?.results?.ReasonDescription,
+      })
        confirmCop?.current?.open()
-    },
+    }
+
+  }
   });
 
 
@@ -78,6 +118,11 @@ function openConfirmationModal() {
 
   if (!lastName.trim()) {
     Toast.showToast("Please enter last name", '', 'error');
+    return false;
+  }
+
+  if (!accountName.trim()) {
+    Toast.showToast("Please enter account name", '', 'error');
     return false;
   }
 
@@ -103,10 +148,10 @@ function openConfirmationModal() {
       return false;
     }
 
-    if (!CommonUtils.validateIBAN(accountNo)) {
-      Toast.showToast("Please enter correct account number", '', 'error');
-      return false;
-    }
+    // if (!CommonUtils.validateIBAN(accountNo)) {
+    //   Toast.showToast("Please enter correct account number", '', 'error');
+    //   return false;
+    // }
   }
 
   // 🔹 INTERNATIONAL validation
@@ -132,8 +177,8 @@ function openConfirmationModal() {
   let payload ={
     sort_code: sortCode,
     account_number: accountNo,
-    account_type: save_user_type == LOGIN_USER_TYPES.individual ? "personal" : "business", //personal or business
-    account_name: firstName
+    account_type: save_user_type == LOGIN_USER_TYPES.individual ? "Personal" : "Business", //personal or business
+    account_name: accountName
   }
   
   console.log("payload=>",payload);
@@ -150,7 +195,7 @@ function openConfirmationModal() {
           last_name: lastName,
           email: email,
           is_corporate: save_user_type == LOGIN_USER_TYPES.corporate_maker ? true : false,          
-          account_name: "XYZ INPUT Bank",
+          account_name: accountName,
           currency_id: currency?.id,
           ...(accountNo
             ? { iban: accountNo }
@@ -233,7 +278,10 @@ function openConfirmationModal() {
     confirmCop,
     onPressSave,
     GetCopDetailFunc,
-    isPending_GetCopDetail 
-
+    isPending_GetCopDetail,
+    accountName, 
+    setaccountName,
+    saveCopDetail, 
+    setsaveCopDetail
   };
 };
