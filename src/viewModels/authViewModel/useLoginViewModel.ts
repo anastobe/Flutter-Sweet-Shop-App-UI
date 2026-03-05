@@ -304,6 +304,10 @@ const detectAndSaveUserType = (response: any) => {
     }
   };
 
+  function usePassword() {
+    biometryRef?.current?.close()
+  }
+
 
   const handleBiometricAuth = () => {
     rnBiometrics.simplePrompt({ promptMessage: "Login with Biometrics" })
@@ -347,6 +351,7 @@ const detectAndSaveUserType = (response: any) => {
     biometryRef,
     handleLogin,
     handleBiometricAuth,
+    usePassword,
     isPending,
     Open, 
     setOpen,

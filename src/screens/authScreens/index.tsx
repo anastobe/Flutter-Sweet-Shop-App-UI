@@ -184,7 +184,10 @@ const config = {
         tintColor={THEME.white}
         showmyStyleOnly={true} 
         btnContSty={styles.btnContStyle}
-        onPress={() => vm.biometryRef?.current?.open()}
+        onPress={() =>{
+           vm?.biometryRef?.current?.open()
+           vm?.handleBiometricAuth()
+          }}
       />
       </View>
     )}
@@ -217,7 +220,7 @@ const config = {
          closeDuration={500}
          bottomSheetRef={vm.biometryRef}
          children={<FingerPrintContent refrence={vm.biometryRef} 
-         onPress2={vm.handleBiometricAuth}
+         onPress2={vm.usePassword}
          onPress={()=>{ vm.setOpen({ open: true, text: "Looks like you have not set your Touch ID. Please login and set your Touch ID from Profile." }) }}
             style={{ flex: 1, paddingHorizontal: 20 }}
          title="Login with Biometric and Face ID"  subtitle="" />}
