@@ -95,6 +95,22 @@ export const ResetPasswordLink = ({callback} : {callback: (res: any) => void}) =
   });
 };
 
+export const FirstTimeEnableMFA = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.FirstTimeEnableMFA,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+          callback(response)
+      }
+  },
+    onError: (error: any) => {
+      // console.log('ResetPasswordLink error:', error);
+    }
+  });
+};
+
 export const resetPassword = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
 

@@ -10,6 +10,7 @@ import { saveUserType, storeUserToken, userIsLoggedIn } from "../../Redux/Action
 import apis from "../../services";
 import { getUserDetail } from "../../queries/accountQueries/accountQuery";
 import { storeLoginUserData } from "../../Redux/Action/Home/HomeActions";
+import { Auth_ROUTES } from "../../constants";
 
 export const useLoginViewModel = () => {
 
@@ -269,6 +270,9 @@ const detectAndSaveUserType = (response: any) => {
   });
 
   const handleLogin = () => { 
+    navigation.navigate(Auth_ROUTES.MFA_LOGIN,{ creds: { username: email, password: password, device_token: token, device_type: Platform.OS } })
+  return
+    
 
     // setOpen({ open: true, text: "Your device is not registered, Please register your device" })
 
@@ -288,7 +292,7 @@ const detectAndSaveUserType = (response: any) => {
     else{
       console.log("check==>",{ username: email, password: password, device_token: token, device_type: Platform.OS });
       // Alert.alert("token",token)
-      loginFunc({ username: email, password: password, device_token: token, device_type: Platform.OS });
+      loginFunc({ username: email, password: password, device_token: token, mfa_code: "", device_type: Platform.OS });
     }
   };
 

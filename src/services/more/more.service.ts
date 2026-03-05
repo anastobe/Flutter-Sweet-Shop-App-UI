@@ -91,3 +91,8 @@ export const resetPassword = async (body: any) => {
   const response = await axiosInstance('/reset-password', 'POST', body, true);
   return response;
 };
+
+export const FirstTimeEnableMFA = async (body: any) => {
+  const response = await axiosInstance('/mfa', 'POST', body, true);
+  return response;
+};
