@@ -13,9 +13,10 @@ import Clipboard from '@react-native-clipboard/clipboard';
 
 type mfaSetupProps = {};
 
-export const mfaSetup: React.FC = () => {
+export const mfaSetup: React.FC = (props: any) => {
 
-  const vm = useMfaSetupViewModel();
+  const {results} = props?.route?.params
+  const vm = useMfaSetupViewModel(props);
 
   return (
     <MainContainer 
@@ -29,7 +30,7 @@ export const mfaSetup: React.FC = () => {
 
       <View style={{ alignItems: "center", marginTop: handleSize.f(50) }} >
         <QRCode
-          value={"otpauth://totp/FrontierPay?secret=7S2HFXX7YLICNPYFTGLWERHMMZKDH7J2PM3RXNKZ2VKF27B7EM3Q&issuer=FrontierPay"}
+          value={results?.authUrl}
           size={200}
         />
       </View>
@@ -38,8 +39,8 @@ export const mfaSetup: React.FC = () => {
       <Text style={styles.btnTxtdown2} >{`Enter this code manually in Google Authenticator`}</Text>
 
       <View>
-        <Text style={styles.btnTxtdown3} >{`7S2HFXX7YLICNPYFTGLWERHMMZKDH7J2PM3RXNKZ2VKF27B7EM3Q`}</Text>
-        <TouchableOpacity onPress={()=>vm.copyTxt(`7S2HFXX7YLICNPYFTGLWERHMMZKDH7J2PM3RXNKZ2VKF27B7EM3Q`)} >
+        <Text style={styles.btnTxtdown3} >{results?.secretCode}</Text>
+        <TouchableOpacity onPress={()=>vm.copyTxt(results?.secretCode)} >
           <Text style={styles.btnTxtdowncopy} >{`Click to copy`}</Text>
         </TouchableOpacity>
       </View>
@@ -49,7 +50,7 @@ export const mfaSetup: React.FC = () => {
 
        <CustomButton
          btnContSty={styles.forgetTxt}
-         loading={false}
+         loading={vm.isPending_FirstTimeEnableMFA}
          title="Verify & Enable MFA"
          onPress={vm.onPressEnableMFA}
        />

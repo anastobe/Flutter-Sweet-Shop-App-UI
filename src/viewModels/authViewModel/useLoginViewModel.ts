@@ -225,6 +225,16 @@ const detectAndSaveUserType = (response: any) => {
   const { mutate: loginFunc, isPending } = useLogin({
     callback: (response: any) => {
       console.log("Login response:", response);
+
+      // if (!response?.success && response?.message == "Invalid code received for user"){
+      //   //dom MFA setup
+      //   navigation.navigate(Auth_ROUTES.MFA_SETUP,{ results: response?.results })
+      // }
+      // if (response?.success && response?.message == "MFA Required"){
+      //   //do Authenticate before setup
+      //   navigation.navigate(Auth_ROUTES.MFA_LOGIN, { creds: { username: email, password: password, device_token: token } } )
+      // }
+
       if (response?.success && response?.results?.token) {
           
         dispatch(storeUserToken(response.results))  
@@ -270,8 +280,6 @@ const detectAndSaveUserType = (response: any) => {
   });
 
   const handleLogin = () => { 
-    navigation.navigate(Auth_ROUTES.MFA_LOGIN,{ creds: { username: email, password: password, device_token: token, device_type: Platform.OS } })
-  return
     
 
     // setOpen({ open: true, text: "Your device is not registered, Please register your device" })

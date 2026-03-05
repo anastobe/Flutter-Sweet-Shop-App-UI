@@ -128,7 +128,7 @@ const detectAndSaveUserType = (response: any) => {
       let payload = { 
         username: creds.email, 
         password: creds.password, 
-        device_token: creds.token, 
+        device_token: creds.device_token, 
         mfa_code: otp, 
         device_type: Platform.OS 
       }

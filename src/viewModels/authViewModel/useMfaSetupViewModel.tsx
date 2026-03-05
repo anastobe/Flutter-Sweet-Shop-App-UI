@@ -12,11 +12,13 @@ import { StatusBar } from "react-native";
 import { THEME } from "../../styles";
 import Clipboard from "@react-native-clipboard/clipboard";
 
-export const useMfaSetupViewModel = () => {
+export const useMfaSetupViewModel = (props) => {
 
   const navigation = useNavigation();
   const [otp, setOtp] = useState("");
 
+  console.log("results==>",props);
+  
   const { mutate: FirstTimeEnableMFAFunc, isPending: isPending_FirstTimeEnableMFA } = FirstTimeEnableMFA({
     callback: (res: any) => {
       if (res?.success) {
@@ -50,7 +52,8 @@ export const useMfaSetupViewModel = () => {
     otp, 
     setOtp,
     onPressEnableMFA,
-    copyTxt
+    copyTxt,
+    isPending_FirstTimeEnableMFA
 
 
 
