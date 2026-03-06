@@ -16,11 +16,12 @@ export const useMfaSetupViewModel = (props) => {
 
   const navigation = useNavigation();
   const [otp, setOtp] = useState("");
-
-  console.log("results==>",props);
   
   const { mutate: FirstTimeEnableMFAFunc, isPending: isPending_FirstTimeEnableMFA } = FirstTimeEnableMFA({
     callback: (res: any) => {
+
+        console.log("FirstTimeEnableMFAFunc==>",res);
+
       if (res?.success) {
         navigation.reset({
             index: 0,
@@ -38,6 +39,8 @@ export const useMfaSetupViewModel = (props) => {
       let payload = {
         mfa_code: otp
       }       
+      console.log("mfagoing payload==>",payload);
+      
       FirstTimeEnableMFAFunc(payload) 
     }
     
@@ -53,6 +56,7 @@ export const useMfaSetupViewModel = (props) => {
     setOtp,
     onPressEnableMFA,
     copyTxt,
+    navigation,
     isPending_FirstTimeEnableMFA
 
 

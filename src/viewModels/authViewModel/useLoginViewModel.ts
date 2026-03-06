@@ -14,7 +14,7 @@ import { Auth_ROUTES } from "../../constants";
 
 export const useLoginViewModel = () => {
 
-  const [email, setEmail] = useState("auth-test-4");
+  const [email, setEmail] = useState("auth-test-7");
   const [password, setPassword] = useState("Saadops@12");
 
   //coperate -maker
@@ -226,36 +226,49 @@ const detectAndSaveUserType = (response: any) => {
     callback: (response: any) => {
       console.log("Login response:", response);
 
-      // if (!response?.success && response?.message == "Invalid code received for user"){
-      //   //dom MFA setup
-      //   navigation.navigate(Auth_ROUTES.MFA_SETUP,{ results: response?.results })
-      // }
-      // if (response?.success && response?.message == "MFA Required"){
-      //   //do Authenticate before setup
-      //   navigation.navigate(Auth_ROUTES.MFA_LOGIN, { creds: { username: email, password: password, device_token: token } } )
-      // }
-
-      if (response?.success && response?.results?.token) {
-          
+      if (response?.success && response?.message == "MFA Required" && response?.results?.token){
+        //do Authenticate before setup
+        navigation.navigate(Auth_ROUTES.MFA_SETUP,{ results: response?.results })
         dispatch(storeUserToken(response.results))  
-        // saveUserRoleType()
-        
-        getUserDetailFunc()
-        dispatch(userIsLoggedIn(true))  
-        
-        if (response.results) {
-          saveToKeyChain(response.results)
-        }
 
       }
+      
+
+      // if (response?.success && response?.results?.token) {
+          
+      //   dispatch(storeUserToken(response.results))  
+      //   // saveUserRoleType()
+        
+      //   getUserDetailFunc()
+      //   dispatch(userIsLoggedIn(true))  
+        
+      //   if (response.results) {
+      //     saveToKeyChain(response.results)
+      //   }
+
+      // }
+
+      console.log("callback response:", response);
 
     },
-    onErrorCallback: (res: any) => {
-      setOpen({
-            open: true,
-            text: res?.message || "Something went wrong"
-      }) 
-      console.log("onErrorCallback response:", res);
+    onErrorCallback: (errorResponse) => {
+
+    // const errorResponse =
+    //   error.bodyString && typeof error.bodyString === 'string'
+    //     ? JSON.parse(error.bodyString)
+    //     : error.bodyString;
+      
+      if (!errorResponse?.success && errorResponse?.message ==  "Invalid code received for user" && errorResponse?.code == 400){
+        //dom MFA setup
+        navigation.navigate(Auth_ROUTES.MFA_LOGIN, { creds: { username: email, password: password, device_token: token } } )
+        return
+      }
+
+      // setOpen({
+      //       open: true,
+      //       text: response?.message || "Something went wrong"
+      // }) 
+      console.log("onErrorCallback response:", errorResponse);
     }
   });
 
@@ -300,7 +313,7 @@ const detectAndSaveUserType = (response: any) => {
     else{
       console.log("check==>",{ username: email, password: password, device_token: token, device_type: Platform.OS });
       // Alert.alert("token",token)
-      loginFunc({ username: email, password: password, device_token: token, mfa_code: "", device_type: Platform.OS });
+      loginFunc({ username: email, password: password, device_token: token, mfa_code: "000000", device_type: Platform.OS });
     }
   };
 

@@ -20,6 +20,7 @@ export const mfaLogin: React.FC = (props) => {
   return (
     <MainContainer 
     showBackArrow={true}
+    pressBackArrow={()=>{ vm.navigation.goBack() }}
     refreshing={false} isFlatList={true} barStyle="dark-content" customeStyle={{ paddingHorizontal: 30 }} mainContainerStyle={styles.container}
     >
       <StatusBarManager
@@ -30,7 +31,7 @@ export const mfaLogin: React.FC = (props) => {
 
       <Text style={styles.btnTxtdown2} >{`Enter code manually receive from authenticator app`}</Text>
 
-      <OTPInput length={5} onChange={(val: string) => vm.setOtp(val)} />
+      <OTPInput length={6} onChange={(val: string) => vm.setOtp(val)} />
 
        <CustomButton
          btnContSty={styles.forgetTxt}

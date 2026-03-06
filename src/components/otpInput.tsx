@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     marginTop: handleSize.h(0),
   },
   box: {
-    width: Metrics.width /6 -  handleSize.f(10), // adjusted width for better scaling
-    height: handleSize.f(55),
+    width: Metrics.width /6 -  handleSize.f(17), // adjusted width for better scaling
+    height: handleSize.f(50),
     borderRadius: handleSize.f(8),
     backgroundColor: "rgba(255,255,255,0.1)",
     borderWidth: 0.8,

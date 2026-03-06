@@ -126,12 +126,15 @@ const detectAndSaveUserType = (response: any) => {
     }
     else {
       let payload = { 
-        username: creds.email, 
+        username: creds.username, 
         password: creds.password, 
         device_token: creds.device_token, 
         mfa_code: otp, 
         device_type: Platform.OS 
       }
+
+      console.log("going payload==>",payload);
+      
       loginFunc(payload);
     }
     
@@ -148,7 +151,8 @@ const detectAndSaveUserType = (response: any) => {
     onPressLoginApi,
     copyTxt,
     isPendinggetUserDetail,
-    isPending
+    isPending,
+    navigation
 
 
 

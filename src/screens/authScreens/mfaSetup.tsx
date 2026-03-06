@@ -21,6 +21,7 @@ export const mfaSetup: React.FC = (props: any) => {
   return (
     <MainContainer 
     showBackArrow={true}
+    pressBackArrow={()=>{ vm.navigation.goBack() }}
     refreshing={false} isFlatList={true} barStyle="dark-content" customeStyle={{ paddingHorizontal: 30 }} mainContainerStyle={styles.container}
     >
       <StatusBarManager
@@ -46,7 +47,7 @@ export const mfaSetup: React.FC = (props: any) => {
       </View>
 
 
-      <OTPInput length={5} onChange={(val: string) => vm.setOtp(val)} />
+      <OTPInput length={6} onChange={(val: string) => vm.setOtp(val)} />
 
        <CustomButton
          btnContSty={styles.forgetTxt}
