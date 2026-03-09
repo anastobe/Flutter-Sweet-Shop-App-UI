@@ -1,10 +1,10 @@
 // ConfirmCardRequest.js
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { MainContainer, Modal } from '../../../components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { FONT_SIZES, FONTFAMILY, THEME } from '../../../styles';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import InputField from '../../../components/textInput';
 import CustomButton from '../../../components/customButton';
 import BluryModal from '../../../components/Modal/bluryModal';
@@ -13,6 +13,9 @@ import { createCard } from '../../../queries/auth.query';
 import { CommonUtils } from '../../../utils';
 import { HOME_ROUTES } from '../../../constants';
 import { handleSize } from '../../../config/responsiveTheme';
+import { getCardFees, getCardsUsageRules } from '../../../queries/card.Queries/card.query';
+import { useDispatch } from 'react-redux';
+import apis from '../../../services';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -30,7 +33,9 @@ function InfoRow({ icon, label, value }) {
 }
 
 function ConfirmCardRequest(props: any) {
+  const dispatch = useDispatch()
   const navigation = useNavigation();
+  const FOCUS = useIsFocused();
   const cardDetailRef = useRef(null);
   const [tick, setTick] = useState(false);
   const [open, setOpen] = useState(false);
@@ -39,6 +44,10 @@ function ConfirmCardRequest(props: any) {
   const linkedAccount = props?.route?.params?.linkedAccount;
   const currency = props?.route?.params?.currency;
   
+  useEffect(()=>{
+    refetchgetCardFees()
+  },[FOCUS])
+
   const { mutate: createCardFunc, isPending } = createCard({
     callback: function (response) {
       if (response.success) {
@@ -46,6 +55,17 @@ function ConfirmCardRequest(props: any) {
       }
     },
   });
+
+  const {
+    data: getCardFeesData,
+    refetch: refetchgetCardFees,
+    isFetching: isPendinggetCardFees,
+  } = getCardFees({
+    enabled: false,
+    dispatch
+  });
+  
+  console.log(isPendinggetCardFees,"getCardFeesData==>",getCardFeesData);
 
   function pressBackArrow() {
     navigation.goBack();
@@ -59,7 +79,7 @@ function ConfirmCardRequest(props: any) {
         {payload?.format?.toLowerCase() === "physical" && <>
           <InfoRow icon="home-outline" label="Delivery Address" value={address} />
           <InfoRow icon="time-outline" label="Estimated Delivery" value="DUMMY" />
-          <InfoRow icon="pricetag-outline" label="Card Issuance Fee" value="DUMMY" />
+          <InfoRow icon="pricetag-outline" label="Card Issuance Fee" value={isPendinggetCardFees ? "..." :getCardFeesData?.[0]?.card_issuing_fee} />
           <InfoRow icon="flash-outline" label="Delivery Fee" value="DUMMY" />
         </>}
       </View>
@@ -200,7 +220,7 @@ function ConfirmCardRequest(props: any) {
         {renderTotalAmount()}
         {chooseFundingAcc()}
         {renderConfirmation()}
-        {renderButton()}
+        {isPendinggetCardFees ? null : renderButton()}
         {renderModal()}
       </View>
     </MainContainer>

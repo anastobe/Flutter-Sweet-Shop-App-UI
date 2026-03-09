@@ -47,6 +47,7 @@ import {
     setPinSecurity,
     updateUsageRules,
     getCardsUsageRules,
+    getCardFees,
     getPublicKey,
     getSucureCard,
     getSucureCardEncrypted
@@ -131,6 +132,7 @@ const apis = {
   fetchLinkedAccCards,
   updateUsageRules,
   getCardsUsageRules,
+  getCardFees,
   getPublicKey,
   getSucureCard,
   getSucureCardEncrypted,

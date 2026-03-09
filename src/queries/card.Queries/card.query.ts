@@ -267,8 +267,26 @@ export const getCardsUsageRules  = (    {
 ) =>
   useQuery({ 
     queryKey: [QueryKey.GET_CARDS_RULES,card_id],
-    initialData: [],
+    initialData: null,
     queryFn: ()=> apis.getCardsUsageRules(card_id),
+    enabled: enabled,
+
+    staleTime: 0, // Data will never be considered stale
+    retry: false // Disable retry on failure
+  });
+
+export const getCardFees  = (    {
+  enabled,
+  dispatch
+}: {
+  enabled?: boolean;
+  dispatch?: any;
+}
+) =>
+  useQuery({ 
+    queryKey: [QueryKey.GET_CARD_FEE],
+    initialData: null,
+    queryFn: ()=> apis.getCardFees(),
     enabled: enabled,
 
     staleTime: 0, // Data will never be considered stale

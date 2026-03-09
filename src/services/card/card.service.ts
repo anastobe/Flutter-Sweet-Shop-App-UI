@@ -1,4 +1,4 @@
-import { CardPublicKeyResponse, CardUsageResponse } from "../../models/card/CardUsageResponse.model";
+import { CardIssuingFeeResponse, CardPublicKeyResponse, CardUsageResponse } from "../../models/card/CardUsageResponse.model";
 import axiosInstance from "../https.service";
 
 // Replace card
@@ -68,6 +68,14 @@ export const getSucureCardEncrypted = async (payload: any) => {
 
 export const getCardsUsageRules = async (ID: string): Promise<CardUsageResponse> => {
   return await axiosInstance(`/card/usage-rules/${ID}`, 'GET', undefined , false);
+};
+
+export const getCardFees = async () => {
+  console.log("card fee function");
+  const response = await axiosInstance(`/card/core/fee`, 'GET', {} , false);
+  if (response?.success) {
+    return response?.results;
+  }
 };
 
 export const getPublicKey = async (): Promise<CardPublicKeyResponse> => {

@@ -31,3 +31,25 @@ export interface CardPublicKeyResponse {
   results: CardPublicKey;
   meta: Record<string, any>;
 }
+
+
+export interface CardPublicKeyResponse {
+  success: boolean;
+  message: string;
+  results: CardPublicKey;
+  meta: Record<string, any>;
+}
+
+export interface CardProgram {
+  id: string;
+  name: string;
+  card_issuing_fee: number;
+  __typename: string;
+}
+
+export interface CardIssuingFeeResponse {
+  success: boolean;
+  message: string;
+  results: CardProgram[];
+  meta: Record<string, any>;
+}
