@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { THEME, FONTFAMILY, FONT_SIZES } from '../../styles';
 import { Images } from '../../config';
 import { handleSize } from '../../config/responsiveTheme';
+import { CommonUtils } from '../../utils';
 
 const CardDetail = ({
   showvalidThru,
@@ -70,7 +71,7 @@ const CardDetail = ({
           <View>
             <View style={{ borderBottomWidth: handleSize.h(0.5), borderColor: THEME.lightGrey }} />
             {cardDetailBox(true, onPress1, "Card Number:", getSucureCardData?.nunber, "copy-outline", THEME.primary, true)}
-            {cardDetailBox(showvalidThru,  onPress2, "Valid Thru", getSucureCardData?.valid,showvalidThru ? "eye-outline" : "eye-off-outline", THEME.primary, true)}
+            {cardDetailBox(showvalidThru,  onPress2, "Valid Thru", CommonUtils.formatExpiry(getSucureCardData?.valid),showvalidThru ? "eye-outline" : "eye-off-outline", THEME.primary, true)}
             {cardDetailBox(showccvv, onPress3, "CVV:", getSucureCardData?.cvv, showccvv ? "eye-outline" : "eye-off-outline", THEME.primary, false)}
           </View>}
       </ScrollView>

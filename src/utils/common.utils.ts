@@ -285,6 +285,13 @@ function updateThumbnailUrls(array) {
   return [...videos, ...unmatchedImages];
 }
 
+const formatExpiry = (expiry: string) => {
+  const month = expiry.slice(0, 2);
+  const year = expiry.slice(2, 4);
+
+  return `${month} / ${year}`;
+};
+
 
 const getInitials = (text: String) => {
   if (!text?.trim()) return "";
@@ -408,7 +415,8 @@ export default {
   downloadFile,
   saveToKeychain,
   getFromKeychain,
-  checkDeviceBiometric
+  checkDeviceBiometric,
+  formatExpiry
 
 };
 
