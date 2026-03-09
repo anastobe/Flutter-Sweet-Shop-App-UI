@@ -69,8 +69,8 @@ const CardDetail = ({
         :
           <View>
             <View style={{ borderBottomWidth: handleSize.h(0.5), borderColor: THEME.lightGrey }} />
-            {cardDetailBox(true, onPress1, "Card Number:", getSucureCardData?.pan, "copy-outline", THEME.primary, true)}
-            {cardDetailBox(showvalidThru,  onPress2, "Valid Thru", getSucureCardData?.expiry_date,showvalidThru ? "eye-outline" : "eye-off-outline", THEME.primary, true)}
+            {cardDetailBox(true, onPress1, "Card Number:", getSucureCardData?.nunber, "copy-outline", THEME.primary, true)}
+            {cardDetailBox(showvalidThru,  onPress2, "Valid Thru", getSucureCardData?.valid,showvalidThru ? "eye-outline" : "eye-off-outline", THEME.primary, true)}
             {cardDetailBox(showccvv, onPress3, "CVV:", getSucureCardData?.cvv, showccvv ? "eye-outline" : "eye-off-outline", THEME.primary, false)}
           </View>}
       </ScrollView>

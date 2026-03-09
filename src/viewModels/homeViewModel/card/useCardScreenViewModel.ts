@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Alert, FlatList } from 'react-native';
+import forge from "node-forge";
 import {
   createCard,
   freezUnFreezCard,
@@ -17,24 +18,13 @@ import {
 } from '../../../queries/card.Queries/card.query';
 import { Images } from '../../../config';
 import { HOME_ROUTES } from '../../../constants';
-import { StatusBar } from 'react-native';
-import { THEME } from '../../../styles';
 import { Toast } from '../../../utils';
 import { ACCOUNT_HISTRY_VALIDATION, CARD_STATUS } from '../../../utils/data';
 import Clipboard from '@react-native-clipboard/clipboard';
-import { decode as atob } from "base-64";
-import { Buffer } from "buffer";
-import RNSimpleCrypto from "react-native-simple-crypto";
-import { AES, utils } from "react-native-simple-crypto";
 import { storeSelectedAccountWholeApp } from '../../../Redux/Action/Home/HomeActions';
-// import { getRandomValues } from 'crypto';
 import 'react-native-get-random-values';
-import CryptoJS from 'react-native-crypto-js';
-import RSA from 'react-native-rsa-native';
 import apis from '../../../services';
 export const useCardScreenViewModel = () => {
-
-  const { AES, utils } = RNSimpleCrypto;
 
   const dispatch = useDispatch();
   const navigation = useNavigation()
@@ -48,6 +38,7 @@ export const useCardScreenViewModel = () => {
   const selectedAccount_WholeApp = useSelector((state: any) => state?.HomeReducer?.selectedAccount_WholeApp)
 
   // UI toggles
+  const [secureCardLoading, setSecureCardLoading] = useState(false);
   const [getCardsData, setgetCardsData] = useState([]);
   const [atmSwitch, setAtmSwitch] = useState(true);
   const [onlineSwitch, setOnlineSwitch] = useState(false);
@@ -61,9 +52,11 @@ export const useCardScreenViewModel = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [activeModal, setActiveModal] = useState<keyof typeof MODAL_CONFIG | null>(null);
   const [transactions, setTransactions] = useState<any[]>([]);
-  // const [modalVisible, setModalVisible] = useState(false);
-  // const [modalVisibleUnfreez, setmodalVisibleUnfreez] = useState(false);
-  // const [modalVisibleActive, setmodalVisibleActive] = useState(false);
+  const [cardDetail, setcardDetail] = useState({
+    nunber: "",
+    valid: "",
+    cvv: ""
+  });
 
 
   // refs for bottom sheets (exposed so View can attach)
@@ -143,17 +136,6 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
     card_id: currentItem?.card_id,
   });
 
-  // const {
-  //   data: getPublicKeyData,
-  //   refetch: refetchgetPublicKey,
-  //   isFetching: isPendinggetPublicKey,
-  // } = getPublicKey({
-  //   enabled: false,
-  //   dispatch
-  // });
-  
-  // console.log("getPublicKeyData===>",getPublicKeyData?.results?.key);
-  
   const {
     data: getSucureCardData,
     refetch: refetchgetSucureCard,
@@ -224,25 +206,6 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
     selectedAccount_WholeApp?.id
   ]);
 
-//   const saveDatainState = (data: any[] = []) => {
-
-//     const accounts = data ? data : [];
-
-//     if (!accounts.length) return;
-//     dispatch(storeSelectedAccountWholeApp(accounts?.[0]))
-
-//     // setcurrentAccount((prev: any) =>
-//     //   prev?.id === accounts[0]?.id ? prev : accounts[0]
-//     // );
-//   };
-
-// //this below useeffect save first asset and all accounts and assets
-//   useEffect(() => {
-//     if (allAccounts?.length) {
-//       saveDatainState(allAccounts)
-//     }
-//   }, [allAccounts]);
-
   useEffect(() => {
     if (!currentItem?.card_id) return;
     
@@ -250,8 +213,6 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
       fetchTransactions(currentItem?.card_id)
     }
   }, [currentItem?.card_id]);
-
-  
 
   const MODAL_CONFIG = {
   freeze: {
@@ -344,75 +305,44 @@ const { mutate: CardpaymentHistryFunc, isPending: isPendingpaymentCardHistry } =
   }
 
 
-// const generateRandomCipher = () => {
-//   const array = new Uint8Array(24) // 24 bytes for AES-192
-//   getRandomValues(array)
-//   return Buffer.from(array).toString('base64').slice(0, 24)
-// }
 
-// const generateEncryptedCipher = async (publicKey: string) => {
-
-//   const rawCipherKey = generateRandomCipher()
-
-//   const encryptedCipher = await RSA.encrypt(
-//     rawCipherKey,
-//     publicKey
-//   )
-
-//   console.log("check===>",rawCipherKey,"ss",encryptedCipher)
-
-//   return {
-//     rawCipherKey,        // ye tum local store karo (decrypt ke liye)
-//     encryptedCipher      // ye backend ko bhejna hai
-//   }
-// }
-
-
-const generateRawCipherKey = () => { 
-  const random = CryptoJS.lib.WordArray.random(18);
-  return CryptoJS.enc.Base64.stringify(random).slice(0, 24);
+const generateRawCipherKey = () => {
+  const bytes = forge.random.getBytesSync(18);
+  return forge.util.encode64(bytes).slice(0, 24);
 };
 
 const normalizeBase64 = (s: string) =>
   s.replace(/\s+/g, "").replace(/\\n/g, "").trim();
 
-const base64ToArrayBuffer = (base64: string) => {
-  const binary = atob(base64.replace(/\s+/g, ''));
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i);
-  }
-  return bytes.buffer;
-};
 
-const decryptField = async (base64Value: string, rawCipherKey: string) => {
+const decryptField = (base64Value: string, cipherKey: string) => {
   try {
-    if (!base64Value || !rawCipherKey) return null;
 
-    // Convert base64 -> ArrayBuffer
-    const rawBytes = new Uint8Array(base64ToArrayBuffer(base64Value));
+    const raw = forge.util.decode64(normalizeBase64(base64Value));
 
-    if (rawBytes.length <= 16) {
-      console.log('❌ Invalid encrypted payload (too short)');
+    const iv = raw.slice(0, 16);
+    const ciphertext = raw.slice(16);
+
+    const decipher = forge.cipher.createDecipher("AES-CFB", cipherKey);
+
+    decipher.start({
+      iv: iv,
+      segmentSize: 128
+    });
+
+    decipher.update(forge.util.createBuffer(ciphertext));
+
+    const success = decipher.finish();
+
+    if (!success) {
+      console.log("Decrypt failed");
       return null;
     }
 
-    // Extract IV (first 16 bytes) and ciphertext
-    const iv = rawBytes.slice(0, 16).buffer;
-    const ciphertext = rawBytes.slice(16).buffer;
+    return decipher.output.toString();
 
-    // Convert key to ArrayBuffer
-    const keyBuffer = utils.convertUtf8ToArrayBuffer(rawCipherKey);
-
-    if (![16, 24, 32].includes(keyBuffer.byteLength)) {
-      throw new Error(`AES key must be 16, 24, or 32 bytes (current: ${keyBuffer.byteLength})`);
-    }
-
-    // Decrypt
-    const decryptedBuffer = await AES.decrypt(ciphertext, keyBuffer, iv);
-    return utils.convertArrayBufferToUtf8(decryptedBuffer);
-  } catch (e: any) {
-    console.log('Decrypt error:', e.message || e);
+  } catch (e) {
+    console.log("Decrypt error:", e);
     return null;
   }
 };
@@ -425,63 +355,71 @@ async function getSucureCardDetail(encryptedCipher: string, rawCipherKey: string
 
   const SECURE_RESULT = await apis.getSucureCardEncrypted(payload);
 
-  // const decryptedCVV = await decryptField(SECURE_RESULT?.cvv, rawCipherKey);
-  // const decryptedPan = await decryptField(SECURE_RESULT?.pan, rawCipherKey);
-  // const decryptedExpiry = await decryptField(SECURE_RESULT?.expiry_date, rawCipherKey);
-
   const decryptedCVV = await decryptField(normalizeBase64(SECURE_RESULT?.cvv), rawCipherKey);
   const decryptedPan = await decryptField(normalizeBase64(SECURE_RESULT?.pan), rawCipherKey);
   const decryptedExpiry = await decryptField(normalizeBase64(SECURE_RESULT?.expiry_date), rawCipherKey);
 
-
-  console.log(SECURE_RESULT,"CVV =>", decryptedCVV);
-  console.log("PAN =>", decryptedPan);
-  console.log("EXP =>", decryptedExpiry);
+  console.log(SECURE_RESULT);
+  setcardDetail({
+   nunber: decryptedPan,
+   valid: decryptedExpiry,
+   cvv: decryptedCVV
+  })
 }
 
 const encryptCipherWithPublicKey = async (publicKey: string, card_id: string) => {
-  const pemKey = `-----BEGIN PUBLIC KEY-----\n${publicKey.match(/.{1,64}/g)?.join('\n')}\n-----END PUBLIC KEY-----`;
+
+  const pemKey =
+`-----BEGIN PUBLIC KEY-----
+${publicKey.match(/.{1,64}/g)?.join("\n")}
+-----END PUBLIC KEY-----`;
 
   const rawCipherKey = generateRawCipherKey();
 
-  const encryptedCipher = await RNSimpleCrypto.AES.encrypt(rawCipherKey, pemKey, "aes-192-cfb");
+  const pubKey = forge.pki.publicKeyFromPem(pemKey);
 
-  console.log("encryptedCipher=>",encryptedCipher);
+  const encryptedBytes = pubKey.encrypt(
+    rawCipherKey,
+    "RSAES-PKCS1-V1_5"
+  );
 
-
-  // const encryptedCipher = await RSA.encrypt(rawCipherKey, pemKey);
+  const encryptedCipher = forge.util.encode64(encryptedBytes);
 
   await getSucureCardDetail(encryptedCipher, rawCipherKey, card_id);
-  
+
+
   return { rawCipherKey, encryptedCipher };
 };
 
-
   async function onPressCard(item: any) {
-    
 
-    // let tt  = decryptField("0egtAmN69MQFMh89WExETESosg==", "MW3MinWGg39qY/AhS8ccMHdo")
-    // console.log("tt=>",item);
+  try {
+
+    setSecureCardLoading(true);
 
     setsaveCureentDisplayData(item);
-    
-    let PublicKey = await apis.getPublicKey()
+
+    let PublicKey = await apis.getPublicKey();
 
     if (PublicKey?.results?.key) {
-      encryptCipherWithPublicKey(PublicKey?.results?.key,item?.card_id)      
+      await encryptCipherWithPublicKey(
+        PublicKey?.results?.key,
+        item?.card_id
+      );
     }
-    
 
-// const decryptedCardNumber = decryptField(
-//   "dGs7Ygq4lDQY/XJj6yDLbESGjg==",
-//   "mRc6m/bkD2Z1gpmiZ/qwrM8V"
-// );
-
-// console.log("Decrypted Card:", decryptedCardNumber);
-
-    // refetchgetSucureCard()
     cardDetailRef?.current?.open();
+
+  } catch (e) {
+
+    console.log("Secure card error", e);
+
+  } finally {
+
+    setSecureCardLoading(false);
+
   }
+}
 
   function onPressfeature(item: any, navigation: any) {
     if (!currentItem) return;
@@ -601,7 +539,7 @@ const encryptCipherWithPublicKey = async (publicKey: string, card_id: string) =>
   async function HandleOnPressCardDetail(id: any, data: any) {
 
     if (id == '1') {
-      let makeString = `Card Number: ${data?.pan}`
+      let makeString = `Card Number: ${data?.nunber}`
         Clipboard.setString(makeString);
         Alert.alert('Copied', 'Card number copied to clipboard');
     }
@@ -772,7 +710,10 @@ function selectAccount(account: any) {
     setshowvalidThru,
     showccvv, 
     setshowccvv,
-    loginUserData
+    loginUserData,
+    cardDetail,
+    secureCardLoading
+
 
     // refetchgetCardsData,
   };

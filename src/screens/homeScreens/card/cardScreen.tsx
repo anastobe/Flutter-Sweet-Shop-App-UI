@@ -77,9 +77,9 @@ const CardScreen = () => {
         showvalidThru={vm.showvalidThru}
         showccvv={vm.showccvv}
         isPendinggetSucureCard={vm.isPendinggetSucureCard}
-        getSucureCardData={vm.getSucureCardData}
+        getSucureCardData={vm.cardDetail}
         saveCureentDisplayData={vm.saveCureentDisplayData}
-        onPress1={() => vm.HandleOnPressCardDetail('1',vm?.getSucureCardData)}
+        onPress1={() => vm.HandleOnPressCardDetail('1',vm?.cardDetail)}
         onPress2={() => vm.HandleOnPressCardDetail('2',vm?.getSucureCardData)}
         onPress3={() => vm.HandleOnPressCardDetail('3',vm?.getSucureCardData)}
         style={{ paddingHorizontal: 20 }}
@@ -421,7 +421,7 @@ function renderBottomSheets() {
           </ImageBackground>
         </BottomSheet>
 
-        {vm.isPending && <LoaderCompleteScreenOnly />}
+        {(vm.isPending || vm?.secureCardLoading) && <LoaderCompleteScreenOnly />}
 
       </ImageBackground>
   );
