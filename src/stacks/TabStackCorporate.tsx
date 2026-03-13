@@ -56,6 +56,7 @@ import RequestPendingTransaction from '../screens/homeScreens/home/requestPendin
 import RequestPendingBeneficiary from '../screens/homeScreens/home/requestPendingBeneficiary';
 import RequestPendingTransactionBank from '../screens/homeScreens/home/requestPendingTransactionBank';
 import AdminBankPaymentStatus from '../screens/homeScreens/more/adminModule/adminBankPaymentStatus';
+import RequestPendingcardLimitChange from '../screens/homeScreens/home/requestPendingcardLimitChange';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -125,6 +126,11 @@ const HomeStack = () => {
         component={AdminConfirmCardRequest}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name={HOME_ROUTES.REQUEST_PENDING_CARD_LIMIT_CHANGE}
+        component={RequestPendingcardLimitChange}
+        options={{ headerShown: false }}
+      />  
       <Stack.Screen
         name={HOME_ROUTES.ADMIN_PAYMENT_STATUS}
         component={AdminPaymentStatus}
@@ -248,6 +254,11 @@ const MoreStack = () => {
       <Stack.Screen
         name={HOME_ROUTES.ADMIN_CARD_STATUS}
         component={AdminConfirmCardRequest}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={HOME_ROUTES.REQUEST_PENDING_CARD_LIMIT_CHANGE}
+        component={RequestPendingcardLimitChange}
         options={{ headerShown: false }}
       />
       <Stack.Screen

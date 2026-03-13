@@ -14,16 +14,16 @@ import { Auth_ROUTES } from "../../constants";
 
 export const useLoginViewModel = () => {
 
-  const [email, setEmail] = useState("auth-test-4");
-  const [password, setPassword] = useState("Saadops@12");
+  // const [email, setEmail] = useState("auth-test-4");
+  // const [password, setPassword] = useState("Saadops@12");
 
   //coperate -maker
   // const [email, setEmail] = useState("new-user");
   // const [password, setPassword] = useState("Uhf@1234");
 
   //coperate - checker
-  // const [email, setEmail] = useState("mohtashim");
-  // const [password, setPassword] = useState("Uhf@1234");
+  const [email, setEmail] = useState("mohtashim");
+  const [password, setPassword] = useState("Uhf@1234");
 
 
   //user,individual
@@ -226,27 +226,27 @@ const detectAndSaveUserType = (response: any) => {
     callback: (response: any) => {
       console.log("Login response:", response);
 
-      if (response?.success && response?.message == "MFA Required" && response?.results?.token){
-        //do Authenticate before setup
-        navigation.navigate(Auth_ROUTES.MFA_SETUP,{ results: response?.results })
-        dispatch(storeUserToken(response.results))  
-
-      }
-      
-
-      // if (response?.success && response?.results?.token) {
-          
+      // if (response?.success && response?.message == "MFA Required" && response?.results?.token){
+      //   //do Authenticate before setup
+      //   navigation.navigate(Auth_ROUTES.MFA_SETUP,{ results: response?.results })
       //   dispatch(storeUserToken(response.results))  
-      //   // saveUserRoleType()
-        
-      //   getUserDetailFunc()
-      //   dispatch(userIsLoggedIn(true))  
-        
-      //   if (response.results) {
-      //     saveToKeyChain(response.results)
-      //   }
 
       // }
+      
+
+      if (response?.success && response?.results?.token) {
+          
+        dispatch(storeUserToken(response.results))  
+        // saveUserRoleType()
+        
+        getUserDetailFunc()
+        dispatch(userIsLoggedIn(true))  
+        
+        if (response.results) {
+          saveToKeyChain(response.results)
+        }
+
+      }
 
       console.log("callback response:", response);
 

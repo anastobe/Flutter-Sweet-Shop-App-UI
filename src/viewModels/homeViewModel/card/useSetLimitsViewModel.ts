@@ -8,11 +8,14 @@ import { THEME } from '../../../styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { card_Screen_Refresh } from '../../../Redux/Action/Home/HomeActions';
 import { HOME_ROUTES } from '../../../constants';
+import { LOGIN_USER_TYPES } from '../../../utils/data';
 
 export default function useSetLimitsViewModel({...props}) {
 
   const navigation = useNavigation()
   const dispatch = useDispatch()
+  const save_user_type = useSelector((state: any) => state?.AuthReducer?.save_user_type);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [limitType, setLimitType] = useState('Weekly');
@@ -76,7 +79,8 @@ export default function useSetLimitsViewModel({...props}) {
       let payload = {
       card_id: selectedCards.card_id,
       spending_type: limitType?.toLowerCase(), // monthly | weekly | daily
-      spending_limit: spendingLimit
+      spending_limit: spendingLimit,
+      is_corporate: save_user_type == LOGIN_USER_TYPES.corporate_maker ? true : false,  
       }
       console.log("payload===>",payload);
       // return

@@ -64,6 +64,7 @@ const enableBiometric = async () => {
 };
 
   const SendoptionCorporate = [ 
+    { icon: Images.cardTab, onPress: HOME_ROUTES.REQUEST_PENDING_CARD_LIMIT_CHANGE, text: "Pending\ncard limit\nrequest", width: 20, height: 20 },
     { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST_PENDING_TRANSACTION_BANK, text: "Pending\nbank transfer\ntransaction", width: 20, height: 20 },
     { icon: Images.paymentTab, onPress: HOME_ROUTES.REQUEST_PENDING_TRANSACTION, text: "Pending\ntransaction\nInternational", width: 20, height: 20 },
     { icon: Images.accountTab, onPress: HOME_ROUTES.REQUEST_PENDING_BENEFICIARY, text: "Pending\nbeneficiary\nrequest", width: 20, height: 20 },
