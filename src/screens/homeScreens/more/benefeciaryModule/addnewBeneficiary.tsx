@@ -335,10 +335,18 @@ const AddNewBeneficiary = () => {
       </ScrollView>
             
         <BottomSheet
-          height={350} // minimum height
-          maxHeightPercent={0.68} // optional, override for screen
+          height={420} // minimum height
+          maxHeightPercent={0.75} // optional, override for screen
           draggable={false}
           bottomSheetRef={vm.confirmCop}
+          onClose={()=>{
+            vm?.setsaveCopDetail({
+              Matched: false,
+              ReasonCode: null,
+              Name: null,
+              ReasonDescription: null,
+            })       
+          }}
         >
           <ImageBackground
             resizeMode="cover"
@@ -351,11 +359,12 @@ const AddNewBeneficiary = () => {
             >
               <BeneficiaryCopDetail
                 sheetTitle={"Beneficiary Details"}
-                sheetStaus={JSON.stringify(vm?.saveCopDetail?.Matched)}
-                circleNamext={vm?.saveCopDetail?.Name}
-                accountNum={vm?.accountNo} 
-                currency={vm?.currency?.name}
+                saveCopDetail={vm?.saveCopDetail}
+                enteredaccountName={vm?.accountName}
+                enteredaccountNum={vm?.accountNo} 
+                enteredcurrency={vm?.currency?.name}
                 onPressSave={vm.onPressSave}
+                onPressEdit={vm?.onPressEdit}
                 btnLoading={vm.isPending_GetCopDetail}
               />
             </ScrollView>

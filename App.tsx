@@ -44,12 +44,12 @@ const App: React.FC = () => {
     }, 1000);
   }, []);
 
-  React.useEffect(() => {
-    FlagSecure.activate();   // screenshots + recording block
-    return () => {
-      FlagSecure.deactivate(); // screen leave karte hi allow again
-    };
-  }, []);
+  // React.useEffect(() => {
+  //   FlagSecure.activate();   // screenshots + recording block
+  //   return () => {
+  //     FlagSecure.deactivate(); // screen leave karte hi allow again
+  //   };
+  // }, []);
 
  React.useEffect(() => {
     const check = () => {

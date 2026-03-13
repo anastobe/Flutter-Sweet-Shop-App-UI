@@ -25,14 +25,42 @@ export const useAddNewBeneficiaryViewModel = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [checked, setChecked] = useState('frontier');
-  // const [accountName, setaccountName] = useState('Tell Money Ltd');
-  // const [firstName, setfirstName] = useState('Anas');
-  // const [lastName, setlastName] = useState('Ahmed');
-  // const [email, setemail] = useState('anastobe968@gmail.com');
-  // const [accountType, setAccountType] = useState('');
-  // const [selectBeneficiary, setselectBeneficiary] = useState('');
+  const [firstName, setfirstName] = useState('Anas');
+  const [lastName, setlastName] = useState('Ahmed');
+  const [email, setemail] = useState('anastobe968@gmail.com');
+  const [accountType, setAccountType] = useState('');
+  const [selectBeneficiary, setselectBeneficiary] = useState('');
+  //id perfect match must return null name,description,reason code
+  const [accountName, setaccountName] = useState('Mary Smith Co');
+  const [accountNo, setAccountNo] = useState('21111116');
+  const [sortCode, setsortCode] = useState('111111');
+  //id not perfect match must return name,description,reason code
+  // const [accountName, setaccountName] = useState('Tell Money ltasas');
   // const [accountNo, setAccountNo] = useState('21111112');
   // const [sortCode, setsortCode] = useState('111111');
+
+  const [bicNo, setBicNo] = useState('');
+  const [country, setCountry] = useState('');
+  const [currency, setCurrency] = useState({
+    id: "",
+    name: ""
+  });
+  const [saveCopDetail, setsaveCopDetail] = useState({
+    Matched: false,
+    ReasonCode: null,
+    Name: null,
+    ReasonDescription: null,
+  });
+
+
+  //   const [accountName, setaccountName] = useState('');
+  // const [firstName, setfirstName] = useState('');
+  // const [lastName, setlastName] = useState('');
+  // const [email, setemail] = useState('');
+  // const [accountType, setAccountType] = useState('');
+  // const [selectBeneficiary, setselectBeneficiary] = useState('');
+  // const [accountNo, setAccountNo] = useState('');
+  // const [sortCode, setsortCode] = useState('');
   // const [bicNo, setBicNo] = useState('');
   // const [country, setCountry] = useState('');
   // const [currency, setCurrency] = useState({
@@ -45,28 +73,6 @@ export const useAddNewBeneficiaryViewModel = () => {
   //   Name: null,
   //   ReasonDescription: null,
   // });
-
-
-    const [accountName, setaccountName] = useState('');
-  const [firstName, setfirstName] = useState('');
-  const [lastName, setlastName] = useState('');
-  const [email, setemail] = useState('');
-  const [accountType, setAccountType] = useState('');
-  const [selectBeneficiary, setselectBeneficiary] = useState('');
-  const [accountNo, setAccountNo] = useState('');
-  const [sortCode, setsortCode] = useState('');
-  const [bicNo, setBicNo] = useState('');
-  const [country, setCountry] = useState('');
-  const [currency, setCurrency] = useState({
-    id: "",
-    name: ""
-  });
-  const [saveCopDetail, setsaveCopDetail] = useState({
-    Matched: true,
-    ReasonCode: null,
-    Name: null,
-    ReasonDescription: null,
-  });
 
   
   const [open, setOpen] = useState(false);
@@ -195,7 +201,11 @@ function openConfirmationModal() {
           last_name: lastName,
           email: email,
           is_corporate: save_user_type == LOGIN_USER_TYPES.corporate_maker ? true : false,          
-          account_name: accountName,
+          account_name: saveCopDetail?.Matched && saveCopDetail?.Name == null && saveCopDetail?.ReasonCode == null && saveCopDetail?.ReasonDescription == null ?
+           accountName
+           :
+           saveCopDetail?.Name
+           ,
           currency_id: currency?.id,
           ...(accountNo
             ? { iban: accountNo }
@@ -229,6 +239,11 @@ function openConfirmationModal() {
   function onPressSave() {
     setModalVisible(true);
   }
+
+  function onPressEdit() {
+    confirmCop?.current?.close()
+  }
+
 
   return {
     checked,
@@ -277,6 +292,7 @@ function openConfirmationModal() {
     setsortCode,
     confirmCop,
     onPressSave,
+    onPressEdit,
     GetCopDetailFunc,
     isPending_GetCopDetail,
     accountName, 

@@ -25,10 +25,10 @@ let requestQueue: Array<{
   request: () => Promise<any>;
 }> = [];
 
-// console.log(
-//   '📦 CURRENT QUEUE:',
-//   requestQueue?.length
-// );
+console.log(
+  '📦 CURRENT QUEUE:',
+  requestQueue?.length
+);
 
 let requestCounter = 0;
 
@@ -138,11 +138,11 @@ const axiosInstance = async (
 
   const requestId = generateRequestId();
 
-// console.log(
-//   `[${requestId}] ➡️ REQUEST START`,
-//   method,
-//   url
-// );
+console.log(
+  `[${requestId}] ➡️ REQUEST START`,
+  method,
+  url
+);
 
   const store = dataHandlerService.getStore();
   const accessToken =
@@ -200,11 +200,11 @@ const axiosInstance = async (
 
     // console.log("main response==>",responseJson);
 
-//     console.log(
-//   `[${requestId}] ✅ SUCCESS`,
-//   method,
-//   url
-// );
+    console.log(
+  `[${requestId}] ✅ SUCCESS`,
+  method,
+  url
+);
 
     return responseJson;
   };
@@ -249,9 +249,9 @@ const axiosInstance = async (
      */ 
     if (status === 403 && errorResponse?.message == "Unauthenticated User" ) {
 
-//       console.log(
-//   `[${requestId}] ⏳ QUEUED (403 – token expired)`
-// );
+      console.log(
+  `[${requestId}] ⏳ QUEUED (403 – token expired)`
+);
 
       const latestToken =
         store.getState()?.AuthReducer?.userData?.token;
@@ -266,9 +266,9 @@ const axiosInstance = async (
           resolve,
           reject,
           request: () => {
-            // console.log(
-            //   `[${requestId}] 🚀 EXECUTING FROM QUEUE`
-            // );
+            console.log(
+              `[${requestId}] 🚀 EXECUTING FROM QUEUE`
+            );
             return makeRequest(
               store.getState()?.AuthReducer?.userData?.token
             );
@@ -282,7 +282,7 @@ const axiosInstance = async (
           refreshAccessToken()
             .then(() => {
 
-              // console.log("refresh succes and .then is running",requestQueue);
+              console.log("refresh succes and .then is running",requestQueue);
               
               requestQueue.forEach(p =>
                 p.request().then(p.resolve).catch(p.reject)
@@ -291,7 +291,7 @@ const axiosInstance = async (
             })
             .catch(() => {
 
-              // console.log("refresh fail and catch is running");
+              console.log("refresh fail and catch is running");
               
               requestQueue.forEach(p =>
                 p.reject(new Error('SESSION_EXPIRED'))
