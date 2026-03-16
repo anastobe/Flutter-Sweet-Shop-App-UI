@@ -6,10 +6,37 @@ import { handleSize } from '../../config/responsiveTheme';
 import CustomButton from '../customButton';
 import { CommonUtils } from '../../utils';
 
+
+
 const BeneficiaryCopDetail = ({ sheetTitle,enteredaccountName,saveCopDetail,enteredaccountNum,enteredcurrency,btnLoading, onPressSave,onPressEdit  }) => {
+
+const copStatus =
+  saveCopDetail?.Matched === true
+    ? "STRONG_MATCH"
+    : saveCopDetail?.ReasonCode === "AC01"
+    ? "UNMATCH"
+    : saveCopDetail?.ReasonCode === "MBAM"
+    ? "SLIGHT_MATCH"
+    : "UNKNOWN";
 
   console.log("sab ara ha same==>",saveCopDetail);
   
+  function changeTXt(key: string) {
+    if (key == "STRONG_MATCH") {
+      return "Strong match"
+    }
+    else if (key == "UNMATCH") {
+      return "Unmatch"
+    }
+    else if (key == "SLIGHT_MATCH") {
+      return "Slightly mismatch"
+    }
+    else if (key == "UNKNOWN") {
+      return "Failted to fetch detail"
+    }
+  }
+
+
   return (
     <View>
       <ScrollView
@@ -17,39 +44,44 @@ const BeneficiaryCopDetail = ({ sheetTitle,enteredaccountName,saveCopDetail,ente
         showsVerticalScrollIndicator={false}
       >
         <Text style={styles.accountdetail}>{sheetTitle}</Text>
-        {saveCopDetail?.Matched && saveCopDetail?.Name == null && saveCopDetail?.ReasonCode == null && saveCopDetail?.ReasonDescription == null ?
-        <Text style={styles.accountdetailtxt}>Strong Match</Text>
-        :
-        <View>
-          <Text style={styles.accountdetailtxt2}>Slightly Mismatched</Text>
-          <Text style={styles.accountdetailtxtdesc}>{saveCopDetail?.ReasonDescription}</Text>
-        </View>
-        }
+        <Text style={[styles.accountdetailtxt,{ color: copStatus == "STRONG_MATCH" ? THEME.white : THEME.green }]}>{changeTXt(copStatus)}</Text>
 
         <View style={styles.botmCont} >
             <View style={styles.midLEFT} >
-                <Text style={styles.circleName}>{CommonUtils.getInitials(saveCopDetail?.Name ? saveCopDetail?.Name : enteredaccountName)}</Text>
+                <Text style={styles.circleName}>{CommonUtils.getInitials(enteredaccountName)}</Text>
             </View>
             <View style={styles.midRight} >
-                <Text style={styles.namesy}>{saveCopDetail?.Name ? saveCopDetail?.Name : enteredaccountName}</Text>
+                <Text style={[styles.namesy1,{ color: copStatus == "STRONG_MATCH" ? THEME.white : THEME.green }]}>{saveCopDetail?.Name ? saveCopDetail?.Name : enteredaccountName}</Text>
                 <Text style={styles.namesy}>{enteredaccountNum}</Text>
                 <Text style={styles.namesy}>{enteredcurrency}</Text>
             </View>
         </View>
 
+        {copStatus == "STRONG_MATCH" ? 
         <CustomButton
             btnContSty={styles.forgetTxt}
-            title={saveCopDetail?.Matched == false ? "Sure, Save beneficiary" : "Save"}
+            title={"Save"}
+            loading={btnLoading}
+            onPress={onPressSave}
+        /> 
+        : 
+        copStatus == "SLIGHT_MATCH" ?
+        <CustomButton
+            btnContSty={styles.forgetTxt}
+            title={"Sure, Save beneficiary"}
             loading={btnLoading}
             onPress={onPressSave}
         />
+        :
+        null}
 
-        <CustomButton
+        {copStatus != "STRONG_MATCH" &&
+          <CustomButton
             btnContSty={styles.forgetTxt2}
             title={ "Update Beneficiary Detail"}
             loading={false}
             onPress={onPressEdit}
-        />
+        />}
 
 
       </ScrollView>
@@ -82,7 +114,6 @@ const styles = StyleSheet.create({
   accountdetailtxt:{
     fontSize: handleSize.f(FONT_SIZES.onefour),
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.white,
     textAlign: "center",
     marginTop: handleSize.f(5),
   },
@@ -103,18 +134,22 @@ const styles = StyleSheet.create({
   circleName: {
     fontSize: handleSize.f(FONT_SIZES.threesix),
     fontFamily: FONTFAMILY.Medium,
-    color: THEME.textPrimary,
     textAlign: "center",
+    color: THEME.textPrimary
   },
   forgetTxt: {
     marginTop: handleSize.f(30),
-    marginBottom: handleSize.f(20),
+    marginBottom: handleSize.f(0),
     marginHorizontal: handleSize.w(20),
   },
   forgetTxt2 :{
-    marginTop: handleSize.f(0),
+    marginTop: handleSize.f(20),
     marginBottom: handleSize.f(20),
     marginHorizontal: handleSize.w(20),
+  },
+  namesy1: {
+    fontSize: handleSize.f(FONT_SIZES.onefive),
+    fontFamily: FONTFAMILY.Bold
   },
   namesy: {
     fontSize: handleSize.f(FONT_SIZES.onefive),

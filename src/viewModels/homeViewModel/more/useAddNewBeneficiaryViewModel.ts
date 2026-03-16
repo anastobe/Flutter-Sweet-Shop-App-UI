@@ -201,11 +201,7 @@ function openConfirmationModal() {
           last_name: lastName,
           email: email,
           is_corporate: save_user_type == LOGIN_USER_TYPES.corporate_maker ? true : false,          
-          account_name: saveCopDetail?.Matched && saveCopDetail?.Name == null && saveCopDetail?.ReasonCode == null && saveCopDetail?.ReasonDescription == null ?
-           accountName
-           :
-           saveCopDetail?.Name
-           ,
+          account_name: accountName,
           currency_id: currency?.id,
           ...(accountNo
             ? { iban: accountNo }
