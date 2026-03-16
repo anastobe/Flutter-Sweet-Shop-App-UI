@@ -22,6 +22,23 @@ export const getBeneficiaryDetail = ({
   });
 };
 
+export const getPendingCardLimitChange = ({
+  callback,
+}: {
+  callback: (res: any) => void;
+}) => {
+  return useMutation({
+    mutationFn: apis.getPendingCardLimitChange,
+    onSuccess: (response: any) => {
+      if (response?.success) {
+        callback(response);
+      }
+    },
+    onError: (error: any) => {
+      // console.log('getPendingCardLimitChange error:', error);
+    },
+  });
+};
 
 export const getPendingBankPayment = ({
   callback,

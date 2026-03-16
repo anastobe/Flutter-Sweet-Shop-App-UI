@@ -51,8 +51,6 @@ export default function RequestPendingcardLimitChange() {
 
     // console.log("check==>",item);    
 
-    const name = item?.beneficiary
-
     return (
       <TouchableOpacity onPress={() => { handleonPress(item) }} style={styles.item}>
         <View style={styles.iconCONTContainer}>
@@ -63,12 +61,12 @@ export default function RequestPendingcardLimitChange() {
 
         <View style={styles.rightSide}>
           <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-            <Text style={styles.txt16}>Transaction Request</Text>
+            <Text style={styles.txt16}>Card limit request</Text>
             {/* <Text style={styles.txt13}>{item?.status}5</Text> */}
           </View>
 
           <View>
-            <Text style={styles.midTxt}>Your have a new transaction request of amount {item?.amount}. Against the beneficiary {name?.first_name || ''} {name?.last_name}</Text>
+            <Text style={styles.midTxt}>{item?.cardholder_name} changed card limit, Against card number ***{item?.card_number}.</Text>
           </View>
 
           <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: handleSize.h(10) }}>

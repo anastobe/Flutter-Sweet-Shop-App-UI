@@ -18,6 +18,14 @@ export const getBeneficiaryDetail = async (body: any) => {
   return response;
 };
 
+export const getPendingCardLimitChange = async (body: any) => {
+
+  // console.log("getPendingCardLimitChange==>",body);
+  
+  const response = await axiosInstance('/card/limit/request', 'POST', body, false);
+  return response;
+};
+
 export const getPendingRequest = async (body: any) => {
 
   // console.log("getBeneficiaryDetail==>",body);

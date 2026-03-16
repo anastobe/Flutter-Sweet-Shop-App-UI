@@ -38,6 +38,7 @@ import {
 import {
     freezUnFreezCardNoMessage,
     changeCardStatus,
+    changeLimitCardStatus,
     changeFxPaymentStatus,
     changeBankPaymentStatus,
     changeBeneficiaryStatus,
@@ -64,6 +65,7 @@ import {
 
 import { 
     getBeneficiaryDetail,
+    getPendingCardLimitChange,
     getPendingRequest,
     getPendingBankPayment,
     getFxQuote,
@@ -98,6 +100,7 @@ const apis = {
   CardpaymentHistry,
   getUserDetail,
   getBeneficiaryDetail,
+  getPendingCardLimitChange,
   getPendingRequest,
   getPendingBankPayment,
   getFxQuote,
@@ -121,6 +124,7 @@ const apis = {
   setPinSecurity,
   freezUnFreezCardNoMessage,
   changeCardStatus,
+  changeLimitCardStatus,
   changeFxPaymentStatus,
   changeBankPaymentStatus,
   changeBeneficiaryStatus,

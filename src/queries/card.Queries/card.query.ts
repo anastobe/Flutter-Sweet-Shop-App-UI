@@ -98,6 +98,24 @@ export const changeBeneficiaryStatus = ({callback} : {callback: (res: any) => vo
   });
 };
 
+export const changeLimitCardStatus = ({callback} : {callback: (res: any) => void}) => {
+  const dispatch = useDispatch();
+
+  return useMutation({
+    mutationFn: apis.changeLimitCardStatus,
+    onSuccess: async (response: any) => {
+      if (response.success) {
+        callback(response)
+    }  
+  },
+    onError: (error: any) => {
+      // this is usually a network/server-side error
+      // console.log('changeLimitCardStatus error:', error);
+      // onErrorCallback?.(error?.message || 'Something went wrong');
+    }
+  });
+};
+
 export const changeCardStatus = ({callback} : {callback: (res: any) => void}) => {
   const dispatch = useDispatch();
 

@@ -1,7 +1,7 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { HOME_ROUTES } from '../../../constants';
 import { useEffect, useRef, useState } from 'react';
-import { DeleteBeneficiary, getBeneficiaryDetail, getFxQuote, getPendingBankPayment, getPendingRequest } from '../../../queries/moreQueries/moreQuery';
+import { getPendingCardLimitChange, getBeneficiaryDetail, getFxQuote, getPendingBankPayment, getPendingRequest } from '../../../queries/moreQueries/moreQuery';
 
 export const useRequestPendingcardLimitChangeViewModel = () => {
   const navigation = useNavigation();
@@ -72,8 +72,10 @@ export const useRequestPendingcardLimitChangeViewModel = () => {
   /* ---------------- API ---------------- */
 
 
-  const { mutate: getPendingBankPaymentFunc, isPending } = getPendingBankPayment({
+  const { mutate: getPendingCardLimitChangeFunc, isPending } = getPendingCardLimitChange({
+
     callback: (res: any) => {
+
       const newData = res?.results?.values || [];
 
       setrequest(prev =>
@@ -93,15 +95,17 @@ export const useRequestPendingcardLimitChangeViewModel = () => {
       page: pageNumber,
       limit: 10,
       sort: {
-        key: 'created_at',
-        order: 'desc',
+          key: "created_at",
+          order: "desc"
       },
       search: "",
       filters: {
-        status_id: 11 //11 is for pending
-      },
-    };
-    getPendingBankPaymentFunc(payload);
+           "card_limit.status": "Pending"
+      }
+    }
+    console.log("going payload==>",payload);
+    
+    getPendingCardLimitChangeFunc(payload);
   }
 
   /* ---------------- INITIAL LOAD ---------------- */

@@ -10,7 +10,7 @@ import { Images } from '../../../../config';
 import StatusBarManager from '../../../../components/statusBarManager';
 import { handleSize } from '../../../../config/responsiveTheme';
 import Metrics from '../../../../styles/metrics';
-import { changeCardStatus } from '../../../../queries/card.Queries/card.query';
+import { changeLimitCardStatus } from '../../../../queries/card.Queries/card.query';
 
 // InfoRow Component
 function InfoRow({ icon, label, value }) {
@@ -29,13 +29,13 @@ function InfoRow({ icon, label, value }) {
 
 function AdminCardLimitStatus(props: any) {
   
-  const { Detail } = props.route.params;
+  const { Detail } = props?.route?.params;
   const navigation = useNavigation();
 
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
 
-  const { mutate: changeCardStatusFunc, isPending: isPendingchangeCardStatus } = changeCardStatus({
+  const { mutate: changeLimitCardStatusFunc, isPending: isPendingchangeLimitCardStatus } = changeLimitCardStatus({
       callback: (response: any) => {        
         
         setOpen(false);
@@ -53,26 +53,23 @@ function AdminCardLimitStatus(props: any) {
 
   console.log("Details==>",Detail);
   
-  const name = Detail?.requestedByUser
-
   const renderCardDetails = () => (
     <View style={styles.summaryBox}>
-      <InfoRow icon="card-outline" label="Card Type" value={Detail?.format} />
-      <InfoRow icon="person-outline" label="Cardholder Name" value={Detail?.card_name} />
-      <InfoRow icon="person-outline" label="Created by" value={name?.first_name || '' + " " + name?.last_name || '' } />
-      <InfoRow icon="home-outline" label="Delivery Address" value="DUMMY" />
-      <InfoRow icon="time-outline" label="Estimated Delivery" value="DUMMY 3–5  Days" />
-      <InfoRow icon="time-outline" label="Card Issuance Fee" value="DUMMY £4.95 GBP" />
-      <InfoRow icon="flash-outline" label="Delivery Fee" value="DUMMY Free" />
+      <InfoRow icon="card-outline" label="Card Number" value={Detail?.card_number} />
+      <InfoRow icon="person-outline" label="Cardholder Name" value={Detail?.cardholder_name} />
+      <InfoRow icon="home-outline" label="Delivery Address" value={Detail?.currency_mode} />
+      <InfoRow icon="card-outline" label="status" value={Detail?.card_limit?.status} />
     </View>
   );
 
   function changeCaredStatus(status: string) {
-    let payload = {
-        request_id: Detail?.id,
+    let payloadWithParams = {
+      paramsId: Detail?.id,
+      payload: {
         status: status   //Approved or Rejected
       }
-    changeCardStatusFunc(payload)
+    }
+    changeLimitCardStatusFunc(payloadWithParams)
   }
 
   const renderAccept = () => (
@@ -85,7 +82,7 @@ function AdminCardLimitStatus(props: any) {
           backImg={Images.addCardGradient}
           visible={open}
           onClose={() => setOpen(false)}
-          btnLoader={isPendingchangeCardStatus}
+          btnLoader={isPendingchangeLimitCardStatus}
           marginTopTitle={handleSize.h(40)}
           onConfirm={()=>changeCaredStatus('Rejected')}
           showSubBody={false}
@@ -112,7 +109,7 @@ function AdminCardLimitStatus(props: any) {
           backImg={Images.addCardGradient}
           visible={open2}
           onClose={() => setOpen2(false)}
-          btnLoader={isPendingchangeCardStatus}
+          btnLoader={isPendingchangeLimitCardStatus}
           marginTopTitle={handleSize.h(40)}
           onConfirm={()=>changeCaredStatus('Approved')}
           showSubBody={false}
