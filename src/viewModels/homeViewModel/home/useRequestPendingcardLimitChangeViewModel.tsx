@@ -126,7 +126,7 @@ export const useRequestPendingcardLimitChangeViewModel = () => {
   }
 
      function handleonPress(item: any) {
-console.log("ASdasd");
+    navigation.navigate(HOME_ROUTES.ADMIN_CARD_LIMIT_STATUS, { Detail: item })    
 return
     navigation.navigate(Auth_ROUTES.PENDING_CARD_LIMIT_REQUEST, { Detail: item })    
     return

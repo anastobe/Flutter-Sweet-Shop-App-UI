@@ -57,6 +57,7 @@ import RequestPendingBeneficiary from '../screens/homeScreens/home/requestPendin
 import RequestPendingTransactionBank from '../screens/homeScreens/home/requestPendingTransactionBank';
 import AdminBankPaymentStatus from '../screens/homeScreens/more/adminModule/adminBankPaymentStatus';
 import RequestPendingcardLimitChange from '../screens/homeScreens/home/requestPendingcardLimitChange';
+import AdminCardLimitStatus from '../screens/homeScreens/more/adminModule/adminCardLimitStatus';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -79,6 +80,12 @@ const HomeStack = () => {
         <Stack.Screen
           name={HOME_ROUTES.CORPORATE_HOME}
           component={Coperate_homeScreen}
+          options={{ headerShown: false }}
+        />
+                
+        <Stack.Screen
+          name={HOME_ROUTES.ADMIN_CARD_LIMIT_STATUS}
+          component={AdminCardLimitStatus}
           options={{ headerShown: false }}
         />
       <Stack.Screen
