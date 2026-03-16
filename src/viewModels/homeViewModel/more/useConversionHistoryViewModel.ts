@@ -66,9 +66,13 @@ export const useConversionHistoryViewModel = () => {
       },
       search: searchText,
       filters: {
+        // "from_currency.iso_code": searchText
         // is_deleted: false,
       },
     };
+
+    console.log("goint payload==>",payload);
+    
 
     getFxQuoteFunc(payload);
   }
