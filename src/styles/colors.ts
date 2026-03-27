@@ -24,6 +24,7 @@ enum THEME {
   prinkishBlue = "#DF7FFF",
   // darkGray = '#434343',
   green = "#01d449",
+  greencolorCode= "#0d7a0d",
   lightred = "#ff7a55",
   medRed = '#DC3545',
   lightPink = "#F8D7DA",

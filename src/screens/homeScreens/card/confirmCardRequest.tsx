@@ -45,7 +45,9 @@ function ConfirmCardRequest(props: any) {
   const currency = props?.route?.params?.currency;
   
   useEffect(()=>{
-    refetchgetCardFees()
+    if (payload?.format?.toLowerCase() === "physical") { 
+      refetchgetCardFees()
+    }
   },[FOCUS])
 
   const { mutate: createCardFunc, isPending } = createCard({
@@ -150,7 +152,7 @@ function ConfirmCardRequest(props: any) {
             } else {
 
               console.log("check==>",payload);
-              // return              
+              return              
               createCardFunc(payload);
 
             }

@@ -110,7 +110,7 @@ export const getDashboardData = async (id: any) => {
 
   // console.log("=getDashboardData ID=>",id);
   
-  const response = await axiosInstance('/dashboard/asset_id', 'GET', undefined, false );
+  const response = await axiosInstance(`/dashboard/${id}`, 'GET', undefined, false );
   return response?.results;
 };
 

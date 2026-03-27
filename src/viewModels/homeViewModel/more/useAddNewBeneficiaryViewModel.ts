@@ -183,7 +183,8 @@ function openConfirmationModal() {
   let payload ={
     sort_code: sortCode,
     account_number: accountNo,
-    account_type: save_user_type == LOGIN_USER_TYPES.individual ? "Personal" : "Business", //personal or business
+    // account_type: save_user_type == LOGIN_USER_TYPES.individual ? "Personal" : "Business", //personal or business
+    account_type: "Business", //personal or business
     account_name: accountName
   }
   
