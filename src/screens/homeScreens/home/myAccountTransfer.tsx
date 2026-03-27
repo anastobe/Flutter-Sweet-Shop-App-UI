@@ -17,6 +17,7 @@ import { Images } from "../../../config";
 import FingerPrintContent from "../../../components/bottomSheet/fingerPrintContent";
 import ConfrmPayment from "../../../components/bottomSheet/confrmPayment";
 import { CommonUtils, Toast } from "../../../utils";
+import { TRANSFER_REASON } from "../../../utils/data";
 
 // ---------- Reusable ---------- 
 const InfoRow = ({ icon, label, value }) => (
@@ -242,7 +243,26 @@ const MyAccountTransfer = ({...props}) => {
             }}
           />
 
-          <InputField
+             <InputField
+            disabled={false}
+            autoFocused={false}
+            placeholder="Reason for transfer (optional)"
+            removeTitle={false}
+            value={note}
+            enableDropdown={true}
+            dropdownData={TRANSFER_REASON}
+            margBtm={handleSize.f(12)}
+            isOpen={openDropdown === "transferReason"}
+            onToggleDropdown={() =>{
+              toggleDropdown("transferReason")
+            }}
+            onDropdownSelect={(item: any) => {
+              setnote(item?.label)
+            }}
+          />
+
+
+          {/* <InputField
             // renderRightInput={renderRightInput}
             autoFocused={autofocusnote}
             placeholder="Enter note / refrence"
@@ -252,7 +272,7 @@ const MyAccountTransfer = ({...props}) => {
             keyboardType={"default"}
             maxlen={50}
             margBtm={handleSize.h(25)}
-          />
+          /> */}
 
           {/* Summary */}
             <View style={styles.summaryBox}>
@@ -434,8 +454,8 @@ const styles = StyleSheet.create({
   },
 
   forgetTxt: { 
-    marginTop: handleSize.h(10), 
-    marginBottom: handleSize.h(20) 
+    marginTop: handleSize.f(30), 
+    marginBottom: handleSize.f(60) 
   },
   
   

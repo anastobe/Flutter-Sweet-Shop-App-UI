@@ -494,6 +494,7 @@ import { useInternationalTransferViewModel } from "../../../viewModels/homeViewM
 import GlobalInputsearch from "../../../components/globalInputsearch";
 import Metrics from "../../../styles/metrics";
 import { CommonUtils, Toast } from "../../../utils";
+import { TRANSFER_REASON } from "../../../utils/data";
 
 
 // ---------- Reusable ----------
@@ -714,8 +715,27 @@ const InternationalTransfer = ({...props}) => {
                 })
             }}
           />
-
+          
           <InputField
+            disabled={false}
+            autoFocused={false}
+            placeholder="Reason for transfer (optional)"
+            removeTitle={false}
+            value={note}
+            enableDropdown={true}
+            dropdownData={TRANSFER_REASON}
+            margBtm={handleSize.f(12)}
+            isOpen={openDropdown === "transferReason"}
+            onToggleDropdown={() =>{
+              toggleDropdown("transferReason")
+            }}
+            onDropdownSelect={(item: any) => {
+              setnote(item?.label)
+            }}
+          />
+
+
+          {/* <InputField
             // renderRightInput={renderRightInput}
             placeholder="Enter note / refrence"
             removeTitle={false}
@@ -724,7 +744,7 @@ const InternationalTransfer = ({...props}) => {
             keyboardType={"default"}
             maxlen={50}
             margBtm={handleSize.h(25)}
-          />
+          /> */}
 
           {/* Summary */}
             <View style={styles.summaryBox}>
@@ -935,8 +955,8 @@ const styles = StyleSheet.create({
   },
 
   forgetTxt: { 
-    marginTop: handleSize.h(10), 
-    marginBottom: handleSize.h(20) 
+    marginTop: handleSize.f(30), 
+    marginBottom: handleSize.f(60) 
   },
   
   

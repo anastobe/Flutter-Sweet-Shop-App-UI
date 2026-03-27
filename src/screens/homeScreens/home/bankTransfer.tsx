@@ -17,6 +17,7 @@ import Metrics from "../../../styles/metrics";
 import BeneficiariesManagement from "../more/benefeciaryModule/BeneficiariesManagement";
 import GlobalInputsearch from "../../../components/globalInputsearch";
 import { CommonUtils, Toast } from "../../../utils";
+import { TRANSFER_REASON } from "../../../utils/data";
 
 const BankTransfer = () => {
   const {
@@ -227,9 +228,25 @@ const BankTransfer = () => {
             }}
           />
 
-          
-
           <InputField
+            disabled={false}
+            autoFocused={false}
+            placeholder="Reason for transfer (optional)"
+            removeTitle={false}
+            value={note}
+            enableDropdown={true}
+            dropdownData={TRANSFER_REASON}
+            margBtm={handleSize.f(12)}
+            isOpen={openDropdown === "transferReason"}
+            onToggleDropdown={() =>{
+              toggleDropdown("transferReason")
+            }}
+            onDropdownSelect={(item: any) => {
+              setnote(item?.label)
+            }}
+          />
+
+          {/* <InputField
             // renderRightInput={renderRightInput}
             placeholder="Enter note / refrence"
             removeTitle={false}
@@ -238,7 +255,7 @@ const BankTransfer = () => {
             keyboardType={"default"}
             maxlen={50}
             margBtm={handleSize.h(12)}
-          />
+          /> */}
 
           {/* Button */}
           <CustomButton
@@ -380,7 +397,7 @@ const styles = StyleSheet.create({
   },
 
   forgetTxt: { 
-    marginTop: handleSize.h(20), 
-    marginBottom: handleSize.h(20) 
+    marginTop: handleSize.f(30), 
+    marginBottom: handleSize.f(60) 
   },
 });

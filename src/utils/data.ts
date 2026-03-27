@@ -39,6 +39,23 @@ const BENEFICIARY_TYPES: BeneficiaryType[] = [
   { key: BENEFICIARY_KEY_TYPES.bank, label: 'Bank Account' },
 ];
 
+const TRANSFER_REASON = [
+  { id: 1, label: "Transfer to Family and Friends"},
+  { id: 2, label: "Transfer to Own Account"},
+  { id: 3, label: "Salary Payment"},
+  { id: 4, label: "Bill Payment"},
+  { id: 5, label: "Rent / Mortgage Payment"},
+  { id: 6, label: "Loan Repayment"},
+  { id: 7, label: "Purchase of Goods"},
+  { id: 8, label: "Payment for Services"},
+  { id: 9, label: "Education Expenses"},
+  { id: 10, label: "Medical Expenses"},
+  { id: 11, label: "Travel Expenses"},
+  { id: 12, label: "Business Payment"},
+  { id: 13, label: "Investment / Savings Transfer"},
+  { id: 14, label: "Gift / Donation"},
+];
+
 const ACCOUNT_TYPES = [
   { label: 'Account Type', value: '' },
   { label: 'Current', value: 'current' },
@@ -412,6 +429,7 @@ export {
     BENEFICIARY_KEY_TYPES,
     BENEFICIARY_TYPES,
     ACCOUNT_TYPES,
+    TRANSFER_REASON,
     CURRENCIES,
     REASON_OPTION,
     TIME_LIMIT,
