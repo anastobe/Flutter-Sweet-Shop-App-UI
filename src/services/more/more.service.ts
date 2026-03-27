@@ -95,6 +95,11 @@ export const changePassword = async (body: any) => {
   return response;
 };
 
+export const setcardPassword = async (body: any) => {
+  const response = await axiosInstance('/card/password/authentication', 'POST', body, true);
+  return response;
+};
+
 export const resetPassword = async (body: any) => {
   const response = await axiosInstance('/reset-password', 'POST', body, true);
   return response;

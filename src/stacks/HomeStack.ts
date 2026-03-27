@@ -7,6 +7,7 @@ import PinSecurity from "../screens/homeScreens/card/pinSecurity";
 import ReplaceCard from "../screens/homeScreens/card/replaceCard";
 import ReplaceCardConfirm from "../screens/homeScreens/card/replaceCardConfirm";
 import SetLimits from "../screens/homeScreens/card/setLimit";
+import setlimitCardPassword from "../screens/homeScreens/card/setlimitCardPassword";
 import TransactionHistory from "../screens/homeScreens/card/transactionHistory";
 import UpdateAddress from "../screens/homeScreens/card/updateAddress";
 import AddNewCurrencyAcount from "../screens/homeScreens/home/addNewCurrencyAcount";
@@ -80,6 +81,9 @@ export const HomeStack: HomeScreenStacksTypes = [
     name: HOME_ROUTES.TRANSACTION_DETAIL,
     component: TransactionDetail,
   },
-
+  {
+    name: HOME_ROUTES.SET_CARD_PASSWORD,
+    component: setlimitCardPassword,
+  },
 
 ];

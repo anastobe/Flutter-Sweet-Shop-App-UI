@@ -59,6 +59,9 @@ export default function useCreateVirtualCardViewModel() {
   
 
   function onPressBtn() {
+    // navigation.navigate(HOME_ROUTES.SET_CARD_PASSWORD);
+    // return
+
     if (cardName?.length === 0) {
       Toast.showToast('Please Enter Name', '', 'error');
     } 

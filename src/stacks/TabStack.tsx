@@ -51,6 +51,7 @@ import { StatusBar } from 'react-native';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { handleSize } from '../config/responsiveTheme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import setlimitCardPassword from '../screens/homeScreens/card/setlimitCardPassword';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -278,7 +279,7 @@ const CardStack = () => {
         component={CardScreen}
         options={{ headerShown: false }}
       />
-      
+
               <Stack.Screen
           name={HOME_ROUTES.TRANSACTION_DETAIL}
           component={TransactionDetail}
@@ -309,6 +310,12 @@ const CardStack = () => {
         component={Request}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name={HOME_ROUTES.SET_CARD_PASSWORD}
+        component={setlimitCardPassword}
+        options={{ headerShown: false }}
+      />
+      
     </Stack.Navigator>
   );
 };
