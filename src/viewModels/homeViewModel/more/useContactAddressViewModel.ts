@@ -18,6 +18,7 @@ export default function useContactAddressViewModel() {
 
   const loginUserData = useSelector((state: any) => state?.HomeReducer?.loginUserData)
   const countryList = useSelector((state: any) => state?.MoreReducer?.countryList);
+  const userData = useSelector((state: any) => state?.AuthReducer?.userData);
 
   const [openDropdown, setOpenDropdown] = useState(null); 
   const [open, setOpen] = useState(false);
@@ -33,6 +34,9 @@ export default function useContactAddressViewModel() {
   const [secure, setSecure] = useState(true);
 
     const user = useMemo(() => {
+
+      console.log("checking==>",loginUserData?.members?.[0]);
+      
 
       // if (loginUserData?.customer_type == "corporate") {
 
