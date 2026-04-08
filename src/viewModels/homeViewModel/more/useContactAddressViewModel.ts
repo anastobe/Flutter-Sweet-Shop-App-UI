@@ -52,7 +52,8 @@ export default function useContactAddressViewModel() {
   const { mutate: UpdateContactAddressFunc, isPending: isPending_UpdateContactAddress } = UpdateContactAddress({
     callback: (res: any) => {
       if (res.success) {
-        updateDataInRedux()
+        // updateDataInRedux()
+        getUserDetailFunc()
         navigation.goBack() 
       }
     }
