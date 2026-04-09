@@ -69,7 +69,7 @@ export const MainStack = () => {
     screenOptions={{
       animation: "slide_from_bottom",
       headerShown: false
-    }}>
+    }}> 
       {
       save_user_type === LOGIN_USER_TYPES.corporate_maker ||
       save_user_type === LOGIN_USER_TYPES.individual
