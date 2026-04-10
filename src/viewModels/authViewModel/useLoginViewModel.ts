@@ -11,6 +11,8 @@ import apis from "../../services";
 import { getUserDetail } from "../../queries/accountQueries/accountQuery";
 import { storeLoginUserData } from "../../Redux/Action/Home/HomeActions";
 import { Auth_ROUTES } from "../../constants";
+import AnalyticsService from "../../utils/analytics/analyticsService";
+import { EVENTS } from "../../utils/analytics/analyticsEvents";
 
 export const useLoginViewModel = () => {
 
@@ -50,6 +52,8 @@ export const useLoginViewModel = () => {
  
 
  useEffect(() => {
+  AnalyticsService.logEvent(EVENTS.OPEN_APP);
+  AnalyticsService.logScreen(EVENTS.LOGIN_SCREEN);
   checkBiometricForLogin();
 }, []);
 
@@ -267,12 +271,12 @@ const detectAndSaveUserType = (response: any) => {
       // setOpen({
       //       open: true,
       //       text: response?.message || "Something went wrong"
-      // }) 
+      // })       
       console.log("onErrorCallback response:", errorResponse);
     }
   });
 
-  
+    
   const { mutate: useBioMetryLoginFunc, isPending: isPendingBioMetryLogin } = useBioMetryLogin({
     callback: (response: any) => {
       console.log("useBioMetryLoginFunc response:", response);
@@ -293,7 +297,7 @@ const detectAndSaveUserType = (response: any) => {
   });
 
   const handleLogin = () => { 
-    
+
 
     // setOpen({ open: true, text: "Your device is not registered, Please register your device" })
 

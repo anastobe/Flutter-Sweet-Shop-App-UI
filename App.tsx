@@ -21,6 +21,7 @@ import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
 import OfflineModal from "./src/components/offlineApp";
 import { InteractionProvider } from "./src/security/IdleTimer";
 import FlagSecure from 'react-native-flag-secure';
+import AnalyticsService from "./src/utils/analytics/analyticsService";
 
 // import { LogBox } from "react-native";
 // import { initIdleTimer, resetActivity } from "./src/security/IdleTimer";
@@ -37,6 +38,8 @@ import FlagSecure from 'react-native-flag-secure';
 const App: React.FC = () => {                           
 
   const queryClient = new QueryClient();
+  const routeNameRef = React.useRef(null);
+  const navigationRef = React.useRef(null);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -191,6 +194,21 @@ const App: React.FC = () => {
       <Provider store={Store}>
         <NotificationModalProvider>
           <NavigationContainer
+          ref={navigationRef}
+          onReady={() => {
+            routeNameRef.current =
+              navigationRef?.current?.getCurrentRoute()?.name;
+          }}
+          onStateChange={async () => {
+            const previousRouteName = routeNameRef.current;
+            const currentRouteName =
+              navigationRef?.current?.getCurrentRoute()?.name;
+            if (previousRouteName !== currentRouteName) {
+              console.log("Screen changed:", currentRouteName);
+              AnalyticsService.logScreen(currentRouteName);
+            }
+            routeNameRef.current = currentRouteName;
+          }}
             fallback={<ActivityIndicator
               color="blue" size="large" />}
             // ref={(ref: any) => NavigationService.setTopLevelNavigator(ref)} 

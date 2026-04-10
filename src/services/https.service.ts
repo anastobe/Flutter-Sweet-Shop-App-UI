@@ -6,6 +6,8 @@ import MessageHandler from '../APICall/messageHandler';
 import { updateUserToken } from '../Redux/Action/Auth/AuthActions';
 import ActionType from '../Redux/Action/ActionType/actionType';
 import apis from './index';
+import AnalyticsService from '../utils/analytics/analyticsService';
+import { EVENTS } from '../utils/analytics/analyticsEvents';
 // import { resetNetworkState } from "../services/https.service";
 
 const ENABLE_SSL_PINNING = false;
@@ -25,10 +27,10 @@ let requestQueue: Array<{
   request: () => Promise<any>;
 }> = [];
 
-console.log(
-  '📦 CURRENT QUEUE:',
-  requestQueue?.length
-);
+// console.log(
+//   '📦 CURRENT QUEUE:',
+//   requestQueue?.length
+// );
 
 let requestCounter = 0;
 
@@ -138,11 +140,11 @@ const axiosInstance = async (
 
   const requestId = generateRequestId();
 
-console.log(
-  `[${requestId}] ➡️ REQUEST START`,
-  method,
-  url
-);
+// console.log(
+//   `[${requestId}] ➡️ REQUEST START`,
+//   method,
+//   url
+// );
 
   const store = dataHandlerService.getStore();
   const accessToken =
@@ -194,17 +196,19 @@ console.log(
         ? JSON.parse(response.bodyString)
         : response.bodyString;
 
+    AnalyticsService.logEvent(EVENTS.API_SUCCESS, { reason: responseJson });
+
     if (options) {
       MessageHandler(responseJson);
     }
 
     // console.log("main response==>",responseJson);
 
-    console.log(
-  `[${requestId}] ✅ SUCCESS`,
-  method,
-  url
-);
+//     console.log(
+//   `[${requestId}] ✅ SUCCESS`,
+//   method,
+//   url
+// );
 
     return responseJson;
   };
@@ -216,19 +220,21 @@ console.log(
     return await makeRequest(accessToken);
   } catch (error: any) {
     const status = error?.status;
-
-        const errorResponse =
-      error.bodyString && typeof error.bodyString === 'string'
-        ? JSON.parse(error.bodyString)
-        : error.bodyString;
-  
-    console.log(
-      error,
-      `[${requestId}] ❌ FAILED`,
-      status,
-      method,
-      url
-    );
+    
+    const errorResponse =
+    error.bodyString && typeof error.bodyString === 'string'
+    ? JSON.parse(error.bodyString)
+    : error.bodyString;
+    
+    AnalyticsService.logEvent(EVENTS.API_ERROR, { reason: errorResponse?.message || "Something went wrong" });
+    
+    // console.log(
+    //   error,
+    //   `[${requestId}] ❌ FAILED`,
+    //   status,
+    //   method,
+    //   url
+    // );
 
     /**
      * ================================
@@ -249,9 +255,9 @@ console.log(
      */ 
     if (status === 403 && errorResponse?.message == "Unauthenticated User" ) {
 
-      console.log(
-  `[${requestId}] ⏳ QUEUED (403 – token expired)`
-);
+//       console.log(
+//   `[${requestId}] ⏳ QUEUED (403 – token expired)`
+// );
 
       const latestToken =
         store.getState()?.AuthReducer?.userData?.token;
@@ -266,9 +272,9 @@ console.log(
           resolve,
           reject,
           request: () => {
-            console.log(
-              `[${requestId}] 🚀 EXECUTING FROM QUEUE`
-            );
+            // console.log(
+            //   `[${requestId}] 🚀 EXECUTING FROM QUEUE`
+            // );
             return makeRequest(
               store.getState()?.AuthReducer?.userData?.token
             );
@@ -282,7 +288,7 @@ console.log(
           refreshAccessToken()
             .then(() => {
 
-              console.log("refresh succes and .then is running",requestQueue);
+              // console.log("refresh succes and .then is running",requestQueue);
               
               requestQueue.forEach(p =>
                 p.request().then(p.resolve).catch(p.reject)
@@ -291,7 +297,7 @@ console.log(
             })
             .catch(() => {
 
-              console.log("refresh fail and catch is running");
+              // console.log("refresh fail and catch is running");
               
               requestQueue.forEach(p =>
                 p.reject(new Error('SESSION_EXPIRED'))
