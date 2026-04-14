@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sweet_shop_app_ui/core/theme/dimens.dart';
 import 'package:flutter_sweet_shop_app_ui/core/utils/app_navigator.dart';
 import 'package:flutter_sweet_shop_app_ui/features/home_feature/presentation/screens/categories_screen.dart';
-import 'package:flutter_sweet_shop_app_ui/features/home_feature/presentation/screens/special_offers.dart';
 import 'package:flutter_sweet_shop_app_ui/features/home_feature/presentation/widgets/banner_slider_widget.dart';
 import 'package:flutter_sweet_shop_app_ui/features/home_feature/presentation/widgets/products_list.dart';
 
